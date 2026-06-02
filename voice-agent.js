@@ -419,7 +419,78 @@ function setupVoiceRoutes(app) {
     res.sendStatus(200);
   });
 
-  console.log('  Voice AI routes: /voice/trigger | /voice/response | /voice/gather | /voice/status');
+  /**
+   * POST /voice/demo
+   * Website visitors enter their phone number to receive a live AI demo call.
+   * Rate-limited to one demo call per number per 10 minutes.
+   */
+  const demoCooldown = new Map();
+
+  app.post('/voice/demo', async (req, res) => {
+    const { phone, countryCode = '+44' } = req.body || {};
+    if (!phone) return res.status(400).json({ error: 'Phone number required.' });
+
+    // Normalise: strip non-digits, remove leading 0, prepend country code
+    let clean = String(phone).replace(/[^0-9]/g, '');
+    if (clean.startsWith('0')) clean = clean.slice(1);
+    const fullNumber = countryCode + clean;
+
+    if (fullNumber.replace(/\D/g, '').length < 9) {
+      return res.status(400).json({ error: 'Please enter a valid phone number.' });
+    }
+
+    // Rate limit: one demo per number per 10 minutes
+    const now  = Date.now();
+    const last = demoCooldown.get(fullNumber) || 0;
+    if (now - last < 10 * 60 * 1000) {
+      return res.status(429).json({ error: 'Please wait a few minutes before requesting another demo call.' });
+    }
+    demoCooldown.set(fullNumber, now);
+
+    const sid    = process.env.TWILIO_SID;
+    const auth   = process.env.TWILIO_AUTH;
+    const from   = process.env.TWILIO_NUMBER;
+    const srvUrl = process.env.SERVER_URL;
+
+    if (!sid || !auth || sid.startsWith('AC') === false || auth === 'your_twilio_auth_token') {
+      return res.status(503).json({ error: 'Voice demo not yet live — Twilio credentials not configured.' });
+    }
+
+    try {
+      // Create GHL contact (non-fatal)
+      try {
+        await fetch(`${GHL_BASE}/contacts/upsert`, {
+          method: 'POST', headers: GHL_HDR,
+          body: JSON.stringify({
+            locationId: LOCATION_ID,
+            phone: fullNumber,
+            source: 'Website Voice Demo',
+            tags: ['website-demo', 'voice-demo']
+          })
+        });
+      } catch (_) { /* non-fatal */ }
+
+      const call = await getTwilio().calls.create({
+        to:                   fullNumber,
+        from,
+        url:                  `${srvUrl}/voice/response?firstName=Friend`,
+        method:               'POST',
+        statusCallback:       `${srvUrl}/voice/status`,
+        statusCallbackMethod: 'POST',
+        statusCallbackEvent:  ['completed', 'no-answer', 'busy', 'failed'],
+        timeout:              30,
+        machineDetection:     'Enable'
+      });
+
+      console.log(`[voice/demo] ✓ Demo call to ${fullNumber} | SID: ${call.sid}`);
+      res.json({ success: true, callSid: call.sid });
+    } catch (e) {
+      console.error('[voice/demo]', e.message);
+      res.status(500).json({ error: 'Could not start the call. Please check your number and try again.' });
+    }
+  });
+
+  console.log('  Voice AI routes: /voice/trigger | /voice/response | /voice/gather | /voice/status | /voice/demo');
 }
 
 module.exports = { setupVoiceRoutes };

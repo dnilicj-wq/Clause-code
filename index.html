@@ -846,8 +846,242 @@
     /* ────────────────────────────────
        RESPONSIVE
     ──────────────────────────────── */
+    /* ────────────────────────────────
+       VOICE DEMO
+    ──────────────────────────────── */
+    #voice-demo { position: relative; overflow: hidden; }
+    #voice-demo::before {
+      content: '';
+      position: absolute;
+      top: -160px; left: 50%;
+      transform: translateX(-50%);
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(200,169,110,0.07) 0%, transparent 68%);
+      pointer-events: none;
+    }
+    .vd-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .vd-widget {
+      background: var(--surface-1);
+      border: 1px solid var(--border-2);
+      border-radius: var(--r-lg);
+      padding: 44px 40px;
+      position: relative;
+      overflow: hidden;
+    }
+    .vd-widget::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      opacity: .5;
+    }
+    .vd-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(200,169,110,.1);
+      border: 1px solid rgba(200,169,110,.25);
+      color: var(--gold);
+      font-size: 11.5px;
+      font-weight: 600;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 100px;
+      margin-bottom: 24px;
+    }
+    .vd-badge-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+      animation: pulse 2s infinite;
+    }
+    .vd-widget-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 23px;
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 8px;
+    }
+    .vd-widget-sub {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.65;
+      margin-bottom: 28px;
+    }
+    .vd-phone-row { display: flex; gap: 10px; margin-bottom: 14px; }
+    .vd-code {
+      background: var(--surface-3);
+      border: 1px solid var(--border-2);
+      border-radius: var(--r);
+      color: var(--white);
+      font-size: 14px;
+      padding: 0 30px 0 14px;
+      height: 52px;
+      cursor: pointer;
+      flex-shrink: 0;
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23888' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+    }
+    .vd-input {
+      background: var(--surface-3);
+      border: 1px solid var(--border-2);
+      border-radius: var(--r);
+      color: var(--white);
+      font-size: 16px;
+      padding: 0 18px;
+      height: 52px;
+      flex: 1;
+      min-width: 0;
+      transition: border-color .2s;
+    }
+    .vd-input::placeholder { color: var(--muted); }
+    .vd-input:focus { outline: none; border-color: var(--gold); }
+    .vd-btn {
+      width: 100%;
+      background: linear-gradient(135deg, #C8A96E, #E2C98E);
+      color: #060606;
+      font-size: 15px;
+      font-weight: 700;
+      height: 52px;
+      border: none;
+      border-radius: var(--r);
+      cursor: pointer;
+      transition: opacity .2s, transform .15s;
+      letter-spacing: .02em;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .vd-btn:hover { opacity: .88; transform: translateY(-1px); }
+    .vd-btn:disabled { opacity: .45; cursor: not-allowed; transform: none; }
+    .vd-fine { font-size: 11.5px; color: var(--muted-2); text-align: center; margin-top: 12px; }
+    .vd-error { font-size: 13px; color: var(--red); margin-top: 10px; display: none; }
+    /* Calling state */
+    #vd-calling { display: none; }
+    .vd-ring-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 28px;
+    }
+    .vd-ring-svg {
+      position: relative;
+      width: 148px; height: 148px;
+    }
+    .vd-ring-svg svg {
+      width: 148px; height: 148px;
+      transform: rotate(-90deg);
+    }
+    .ring-bg { fill: none; stroke: var(--surface-3); stroke-width: 6; }
+    .ring-fg {
+      fill: none;
+      stroke: url(#ringGrad);
+      stroke-width: 6;
+      stroke-linecap: round;
+      transition: stroke-dashoffset .95s linear;
+    }
+    .vd-ring-center {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .vd-ring-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 38px;
+      font-weight: 900;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .vd-ring-unit {
+      font-size: 10.5px;
+      color: var(--muted);
+      letter-spacing: .09em;
+      text-transform: uppercase;
+      margin-top: 3px;
+    }
+    .vd-status-txt {
+      font-size: 13.5px;
+      color: var(--muted);
+      margin-top: 14px;
+      letter-spacing: .01em;
+    }
+    .vd-steps { display: flex; flex-direction: column; gap: 11px; }
+    .vd-step {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 13.5px;
+      color: var(--muted-2);
+      transition: color .35s;
+    }
+    .vd-step-icon {
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      border: 1.5px solid var(--muted-2);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 10px;
+      flex-shrink: 0;
+      transition: all .35s;
+    }
+    .vd-step.active { color: var(--white); }
+    .vd-step.active .vd-step-icon { border-color: var(--gold); color: var(--gold); }
+    .vd-step.done { color: #22c55e; }
+    .vd-step.done .vd-step-icon {
+      border-color: #22c55e;
+      background: rgba(34,197,94,.12);
+      color: #22c55e;
+    }
+    /* Done state */
+    #vd-done { display: none; text-align: center; padding: 8px 0; }
+    .vd-phone-anim {
+      font-size: 58px;
+      animation: phoneRing 1s ease-in-out infinite;
+      display: inline-block;
+      margin-bottom: 20px;
+    }
+    @keyframes phoneRing {
+      0%,100% { transform: rotate(-10deg); }
+      25% { transform: rotate(10deg); }
+      50% { transform: rotate(-6deg); }
+      75% { transform: rotate(6deg); }
+    }
+    .vd-done-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .vd-done-sub {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 24px;
+    }
+    .vd-retry {
+      background: none;
+      border: 1px solid var(--border-2);
+      color: var(--muted);
+      font-size: 12px;
+      padding: 9px 22px;
+      border-radius: 100px;
+      cursor: pointer;
+      transition: border-color .2s, color .2s;
+    }
+    .vd-retry:hover { border-color: var(--muted); color: var(--white); }
+
     @media (max-width: 1024px) {
-      .problem-grid, .demo-wrap, .cases, .price-grid, .sol-head { grid-template-columns: 1fr; gap: 48px; }
+      .problem-grid, .demo-wrap, .vd-wrap, .cases, .price-grid, .sol-head { grid-template-columns: 1fr; gap: 48px; }
       .cards { grid-template-columns: 1fr 1fr; }
       .card.wide { grid-column: span 1; }
       .hero-stats { flex-wrap: wrap; justify-content: center; }
@@ -890,7 +1124,7 @@
     <li><a href="#solution">How It Works</a></li>
     <li><a href="#results">Results</a></li>
     <li><a href="#pricing">Pricing</a></li>
-    <li><a href="#demo" class="nav-cta mag">Try the Demo →</a></li>
+    <li><a href="#voice-demo" class="nav-cta mag">Try the AI →</a></li>
   </ul>
 </nav>
 
@@ -1116,6 +1350,138 @@
       <p>All of it. For a fraction of the price.</p>
     </div>
   </div>
+</section>
+
+<!-- ════════════════════════════════
+     VOICE DEMO
+════════════════════════════════ -->
+<section id="voice-demo">
+  <div class="container">
+    <div class="vd-wrap">
+
+      <!-- Left: text -->
+      <div>
+        <div class="section-label r">60-Second AI Call</div>
+        <h2 class="section-title r d1">
+          Your AI calls<br>every lead in<br>
+          <em class="gold-text">60 seconds</em>
+        </h2>
+        <p class="section-sub r d2">
+          The moment someone opts in, the AI dials them — before they've
+          even left the page. Enter your number below and experience it
+          for yourself, right now.
+        </p>
+
+        <ul class="demo-feats r d3">
+          <li class="demo-feat">
+            <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="#C8A96E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span>
+            Calls every new lead within 60 seconds of opt-in
+          </li>
+          <li class="demo-feat">
+            <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="#C8A96E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span>
+            Qualifies and books appointments during the call
+          </li>
+          <li class="demo-feat">
+            <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="#C8A96E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span>
+            Natural British AI voice — sounds genuinely human
+          </li>
+          <li class="demo-feat">
+            <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="#C8A96E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span>
+            Handles voicemail, objections &amp; follow-up automatically
+          </li>
+        </ul>
+
+        <div class="proof-callout r d4" style="margin-top:36px">
+          <div class="lbl">📊 Speed-to-Lead Research</div>
+          <p>Harvard Business Review: leads contacted within 5 minutes are 100× more likely to convert than those called an hour later. Your AI calls in 60 seconds. Every single time.</p>
+        </div>
+      </div>
+
+      <!-- Right: widget -->
+      <div class="vd-widget r d2">
+
+        <!-- SVG gradient def (hidden) -->
+        <svg width="0" height="0" style="position:absolute;pointer-events:none">
+          <defs>
+            <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#C8A96E"/>
+              <stop offset="100%" stop-color="#E2C98E"/>
+            </linearGradient>
+          </defs>
+        </svg>
+
+        <!-- ── STATE: idle ── -->
+        <div id="vd-idle">
+          <div class="vd-badge">
+            <span class="vd-badge-dot"></span>
+            Live Demo
+          </div>
+          <h3 class="vd-widget-title">Experience the AI<br>call — right now</h3>
+          <p class="vd-widget-sub">Enter your number. Our AI will call you within 60 seconds — the exact same voice agent we install for every client.</p>
+
+          <div class="vd-phone-row">
+            <select class="vd-code mag" id="vd-code">
+              <option value="+44">🇬🇧 +44</option>
+              <option value="+1">🇺🇸 +1</option>
+              <option value="+353">🇮🇪 +353</option>
+              <option value="+61">🇦🇺 +61</option>
+              <option value="+64">🇳🇿 +64</option>
+              <option value="+27">🇿🇦 +27</option>
+            </select>
+            <input type="tel" class="vd-input" id="vd-phone-input"
+                   placeholder="7700 900 123" autocomplete="tel-national" />
+          </div>
+          <button class="vd-btn mag" id="vd-submit-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .82h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+            Call Me Now
+          </button>
+          <div class="vd-error" id="vd-error"></div>
+          <p class="vd-fine">One free demo call &nbsp;·&nbsp; No spam &nbsp;·&nbsp; Opt out any time</p>
+        </div>
+
+        <!-- ── STATE: calling ── -->
+        <div id="vd-calling">
+          <div class="vd-ring-wrap">
+            <div class="vd-ring-svg">
+              <svg viewBox="0 0 120 120">
+                <circle class="ring-bg" cx="60" cy="60" r="54"/>
+                <circle class="ring-fg" id="vd-ring-fg" cx="60" cy="60" r="54"/>
+              </svg>
+              <div class="vd-ring-center">
+                <div class="vd-ring-num" id="vd-ring-num">60</div>
+                <div class="vd-ring-unit">seconds</div>
+              </div>
+            </div>
+            <div class="vd-status-txt" id="vd-status-txt">Initiating call…</div>
+          </div>
+
+          <div class="vd-steps">
+            <div class="vd-step active" id="vds-1">
+              <div class="vd-step-icon">1</div>
+              Call initiated
+            </div>
+            <div class="vd-step" id="vds-2">
+              <div class="vd-step-icon">2</div>
+              Connecting AI voice agent
+            </div>
+            <div class="vd-step" id="vds-3">
+              <div class="vd-step-icon">3</div>
+              Dialling your number
+            </div>
+          </div>
+        </div>
+
+        <!-- ── STATE: done ── -->
+        <div id="vd-done">
+          <div class="vd-phone-anim">📱</div>
+          <h3 class="vd-done-title">Pick up — it's the AI!</h3>
+          <p class="vd-done-sub">The EnrollFlo AI is calling your number right now. Answer to experience the full 60-second enrollment conversation — the exact system we build for our clients.</p>
+          <button class="vd-retry" id="vd-retry-btn">Try a different number</button>
+        </div>
+
+      </div><!-- /vd-widget -->
+    </div><!-- /vd-wrap -->
+  </div><!-- /container -->
 </section>
 
 <!-- ════════════════════════════════
@@ -1871,6 +2237,134 @@ function sendInput() {
 btnEl.addEventListener('click', sendInput);
 inEl.addEventListener('keypress', e => { if (e.key === 'Enter') sendInput(); });
 setInputMode(false); // start disabled until an input state activates it
+
+/* ══════════════════════════════════════════════
+   VOICE DEMO WIDGET
+══════════════════════════════════════════════ */
+(function () {
+  const CIRC = 2 * Math.PI * 54; // circumference for r=54
+
+  const idleEl    = document.getElementById('vd-idle');
+  const callingEl = document.getElementById('vd-calling');
+  const doneEl    = document.getElementById('vd-done');
+  const submitBtn = document.getElementById('vd-submit-btn');
+  const phoneInput= document.getElementById('vd-phone-input');
+  const codeSelect= document.getElementById('vd-code');
+  const ringFg    = document.getElementById('vd-ring-fg');
+  const ringNum   = document.getElementById('vd-ring-num');
+  const statusTxt = document.getElementById('vd-status-txt');
+  const errorEl   = document.getElementById('vd-error');
+  const retryBtn  = document.getElementById('vd-retry-btn');
+
+  if (!submitBtn) return; // guard if element not present
+
+  let countdownTimer = null;
+
+  // Initialise ring
+  ringFg.style.strokeDasharray  = CIRC;
+  ringFg.style.strokeDashoffset = 0;
+
+  function setRing(remaining) {
+    ringFg.style.strokeDashoffset = CIRC * (1 - remaining / 60);
+    ringNum.textContent = remaining;
+  }
+
+  function markStep(n, state) {
+    const el = document.getElementById('vds-' + n);
+    if (!el) return;
+    el.className = 'vd-step ' + state;
+    if (state === 'done') el.querySelector('.vd-step-icon').textContent = '✓';
+  }
+
+  function showPanel(panel) {
+    idleEl.style.display    = panel === 'idle'    ? '' : 'none';
+    callingEl.style.display = panel === 'calling' ? '' : 'none';
+    doneEl.style.display    = panel === 'done'    ? '' : 'none';
+  }
+
+  function resetSteps() {
+    [1,2,3].forEach(i => {
+      const el = document.getElementById('vds-' + i);
+      el.className = 'vd-step';
+      el.querySelector('.vd-step-icon').textContent = i;
+    });
+  }
+
+  function startCountdown() {
+    let remaining = 60;
+    setRing(60);
+    markStep(1, 'active');
+
+    setTimeout(() => { markStep(1, 'done'); markStep(2, 'active'); }, 1200);
+    setTimeout(() => { markStep(2, 'done'); markStep(3, 'active'); statusTxt.textContent = 'Dialling your number…'; }, 3000);
+    setTimeout(() => { markStep(3, 'done'); statusTxt.textContent = 'Your phone is ringing!'; }, 7000);
+
+    countdownTimer = setInterval(() => {
+      remaining--;
+      setRing(remaining);
+      if (remaining <= 0) {
+        clearInterval(countdownTimer);
+        showPanel('done');
+      }
+    }, 1000);
+  }
+
+  submitBtn.addEventListener('click', async () => {
+    errorEl.style.display = 'none';
+    const raw   = phoneInput.value.trim();
+    const code  = codeSelect.value;
+    const digits = raw.replace(/[^0-9]/g, '');
+
+    if (digits.length < 7) {
+      errorEl.textContent = 'Please enter a valid phone number.';
+      errorEl.style.display = 'block';
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<span style="opacity:.6">Calling…</span>';
+
+    try {
+      const res  = await fetch('/voice/demo', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phone: raw, countryCode: code })
+      });
+      const data = await res.json();
+
+      if (!res.ok) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .82h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg> Call Me Now';
+        errorEl.textContent = data.error || 'Something went wrong. Please try again.';
+        errorEl.style.display = 'block';
+        return;
+      }
+
+      showPanel('calling');
+      startCountdown();
+    } catch (e) {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .82h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg> Call Me Now';
+      errorEl.textContent = 'Network error — please check your connection.';
+      errorEl.style.display = 'block';
+    }
+  });
+
+  retryBtn.addEventListener('click', () => {
+    clearInterval(countdownTimer);
+    submitBtn.disabled = false;
+    submitBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .82h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg> Call Me Now';
+    phoneInput.value    = '';
+    errorEl.style.display = 'none';
+    statusTxt.textContent = 'Initiating call…';
+    resetSteps();
+    setRing(60);
+    showPanel('idle');
+  });
+
+  // Allow Enter key in phone input
+  phoneInput.addEventListener('keypress', e => { if (e.key === 'Enter') submitBtn.click(); });
+})();
 </script>
 </body>
 </html>
