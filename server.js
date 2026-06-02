@@ -211,8 +211,14 @@ setupVoiceRoutes(app);
 /* ── serve frontend ── */
 app.get('*', (_, res) => res.sendFile(path.join(__dirname, 'index.html')));
 
-app.listen(PORT, () => {
-  console.log(`\n  EnrollFlo running → http://localhost:${PORT}`);
-  console.log(`  GHL webhook URL   → ${process.env.SERVER_URL || 'http://localhost:'+PORT}/voice/trigger`);
-  console.log(`  (set SERVER_URL in .env to your public URL for Twilio + GHL webhooks)\n`);
+/* ── start server (local dev) or export for Vercel serverless ── */
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`\n  EnrollFlo running → http://localhost:${PORT}`);
+    console.log(`  GHL webhook URL   → ${process.env.SERVER_URL || 'http://localhost:'+PORT}/voice/trigger`);
+    console.log(`  (set SERVER_URL in .env to your public URL for Twilio + GHL webhooks)\n`);
+  });
+}
+
+module.exports = app;
 });
