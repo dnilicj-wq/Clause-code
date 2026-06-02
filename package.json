@@ -1,0 +1,13 @@
+{
+  "name": "enrollflo",
+  "version": "1.0.0",
+  "description": "EnrollFlo — Evergreen Enrollment Engine website + GHL backend",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}

@@ -1482,8 +1482,16 @@ const optsEl = document.getElementById('chatOpts');
 const inEl   = document.getElementById('chatIn');
 const btnEl  = document.getElementById('chatBtn');
 
-let state = 'start';
+/* ── Lead data captured through the conversation ── */
+let state    = 'start';
+let leadData = { firstName:'', email:'', phone:'', offerType:'', priceRange:'', trafficSource:'' };
+let bookedSlot = null; // { startTime ISO, label }
 
+/* ════════════════════════════════
+   CONVERSATION FLOW
+   States with expectsInput:true collect free-text via the input bar.
+   States with ghlCal:true show a calendar fetched from the GHL API.
+════════════════════════════════ */
 const flow = {
   start: {
     msgs: [
@@ -1495,47 +1503,47 @@ const flow = {
   },
   explain: {
     msgs: [
-      "This demo shows what your leads or coaching prospects would experience when they hit your funnel.",
-      "Your AI setter (me) qualifies them, handles objections, and books them onto your calendar — all without you. Want to see it in action?"
+      "This demo shows exactly what your leads experience when they hit your funnel.",
+      "Your AI setter (me) qualifies them, handles objections, and books them — all without you. Want to see it?"
     ],
     opts: ["Yes, show me", "Book a demo call instead"],
-    next: c => c === "Book a demo call instead" ? 'booking' : 'ask_type'
+    next: c => c === "Book a demo call instead" ? 'collect_name' : 'ask_type'
   },
   ask_type: {
     msgs: ["What type of music education do you offer?"],
     opts: ["🎛️ Production / Beat Making", "🎤 Vocal Coaching", "🎸 Instrument Lessons", "🎵 Music Business / Artist Dev"],
-    next: () => 'ask_price'
+    next: c => { leadData.offerType = c; return 'ask_price'; }
   },
   ask_price: {
     msgs: ["Love it. What does your main program or mentorship sell for?"],
     opts: ["£500 – £1,000", "£1,000 – £3,000", "£3,000+", "I'm not sure yet"],
-    next: c => c === "I'm not sure yet" ? 'not_sure' : 'ask_traffic'
+    next: c => { leadData.priceRange = c; return c === "I'm not sure yet" ? 'not_sure' : 'ask_traffic'; }
   },
   not_sure: {
     msgs: [
-      "No worries at all — the system works best once you have a clear offer above £500.",
-      "If you're still building that out, the best next step is actually a free call. We can map out exactly what would work for your situation."
+      "No worries — the system works best once you have a clear offer above £500.",
+      "If you're still figuring that out, the best next step is actually a free call so we can map it out together."
     ],
     opts: ["Book a free call 📅", "Tell me more first"],
-    next: () => 'booking'
+    next: () => 'collect_name'
   },
   ask_traffic: {
     msgs: ["Are you already driving traffic to your offer?"],
     opts: ["✅ Yes — paid ads", "✅ Yes — organic content", "✅ Both", "❌ Not yet"],
-    next: c => c === "❌ Not yet" ? 'no_traffic' : 'qualify_win'
+    next: c => { leadData.trafficSource = c; return c === "❌ Not yet" ? 'no_traffic' : 'qualify_win'; }
   },
   no_traffic: {
     msgs: [
       "Honest answer — the engine converts traffic, it doesn't generate it from scratch.",
-      "But posting content counts! Even a small engaged audience works. Are you active on any platform?"
+      "But posting content counts. Even a small engaged audience is enough. Are you active anywhere?"
     ],
     opts: ["Yes — Instagram / TikTok", "I have an email list", "Not really active yet"],
-    next: c => c === "Not really active yet" ? 'disqualify' : 'qualify_win'
+    next: c => { leadData.trafficSource = c; return c === "Not really active yet" ? 'disqualify' : 'qualify_win'; }
   },
   disqualify: {
     msgs: [
-      "I appreciate the honesty — and that's exactly why I ask. The engine plugs holes in a funnel; it needs traffic flowing in.",
-      "Once you're posting consistently and getting engagement, come back — this will be a serious game-changer. In the meantime, want a free resource on building your first music educator audience?"
+      "Appreciate the honesty — that's exactly why I ask. The engine plugs holes in a funnel; it needs traffic flowing in first.",
+      "Once you're posting consistently, come back — this will be a game-changer. Want a free resource on building your music educator audience in the meantime?"
     ],
     opts: ["Yes please 🙏", "Thanks anyway"],
     next: () => 'end_dis'
@@ -1543,76 +1551,104 @@ const flow = {
   end_dis: {
     msgs: ["Resource dropped. Good luck — and when that audience is ready, we'll be here. 👋"],
     opts: ["Start the demo again"],
-    next: () => 'start'
+    next: () => { leadData = { firstName:'', email:'', phone:'', offerType:'', priceRange:'', trafficSource:'' }; return 'start'; }
   },
   qualify_win: {
     msgs: [
       "You're exactly who this is built for. 🎯",
       "Right now, every lead that hits your funnel and doesn't hear back within minutes? Gone. Our AI calls them in 60 seconds — qualifies them live and books them before they close the tab.",
-      "Want to see what that looks like for your specific offer, or shall I book you straight in?"
+      "Want to see what that looks like for your offer, or shall I book you straight in?"
     ],
     opts: ["📅 Book a demo call", "👀 Show me more first"],
-    next: c => c === "👀 Show me more first" ? 'more' : 'booking'
+    next: c => c === "👀 Show me more first" ? 'more' : 'collect_name'
   },
   more: {
     msgs: [
-      "Here's what happens the second someone opts into your funnel:\n\n1️⃣ AI calls them within 60 seconds\n2️⃣ Qualifies: right fit? right budget?\n3️⃣ Books straight onto your calendar\n4️⃣ Sends confirmation + nurture sequence\n5️⃣ Chases no-shows automatically\n\nAll while you're coaching, creating, or sleeping.",
+      "Here's what happens the second someone opts into your funnel:\n\n1️⃣ AI calls them within 60 seconds\n2️⃣ Qualifies: right fit? right budget?\n3️⃣ Books straight onto your calendar\n4️⃣ Sends confirmation + nurture sequence\n5️⃣ Chases no-shows automatically\n\nAll while you're coaching, creating, or sleeping."
     ],
     opts: ["📅 Book the call — I'm in", "💰 What does it cost?"],
-    next: c => c === "💰 What does it cost?" ? 'price_q' : 'booking'
+    next: c => c === "💰 What does it cost?" ? 'price_q' : 'collect_name'
   },
   price_q: {
     msgs: [
       "£1,500 one-time setup + £997/month for management and all AI agents running.",
-      "Context: the AI setter alone replaces a human appointment setter at £2,000–4,000/mo. You're getting that plus the 60-second call-back, the full funnel, and done-for-you management. All in.",
-      "Most clients see the Week-1 Reactivation Campaign pay for the entire setup before the build's even finished."
+      "The AI setter alone replaces a human appointment setter at £2,000–4,000/mo. You're getting that plus the 60-second call-back agent and a full funnel — all in.",
+      "Most clients see the Week-1 Reactivation Campaign pay for the entire setup before the build even finishes."
     ],
     opts: ["📅 Book a free demo", "🛡️ What's the guarantee?"],
-    next: c => c === "🛡️ What's the guarantee?" ? 'guarantee_q' : 'booking'
+    next: c => c === "🛡️ What's the guarantee?" ? 'guarantee_q' : 'collect_name'
   },
   guarantee_q: {
     msgs: [
-      "If your funnel and AI setter don't book more qualified calls in the first 30 days than your current setup does — you don't pay another penny of management until they do. Simple."
+      "If your funnel and AI setter don't book more qualified calls in the first 30 days than your current setup — you don't pay another penny of management until they do. Simple."
     ],
     opts: ["📅 Book the call — I'm in"],
-    next: () => 'booking'
+    next: () => 'collect_name'
   },
+
+  /* ── Contact collection ── */
+  collect_name: {
+    msgs: ["Before I pull up the calendar — what's your first name?"],
+    expectsInput: true,
+    placeholder: "Your first name…",
+    validate: v => v.trim().length >= 2,
+    invalidMsg: "Just your first name is fine 😊",
+    next: v => { leadData.firstName = v.trim(); return 'collect_email'; }
+  },
+  collect_email: {
+    msgs: (data) => [`Nice to meet you, ${data.firstName}! What's your email address?`],
+    expectsInput: true,
+    placeholder: "your@email.com",
+    validate: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()),
+    invalidMsg: "That doesn't look right — can you double-check your email?",
+    next: v => { leadData.email = v.trim(); return 'collect_phone'; }
+  },
+  collect_phone: {
+    msgs: ["And your phone number? 📱\n(The AI voice agent will call you within 60 seconds of booking to confirm — this is the demo in action 👀)"],
+    expectsInput: true,
+    placeholder: "+44 7xxx xxxxxx",
+    validate: v => v.trim().replace(/\s/g,'').length >= 8,
+    invalidMsg: "A phone number is needed so the AI can call you within 60 seconds — just enter your number and see it work!",
+    next: v => { leadData.phone = v.trim(); return 'booking'; }
+  },
+
+  /* ── Real GHL calendar booking ── */
   booking: {
-    msgs: ["Perfect. Let's get you booked in. Pick a time that works for you 👇"],
+    msgs: ["Perfect! Let me fetch the available slots… 🗓️"],
     opts: [],
-    cal: true,
+    ghlCal: true,
     next: () => 'booked'
   },
   booked: {
-    msgs: [
-      "✅ You're booked! Calendar invite on its way.",
-      "One last thing — what's the biggest bottleneck in your enrollments right now? (Helps me prep — totally optional)"
+    msgs: (data) => [
+      `✅ You're booked, ${data.firstName}! A calendar invite is on its way to ${data.email}.`,
+      "One last thing — what's the biggest bottleneck in your enrollments right now? (Helps me prepare — totally optional)"
     ],
     opts: ["Slow lead follow-up", "Too much time in DMs", "Dead leads / old students", "Low conversion rate", "Skip this"],
     next: () => 'final'
   },
   final: {
     msgs: [
-      "Got it — that's exactly what we'll fix on the call.",
-      "In the meantime, scroll down to see how Ollie went from £0 to £30k in 68 days with this system 👇",
+      "Got it — that's exactly what we'll focus on.",
+      "In the meantime, scroll down to see how Ollie went from £0 to £30k in 68 days with this exact system 👇",
       "See you on the call! 🚀"
     ],
-    opts: ["See Ollie's case study", "Start the demo again"],
+    opts: ["See Ollie's case study ↓", "Start the demo again"],
     next: c => {
-      if (c === "See Ollie's case study") {
-        document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
-      }
+      if (c === "See Ollie's case study ↓") document.getElementById('results').scrollIntoView({ behavior:'smooth' });
+      leadData = { firstName:'', email:'', phone:'', offerType:'', priceRange:'', trafficSource:'' };
       return 'start';
     }
   }
 };
 
+/* ── Helpers ── */
 async function wait(ms) { return new Promise(r => setTimeout(r, ms)); }
 
 function addMsg(text, who) {
   const d = document.createElement('div');
   d.className = `msg ${who}`;
-  d.innerHTML = `<div class="bubble">${text.replace(/\n/g, '<br>')}</div>`;
+  d.innerHTML = `<div class="bubble">${text.replace(/\n/g,'<br>')}</div>`;
   msgsEl.appendChild(d);
   msgsEl.scrollTop = msgsEl.scrollHeight;
 }
@@ -1627,55 +1663,10 @@ async function typeFor(ms) {
   document.getElementById('typing')?.remove();
 }
 
-function buildCalendar(onBook) {
-  const wrap = document.createElement('div');
-  wrap.className = 'msg ai';
-  const now = new Date();
-  const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  const slots = ['10:00 AM','11:30 AM','1:00 PM','2:30 PM','4:00 PM'];
-
-  let dayBtns = '';
-  let avail = [];
-  for (let i = 1; avail.length < 4; i++) {
-    const d = new Date(now); d.setDate(d.getDate() + i);
-    if (d.getDay() !== 0 && d.getDay() !== 6) avail.push(d);
-  }
-  avail.forEach((d, i) => {
-    dayBtns += `<button class="cal-day" data-i="${i}"><div class="cal-day-name">${days[d.getDay()]}</div><div class="cal-day-num">${d.getDate()} ${months[d.getMonth()]}</div></button>`;
-  });
-
-  wrap.innerHTML = `<div class="bubble" style="max-width:95%;padding:0;background:transparent">
-    <div class="cal-wrap">
-      <div class="cal-lbl">Choose a day:</div>
-      <div class="cal-days">${dayBtns}</div>
-      <div class="cal-lbl" id="tLbl" style="display:none">Choose a time:</div>
-      <div class="cal-times" id="tSlots"></div>
-    </div>
-  </div>`;
-  msgsEl.appendChild(wrap);
-  msgsEl.scrollTop = msgsEl.scrollHeight;
-
-  wrap.querySelectorAll('.cal-day').forEach(b => {
-    b.addEventListener('click', () => {
-      wrap.querySelectorAll('.cal-day').forEach(x => x.classList.remove('active'));
-      b.classList.add('active');
-      document.getElementById('tLbl').style.display = 'block';
-      const ts = document.getElementById('tSlots');
-      ts.innerHTML = '';
-      slots.forEach(s => {
-        const tb = document.createElement('button');
-        tb.className = 'cal-time'; tb.textContent = s;
-        tb.addEventListener('click', async () => {
-          wrap.remove();
-          addMsg(s, 'usr');
-          await onBook();
-        });
-        ts.appendChild(tb);
-      });
-      msgsEl.scrollTop = msgsEl.scrollHeight;
-    });
-  });
+function setInputMode(active, placeholder) {
+  inEl.disabled    = !active;
+  inEl.placeholder = active ? (placeholder || 'Type your answer…') : 'Choose an option above…';
+  inEl.style.opacity = active ? '1' : '0.45';
 }
 
 function setOpts(opts, onPick) {
@@ -1685,6 +1676,7 @@ function setOpts(opts, onPick) {
     b.className = 'opt'; b.textContent = txt;
     b.addEventListener('click', async () => {
       optsEl.innerHTML = '';
+      setInputMode(false);
       addMsg(txt, 'usr');
       const next = onPick(txt);
       if (next) await runState(next);
@@ -1693,26 +1685,142 @@ function setOpts(opts, onPick) {
   });
 }
 
+/* ── GHL Calendar ── */
+async function buildGHLCalendar(onBook) {
+  const wrap = document.createElement('div');
+  wrap.className = 'msg ai';
+  wrap.innerHTML = `<div class="bubble" style="max-width:95%;padding:12px 14px;font-size:13px;color:var(--muted)">
+    Fetching available slots…
+    <div class="typing" style="margin-top:8px"><span class="t-dot"></span><span class="t-dot"></span><span class="t-dot"></span></div>
+  </div>`;
+  msgsEl.appendChild(wrap);
+  msgsEl.scrollTop = msgsEl.scrollHeight;
+
+  let slotsData = {};
+  try {
+    const tz  = Intl.DateTimeFormat().resolvedOptions().timeZone || 'Europe/London';
+    const res = await fetch(`/api/slots?timezone=${encodeURIComponent(tz)}`);
+    const json = await res.json();
+    slotsData = json.slots || {};
+  } catch (e) {
+    console.warn('Slots fetch failed, using fallback', e);
+  }
+
+  const days   = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const dateKeys = Object.keys(slotsData).slice(0, 5);
+
+  if (!dateKeys.length) {
+    wrap.remove();
+    addMsg("Hmm, I couldn't load the calendar right now. Click below to book directly:", 'ai');
+    addMsg('<a href="https://enrollflo.com/book" target="_blank" style="color:var(--gold)">→ Book a call here</a>', 'ai');
+    return;
+  }
+
+  let dayHTML = dateKeys.map(k => {
+    const d = new Date(k + 'T12:00:00');
+    return `<button class="cal-day" data-key="${k}"><div class="cal-day-name">${days[d.getDay()]}</div><div class="cal-day-num">${d.getDate()} ${months[d.getMonth()]}</div></button>`;
+  }).join('');
+
+  wrap.innerHTML = `<div class="bubble" style="max-width:95%;padding:0;background:transparent">
+    <div class="cal-wrap">
+      <div class="cal-lbl">Choose a day:</div>
+      <div class="cal-days">${dayHTML}</div>
+      <div class="cal-lbl" id="tLbl" style="display:none">Choose a time:</div>
+      <div class="cal-times" id="tSlots"></div>
+    </div>
+  </div>`;
+  msgsEl.scrollTop = msgsEl.scrollHeight;
+
+  wrap.querySelectorAll('.cal-day').forEach(b => {
+    b.addEventListener('click', () => {
+      wrap.querySelectorAll('.cal-day').forEach(x => x.classList.remove('active'));
+      b.classList.add('active');
+      const key    = b.dataset.key;
+      const slotList = slotsData[key]?.slots || [];
+      document.getElementById('tLbl').style.display = 'block';
+      const ts = document.getElementById('tSlots');
+      ts.innerHTML = '';
+      slotList.forEach(iso => {
+        const d   = new Date(iso);
+        const lbl = d.toLocaleTimeString('en-GB', { hour:'2-digit', minute:'2-digit', timeZone:'Europe/London' });
+        const tb  = document.createElement('button');
+        tb.className = 'cal-time'; tb.textContent = lbl;
+        tb.addEventListener('click', async () => {
+          wrap.remove();
+          bookedSlot = { startTime: iso, label: lbl };
+          addMsg(`${b.querySelector('.cal-day-name').textContent} ${b.querySelector('.cal-day-num').textContent} at ${lbl}`, 'usr');
+
+          // Fire the real GHL booking in the background
+          bookInGHL(iso);
+
+          await onBook();
+        });
+        ts.appendChild(tb);
+      });
+      msgsEl.scrollTop = msgsEl.scrollHeight;
+    });
+  });
+}
+
+/* ── Call /api/book to create GHL contact + appointment + opportunity ── */
+async function bookInGHL(startTime) {
+  try {
+    const tz  = Intl.DateTimeFormat().resolvedOptions().timeZone || 'Europe/London';
+    const res = await fetch('/api/book', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        firstName:     leadData.firstName,
+        email:         leadData.email,
+        phone:         leadData.phone,
+        startTime,
+        timezone:      tz,
+        offerType:     leadData.offerType,
+        priceRange:    leadData.priceRange,
+        trafficSource: leadData.trafficSource
+      })
+    });
+    const data = await res.json();
+    if (data.success) {
+      console.log('[EnrollFlo] ✓ GHL booking created:', data.appointmentId);
+    } else {
+      console.warn('[EnrollFlo] GHL booking issue:', data.error);
+    }
+  } catch (e) {
+    console.warn('[EnrollFlo] Booking request failed (non-fatal):', e.message);
+  }
+}
+
+/* ── Main state runner ── */
 async function runState(name) {
   state = name;
   const s = flow[name];
+  if (!s) return;
   optsEl.innerHTML = '';
+  setInputMode(false);
 
-  for (let i = 0; i < s.msgs.length; i++) {
+  const msgs = typeof s.msgs === 'function' ? s.msgs(leadData) : s.msgs;
+  for (let i = 0; i < msgs.length; i++) {
     await typeFor(700 + Math.random() * 500);
-    addMsg(s.msgs[i], 'ai');
-    await wait(160);
+    addMsg(msgs[i], 'ai');
+    await wait(150);
   }
 
-  if (s.cal) {
-    buildCalendar(async () => await runState(s.next()));
+  if (s.ghlCal) {
+    await buildGHLCalendar(async () => await runState(s.next()));
+    return;
+  }
+
+  if (s.expectsInput) {
+    setInputMode(true, s.placeholder);
     return;
   }
 
   if (s.opts && s.opts.length) setOpts(s.opts, s.next);
 }
 
-/* Start chatbot when widget enters view */
+/* ── Chatbot auto-start ── */
 const chatObs = new IntersectionObserver(entries => {
   entries.forEach(e => {
     if (e.isIntersecting) {
@@ -1723,26 +1831,46 @@ const chatObs = new IntersectionObserver(entries => {
 }, { threshold: 0.3 });
 chatObs.observe(document.getElementById('chatWidget'));
 
-/* Manual text input */
+/* ── Text input submission ── */
 function sendInput() {
-  const v = inEl.value.trim(); if (!v) return;
+  const v = inEl.value.trim();
+  if (!v) return;
+
+  const s = flow[state];
+
+  // If current state expects typed input, validate + route
+  if (s && s.expectsInput) {
+    if (s.validate && !s.validate(v)) {
+      inEl.value = '';
+      setTimeout(async () => {
+        await typeFor(700);
+        addMsg(s.invalidMsg || "Could you try that again?", 'ai');
+        setInputMode(true, s.placeholder);
+      }, 100);
+      return;
+    }
+    inEl.value = '';
+    setInputMode(false);
+    addMsg(v, 'usr');
+    const next = s.next(v);
+    if (next) runState(next);
+    return;
+  }
+
+  // Fallback for free-form messages outside an input state
   inEl.value = '';
   optsEl.innerHTML = '';
   addMsg(v, 'usr');
   setTimeout(async () => {
     await typeFor(900);
-    const s = flow[state];
-    if (s && s.next) {
-      const nxt = s.next(v);
-      if (nxt) await runState(nxt);
-    } else {
-      addMsg("I'd love to help with that! Let me get you booked in for a call 👇", 'ai');
-      await runState('booking');
-    }
+    addMsg("I'd love to help with that — let me get you booked in for a call where we can go into detail 👇", 'ai');
+    await runState('collect_name');
   }, 200);
 }
+
 btnEl.addEventListener('click', sendInput);
 inEl.addEventListener('keypress', e => { if (e.key === 'Enter') sendInput(); });
+setInputMode(false); // start disabled until an input state activates it
 </script>
 </body>
 </html>
