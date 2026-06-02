@@ -12,6 +12,8 @@ const path    = require('path');
 require('fs').existsSync('.env') && require('fs').readFileSync('.env','utf8')
   .split('\n').forEach(l => { const [k,...v]=l.split('='); if(k&&v.length) process.env[k.trim()]=v.join('=').trim(); });
 
+const { setupVoiceRoutes } = require('./voice-agent');
+
 const app = express();
 app.use(express.json());
 app.use(express.static(path.join(__dirname)));
@@ -203,9 +205,14 @@ app.post('/api/book', async (req, res) => {
   }
 });
 
+/* ── Voice AI routes ── */
+setupVoiceRoutes(app);
+
 /* ── serve frontend ── */
 app.get('*', (_, res) => res.sendFile(path.join(__dirname, 'index.html')));
 
 app.listen(PORT, () => {
-  console.log(`\n  EnrollFlo running → http://localhost:${PORT}\n`);
+  console.log(`\n  EnrollFlo running → http://localhost:${PORT}`);
+  console.log(`  GHL webhook URL   → ${process.env.SERVER_URL || 'http://localhost:'+PORT}/voice/trigger`);
+  console.log(`  (set SERVER_URL in .env to your public URL for Twilio + GHL webhooks)\n`);
 });
