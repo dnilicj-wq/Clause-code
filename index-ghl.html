@@ -1,14 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EnrollFlo — The Evergreen Enrollment Engine™</title>
-  <meta name="description" content="AI-run enrollment system for music educators. A funnel that converts + an AI that calls every lead in 60 seconds. Book qualified enrollments every week without chasing DMs.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <style>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600;700&display=swap');
     :root {
       --black:      #060606;
       --surface-1:  #0d0d0d;
@@ -29,18 +20,21 @@
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-
-    body {
+    .ef-root {
+      position: fixed;
+      inset: 0;
+      overflow-y: auto;
+      overflow-x: hidden;
+      z-index: 99999;
       background: var(--black);
       color: var(--white);
       font-family: 'Inter', sans-serif;
-      overflow-x: hidden;
       cursor: none;
+      scroll-behavior: smooth;
     }
 
     /* ─── GRAIN ─── */
-    body::after {
+    .ef-root::after {
       content: '';
       position: fixed;
       inset: 0;
@@ -1006,8 +1000,7 @@
       footer { flex-direction: column; gap: 12px; text-align: center; padding: 28px 24px; }
     }
   </style>
-</head>
-<body>
+<div class="ef-root">
 
 <!-- ─── CURSOR ─── -->
 <div id="cur"></div>
@@ -2099,6 +2092,15 @@ btnEl.addEventListener('click', sendInput);
 inEl.addEventListener('keypress', e => { if (e.key === 'Enter') sendInput(); });
 setInputMode(false); // start disabled until an input state activates it
 
+// Anchor nav: scroll ef-root container instead of document
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      document.querySelector('.ef-root').scrollTo({ top: target.offsetTop - 72, behavior: 'smooth' });
+    }
+  });
+});
 </script>
-</body>
-</html>
+</div>
