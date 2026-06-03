@@ -32,7 +32,7 @@ function setupVoiceRoutes(app) {
 
     const now  = Date.now();
     const last = demoCooldown.get(fullNumber) || 0;
-    if (now - last < 10 * 60 * 1000) {
+    if (now - last < 2 * 60 * 1000) {
       return res.status(429).json({ error: 'Please wait a few minutes before requesting another demo call.' });
     }
     demoCooldown.set(fullNumber, now);
