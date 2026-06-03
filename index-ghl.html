@@ -1,0 +1,2104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EnrollFlo — The Evergreen Enrollment Engine™</title>
+  <meta name="description" content="AI-run enrollment system for music educators. A funnel that converts + an AI that calls every lead in 60 seconds. Book qualified enrollments every week without chasing DMs.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --black:      #060606;
+      --surface-1:  #0d0d0d;
+      --surface-2:  #141414;
+      --surface-3:  #1c1c1c;
+      --gold:       #C8A96E;
+      --gold-light: #E2C98E;
+      --gold-dark:  #9A7840;
+      --white:      #F8F8F6;
+      --muted:      #888;
+      --muted-2:    #4a4a4a;
+      --red:        #ef4444;
+      --green:      #22c55e;
+      --border:     rgba(255,255,255,0.07);
+      --border-2:   rgba(255,255,255,0.11);
+      --r:          16px;
+      --r-lg:       24px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* ─── GRAIN ─── */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      opacity: .028;
+      pointer-events: none;
+      z-index: 9990;
+    }
+
+    /* ─── CURSOR ─── */
+    #cur, #cur-f {
+      position: fixed;
+      border-radius: 50%;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      z-index: 9999;
+    }
+    #cur {
+      width: 10px; height: 10px;
+      background: var(--gold);
+      transition: width .2s, height .2s, background .2s;
+    }
+    #cur-f {
+      width: 38px; height: 38px;
+      border: 1px solid rgba(200,169,110,.45);
+      transition: width .3s, height .3s, border-color .3s;
+      z-index: 9998;
+    }
+    body.hovering #cur    { width: 7px;  height: 7px; background: var(--gold-light); }
+    body.hovering #cur-f  { width: 56px; height: 56px; border-color: var(--gold); }
+
+    /* ─── SCROLL PROGRESS ─── */
+    #prog {
+      position: fixed; top: 0; left: 0; height: 2px;
+      background: linear-gradient(90deg, var(--gold-dark), var(--gold));
+      z-index: 1000; width: 0; transition: width .05s linear;
+    }
+
+    /* ─── SCROLLBAR ─── */
+    ::-webkit-scrollbar { width: 3px; }
+    ::-webkit-scrollbar-track { background: var(--black); }
+    ::-webkit-scrollbar-thumb { background: var(--gold-dark); border-radius: 2px; }
+
+    /* ─── TOAST ─── */
+    .toast {
+      position: fixed; bottom: 32px; left: 32px;
+      background: var(--surface-3);
+      border: 1px solid var(--border-2);
+      border-radius: var(--r);
+      padding: 14px 18px;
+      display: flex; align-items: center; gap: 12px;
+      font-size: 13px; color: var(--white);
+      box-shadow: 0 20px 60px rgba(0,0,0,.5);
+      z-index: 9900;
+      transform: translateX(-120%);
+      transition: transform .4s cubic-bezier(.22,1,.36,1);
+    }
+    .toast.show { transform: translateX(0); }
+    .toast-dot { width: 8px; height: 8px; background: var(--green); border-radius: 50%; flex-shrink: 0; animation: blink 2s infinite; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.4} }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 500;
+      padding: 26px 52px;
+      display: flex; align-items: center; justify-content: space-between;
+      transition: background .35s, backdrop-filter .35s, padding .35s;
+    }
+    nav.stuck {
+      background: rgba(6,6,6,.85);
+      backdrop-filter: blur(24px);
+      padding: 14px 52px;
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px; font-weight: 700;
+      color: var(--white); text-decoration: none; letter-spacing: -.5px;
+    }
+    .nav-logo span { color: var(--gold); }
+    .nav-links { list-style: none; display: flex; gap: 40px; }
+    .nav-links a {
+      color: var(--muted); text-decoration: none;
+      font-size: 13.5px; font-weight: 400; letter-spacing: .02em;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--white); }
+    .nav-cta {
+      background: var(--gold) !important; color: var(--black) !important;
+      padding: 9px 22px !important; border-radius: 100px;
+      font-weight: 600 !important; font-size: 13px !important;
+    }
+
+    /* ─── HELPERS ─── */
+    .container { max-width: 1200px; margin: 0 auto; }
+    section { padding: 128px 52px; }
+
+    .gold-text {
+      background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold) 45%, var(--gold-light) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+
+    .section-label {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 11px; font-weight: 600; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 24px;
+    }
+    .section-label::before { content: ''; width: 22px; height: 1px; background: var(--gold); }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(36px, 4.2vw, 62px);
+      font-weight: 700; line-height: 1.08; letter-spacing: -.025em;
+      margin-bottom: 20px;
+    }
+
+    .section-sub {
+      font-size: 17px; color: var(--muted); line-height: 1.75;
+      font-weight: 300; max-width: 540px;
+    }
+
+    /* ─── REVEAL ─── */
+    .r {
+      opacity: 0; transform: translateY(36px);
+      transition: opacity .8s ease, transform .8s ease;
+    }
+    .r.on { opacity: 1; transform: translateY(0); }
+    .d1 { transition-delay: .1s; }
+    .d2 { transition-delay: .2s; }
+    .d3 { transition-delay: .3s; }
+    .d4 { transition-delay: .4s; }
+    .d5 { transition-delay: .5s; }
+    .d6 { transition-delay: .6s; }
+
+    /* ─── MAGNETIC ─── */
+    .mag { display: inline-block; transition: transform .35s cubic-bezier(.23,1,.32,1); }
+
+    /* ─── BUTTONS ─── */
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 15px 34px; border-radius: 100px;
+      font-size: 15px; font-weight: 600; text-decoration: none;
+      transition: transform .2s, box-shadow .2s, background .2s;
+      cursor: none; white-space: nowrap;
+    }
+    .btn-gold {
+      background: var(--gold); color: var(--black);
+    }
+    .btn-gold:hover {
+      transform: scale(1.03) translateY(-1px);
+      box-shadow: 0 18px 50px rgba(200,169,110,.3);
+      background: var(--gold-light);
+    }
+    .btn-outline {
+      border: 1px solid var(--border-2); color: var(--muted);
+    }
+    .btn-outline:hover { color: var(--white); border-color: rgba(255,255,255,.25); }
+
+    /* ────────────────────────────────
+       HERO
+    ──────────────────────────────── */
+    #hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+      padding: 160px 52px 100px;
+      position: relative; overflow: hidden;
+    }
+
+    .hero-glow {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 80% 50% at 50% -10%, rgba(200,169,110,.13) 0%, transparent 65%),
+        radial-gradient(ellipse 50% 40% at 10%  90%, rgba(99,102,241,.05) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+      background-size: 64px 64px;
+      mask-image: radial-gradient(ellipse 100% 90% at 50% 50%, black 20%, transparent 75%);
+      pointer-events: none;
+    }
+
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(200,169,110,.09);
+      border: 1px solid rgba(200,169,110,.2);
+      color: var(--gold); font-size: 11.5px; font-weight: 500;
+      letter-spacing: .1em; text-transform: uppercase;
+      padding: 6px 16px; border-radius: 100px;
+      margin-bottom: 44px;
+      opacity: 0; animation: fadeUp .7s ease .15s forwards;
+    }
+    .hero-badge::before {
+      content: ''; width: 6px; height: 6px;
+      background: var(--gold); border-radius: 50%;
+      animation: blink 2s infinite;
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(52px, 7.5vw, 100px);
+      font-weight: 900; line-height: .98; letter-spacing: -.035em;
+      margin-bottom: 30px; max-width: 950px;
+      opacity: 0; animation: fadeUp .8s ease .3s forwards;
+    }
+
+    .hero-sub {
+      font-size: clamp(15px, 1.6vw, 19px);
+      color: var(--muted); max-width: 580px;
+      line-height: 1.75; font-weight: 300; margin-bottom: 52px;
+      opacity: 0; animation: fadeUp .8s ease .5s forwards;
+    }
+
+    .hero-ctas {
+      display: flex; align-items: center; gap: 16px;
+      opacity: 0; animation: fadeUp .8s ease .65s forwards;
+    }
+
+    .play-btn {
+      display: inline-flex; align-items: center; gap: 12px;
+      color: var(--muted); text-decoration: none; font-size: 14px;
+      transition: color .2s; cursor: none;
+    }
+    .play-btn:hover { color: var(--white); }
+    .play-circle {
+      width: 42px; height: 42px;
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      transition: border-color .2s, transform .2s;
+    }
+    .play-btn:hover .play-circle { border-color: rgba(255,255,255,.35); transform: scale(1.05); }
+
+    .hero-stats {
+      display: flex; align-items: center; gap: 0;
+      margin-top: 72px;
+      opacity: 0; animation: fadeUp .8s ease .85s forwards;
+    }
+    .stat {
+      padding: 0 40px; text-align: center;
+    }
+    .stat:not(:last-child) { border-right: 1px solid var(--border-2); }
+    .stat-val {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(28px, 3vw, 40px);
+      font-weight: 700; line-height: 1; margin-bottom: 6px;
+    }
+    .stat-lbl { font-size: 11.5px; color: var(--muted); letter-spacing: .04em; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ─── TICKER ─── */
+    .ticker-wrap {
+      overflow: hidden;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: var(--surface-1);
+      padding: 15px 0;
+    }
+    .ticker {
+      display: flex; gap: 56px;
+      animation: roll 35s linear infinite;
+      white-space: nowrap;
+    }
+    .tick-item {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 12.5px; color: var(--muted); flex-shrink: 0;
+      letter-spacing: .04em;
+    }
+    .tick-item strong { color: var(--white); font-weight: 500; }
+    .tick-dot { width: 3px; height: 3px; background: var(--gold); border-radius: 50%; }
+    @keyframes roll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ────────────────────────────────
+       PROBLEM
+    ──────────────────────────────── */
+    #problem {
+      background: var(--surface-1);
+      position: relative; overflow: hidden;
+    }
+    #problem::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold-dark), transparent);
+    }
+
+    .problem-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: start;
+    }
+
+    .holes { display: flex; flex-direction: column; gap: 16px; margin-top: 44px; }
+    .hole {
+      display: flex; align-items: flex-start; gap: 16px;
+      padding: 22px; border-radius: var(--r);
+      background: rgba(255,255,255,.028);
+      border: 1px solid var(--border);
+      transition: border-color .3s, transform .3s;
+    }
+    .hole:hover { border-color: rgba(200,169,110,.2); transform: translateX(5px); }
+    .hole-icon {
+      width: 40px; height: 40px; border-radius: 10px;
+      background: rgba(200,169,110,.08);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; flex-shrink: 0;
+    }
+    .hole h4 { font-size: 14px; font-weight: 500; color: var(--white); margin-bottom: 3px; }
+    .hole p  { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+    /* FUNNEL VIS */
+    .funnel-vis {
+      display: flex; flex-direction: column; align-items: center;
+      padding-top: 24px;
+    }
+    .f-label {
+      font-size: 11px; color: var(--muted-2); text-transform: uppercase;
+      letter-spacing: .1em; margin-bottom: 28px;
+    }
+    .f-row { width: 100%; display: flex; flex-direction: column; align-items: center; }
+    .f-bar {
+      height: 60px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 22px; font-size: 13.5px; font-weight: 500;
+      position: relative; transition: transform .2s; border: 1px solid transparent;
+    }
+    .f-bar:hover { transform: scaleX(1.01); }
+    .f1 { width:100%; background: rgba(200,169,110,.14); border-color: rgba(200,169,110,.2); }
+    .f2 { width: 78%; background: rgba(200,169,110,.1);  border-color: rgba(200,169,110,.14); }
+    .f3 { width: 55%; background: rgba(200,169,110,.07); border-color: rgba(200,169,110,.1); }
+    .f4 { width: 34%; background: rgba(200,169,110,.05); border-color: rgba(200,169,110,.07); }
+    .f5 { width: 16%; background: rgba(200,169,110,.03); border-color: rgba(200,169,110,.05); justify-content: center; }
+    .f-join { width: 1px; height: 14px; background: linear-gradient(180deg, rgba(200,169,110,.3), rgba(200,169,110,.04)); }
+    .f-pct { font-size: 11px; color: var(--muted); }
+    .f-leak {
+      position: absolute; right: -88px; top: 50%; transform: translateY(-50%);
+      display: flex; align-items: center; gap: 6px;
+      color: rgba(255,80,80,.65); font-size: 11px; white-space: nowrap;
+    }
+    .f-leak::before { content: ''; width: 36px; height: 1px; background: rgba(255,80,80,.3); }
+    .f-caption { font-size: 11px; color: var(--muted-2); margin-top: 20px; }
+
+    /* ────────────────────────────────
+       SOLUTION
+    ──────────────────────────────── */
+    #solution {
+      position: relative;
+    }
+    .sol-head {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 60px; align-items: end; margin-bottom: 72px;
+    }
+    .sol-head .section-sub { margin: 0; }
+
+    .cards {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .card {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 32px; position: relative; overflow: hidden;
+      transition: border-color .3s, transform .3s, box-shadow .3s;
+      cursor: none;
+    }
+    .card:hover {
+      border-color: rgba(200,169,110,.22);
+      transform: translateY(-5px);
+      box-shadow: 0 28px 64px rgba(0,0,0,.45);
+    }
+    .card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(200,169,110,.35), transparent);
+      opacity: 0; transition: opacity .3s;
+    }
+    .card:hover::before { opacity: 1; }
+    .card.wide { grid-column: span 2; }
+    .card.wide .card-title { font-size: clamp(19px, 1.8vw, 24px); }
+    .card-num { font-size: 10.5px; font-weight: 600; letter-spacing: .14em; color: var(--gold); opacity: .7; margin-bottom: 14px; }
+    .card-icon { font-size: 30px; margin-bottom: 18px; display: block; }
+    .card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px; font-weight: 700; color: var(--white);
+      margin-bottom: 10px; line-height: 1.2;
+    }
+    .card-desc { font-size: 13.5px; color: var(--muted); line-height: 1.7; margin-bottom: 18px; }
+    .card-val {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 11.5px; color: var(--gold);
+      background: rgba(200,169,110,.07);
+      border: 1px solid rgba(200,169,110,.14);
+      padding: 3px 11px; border-radius: 100px;
+    }
+    .total-val {
+      text-align: center; margin-top: 52px;
+    }
+    .total-val p:first-child { font-size: 13px; color: var(--muted); margin-bottom: 4px; }
+    .total-num {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(40px, 5vw, 60px);
+      font-weight: 900; line-height: 1;
+    }
+    .total-val p:last-child { font-size: 13px; color: var(--muted); margin-top: 6px; }
+
+    /* ────────────────────────────────
+       DEMO / CHATBOT
+    ──────────────────────────────── */
+    #demo {
+      background: var(--surface-1);
+      position: relative; overflow: hidden;
+    }
+    #demo::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold-dark), transparent);
+    }
+
+    .demo-wrap {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: center;
+    }
+
+    .demo-feats { list-style: none; display: flex; flex-direction: column; gap: 14px; margin-top: 36px; }
+    .demo-feat {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 14.5px; color: var(--muted);
+    }
+    .check {
+      width: 22px; height: 22px; border-radius: 50%; flex-shrink: 0;
+      background: rgba(200,169,110,.1); border: 1px solid rgba(200,169,110,.25);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .check svg { width: 11px; height: 11px; }
+
+    .proof-callout {
+      margin-top: 36px; padding: 22px; border-radius: var(--r);
+      background: rgba(200,169,110,.05);
+      border: 1px solid rgba(200,169,110,.14);
+    }
+    .proof-callout .lbl { font-size: 12px; color: var(--gold); font-weight: 600; margin-bottom: 6px; }
+    .proof-callout p   { font-size: 13px; color: var(--muted); line-height: 1.7; }
+
+    /* CHATBOT WIDGET */
+    .chat-widget {
+      background: var(--surface-2);
+      border: 1px solid var(--border-2);
+      border-radius: 22px; overflow: hidden;
+      box-shadow: 0 48px 120px rgba(0,0,0,.55);
+    }
+    .chat-header {
+      background: var(--surface-3); padding: 14px 18px;
+      display: flex; align-items: center; gap: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .chat-avatar {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 15px; flex-shrink: 0;
+    }
+    .chat-header-info h4 { font-size: 13.5px; font-weight: 600; }
+    .chat-status {
+      font-size: 11px; color: var(--green);
+      display: flex; align-items: center; gap: 5px;
+    }
+    .chat-status::before {
+      content: ''; width: 6px; height: 6px;
+      background: var(--green); border-radius: 50%;
+      animation: blink 2s infinite;
+    }
+
+    .chat-msgs {
+      height: 360px; overflow-y: auto;
+      padding: 18px; display: flex; flex-direction: column; gap: 14px;
+      scroll-behavior: smooth;
+    }
+    .chat-msgs::-webkit-scrollbar { width: 0; }
+
+    .msg { display: flex; flex-direction: column; animation: pop .3s ease; }
+    .msg.ai  { align-items: flex-start; }
+    .msg.usr { align-items: flex-end; }
+    @keyframes pop {
+      from { opacity: 0; transform: translateY(7px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .bubble {
+      max-width: 86%; padding: 11px 15px;
+      border-radius: 16px; font-size: 13.5px; line-height: 1.6;
+    }
+    .msg.ai  .bubble { background: var(--surface-3); color: var(--white); border-bottom-left-radius: 4px; }
+    .msg.usr .bubble { background: var(--gold); color: var(--black); border-bottom-right-radius: 4px; font-weight: 500; }
+
+    .typing {
+      display: flex; align-items: center; gap: 4px;
+      padding: 11px 15px; background: var(--surface-3);
+      border-radius: 16px; border-bottom-left-radius: 4px;
+      width: fit-content;
+    }
+    .t-dot {
+      width: 6px; height: 6px; background: var(--muted);
+      border-radius: 50%; animation: bounce 1.4s infinite;
+    }
+    .t-dot:nth-child(2) { animation-delay: .2s; }
+    .t-dot:nth-child(3) { animation-delay: .4s; }
+    @keyframes bounce {
+      0%,60%,100% { transform: translateY(0); opacity:.45; }
+      30% { transform: translateY(-6px); opacity:1; }
+    }
+
+    .chat-opts {
+      display: flex; flex-wrap: wrap; gap: 7px;
+      padding: 0 18px 16px;
+    }
+    .opt {
+      background: transparent;
+      border: 1px solid var(--border-2);
+      color: var(--white); padding: 7px 14px;
+      border-radius: 100px; font-size: 12.5px;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      transition: border-color .2s, background .2s, transform .15s;
+    }
+    .opt:hover {
+      border-color: var(--gold);
+      background: rgba(200,169,110,.08);
+      transform: scale(1.02);
+    }
+
+    .chat-input-row {
+      border-top: 1px solid var(--border);
+      padding: 14px 18px; display: flex; gap: 10px; align-items: center;
+    }
+    .chat-input {
+      flex: 1; background: var(--surface-3);
+      border: 1px solid var(--border); border-radius: 100px;
+      padding: 9px 15px; color: var(--white);
+      font-size: 13px; font-family: 'Inter', sans-serif;
+      outline: none; transition: border-color .2s;
+    }
+    .chat-input:focus { border-color: rgba(200,169,110,.3); }
+    .chat-input::placeholder { color: var(--muted-2); }
+    .chat-send {
+      width: 36px; height: 36px; flex-shrink: 0;
+      background: var(--gold); border: none; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: transform .2s, background .2s;
+    }
+    .chat-send:hover { transform: scale(1.07); background: var(--gold-light); }
+
+    /* CALENDAR */
+    .cal-wrap {
+      background: var(--surface-3); border-radius: 12px;
+      padding: 14px; font-size: 13px; width: 100%;
+    }
+    .cal-lbl { color: var(--gold); font-weight: 600; margin-bottom: 10px; font-size: 12px; }
+    .cal-days { display: flex; gap: 7px; flex-wrap: wrap; margin-bottom: 14px; }
+    .cal-day {
+      flex: 1; min-width: 56px; background: transparent;
+      border: 1px solid var(--border-2); border-radius: 10px;
+      padding: 8px 6px; text-align: center; cursor: pointer;
+      font-family: 'Inter', sans-serif; color: var(--white);
+      transition: border-color .2s, background .2s;
+    }
+    .cal-day:hover, .cal-day.active {
+      border-color: var(--gold); background: rgba(200,169,110,.08);
+    }
+    .cal-day-name { font-size: 10px; color: var(--muted); margin-bottom: 2px; }
+    .cal-day-num  { font-size: 14px; font-weight: 600; }
+    .cal-times { display: flex; gap: 7px; flex-wrap: wrap; }
+    .cal-time {
+      background: transparent; border: 1px solid var(--border-2);
+      border-radius: 100px; padding: 5px 12px;
+      font-size: 12px; color: var(--white);
+      cursor: pointer; font-family: 'Inter', sans-serif;
+      transition: border-color .2s, background .2s;
+    }
+    .cal-time:hover {
+      border-color: var(--gold); background: rgba(200,169,110,.08);
+    }
+
+    /* ────────────────────────────────
+       CASE STUDIES
+    ──────────────────────────────── */
+    #results { position: relative; }
+
+    .cases {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 28px; margin-top: 60px;
+    }
+    .case {
+      background: var(--surface-2); border: 1px solid var(--border);
+      border-radius: var(--r-lg); padding: 44px;
+      position: relative; overflow: hidden;
+      transition: transform .3s, box-shadow .3s;
+      cursor: none;
+    }
+    .case:hover { transform: translateY(-5px); box-shadow: 0 36px 80px rgba(0,0,0,.45); }
+    .case::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      opacity: 0; transition: opacity .3s;
+    }
+    .case:hover::after { opacity: 1; }
+    .case-badge {
+      position: absolute; top: 22px; right: 22px;
+      background: rgba(34,197,94,.1); border: 1px solid rgba(34,197,94,.22);
+      color: var(--green); font-size: 10.5px; font-weight: 600;
+      letter-spacing: .08em; text-transform: uppercase;
+      padding: 3px 10px; border-radius: 100px;
+    }
+    .case-result {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(38px, 3.8vw, 54px);
+      font-weight: 900; line-height: 1; margin-bottom: 6px;
+    }
+    .case-time { font-size: 12.5px; color: var(--muted); margin-bottom: 28px; letter-spacing: .03em; }
+    .case-quote {
+      font-family: 'Playfair Display', serif;
+      font-size: 16px; font-style: italic;
+      color: var(--white); line-height: 1.7; margin-bottom: 28px;
+    }
+    .case-name { font-size: 13.5px; font-weight: 600; color: var(--gold); }
+    .case-desc { font-size: 12.5px; color: var(--muted); margin-top: 4px; line-height: 1.6; }
+
+    .speed-proof {
+      background: var(--surface-2); border: 1px solid var(--border);
+      border-radius: var(--r-lg); padding: 44px;
+      text-align: center; margin-top: 28px;
+    }
+    .speed-proof h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(22px, 2.5vw, 32px);
+      font-weight: 700; margin-bottom: 12px;
+    }
+    .speed-proof p { font-size: 15px; color: var(--muted); line-height: 1.75; max-width: 640px; margin: 0 auto; }
+    .speed-proof .vs {
+      display: flex; align-items: center; justify-content: center;
+      gap: 32px; margin: 32px 0;
+    }
+    .vs-item { text-align: center; }
+    .vs-item .vs-val {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(28px, 3vw, 44px);
+      font-weight: 900; line-height: 1;
+    }
+    .vs-item .vs-lbl { font-size: 12px; color: var(--muted); margin-top: 4px; }
+    .vs-div { font-size: 20px; color: var(--muted-2); font-family: 'Playfair Display', serif; }
+
+    /* ────────────────────────────────
+       PRICING
+    ──────────────────────────────── */
+    #pricing {
+      background: var(--surface-1); position: relative;
+    }
+    #pricing::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold-dark), transparent);
+    }
+
+    .price-anchor {
+      background: linear-gradient(135deg, rgba(200,169,110,.07), transparent);
+      border: 1px solid rgba(200,169,110,.14);
+      border-radius: var(--r-lg); padding: 40px 52px;
+      text-align: center; margin-bottom: 48px;
+    }
+    .price-anchor-lbl { font-size: 12.5px; color: var(--muted); letter-spacing: .05em; margin-bottom: 6px; }
+    .price-anchor-val {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(32px, 3.5vw, 50px);
+      font-weight: 700; color: var(--muted-2);
+      text-decoration: line-through; margin-bottom: 6px;
+    }
+    .price-anchor-sub { font-size: 14px; color: var(--muted); }
+
+    .price-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 22px; margin-top: 0;
+    }
+    .price-card {
+      background: var(--surface-2); border: 1px solid var(--border);
+      border-radius: var(--r-lg); padding: 44px;
+      transition: border-color .3s, transform .3s;
+    }
+    .price-card:hover { border-color: rgba(200,169,110,.28); transform: translateY(-3px); }
+    .price-card.featured {
+      border-color: rgba(200,169,110,.28);
+      background: linear-gradient(135deg, rgba(200,169,110,.07), var(--surface-2));
+    }
+    .price-tag {
+      display: inline-flex; background: var(--gold); color: var(--black);
+      font-size: 10.5px; font-weight: 700; letter-spacing: .1em;
+      text-transform: uppercase; padding: 3px 12px; border-radius: 100px;
+      margin-bottom: 22px;
+    }
+    .price-amount {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(44px, 4.5vw, 62px);
+      font-weight: 900; line-height: 1; margin-bottom: 6px;
+    }
+    .price-per { font-size: 13px; color: var(--muted); margin-bottom: 30px; }
+    .price-feats { list-style: none; display: flex; flex-direction: column; gap: 11px; margin-bottom: 38px; }
+    .pf {
+      display: flex; align-items: center; gap: 9px;
+      font-size: 13.5px; color: var(--muted);
+    }
+    .pf::before { content: '✓'; color: var(--gold); font-weight: 700; flex-shrink: 0; }
+    .split-note {
+      text-align: center; margin-top: 26px;
+      font-size: 12.5px; color: var(--muted-2);
+    }
+
+    /* ────────────────────────────────
+       GUARANTEE
+    ──────────────────────────────── */
+    #guarantee { padding: 80px 52px; }
+    .gbox {
+      max-width: 820px; margin: 0 auto;
+      background: linear-gradient(135deg, rgba(200,169,110,.06), rgba(200,169,110,.02));
+      border: 1px solid rgba(200,169,110,.18);
+      border-radius: 32px; padding: 76px;
+      text-align: center; position: relative; overflow: hidden;
+    }
+    .gbox::before {
+      content: '"';
+      position: absolute; top: -30px; left: 30px;
+      font-family: 'Playfair Display', serif; font-size: 220px;
+      color: rgba(200,169,110,.04); line-height: 1; pointer-events: none;
+    }
+    .gbox-icon { font-size: 44px; margin-bottom: 22px; display: block; }
+    .gbox-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(26px, 3.2vw, 42px);
+      font-weight: 700; line-height: 1.15; margin-bottom: 20px;
+    }
+    .gbox-quote {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(16px, 1.6vw, 20px);
+      font-style: italic; color: var(--muted); line-height: 1.75;
+    }
+    .gbox-small { margin-top: 28px; font-size: 12.5px; color: var(--muted-2); }
+
+    /* ────────────────────────────────
+       CTA
+    ──────────────────────────────── */
+    #cta { text-align: center; position: relative; overflow: hidden; }
+    #cta::before {
+      content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+      width: 1px; height: 90px;
+      background: linear-gradient(180deg, transparent, var(--gold-dark));
+    }
+    .cta-glow {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 70% 55% at 50% 50%, rgba(200,169,110,.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .scarcity {
+      display: inline-flex; align-items: center; gap: 16px;
+      background: rgba(200,169,110,.07); border: 1px solid rgba(200,169,110,.15);
+      border-radius: var(--r); padding: 14px 26px; margin-bottom: 44px;
+      font-size: 14px; color: var(--white);
+    }
+    .scar-dot { width: 9px; height: 9px; background: var(--red); border-radius: 50%; animation: blink 1.5s infinite; flex-shrink: 0; }
+    .slots { display: flex; gap: 7px; }
+    .slot { width: 18px; height: 18px; border-radius: 4px; }
+    .slot.taken     { background: rgba(200,169,110,.35); }
+    .slot.available { background: var(--gold); animation: blink 2.5s infinite; }
+
+    .cta-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(44px, 6vw, 84px);
+      font-weight: 900; line-height: .98; letter-spacing: -.03em;
+      margin-bottom: 22px; position: relative;
+    }
+    .cta-sub {
+      font-size: 17px; color: var(--muted); max-width: 460px;
+      margin: 0 auto 44px; line-height: 1.75;
+    }
+    .cta-note { margin-top: 14px; font-size: 12.5px; color: var(--muted-2); }
+
+    /* ─── FOOTER ─── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 36px 52px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .f-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px; font-weight: 700;
+    }
+    .f-logo span { color: var(--gold); }
+    footer p { font-size: 12.5px; color: var(--muted-2); }
+
+    /* ────────────────────────────────
+       RESPONSIVE
+    ──────────────────────────────── */
+    /* ────────────────────────────────
+       VOICE DEMO
+    ──────────────────────────────── */
+    #voice-demo { position: relative; overflow: hidden; }
+    #voice-demo::before {
+      content: '';
+      position: absolute;
+      top: -160px; left: 50%;
+      transform: translateX(-50%);
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(200,169,110,0.07) 0%, transparent 68%);
+      pointer-events: none;
+    }
+    .vd-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .vd-widget {
+      background: var(--surface-1);
+      border: 1px solid var(--border-2);
+      border-radius: var(--r-lg);
+      padding: 44px 40px;
+      position: relative;
+      overflow: hidden;
+    }
+    .vd-widget::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      opacity: .5;
+    }
+    .vd-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(200,169,110,.1);
+      border: 1px solid rgba(200,169,110,.25);
+      color: var(--gold);
+      font-size: 11.5px;
+      font-weight: 600;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 100px;
+      margin-bottom: 24px;
+    }
+    .vd-badge-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+      animation: pulse 2s infinite;
+    }
+    .vd-widget-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 23px;
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 8px;
+    }
+    .vd-widget-sub {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.65;
+      margin-bottom: 28px;
+    }
+    .vd-btn {
+      width: 100%;
+      background: linear-gradient(135deg, #C8A96E, #E2C98E);
+      color: #060606;
+      font-size: 15px;
+      font-weight: 700;
+      height: 56px;
+      border: none;
+      border-radius: var(--r);
+      cursor: pointer;
+      transition: opacity .2s, transform .15s;
+      letter-spacing: .02em;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      text-decoration: none;
+    }
+    .vd-btn:hover { opacity: .88; transform: translateY(-1px); }
+    .vd-fine { font-size: 11.5px; color: var(--muted-2); text-align: center; margin-top: 12px; }
+    .vd-number-display {
+      background: rgba(200,169,110,.07);
+      border: 1px solid rgba(200,169,110,.25);
+      border-radius: 14px;
+      padding: 20px 24px;
+      margin-bottom: 16px;
+      text-align: center;
+      position: relative;
+    }
+    .vd-number-label {
+      font-size: 10.5px;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--gold);
+      margin-bottom: 10px;
+    }
+    .vd-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--white);
+      text-decoration: none;
+      letter-spacing: .04em;
+      display: block;
+      transition: color .2s;
+    }
+    .vd-number:hover { color: var(--gold); }
+    .vd-steps-inline {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 22px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border-1);
+    }
+    .vd-step-inline {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .vd-step-num {
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      border: 1px solid rgba(200,169,110,.4);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 10px;
+      color: var(--gold);
+      flex-shrink: 0;
+      font-weight: 600;
+    }
+
+    @media (max-width: 1024px) {
+      .problem-grid, .demo-wrap, .vd-wrap, .cases, .price-grid, .sol-head { grid-template-columns: 1fr; gap: 48px; }
+      .cards { grid-template-columns: 1fr 1fr; }
+      .card.wide { grid-column: span 1; }
+      .hero-stats { flex-wrap: wrap; justify-content: center; }
+      .stat:not(:last-child) { border-right: none; border-bottom: 1px solid var(--border-2); padding-bottom: 24px; }
+      .stat { padding: 12px 32px; }
+      .funnel-vis { display: none; }
+    }
+    @media (max-width: 768px) {
+      section { padding: 80px 24px; }
+      nav { padding: 18px 24px; }
+      nav.stuck { padding: 12px 24px; }
+      .nav-links { display: none; }
+      #hero { padding: 130px 24px 80px; }
+      .hero-ctas { flex-direction: column; align-items: center; }
+      .cards { grid-template-columns: 1fr; }
+      .gbox { padding: 44px 28px; }
+      footer { flex-direction: column; gap: 12px; text-align: center; padding: 28px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── CURSOR ─── -->
+<div id="cur"></div>
+<div id="cur-f"></div>
+
+<!-- ─── SCROLL PROGRESS ─── -->
+<div id="prog"></div>
+
+<!-- ─── TOAST ─── -->
+<div class="toast" id="toast">
+  <span class="toast-dot"></span>
+  <span id="toast-msg">Someone just booked a call via EnrollFlo AI</span>
+</div>
+
+<!-- ─── NAV ─── -->
+<nav id="nav">
+  <a href="#" class="nav-logo mag">Enroll<span>Flo</span></a>
+  <ul class="nav-links">
+    <li><a href="#solution">How It Works</a></li>
+    <li><a href="#results">Results</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#voice-demo" class="nav-cta mag">Try the AI →</a></li>
+  </ul>
+</nav>
+
+<!-- ════════════════════════════════
+     HERO
+════════════════════════════════ -->
+<section id="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-grid"></div>
+
+  <div class="hero-badge">The Evergreen Enrollment Engine™</div>
+
+  <h1 class="hero-title">
+    Your AI books<br>
+    qualified calls.<br>
+    <em class="gold-text">You close them.</em>
+  </h1>
+
+  <p class="hero-sub">
+    An AI-run enrollment machine for music educators — a funnel that converts,
+    an AI that calls every new lead within <strong style="color:var(--white)">60&nbsp;seconds</strong>,
+    and a setter that runs your DMs 24/7. Zero chasing. Consistent enrollments.
+  </p>
+
+  <div class="hero-ctas">
+    <a href="#demo" class="btn btn-gold mag">
+      Experience the Demo
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a href="#results" class="play-btn mag">
+      <span class="play-circle">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M5 3l14 9-14 9V3z"/></svg>
+      </span>
+      See Client Results
+    </a>
+  </div>
+
+  <div class="hero-stats">
+    <div class="stat">
+      <div class="stat-val gold-text"><span class="count" data-target="30000" data-prefix="£">£0</span></div>
+      <div class="stat-lbl">Revenue in 68 days (Ollie)</div>
+    </div>
+    <div class="stat">
+      <div class="stat-val gold-text">60s</div>
+      <div class="stat-lbl">AI lead call-back speed</div>
+    </div>
+    <div class="stat">
+      <div class="stat-val gold-text">24/7</div>
+      <div class="stat-lbl">AI setter, no days off</div>
+    </div>
+    <div class="stat">
+      <div class="stat-val gold-text">£10k</div>
+      <div class="stat-lbl">Nick's monthly in 4 months</div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── TICKER ─── -->
+<div class="ticker-wrap">
+  <div class="ticker" id="ticker">
+    <div class="tick-item"><span class="tick-dot"></span><strong>Ollie</strong> — £0 to £30,000 in 68 days</div>
+    <div class="tick-item"><span class="tick-dot"></span>AI calls every new lead within <strong>60 seconds</strong></div>
+    <div class="tick-item"><span class="tick-dot"></span><strong>Nick</strong> — £2.5k to £10k/month in 4 months</div>
+    <div class="tick-item"><span class="tick-dot"></span>Replaces a £2,000–4,000/mo human setter</div>
+    <div class="tick-item"><span class="tick-dot"></span>Zero DM chasing. <strong>Fully automated</strong></div>
+    <div class="tick-item"><span class="tick-dot"></span>Built for <strong>music educators</strong> who already sell</div>
+    <div class="tick-item"><span class="tick-dot"></span>Week-1 reactivation often pays for the entire build</div>
+    <div class="tick-item"><span class="tick-dot"></span>Predictable enrollments. <strong>Off the rollercoaster.</strong></div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════
+     PROBLEM
+════════════════════════════════ -->
+<section id="problem">
+  <div class="container">
+    <div class="problem-grid">
+      <div>
+        <div class="section-label r">The Problem</div>
+        <h2 class="section-title r d1">
+          Your funnel is leaking<br>
+          <span style="background:linear-gradient(135deg,#ef4444,#f97316);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">money every single day</span>
+        </h2>
+        <p class="section-sub r d2">
+          You already have a funnel. What you actually have is a leaky one.
+          Leads opt in, go cold, and every step flows through you personally.
+        </p>
+
+        <div class="holes">
+          <div class="hole r d1">
+            <div class="hole-icon">⏱️</div>
+            <div>
+              <h4>Slow follow-up kills conversions</h4>
+              <p>Leads opt in and get followed up whenever you get a minute — they've gone cold long before you reply.</p>
+            </div>
+          </div>
+          <div class="hole r d2">
+            <div class="hole-icon">💬</div>
+            <div>
+              <h4>You're the bottleneck in the DMs</h4>
+              <p>Every question, every objection, every booking request flows through you personally. All day.</p>
+            </div>
+          </div>
+          <div class="hole r d3">
+            <div class="hole-icon">💀</div>
+            <div>
+              <h4>Dead list earning you nothing</h4>
+              <p>Past leads and old students sit there doing zero. A goldmine, completely untouched.</p>
+            </div>
+          </div>
+          <div class="hole r d4">
+            <div class="hole-icon">📅</div>
+            <div>
+              <h4>No-shows eat your calendar</h4>
+              <p>Unqualified calls and tyre-kickers stealing your most valuable resource: your time.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="funnel-vis r d2">
+        <p class="f-label">Your current funnel</p>
+        <div class="f-row"><div class="f-bar f1"><span>Leads arrive</span><span class="f-pct">100%</span></div></div>
+        <div class="f-join"></div>
+        <div class="f-row" style="position:relative">
+          <div class="f-bar f2"><span>Open opt-in</span><span class="f-pct">78%</span></div>
+          <span class="f-leak">↗ 22% gone cold</span>
+        </div>
+        <div class="f-join"></div>
+        <div class="f-row" style="position:relative">
+          <div class="f-bar f3"><span>Show up to VSL</span><span class="f-pct">55%</span></div>
+          <span class="f-leak">↗ 23% distracted</span>
+        </div>
+        <div class="f-join"></div>
+        <div class="f-row" style="position:relative">
+          <div class="f-bar f4"><span>Book a call</span><span class="f-pct">34%</span></div>
+          <span class="f-leak">↗ 21% no follow-up</span>
+        </div>
+        <div class="f-join"></div>
+        <div class="f-row" style="position:relative">
+          <div class="f-bar f5"><span style="font-size:12px">Enroll</span></div>
+          <span class="f-leak">↗ 18% no-showed</span>
+        </div>
+        <p class="f-caption">84% of your leads never become clients</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════
+     SOLUTION
+════════════════════════════════ -->
+<section id="solution">
+  <div class="container">
+    <div class="sol-head">
+      <div>
+        <div class="section-label r">The Evergreen Enrollment Engine™</div>
+        <h2 class="section-title r d1">
+          Six AI employees.<br>
+          <span class="gold-text">Working 24/7.</span>
+        </h2>
+      </div>
+      <p class="section-sub r d2">
+        Each component plugs a specific hole in your pipeline.
+        Together they're an unstoppable machine — turning your existing traffic into
+        booked, qualified enrollment calls without you touching a thing.
+      </p>
+    </div>
+
+    <div class="cards">
+      <div class="card wide r d1">
+        <div class="card-num">01 — THE HERO</div>
+        <span class="card-icon">🎯</span>
+        <h3 class="card-title">The Attention-&-Trust Funnel</h3>
+        <p class="card-desc">A genuinely better-looking, better-converting enrollment funnel built to do two jobs at once: stop the scroll (attention) and build instant credibility (trust + proof). Landing page → training/VSL → application → booking. Real design, not a template. Built to make your competitors look like they used Canva.</p>
+        <span class="card-val">£3,000 standalone value</span>
+      </div>
+
+      <div class="card r d2">
+        <div class="card-num">02 — THE HEADLINE</div>
+        <span class="card-icon">📞</span>
+        <h3 class="card-title">60-Second AI Call-Back Agent</h3>
+        <p class="card-desc">An AI voice agent that phones every new lead within 60 seconds of opt-in, completely hands-free. Qualifies them on the call and books them straight onto your calendar. If they don't pick up — instant text and DM follow-up.</p>
+        <span class="card-val">£2,500 standalone value</span>
+      </div>
+
+      <div class="card r d1">
+        <div class="card-num">03</div>
+        <span class="card-icon">🤖</span>
+        <h3 class="card-title">AI Enrollment Setter</h3>
+        <p class="card-desc">Lives in your DMs and inbox. Qualifies leads, answers FAQs, handles objections, and books qualified calls 24/7. Replaces a £2,000–4,000/mo human setter — for a fraction of the cost.</p>
+        <span class="card-val">£2,000 standalone value</span>
+      </div>
+
+      <div class="card r d2">
+        <div class="card-num">04</div>
+        <span class="card-icon">🔄</span>
+        <h3 class="card-title">The Reactivation Engine</h3>
+        <p class="card-desc">AI works your old leads and past students to rebook and upsell. The Week-1 Reactivation Campaign alone often books enough calls to pay for the entire setup before the build is even finished.</p>
+        <span class="card-val">£1,500 standalone value</span>
+      </div>
+
+      <div class="card r d3">
+        <div class="card-num">05</div>
+        <span class="card-icon">💌</span>
+        <h3 class="card-title">Nurture & No-Show Recovery</h3>
+        <p class="card-desc">Automated DM/SMS/email sequences that warm leads before their call and automatically claw back no-shows. Never lose a booked call to silence again.</p>
+        <span class="card-val">£750 standalone value</span>
+      </div>
+
+      <div class="card r d4">
+        <div class="card-num">06</div>
+        <span class="card-icon">⭐</span>
+        <h3 class="card-title">The Proof Engine</h3>
+        <p class="card-desc">Automatically collects student wins and testimonials, then feeds fresh social proof back onto your funnel and socials — so your conversions compound every single week.</p>
+        <span class="card-val">£750 standalone value</span>
+      </div>
+    </div>
+
+    <div class="total-val r">
+      <p>Total build value</p>
+      <div class="total-num gold-text">~£10,500</div>
+      <p>All of it. For a fraction of the price.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════
+     VOICE DEMO
+════════════════════════════════ -->
+<section id="voice-demo">
+  <div class="container">
+    <div class="vd-wrap">
+
+      <!-- Left: text -->
+      <div>
+        <div class="section-label r">60-Second AI Call</div>
+        <h2 class="section-title r d1">
+          Your AI calls<br>every lead in<br>
+          <em class="gold-text">60 seconds</em>
+        </h2>
+        <p class="section-sub r d2">
+          The moment someone opts in, the AI dials them — before they've
+          even left the page. Call the number on the right and experience
+          it for yourself, right now.
+        </p>
+
+        <ul class="demo-feats r d3">
+          <li class="demo-feat">
+            <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="#C8A96E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span>
+            Calls every new lead within 60 seconds of opt-in
+          </li>
+          <li class="demo-feat">
+            <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="#C8A96E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span>
+            Qualifies and books appointments during the call
+          </li>
+          <li class="demo-feat">
+            <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="#C8A96E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span>
+            Natural British AI voice — sounds genuinely human
+          </li>
+          <li class="demo-feat">
+            <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="#C8A96E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span>
+            Handles voicemail, objections &amp; follow-up automatically
+          </li>
+        </ul>
+
+        <div class="proof-callout r d4" style="margin-top:36px">
+          <div class="lbl">📊 Speed-to-Lead Research</div>
+          <p>Harvard Business Review: leads contacted within 5 minutes are 100× more likely to convert than those called an hour later. Your AI calls in 60 seconds. Every single time.</p>
+        </div>
+      </div>
+
+      <!-- Right: widget -->
+      <div class="vd-widget r d2">
+
+        <div class="vd-badge">
+          <span class="vd-badge-dot"></span>
+          Live Demo
+        </div>
+
+        <h3 class="vd-widget-title">Talk to the AI —<br>right now</h3>
+        <p class="vd-widget-sub">Call this number and experience the exact voice agent we install for every client. It answers instantly.</p>
+
+        <div class="vd-number-display">
+          <div class="vd-number-label">Demo line &nbsp;·&nbsp; Available 24 / 7</div>
+          <a href="tel:+447576541367" class="vd-number">+44 7576 541367</a>
+        </div>
+
+        <a href="tel:+447576541367" class="vd-btn mag">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .82h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          Call Now — It's Free
+        </a>
+
+        <p class="vd-fine">Free &nbsp;·&nbsp; No spam &nbsp;·&nbsp; 24 / 7</p>
+
+        <div class="vd-steps-inline">
+          <div class="vd-step-inline">
+            <span class="vd-step-num">1</span>
+            AI answers within 2 rings
+          </div>
+          <div class="vd-step-inline">
+            <span class="vd-step-num">2</span>
+            Qualifies you in under 60 seconds
+          </div>
+          <div class="vd-step-inline">
+            <span class="vd-step-num">3</span>
+            Offers to book your discovery call
+          </div>
+        </div>
+
+      </div><!-- /vd-widget -->
+    </div><!-- /vd-wrap -->
+  </div><!-- /container -->
+</section>
+
+<!-- ════════════════════════════════
+     DEMO
+════════════════════════════════ -->
+<section id="demo">
+  <div class="container">
+    <div class="demo-wrap">
+      <div>
+        <div class="section-label r">Live Demo</div>
+        <h2 class="section-title r d1">
+          This chatbot <em class="gold-text">is</em><br>the product
+        </h2>
+        <p class="section-sub r d2">
+          The AI you're about to talk to is the exact same system we install for your
+          enrollment funnel. It qualifies, it books, it never sleeps.
+          Try it now — on yourself.
+        </p>
+
+        <ul class="demo-feats r d3">
+          <li class="demo-feat">
+            <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="#C8A96E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span>
+            Qualifies leads in under 90 seconds
+          </li>
+          <li class="demo-feat">
+            <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="#C8A96E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span>
+            Books directly onto your calendar
+          </li>
+          <li class="demo-feat">
+            <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="#C8A96E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span>
+            Handles objections without you
+          </li>
+          <li class="demo-feat">
+            <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="#C8A96E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span>
+            Works in DMs, email, and SMS simultaneously
+          </li>
+          <li class="demo-feat">
+            <span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="#C8A96E" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></span>
+            Fully customised to your offer and voice
+          </li>
+        </ul>
+
+        <div class="proof-callout r d4">
+          <div class="lbl">⚡ The 60-Second Proof Move</div>
+          <p>Your prospects experience this live — qualifying them while they're still on your page. Nothing closes faster than a prospect experiencing the product in real-time.</p>
+        </div>
+      </div>
+
+      <!-- CHATBOT -->
+      <div class="chat-widget r d2" id="chatWidget">
+        <div class="chat-header">
+          <div class="chat-avatar">🤖</div>
+          <div class="chat-header-info">
+            <h4>EnrollFlo AI</h4>
+            <div class="chat-status">Online · Books in seconds</div>
+          </div>
+        </div>
+
+        <div class="chat-msgs" id="chatMsgs"></div>
+        <div class="chat-opts" id="chatOpts"></div>
+
+        <div class="chat-input-row">
+          <input type="text" class="chat-input" id="chatIn" placeholder="Type a message…">
+          <button class="chat-send" id="chatBtn" aria-label="Send">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5"><path d="M22 2L11 13M22 2L15 22 11 13 2 9l20-7z"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════
+     RESULTS
+════════════════════════════════ -->
+<section id="results">
+  <div class="container">
+    <div class="section-label r">Proof</div>
+    <h2 class="section-title r d1">Real results. Real numbers.</h2>
+    <p class="section-sub r d2">Two in-niche wins. Both verified. Both music educators — exactly like your future clients.</p>
+
+    <div class="cases">
+      <div class="case r d1">
+        <div class="case-badge">Stripe Verified ✓</div>
+        <div class="case-result gold-text">£30,000</div>
+        <div class="case-time">in 68 days · from £0</div>
+        <p class="case-quote">"This is the system that took me from zero to £30k in 68 days — closing coaching clients while I was literally writing music."</p>
+        <div class="case-name">Ollie</div>
+        <div class="case-desc">Production educator & music coach · Complete enrollment funnel + client acquisition strategy · Stripe screenshot verified.</div>
+      </div>
+
+      <div class="case r d2">
+        <div class="case-badge">DM Verified ✓</div>
+        <div class="case-result gold-text">£10k/mo</div>
+        <div class="case-time">in 4 months · from £2,500/month</div>
+        <p class="case-quote">"Went from calling myself an agency at £2.5k a month to actually running one at £10k — by automating everything I used to do manually."</p>
+        <div class="case-name">Nick</div>
+        <div class="case-desc">Music business coach & artist development · Full client-acquisition funnel — content, VSLs, DM + email automations end-to-end.</div>
+      </div>
+    </div>
+
+    <div class="speed-proof r">
+      <h3>The gap <em class="gold-text">is</em> the offer</h3>
+      <div class="vs">
+        <div class="vs-item">
+          <div class="vs-val" style="color:var(--muted)">Hours</div>
+          <div class="vs-lbl">Average educator response time</div>
+        </div>
+        <div class="vs-div">vs</div>
+        <div class="vs-item">
+          <div class="vs-val gold-text">60s</div>
+          <div class="vs-lbl">EnrollFlo AI call-back speed</div>
+        </div>
+      </div>
+      <p>The Harvard Business Review speed-to-lead research is unambiguous: leads contacted within the first few minutes of opting in convert dramatically better. Most educators reply in <em>hours</em>. Your AI calls in <em>60 seconds</em>. That gap is the competitive moat your competitors can't physically close.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════
+     PRICING
+════════════════════════════════ -->
+<section id="pricing">
+  <div class="container">
+    <div class="section-label r">Pricing</div>
+    <h2 class="section-title r d1">
+      Less than half<br>
+      of <em class="gold-text">one salary line</em>
+    </h2>
+    <p class="section-sub r d2" style="margin-bottom:52px">
+      The AI setter alone replaces a human appointment setter at £2,000–4,000/month.
+      You're getting that plus a 60-second call-back agent, a full conversion funnel, and done-for-you management.
+    </p>
+
+    <div class="price-anchor r">
+      <div class="price-anchor-lbl">Total value you're receiving</div>
+      <div class="price-anchor-val">£10,500</div>
+      <div class="price-anchor-sub">Human setter cost alone: £2,000–4,000/month · Your actual investment:</div>
+    </div>
+
+    <div class="price-grid">
+      <div class="price-card r d1">
+        <div class="price-tag">One-Time Setup</div>
+        <div class="price-amount">£1,500</div>
+        <div class="price-per">Build fee — front-loads your cash so you're never working for free</div>
+        <ul class="price-feats">
+          <li class="pf">Full enrollment funnel designed &amp; built</li>
+          <li class="pf">AI voice agent configured &amp; trained</li>
+          <li class="pf">AI DM setter installed</li>
+          <li class="pf">Reactivation engine set up</li>
+          <li class="pf">All integrations connected</li>
+          <li class="pf">Week-1 reactivation cash campaign</li>
+        </ul>
+        <a href="#cta" class="btn btn-outline mag">Get Started →</a>
+      </div>
+
+      <div class="price-card featured r d2">
+        <div class="price-tag">Monthly Retainer</div>
+        <div class="price-amount">£997<span style="font-size:22px;color:var(--muted);font-weight:400">/mo</span></div>
+        <div class="price-per">Management, hosting &amp; all AI agents running your enrollment 24/7</div>
+        <ul class="price-feats">
+          <li class="pf">AI voice + DM agents running 24/7</li>
+          <li class="pf">Monthly optimisation &amp; A/B testing</li>
+          <li class="pf">Nurture &amp; no-show recovery sequences</li>
+          <li class="pf">Proof engine feeding your funnel</li>
+          <li class="pf">Monthly performance reporting</li>
+          <li class="pf">Priority support</li>
+        </ul>
+        <a href="#cta" class="btn btn-gold mag">
+          Book a Demo Call
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <p class="split-note r">Price-sensitive? No problem — split the setup: £500/month for 3 months. We never discount value, we split payments.</p>
+  </div>
+</section>
+
+<!-- ════════════════════════════════
+     GUARANTEE
+════════════════════════════════ -->
+<section id="guarantee">
+  <div class="container">
+    <div class="gbox r">
+      <span class="gbox-icon">🛡️</span>
+      <h3 class="gbox-title">The 30-Day Performance Guarantee</h3>
+      <p class="gbox-quote">
+        "If your new funnel and AI setter don't book more qualified calls in your first 30 days than your current setup does — you don't pay another penny of management until they do."
+      </p>
+      <p class="gbox-small">
+        Conditions: you drive traffic to the funnel (you already have an audience — this is why we disqualify the no-audience tail)
+        and you show up to your booked calls. We guarantee what our machine produces: qualified booked conversations.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════
+     CTA
+════════════════════════════════ -->
+<section id="cta">
+  <div class="cta-glow"></div>
+  <div class="container" style="position:relative">
+
+    <div class="section-label r" style="justify-content:center">Limited Availability</div>
+
+    <div style="display:flex;justify-content:center;margin-bottom:44px" class="r">
+      <div class="scarcity">
+        <span class="scar-dot"></span>
+        Maximum 3 new studios onboarded per month
+        <div class="slots">
+          <div class="slot taken" title="Taken"></div>
+          <div class="slot taken" title="Taken"></div>
+          <div class="slot available" title="1 spot available"></div>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="cta-title r">
+      Ready to get off<br>
+      <em class="gold-text">the rollercoaster?</em>
+    </h2>
+
+    <p class="cta-sub r d1">
+      Book a free 30-minute demo. We'll show you exactly what your enrollment engine
+      would look like — built for your specific offer and audience.
+    </p>
+
+    <div class="r d2">
+      <a href="#demo" class="btn btn-gold mag" style="font-size:16px;padding:18px 44px">
+        Book Your Free Demo
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <p class="cta-note">No commitment. No hard sell. Just a demo of what's possible for your business.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="f-logo">Enroll<span>Flo</span></div>
+  <p>© 2025 EnrollFlo · The Evergreen Enrollment Engine™</p>
+  <p>Built for music educators who sell.</p>
+</footer>
+
+<!-- ════════════════════════════════
+     JAVASCRIPT
+════════════════════════════════ -->
+<script>
+/* ── CURSOR ── */
+const cur  = document.getElementById('cur');
+const curF = document.getElementById('cur-f');
+let mx = 0, my = 0, fx = 0, fy = 0;
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cur.style.left = mx + 'px'; cur.style.top = my + 'px';
+});
+(function loop() {
+  fx += (mx - fx) * .12; fy += (my - fy) * .12;
+  curF.style.left = fx + 'px'; curF.style.top = fy + 'px';
+  requestAnimationFrame(loop);
+})();
+document.querySelectorAll('a, button, .card, .hole, .case, .opt, .cal-day, .cal-time').forEach(el => {
+  el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
+  el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
+});
+
+/* ── MAGNETIC ── */
+document.querySelectorAll('.mag').forEach(el => {
+  el.addEventListener('mousemove', e => {
+    const r = el.getBoundingClientRect();
+    const x = (e.clientX - r.left - r.width  / 2) * .28;
+    const y = (e.clientY - r.top  - r.height / 2) * .28;
+    el.style.transform = `translate(${x}px,${y}px)`;
+  });
+  el.addEventListener('mouseleave', () => el.style.transform = '');
+});
+
+/* ── SCROLL PROGRESS ── */
+const prog = document.getElementById('prog');
+window.addEventListener('scroll', () => {
+  const pct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight) * 100;
+  prog.style.width = pct + '%';
+}, { passive: true });
+
+/* ── NAV ── */
+const navEl = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  navEl.classList.toggle('stuck', window.scrollY > 40);
+}, { passive: true });
+
+/* ── REVEAL ── */
+const ro = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('on'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.r').forEach(el => ro.observe(el));
+
+/* ── TICKER ── */
+const ticker = document.getElementById('ticker');
+ticker.innerHTML += ticker.innerHTML;
+
+/* ── COUNTER ── */
+function animateCount(el) {
+  const target = +el.dataset.target;
+  const prefix = el.dataset.prefix || '';
+  const start = performance.now();
+  const dur = 2000;
+  const fmt = n => {
+    if (n >= 1000) return prefix + (n / 1000).toFixed(0) + 'k';
+    return prefix + n.toFixed(0);
+  };
+  const step = now => {
+    const p = Math.min((now - start) / dur, 1);
+    const ease = 1 - Math.pow(1 - p, 3);
+    el.textContent = fmt(ease * target);
+    if (p < 1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+const cntObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { animateCount(e.target); cntObs.unobserve(e.target); } });
+}, { threshold: .5 });
+document.querySelectorAll('.count').forEach(el => cntObs.observe(el));
+
+/* ── TOAST NOTIFICATIONS ── */
+const toasts = [
+  'Someone just booked a call via EnrollFlo AI',
+  'A lead was qualified and booked in 47 seconds',
+  'Reactivation campaign just recovered 3 old leads',
+  'New enrollment booked — AI handled it end-to-end',
+  'No-show recovery just rescheduled a missed call',
+];
+let ti = 0;
+const toastEl  = document.getElementById('toast');
+const toastMsg = document.getElementById('toast-msg');
+function showToast() {
+  toastMsg.textContent = toasts[ti++ % toasts.length];
+  toastEl.classList.add('show');
+  setTimeout(() => toastEl.classList.remove('show'), 4000);
+}
+setTimeout(showToast, 6000);
+setInterval(showToast, 18000);
+
+/* ── SMOOTH ANCHOR SCROLL ── */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const t = document.querySelector(a.getAttribute('href'));
+    if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+  });
+});
+
+/* ── PARALLAX HERO ── */
+window.addEventListener('scroll', () => {
+  const y = window.scrollY;
+  document.querySelector('.hero-glow').style.transform = `translateY(${y * .25}px)`;
+}, { passive: true });
+
+/* ════════════════════════════════
+   CHATBOT
+════════════════════════════════ */
+const msgsEl = document.getElementById('chatMsgs');
+const optsEl = document.getElementById('chatOpts');
+const inEl   = document.getElementById('chatIn');
+const btnEl  = document.getElementById('chatBtn');
+
+/* ── Lead data captured through the conversation ── */
+let state    = 'start';
+let leadData = { firstName:'', email:'', phone:'', offerType:'', priceRange:'', trafficSource:'' };
+let bookedSlot = null; // { startTime ISO, label }
+
+/* ════════════════════════════════
+   CONVERSATION FLOW
+   States with expectsInput:true collect free-text via the input bar.
+   States with ghlCal:true show a calendar fetched from the GHL API.
+════════════════════════════════ */
+const flow = {
+  start: {
+    msgs: [
+      "Hey! 👋 I'm the EnrollFlo AI — the exact same system we install in your enrollment funnel.",
+      "I help music educators fill their calendar with qualified calls, 24/7, without lifting a finger. Mind if I ask a couple of quick questions?"
+    ],
+    opts: ["Let's go 🚀", "How does this work?"],
+    next: c => c === "How does this work?" ? 'explain' : 'ask_type'
+  },
+  explain: {
+    msgs: [
+      "This demo shows exactly what your leads experience when they hit your funnel.",
+      "Your AI setter (me) qualifies them, handles objections, and books them — all without you. Want to see it?"
+    ],
+    opts: ["Yes, show me", "Book a demo call instead"],
+    next: c => c === "Book a demo call instead" ? 'collect_name' : 'ask_type'
+  },
+  ask_type: {
+    msgs: ["What type of music education do you offer?"],
+    opts: ["🎛️ Production / Beat Making", "🎤 Vocal Coaching", "🎸 Instrument Lessons", "🎵 Music Business / Artist Dev"],
+    next: c => { leadData.offerType = c; return 'ask_price'; }
+  },
+  ask_price: {
+    msgs: ["Love it. What does your main program or mentorship sell for?"],
+    opts: ["£500 – £1,000", "£1,000 – £3,000", "£3,000+", "I'm not sure yet"],
+    next: c => { leadData.priceRange = c; return c === "I'm not sure yet" ? 'not_sure' : 'ask_traffic'; }
+  },
+  not_sure: {
+    msgs: [
+      "No worries — the system works best once you have a clear offer above £500.",
+      "If you're still figuring that out, the best next step is actually a free call so we can map it out together."
+    ],
+    opts: ["Book a free call 📅", "Tell me more first"],
+    next: () => 'collect_name'
+  },
+  ask_traffic: {
+    msgs: ["Are you already driving traffic to your offer?"],
+    opts: ["✅ Yes — paid ads", "✅ Yes — organic content", "✅ Both", "❌ Not yet"],
+    next: c => { leadData.trafficSource = c; return c === "❌ Not yet" ? 'no_traffic' : 'qualify_win'; }
+  },
+  no_traffic: {
+    msgs: [
+      "Honest answer — the engine converts traffic, it doesn't generate it from scratch.",
+      "But posting content counts. Even a small engaged audience is enough. Are you active anywhere?"
+    ],
+    opts: ["Yes — Instagram / TikTok", "I have an email list", "Not really active yet"],
+    next: c => { leadData.trafficSource = c; return c === "Not really active yet" ? 'disqualify' : 'qualify_win'; }
+  },
+  disqualify: {
+    msgs: [
+      "Appreciate the honesty — that's exactly why I ask. The engine plugs holes in a funnel; it needs traffic flowing in first.",
+      "Once you're posting consistently, come back — this will be a game-changer. Want a free resource on building your music educator audience in the meantime?"
+    ],
+    opts: ["Yes please 🙏", "Thanks anyway"],
+    next: () => 'end_dis'
+  },
+  end_dis: {
+    msgs: ["Resource dropped. Good luck — and when that audience is ready, we'll be here. 👋"],
+    opts: ["Start the demo again"],
+    next: () => { leadData = { firstName:'', email:'', phone:'', offerType:'', priceRange:'', trafficSource:'' }; return 'start'; }
+  },
+  qualify_win: {
+    msgs: [
+      "You're exactly who this is built for. 🎯",
+      "Right now, every lead that hits your funnel and doesn't hear back within minutes? Gone. Our AI calls them in 60 seconds — qualifies them live and books them before they close the tab.",
+      "Want to see what that looks like for your offer, or shall I book you straight in?"
+    ],
+    opts: ["📅 Book a demo call", "👀 Show me more first"],
+    next: c => c === "👀 Show me more first" ? 'more' : 'collect_name'
+  },
+  more: {
+    msgs: [
+      "Here's what happens the second someone opts into your funnel:\n\n1️⃣ AI calls them within 60 seconds\n2️⃣ Qualifies: right fit? right budget?\n3️⃣ Books straight onto your calendar\n4️⃣ Sends confirmation + nurture sequence\n5️⃣ Chases no-shows automatically\n\nAll while you're coaching, creating, or sleeping."
+    ],
+    opts: ["📅 Book the call — I'm in", "💰 What does it cost?"],
+    next: c => c === "💰 What does it cost?" ? 'price_q' : 'collect_name'
+  },
+  price_q: {
+    msgs: [
+      "£1,500 one-time setup + £997/month for management and all AI agents running.",
+      "The AI setter alone replaces a human appointment setter at £2,000–4,000/mo. You're getting that plus the 60-second call-back agent and a full funnel — all in.",
+      "Most clients see the Week-1 Reactivation Campaign pay for the entire setup before the build even finishes."
+    ],
+    opts: ["📅 Book a free demo", "🛡️ What's the guarantee?"],
+    next: c => c === "🛡️ What's the guarantee?" ? 'guarantee_q' : 'collect_name'
+  },
+  guarantee_q: {
+    msgs: [
+      "If your funnel and AI setter don't book more qualified calls in the first 30 days than your current setup — you don't pay another penny of management until they do. Simple."
+    ],
+    opts: ["📅 Book the call — I'm in"],
+    next: () => 'collect_name'
+  },
+
+  /* ── Contact collection ── */
+  collect_name: {
+    msgs: ["Before I pull up the calendar — what's your first name?"],
+    expectsInput: true,
+    placeholder: "Your first name…",
+    validate: v => v.trim().length >= 2,
+    invalidMsg: "Just your first name is fine 😊",
+    next: v => { leadData.firstName = v.trim(); return 'collect_email'; }
+  },
+  collect_email: {
+    msgs: (data) => [`Nice to meet you, ${data.firstName}! What's your email address?`],
+    expectsInput: true,
+    placeholder: "your@email.com",
+    validate: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()),
+    invalidMsg: "That doesn't look right — can you double-check your email?",
+    next: v => { leadData.email = v.trim(); return 'collect_phone'; }
+  },
+  collect_phone: {
+    msgs: ["And your phone number? 📱\n(The AI voice agent will call you within 60 seconds of booking to confirm — this is the demo in action 👀)"],
+    expectsInput: true,
+    placeholder: "+44 7xxx xxxxxx",
+    validate: v => v.trim().replace(/\s/g,'').length >= 8,
+    invalidMsg: "A phone number is needed so the AI can call you within 60 seconds — just enter your number and see it work!",
+    next: v => { leadData.phone = v.trim(); return 'booking'; }
+  },
+
+  /* ── Real GHL calendar booking ── */
+  booking: {
+    msgs: ["Perfect! Let me fetch the available slots… 🗓️"],
+    opts: [],
+    ghlCal: true,
+    next: () => 'booked'
+  },
+  booked: {
+    msgs: (data) => [
+      `✅ You're booked, ${data.firstName}! A calendar invite is on its way to ${data.email}.`,
+      "One last thing — what's the biggest bottleneck in your enrollments right now? (Helps me prepare — totally optional)"
+    ],
+    opts: ["Slow lead follow-up", "Too much time in DMs", "Dead leads / old students", "Low conversion rate", "Skip this"],
+    next: () => 'final'
+  },
+  final: {
+    msgs: [
+      "Got it — that's exactly what we'll focus on.",
+      "In the meantime, scroll down to see how Ollie went from £0 to £30k in 68 days with this exact system 👇",
+      "See you on the call! 🚀"
+    ],
+    opts: ["See Ollie's case study ↓", "Start the demo again"],
+    next: c => {
+      if (c === "See Ollie's case study ↓") document.getElementById('results').scrollIntoView({ behavior:'smooth' });
+      leadData = { firstName:'', email:'', phone:'', offerType:'', priceRange:'', trafficSource:'' };
+      return 'start';
+    }
+  }
+};
+
+/* ── Helpers ── */
+async function wait(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+function addMsg(text, who) {
+  const d = document.createElement('div');
+  d.className = `msg ${who}`;
+  d.innerHTML = `<div class="bubble">${text.replace(/\n/g,'<br>')}</div>`;
+  msgsEl.appendChild(d);
+  msgsEl.scrollTop = msgsEl.scrollHeight;
+}
+
+async function typeFor(ms) {
+  const d = document.createElement('div');
+  d.className = 'msg ai'; d.id = 'typing';
+  d.innerHTML = '<div class="typing"><span class="t-dot"></span><span class="t-dot"></span><span class="t-dot"></span></div>';
+  msgsEl.appendChild(d);
+  msgsEl.scrollTop = msgsEl.scrollHeight;
+  await wait(ms);
+  document.getElementById('typing')?.remove();
+}
+
+function setInputMode(active, placeholder) {
+  inEl.disabled    = !active;
+  inEl.placeholder = active ? (placeholder || 'Type your answer…') : 'Choose an option above…';
+  inEl.style.opacity = active ? '1' : '0.45';
+}
+
+function setOpts(opts, onPick) {
+  optsEl.innerHTML = '';
+  opts.forEach(txt => {
+    const b = document.createElement('button');
+    b.className = 'opt'; b.textContent = txt;
+    b.addEventListener('click', async () => {
+      optsEl.innerHTML = '';
+      setInputMode(false);
+      addMsg(txt, 'usr');
+      const next = onPick(txt);
+      if (next) await runState(next);
+    });
+    optsEl.appendChild(b);
+  });
+}
+
+/* ── GHL Calendar ── */
+async function buildGHLCalendar(onBook) {
+  const wrap = document.createElement('div');
+  wrap.className = 'msg ai';
+  wrap.innerHTML = `<div class="bubble" style="max-width:95%;padding:12px 14px;font-size:13px;color:var(--muted)">
+    Fetching available slots…
+    <div class="typing" style="margin-top:8px"><span class="t-dot"></span><span class="t-dot"></span><span class="t-dot"></span></div>
+  </div>`;
+  msgsEl.appendChild(wrap);
+  msgsEl.scrollTop = msgsEl.scrollHeight;
+
+  let slotsData = {};
+  try {
+    const tz  = Intl.DateTimeFormat().resolvedOptions().timeZone || 'Europe/London';
+    const res = await fetch(`https://enrollflo.vercel.app/api/slots?timezone=${encodeURIComponent(tz)}`);
+    const json = await res.json();
+    slotsData = json.slots || {};
+  } catch (e) {
+    console.warn('Slots fetch failed, using fallback', e);
+  }
+
+  const days   = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const dateKeys = Object.keys(slotsData).slice(0, 5);
+
+  if (!dateKeys.length) {
+    wrap.remove();
+    addMsg("Hmm, I couldn't load the calendar right now. Click below to book directly:", 'ai');
+    addMsg('<a href="https://enrollflo.com/book" target="_blank" style="color:var(--gold)">→ Book a call here</a>', 'ai');
+    return;
+  }
+
+  let dayHTML = dateKeys.map(k => {
+    const d = new Date(k + 'T12:00:00');
+    return `<button class="cal-day" data-key="${k}"><div class="cal-day-name">${days[d.getDay()]}</div><div class="cal-day-num">${d.getDate()} ${months[d.getMonth()]}</div></button>`;
+  }).join('');
+
+  wrap.innerHTML = `<div class="bubble" style="max-width:95%;padding:0;background:transparent">
+    <div class="cal-wrap">
+      <div class="cal-lbl">Choose a day:</div>
+      <div class="cal-days">${dayHTML}</div>
+      <div class="cal-lbl" id="tLbl" style="display:none">Choose a time:</div>
+      <div class="cal-times" id="tSlots"></div>
+    </div>
+  </div>`;
+  msgsEl.scrollTop = msgsEl.scrollHeight;
+
+  wrap.querySelectorAll('.cal-day').forEach(b => {
+    b.addEventListener('click', () => {
+      wrap.querySelectorAll('.cal-day').forEach(x => x.classList.remove('active'));
+      b.classList.add('active');
+      const key    = b.dataset.key;
+      const slotList = slotsData[key]?.slots || [];
+      document.getElementById('tLbl').style.display = 'block';
+      const ts = document.getElementById('tSlots');
+      ts.innerHTML = '';
+      slotList.forEach(iso => {
+        const d   = new Date(iso);
+        const lbl = d.toLocaleTimeString('en-GB', { hour:'2-digit', minute:'2-digit', timeZone:'Europe/London' });
+        const tb  = document.createElement('button');
+        tb.className = 'cal-time'; tb.textContent = lbl;
+        tb.addEventListener('click', async () => {
+          wrap.remove();
+          bookedSlot = { startTime: iso, label: lbl };
+          addMsg(`${b.querySelector('.cal-day-name').textContent} ${b.querySelector('.cal-day-num').textContent} at ${lbl}`, 'usr');
+
+          // Fire the real GHL booking in the background
+          bookInGHL(iso);
+
+          await onBook();
+        });
+        ts.appendChild(tb);
+      });
+      msgsEl.scrollTop = msgsEl.scrollHeight;
+    });
+  });
+}
+
+/* ── Call /api/book to create GHL contact + appointment + opportunity ── */
+async function bookInGHL(startTime) {
+  try {
+    const tz  = Intl.DateTimeFormat().resolvedOptions().timeZone || 'Europe/London';
+    const res = await fetch('https://enrollflo.vercel.app/api/book', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        firstName:     leadData.firstName,
+        email:         leadData.email,
+        phone:         leadData.phone,
+        startTime,
+        timezone:      tz,
+        offerType:     leadData.offerType,
+        priceRange:    leadData.priceRange,
+        trafficSource: leadData.trafficSource
+      })
+    });
+    const data = await res.json();
+    if (data.success) {
+      console.log('[EnrollFlo] ✓ GHL booking created:', data.appointmentId);
+    } else {
+      console.warn('[EnrollFlo] GHL booking issue:', data.error);
+    }
+  } catch (e) {
+    console.warn('[EnrollFlo] Booking request failed (non-fatal):', e.message);
+  }
+}
+
+/* ── Main state runner ── */
+async function runState(name) {
+  state = name;
+  const s = flow[name];
+  if (!s) return;
+  optsEl.innerHTML = '';
+  setInputMode(false);
+
+  const msgs = typeof s.msgs === 'function' ? s.msgs(leadData) : s.msgs;
+  for (let i = 0; i < msgs.length; i++) {
+    await typeFor(700 + Math.random() * 500);
+    addMsg(msgs[i], 'ai');
+    await wait(150);
+  }
+
+  if (s.ghlCal) {
+    await buildGHLCalendar(async () => await runState(s.next()));
+    return;
+  }
+
+  if (s.expectsInput) {
+    setInputMode(true, s.placeholder);
+    return;
+  }
+
+  if (s.opts && s.opts.length) setOpts(s.opts, s.next);
+}
+
+/* ── Chatbot auto-start ── */
+const chatObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      setTimeout(() => runState('start'), 600);
+      chatObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.3 });
+chatObs.observe(document.getElementById('chatWidget'));
+
+/* ── Text input submission ── */
+function sendInput() {
+  const v = inEl.value.trim();
+  if (!v) return;
+
+  const s = flow[state];
+
+  // If current state expects typed input, validate + route
+  if (s && s.expectsInput) {
+    if (s.validate && !s.validate(v)) {
+      inEl.value = '';
+      setTimeout(async () => {
+        await typeFor(700);
+        addMsg(s.invalidMsg || "Could you try that again?", 'ai');
+        setInputMode(true, s.placeholder);
+      }, 100);
+      return;
+    }
+    inEl.value = '';
+    setInputMode(false);
+    addMsg(v, 'usr');
+    const next = s.next(v);
+    if (next) runState(next);
+    return;
+  }
+
+  // Fallback for free-form messages outside an input state
+  inEl.value = '';
+  optsEl.innerHTML = '';
+  addMsg(v, 'usr');
+  setTimeout(async () => {
+    await typeFor(900);
+    addMsg("I'd love to help with that — let me get you booked in for a call where we can go into detail 👇", 'ai');
+    await runState('collect_name');
+  }, 200);
+}
+
+btnEl.addEventListener('click', sendInput);
+inEl.addEventListener('keypress', e => { if (e.key === 'Enter') sendInput(); });
+setInputMode(false); // start disabled until an input state activates it
+
+</script>
+</body>
+</html>
