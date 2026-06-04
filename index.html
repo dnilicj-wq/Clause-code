@@ -492,143 +492,43 @@
     .proof-callout .lbl { font-size: 12px; color: var(--gold); font-weight: 600; margin-bottom: 6px; }
     .proof-callout p   { font-size: 13px; color: var(--muted); line-height: 1.7; }
 
-    /* CHATBOT WIDGET */
-    .chat-widget {
-      background: var(--surface-2);
-      border: 1px solid var(--border-2);
+    /* GHL CHAT INLINE */
+    .ghl-chat-inline {
       border-radius: 22px; overflow: hidden;
+      min-height: 540px; position: relative;
       box-shadow: 0 48px 120px rgba(0,0,0,.55);
     }
-    .chat-header {
-      background: var(--surface-3); padding: 14px 18px;
-      display: flex; align-items: center; gap: 12px;
-      border-bottom: 1px solid var(--border);
-    }
-    .chat-avatar {
-      width: 36px; height: 36px; border-radius: 50%;
-      background: linear-gradient(135deg, var(--gold-dark), var(--gold));
-      display: flex; align-items: center; justify-content: center;
-      font-size: 15px; flex-shrink: 0;
-    }
-    .chat-header-info h4 { font-size: 13.5px; font-weight: 600; }
-    .chat-status {
-      font-size: 11px; color: var(--green);
-      display: flex; align-items: center; gap: 5px;
-    }
-    .chat-status::before {
-      content: ''; width: 6px; height: 6px;
-      background: var(--green); border-radius: 50%;
-      animation: blink 2s infinite;
-    }
 
-    .chat-msgs {
-      height: 360px; overflow-y: auto;
-      padding: 18px; display: flex; flex-direction: column; gap: 14px;
-      scroll-behavior: smooth;
-    }
-    .chat-msgs::-webkit-scrollbar { width: 0; }
+    /* Hide the GHL floating launcher button */
+    .lc-launcher-container,
+    [class*="lc-launcher"],
+    [id*="lc-launcher"] { display: none !important; }
 
-    .msg { display: flex; flex-direction: column; animation: pop .3s ease; }
-    .msg.ai  { align-items: flex-start; }
-    .msg.usr { align-items: flex-end; }
-    @keyframes pop {
-      from { opacity: 0; transform: translateY(7px); }
-      to   { opacity: 1; transform: translateY(0); }
+    /* Force GHL chat panel open and fill our container */
+    .lc-chat-container,
+    [class*="lc-chat-container"],
+    [id*="lc-chat-container"] {
+      position: absolute !important;
+      inset: 0 !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      height: 100% !important;
+      max-height: 100% !important;
+      bottom: auto !important;
+      right: auto !important;
+      border-radius: 22px !important;
+      box-shadow: none !important;
+      transform: none !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+      pointer-events: all !important;
     }
-
-    .bubble {
-      max-width: 86%; padding: 11px 15px;
-      border-radius: 16px; font-size: 13.5px; line-height: 1.6;
-    }
-    .msg.ai  .bubble { background: var(--surface-3); color: var(--white); border-bottom-left-radius: 4px; }
-    .msg.usr .bubble { background: var(--gold); color: var(--black); border-bottom-right-radius: 4px; font-weight: 500; }
-
-    .typing {
-      display: flex; align-items: center; gap: 4px;
-      padding: 11px 15px; background: var(--surface-3);
-      border-radius: 16px; border-bottom-left-radius: 4px;
-      width: fit-content;
-    }
-    .t-dot {
-      width: 6px; height: 6px; background: var(--muted);
-      border-radius: 50%; animation: bounce 1.4s infinite;
-    }
-    .t-dot:nth-child(2) { animation-delay: .2s; }
-    .t-dot:nth-child(3) { animation-delay: .4s; }
-    @keyframes bounce {
-      0%,60%,100% { transform: translateY(0); opacity:.45; }
-      30% { transform: translateY(-6px); opacity:1; }
-    }
-
-    .chat-opts {
-      display: flex; flex-wrap: wrap; gap: 7px;
-      padding: 0 18px 16px;
-    }
-    .opt {
-      background: transparent;
-      border: 1px solid var(--border-2);
-      color: var(--white); padding: 7px 14px;
-      border-radius: 100px; font-size: 12.5px;
-      font-family: 'Inter', sans-serif;
-      cursor: pointer;
-      transition: border-color .2s, background .2s, transform .15s;
-    }
-    .opt:hover {
-      border-color: var(--gold);
-      background: rgba(200,169,110,.08);
-      transform: scale(1.02);
-    }
-
-    .chat-input-row {
-      border-top: 1px solid var(--border);
-      padding: 14px 18px; display: flex; gap: 10px; align-items: center;
-    }
-    .chat-input {
-      flex: 1; background: var(--surface-3);
-      border: 1px solid var(--border); border-radius: 100px;
-      padding: 9px 15px; color: var(--white);
-      font-size: 13px; font-family: 'Inter', sans-serif;
-      outline: none; transition: border-color .2s;
-    }
-    .chat-input:focus { border-color: rgba(200,169,110,.3); }
-    .chat-input::placeholder { color: var(--muted-2); }
-    .chat-send {
-      width: 36px; height: 36px; flex-shrink: 0;
-      background: var(--gold); border: none; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer; transition: transform .2s, background .2s;
-    }
-    .chat-send:hover { transform: scale(1.07); background: var(--gold-light); }
-
-    /* CALENDAR */
-    .cal-wrap {
-      background: var(--surface-3); border-radius: 12px;
-      padding: 14px; font-size: 13px; width: 100%;
-    }
-    .cal-lbl { color: var(--gold); font-weight: 600; margin-bottom: 10px; font-size: 12px; }
-    .cal-days { display: flex; gap: 7px; flex-wrap: wrap; margin-bottom: 14px; }
-    .cal-day {
-      flex: 1; min-width: 56px; background: transparent;
-      border: 1px solid var(--border-2); border-radius: 10px;
-      padding: 8px 6px; text-align: center; cursor: pointer;
-      font-family: 'Inter', sans-serif; color: var(--white);
-      transition: border-color .2s, background .2s;
-    }
-    .cal-day:hover, .cal-day.active {
-      border-color: var(--gold); background: rgba(200,169,110,.08);
-    }
-    .cal-day-name { font-size: 10px; color: var(--muted); margin-bottom: 2px; }
-    .cal-day-num  { font-size: 14px; font-weight: 600; }
-    .cal-times { display: flex; gap: 7px; flex-wrap: wrap; }
-    .cal-time {
-      background: transparent; border: 1px solid var(--border-2);
-      border-radius: 100px; padding: 5px 12px;
-      font-size: 12px; color: var(--white);
-      cursor: pointer; font-family: 'Inter', sans-serif;
-      transition: border-color .2s, background .2s;
-    }
-    .cal-time:hover {
-      border-color: var(--gold); background: rgba(200,169,110,.08);
+    .lc-chat-container iframe,
+    [class*="lc-chat-container"] iframe {
+      width: 100% !important;
+      height: 100% !important;
+      border: none !important;
+      border-radius: 22px !important;
     }
 
     /* ────────────────────────────────
@@ -1391,25 +1291,9 @@
         </div>
       </div>
 
-      <!-- CHATBOT -->
-      <div class="chat-widget r d2" id="chatWidget">
-        <div class="chat-header">
-          <div class="chat-avatar">🤖</div>
-          <div class="chat-header-info">
-            <h4>EnrollFlo AI</h4>
-            <div class="chat-status">Online · Books in seconds</div>
-          </div>
-        </div>
-
-        <div class="chat-msgs" id="chatMsgs"></div>
-        <div class="chat-opts" id="chatOpts"></div>
-
-        <div class="chat-input-row">
-          <input type="text" class="chat-input" id="chatIn" placeholder="Type a message…">
-          <button class="chat-send" id="chatBtn" aria-label="Send">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.5"><path d="M22 2L11 13M22 2L15 22 11 13 2 9l20-7z"/></svg>
-          </button>
-        </div>
+      <!-- GHL Conversation AI (inline) -->
+      <div class="ghl-chat-inline r d2" id="chatWidget">
+        <script src="https://beta.leadconnectorhq.com/loader.js" data-resources-url="https://beta.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="6a20c0fb1ce15bb9e98125ea"></script>
       </div>
     </div>
   </div>
@@ -1702,23 +1586,11 @@ window.addEventListener('scroll', () => {
 }, { passive: true });
 
 /* ════════════════════════════════
-   CHATBOT
+   GHL CHAT — auto-open inline
 ════════════════════════════════ */
-const msgsEl = document.getElementById('chatMsgs');
-const optsEl = document.getElementById('chatOpts');
-const inEl   = document.getElementById('chatIn');
-const btnEl  = document.getElementById('chatBtn');
 
-let state    = 'start';
-let leadData = { firstName:'', email:'', phone:'', offerType:'', priceRange:'', trafficSource:'' };
-let bookedSlot = null;
-
-/* ════════════════════════════════
-   CONVERSATION FLOW
-   States with expectsInput:true collect free-text via the input bar.
-   States with ghlCal:true show a calendar fetched from the GHL API.
-════════════════════════════════ */
-const flow = {
+/* dead code removed — GHL widget handles conversation */
+if (false) { const flow = {
   start: {
     msgs: [
       "Hey! 👋 I'm the EnrollFlo AI — the exact same system we install in your enrollment funnel.",
@@ -2094,9 +1966,50 @@ function sendInput() {
   }, 200);
 }
 
-btnEl.addEventListener('click', sendInput);
-inEl.addEventListener('keypress', e => { if (e.key === 'Enter') sendInput(); });
-setInputMode(false); // start disabled until an input state activates it
+} /* end dead code */
+
+/* Auto-open GHL chat when user reaches the demo section */
+(function initGHLInline() {
+  const container = document.getElementById('chatWidget');
+  if (!container) return;
+
+  function forceInline() {
+    /* Hide the launcher bubble */
+    document.querySelectorAll('.lc-launcher-container, [class*="lc-launcher"]')
+      .forEach(el => el.style.display = 'none');
+
+    /* Find chat panel and move it into our container */
+    const panel = document.querySelector(
+      '.lc-chat-container, [class*="lc-chat-container"], [id*="lc-chat"]'
+    );
+    if (panel && !container.contains(panel)) {
+      container.appendChild(panel);
+    }
+    if (panel) {
+      panel.style.cssText +=
+        ';position:absolute!important;inset:0!important;width:100%!important;' +
+        'height:100%!important;max-height:none!important;max-width:none!important;' +
+        'bottom:auto!important;right:auto!important;transform:none!important;' +
+        'opacity:1!important;visibility:visible!important;border-radius:22px!important;' +
+        'box-shadow:none!important;';
+      const ifrm = panel.querySelector('iframe');
+      if (ifrm) ifrm.style.cssText += ';width:100%!important;height:100%!important;border:none!important;';
+    }
+  }
+
+  /* Click launcher once widget loads, then apply inline styles */
+  let attempts = 0;
+  const poll = setInterval(() => {
+    const launcher = document.querySelector('.lc-launcher, [class*="lc-launcher"] button, [class*="lc-launcher"] [role="button"]');
+    if (launcher) {
+      clearInterval(poll);
+      launcher.click();
+      setTimeout(forceInline, 300);
+      setTimeout(forceInline, 800); /* second pass in case of animation */
+    }
+    if (++attempts > 50) clearInterval(poll);
+  }, 200);
+})();
 
 </script>
 </body>
