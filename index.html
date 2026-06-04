@@ -1709,10 +1709,9 @@ const optsEl = document.getElementById('chatOpts');
 const inEl   = document.getElementById('chatIn');
 const btnEl  = document.getElementById('chatBtn');
 
-/* ── Lead data captured through the conversation ── */
 let state    = 'start';
 let leadData = { firstName:'', email:'', phone:'', offerType:'', priceRange:'', trafficSource:'' };
-let bookedSlot = null; // { startTime ISO, label }
+let bookedSlot = null;
 
 /* ════════════════════════════════
    CONVERSATION FLOW
