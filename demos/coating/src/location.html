@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cut">
+<title>{Service} in {Area} | {Company}</title>
+<meta name="description" content="{Service} in {Area} by {Company}. Diamond-ground prep, polyaspartic coatings, one-day install and a {WarrantyLength} written warranty. Instant price online.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600..900&family=Geist:wght@400..700&display=swap">
+<link rel="stylesheet" href="/assets/styles.css">
+<!--SITE-->
+</head>
+<body>
+<header class="site-header is-stuck">
+  <div class="wrap nav">
+    <a class="brand" href="/"><span class="brand-mark" aria-hidden="true"><span></span><span></span></span><span class="brand-name">{Company}</span></a>
+    <div class="nav-actions">
+      <a class="nav-phone" href="tel:{PhoneTel}" data-loc="area-header"><i data-icon="phone"></i><span>{Phone}</span></a>
+      <a class="btn btn-primary btn-sm hide-sm" href="/#price" data-cta="area-header">Get my instant price</a>
+    </div>
+  </div>
+</header>
+<main id="main" class="wrap">
+  <section class="loc-hero">
+    <h1 class="display">{Service} in {Area}</h1>
+    <p class="lede">Floors that don't peel, installed in one day by a local crew from {Town}. Diamond-ground prep, commercial-grade polyaspartic and a written warranty.</p>
+    <div class="hero-ctas">
+      <a class="btn btn-primary btn-lg" href="/#price" data-cta="area-hero">Get my instant price <i data-icon="arrow-right"></i></a>
+      <a class="btn btn-ghost btn-lg" href="tel:{PhoneTel}" data-loc="area-hero"><i data-icon="phone"></i> Call {Phone}</a>
+    </div>
+  </section>
+  <section class="loc-body">
+    <div>
+      <h2 class="h3">Why garage floors in {Area} peel</h2>
+      <p>Most failures come from skipped prep, the wrong product or a rushed install. DIY kits sit on top of the concrete, so hot tires lift them. We diamond-grind every slab so the coating bonds to it.</p>
+      <h2 class="h3">One day, start to finish</h2>
+      <p>We grind, repair cracks, coat and topcoat in a single day. Walk on it that evening and park on it in {CureTime}.</p>
+      <h2 class="h3">In writing</h2>
+      <p>A {WarrantyLength} written warranty against peeling, lifting and hot-tire pickup. If it fails, we fix it.</p>
+      <h2 class="h3">Local, not a franchise</h2>
+      <p>{Owner} runs {Company} and has worked around {Area} for {Years} years. When you call, you get us.</p>
+    </div>
+    <aside class="loc-aside">
+      <p class="h3" style="margin-bottom:.6rem">Get a call back</p>
+      <form class="enquiry" id="enquiry" novalidate style="padding:0;background:none;box-shadow:none;backdrop-filter:none">
+        <div class="field"><label for="q-name">Name</label><input id="q-name" name="name" required data-req="Please add your name." autocomplete="name" class="input"><p class="err"></p></div>
+        <div class="field"><label for="q-phone">Phone</label><input id="q-phone" name="phone" type="tel" required data-req="Add a number so we can call you back." autocomplete="tel" class="input"><p class="err"></p></div>
+        <div class="field"><label for="q-zip">ZIP code</label><input id="q-zip" name="zip" data-kind="post" required data-req="Add your ZIP code." autocomplete="postal-code" inputmode="numeric" class="input"><p class="err"></p></div>
+        <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <button type="submit" class="btn btn-primary btn-block">Request a call back</button>
+        <p class="form-status" aria-live="polite"></p>
+        <div class="sent-note"><i data-icon="check"></i><div><b>Got it. Thanks.</b><p>We'll call within one business day.</p></div></div>
+      </form>
+    </aside>
+  </section>
+</main>
+<footer class="footer"><div class="wrap"><p class="f-h">Other areas we serve</p><ul class="f-list"><!--AREAS--></ul></div><div class="wrap footer-base"><span>© {Company}</span><a href="/privacy.html">Privacy</a></div></footer>
+<div class="mobile-bar is-shown" role="region" aria-label="Quick actions">
+  <a class="btn btn-ghost" href="tel:{PhoneTel}" data-loc="area-mobile-bar"><i data-icon="phone"></i> Call</a>
+  <a class="btn btn-primary" href="/#price" data-cta="area-mobile-bar">Get my instant price</a>
+</div>
+<script type="module" src="/assets/main.js"></script>
+</body>
+</html>

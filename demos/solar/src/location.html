@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cut">
+<title>{Service} in {Area} | {Company}</title>
+<meta name="description" content="{Service} in {Area} by {Company}, an MCS-certified local installer. Honest, cautious estimates in 60 seconds. No pushy sales.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,300..800;1,62..125,400..700&display=swap">
+<link rel="stylesheet" href="/assets/styles.css">
+<!--SITE-->
+</head>
+<body>
+<header class="site-header is-stuck">
+  <div class="wrap nav">
+    <a class="brand" href="/"><span class="brand-mark" aria-hidden="true"><span></span></span><span class="brand-name">{Company}</span></a>
+    <div class="nav-actions">
+      <a class="nav-phone" href="tel:{PhoneTel}" data-loc="area-header"><i data-icon="phone"></i><span>{Phone}</span></a>
+      <a class="btn btn-primary btn-sm hide-sm" href="/#estimate" data-cta="area-header">Get my honest estimate</a>
+    </div>
+  </div>
+</header>
+<main id="main" class="wrap">
+  <section class="loc-hero">
+    <h1 class="display">{Service} in {Area}, with honest numbers.</h1>
+    <p class="lede">An MCS-certified team based in {Town}, a short drive from {Area}. Clear written quotes, cautious savings figures and no pressure to sign.</p>
+    <div class="hero-ctas">
+      <a class="btn btn-primary btn-lg" href="/#estimate" data-cta="area-hero">Get my honest estimate <i data-icon="arrow-right"></i></a>
+      <a class="btn btn-ghost btn-lg" href="tel:{PhoneTel}" data-loc="area-hero"><i data-icon="phone"></i> Call {Phone}</a>
+    </div>
+  </section>
+  <section class="loc-body">
+    <div>
+      <h2 class="h3">Is solar worth it for a home in {Area}?</h2>
+      <p>For most homes, yes, but it depends on your roof, how you use electricity and your tariff. Our online estimate gives you a cautious ballpark in a minute, and the free roof survey turns it into an exact figure.</p>
+      <h2 class="h3">Who does the work</h2>
+      <p>{Owner} and our own trained team, not subcontractors. We've worked in and around {Area} for {Years} years, and we answer the phone long after the install.</p>
+      <h2 class="h3">What you're covered for</h2>
+      <p>Panels {PanelWarranty}, inverter {InverterWarranty} and workmanship {WorkmanshipWarranty}, with an insurance-backed warranty that protects you even if we ever stop trading.</p>
+      <h2 class="h3">0% VAT ends 31 March 2027</h2>
+      <p>Installations after that date pay 5%. Book your survey early to be sure of the current rate.</p>
+    </div>
+    <aside class="loc-aside">
+      <p class="h3" style="margin-bottom:.6rem">Get a callback</p>
+      <form class="enquiry" id="enquiry" novalidate style="padding:0;background:none">
+        <div class="field"><label for="q-name">Name</label><input id="q-name" name="name" required data-req="Please add your name." autocomplete="name" class="input"><p class="err"></p></div>
+        <div class="field"><label for="q-phone">Phone</label><input id="q-phone" name="phone" type="tel" required data-req="Add a number so we can call you back." autocomplete="tel" class="input"><p class="err"></p></div>
+        <div class="field"><label for="q-post">Postcode</label><input id="q-post" name="postcode" data-kind="post" required data-req="Add your postcode." autocomplete="postal-code" class="input"><p class="err"></p></div>
+        <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <button type="submit" class="btn btn-primary btn-block">Request a call back</button>
+        <p class="form-status" aria-live="polite"></p>
+        <div class="sent-note"><i data-icon="check"></i><div><b>Got it. Thank you.</b><p>We'll call within one working day.</p></div></div>
+      </form>
+    </aside>
+  </section>
+</main>
+<footer class="footer"><div class="wrap"><p class="f-h">Other areas we cover</p><ul class="f-list"><!--AREAS--></ul></div><div class="wrap footer-base"><span>© {Company}</span><a href="/privacy.html">Privacy</a></div></footer>
+<div class="mobile-bar is-shown" role="region" aria-label="Quick actions">
+  <a class="btn btn-ghost" href="tel:{PhoneTel}" data-loc="area-mobile-bar"><i data-icon="phone"></i> Call</a>
+  <a class="btn btn-primary" href="/#estimate" data-cta="area-mobile-bar">Get my estimate</a>
+</div>
+<script type="module" src="/assets/main.js"></script>
+</body>
+</html>
