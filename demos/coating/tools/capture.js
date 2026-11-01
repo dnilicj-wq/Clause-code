@@ -1,4 +1,5 @@
 import { createFloorScene } from '../src/scene.js';
+import { DirectionalLight, HemisphereLight } from 'three';
 window.capture = async (cfg) => {
   const c = document.getElementById('c');
   c.style.width = cfg.w + 'px'; c.style.height = cfg.h + 'px';
@@ -9,5 +10,10 @@ window.capture = async (cfg) => {
   if (cfg.pour != null) { s.uniforms.uPour.value = cfg.pour; s.uniforms.uOrigin.value.set(0.4, -2.5); }
   if (cfg.mirror === 0) s.uniforms.uMirrorOn.value = 0;
   if (cfg.noenv) s.scene.environment = null;
+  if (cfg.outdoor) {
+    s.scene.traverse((o) => { if (o.isRectAreaLight || o.isPointLight) o.intensity = 0; if (o.isHemisphereLight) o.intensity = 0; });
+    const sun = new DirectionalLight('#fff4e0', cfg.outdoor.sun ?? 2.6); sun.position.set(-3, 6, 2); s.scene.add(sun);
+    s.scene.add(new HemisphereLight('#cfe0ff', '#6b6256', cfg.outdoor.sky ?? 1.4));
+  }
   s.renderOnce(); await new Promise(r => setTimeout(r, 200)); s.renderOnce();
 };

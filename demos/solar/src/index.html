@@ -2,27 +2,34 @@
 <html lang="en-GB">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cut">
-<title>Solar panels in {Town} | Honest quotes from {Company}</title>
-<meta name="description" content="MCS-certified solar panel and battery installer based in {Town}. Get a cautious, realistic estimate in 60 seconds. No pushy sales, no sign-today discounts.">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>{MetaTitle}</title>
+<meta name="description" content="{MetaDescription}">
+<link rel="canonical" href="{SiteUrl}/">
 <meta name="theme-color" content="#f7f8fa">
-<meta property="og:title" content="Solar panels from a local installer who'll tell you the honest numbers">
-<meta property="og:description" content="Clear quotes, real savings figures and an MCS-certified team based in {Town}.">
+<meta property="og:title" content="{MetaTitle}">
+<meta property="og:description" content="{MetaDescription}">
+<meta property="og:site_name" content="{Company}">
+<meta property="og:locale" content="en_GB">
 <meta property="og:type" content="website">
-<meta property="og:image" content="/img/og.jpg">
+<meta property="og:image" content="{SiteUrl}/img/og.jpg">
+<meta property="og:url" content="{SiteUrl}/">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23141c2b'/%3E%3Cpath d='M8 20l8-9 8 9' stroke='%23f2b33d' stroke-width='3' fill='none'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,300..800;1,62..125,400..700&display=swap">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,300..800;1,62..125,400..700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,300..800;1,62..125,400..700&display=swap"></noscript>
 <link rel="stylesheet" href="/assets/styles.css">
-<link rel="preload" as="image" href="/img/hero-poster.webp" fetchpriority="high">
+<link rel="preload" as="image" href="/img/hero-poster.webp" fetchpriority="high" media="(min-width: 761px)">
+<link rel="preload" as="image" href="/img/hero-poster-m.webp" fetchpriority="high" media="(max-width: 760px)">
 <!--SITE-->
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 
 <div class="deadline-strip" role="note">
-  <span><strong>0% VAT on solar ends 31 March 2027.</strong> <span class="hide-sm">After that, installs pay 5%.</span></span>
+  <span><strong>0% VAT on solar &amp; batteries ends {DeadlineDate}.</strong> <span class="hide-sm">{DaysLeft} days left. After that, installs pay 5%.</span></span>
   <a href="#estimate" data-cta="strip">Check my estimate <i data-icon="arrow-right"></i></a>
 </div>
 
@@ -35,12 +42,13 @@
     <nav class="nav-links" aria-label="Main">
       <a href="#estimate">Estimate</a>
       <a href="#how">How it works</a>
-      <a href="#proof">Local homes</a>
-      <a href="#warranty">Warranty</a>
+      <a href="#compare">Compare quotes</a>
+      <a href="#proof">Reviews</a>
+      <a href="#battery">Batteries</a>
       <a href="#faq">FAQ</a>
     </nav>
     <div class="nav-actions">
-      <a class="nav-phone" href="tel:{PhoneTel}" data-loc="header"><i data-icon="phone"></i><span>{Phone}</span></a>
+      <a class="nav-phone" aria-label="Call {Phone}" href="tel:{PhoneTel}" data-loc="header"><i data-icon="phone"></i><span>{Phone}</span></a>
       <a class="btn btn-primary btn-sm hide-sm" href="#estimate" data-cta="header">Get my honest estimate</a>
     </div>
   </div>
@@ -51,7 +59,7 @@
 <!-- HERO -->
 <section class="hero" aria-labelledby="hero-title">
   <div class="hero-stage" aria-hidden="true">
-    <img class="hero-poster" src="/img/hero-poster.webp" alt="" width="1600" height="1200" fetchpriority="high">
+    <picture><source media="(max-width: 760px)" srcset="/img/hero-poster-m.webp" width="800" height="600"><img class="hero-poster" src="/img/hero-poster.webp" alt="" width="1600" height="1200" fetchpriority="high"></picture>
     <canvas id="hero-canvas"></canvas>
   </div>
   <div class="wrap hero-grid">
@@ -64,8 +72,8 @@
       </div>
       <ul class="trust-line" aria-label="Credentials">
         <li><i data-icon="seal-check"></i> MCS certified</li>
-        <li><i data-icon="shield-check"></i> RECC member</li>
-        <li><i data-icon="star" data-weight="fill"></i> {Rating} from {ReviewCount} local reviews</li>
+        <li><i data-icon="shield-check"></i> Never more than {MaxDeposit} deposit</li>
+        <li><i data-icon="star" data-weight="fill"></i> {Rating} from {ReviewCount} Google reviews</li>
         <li><i data-icon="map-pin"></i> {Years} years in {Town}</li>
       </ul>
     </div>
@@ -93,7 +101,7 @@
         <div class="paper-head"><span>Your written quote</span><i data-icon="check"></i></div>
         <div class="paper-row"><span>System</span><span>Every panel listed</span></div>
         <div class="paper-row"><span>Savings</span><span>Cautious, workings shown</span></div>
-        <div class="paper-row"><span>Deposit</span><span>{DepositTerms}</span></div>
+        <div class="paper-row"><span>Deposit</span><span>Never more than {MaxDeposit}</span></div>
         <div class="paper-row"><span>Time to decide</span><span>As long as you need</span></div>
         <p class="paper-sign">{Owner}<small>Founder, {Company}</small></p>
       </div>
@@ -112,7 +120,7 @@
       <ol class="promise-list">
         <li><span class="tick"><i data-icon="check" data-weight="bold"></i></span><p>We'll never pressure you to sign on the day.</p></li>
         <li><span class="tick"><i data-icon="check" data-weight="bold"></i></span><p>Our savings figures use cautious assumptions, and we'll show you how we worked them out.</p></li>
-        <li><span class="tick"><i data-icon="check" data-weight="bold"></i></span><p>No large deposits. You pay {DepositTerms}.</p></li>
+        <li><span class="tick"><i data-icon="check" data-weight="bold"></i></span><p>Never more than {MaxDeposit} deposit. The rest is due only once your system is switched on and working.</p></li>
         <li><span class="tick"><i data-icon="check" data-weight="bold"></i></span><p>If solar isn't worth it for your home, we'll tell you.</p></li>
       </ol>
       <div class="promise-sign">
@@ -127,33 +135,32 @@
 <section id="estimate" class="estimate" aria-labelledby="estimate-title">
   <div class="wrap estimate-grid">
     <div class="estimate-intro">
-      <p class="kicker"><i data-icon="timer"></i> 60 seconds</p>
-      <h2 id="estimate-title" class="h2">See your estimate in 60 seconds</h2>
-      <p class="body-lg">Answer four quick questions and get a realistic ballpark. No phone call needed.</p>
+      <p class="kicker"><i data-icon="timer"></i> 60 seconds · no details needed</p>
+      <h2 id="estimate-title" class="h2">See your price range in 60 seconds</h2>
+      <p class="body-lg">Four quick questions. You see the price, the yearly saving and the payback time straight away. We only ask for your details if you want the exact figure.</p>
       <ul class="estimate-notes">
-        <li><i data-icon="lock-simple"></i> Your answers stay with us. We don't sell leads.</li>
-        <li><i data-icon="ruler"></i> Cautious figures. The exact number comes after a free roof survey.</li>
+        <li><i data-icon="eye"></i> Your range shows before we ask for anything.</li>
+        <li><i data-icon="ruler"></i> Cautious figures. Most homes here land within this range after the free survey.</li>
+        <li><i data-icon="lock-simple"></i> We don't sell leads, and we never pass your number on.</li>
       </ul>
     </div>
 
-    <div class="estimator" id="estimator" data-capture="after">
+    <div class="estimator" id="estimator">
       <div class="est-progress" aria-hidden="true"><span class="est-bar"></span></div>
       <p class="est-count" aria-live="polite">Question <span data-est-num>1</span> of 4</p>
 
       <form class="est-form" novalidate>
-        <!-- 1 -->
         <fieldset class="est-step is-active" data-step="1">
           <legend class="est-q">What's your postcode?</legend>
-          <p class="est-help">So we can check your roof is in our area and use local sunlight figures.</p>
+          <p class="est-help">So we can check you're in our area and use local sunlight figures.</p>
           <div class="field">
             <label for="est-postcode" class="sr-only">Postcode</label>
-            <input id="est-postcode" name="postcode" data-kind="post" required data-req="Enter your postcode to continue." autocomplete="postal-code" inputmode="text" placeholder="e.g. HG1 2AB" class="input input-lg">
+            <input id="est-postcode" name="postcode" data-kind="post" required data-req="Enter your postcode to continue." autocomplete="postal-code" inputmode="text" placeholder="e.g. {Postcode}" class="input input-lg">
             <p class="err" aria-live="polite"></p>
           </div>
           <div class="est-nav"><span></span><button type="button" class="btn btn-primary" data-next>Next <i data-icon="arrow-right"></i></button></div>
         </fieldset>
 
-        <!-- 2 -->
         <fieldset class="est-step" data-step="2">
           <legend class="est-q">Roughly how much is your monthly electricity bill?</legend>
           <p class="est-help">Electricity only. A guess is fine.</p>
@@ -164,7 +171,6 @@
           <div class="est-nav"><button type="button" class="btn btn-text" data-back>Back</button><button type="button" class="btn btn-primary" data-next>Next <i data-icon="arrow-right"></i></button></div>
         </fieldset>
 
-        <!-- 3 -->
         <fieldset class="est-step" data-step="3">
           <legend class="est-q">Which way does your roof face?</legend>
           <p class="est-help">The side you'd put panels on. Not sure is a perfectly good answer.</p>
@@ -176,10 +182,9 @@
           <div class="est-nav"><button type="button" class="btn btn-text" data-back>Back</button><span></span></div>
         </fieldset>
 
-        <!-- 4 -->
         <fieldset class="est-step" data-step="4">
           <legend class="est-q">Interested in a battery?</legend>
-          <p class="est-help">A battery stores daytime power for the evening. It's not always worth it, and we'll say so.</p>
+          <p class="est-help">A battery stores daytime power for the evening. It isn't always worth it, and we'll say so.</p>
           <div class="choice-grid">
             <label class="choice"><input type="radio" name="battery" value="yes"><span><b>Yes</b><small>Include one</small></span></label>
             <label class="choice"><input type="radio" name="battery" value="no"><span><b>No</b><small>Panels only</small></span></label>
@@ -189,40 +194,54 @@
         </fieldset>
       </form>
 
-      <!-- contact (before or after the result, depending on mode) -->
-      <form class="est-step est-contact" data-step="contact" novalidate>
-        <p class="est-q" data-contact-title>Where should we send your estimate?</p>
-        <p class="est-help" data-contact-help>We'll show it on screen straight away. No call unless you ask for one.</p>
-        <div class="field"><label for="ec-name">Your name</label><input id="ec-name" name="name" required data-req="Please add your name." autocomplete="name" class="input"><p class="err"></p></div>
-        <div class="field-row">
-          <div class="field"><label for="ec-phone">Phone</label><input id="ec-phone" name="phone" type="tel" required data-req="Add a phone number so we can arrange the survey." autocomplete="tel" class="input"><p class="err"></p></div>
-          <div class="field"><label for="ec-email">Email</label><input id="ec-email" name="email" type="email" required data-req="Add your email for a copy of the estimate." autocomplete="email" class="input"><p class="err"></p></div>
-        </div>
-        <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
-        <div class="est-nav"><button type="button" class="btn btn-text" data-back-contact>Back</button><button type="submit" class="btn btn-primary" data-contact-btn>Show my estimate <i data-icon="arrow-right"></i></button></div>
-        <p class="form-status" aria-live="polite"></p>
-        <div class="sent-note"><i data-icon="calendar-check"></i><div><b>Thanks, that's booked in.</b><p>{Owner} or the team will call you within one working day to pick a survey time. No sales pitch.</p></div></div>
-      </form>
-
-      <!-- result -->
+      <!-- result: always shown before any contact details are asked for -->
       <div class="est-step est-result" data-step="result" aria-live="polite">
-        <p class="res-label">A system for your home would likely cost between</p>
-        <p class="res-range"><span data-low>£0</span><span class="to">and</span><span data-high>£0</span></p>
-        <div class="res-split">
-          <div><p class="res-k">Estimated savings</p><p class="res-v">around <b data-savings>£0</b> a year</p></div>
-          <div><p class="res-k">Likely system</p><p class="res-v"><b data-panels>0</b> panels, <b data-kwp>0</b> kWp</p></div>
+        <p class="res-label">A system for your home would likely cost</p>
+        <p class="res-range"><span data-low>{SampleLow}</span><span class="to">to</span><span data-high>{SampleHigh}</span></p>
+        <div class="res-split res-3">
+          <div><p class="res-k">Yearly saving</p><p class="res-v"><b data-save-low>{SampleSaveLow}</b>–<b data-save-high>{SampleSaveHigh}</b></p></div>
+          <div><p class="res-k">Pays for itself in</p><p class="res-v"><b data-pay>{SamplePayLow}–{SamplePayHigh}</b> years</p></div>
+          <div><p class="res-k">Likely system</p><p class="res-v"><b data-panels>{SamplePanels}</b> panels · <b data-kwp>{SampleKwp}</b> kWp</p></div>
         </div>
-        <p class="res-note">This is a cautious estimate. Your exact figure comes after a free roof survey.</p>
+        <p class="res-note" data-batt-note>Adding a battery usually adds {BatteryLow} to {BatteryHigh}. Prices include 0% VAT until {DeadlineDate}.</p>
         <details class="workings">
           <summary>How we worked this out</summary>
           <ul data-workings></ul>
-          <p class="placeholder-note" data-placeholder-note>Demo pricing. {Company} supplies its real price ranges before launch.</p>
         </details>
-        <div class="res-actions">
-          <button type="button" class="btn btn-primary btn-lg" data-book>Book my free survey <i data-icon="arrow-right"></i></button>
-          <button type="button" class="btn btn-text" data-restart>Start again</button>
+        <div class="res-next">
+          <p class="res-next-h">Want the exact figure?</p>
+          <p class="res-next-p">Book a free roof survey. {OwnerFirst} measures up, checks the roof and gives you a written quote. No pressure, no same-day deals.</p>
+          <div class="res-actions">
+            <button type="button" class="btn btn-primary btn-lg" data-book>Book my free survey <i data-icon="arrow-right"></i></button>
+            <button type="button" class="btn btn-text" data-restart>Start again</button>
+          </div>
         </div>
       </div>
+
+      <!-- booking: only after the range has been shown -->
+      <form class="est-step est-contact" data-step="contact" novalidate>
+        <p class="est-q">Book your free survey</p>
+        <p class="est-help">We'll call to find a time that suits you. We reply within {ResponseTime} during working hours.</p>
+        <div class="field"><label for="ec-name">Your name</label><input id="ec-name" name="name" required data-req="Please add your name." autocomplete="name" class="input"><p class="err"></p></div>
+        <div class="field-row">
+          <div class="field"><label for="ec-phone">Phone</label><input id="ec-phone" name="phone" type="tel" required data-req="Add a phone number so we can arrange the survey." autocomplete="tel" class="input"><p class="err"></p></div>
+          <div class="field"><label for="ec-post">Postcode</label><input id="ec-post" name="postcode" data-kind="post" required data-req="Add your postcode." autocomplete="postal-code" class="input"><p class="err"></p></div>
+        </div>
+        <fieldset class="field when">
+          <legend>Best time to call</legend>
+          <div class="pills">
+            <label class="pill"><input type="radio" name="bestTime" value="morning" checked><span>Morning</span></label>
+            <label class="pill"><input type="radio" name="bestTime" value="afternoon"><span>Afternoon</span></label>
+            <label class="pill"><input type="radio" name="bestTime" value="evening"><span>Evening</span></label>
+            <label class="pill"><input type="radio" name="bestTime" value="any"><span>Any time</span></label>
+          </div>
+        </fieldset>
+        <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <div class="est-nav"><button type="button" class="btn btn-text" data-back-contact>Back to my price</button><button type="submit" class="btn btn-primary">Book my free survey <i data-icon="arrow-right"></i></button></div>
+        <p class="reply-promise"><i data-icon="lightning" data-weight="fill"></i> Replies within {ResponseTime}, {Hours}.</p>
+        <p class="form-status" aria-live="polite"></p>
+        <div class="sent-note"><i data-icon="calendar-check"></i><div><b>Thanks, that's booked in.</b><p>{OwnerFirst} or the team will call you within {ResponseTime} during working hours to pick a survey time. No sales pitch.</p></div></div>
+      </form>
     </div>
   </div>
 </section>
@@ -230,12 +249,50 @@
 <!-- DEADLINE -->
 <section class="deadline" aria-labelledby="deadline-title">
   <div class="wrap deadline-inner" data-reveal>
-    <div class="deadline-count" aria-hidden="true"><span data-days>0</span><small>days left</small></div>
+    <div class="deadline-count" aria-hidden="true"><span data-days>{DaysLeft}</span><small>days left</small></div>
     <div>
-      <h2 id="deadline-title" class="h3">0% VAT on solar panels ends 31 March 2027.</h2>
-      <p>Installations after that date pay 5%. Get your survey booked in time.</p>
+      <h2 id="deadline-title" class="h3">0% VAT on solar panels and batteries ends {DeadlineDate}.</h2>
+      <p>Installations after that date pay 5%. Book your survey in time to be sure of the current rate.</p>
     </div>
-    <a class="btn btn-primary" href="#estimate" data-cta="deadline">Book my free survey</a>
+    <a class="btn btn-primary" href="#estimate" data-cta="deadline">Get my price range</a>
+  </div>
+</section>
+
+<!-- CHEAPER QUOTE -->
+<section id="compare" class="compare" aria-labelledby="compare-title">
+  <div class="wrap">
+    <div class="compare-head" data-reveal>
+      <h2 id="compare-title" class="h2">Why our quote might not be the cheapest (and why that matters)</h2>
+      <p class="body-lg">Two quotes for the same size system can be £2,000 apart. The gap is almost always in the parts you can't see on the day: the kit, the paperwork and who picks up the phone in year six.</p>
+    </div>
+    <div class="vs" role="table" aria-label="A typical cheap quote compared with ours" data-reveal>
+      <div class="vs-row vs-headrow" role="row"><span role="columnheader">What you're paying for</span><span role="columnheader">The cheapest quote</span><span role="columnheader">{Company}</span></div>
+      <div class="vs-row" role="row"><span role="rowheader">Panels &amp; inverter</span><span role="cell">“Equivalent” brand, sometimes swapped on the day</span><span role="cell">Named tier-1 panels and inverter, model numbers printed on your quote</span></div>
+      <div class="vs-row" role="row"><span role="rowheader">Battery</span><span role="cell">Added to every quote to raise the price</span><span role="cell">Only if the numbers work for how you use energy</span></div>
+      <div class="vs-row" role="row"><span role="rowheader">Scaffolding</span><span role="cell">Ladders, or “extra” on the final invoice</span><span role="cell">Full scaffold included in the price, edge protection on every job</span></div>
+      <div class="vs-row" role="row"><span role="rowheader">MCS paperwork</span><span role="cell">Weeks late, so export payments start late</span><span role="cell">MCS certificate and DNO sign-off handled for you, so you can claim export payments</span></div>
+      <div class="vs-row" role="row"><span role="rowheader">Workmanship warranty</span><span role="cell">1 to 2 years, only valid while they trade</span><span role="cell">{WorkmanshipWarranty}, insurance-backed even if we ever stop trading</span></div>
+      <div class="vs-row" role="row"><span role="rowheader">Aftercare</span><span role="cell">A call centre, if anyone answers</span><span role="cell">A local team. {OwnerFirst}'s number is on your paperwork.</span></div>
+    </div>
+
+    <div class="qcheck" data-reveal>
+      <div class="qcheck-copy">
+        <h3 class="h3">Got another quote? Send it over.</h3>
+        <p>We'll tell you honestly if it's a good deal, even if it's not ours. Most people hear back within {ResponseTime} during working hours.</p>
+      </div>
+      <form class="qcheck-form" id="quote-check" novalidate>
+        <div class="field-row">
+          <div class="field"><label for="qc-name">Name</label><input id="qc-name" name="name" required data-req="Please add your name." autocomplete="name" class="input"><p class="err"></p></div>
+          <div class="field"><label for="qc-phone">Phone</label><input id="qc-phone" name="phone" type="tel" required data-req="Add a number so we can call you back." autocomplete="tel" class="input"><p class="err"></p></div>
+        </div>
+        <div class="field"><label for="qc-quote">What were you quoted? <span class="opt">Price, system size, any brands</span></label><textarea id="qc-quote" name="quote" rows="2" class="input" placeholder="e.g. £8,900 for 10 panels and a 5 kWh battery"></textarea><p class="err"></p></div>
+        <div class="field"><label for="qc-file">Attach the quote <span class="opt">Optional · PDF or photo</span></label><input id="qc-file" name="file" type="file" accept=".pdf,image/*" class="input input-file"><p class="err"></p></div>
+        <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <button type="submit" class="btn btn-primary btn-block">Check my quote</button>
+        <p class="form-status" aria-live="polite"></p>
+        <div class="sent-note"><i data-icon="check"></i><div><b>Thanks. We're on it.</b><p>{OwnerFirst} will look it over and call you within {ResponseTime} during working hours, with an honest opinion either way.</p></div></div>
+      </form>
+    </div>
   </div>
 </section>
 
@@ -264,34 +321,96 @@
 <!-- PROOF -->
 <section id="proof" class="proof" aria-labelledby="proof-title">
   <div class="wrap">
-    <h2 id="proof-title" class="h2" data-reveal>Real homes in {Town}</h2>
+    <h2 id="proof-title" class="h2" data-reveal>Real homes around {Town}</h2>
   </div>
   <div class="rail" tabindex="0" aria-label="Recent installations">
     <!--LIST:jobs-->
     <figure class="job" data-reveal>
-      <div class="job-img"><img src="{{img}}" alt="Solar installation in {{town|Job town}}" loading="lazy" width="1200" height="900"></div>
+      <div class="job-img"><img src="{{img}}" alt="{{size}} kWp solar panel installation on a home in {{town}}" loading="lazy" width="1200" height="900"></div>
       <figcaption>
-        <p class="job-meta"><span><i data-icon="map-pin"></i> {{town|Job town}}</span><span><i data-icon="lightning"></i> {{size|System size}} kWp</span><span><i data-icon="battery-charging"></i> Battery: {{battery|Yes / No}}</span></p>
-        <p class="job-quote">“{{quote|One-line customer quote}}”</p>
+        <p class="job-meta"><span><i data-icon="map-pin"></i> {{town}}</span><span><i data-icon="lightning"></i> {{size}} kWp</span><span><i data-icon="battery-charging"></i> {{battery}}</span></p>
+        <p class="job-quote">“{{quote}}”</p>
       </figcaption>
     </figure>
     <!--/LIST-->
   </div>
-  <p class="wrap rail-note">Sample renders shown. Replaced with {Company}'s own job photos before launch.</p>
 
   <div class="wrap reviews">
     <div class="reviews-head" data-reveal>
-      <p class="rating-big"><span>{Rating}</span><span class="stars" aria-label="Star rating"><i data-icon="star" data-weight="fill"></i><i data-icon="star" data-weight="fill"></i><i data-icon="star" data-weight="fill"></i><i data-icon="star" data-weight="fill"></i><i data-icon="star" data-weight="fill"></i></span></p>
-      <p class="muted">From {ReviewCount} reviews by neighbours in and around {Town}.</p>
+      <p class="g-source"><svg class="g-logo" viewBox="0 0 48 48" aria-hidden="true"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-7.9l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.4-.4-3.5z"/></svg> Reviews from Google</p>
+      <p class="rating-big"><span>{Rating}</span><span class="stars" role="img" aria-label="{Rating} out of 5 stars"><i data-icon="star" data-weight="fill"></i><i data-icon="star" data-weight="fill"></i><i data-icon="star" data-weight="fill"></i><i data-icon="star" data-weight="fill"></i><i data-icon="star" data-weight="fill"></i></span></p>
+      <p class="muted">Based on {ReviewCount} Google reviews from homes in and around {Town}.</p>
     </div>
     <div class="review-grid">
       <!--LIST:reviews-->
       <article class="review" data-reveal>
-        <div class="stars sm"><i data-icon="star" data-weight="fill"></i><i data-icon="star" data-weight="fill"></i><i data-icon="star" data-weight="fill"></i><i data-icon="star" data-weight="fill"></i><i data-icon="star" data-weight="fill"></i><span class="r">{{rating|Rating}}</span></div>
-        <p class="review-text">“{{text|Customer's review, in their words}}”</p>
-        <p class="review-by"><b>{{name|Customer name}}</b><span>{{town|Town}} · {{date|Month year}}</span></p>
+        <header class="review-top">
+          <span class="avatar" aria-hidden="true">{{initials}}</span>
+          <span class="review-by"><b>{{name}}</b><span>{{town}}</span></span>
+          <svg class="g-mini" viewBox="0 0 48 48" aria-label="Google review" role="img"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-7.9l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.4-.4-3.5z"/></svg>
+        </header>
+        <div class="stars sm" role="img" aria-label="{{rating}} out of 5 stars"><i data-icon="star" data-weight="fill"></i><i data-icon="star" data-weight="fill"></i><i data-icon="star" data-weight="fill"></i><i data-icon="star" data-weight="fill"></i><i data-icon="star" data-weight="fill"></i><span class="r">{{date}}</span></div>
+        <p class="review-text">{{text}}</p>
       </article>
       <!--/LIST-->
+    </div>
+  </div>
+</section>
+
+<!-- BATTERY RETROFIT -->
+<section id="battery" class="retrofit" aria-labelledby="battery-title">
+  <div class="wrap retrofit-grid">
+    <div class="retrofit-copy" data-reveal>
+      <p class="kicker"><i data-icon="battery-charging"></i> Already got panels?</p>
+      <h2 id="battery-title" class="h2">Add a battery and use your own sunshine after dark.</h2>
+      <p class="body-lg">Lots of systems were fitted without one, so the best part of the day's power is sold back for a few pence. A battery keeps it for the evening, and can charge on a cheap overnight rate in winter.</p>
+      <ul class="ticks">
+        <li><i data-icon="check" data-weight="bold"></i><span>0% VAT applies to battery retrofits too, until {DeadlineDate}</span></li>
+        <li><i data-icon="check" data-weight="bold"></i><span>Typically {BatteryLow} to {BatteryHigh} fitted, usually in half a day</span></li>
+        <li><i data-icon="check" data-weight="bold"></i><span>Works with most existing systems, even if someone else installed them</span></li>
+        <li><i data-icon="check" data-weight="bold"></i><span>We'll tell you straight if your usage doesn't justify one</span></li>
+      </ul>
+      <div class="hero-ctas">
+        <a class="btn btn-primary btn-lg" href="#contact" data-cta="battery-retrofit">Ask about a battery <i data-icon="arrow-right"></i></a>
+        <a class="btn btn-ghost btn-lg" href="tel:{PhoneTel}" data-loc="battery"><i data-icon="phone"></i> {Phone}</a>
+      </div>
+    </div>
+    <div class="batt-card" aria-hidden="true" data-reveal>
+      <div class="batt-day">
+        <p class="batt-k">Without a battery</p>
+        <div class="batt-bars"><span style="--h:.2"></span><span style="--h:.55"></span><span style="--h:.9"></span><span style="--h:1"></span><span style="--h:.8"></span><span style="--h:.45"></span><span class="off" style="--h:.08"></span><span class="off" style="--h:.04"></span></div>
+        <p class="batt-cap">Peak at midday. Evenings back on the grid.</p>
+      </div>
+      <div class="batt-day is-good">
+        <p class="batt-k">With a battery</p>
+        <div class="batt-bars"><span style="--h:.2"></span><span style="--h:.55"></span><span style="--h:.9"></span><span style="--h:1"></span><span style="--h:.8"></span><span style="--h:.45"></span><span class="st" style="--h:.7"></span><span class="st" style="--h:.6"></span></div>
+        <p class="batt-cap">Daytime surplus powers the evening.</p>
+      </div>
+      <p class="batt-axis"><span>6am</span><span>Noon</span><span>6pm</span><span>10pm</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- PAYING FOR IT -->
+<section class="paying" aria-labelledby="paying-title">
+  <div class="wrap">
+    <h2 id="paying-title" class="h2" data-reveal>Paying for it, in plain English</h2>
+    <div class="pay-grid">
+      <article class="pay" data-reveal>
+        <i data-icon="hand-coins" data-weight="duotone"></i>
+        <h3>Never more than {MaxDeposit} deposit</h3>
+        <p>The balance is due only once your system is switched on and working. Nothing is taken on the day of the survey.</p>
+      </article>
+      <article class="pay" data-reveal>
+        <i data-icon="scales" data-weight="duotone"></i>
+        <h3>We don't push finance</h3>
+        <p>Most customers pay outright. If you'd rather spread the cost, we'll show you the full amount payable before you sign, and we never earn more for selling it.</p>
+      </article>
+      <article class="pay" data-reveal>
+        <i data-icon="charging-station" data-weight="duotone"></i>
+        <h3>EV charger while we're there</h3>
+        <p>Thinking about an electric car? We can fit a smart charger on the same visit, set to charge from your panels first.</p>
+      </article>
     </div>
   </div>
 </section>
@@ -299,15 +418,19 @@
 <!-- TEAM -->
 <section class="team" aria-labelledby="team-title">
   <div class="wrap team-grid">
-    <div class="owner-photo" data-reveal>
-      <div class="photo-slot"><i data-icon="camera"></i><span>Photo of {Owner} on a real job</span></div>
-    </div>
+    <figure class="owner-note" data-reveal>
+      <img src="/img/job-2.webp" alt="Solar installation by {Company} on a home in {Town}" loading="lazy" width="1200" height="900">
+      <figcaption>
+        <p class="owner-q">“If solar isn't worth it for your house, I'll tell you on the survey. I'd rather lose the job than sell you something that won't pay back.”</p>
+        <p class="owner-by"><span class="avatar lg" aria-hidden="true">{OwnerInitials}</span><span><b>{Owner}</b><small>{OwnerRole}, {Company}</small></span></p>
+      </figcaption>
+    </figure>
     <div class="team-copy" data-reveal>
       <h2 id="team-title" class="h2">Who'll actually be on your roof</h2>
-      <p class="body-lg">{Owner} started {Company} in {YearFounded} after {OwnerStory}. Every install is done by our own trained team.</p>
+      <p class="body-lg">{Owner} started {Company} in {YearFounded} after {OwnerStory}. {InstallsDone} installs later, every job is still done by our own trained team, never subcontractors.</p>
       <ul class="crew">
         <!--LIST:team-->
-        <li><span class="crew-photo"><i data-icon="camera"></i></span><span><b>{{name|Name}}</b><small>{{role|Role}}</small></span></li>
+        <li><span class="avatar" aria-hidden="true">{{initials}}</span><span><b>{{name}}</b><small>{{role}}</small></span></li>
         <!--/LIST-->
       </ul>
     </div>
@@ -322,11 +445,12 @@
       <div class="tl-axis" aria-hidden="true"><span>Install day</span><span>5 yrs</span><span>10 yrs</span><span>15 yrs</span><span>20 yrs</span><span>25 yrs</span></div>
       <div class="tl-row" data-years="panels"><p><b>Panels</b><span>{PanelWarranty}</span></p><div class="tl-track"><span class="tl-bar"></span></div></div>
       <div class="tl-row" data-years="inverter"><p><b>Inverter</b><span>{InverterWarranty}</span></p><div class="tl-track"><span class="tl-bar"></span></div></div>
+      <div class="tl-row" data-years="battery"><p><b>Battery</b><span>{BatteryWarranty}</span></p><div class="tl-track"><span class="tl-bar"></span></div></div>
       <div class="tl-row" data-years="workmanship"><p><b>Workmanship</b><span>{WorkmanshipWarranty}</span></p><div class="tl-track"><span class="tl-bar"></span></div></div>
     </div>
     <div class="backstop" data-reveal>
       <i data-icon="shield-check" data-weight="duotone"></i>
-      <div><h3 class="h3">Insurance-backed, even if we ever stop trading.</h3><p>Your workmanship warranty is held by an independent insurer, so it doesn't depend on us still being here.</p></div>
+      <div><h3 class="h3">Insurance-backed, even if we ever stop trading.</h3><p>Your workmanship warranty is held by an independent insurer, so it doesn't depend on us still being here. We're MCS certified ({MCSNumber}) and RECC members ({RECCNumber}).</p></div>
     </div>
   </div>
 </section>
@@ -336,11 +460,12 @@
   <div class="wrap faq-grid">
     <h2 id="faq-title" class="h2">Questions people ask before they call</h2>
     <div class="faq-list">
-      <details><summary>Will solar actually save me money?<i data-icon="caret-down"></i></summary><div class="a"><p>For most homes, yes, but it depends on your roof, usage and tariff. Our estimate shows you before you commit.</p></div></details>
-      <details><summary>Do I need a battery?<i data-icon="caret-down"></i></summary><div class="a"><p>Not always. We'll tell you honestly whether one is worth it for how you use energy.</p></div></details>
-      <details><summary>What happens if you go out of business?<i data-icon="caret-down"></i></summary><div class="a"><p>Your workmanship warranty is insurance-backed, so you're protected.</p></div></details>
-      <details><summary>Is there a catch with the free survey?<i data-icon="caret-down"></i></summary><div class="a"><p>No. You get a written quote and time to think. We don't do same-day pressure.</p></div></details>
-      <details><summary>How long does installation take?<i data-icon="caret-down"></i></summary><div class="a"><p>Usually {InstallDays} day(s) for a typical home.</p></div></details>
+      <details><summary>Will solar actually save me money?<i data-icon="caret-down"></i></summary><div class="a"><p>For most homes, yes, but it depends on your roof, usage and tariff. The estimator above shows you a cautious range before you give us any details.</p></div></details>
+      <details><summary>Why is your quote higher than someone else's?<i data-icon="caret-down"></i></summary><div class="a"><p>Sometimes it is, usually because we include scaffolding, named kit and a longer insurance-backed warranty. Send us the other quote and we'll go through it with you line by line.</p></div></details>
+      <details><summary>Do I need a battery?<i data-icon="caret-down"></i></summary><div class="a"><p>Not always. We'll tell you honestly whether one is worth it for how you use energy. If you already have panels, a battery can be added later.</p></div></details>
+      <details><summary>How much deposit do I pay?<i data-icon="caret-down"></i></summary><div class="a"><p>Never more than {MaxDeposit}, and nothing on the day of the survey. The rest is due once your system is working.</p></div></details>
+      <details><summary>What happens if you go out of business?<i data-icon="caret-down"></i></summary><div class="a"><p>Your workmanship warranty is insurance-backed, so you're protected either way.</p></div></details>
+      <details><summary>How long does installation take?<i data-icon="caret-down"></i></summary><div class="a"><p>Usually {InstallDays} days for a typical home, scaffold included.</p></div></details>
     </div>
   </div>
 </section>
@@ -352,7 +477,7 @@
       <h2 id="final-title" class="h2">Get honest numbers before you decide anything.</h2>
       <p class="body-lg">Two minutes online, or a call with someone local. No pressure either way.</p>
       <div class="hero-ctas">
-        <a class="btn btn-primary btn-lg" href="#estimate" data-cta="final">Get my estimate <i data-icon="arrow-right"></i></a>
+        <a class="btn btn-primary btn-lg" href="#estimate" data-cta="final">Get my price range <i data-icon="arrow-right"></i></a>
         <a class="btn btn-ghost-light btn-lg" href="tel:{PhoneTel}" data-loc="final"><i data-icon="phone"></i> Call {Phone}</a>
       </div>
     </div>
@@ -366,8 +491,9 @@
       <div class="field"><label for="q-msg">Anything we should know? <span class="opt">Optional</span></label><textarea id="q-msg" name="message" rows="3" class="input"></textarea><p class="err"></p></div>
       <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
       <button type="submit" class="btn btn-primary btn-block">Request a call back</button>
+      <p class="reply-promise"><i data-icon="lightning" data-weight="fill"></i> We reply within {ResponseTime} during working hours.</p>
       <p class="form-status" aria-live="polite"></p>
-      <div class="sent-note"><i data-icon="check"></i><div><b>Got it. Thank you.</b><p>We'll call within one working day. If you'd rather not wait, ring {Phone}.</p></div></div>
+      <div class="sent-note"><i data-icon="check"></i><div><b>Got it. Thank you.</b><p>We'll call within {ResponseTime} during working hours. If you'd rather not wait, ring {Phone}.</p></div></div>
     </form>
   </div>
 </section>
@@ -386,10 +512,10 @@
     </div>
     <div>
       <p class="f-h">Certifications</p>
-      <ul class="f-list"><li>MCS certified · {MCSNumber}</li><li>RECC member · {RECCNumber}</li></ul>
+      <ul class="f-list"><li>MCS certified · {MCSNumber}</li><li>RECC member · {RECCNumber}</li><li>{Hours}</li></ul>
     </div>
   </div>
-  <div class="wrap footer-base"><span>© {Company}</span><a href="/privacy.html">Privacy</a></div>
+  <div class="wrap footer-base"><span>© {Year} {Company}</span><a href="/privacy.html">Privacy</a></div>
 </footer>
 
 <div class="mobile-bar" role="region" aria-label="Quick actions">

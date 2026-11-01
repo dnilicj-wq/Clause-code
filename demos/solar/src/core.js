@@ -28,7 +28,10 @@ export function personalise() {
       if (val && val.includes('{')) el.setAttribute(a, val.replace(/\{([A-Za-z0-9]+)\}/g, (m, k) => overrides[k] || m));
     }
   });
-  document.title = document.title.replace(/\{([A-Za-z0-9]+)\}/g, (m, k) => overrides[k] || m);
+  // Baked values in the title + meta tags: swap the configured value for the override.
+  const swap = (str) => Object.entries(overrides).reduce((acc, [k, v]) => (tokens[k] ? acc.split(tokens[k]).join(v) : acc), str);
+  document.title = swap(document.title);
+  document.querySelectorAll('meta[content]').forEach((m) => m.setAttribute('content', swap(m.getAttribute('content'))));
   Object.assign(tokens, overrides);
 }
 
@@ -110,7 +113,11 @@ export function wireForm(form, { name = 'enquiry', extra = () => ({}), onSuccess
     btn.disabled = true; btn.classList.add('is-busy');
     if (status) status.textContent = '';
     try {
-      const data = Object.fromEntries(inputs.map((i) => [i.name, i.value.trim()]));
+      const data = {};
+      for (const i of inputs) {
+        if ((i.type === 'radio' || i.type === 'checkbox') && !i.checked) continue;
+        data[i.name] = i.type === 'file' ? [...i.files].map((f) => f.name).join(', ') : i.value.trim();
+      }
       await submitLead({ form: name, ...data, ...extra() });
       track('form_submit', { form: name });
       form.classList.add('is-sent');
@@ -219,4 +226,44 @@ export function scrollProgress(section, cb) {
 export function daysUntil(dateStr) {
   const d = new Date(dateStr + 'T23:59:59');
   return Math.max(0, Math.ceil((d - new Date()) / 86400000));
+}
+
+/* ---------- Date/config-derived values: keep baked text fresh ---------- */
+export function refreshDerived(values) {
+  for (const [k, v] of Object.entries(values)) {
+    document.querySelectorAll(`[data-token="${k}"]`).forEach((el) => { if (el.textContent !== v) el.textContent = v; });
+  }
+}
+
+/* ---------- When (and whether) to start WebGL ----------
+   Desktop: once the page is idle. Touch devices: on the first scroll or tap,
+   so the first paint stays fast on mobile data. Software renderers
+   (no GPU) get the static posters instead. ?gl=force / ?gl=off override. */
+export function whenReadyFor3D() {
+  const q = params.get('gl');
+  if (q === 'off') return Promise.resolve(false);
+  let ok = false, soft = false;
+  try {
+    const c = document.createElement('canvas');
+    const gl = c.getContext('webgl2') || c.getContext('webgl');
+    if (gl) {
+      ok = true;
+      const ext = gl.getExtension('WEBGL_debug_renderer_info');
+      const name = ext ? gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) : gl.getParameter(gl.RENDERER);
+      soft = /swiftshader|llvmpipe|software|basic render/i.test(String(name));
+      gl.getExtension('WEBGL_lose_context')?.loseContext();
+    }
+  } catch {}
+  if (!ok || (soft && q !== 'force')) return Promise.resolve(false);
+  const idle = window.requestIdleCallback || ((f) => setTimeout(f, 200));
+  return new Promise((resolve) => {
+    const go = () => idle(() => resolve(true), { timeout: 1500 });
+    if (q === 'force' || finePointer) {
+      if (document.readyState === 'complete') go(); else addEventListener('load', go, { once: true });
+      return;
+    }
+    const evs = ['scroll', 'touchstart', 'pointerdown', 'keydown'];
+    const once = () => { evs.forEach((e) => removeEventListener(e, once)); go(); };
+    evs.forEach((e) => addEventListener(e, once, { passive: true }));
+  });
 }

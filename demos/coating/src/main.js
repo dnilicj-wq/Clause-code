@@ -1,7 +1,8 @@
 import {
   SITE, reduceMotion, finePointer, personalise, track, wireCallTracking, wireForm,
-  reveals, countTo, faq, chrome, smoothScroll, viewProgress,
+  reveals, countTo, faq, chrome, smoothScroll, viewProgress, refreshDerived, whenReadyFor3D,
 } from './core.js';
+import derive, { estimate, monthly, usd } from './derive.js';
 
 personalise();
 wireCallTracking();
@@ -11,7 +12,7 @@ const faqList = document.querySelector('.faq-list');
 if (faqList) faq(faqList);
 smoothScroll();
 
-const usd = (n) => '$' + (Math.round(n / 10) * 10).toLocaleString('en-US');
+const usd10 = (n) => usd(Math.round(n / 10) * 10);
 
 /* ---------- Cross-section: layers separate as the section scrolls through ---------- */
 const xsec = document.querySelector('[data-xsec]');
@@ -45,102 +46,61 @@ document.querySelectorAll('.ba').forEach((ba) => {
   });
 });
 
-/* ---------- Instant price ---------- */
+/* ---------- Live date-based values (booking month etc.) ---------- */
+refreshDerived(derive(SITE, new Date()));
+
+/* ---------- Instant price: range first, booking only if they want it ---------- */
 const est = document.getElementById('estimator');
 if (est) {
   const P = SITE.estimator;
-  const q = new URLSearchParams(location.search).get('capture');
-  const mode = q === 'before' || q === 'after' ? q : SITE.estimatorCapture || 'after';
-  est.dataset.capture = mode;
   const form = est.querySelector('.est-controls');
   const sqft = form.sqft;
   const sqftOut = est.querySelector('[data-sqft]');
-  const live = est.querySelector('[data-live]');
-  const empty = est.querySelector('[data-empty]');
   const contact = est.querySelector('[data-contact]');
-  const gate = est.querySelector('[data-gate]');
-  const lockBtn = est.querySelector('[data-lock]');
+  const live = est.querySelector('[data-live]');
   const low = est.querySelector('[data-low]'), high = est.querySelector('[data-high]');
-  let started = false, completed = false, unlocked = mode === 'after', figures = null, completeTimer = 0;
-
-  est.querySelector('[data-placeholder-note]').hidden = !SITE.pricingIsPlaceholder;
+  const monthlyEl = est.querySelector('[data-monthly]');
+  let started = false, figures = null, completeTimer = 0, completed = false;
 
   const setSqftFill = () => {
     sqftOut.textContent = Number(sqft.value).toLocaleString('en-US');
     sqft.style.setProperty('--fill', (sqft.value - sqft.min) / (sqft.max - sqft.min));
   };
 
-  function calc() {
-    const space = form.space.value;
-    const finish = form.finish.value;
-    const cond = form.condition.value;
-    const s = Number(sqft.value);
-    const [lo, hi] = P.perSqft[finish];
-    const add = P.condition[cond] || 0;
-    return {
-      space, finish, cond, sqft: s,
-      low: Math.max(P.minimumJob, s * (lo + add)),
-      high: Math.max(P.minimumJob * 1.2, s * (hi + add)),
-    };
-  }
-
-  function update(source) {
-    if (!started) { started = true; track('estimator_start', { mode }); }
-    if (source === 'space') {
-      sqft.value = P.spaces[form.space.value].sqft;
-    }
+  function update(source, silent) {
+    if (!silent && !started) { started = true; track('estimator_start'); }
+    if (source === 'space') sqft.value = P.spaces[form.space.value].sqft;
     setSqftFill();
-    if (!form.space.value) return;
-    figures = calc();
-    empty.hidden = true; live.hidden = false;
+    figures = estimate(P, { space: form.space.value, sqft: sqft.value, finish: form.finish.value, condition: form.condition.value });
     est.querySelector('[data-q-space]').textContent = P.spaces[figures.space].label;
     est.querySelector('[data-q-sqft]').textContent = figures.sqft.toLocaleString('en-US');
     est.querySelector('[data-q-finish]').textContent = { flake: 'Flake', metallic: 'Metallic', solid: 'Solid color' }[figures.finish];
-    countTo(low, figures.low, { format: usd, duration: 500 });
-    countTo(high, figures.high, { format: usd, duration: 600 });
-    live.classList.toggle('is-locked', !unlocked);
-    if (!unlocked) { gate.hidden = false; lockBtn.hidden = true; showContact('before'); }
+    monthlyEl.textContent = usd(Math.ceil(monthly(figures.low, SITE.finance.apr, SITE.finance.months)));
+    if (silent) { low.textContent = usd(figures.low); high.textContent = usd(figures.high); low.dataset.current = figures.low; high.dataset.current = figures.high; return; }
+    countTo(low, figures.low, { format: usd10, duration: 500 });
+    countTo(high, figures.high, { format: usd10, duration: 600 });
     clearTimeout(completeTimer);
     completeTimer = setTimeout(() => {
-      track(completed ? 'estimator_update' : 'estimator_complete', { mode, space: figures.space, sqft: figures.sqft, finish: figures.finish, condition: figures.cond, low: Math.round(figures.low), high: Math.round(figures.high) });
+      track(completed ? 'estimator_update' : 'estimator_complete', { space: figures.space, sqft: figures.sqft, finish: figures.finish, condition: figures.condition, low: figures.low, high: figures.high });
       completed = true;
     }, 900);
   }
 
-  function showContact(phase) {
+  form.addEventListener('input', (e) => update(e.target.name));
+  update('space', true);
+
+  est.querySelector('[data-book]').addEventListener('click', () => {
+    track('estimator_book_click');
     contact.hidden = false;
-    contact.dataset.phase = phase;
-    est.querySelector('[data-contact-title]').textContent = phase === 'before' ? 'See your price' : 'Lock in my free visit';
-    est.querySelector('[data-contact-btn]').textContent = phase === 'before' ? 'Show my price' : 'Book my free visit';
-  }
-
-  form.addEventListener('input', (e) => update(e.target.name === 'space' ? 'space' : e.target.name));
-  form.addEventListener('change', (e) => e.target.type === 'radio' && update(e.target.name === 'space' ? 'space' : e.target.name));
-  setSqftFill();
-
-  lockBtn.addEventListener('click', () => {
-    track('estimator_book_click', { mode });
-    showContact('after');
-    lockBtn.hidden = true;
-    contact.querySelector('input').focus({ preventScroll: false });
+    live.querySelector('.q-next').hidden = true;
+    contact.querySelector('input').focus({ preventScroll: true });
+    contact.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'nearest' });
   });
 
   wireForm(contact, {
-    name: 'estimator',
-    extra: () => ({ mode, phase: contact.dataset.phase, ...(figures ? { space: figures.space, sqft: figures.sqft, finish: figures.finish, condition: figures.cond, estimateLow: Math.round(figures.low), estimateHigh: Math.round(figures.high) } : {}) }),
-    onSuccess: () => {
-      track('estimator_lead', { mode, phase: contact.dataset.phase });
-      if (contact.dataset.phase === 'before') {
-        unlocked = true;
-        live.classList.remove('is-locked');
-        gate.hidden = true;
-        contact.hidden = true;
-        contact.classList.remove('is-sent');
-        lockBtn.hidden = false;
-        lockBtn.firstChild.textContent = 'Confirm my free visit ';
-        lockBtn.onclick = () => { contact.hidden = false; contact.classList.add('is-sent'); lockBtn.hidden = true; track('form_submit', { form: 'visit-confirm' }); };
-      }
-    },
+    name: 'visit-booking',
+    extra: () => (figures ? { space: figures.space, sqft: figures.sqft, finish: figures.finish, condition: figures.condition, estimateLow: figures.low, estimateHigh: figures.high } : {}),
+    onSuccess: (data) => track('estimator_lead', { timeline: data.timeline }),
   });
 }
 
@@ -149,15 +109,11 @@ const enquiry = document.getElementById('enquiry');
 if (enquiry) wireForm(enquiry, { name: 'enquiry' });
 
 /* ---------- 3D: hero pour + finish configurator ---------- */
-function webglOK() {
-  try { const c = document.createElement('canvas'); return !!c.getContext('webgl2'); } catch { return false; }
-}
 const heroCanvas = document.getElementById('hero-canvas');
 const configCanvas = document.getElementById('config-canvas');
-const idle = window.requestIdleCallback || ((f) => setTimeout(f, 200));
 
-if (webglOK()) {
-  idle(async () => {
+whenReadyFor3D().then(async (ok) => {
+    if (!ok) { document.documentElement.classList.add('no-webgl'); return; }
     await (document.fonts ? document.fonts.ready : Promise.resolve());
     const { createFloorScene, FINISHES } = await import('./scene.js');
     const company = SITE.tokens?.Company;
@@ -221,7 +177,4 @@ if (webglOK()) {
       });
       renderSwatches();
     }
-  });
-} else {
-  document.documentElement.classList.add('no-webgl');
-}
+});
