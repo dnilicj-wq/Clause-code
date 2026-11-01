@@ -24,7 +24,7 @@ await build({
   logLevel: 'warning',
 });
 await build({
-  entryPoints: [path.join(SRC, 'styles.css')], bundle: true, minify: true, external: ['/img/*'],
+  entryPoints: [path.join(SRC, 'styles.css')], bundle: true, minify: true, external: ['/img/*', '/fonts/*'],
   outfile: path.join(OUT, 'assets', 'styles.css'), logLevel: 'warning',
 });
 
@@ -38,6 +38,7 @@ const copyDir = (from, to) => {
   }
 };
 copyDir(path.join(SRC, 'img'), path.join(OUT, 'img'));
+copyDir(path.join(SRC, 'fonts'), path.join(OUT, 'fonts'));
 
 // ---------- helpers ----------
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
