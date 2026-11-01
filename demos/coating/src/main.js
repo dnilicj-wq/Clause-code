@@ -3,6 +3,7 @@ import {
   reveals, countTo, faq, chrome, smoothScroll, viewProgress, refreshDerived, whenReadyFor3D,
 } from './core.js';
 import derive, { estimate, monthly, usd } from './derive.js';
+import { FINISHES } from './finishes.js';
 
 personalise();
 wireCallTracking();
@@ -108,14 +109,72 @@ if (est) {
 const enquiry = document.getElementById('enquiry');
 if (enquiry) wireForm(enquiry, { name: 'enquiry' });
 
+
+/* ---------- Finish configurator: works on its own; the 3D floor attaches when ready ---------- */
+const configCanvas = document.getElementById('config-canvas');
+const config = (() => {
+  const tabs = [...document.querySelectorAll('.seg [role=tab]')];
+  const panels = [...document.querySelectorAll('.fin')];
+  const sw = document.querySelector('.swatches');
+  const poster = document.querySelector('.config-poster');
+  const hint = document.querySelector('.config-hint');
+  const state = { type: 'flake', key: 'graphite', cfg: null, lastPoint: null };
+  if (!tabs.length || !sw) return { ...state, attach() {} };
+
+  const swatchBg = (t, c) => t === 'flake'
+    ? `radial-gradient(circle at 30% 30%, ${c[3]} 0 2px, transparent 2.5px), radial-gradient(circle at 70% 60%, ${c[2]} 0 2.5px, transparent 3px), radial-gradient(circle at 45% 75%, ${c[1]} 0 3px, transparent 3.5px), ${c[0]}`
+    : t === 'metallic' ? `linear-gradient(135deg, ${c[0]}, ${c[1]} 55%, ${c[2]})` : c[0];
+
+  function renderSwatches() {
+    sw.innerHTML = Object.entries(FINISHES[state.type]).map(([k, f]) =>
+      `<button type="button" role="radio" aria-checked="${k === state.key}" data-key="${k}"><span style="background:${swatchBg(state.type, f.colors)}"></span>${f.name}</button>`).join('');
+  }
+  function apply(origin) {
+    if (state.cfg) state.cfg.pourFinish(state.type, state.key, origin || state.lastPoint);
+    else if (poster) poster.src = `/img/finish-${state.type}-${state.key}.webp`;
+    hint?.classList.add('is-used');
+    track('finish_preview', { type: state.type, color: state.key });
+  }
+  tabs.forEach((t) => t.addEventListener('click', () => {
+    state.type = t.dataset.type; state.key = Object.keys(FINISHES[state.type])[0];
+    tabs.forEach((x) => x.setAttribute('aria-selected', x === t));
+    panels.forEach((p) => (p.hidden = p.dataset.fin !== state.type));
+    renderSwatches(); apply();
+  }));
+  sw.addEventListener('click', (e) => {
+    const b = e.target.closest('button'); if (!b) return;
+    state.key = b.dataset.key; renderSwatches(); apply();
+  });
+  // Without 3D, tapping the picture steps through the colours too
+  poster?.closest('.config-stage').addEventListener('click', (e) => {
+    if (state.cfg) return;
+    const keys = Object.keys(FINISHES[state.type]);
+    state.key = keys[(keys.indexOf(state.key) + 1) % keys.length];
+    renderSwatches(); apply();
+  });
+  renderSwatches();
+
+  state.attach = (cfg) => {
+    state.cfg = cfg;
+    configCanvas.addEventListener('pointerdown', (e) => {
+      const pt = cfg.floorPointFromClient(e.clientX, e.clientY);
+      if (!pt) return;
+      state.lastPoint = pt;
+      const keys = Object.keys(FINISHES[state.type]);
+      state.key = keys[(keys.indexOf(state.key) + 1) % keys.length];
+      renderSwatches(); apply(pt);
+    });
+  };
+  return state;
+})();
+
 /* ---------- 3D: hero pour + finish configurator ---------- */
 const heroCanvas = document.getElementById('hero-canvas');
-const configCanvas = document.getElementById('config-canvas');
 
 whenReadyFor3D().then(async (ok) => {
     if (!ok) { document.documentElement.classList.add('no-webgl'); return; }
     await (document.fonts ? document.fonts.ready : Promise.resolve());
-    const { createFloorScene, FINISHES } = await import('./scene.js');
+    const { createFloorScene } = await import('./scene.js');
     const company = SITE.tokens?.Company;
 
     if (heroCanvas) {
@@ -135,46 +194,9 @@ whenReadyFor3D().then(async (ok) => {
 
     if (configCanvas) {
       const cfg = createFloorScene(configCanvas, { mode: 'config', company, reduceMotion });
-      cfg.showStatic('flake', 'graphite', true);
+      cfg.showStatic(config.type, config.key, true);
       cfg.renderOnce();
       document.querySelector('.config-stage').classList.add('is-live');
-      const tabs = [...document.querySelectorAll('.seg [role=tab]')];
-      const panels = [...document.querySelectorAll('.fin')];
-      const sw = document.querySelector('.swatches');
-      let type = 'flake', key = 'graphite', lastPoint = null;
-
-      const swatchBg = (t, c) => t === 'flake'
-        ? `radial-gradient(circle at 30% 30%, ${c[3]} 0 2px, transparent 2.5px), radial-gradient(circle at 70% 60%, ${c[2]} 0 2.5px, transparent 3px), radial-gradient(circle at 45% 75%, ${c[1]} 0 3px, transparent 3.5px), ${c[0]}`
-        : t === 'metallic' ? `linear-gradient(135deg, ${c[0]}, ${c[1]} 55%, ${c[2]})` : c[0];
-
-      function renderSwatches() {
-        sw.innerHTML = Object.entries(FINISHES[type]).map(([k, f]) =>
-          `<button type="button" role="radio" aria-checked="${k === key}" data-key="${k}"><span style="background:${swatchBg(type, f.colors)}"></span>${f.name}</button>`).join('');
-      }
-      function apply(origin) {
-        cfg.pourFinish(type, key, origin || lastPoint);
-        track('finish_preview', { type, color: key });
-      }
-      tabs.forEach((t) => t.addEventListener('click', () => {
-        type = t.dataset.type; key = Object.keys(FINISHES[type])[0];
-        tabs.forEach((x) => x.setAttribute('aria-selected', x === t));
-        panels.forEach((p) => (p.hidden = p.dataset.fin !== type));
-        renderSwatches(); apply();
-      }));
-      sw.addEventListener('click', (e) => {
-        const b = e.target.closest('button'); if (!b) return;
-        key = b.dataset.key; renderSwatches(); apply();
-      });
-      configCanvas.addEventListener('pointerdown', (e) => {
-        const pt = cfg.floorPointFromClient(e.clientX, e.clientY);
-        if (!pt) return;
-        lastPoint = pt;
-        // cycle colour within the current type on each tap
-        const keys = Object.keys(FINISHES[type]);
-        key = keys[(keys.indexOf(key) + 1) % keys.length];
-        renderSwatches(); apply(pt);
-        document.querySelector('.config-hint')?.classList.add('is-used');
-      });
-      renderSwatches();
+      config.attach(cfg);
     }
 });

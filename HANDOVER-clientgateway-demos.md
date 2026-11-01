@@ -136,8 +136,10 @@ Each folder holds a self-contained static site:
 - **Demo content:** the sample values are fictional by design (this is demo mode). Don't present them as a real business's facts anywhere outside the demo, and don't invent real certification numbers for a real prospect.
 - **Copy style:** plain, honest copy; no hype, no fake urgency beyond the calculated booking month and VAT deadline; no em dashes in the copy.
 - **Look:** keep the premium look:
-  - **Solar:** OKLCH daylight palette, amber accent, Archivo font. Google Fonts load asynchronously on solar.
-  - **Coating:** dark palette, blue accent, Big Shoulders Display + Geist. The coating font stylesheet is render-blocking on purpose, because making it async caused a layout shift (CLS 0.135).
+  - **Solar:** warm cream palette from the client's reference: sage `#A3BF6F`, orange `#FF8234` (buttons, dark text on it), cream `#FAE6D8`, deep forest-olive ink. Archivo font. Google Fonts load asynchronously on solar.
+  - **Coating:** palette from the client's reference: midnight `#02070A` background, electric blue `#0297DE` for actions (dark text on it for contrast), cantaloupe `#FC734D` for prices and highlights. Big Shoulders Display + Geist, self-hosted in `src/fonts/` and preloaded (Google Fonts caused a hero layout shift).
+- **Caching:** `/assets/main.js` and `styles.css` are cached as immutable, so `build.mjs` appends `?v=<hash>` to them. Never remove that, or returning visitors get old CSS/JS with new HTML.
+- **Coating configurator** works without 3D: tabs/swatches are wired up front and swap `src/img/finish-<type>-<key>.webp` stills; the 3D floor takes over when it loads. Re-render those stills (tools/capture, `mode: 'config'`, 1200x840) if `FINISHES` in `src/finishes.js` changes.
 - **Changes:** keep them minimal and targeted. Run the acceptance tests before every deploy.
 - **Pronouns:** don't assume the owner's gender in templates (`{OwnerStory}` text must not use he/she).
 - **Commits:** end every message with the attribution lines your session's system reminder gives you. Never put a model name in commits.

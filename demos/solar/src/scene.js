@@ -15,7 +15,7 @@ const clamp01 = (x) => Math.min(1, Math.max(0, x));
 const smooth = (x) => { x = clamp01(x); return x * x * (3 - 2 * x); };
 const outQuart = (x) => 1 - Math.pow(1 - clamp01(x), 4);
 const range = (p, a, b) => clamp01((p - a) / (b - a));
-const AMBER = new Color('#f2b33d');
+const AMBER = new Color('#ff8234');
 
 function canvasTex(w, h, draw, srgb = true) {
   const c = document.createElement('canvas');

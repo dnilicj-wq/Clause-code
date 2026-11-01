@@ -22,7 +22,7 @@ export default {
   openingHours: ['Mo-Fr 08:00-18:00', 'Sa 09:00-13:00'],
 
   // Logo (path in src/img, e.g. '/img/logo.svg') and brand colour (any CSS colour).
-  // Leave null to use the built-in mark and amber accent.
+  // Leave null to use the built-in mark and orange accent (palette: sage #A3BF6F, orange #FF8234, cream #FAE6D8).
   brand: { logo: null, accent: null },
 
   tokens: {

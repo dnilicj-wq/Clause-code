@@ -13,23 +13,8 @@ const clamp01 = (x) => Math.min(1, Math.max(0, x));
 const outPow = (x, p) => 1 - Math.pow(1 - clamp01(x), p);
 const smooth = (x) => { x = clamp01(x); return x * x * (3 - 2 * x); };
 
-export const FINISHES = {
-  flake: {
-    graphite: { name: 'Graphite', colors: ['#3a3c40', '#16181b', '#62666c', '#c9ccce'] },
-    tidal: { name: 'Tidal', colors: ['#2a3442', '#1a2c45', '#7d8d9e', '#d9dee3'] },
-    sandstone: { name: 'Sandstone', colors: ['#6e6152', '#3d362f', '#a8987f', '#e6dfd2'] },
-  },
-  metallic: {
-    pewter: { name: 'Pewter', colors: ['#55595f', '#b4b9bf', '#26292d', '#8a9097'] },
-    midnight: { name: 'Midnight', colors: ['#141a2e', '#3f63b8', '#070910', '#25346a'] },
-    copper: { name: 'Copper', colors: ['#3d2318', '#b8724a', '#1c110c', '#7a4329'] },
-  },
-  solid: {
-    slate: { name: 'Slate', colors: ['#4b5058', '#4b5058', '#4b5058', '#4b5058'] },
-    fog: { name: 'Fog', colors: ['#a9adb2', '#a9adb2', '#a9adb2', '#a9adb2'] },
-    onyx: { name: 'Onyx', colors: ['#1d1e21', '#1d1e21', '#1d1e21', '#1d1e21'] },
-  },
-};
+import { FINISHES } from './finishes.js';
+export { FINISHES };
 const TYPE = { concrete: 0, flake: 1, metallic: 2, solid: 3 };
 
 const GLSL_COMMON = /* glsl */`
@@ -170,7 +155,7 @@ function labelTexture(company) {
   c.width = 1024; c.height = 256;
   const g = c.getContext('2d');
   g.fillStyle = '#f2f3f4'; g.fillRect(0, 0, 1024, 256);
-  g.fillStyle = '#2d55e6'; g.fillRect(0, 40, 1024, 176);
+  g.fillStyle = '#0297de'; g.fillRect(0, 40, 1024, 176);
   g.fillStyle = '#ffffff';
   g.font = '800 92px "Big Shoulders Display", Impact, sans-serif';
   g.textBaseline = 'middle';
@@ -190,7 +175,7 @@ export function createFloorScene(canvas, opts = {}) {
   renderer.outputColorSpace = SRGBColorSpace;
   renderer.toneMapping = ACESFilmicToneMapping;
   renderer.toneMappingExposure = 1.12;
-  renderer.setClearColor('#111214');
+  renderer.setClearColor('#05090c');
 
   const scene = new Scene();
   const camera = new PerspectiveCamera(42, 1, 0.05, 60);

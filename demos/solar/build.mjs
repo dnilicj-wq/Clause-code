@@ -28,6 +28,13 @@ await build({
   outfile: path.join(OUT, 'assets', 'styles.css'), logLevel: 'warning',
 });
 
+// Version the unhashed entry files: /assets/* is cached as immutable, so the
+// HTML must point at a new URL whenever the CSS or JS changes.
+const ASSET_VER = (await import('node:crypto')).createHash('sha1')
+  .update(fs.readFileSync(path.join(OUT, 'assets', 'main.js')))
+  .update(fs.readFileSync(path.join(OUT, 'assets', 'styles.css')))
+  .digest('hex').slice(0, 10);
+
 // ---------- static files ----------
 const copyDir = (from, to) => {
   if (!fs.existsSync(from)) return;
@@ -163,6 +170,7 @@ const areas = [...new Set([config.tokens.Town, ...(config.areas || [])].filter(B
 function page(file, extraTokens = {}, area = null) {
   const tokens = tokensFor(extraTokens);
   let html = brand(lists(fs.readFileSync(path.join(SRC, file), 'utf8')));
+  html = html.replace(/\/assets\/(main\.js|styles\.css)(?=["'])/g, `/assets/$1?v=${ASSET_VER}`);
   html = html.replace(/<i data-icon="([a-z-]+)"(?: data-weight="([a-z]+)")?><\/i>/g, (_, n, w) => icon(n, w));
   // Icon + text with tokens inside a flex/gap container: keep the text as one
   // flex item so filled-in values don't get extra gaps around them.

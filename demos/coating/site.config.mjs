@@ -22,7 +22,7 @@ export default {
   openingHours: ['Mo-Fr 07:00-19:00', 'Sa 08:00-16:00'],
 
   // Logo (path in src/img, e.g. '/img/logo.svg') and brand color (any CSS color).
-  // Leave null to use the built-in mark and blue accent.
+  // Leave null to use the built-in mark and electric-blue accent (palette: midnight #02070A, blue #0297DE, cantaloupe #FC734D).
   brand: { logo: null, accent: null },
 
   tokens: {
