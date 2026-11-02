@@ -5,7 +5,7 @@ import path from 'node:path';
 import crypto from 'node:crypto';
 import { build } from 'esbuild';
 import site from './site.config.mjs';
-import rates from './rates.config.mjs';
+import rates from './pricing.config.mjs';
 
 const ROOT = path.dirname(new URL(import.meta.url).pathname);
 const SRC = path.join(ROOT, 'src');
@@ -59,8 +59,10 @@ function img(name, alt, { sizes = '(max-width: 760px) 100vw, 50vw', eager = fals
   return `<img${cls ? ` class="${cls}"` : ''} src="${src}" srcset="/img/${name}-640.webp ${w6}w, /img/${big} ${w}w" sizes="${sizes}" alt="${esc(alt)}" width="${w}" height="${h}" ${eager ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async">`;
 }
 const pimg = (slug, alt) => `<img src="/img/p/${slug}.webp" alt="${esc(alt)}" width="480" height="480" loading="lazy" decoding="async">`;
-const tel = `tel:${biz.phoneIntl}`;
-const wa = (text) => `https://wa.me/${biz.whatsapp}?text=${encodeURIComponent(text)}`;
+// One enquiry number in site.config.mjs drives every call and WhatsApp link.
+const PHONE_INTL = '+44' + biz.phone.replace(/\D/g, '').replace(/^0/, '');
+const tel = `tel:${PHONE_INTL}`;
+const wa = (text) => `https://wa.me/${PHONE_INTL.slice(1)}?text=${encodeURIComponent(text)}`;
 const WA = wa('Hi Gafflow, I would like a quote for a resin floor. Here is a photo of the space. My postcode is ');
 const WA_COURSE = wa('Hi Gafflow, I have a question.');
 const abs = (p) => BASE + p;
@@ -79,19 +81,22 @@ const products = Object.fromEntries(Object.entries(RAW).map(([slug, r]) => {
   const lo = prices[0], hi = prices[1] && prices[1] !== lo ? prices[1] : null;
   const cat = Object.keys(CAT).find((k) => CAT[k].includes(slug)) || 'other';
   const seen = new Set();
-  const body = r.body.filter((b) => { const k = b.x.slice(0, 90); if (seen.has(k)) return false; seen.add(k); return true; });
+  // drop stale course dates (the live listing still shows the past 29/30 Oct option)
+  const body = r.body.filter((b) => { const k = b.x.slice(0, 90); if (seen.has(k) || /^29\/30 Oct/.test(b.x)) return false; seen.add(k); return true; });
   const name = r.name.replace(/EPoxy/g, 'Epoxy');
   return [slug, { slug, name, lo, hi, cat, body, out: /out of stock/i.test(r.stock), variations: r.variations, meta: r.meta, title: r.title }];
 }));
 const priceText = (p) => p.hi ? `${money(p.lo)} to ${money(p.hi)}` : money(p.lo);
 const fromText = (p) => p.hi ? `from ${money(p.lo)}` : money(p.lo);
 const storeUrl = (slug) => `${biz.store}/product/${slug}/`;
+// Shop links go to Gafflow's existing shop on gafflowresinfinishes.com.
+const shop = (path) => biz.store + path;
 
 /* ---------- schema ---------- */
 const BIZ_ID = `${BASE}/#business`;
 const bizSchema = () => ({
   '@context': 'https://schema.org', '@type': ['HomeAndConstructionBusiness', 'Store'], '@id': BIZ_ID,
-  name: biz.name, legalName: biz.legalName, url: BASE + '/', telephone: biz.phoneIntl, email: biz.email,
+  name: biz.name, legalName: biz.legalName, url: BASE + '/', telephone: PHONE_INTL, email: biz.email,
   image: `${BASE}/img/og.jpg`, logo: `${BASE}/img/logo-512.png`,
   address: { '@type': 'PostalAddress', streetAddress: biz.street, addressLocality: biz.locality, addressRegion: biz.region, postalCode: biz.postcode, addressCountry: 'GB' },
   areaServed: [{ '@type': 'Country', name: 'United Kingdom' }, { '@type': 'Place', name: 'Europe' }],
@@ -115,11 +120,11 @@ const productSchema = (p) => ({
 });
 
 /* ---------- chrome ---------- */
-const NAV = [['/installations/', 'Installations'], ['/gallery/', 'Our work'], ['/courses/', 'Courses'], ['/shop/', 'Shop'], ['/resin-business-opportunities/', 'Franchise'], ['/contact/', 'Contact']];
+const NAV = [['/installations/', 'Installations'], ['/gallery/', 'Our work'], ['/courses/', 'Courses'], [shop('/shop/'), 'Shop'], ['/resin-business-opportunities/', 'Franchise'], ['/contact/', 'Contact']];
 const MENU = [
   ['Floors', [['/installations/', 'All installations'], ['/residential-services/', 'Homes'], ['/commercial-services/', 'Commercial'], ['/resin-driveways/', 'Resin driveways'], ['/pu-comfort-flooring/', 'PU comfort flooring'], ['/bespoke-resin-commissions/', 'Bespoke commissions'], ['/gallery/', 'Our work']]],
-  ['Learn', [['/courses/', 'Training courses'], ['/commercial-floor-installers/', 'Training for flooring showrooms'], ['/resin-business-opportunities/', 'Franchise'], ['/product/the-resin-bible/', 'The Resin Bible']]],
-  ['Shop', [['/shop/', 'All products'], ['/epoxy-resin/', 'Flooring system'], ['/epoxy-pigments/', 'Pigments'], ['/deep-cast-epoxy-resin/', 'Deep cast resin'], ['/resin-bound/', 'Resin bound kits'], ['/resin-craft-kits/', 'Craft kits']]],
+  ['Learn', [['/courses/', 'Training courses'], ['/commercial-floor-installers/', 'Training for flooring showrooms'], ['/resin-business-opportunities/', 'Franchise'], [storeUrl('the-resin-bible'), 'The Resin Bible']]],
+  ['Shop', [[shop('/shop/'), 'All products'], [shop('/epoxy-resin/'), 'Flooring system'], [shop('/epoxy-pigments/'), 'Pigments'], [shop('/deep-cast-epoxy-resin/'), 'Deep cast resin'], [shop('/resin-bound/'), 'Resin bound kits'], [shop('/resin-craft-kits/'), 'Craft kits']]],
 ];
 const brand = (tag = 'a') => `<${tag} class="brand" ${tag === 'a' ? 'href="/"' : ''}><img src="/img/logo.webp" alt="" width="44" height="44"><span class="wordmark"><span class="wm-a">Gafflow</span><span class="wm-b">Resin Finishes</span></span></${tag}>`;
 const header = (cur) => `
@@ -157,7 +162,7 @@ const footer = () => `
   <a class="mb-quote" href="/#quote" data-track="cta" data-loc="mobile-bar">${icon('file-text')}Quote</a>
 </div>`;
 
-const clientConfig = { rates, phone: biz.phone, phoneIntl: biz.phoneIntl };
+const clientConfig = { rates: { ...rates, form: site.form }, phone: biz.phone, phoneIntl: PHONE_INTL };
 
 function layout({ p, title, meta, body, schema = [], noindex = false, cur = '', og = '/img/og.jpg', preload = '' }) {
   if (!preload) {
@@ -208,7 +213,7 @@ const doors = () => `
   <div class="wrap doors">
     <a class="door" href="/installations/">${icon('paint-roller', 'light')}<span><b>Have a floor installed</b><small>Homes, businesses and driveways</small></span>${icon('arrow-right')}</a>
     <a class="door" href="/courses/">${icon('chalkboard-teacher', 'light')}<span><b>Learn to lay resin</b><small>Courses from £795</small></span>${icon('arrow-right')}</a>
-    <a class="door" href="/shop/">${icon('flask', 'light')}<span><b>Buy the products</b><small>The system we install with</small></span>${icon('arrow-right')}</a>
+    <a class="door" href="${shop('/shop/')}">${icon('flask', 'light')}<span><b>Buy the products</b><small>Gafflow's own resin range</small></span>${icon('arrow-right')}</a>
   </div>
 </section>`;
 
@@ -251,7 +256,7 @@ const pourBlock = () => {
         <a class="btn btn-primary" href="#quote" data-pour-quote data-track="pour_quote">Quote me this floor ${icon('arrow-right')}</a>
         <button type="button" class="btn btn-ghost" data-pour-shuffle>${icon('shuffle')} Surprise me</button>
       </div>
-      <p class="pour-buy">Pouring it yourself? <a href="/product/metallic-epoxy-powder-pigment-${m0[0]}/" data-pour-buy><span>${esc(m0[1])}, from £9</span></a> · <a href="/product/${b0[0]}/" data-pour-buy-base><span>${esc(b0[1])}, from £25</span></a></p>
+      <p class="pour-buy">Pouring it yourself? <a href="${storeUrl('metallic-epoxy-powder-pigment-' + m0[0])}" data-pour-buy><span>${esc(m0[1])}, from £9</span></a> · <a href="${storeUrl(b0[0])}" data-pour-buy-base><span>${esc(b0[1])}, from £25</span></a></p>
       <p class="fine">A live preview, not a photo. Real pours vary with technique and light, which is the point.</p>
     </div>
   </div>
@@ -264,7 +269,7 @@ const estimator = (h = 'h2', title = 'A ballpark in 30 seconds') => `
   <div class="wrap est-grid">
     <div class="est-copy">
       <${h} id="est-title" class="h2">${title}</${h}>
-      <p class="lede-sm">Pick the space, the finish and the size. You see an indicative range straight away, with no contact details needed.</p>
+      <p class="lede-sm">Pick the space, the finish and the size. You see an example range straight away, with no contact details needed.</p>
     </div>
     <form class="est-form" data-estimator novalidate>
       <fieldset><legend>Space</legend><div class="chips">
@@ -279,10 +284,10 @@ const estimator = (h = 'h2', title = 'A ballpark in 30 seconds') => `
       </fieldset>
     </form>
     <div class="est-card" aria-live="polite">
-      <p class="est-label">Indicative range</p>
+      <p class="est-label">Example range</p>
       <p class="est-price"><span data-low>£0</span><span class="to">to</span><span data-high>£0</span></p>
       <p class="est-sub"><span data-sum>Kitchen</span></p>
-      <p class="est-note">Indicative, confirmed after a site survey. Preparation, moisture and the design itself can move the figure.</p>
+      <p class="est-note">Example figures only. Your exact price is confirmed after a free site survey.</p>
       <a class="btn btn-primary btn-block" href="#quote" data-lock data-track="estimator_lock"><span>Get my<span class="hide-sm"> exact</span> quote</span> ${icon('arrow-right')}</a>
     </div>
   </div>
@@ -296,7 +301,7 @@ const layerStack = () => `
         <h2 id="layers-title" class="h2">Every layer is a Gafflow product</h2>
         <p class="lede-sm">Gafflow formulated its own metallic epoxy system, then trained the trade to lay it. Scroll to take a floor apart.</p>
         <ol class="layer-list" data-layer-list>
-          ${[...site.layers].reverse().map((l, i) => `<li data-li="${site.layers.length - 1 - i}"><b>${esc(l.name)}</b><span>${esc(l.benefit)}${l.product ? ` <a href="/product/${l.product}/">${esc(products[l.product].name.split(',')[0])}, ${fromText(products[l.product])}</a>` : ''}</span></li>`).join('')}
+          ${[...site.layers].reverse().map((l, i) => `<li data-li="${site.layers.length - 1 - i}"><b>${esc(l.name)}</b><span>${esc(l.benefit)}${l.product ? ` <a href="${storeUrl(l.product)}">${esc(products[l.product].name.split(',')[0])}, ${fromText(products[l.product])}</a>` : ''}</span></li>`).join('')}
         </ol>
       </div>
       <div class="stack-stage" aria-hidden="true">
@@ -308,7 +313,7 @@ const layerStack = () => `
   </div>
 </section>`;
 
-const gallery = ({ filter = true, limit = 99, h = 'h2', title = 'Floors people stop and stare at', only = null, id = 'work', lede = 'Every photo here is a Gafflow installation, from their own jobs and socials.' } = {}) => {
+const gallery = ({ filter = true, limit = 99, h = 'h2', title = 'Real Gafflow floors', only = null, id = 'work', lede = 'Every photo here is a Gafflow installation, from their own jobs and socials.' } = {}) => {
   const items = site.gallery.filter((g) => !only || only.includes(g[1])).slice(0, limit);
   return `
 <section id="${id}" class="sec gallery" aria-labelledby="${id}-title">
@@ -338,13 +343,13 @@ const awardTeam = () => `
   </div>
 </section>`;
 
-const tcard = (t) => `<figure class="tcard"><blockquote><p>${esc(t.text)}</p></blockquote><figcaption><b>${esc(t.name)}</b><span>${esc(t.what)}${t.date ? ` · ${esc(t.date)}` : ''}</span></figcaption></figure>`;
+const tcard = (t) => `<figure class="tcard"><blockquote><p>${esc(t.text).replace(/\n/g, '<br>')}</p></blockquote><figcaption><b>${esc(t.name)}</b><span>${[t.what, t.date].filter(Boolean).map(esc).join(' · ')}</span></figcaption></figure>`;
 const testimonials = ({ limit = 6, title = 'What people say after training with Gafflow', id = 'reviews', h = 'h2' } = {}) => `
 <section id="${id}" class="sec reviews" aria-labelledby="${id}-title">
   <div class="wrap">
-    <div class="sec-head"><${h} id="${id}-title" class="h2">${title}</${h}><p class="lede-sm">Quoted from Gafflow's own site, some shortened. Nothing written for this site.</p></div>
+    <div class="sec-head"><${h} id="${id}-title" class="h2">${title}</${h}><p class="lede-sm">Word for word from Gafflow's own testimonials and courses pages. Nothing written for this site.</p></div>
     <div class="tgrid">${site.testimonials.slice(0, limit).map(tcard).join('')}</div>
-    ${limit < site.testimonials.length ? `<a class="link-arrow" href="/testimonials/">Read all ${site.testimonials.length} testimonials ${icon('arrow-right')}</a>` : ''}
+    ${limit < site.testimonials.length ? `<a class="link-arrow" href="/testimonials/">Read all testimonials ${icon('arrow-right')}</a>` : ''}
   </div>
 </section>`;
 
@@ -365,7 +370,7 @@ const coursesBlock = ({ h = 'h2', title = 'Learn it from the people who pour it'
           <p class="course-when">${icon('calendar-blank', 'light')}<span>${esc(c.dates)} <b class="soon" data-starts="${c.start}"></b></span></p>
           <p class="course-when">${icon('map-pin', 'light')}<span>${esc(c.where)}</span></p>
           <ul class="ticks">${c.points.map((x) => `<li>${icon('check')}${esc(x)}</li>`).join('')}</ul>
-          <div class="course-foot"><p class="course-price">${money(c.price)}<small>per person</small></p><a class="btn btn-primary" href="/product/${c.slug}/" data-track="course_view" data-loc="${c.slug}">Book a place ${icon('arrow-right')}</a></div>
+          <div class="course-foot"><p class="course-price">${money(c.price)}<small>per person</small></p><a class="btn btn-primary" href="${storeUrl(c.slug)}" data-track="course_book" data-loc="${c.slug}">Book a place ${icon('arrow-right')}</a></div>
         </div>
       </article>`).join('')}
     </div>
@@ -373,13 +378,13 @@ const coursesBlock = ({ h = 'h2', title = 'Learn it from the people who pour it'
   </div>
 </section>`;
 
-const pcard = (p, cls = '') => `<li class="pcard${cls}" data-cat="${p.cat}"><a href="/product/${p.slug}/">${pimg(p.slug, p.name)}<span class="pc-body"><b>${esc(p.name)}</b><span class="pc-price">${priceText(p)}</span>${p.out ? '<span class="pc-stock">Out of stock, email to order</span>' : ''}</span></a></li>`;
+const pcard = (p, cls = '') => `<li class="pcard${cls}" data-cat="${p.cat}"><a href="${storeUrl(p.slug)}">${pimg(p.slug, p.name)}<span class="pc-body"><b>${esc(p.name)}</b><span class="pc-price">${priceText(p)}</span>${p.out ? '<span class="pc-stock">Out of stock, email to order</span>' : ''}</span></a></li>`;
 const shopTeaser = () => `
 <section id="shop" class="sec shop-teaser" aria-labelledby="shop-title">
   <div class="wrap">
     <div class="sec-head"><h2 id="shop-title" class="h2">The system we install with, tin by tin</h2><p class="lede-sm">Primers, base, Money Coat and seals: the Gafflow Metallic Epoxy System, in the order the team applies it. Technical data sheets come with every product.</p></div>
     <ul class="pgrid">${CAT.system.map((s) => pcard(products[s])).join('')}</ul>
-    <a class="link-arrow" href="/shop/">Shop all products and pigments ${icon('arrow-right')}</a>
+    <a class="link-arrow" href="${shop('/shop/')}">Shop all products and pigments ${icon('arrow-right')}</a>
   </div>
 </section>`;
 
@@ -500,9 +505,9 @@ add('/', {
     <figure class="hero-media">
       <picture>
         <source media="(max-width: 860px)" srcset="/img/hero-m.webp" width="720" height="540">
-        <img src="/img/hero-d-1100.webp" srcset="/img/hero-d-720.webp 720w, /img/hero-d-1100.webp 1100w" sizes="46vw" alt="Cerise and red metallic resin floor poured by Gafflow in a bar lounge with pink seating" width="1100" height="1375" fetchpriority="high" decoding="async">
+        <img src="/img/hero-d-1100.webp" srcset="/img/hero-d-720.webp 720w, /img/hero-d-1100.webp 1100w" sizes="46vw" alt="Gloss white resin entrance hall with black inlay lines, installed by Gafflow" width="1100" height="1375" fetchpriority="high" decoding="async">
       </picture>
-      <figcaption>Gafflow metallic floor, bar and lounge</figcaption>
+      <figcaption>Gafflow black and white entrance hall</figcaption>
     </figure>
   </div>
 </section>
@@ -549,7 +554,7 @@ const rooms = [
   ['bathroom-black-gold', 'Bathrooms and wet rooms', 'Waterproof and seam-free, so there is nowhere for water or mould to get in. Floors, shower walls and splashbacks in one continuous finish.'],
   ['living-neutral', 'Living spaces', 'Sleek, modern floors, plus coffee tables, walls and fireplace surrounds to match. Endless colours, patterns and textures.'],
   ['wardrobe-doors', 'Bedrooms and dressing rooms', 'Resin wardrobe doors, dressing rooms, en-suites and desks. If you can imagine it there, it can go there.'],
-  ['drive-gold', 'Outdoors', 'Driveways, patios, paths and BBQ areas that stand up to rain and sun, with non-slip options.'],
+  ['drive-butterscotch', 'Outdoors', 'Driveways, patios, paths and BBQ areas that stand up to rain and sun, with non-slip options.'],
 ];
 add('/residential-services/', {
   title: 'Resin Flooring for Homes | Kitchens, Bathrooms, Hallways | Gafflow',
@@ -590,7 +595,7 @@ ${pageHero({ kicker: crumbNav([['Home', '/'], ['Installations', '/installations/
 </div></section>
 <section class="sec tight"><div class="wrap">${benefits([['shield-check', 'Hard wearing', 'High-traffic and industrial areas such as warehouses.'], ['drop', 'Hygienic', 'Perfect for restaurants, salons and spas.'], ['sneaker-move', 'Slip and stain resistant', 'Anti-slip for kitchens, factories and event spaces.'], ['broom', 'Easy to clean', 'Seamless surfaces clean in minutes.'], ['palette', 'Endless effects', 'Marble, flake, metallics, single colours.'], ['squares-four', 'Not just floors', 'Walls, worktops, tables or floors.']])}</div></section>
 ${gallery({ only: ['commercial'], filter: false, title: 'Commercial work', limit: 8, id: 'commercial' })}
-${quoteForm({ title: 'Arrange a site meeting', lede: 'Tell us about the venue and what you have in mind. We travel UK-wide and further afield.', space: 'commercial' })}`,
+${quoteForm({ title: 'Arrange a site meeting', lede: 'Tell us about the venue and what you have in mind.', space: 'commercial' })}`,
 });
 
 // DRIVEWAYS
@@ -642,11 +647,11 @@ add('/bespoke-resin-commissions/', {
   body: `
 ${pageHero({ kicker: crumbNav([['Home', '/'], ['Installations', '/installations/'], ['Bespoke commissions', '/bespoke-resin-commissions/']]), h1: 'Bespoke resin commissions', lede: 'Feature walls, river tables, rock walls, water features and art. Every piece is individually designed and poured, so the result is one of a kind.', image: 'wall-art', alt: 'Large framed resin wall art above a dining table', ctaLabel: 'Start your design' })}
 <section class="sec"><div class="wrap">
-  <div class="rooms">${[['art-silver', 'Resin artwork', '3D layered abstracts, ocean pieces and geode effects, sized for living rooms, lobbies, restaurants and spas. Graffiti, too, with the artists Gafflow works alongside.'], ['feature-wall', 'Feature walls', 'Immersive, tactile walls in shimmering metallics, marbled flow or rock effect, designed around your lighting.'], ['river-table', 'Furniture', 'Live-edge river tables, worktops and sideboards in wood, metal and coloured resin, made to your exact size.'], ['pink-river-pour', 'One-off commissions', 'Sculptures, branded displays and full interior themes. You bring the idea, Gafflow brings the resin expertise.']].map(([im, t, d]) => `<article class="room">${img(im, t, { sizes: '(max-width: 760px) 100vw, 25vw', small: true })}<div><h3 class="h4">${t}</h3><p>${d}</p></div></article>`).join('')}</div>
+  <div class="rooms">${[['wall-art', 'Resin artwork and feature walls', '3D layered abstracts, ocean pieces and geode effects, plus feature walls in shimmering metallics, marbled flow or rock effect. Graffiti, too, with the artists Gafflow works alongside.'], ['river-table', 'Furniture', 'Live-edge river tables, worktops and sideboards in wood, metal and coloured resin, made to your exact size.'], ['wardrobe-doors', 'One-off commissions', 'Wardrobe doors, sculptures, branded displays and full interior themes. You bring the idea, Gafflow brings the resin expertise.']].map(([im, t, d]) => `<article class="room">${img(im, t, { sizes: '(max-width: 760px) 100vw, 33vw', small: true })}<div><h3 class="h4">${t}</h3><p>${d}</p></div></article>`).join('')}</div>
 </div></section>
 <section class="sec tight"><div class="wrap two-col">
   <div><h2 class="h2">Why resin for a commission?</h2><ul class="ticks">${['Highly durable and long-lasting', 'Resistant to heat, stains and scratches', 'Visually dynamic and endlessly customisable', 'Ideal for artistic and practical pieces'].map((x) => `<li>${icon('check')}${x}</li>`).join('')}</ul></div>
-  <div><h2 class="h2">How it works</h2><ul class="ticks">${['A conversation first, then a personal design consultation', 'Premium-grade epoxy resin only', 'Fully insured, UK-based team', 'Delivery and fitting across the UK, Europe and beyond'].map((x) => `<li>${icon('check')}${x}</li>`).join('')}</ul></div>
+  <div><h2 class="h2">How it works</h2><ul class="ticks">${['A conversation first, then a personal design consultation', 'Premium-grade epoxy resin only', 'Delivery and fitting available across the UK'].map((x) => `<li>${icon('check')}${x}</li>`).join('')}</ul></div>
 </div></section>
 ${gallery({ only: ['bespoke'], filter: false, title: 'Recent commissions', id: 'bespoke' })}
 ${quoteForm({ title: 'Start your design', lede: 'Tell us the idea, the space and the colours. We will come back to arrange a design consultation.', space: 'bespoke' })}`,
@@ -728,7 +733,7 @@ add('/testimonials/', {
   meta: 'What people say about Gafflow resin products, training courses and installations, word for word. Leave your own review on Google or on our products.',
   schema: [bizSchema(), crumbs([['Home', '/'], ['Testimonials', '/testimonials/']])],
   body: `
-${pageHero({ kicker: crumbNav([['Home', '/'], ['Testimonials', '/testimonials/']]), h1: 'Do not just take our word for it', lede: 'Every testimonial below is quoted from Gafflow\'s own site, a few of them shortened. None were written for this site.', ctas: false })}
+${pageHero({ kicker: crumbNav([['Home', '/'], ['Testimonials', '/testimonials/']]), h1: 'Do not just take our word for it', lede: 'Every testimonial below is copied word for word from Gafflow\'s own testimonials and courses pages.', ctas: false })}
 <section class="sec tight"><div class="wrap"><div class="tgrid">${site.testimonials.map(tcard).join('')}</div></div></section>
 <section class="sec tight"><div class="wrap narrow">${googleSlot()}<p class="fine">Had a floor, a course or products from Gafflow? Thank you for taking a moment to leave a review on Google or on the product in the shop.</p></div></section>
 ${coursesBlock({ title: 'Ready to learn resin floors?' })}`,
@@ -737,7 +742,7 @@ ${coursesBlock({ title: 'Ready to learn resin floors?' })}`,
 // CONTACT
 add('/contact/', {
   title: 'Contact Gafflow Resin Finishes | Installations, Courses & Orders',
-  meta: 'Contact the Gafflow team about installations, course bookings, commercial projects and product orders. WhatsApp, email or call 07552 036785.',
+  meta: `Contact the Gafflow team about installations, course bookings, commercial projects and product orders. WhatsApp, email or call ${biz.phone}.`,
   cur: '/contact/',
   schema: [bizSchema(), crumbs([['Home', '/'], ['Contact', '/contact/']])],
   body: `
@@ -893,7 +898,7 @@ add('/thank-you/', {
   <p class="lede">${esc(biz.replyTime)}</p>
   <div class="ty-sum" data-ty-summary hidden></div>
   <h2 class="h3">What happens next</h2>
-  <ol class="steps steps-v">${[['A chat about your ideas', 'The team looks at your photos and talks through finishes, colours and what the space needs.'], ['Site survey', 'A visit to check the substrate, moisture and preparation, with samples to see in your own light.'], ['Your quotation and dates', 'A written quotation, then an install date that suits you.']].map(([t, d], i) => `<li><span class="step-n">${i + 1}</span><h3 class="h4">${t}</h3><p>${d}</p></li>`).join('')}</ol>
+  <ol class="steps steps-v">${[['A chat about your ideas', 'The team looks at your photos and talks through finishes, colours and what the space needs.'], ['Site survey', 'A visit to assess the existing floor and the space before anything is quoted.'], ['Your quotation', 'Your quotation, then a date for the work.']].map(([t, d], i) => `<li><span class="step-n">${i + 1}</span><h3 class="h4">${t}</h3><p>${d}</p></li>`).join('')}</ol>
   <div class="ctas"><a class="btn btn-primary" href="${WA}" data-track="whatsapp" data-loc="thank-you" rel="noopener">${icon('whatsapp-logo')} WhatsApp your photos</a><a class="btn btn-ghost" href="/gallery/">Browse more floors</a></div>
 </div></section>`,
 });

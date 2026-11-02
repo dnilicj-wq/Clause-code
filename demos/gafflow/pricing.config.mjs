@@ -1,14 +1,15 @@
 // ─────────────────────────────────────────────────────────────────────────────
-//  GAFFLOW: ESTIMATOR RATES AND FORM SETTINGS (the only file the team edits)
+//  GAFFLOW ESTIMATOR PRICING: SET TO GAFFLOW'S REAL RATES
 //
-//  The estimator shows an INDICATIVE range, always labelled "indicative, confirmed
-//  after a site survey". Gafflow does not publish installation prices, so the
-//  £ per m² figures below are PLACEHOLDERS. Set them to your real rates.
+//  Every £ figure the estimator shows comes from this file and nowhere else.
+//  Gafflow does not publish installation prices, so the numbers below are
+//  EXAMPLE PLACEHOLDERS, not Gafflow's prices. The site labels the result
+//  "Example range". Replace them with Gafflow's real rates before launch.
 //
 //  After editing: `npm run build`, then redeploy.
 // ─────────────────────────────────────────────────────────────────────────────
 export default {
-  // £ per m², all-in (preparation, materials, labour). [low, high].  ← SET YOUR REAL RATES
+  // £ per m², all-in (preparation, materials, labour). [low, high].  ← SET TO GAFFLOW'S REAL RATES
   finishes: {
     metallic: { label: 'Metallic epoxy', perM2: [95, 140] },
     marble: { label: 'Marble effect', perM2: [95, 140] },
@@ -28,15 +29,6 @@ export default {
     driveway: { label: 'Driveway or patio', m2: 50, min: 10, max: 300, finishes: ['bound'] },
   },
 
-  // Smallest job the estimator will show (covers set-up, travel and minimum material kits). ← SET YOURS
+  // Smallest figure the estimator will show. ← SET TO GAFFLOW'S REAL MINIMUM
   minimumJob: 1200,
-
-  // ── Quote form ──
-  // Paste a Web3Forms access key OR a Formspree endpoint. Leave both empty for demo
-  // mode (the form completes without sending anything).
-  form: {
-    web3formsAccessKey: '',
-    formspreeEndpoint: '',
-    notifyEmail: 'yo@gafflowresinfinishes.com',
-  },
 };

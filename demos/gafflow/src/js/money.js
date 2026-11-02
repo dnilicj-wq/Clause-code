@@ -1,7 +1,7 @@
 // Pure maths for the estimator (and the tests).
 const r10 = (n) => Math.round(n / 10) * 10;
 
-// Indicative range: m² × [low, high] £/m² for the chosen finish (rates.config.mjs),
+// Example range: m² × [low, high] £/m² for the chosen finish (pricing.config.mjs),
 // never below the minimum job.
 export function estimate(R, { space, finish, m2 }) {
   const area = Math.max(1, Math.round(m2 || R.spaces[space].m2));

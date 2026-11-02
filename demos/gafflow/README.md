@@ -5,8 +5,8 @@ A new site for Gafflow Resin Finishes (Harry, Ollie, Lou and the crew; Gafflow R
 ## Files that matter
 | File | What it is |
 |---|---|
-| `rates.config.mjs` | **The file Gafflow edits.** Estimator £/m² rates per finish (PLACEHOLDERS: Gafflow publishes no install prices), space presets, minimum job, and the quote form key. |
-| `site.config.mjs` | Business facts, trust lines, the metallic system layers, pigment palette, finishes, gallery, testimonials, courses and FAQs. Every fact is from gafflowresinfinishes.com. |
+| `pricing.config.mjs` | **Set to Gafflow's real rates.** Every £ figure the estimator shows (£/m² per finish, space presets, minimum). The current numbers are example placeholders; the site labels them "Example range". |
+| `site.config.mjs` | The enquiry phone number (one value drives every `tel:` and `wa.me` link), the quote form key, business facts, trust lines, the metallic system layers, pigment palette, finishes, gallery, testimonials, courses and FAQs. Every fact is from gafflowresinfinishes.com. |
 | `data/products-raw.json` | All 41 products from their WooCommerce store: name, price, variations, stock and description. |
 | `data/legacy.json` | Terms, refund, privacy and policies pages, ported verbatim. |
 | `src/js/pour.js` | The "Design your floor" WebGL2 metallic pour (one fragment shader, ~3 KB, lazy-loaded). |
@@ -25,13 +25,13 @@ npx vercel@latest deploy --prod --yes --scope dnilicj-2275s-projects --token "$V
 Audit build without the demo noindex: `NOINDEX=0 OUT=dist-launch node build.mjs`.
 
 ## The shop in this demo
-Product, course and category pages are fully built (prices, variations, stock, schema). The "Buy now" and "Book my place" buttons hand off to the same product on Gafflow's live WooCommerce store, and `/checkout/` and `/my-account/` redirect there. At launch, pick one: keep WooCommerce as the cart and checkout on a subdomain, or move checkout to Shopify Buy Button or Stripe Payment Links.
+Every shop, product and course-booking link on the site points to Gafflow's existing shop pages on gafflowresinfinishes.com. Matching product and category pages are also built here at the same paths (for launch), and their "Buy now" and "Book my place" buttons hand off to the same product on Gafflow's live WooCommerce store, and `/checkout/` and `/my-account/` redirect there. At launch, pick one: keep WooCommerce as the cart and checkout on a subdomain, or move checkout to Shopify Buy Button or Stripe Payment Links.
 
 ## Connecting the quote form
-Put a Web3Forms access key or a Formspree endpoint in `rates.config.mjs > form`. While both are empty the form runs in demo mode: it completes and shows the thank-you page without sending anything.
+Put a Web3Forms access key or a Formspree endpoint in `site.config.mjs > form`. While both are empty the form runs in demo mode: it completes and shows the thank-you page without sending anything.
 
 ## Honest-content rules this build follows
-- Only Gafflow's own photos, from their site and posters. The two Arturo PU images are labelled "Manufacturer image".
-- Testimonials are quoted from their site (some shortened at a sentence end). There are no installation testimonials on their site, so the Google panel is an empty, labelled slot.
-- No invented prices. Product and course prices are theirs. The estimator rates are placeholders, labelled "Indicative, confirmed after a site survey".
+- Only Gafflow's own finished-job photos, checked for tools, debris and unfinished work. The two Arturo PU images are labelled "Manufacturer image".
+- All 14 testimonials are copied word for word from their /testimonials/ and /courses/ pages, with names as shown there. There are none for installations, so the Google panel is an empty, labelled slot.
+- No invented prices. Product and course prices are theirs. The estimator rates are placeholders, labelled "Example range".
 - No finance offer, warranty length or response time, because the live site makes none.

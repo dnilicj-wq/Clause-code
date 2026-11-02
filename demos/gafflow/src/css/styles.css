@@ -155,12 +155,12 @@ p { margin: 0 0 1em; }
 
 /* ---------- trust ---------- */
 .trust { background: var(--bg-2); border-block: 1px solid rgb(255 255 255 / .06); }
-.trust-list { list-style: none; margin: 0 auto; padding-block: 1.3rem; display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem; }
+.trust-list { list-style: none; margin: 0 auto; padding-block: 1.3rem; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
 .trust-list li { display: flex; gap: .7rem; align-items: center; }
 .trust-list .i { width: 2rem; height: 2rem; color: var(--pink-hi); }
 .trust-list b { display: block; font-weight: 700; line-height: 1.2; }
 .trust-list small { color: var(--ink-3); font-size: .82rem; }
-@media (max-width: 1000px) { .trust-list { grid-template-columns: repeat(2, 1fr); } .trust-list li:last-child { grid-column: 1 / -1; } }
+@media (max-width: 760px) { .trust-list { grid-template-columns: 1fr; gap: .8rem; } }
 
 /* ---------- finishes ---------- */
 .fin-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 1rem; }
@@ -243,6 +243,7 @@ legend, .field label { font-weight: 650; font-size: .92rem; color: var(--ink-2);
 .est-note { font-size: .84rem; color: var(--ink-2); margin: 1rem 0 1.2rem; }
 
 /* ---------- layer stack ---------- */
+@media (max-width: 860px) { .estimate { padding-bottom: .5rem; } .estimate .est-form fieldset:last-child { margin-bottom: 0; } }
 .layers { position: relative; height: 320vh; background: radial-gradient(70% 50% at 70% 40%, rgb(228 111 198 / .16), transparent 70%), var(--bg-2); }
 .layers-sticky { position: sticky; top: 0; height: 100dvh; display: grid; align-items: center; overflow: hidden; }
 .layers-grid { display: grid; grid-template-columns: 1fr 1.15fr; gap: 2rem; align-items: center; }
@@ -266,7 +267,7 @@ legend, .field label { font-weight: 650; font-size: .92rem; color: var(--ink-2);
 @media (max-width: 860px) {
   .layers { height: 300vh; }
   .layers-sticky { display: block; }
-  .layers-grid { display: flex; flex-direction: column; align-items: stretch; height: 100%; gap: 0; padding-top: 84px; padding-bottom: calc(84px + env(safe-area-inset-bottom)); }
+  .layers-grid { display: flex; flex-direction: column; align-items: stretch; height: 100%; gap: 0; padding-top: 78px; padding-bottom: calc(84px + env(safe-area-inset-bottom)); }
   .layers-copy { display: contents; }
   .layers-copy .lede-sm { display: none; }
   .layers-copy .h2 { order: 1; font-size: 1.6rem; margin: 0 0 .4rem; flex: none; }

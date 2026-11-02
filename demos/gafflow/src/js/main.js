@@ -62,14 +62,14 @@ if (est) {
   }
   est.addEventListener('change', (e) => {
     if (e.target.name === 'space') syncSpace();
-    if (!touched) { touched = true; track('estimator_start'); }
+    if (!touched) { touched = true; store.set('gaf_est', '1'); track('estimator_start'); }
     render(); track('estimator_update', { space: val('space'), finish: val('finish') });
   });
   m2.addEventListener('input', render);
   syncSpace(); render();
   $('[data-lock]')?.addEventListener('click', () => {
     if (!last) return;
-    prefill({ space: R.spaces[last.space].label, finish: R.finishes[last.finish].label, m2: last.m2, estimate: `${gbp(last.low)} to ${gbp(last.high)} (indicative)` });
+    prefill({ space: R.spaces[last.space].label, finish: R.finishes[last.finish].label, m2: last.m2, estimate: `${gbp(last.low)} to ${gbp(last.high)} (example range)` });
     store.set('gaf_est', '1');
   });
 }
@@ -248,19 +248,26 @@ if (ty) {
 }
 
 /* ---------- one-time nudge: scroll depth or exit intent ---------- */
+// Shown at most once per visit, only after the gallery AND the award section are scrolled
+// past, and never on top of the award section or the quote form. Gone for the visit once
+// dismissed, used, or the visitor reaches the quote form or touches the estimator.
 const nudge = $('[data-nudge]');
-if (nudge && !store.get('gaf_nudge')) {
-  let shown = false;
-  const showNudge = () => {
-    if (shown || scrollY < innerHeight * 1.5 || store.get('gaf_est')) return;
-    shown = true; store.set('gaf_nudge', '1'); nudge.hidden = false; track('nudge_shown');
-  };
-  const sentinel = $('#work');
-  if (sentinel) new IntersectionObserver(([e], o) => { if (e.isIntersecting) { showNudge(); o.disconnect(); } }).observe(sentinel);
-  document.addEventListener('mouseout', (e) => { if (!e.relatedTarget && e.clientY < 8) showNudge(); });
-  const hide = () => { nudge.hidden = true; };
-  $('[data-nudge-x]', nudge).addEventListener('click', hide);
-  $('a', nudge).addEventListener('click', hide);
+const gallerySec = $('#work'), awardSec = $('#team'), quoteSec = $('#quote');
+if (nudge && gallerySec && !store.get('gaf_nudge') && !store.get('gaf_est')) {
+  let state = 'waiting'; // waiting → shown → done
+  const done = () => { state = 'done'; nudge.hidden = true; store.set('gaf_nudge', '1'); removeEventListener('scroll', check); };
+  const below = (el) => el && el.getBoundingClientRect().bottom < 0;
+  const onScreen = (el) => { if (!el) return false; const r = el.getBoundingClientRect(); return r.top < innerHeight && r.bottom > 0; };
+  function check() {
+    if (state === 'done') return;
+    if (store.get('gaf_est') || onScreen(quoteSec)) { if (state === 'shown' || store.get('gaf_est')) done(); return; }
+    if (state === 'waiting' && below(gallerySec) && (!awardSec || below(awardSec))) {
+      state = 'shown'; store.set('gaf_nudge', '1'); nudge.hidden = false; track('nudge_shown');
+    }
+  }
+  addEventListener('scroll', check, { passive: true });
+  $('[data-nudge-x]', nudge).addEventListener('click', done);
+  $('a', nudge).addEventListener('click', done);
 }
 
 /* ---------- reveals (below the fold only; content is visible without JS) ---------- */
