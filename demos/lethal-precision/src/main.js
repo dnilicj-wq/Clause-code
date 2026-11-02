@@ -118,7 +118,7 @@ const config = (() => {
   const sw = document.querySelector('.swatches');
   const poster = document.querySelector('.config-poster');
   const hint = document.querySelector('.config-hint');
-  const state = { type: 'metallic', key: 'pewter', cfg: null, lastPoint: null };
+  const state = { type: 'metallic', key: 'midnight', cfg: null, lastPoint: null };
   if (!tabs.length || !sw) return { ...state, attach() {} };
 
   const swatchBg = (t, c) => t === 'flake'

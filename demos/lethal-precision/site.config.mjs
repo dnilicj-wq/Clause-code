@@ -18,6 +18,7 @@ export default {
   // to swap once they reply: owner, phone, street, reviews, team, numbers.
   siteUrl: 'https://clientgateway-lethal-precision.vercel.app',
   noindex: true,             // prospect demo: keep out of search engines
+  lite: true,                // no WebGL / smooth-scroll / fade-ins: instant on every phone
   country: 'AU',
   locale: 'en-AU',
   currency: 'AUD',

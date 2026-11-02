@@ -155,7 +155,7 @@ function labelTexture(company) {
   c.width = 1024; c.height = 256;
   const g = c.getContext('2d');
   g.fillStyle = '#f2f3f4'; g.fillRect(0, 0, 1024, 256);
-  g.fillStyle = '#c9a04a'; g.fillRect(0, 40, 1024, 176);
+  g.fillStyle = '#0255b4'; g.fillRect(0, 40, 1024, 176);
   g.fillStyle = '#ffffff';
   g.font = '800 92px "Big Shoulders Display", Impact, sans-serif';
   g.textBaseline = 'middle';

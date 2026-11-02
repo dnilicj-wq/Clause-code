@@ -133,8 +133,12 @@ export function wireForm(form, { name = 'enquiry', extra = () => ({}), onSuccess
 }
 
 /* ---------- Reveal on scroll (content is visible by default) ---------- */
+// `lite: true` in site.config.mjs: no WebGL, no smooth-scroll library, no fade-ins.
+// Content is there the moment it scrolls into view, on any phone.
+export const LITE = SITE.lite === true && params.get('gl') !== 'force';
+
 export function reveals() {
-  if (reduceMotion || !('IntersectionObserver' in window)) return;
+  if (LITE || reduceMotion || !('IntersectionObserver' in window)) return;
   const els = [...document.querySelectorAll('[data-reveal]')];
   const vh = innerHeight;
   const io = new IntersectionObserver((entries) => {
@@ -190,7 +194,7 @@ export function chrome() {
 
 /* ---------- Smooth wheel scrolling on desktop only ---------- */
 export async function smoothScroll() {
-  if (reduceMotion || !finePointer) return null;
+  if (LITE || reduceMotion || !finePointer) return null;
   const { default: Lenis } = await import('lenis');
   const lenis = new Lenis({ duration: 1.05, easing: (t) => 1 - Math.pow(1 - t, 4) });
   const raf = (t) => { lenis.raf(t); requestAnimationFrame(raf); };
@@ -242,7 +246,7 @@ export function refreshDerived(values) {
    (no GPU) get the static posters instead. ?gl=force / ?gl=off override. */
 export function whenReadyFor3D() {
   const q = params.get('gl');
-  if (q === 'off') return Promise.resolve(false);
+  if (q === 'off' || LITE) return Promise.resolve(false);
   let ok = false, soft = false;
   try {
     const c = document.createElement('canvas');
