@@ -27,7 +27,7 @@ export default {
   priceRange: '$$',
   openingHours: ['Mo-Fr 07:00-17:00', 'Sa 07:00-12:00'],
 
-  brand: { logo: '/img/logo.webp', accent: null },
+  brand: { logo: '/img/logo.png', accent: null },
 
   tokens: {
     Company: 'Lethal Precision',

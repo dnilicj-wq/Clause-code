@@ -539,5 +539,5 @@ textarea.input { resize: vertical; min-height: 90px; }
 }
 
 /* prospect logo */
-.brand-logo { width: 44px; height: 44px; border-radius: 50%; }
+.brand-logo { width: 48px; height: 48px; }
 .footer .brand-logo, .site-footer .brand-logo { width: 52px; height: 52px; }
