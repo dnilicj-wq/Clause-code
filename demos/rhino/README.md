@@ -39,6 +39,6 @@ Put a Web3Forms access key or a Formspree endpoint in `rates.config.mjs > form`.
 While both are empty the form runs in demo mode: it completes and shows the thank-you page without sending anything. Photo attachments need a plan that accepts files (Formspree paid, or Web3Forms Pro). Otherwise customers can WhatsApp their photos.
 
 ## Honest-content rules this build follows
-- Only Rhino's own photos are used. The hero and the M-Flow image are 3D renders, used as mood and labelled as renders, never as a client job.
+- Only Rhino's own photos and Instagram posts are used. The hero is the McLaren purple flake image from Rhino's Instagram, used as mood with no caption. The M-Flow image is a 3D render and is labelled as one.
 - There are no invented reviews, names, stats or prices. The review panel is an empty, labelled slot for real Google reviews.
 - The estimator shows ranges only, marked "Indicative, confirmed after free survey".

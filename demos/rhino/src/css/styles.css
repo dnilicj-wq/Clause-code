@@ -472,3 +472,15 @@ textarea.input { min-height: 96px; resize: vertical; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
 }
+
+/* Rhino's own system graphic (white background artwork) */
+.gfx, .stack-graphic { margin: 0; border-radius: var(--r); overflow: hidden; background: #fff; }
+.gfx img, .stack-graphic img { width: 100%; height: auto; }
+.stack-graphic { display: none; }
+.layers.static .stack-graphic { display: block; }
+.layers.static .stack-stage { display: none; }
+.sysgfx .feature-list li { align-items: flex-start; }
+.sysgfx .feature-list small { color: var(--ink-2); font-size: .9rem; }
+.gfx-col { display: grid; gap: 1rem; }
+.feature-list.pair { grid-template-columns: 1fr 1fr; }
+@media (max-width: 560px) { .feature-list.pair { grid-template-columns: 1fr; } }

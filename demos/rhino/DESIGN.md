@@ -18,7 +18,7 @@
 | 3D | The scroll-driven exploded layer stack is CSS 3D with no WebGL. It sits behind a sticky stage, its rAF loop runs only while in view, it is lazy, and it never blocks first paint. Mobile gets compact labels pinned to the bottom of the viewport. | 3d-animation-creator patterns (sticky stage, progress mapping, mobile compact cards), adapted for performance |
 | Scroll | No `window` scroll handler drives animation: an IntersectionObserver gates a rAF loop. | taste 5.D |
 | Cards | 3 systems are shown as one featured card and two compact ones, plus a comparison table (no identical-card row). | taste 9.C, impeccable |
-| Images | Rhino's own photos only. The hero is a rendered purple flake floor used as brand mood, never captioned as a job. | brief |
+| Images | Rhino's own photos and posts only. The hero is the McLaren purple flake image from Rhino's Instagram, used as brand mood and never captioned as a job (it looks AI-generated). Rhino's seven-layer Instagram graphic appears on the process and garage pages and is the reduced-motion fallback for the 3D stack. | brief |
 
 ## Type
 - One family: **Archivo** (variable `wdth` 62 to 125, `wght` 100 to 900), self-hosted and subset.

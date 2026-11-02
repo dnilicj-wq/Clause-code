@@ -213,6 +213,7 @@ const layerStack = () => `
           ${[...site.layers].reverse().map((l, i) => `<li data-li="${site.layers.length - 1 - i}"><b>${esc(l.name)}</b><span>${esc(l.benefit)}</span></li>`).join('')}
         </ol>
       </div>
+      <figure class="stack-graphic">${img('rhino-system-graphic', 'Rhino Coating system graphic: concrete substrate, crack repairs, diamond-ground surface, damp proof membrane, Rhino HB-200 base coat, full flake broadcast and UV-stable top coat', { sizes: '(max-width: 860px) 100vw, 50vw', small: true })}</figure>
       <div class="stack-stage" aria-hidden="true">
         <div class="stack" data-stack>
           ${site.layers.map((l, i) => `<div class="slab slab-${l.key}" style="--i:${i}">${l.img ? `<img src="/img/${l.img}.webp" alt="" width="512" height="512" loading="lazy" decoding="async">` : ''}<span class="slab-tag">${esc(l.name)}</span></div>`).join('')}
@@ -434,7 +435,7 @@ const pages = [];
 const add = (p, opts) => pages.push({ p, ...opts });
 
 // HOME
-const heroPreload = `<link rel="preload" as="image" href="/img/hero-flake-m.webp" media="(max-width: 760px)" fetchpriority="high"><link rel="preload" as="image" href="/img/hero-flake-1600.webp" imagesrcset="/img/hero-flake-960.webp 960w, /img/hero-flake-1600.webp 1600w" imagesizes="100vw" media="(min-width: 761px)" fetchpriority="high">`;
+const heroPreload = `<link rel="preload" as="image" href="/img/hero-mclaren-m.webp" media="(max-width: 760px)" fetchpriority="high"><link rel="preload" as="image" href="/img/hero-mclaren-1600.webp" imagesrcset="/img/hero-mclaren-960.webp 960w, /img/hero-mclaren-1600.webp 1600w" imagesizes="100vw" media="(min-width: 761px)" fetchpriority="high">`;
 add('/', {
   title: 'Epoxy Resin Flooring Manchester | Garage Floors | Rhino Coating',
   meta: 'Epoxy resin flooring in Manchester, Cheshire and nationwide. Garage floors in 2 to 3 days, diamond-ground, with a 10-year workmanship warranty and 0% finance.',
@@ -443,8 +444,8 @@ add('/', {
   body: `
 <section class="hero" aria-labelledby="hero-title">
   <picture class="hero-bg" aria-hidden="true">
-    <source media="(max-width: 760px)" srcset="/img/hero-flake-m.webp" width="540" height="825">
-    <img src="/img/hero-flake-1600.webp" srcset="/img/hero-flake-960.webp 960w, /img/hero-flake-1600.webp 1600w" sizes="100vw" alt="" width="1600" height="1000" fetchpriority="high" decoding="async">
+    <source media="(max-width: 760px)" srcset="/img/hero-mclaren-m.webp" width="540" height="830">
+    <img src="/img/hero-mclaren-1600.webp" srcset="/img/hero-mclaren-960.webp 960w, /img/hero-mclaren-1600.webp 1600w" sizes="100vw" alt="" width="1600" height="1009" fetchpriority="high" decoding="async">
   </picture>
   <div class="wrap hero-inner">
     <h1 id="hero-title" class="display"><span class="h1-kicker">Epoxy resin flooring, Manchester</span>A showroom floor for your garage, built in 2 to 3 days.</h1>
@@ -492,7 +493,8 @@ ${trustStrip()}
   <div><h2 class="h2">What a full flake floor actually is</h2>
   <p>A flake floor is not a single tin of paint. It is a build-up of separate resin layers, each doing a different job, over a correctly prepared slab. Coloured flakes are broadcast by hand into wet epoxy until no more will stick, then sealed under a clear top coat.</p>
   <p>Broadcasting to refusal gives a dense, even surface with real texture. That is why full flake copes with hot tyres, road salt, dropped tools and oil drips on one continuous surface, and why it is the finish most Rhino customers choose.</p></div>
-  <ul class="feature-list">${['Seamless, jointless finish', 'Resists oil and chemicals', 'Sweeps and mops clean in minutes', 'Abrasion and impact resistant', 'Sealed, dust-free surface', 'UV-stable, so the colour stays put'].map((x) => `<li>${icon('check-circle', 'light')}${x}</li>`).join('')}</ul>
+  <div class="gfx-col"><figure class="gfx">${img('rhino-system-graphic', 'Rhino Coating full flake system graphic: seven layers from concrete substrate to UV-stable top coat', { small: true })}</figure>
+  <ul class="feature-list pair">${['Seamless, jointless finish', 'Resists oil and chemicals', 'Sweeps and mops clean in minutes', 'Abrasion and impact resistant', 'Sealed, dust-free surface', 'UV-stable, so the colour stays put'].map((x) => `<li>${icon('check-circle', 'light')}${x}</li>`).join('')}</ul></div>
 </div></section>
 ${estimator()}
 ${layerStack()}
@@ -551,6 +553,10 @@ add('/process', {
   body: `
 ${pageHero({ kicker: crumbNav([['Home', '/'], ['Process', '/process']]), h1: 'Our epoxy flooring installation process', lede: 'A durable resin floor comes down to two things: correct preparation, and a system chosen for the slab and how the floor will be used.', ctas: true })}
 ${processBlock('h2', 'stages')}
+<section class="sec tight"><div class="wrap two-col sysgfx">
+  <figure class="gfx">${img('rhino-system-graphic', 'Rhino Coating system graphic showing seven layers, from concrete substrate to UV-stable top coat', { small: true })}</figure>
+  <div><h2 class="h2">The Rhino system, layer by layer</h2><ul class="feature-list">${site.layers.slice().reverse().map((l) => `<li>${icon('check-circle', 'light')}<span><b>${esc(l.name)}</b><br><small>${esc(l.benefit)}</small></span></li>`).join('')}</ul></div>
+</div></section>
 <section class="sec"><div class="wrap two-col media-row">
   <figure>${img('moisture-testing', 'Moisture meter on a concrete slab with readings logged on a phone', { small: true })}<figcaption>Moisture readings taken before anything is opened.</figcaption></figure>
   <figure>${img('crack-repair', 'Installer repairing a joint in a concrete floor', { small: true })}<figcaption>Cracks and joints repaired so the coating is not laid over a weakness.</figcaption></figure>
