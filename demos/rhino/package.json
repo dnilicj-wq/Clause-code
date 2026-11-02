@@ -1,0 +1,10 @@
+{
+  "name": "clientgateway-rhino",
+  "private": true,
+  "type": "module",
+  "scripts": { "build": "node build.mjs", "dev": "node build.mjs && npx serve dist -l 4173" },
+  "dependencies": {
+    "@phosphor-icons/core": "^2.1.1",
+    "esbuild": "^0.25.0"
+  }
+}
