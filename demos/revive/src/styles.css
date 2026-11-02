@@ -531,6 +531,6 @@ textarea.input { resize: vertical; min-height: 90px; }
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
 
-/* prospect logo (RC pour mark, recoloured for dark backgrounds) */
-.brand-logo { width: auto; height: 42px; }
-.footer .brand-logo { height: 52px; }
+/* prospect logo (round badge) */
+.brand-logo { width: 48px; height: 48px; border-radius: 50%; box-shadow: 0 0 0 1px oklch(1 0 0 / .14), 0 4px 14px oklch(0 0 0 / .5); }
+.footer .brand-logo { width: 64px; height: 64px; }

@@ -25,7 +25,7 @@ export default {
   priceRange: '$$',
   openingHours: ['Mo-Sa 08:00-18:00'],
 
-  brand: { logo: '/img/logo.webp', accent: null },
+  brand: { logo: '/img/logo.png', accent: null },
 
   tokens: {
     Company: 'Revive Coatings',
