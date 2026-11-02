@@ -84,7 +84,7 @@ const crumbs = (trail) => ({ '@context': 'https://schema.org', '@type': 'Breadcr
 
 /* ---------- chrome ---------- */
 const NAV = [['/epoxy-garage-flooring', 'Garage floors'], ['/services', 'Commercial'], ['/process', 'Process'], ['/portfolio', 'Projects'], ['/#finance', 'Finance'], ['/contact', 'Contact']];
-const brand = (tag = 'a') => `<${tag} class="brand" ${tag === 'a' ? 'href="/" aria-label="Rhino Coating home"' : ''}><img src="/img/rhino-mark.webp" alt="" width="122" height="160"><span class="wordmark"><span class="wm-a">Rhino</span><span class="wm-b">Coating</span></span></${tag}>`;
+const brand = (tag = 'a') => `<${tag} class="brand" ${tag === 'a' ? 'href="/"' : ''}><img src="/img/rhino-mark.webp" alt="" width="122" height="160"><span class="wordmark"><span class="wm-a">Rhino</span><span class="wm-b">Coating</span></span></${tag}>`;
 const header = (cur) => `
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-header" data-header>
@@ -248,6 +248,10 @@ const systemsBlock = (h = 'h2') => {
         </tbody>
       </table>
     </div>
+    <div class="compare-m" data-compare>
+      <div class="seg" role="tablist" aria-label="Compare systems">${site.systems.map((s, i) => `<button type="button" role="tab" aria-selected="${i === 0}" data-cmp="${i}">${esc(s.code)}</button>`).join('')}</div>
+      ${site.systems.map((s, i) => `<div class="cmp-panel" data-cmp-panel="${i}" role="tabpanel" aria-label="${esc(s.name)}"><p class="cmp-name">${esc(s.name)} <small>${esc(s.type)}</small></p><dl>${[['Who it suits', 'suits'], ['Finish', 'finish'], ['Durability', 'durability'], ['Where it is used', 'where']].map(([lab, k]) => `<div><dt>${lab}</dt><dd>${esc(s[k])}</dd></div>`).join('')}</dl></div>`).join('')}
+    </div>
     <p class="fine">General guidance only. Final system selection follows a site survey and is confirmed in your written specification.</p>
   </div>
 </section>`;
@@ -336,7 +340,7 @@ const finance = () => `
 const warrantySummary = () => `
 <section id="warranty" class="sec warranty" aria-labelledby="war-title">
   <div class="wrap war-grid">
-    <div class="war-seal">${icon('seal-check', 'duotone')}<p><b>10</b><span>year workmanship warranty</span></p></div>
+    <div class="war-seal">${icon('seal-check', 'duotone')}<b>10</b><span>year warranty</span><small>workmanship, in writing</small></div>
     <div>
       <h2 id="war-title" class="h2">In writing, for ten years</h2>
       <p>Valid for 10 years from practical completion, for the original purchaser. If a valid claim is accepted, Rhino repairs or replaces the affected area at no cost to you.</p>
@@ -444,8 +448,8 @@ add('/', {
   body: `
 <section class="hero" aria-labelledby="hero-title">
   <picture class="hero-bg" aria-hidden="true">
-    <source media="(max-width: 760px)" srcset="/img/hero-mclaren-m.webp" width="540" height="830">
-    <img src="/img/hero-mclaren-1600.webp" srcset="/img/hero-mclaren-960.webp 960w, /img/hero-mclaren-1600.webp 1600w" sizes="100vw" alt="" width="1600" height="1009" fetchpriority="high" decoding="async">
+    <source media="(max-width: 760px)" srcset="/img/hero-mclaren-m.webp" width="540" height="725">
+    <img src="/img/hero-mclaren-1600.webp" srcset="/img/hero-mclaren-960.webp 960w, /img/hero-mclaren-1600.webp 1600w" sizes="100vw" alt="" width="1600" height="1072" fetchpriority="high" decoding="async">
   </picture>
   <div class="wrap hero-inner">
     <h1 id="hero-title" class="display"><span class="h1-kicker">Epoxy resin flooring, Manchester</span>A showroom floor for your garage, built in 2 to 3 days.</h1>

@@ -86,6 +86,14 @@ $$('[data-filter]').forEach((b) => b.addEventListener('click', () => {
   track('gallery_filter', { filter: k });
 }));
 
+/* ---------- mobile system comparison switcher ---------- */
+$$('[data-compare]').forEach((c) => {
+  const tabs = $$('[data-cmp]', c), panels = $$('[data-cmp-panel]', c);
+  const pick = (i) => { tabs.forEach((t, k) => t.setAttribute('aria-selected', k === i)); panels.forEach((p, k) => { p.hidden = k !== i; }); };
+  tabs.forEach((t, i) => t.addEventListener('click', () => pick(i)));
+  pick(0);
+});
+
 /* ---------- YouTube: thumbnail until clicked (no third-party JS on load) ---------- */
 $$('[data-yt]').forEach((b) => b.addEventListener('click', () => {
   const f = document.createElement('iframe');

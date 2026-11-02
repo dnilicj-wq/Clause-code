@@ -11,13 +11,21 @@ export default function init(section) {
   const items = [...section.querySelectorAll('[data-li]')];
   const stack = section.querySelector('[data-stack]');
   const n = slabs.length;
-  let raf = 0, live = false, lastActive = -2;
+  const stage = section.querySelector('.stack-stage');
+  let raf = 0, live = false, lastActive = -2, G = 44;
+  // Fit the exploded stack inside the stage on phones (viewport height varies with browser chrome).
+  function fit() {
+    if (innerWidth >= 860) { G = 44; stack.style.removeProperty('--stack-w'); return; }
+    const h = stage.clientHeight, w = stage.clientWidth;
+    G = Math.max(8, Math.min(20, h * 0.04));
+    const spread = (n - 1) * (G + 6) * 0.85;
+    const size = Math.max(140, Math.min(w * 0.62, (h - spread) / 0.85));
+    stack.style.setProperty('--stack-w', size + 'px');
+  }
 
   function frame() {
     const r = section.getBoundingClientRect();
     const p = clamp(-r.top / Math.max(1, r.height - innerHeight), 0, 1);
-    const mobile = innerWidth < 860;
-    const G = mobile ? 24 : 44;
     let spread;
     if (p < 0.12) spread = 0;
     else if (p < 0.3) spread = ease((p - 0.12) / 0.18);
@@ -47,5 +55,6 @@ export default function init(section) {
     if (live) raf = requestAnimationFrame(frame);
   }).observe(section);
   slabs.forEach((s) => { s.style.transition = 'none'; });
+  fit(); addEventListener('resize', () => { fit(); frame(); }, { passive: true });
   frame();
 }

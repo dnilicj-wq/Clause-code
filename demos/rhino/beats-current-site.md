@@ -16,5 +16,5 @@ These are plain-English points Dan can use in his reply to David.
 
    | Page | Performance | Accessibility | Best Practices | SEO | LCP |
    |---|---|---|---|---|---|
-   | Home | 96 | 100 | 100 | 100 | 2.4s |
+   | Home | 100 | 100 | 100 | 100 | 1.8s |
    | Inner pages | 97 to 99 | 100 | 100 | 100 | 2.1 to 2.5s |
