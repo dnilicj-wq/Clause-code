@@ -75,6 +75,7 @@ export function wireCallTracking() {
 const PATTERNS = {
   GB: { phone: /^(\+44\s?|0)\d[\d\s]{8,12}$/, post: /^[A-Z]{1,2}\d[A-Z\d]?\s*\d[A-Z]{2}$/i, postLabel: 'postcode' },
   US: { phone: /^(\+1\s?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/, post: /^\d{5}(-\d{4})?$/, postLabel: 'ZIP code' },
+  AU: { phone: /^(\+61\s?\(?0?\)?\s?|\(?0)[2-478]\)?(\s?-?\d){8}$/, post: /^\d{4}$/, postLabel: 'postcode' },
 };
 export const pattern = PATTERNS[SITE.country] || PATTERNS.GB;
 

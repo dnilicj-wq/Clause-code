@@ -1,0 +1,502 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>{MetaTitle}</title>
+<meta name="description" content="{MetaDescription}">
+<link rel="canonical" href="{SiteUrl}/">
+<meta name="theme-color" content="#0a0a0a">
+<meta property="og:title" content="{MetaTitle}">
+<meta property="og:description" content="{MetaDescription}">
+<meta property="og:site_name" content="{Company}">
+<meta property="og:locale" content="en_AU">
+<meta property="og:type" content="website">
+<meta property="og:image" content="{SiteUrl}/img/og.jpg">
+<meta property="og:url" content="{SiteUrl}/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230a0a0a'/%3E%3Cpath d='M7 21h18M9 17h14' stroke='%23c9a04a' stroke-width='3'/%3E%3C/svg%3E">
+<link rel="preload" as="font" type="font/woff2" href="/fonts/big-shoulders-display.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="/fonts/geist.woff2" crossorigin>
+<link rel="stylesheet" href="/assets/styles.css">
+<link rel="preload" as="image" href="/img/hero-poster.webp" fetchpriority="high" media="(min-width: 761px)">
+<link rel="preload" as="image" href="/img/hero-poster-m.webp" fetchpriority="high" media="(max-width: 760px)">
+<!--SITE-->
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap nav">
+    <a class="brand" href="/" aria-label="{Company} home">
+      <span class="brand-mark" aria-hidden="true"><span></span><span></span></span>
+      <span class="brand-name">{Company}</span>
+    </a>
+    <nav class="nav-links" aria-label="Main">
+      <a href="#price">Instant price</a>
+      <a href="#driveways">Driveways</a>
+      <a href="#finishes">Finishes</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <div class="nav-actions">
+      <a class="nav-phone" aria-label="Call {Phone}" href="tel:{PhoneTel}" data-loc="header"><i data-icon="phone"></i><span>{Phone}</span></a>
+      <a class="btn btn-primary btn-sm hide-sm" href="#price" data-cta="header">Get my instant price</a>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- HERO -->
+<section class="hero" aria-labelledby="hero-title">
+  <div class="hero-stage" aria-hidden="true">
+    <picture><source media="(max-width: 760px)" srcset="/img/hero-poster-m.webp" width="480" height="738"><img class="hero-poster" src="/img/hero-poster.webp" alt="" width="1600" height="1000" fetchpriority="high"></picture>
+    <canvas id="hero-canvas"></canvas>
+  </div>
+  <div class="hero-scrim" aria-hidden="true"></div>
+  <div class="wrap hero-inner">
+    <div class="hero-copy">
+      <p class="booking-pill"><span class="pulse" aria-hidden="true"></span><span>Now booking {BookingMonth} installs</span></p>
+      <h1 id="hero-title" class="display">Metallic &amp; epoxy floors. <span>Calculated. Crafted. Complete.</span></h1>
+      <p class="lede">Metallic epoxy, flake and concrete coatings across {Town} and the Fraser Coast. Diamond-ground prep and a written warranty. Not a DIY kit with a markup.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-primary btn-lg" href="#price" data-cta="hero">Get my instant price <i data-icon="arrow-right"></i></a>
+        <a class="btn btn-ghost btn-lg" href="tel:{PhoneTel}" data-loc="hero"><i data-icon="phone"></i> Call {Phone}</a>
+      </div>
+    </div>
+    <ul class="trust-line" aria-label="Credentials">
+      <li><i data-icon="star" data-weight="fill"></i> {Rating} from {ReviewCount} Google reviews</li>
+      <li><i data-icon="map-pin"></i> {Years} years in {Town}</li>
+      <li><i data-icon="shield-check"></i> Licensed &amp; insured</li>
+      <li><i data-icon="seal-check"></i> {WarrantyLength} warranty</li>
+    </ul>
+  </div>
+</section>
+
+<!-- WHY FLOORS FAIL -->
+<section id="why" class="why" aria-labelledby="why-title">
+  <div class="wrap">
+    <div class="why-head" data-reveal>
+      <h2 id="why-title" class="h2">Why most floors peel <span>(and why ours don't)</span></h2>
+      <p class="body-lg">Most coating failures come down to three things: skipped prep, the wrong product and a rushed install. Big-box DIY kits sit on top of the concrete instead of bonding to it, so hot tyres lift them right off.</p>
+    </div>
+
+    <div class="xsec" data-xsec>
+      <figure class="stack-fig stack-diy">
+        <div class="stack" aria-hidden="true">
+          <div class="layer l-slab" style="--i:0"><span class="tex tex-concrete"></span></div>
+          <div class="layer l-film" style="--i:1"><span class="tex tex-film"></span><span class="peel"><span class="tex tex-film"></span></span></div>
+        </div>
+        <figcaption>
+          <p class="stack-title">DIY kit</p>
+          <ol class="stack-legend">
+            <li><b>Thin water-based epoxy</b> sits on the surface</li>
+            <li><b>Acid-etched slab</b> stays smooth, so nothing grips</li>
+          </ol>
+        </figcaption>
+      </figure>
+      <figure class="stack-fig stack-pro">
+        <div class="stack" aria-hidden="true">
+          <div class="layer l-slab" style="--i:0"><span class="tex tex-ground"></span></div>
+          <div class="layer l-base" style="--i:1"><span class="tex tex-base"></span></div>
+          <div class="layer l-flake" style="--i:2"><span class="tex tex-flake"></span></div>
+          <div class="layer l-top" style="--i:3"><span class="tex tex-top"></span></div>
+        </div>
+        <figcaption>
+          <p class="stack-title">Our system, in order</p>
+          <ol class="stack-legend">
+            <li><b>Grind:</b> diamond-grind the slab open so the coating can bond</li>
+            <li><b>Repair:</b> fill cracks and pits with a flexible repair</li>
+            <li><b>Base coat:</b> polyaspartic soaks into the open pores</li>
+            <li><b>Flake:</b> full broadcast that hides dirt and adds grip</li>
+            <li><b>Topcoat:</b> UV-stable clear coat that resists hot tyres</li>
+          </ol>
+        </figcaption>
+      </figure>
+    </div>
+
+    <div class="compare" role="table" aria-label="DIY kit compared with our system" data-reveal>
+      <div class="c-row c-head" role="row"><span role="columnheader"></span><span role="columnheader">DIY kit</span><span role="columnheader">Our system</span></div>
+      <div class="c-row" role="row"><span role="rowheader"><i data-icon="wrench"></i> Prep</span><span role="cell">Acid etching that leaves the slab smooth.</span><span role="cell">We diamond-grind the slab so the coating bonds to the concrete.</span></div>
+      <div class="c-row" role="row"><span role="rowheader"><i data-icon="drop"></i> Product</span><span role="cell">Thin water-based epoxy.</span><span role="cell">Commercial-grade polyaspartic that resists hot-tyre pickup and UV.</span></div>
+      <div class="c-row" role="row"><span role="rowheader"><i data-icon="clock"></i> Install</span><span role="cell">A weekend of work and days of curing.</span><span role="cell">Flake floors done in one day. Metallics in two to three.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- INSTANT PRICE -->
+<section id="price" class="price" aria-labelledby="price-title">
+  <div class="wrap">
+    <div class="price-head">
+      <h2 id="price-title" class="h2">Know your price before anyone visits</h2>
+      <p class="body-lg">Pick your space, size and finish. Your price range updates instantly, no email or phone number needed.</p>
+    </div>
+    <div class="estimator" id="estimator">
+      <form class="est-controls" novalidate>
+        <fieldset class="grp">
+          <legend>Space</legend>
+          <div class="space-grid">
+            <label class="tile"><input type="radio" name="space" value="one"><span><i data-icon="car-profile"></i><b>Single garage</b></span></label>
+            <label class="tile"><input type="radio" name="space" value="two" checked><span><i data-icon="garage"></i><b>Double garage</b></span></label>
+            <label class="tile"><input type="radio" name="space" value="three"><span><i data-icon="warehouse"></i><b>Triple garage</b></span></label>
+            <label class="tile"><input type="radio" name="space" value="driveway"><span><i data-icon="road-horizon"></i><b>Driveway</b></span></label>
+            <label class="tile"><input type="radio" name="space" value="patio"><span><i data-icon="sun-horizon"></i><b>Patio / alfresco</b></span></label>
+            <label class="tile"><input type="radio" name="space" value="basement"><span><i data-icon="house-line"></i><b>Interior</b></span></label>
+          </div>
+        </fieldset>
+        <fieldset class="grp">
+          <legend><label for="sqft">Approximate area</label></legend>
+          <div class="sqft-row">
+            <input id="sqft" name="sqft" type="range" min="10" max="150" step="1" value="36" class="range">
+            <output for="sqft" class="sqft-out"><span data-sqft>36</span> m²</output>
+          </div>
+        </fieldset>
+        <fieldset class="grp">
+          <legend>Condition</legend>
+          <div class="chips">
+            <label class="chip"><input type="radio" name="condition" value="good" checked><span>Good</span></label>
+            <label class="chip"><input type="radio" name="condition" value="cracks"><span>Some cracks</span></label>
+            <label class="chip"><input type="radio" name="condition" value="coated"><span>Previously coated</span></label>
+          </div>
+        </fieldset>
+        <fieldset class="grp">
+          <legend>Finish</legend>
+          <div class="chips">
+            <label class="chip"><input type="radio" name="finish" value="flake" checked><span><i class="sw sw-flake"></i>Flake</span></label>
+            <label class="chip"><input type="radio" name="finish" value="metallic"><span><i class="sw sw-metal"></i>Metallic</span></label>
+            <label class="chip"><input type="radio" name="finish" value="solid"><span><i class="sw sw-solid"></i>Solid</span></label>
+          </div>
+        </fieldset>
+      </form>
+
+      <div class="quote-card" aria-live="polite">
+        <div class="quote-live" data-live>
+          <p class="q-label">Your estimated price</p>
+          <p class="q-price"><span data-low>{SampleLow}</span><span class="dash">to</span><span data-high>{SampleHigh}</span></p>
+          <p class="q-sub"><span data-q-space>Double garage</span> · <span data-q-sqft>36</span> m² · <span data-q-finish>Flake</span></p>
+          <p class="q-fin"><i data-icon="credit-card"></i><span>Or from <b data-monthly>{FinanceFrom}</b>/month with financing</span></p>
+          <ul class="q-incl">
+            <li><i data-icon="check" data-weight="bold"></i><span>Full diamond-grind prep and moisture test</span></li>
+            <li><i data-icon="check" data-weight="bold"></i><span>Crack repair</span></li>
+            <li><i data-icon="check" data-weight="bold"></i><span>Base coat, flake and UV-stable topcoat</span></li>
+            <li><i data-icon="check" data-weight="bold"></i><span>{WarrantyLength} written warranty</span></li>
+          </ul>
+          <p class="q-note">Projects start from {MinimumJob}. Your exact price is confirmed at a free on-site visit.</p>
+          <div class="q-next">
+            <p class="q-next-h">Want the exact figure?</p>
+            <p class="q-next-p">Book a free visit. We check the slab, bring colour samples and give you a written price. Now booking {BookingMonth} installs.</p>
+            <button type="button" class="btn btn-primary btn-lg btn-block" data-book>Book my free visit <i data-icon="arrow-right"></i></button>
+          </div>
+        </div>
+
+        <form class="q-contact" data-contact novalidate hidden>
+          <p class="q-contact-title">Book your free visit</p>
+          <div class="field"><label for="ec-name">Name</label><input id="ec-name" name="name" required data-req="Please add your name." autocomplete="name" class="input"><p class="err"></p></div>
+          <div class="field-row">
+            <div class="field"><label for="ec-phone">Phone</label><input id="ec-phone" name="phone" type="tel" required data-req="Add a phone number so we can book your visit." autocomplete="tel" class="input"><p class="err"></p></div>
+            <div class="field"><label for="ec-zip">Postcode</label><input id="ec-zip" name="zip" data-kind="post" required data-req="Add your postcode." autocomplete="postal-code" inputmode="numeric" class="input"><p class="err"></p></div>
+          </div>
+          <fieldset class="field when">
+            <legend>When are you hoping to get it done?</legend>
+            <div class="chips">
+              <label class="chip"><input type="radio" name="timeline" value="this-month" checked><span>This month</span></label>
+              <label class="chip"><input type="radio" name="timeline" value="1-3-months"><span>1–3 months</span></label>
+              <label class="chip"><input type="radio" name="timeline" value="researching"><span>Just researching</span></label>
+            </div>
+          </fieldset>
+          <fieldset class="field when">
+            <legend>Best time to call</legend>
+            <div class="chips">
+              <label class="chip"><input type="radio" name="bestTime" value="morning" checked><span>Morning</span></label>
+              <label class="chip"><input type="radio" name="bestTime" value="afternoon"><span>Afternoon</span></label>
+              <label class="chip"><input type="radio" name="bestTime" value="evening"><span>Evening</span></label>
+            </div>
+          </fieldset>
+          <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <button type="submit" class="btn btn-primary btn-block">Book my free visit</button>
+          <p class="reply-promise"><i data-icon="lightning" data-weight="fill"></i> We reply within {ResponseTime}, {Hours}.</p>
+          <p class="form-status" aria-live="polite"></p>
+          <div class="sent-note"><i data-icon="calendar-check"></i><div><b>You're booked in.</b><p>{OwnerFirst} or the team will call within {ResponseTime} during business hours to set a time and bring colour samples.</p></div></div>
+        </form>
+      </div>
+    </div>
+    <p class="fin-fine">{FinanceExample} Financing is optional and never required to book.</p>
+  </div>
+</section>
+
+<!-- CHEAP QUOTE FILTER -->
+<section class="cheap" aria-labelledby="cheap-title">
+  <div class="wrap cheap-grid">
+    <div class="cheap-copy" data-reveal>
+      <p class="cheap-range"><span>{TypicalLow}</span><span class="dash">to</span><span>{TypicalHigh}</span></p>
+      <h2 id="cheap-title" class="h2">Most double-garage floors we do land in this range. If you've been quoted $25 a square metre, here's what got skipped.</h2>
+      <p class="body-lg">A cheap floor costs more in the end. It peels inside a year, and grinding off a failed coating costs more than doing it right the first time. Projects start from {MinimumJob}.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-primary btn-lg" href="#price" data-cta="cheap-quote">See my price <i data-icon="arrow-right"></i></a>
+        <a class="btn btn-ghost btn-lg" href="sms:{TextTel}" data-loc="cheap-quote-text"><i data-icon="chat-circle-text"></i> Text us a quote to check</a>
+      </div>
+    </div>
+    <ol class="skipped" data-reveal>
+      <li><span class="sk-n">01</span><div><h3>Diamond grinding</h3><p>The cheap job acid-etches or just mops. Without grinding, the coating has nothing to grip and lifts under hot tyres.</p></div></li>
+      <li><span class="sk-n">02</span><div><h3>Moisture test</h3><p>Lots of slabs here push up moisture. Skip the test and the coating bubbles and peels from underneath.</p></div></li>
+      <li><span class="sk-n">03</span><div><h3>Crack repair</h3><p>Cracks get coated over, then telegraph straight through the new floor within months.</p></div></li>
+      <li><span class="sk-n">04</span><div><h3>Topcoat thickness</h3><p>One thin coat instead of a full base, flake and UV-stable topcoat. It scratches, yellows and wears through at the tyre lines.</p></div></li>
+      <li><span class="sk-n">05</span><div><h3>A real warranty</h3><p>“1 year, labour not included.” Ours is {WarrantyLength} and written, against peeling, lifting and hot-tyre pickup.</p></div></li>
+    </ol>
+  </div>
+</section>
+
+<!-- BEFORE & AFTER -->
+<section id="results" class="results" aria-labelledby="results-title">
+  <div class="wrap">
+    <h2 id="results-title" class="h2" data-reveal>Real floors around {Town}</h2>
+    <div class="pairs">
+      <!--LIST:pairs-->
+      <figure class="pair" data-reveal>
+        <div class="ba" style="--pos:50%">
+          <img src="{{after}}" alt="After: {{finish}} coating on a {{space}} floor in {{town}}" loading="lazy" width="1200" height="800">
+          <img class="ba-before" src="{{before}}" alt="Before: stained, cracked {{space}} concrete in {{town}}" loading="lazy" width="1200" height="800">
+          <span class="ba-line" aria-hidden="true"><span class="ba-knob"><i data-icon="arrows-out-line-horizontal"></i></span></span>
+          <span class="ba-tag ba-tag-b" aria-hidden="true">Before</span><span class="ba-tag ba-tag-a" aria-hidden="true">After</span>
+          <input class="ba-range" type="range" min="0" max="100" value="50" aria-label="Drag to compare before and after">
+        </div>
+        <figcaption>
+          <p class="pair-meta"><span><i data-icon="map-pin"></i> {{town}}</span><span>{{space}}</span><span>{{finish}}</span></p>
+          <p class="pair-quote">“{{quote}}”</p>
+        </figcaption>
+      </figure>
+      <!--/LIST-->
+    </div>
+  </div>
+</section>
+
+<!-- DRIVEWAYS & PATIOS -->
+<section id="driveways" class="drives" aria-labelledby="drives-title">
+  <div class="wrap drives-grid">
+    <div class="drives-copy" data-reveal>
+      <p class="kicker"><i data-icon="road-horizon"></i> Driveways &amp; patios</p>
+      <h2 id="drives-title" class="h2">Outside, it has to survive sun, storms and salt air.</h2>
+      <p class="body-lg">Garage epoxy goes yellow and chalky in the sun. Outdoor floors get a UV-stable polyaspartic system made for the weather.</p>
+      <ul class="drive-points">
+        <li><i data-icon="sun" data-weight="duotone"></i><div><b>Won't yellow</b><p>UV-stable polyaspartic holds its colour through years of Queensland sun.</p></div></li>
+        <li><i data-icon="drop" data-weight="duotone"></i><div><b>Slip-resistant</b><p>Grit is broadcast into the topcoat, so it grips when it's wet, even poolside.</p></div></li>
+        <li><i data-icon="waves" data-weight="duotone"></i><div><b>Coastal salt air</b><p>Seals the surface so salt and storm water can't get in and break the concrete up.</p></div></li>
+      </ul>
+      <a class="btn btn-primary btn-lg" href="#price" data-cta="driveways">Price my driveway <i data-icon="arrow-right"></i></a>
+    </div>
+    <!--LIST:drives-->
+    <figure class="pair drive-pair" data-reveal>
+      <div class="ba" style="--pos:50%">
+        <img src="{{after}}" alt="After: {{finish}} coating on a {{space}} in {{town}}" loading="lazy" width="1200" height="900">
+        <img class="ba-before" src="{{before}}" alt="Before: oil-stained, weathered {{space}} concrete in {{town}}" loading="lazy" width="1200" height="900">
+        <span class="ba-line" aria-hidden="true"><span class="ba-knob"><i data-icon="arrows-out-line-horizontal"></i></span></span>
+        <span class="ba-tag ba-tag-b" aria-hidden="true">Before</span><span class="ba-tag ba-tag-a" aria-hidden="true">After</span>
+        <input class="ba-range" type="range" min="0" max="100" value="50" aria-label="Drag to compare the driveway before and after">
+      </div>
+      <figcaption>
+        <p class="pair-meta"><span><i data-icon="map-pin"></i> {{town}}</span><span>{{space}}</span><span>{{finish}}</span></p>
+        <p class="pair-quote">“{{quote}}”</p>
+      </figcaption>
+    </figure>
+    <!--/LIST-->
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" aria-labelledby="how-title" data-how>
+  <div class="wrap">
+    <h2 id="how-title" class="h2" data-reveal>How it works</h2>
+    <ol class="how-track">
+      <li><span class="dot"></span><p class="t">Today</p><h3>Get your instant price</h3><p>Online, in under a minute.</p></li>
+      <li><span class="dot"></span><p class="t">This week</p><h3>Free on-site visit</h3><p>We check the slab and you choose your colours.</p></li>
+      <li><span class="dot"></span><p class="t">Install day</p><h3>Install</h3><p>Grind, repair, base coat, finish, topcoat.</p></li>
+      <li><span class="dot"></span><p class="t">Handover</p><h3>Walk-through together</h3><p>Park on it in {CureTime}.</p></li>
+      <li><span class="dot"></span><p class="t">For years</p><h3>Written warranty</h3><p>For {WarrantyLength}.</p></li>
+    </ol>
+  </div>
+</section>
+
+<!-- FINISHES -->
+<section id="finishes" class="finishes" aria-labelledby="finishes-title">
+  <div class="wrap">
+    <h2 id="finishes-title" class="h2" data-reveal>Choose your look</h2>
+    <div class="config">
+      <div class="config-stage">
+        <canvas id="config-canvas" aria-label="Preview of the selected finish on a garage floor" role="img"></canvas>
+        <img class="config-poster" src="/img/finish-metallic-pewter.webp" alt="" aria-hidden="true" loading="lazy" width="1000" height="700">
+        <p class="config-hint" aria-hidden="true"><i data-icon="hand-pointing"></i> Tap a finish to preview it</p>
+      </div>
+      <div class="config-panel">
+        <div class="seg" role="tablist" aria-label="Finish type">
+          <button role="tab" aria-selected="true" data-type="metallic">Metallic</button>
+          <button role="tab" aria-selected="false" data-type="flake">Flake</button>
+          <button role="tab" aria-selected="false" data-type="solid">Solid colour</button>
+        </div>
+        <div class="fin" data-fin="flake" hidden>
+          <p class="fin-tag">Hard-working</p>
+          <p class="fin-line">Hides dirt, adds grip.</p>
+          <dl class="fin-facts">
+            <div><dt>Suits</dt><dd>Busy family garages, workshops and anyone who'd rather not see every leaf and tyre mark.</dd></div>
+            <div><dt>Durability</dt><dd>The chips add texture and depth, so scuffs and small chips in use are hard to spot.</dd></div>
+            <div><dt>From</dt><dd><b>{FlakePrice}</b> per m²</dd></div>
+          </dl>
+        </div>
+        <div class="fin" data-fin="metallic">
+          <p class="fin-tag">Our signature</p>
+          <p class="fin-line">Deep, flowing colour. Every floor is one of a kind.</p>
+          <dl class="fin-facts">
+            <div><dt>Suits</dt><dd>Car collections, home gyms, living areas, shops and anyone who wants the wow when the door opens.</dd></div>
+            <div><dt>Durability</dt><dd>Tough topcoat, but the high gloss shows dust sooner. We add grip where it gets wet.</dd></div>
+            <div><dt>From</dt><dd><b>{MetallicPrice}</b> per m²</dd></div>
+          </dl>
+        </div>
+        <div class="fin" data-fin="solid" hidden>
+          <p class="fin-tag">Clean and simple</p>
+          <p class="fin-line">One even colour, wall to wall.</p>
+          <dl class="fin-facts">
+            <div><dt>Suits</dt><dd>Workshops, laundry rooms and minimal spaces where light, even floors help you see.</dd></div>
+            <div><dt>Durability</dt><dd>Same hard-wearing system underneath. Lighter colours show marks more than flake.</dd></div>
+            <div><dt>From</dt><dd><b>{SolidPrice}</b> per m²</dd></div>
+          </dl>
+        </div>
+        <div class="swatches" role="radiogroup" aria-label="Colour"></div>
+        <a class="btn btn-primary btn-block" href="#price" data-cta="finishes">Get my instant price <i data-icon="arrow-right"></i></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews" class="reviews" aria-labelledby="reviews-title">
+  <div class="wrap reviews-grid">
+    <div class="reviews-head" data-reveal>
+      <p class="g-source"><svg class="g-logo" viewBox="0 0 48 48" aria-hidden="true"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-7.9l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.4-.4-3.5z"/></svg> Reviews from Google</p>
+      <p class="rating-big"><span>{Rating}</span><span class="stars" role="img" aria-label="{Rating} out of 5 stars"><i data-icon="star" data-weight="fill"></i><i data-icon="star" data-weight="fill"></i><i data-icon="star" data-weight="fill"></i><i data-icon="star" data-weight="fill"></i><i data-icon="star" data-weight="fill"></i></span></p>
+      <h2 id="reviews-title" class="h3">Based on {ReviewCount} Google reviews from homeowners around {Town}</h2>
+    </div>
+    <!--LIST:reviews-->
+    <article class="review" data-reveal>
+      <header class="review-top">
+        <span class="avatar" aria-hidden="true">{{initials}}</span>
+        <span class="review-by"><b>{{name}}</b><span>{{town}}</span></span>
+        <svg class="g-mini" viewBox="0 0 48 48" role="img" aria-label="Google review"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-7.9l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.4-.4-3.5z"/></svg>
+      </header>
+      <div class="stars sm" role="img" aria-label="{{rating}} out of 5 stars"><i data-icon="star" data-weight="fill"></i><i data-icon="star" data-weight="fill"></i><i data-icon="star" data-weight="fill"></i><i data-icon="star" data-weight="fill"></i><i data-icon="star" data-weight="fill"></i><span class="r">{{date}}</span></div>
+      <p class="review-text">{{text}}</p>
+    </article>
+    <!--/LIST-->
+  </div>
+</section>
+
+<!-- TEAM -->
+<section class="team" aria-labelledby="team-title">
+  <div class="wrap team-grid">
+    <div class="team-copy" data-reveal>
+      <h2 id="team-title" class="h2">Local owner. Local crew.</h2>
+      <p class="body-lg">{Owner} started {Company} in {YearFounded} because {OwnerStory}. {FloorsDone} floors later, we're still not a franchise. When you call, you get us.</p>
+      <ul class="crew">
+        <!--LIST:team-->
+        <li><span class="avatar" aria-hidden="true">{{initials}}</span><span><b>{{name}}</b><small>{{role}}</small></span></li>
+        <!--/LIST-->
+      </ul>
+      <a class="call-owner" href="tel:{PhoneTel}" data-loc="team"><i data-icon="phone"></i> Talk to {Owner} directly: {Phone}</a>
+    </div>
+    <figure class="owner-photo owner-note" data-reveal>
+      <img src="/img/after-3.webp" alt="3-car garage floor coated by {Company} in {Town}" loading="lazy" width="1200" height="800">
+      <figcaption>
+        <p class="owner-q">“If your slab isn't ready for a coating, I'll tell you at the visit. I'd rather walk away than put down a floor that peels.”</p>
+        <p class="owner-by"><span class="avatar lg" aria-hidden="true">{OwnerInitials}</span><span><b>{Owner}</b><small>Owner, {Company}</small></span></p>
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- WARRANTY -->
+<section class="warranty" aria-labelledby="warranty-title">
+  <div class="wrap">
+    <div class="cert" data-reveal>
+      <div class="cert-seal" aria-hidden="true"><i data-icon="seal-check" data-weight="fill"></i></div>
+      <h2 id="warranty-title" class="h2">We put it in writing</h2>
+      <p class="cert-lede">{WarrantyLength} written warranty against</p>
+      <ul class="cert-list">
+        <li>Peeling</li>
+        <li>Lifting</li>
+        <li>Hot-tyre pickup</li>
+      </ul>
+      <p class="cert-foot">If it fails, we fix it.</p>
+      <p class="cert-sign"><span>{Owner}</span><small>{Company}</small></p>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="faq" aria-labelledby="faq-title">
+  <div class="wrap faq-grid">
+    <h2 id="faq-title" class="h2">Straight answers</h2>
+    <div class="faq-list">
+      <details><summary>Why are you more than the cheapest quote?<i data-icon="caret-down"></i></summary><div class="a"><p>Because we grind, moisture-test, repair cracks and put down three coats. The cheapest quotes skip most of that, which is why those floors peel. Most double-garage floors we do land between {TypicalLow} and {TypicalHigh}.</p></div></details>
+      <details><summary>Do you offer financing?<i data-icon="caret-down"></i></summary><div class="a"><p>Yes, from {FinanceFrom}/month with approved credit through a finance partner. It's optional, and paying outright is always fine.</p></div></details>
+      <details><summary>How long does it last?<i data-icon="caret-down"></i></summary><div class="a"><p>With proper prep and a polyaspartic system, decades of normal use. That's why prep is the step we never skip.</p></div></details>
+      <details><summary>Will hot tyres lift it?<i data-icon="caret-down"></i></summary><div class="a"><p>Not with our system. Hot-tyre pickup is a classic failure of thin DIY epoxy, which is exactly what we don't use.</p></div></details>
+      <details><summary>Is it slippery?<i data-icon="caret-down"></i></summary><div class="a"><p>Flake finishes add texture. We can add extra grip for wet areas.</p></div></details>
+      <details><summary>What about cracks in my concrete?<i data-icon="caret-down"></i></summary><div class="a"><p>We repair them as part of the prep.</p></div></details>
+      <details><summary>How long until I can use my garage?<i data-icon="caret-down"></i></summary><div class="a"><p>Flake floors: walk on it the same evening, park after {CureTime}. Metallic floors take two to three days to install and a few more before cars go on.</p></div></details>
+      <details><summary>Why not just buy a kit?<i data-icon="caret-down"></i></summary><div class="a"><p>Kits skip the grinding and use thinner products. That's why most “I regret epoxy” stories start with a kit.</p></div></details>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section id="contact" class="final" aria-labelledby="final-title">
+  <div class="final-bg" aria-hidden="true"><img src="/img/after-1.webp" alt="" loading="lazy"></div>
+  <div class="wrap final-grid">
+    <div class="final-copy">
+      <h2 id="final-title" class="display">Done once. Done right.</h2>
+      <p class="body-lg">Get your instant price now, or call or text and talk to the owner directly. Now booking {BookingMonth} installs.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-primary btn-lg" href="#price" data-cta="final">Get my instant price <i data-icon="arrow-right"></i></a>
+        <a class="btn btn-ghost btn-lg" href="tel:{PhoneTel}" data-loc="final"><i data-icon="phone"></i> Call {Phone}</a>
+        <a class="btn btn-ghost btn-lg" href="sms:{TextTel}" data-loc="final-text"><i data-icon="chat-circle-text"></i> Text us</a>
+      </div>
+    </div>
+    <form class="enquiry" id="enquiry" novalidate>
+      <p class="enquiry-title">Prefer a call back?</p>
+      <div class="field"><label for="q-name">Name</label><input id="q-name" name="name" required data-req="Please add your name." autocomplete="name" class="input"><p class="err"></p></div>
+      <div class="field-row">
+        <div class="field"><label for="q-phone">Phone</label><input id="q-phone" name="phone" type="tel" required data-req="Add a number so we can call you back." autocomplete="tel" class="input"><p class="err"></p></div>
+        <div class="field"><label for="q-zip">Postcode</label><input id="q-zip" name="zip" data-kind="post" required data-req="Add your postcode." autocomplete="postal-code" inputmode="numeric" class="input"><p class="err"></p></div>
+      </div>
+      <div class="field"><label for="q-msg">Anything we should know? <span class="opt">Optional</span></label><textarea id="q-msg" name="message" rows="3" class="input"></textarea><p class="err"></p></div>
+      <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <button type="submit" class="btn btn-primary btn-block">Request a call back</button>
+      <p class="reply-promise"><i data-icon="lightning" data-weight="fill"></i> We reply within {ResponseTime} during business hours.</p>
+      <p class="form-status" aria-live="polite"></p>
+      <div class="sent-note"><i data-icon="check"></i><div><b>Got it. Thanks.</b><p>We'll call within {ResponseTime} during business hours. Can't wait? Call or text {Phone}.</p></div></div>
+    </form>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap footer-grid">
+    <div>
+      <a class="brand" href="/"><span class="brand-mark" aria-hidden="true"><span></span><span></span></span><span class="brand-name">{Company}</span></a>
+      <p class="muted">{Town}, {State} {Postcode}<br><a href="tel:{PhoneTel}" data-loc="footer">{Phone}</a></p>
+    </div>
+    <div><p class="f-h">Service areas</p><ul class="f-list"><!--AREAS--></ul></div>
+    <div><p class="f-h">The details</p><ul class="f-list"><li>Licensed &amp; insured</li><li>{WarrantyLength} written warranty</li><li>Locally owned, not a franchise</li><li>{Hours}</li></ul></div>
+  </div>
+  <div class="wrap footer-base"><span>© {Year} {Company}</span><a href="/privacy.html">Privacy</a></div>
+</footer>
+
+<div class="mobile-bar" role="region" aria-label="Quick actions">
+  <a class="btn btn-ghost" href="tel:{PhoneTel}" data-loc="mobile-bar"><i data-icon="phone"></i> Call</a>
+  <a class="btn btn-ghost" href="sms:{TextTel}" data-loc="mobile-bar-text"><i data-icon="chat-circle-text"></i> Text</a>
+  <a class="btn btn-primary" href="#price" data-cta="mobile-bar">Get my price</a>
+</div>
+
+<script type="module" src="/assets/main.js"></script>
+</body>
+</html>

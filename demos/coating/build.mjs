@@ -171,6 +171,7 @@ function page(file, extraTokens = {}, area = null) {
   const tokens = tokensFor(extraTokens);
   let html = brand(lists(fs.readFileSync(path.join(SRC, file), 'utf8')));
   html = html.replace(/\/assets\/(main\.js|styles\.css)(?=["'])/g, `/assets/$1?v=${ASSET_VER}`);
+  if (config.noindex) html = html.replace('</head>', '<meta name="robots" content="noindex, nofollow">\n</head>');
   html = html.replace(/<i data-icon="([a-z-]+)"(?: data-weight="([a-z]+)")?><\/i>/g, (_, n, w) => icon(n, w));
   // Icon + text with tokens inside a flex/gap container: keep the text as one
   // flex item so filled-in values don't get extra gaps around them.
@@ -200,5 +201,7 @@ if (missing.size && !config.allowPlaceholders) {
 const urls = ['/', ...areas.map((a) => `/areas/${slug(a)}/`)];
 fs.writeFileSync(path.join(OUT, 'sitemap.xml'),
   `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${urls.map((u) => `<url><loc>${config.siteUrl}${u}</loc></url>`).join('')}</urlset>\n`);
-fs.writeFileSync(path.join(OUT, 'robots.txt'), `User-agent: *\nAllow: /\nSitemap: ${config.siteUrl}/sitemap.xml\n`);
+fs.writeFileSync(path.join(OUT, 'robots.txt'), config.noindex
+  ? 'User-agent: *\nDisallow: /\n'
+  : `User-agent: *\nAllow: /\nSitemap: ${config.siteUrl}/sitemap.xml\n`);
 console.log(`Built ${urls.length} pages into dist/`);
