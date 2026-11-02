@@ -27,6 +27,30 @@ These are two demo websites for **Clientgateway**, an agency selling high-conver
 |---|---|---|---|
 | `demos/solar/` | UK solar + battery installer | https://clientgateway-solar.vercel.app | `clientgateway-solar` |
 | `demos/coating/` | US epoxy/polyaspartic garage + driveway coating | https://clientgateway-coating.vercel.app | `clientgateway-coating` |
+| `demos/lethal-precision/` | Prospect: Lethal Precision, Hervey Bay QLD (from coating template) | https://clientgateway-lethal-precision.vercel.app | `clientgateway-lethal-precision` |
+| `demos/revive/` | Prospect: Revive Coatings, Boise/Nampa ID (from coating template) | https://clientgateway-revive.vercel.app | `clientgateway-revive` |
+| `demos/rhino/` | Prospect: Rhino Coating Ltd, Middleton, Manchester (owner David O'Rourke). Standalone static generator, not the coating template | https://clientgateway-rhino.vercel.app | `clientgateway-rhino` |
+
+### Prospect demos (session 2026-11-02)
+- **Prospect pattern:** copy the coating template, then tailor `site.config.mjs`, the palette in `styles.css` and the images. Set `noindex: true`.
+  - Use only the prospect's real facts (phone, areas, prices, claims).
+  - Mark unknowns (reviews, hours) as demo values in the config.
+  - Never invent owner names, licence numbers or addresses.
+- **Revive:**
+  - Palette taken from their crimson metallic floor: black `#0B0A0C`, crimson `#C91E48`, pearl `#ECE6E3`.
+  - New "Crimson" metallic finish.
+  - Logo is their round badge `src/img/logo.png` (white ring, readable on dark).
+  - Phone (208) 247-1781; prices start at $4/sq ft.
+  - Site shows "Revive Coatings", but the badge says "Revive Epoxy Coatings". The user hasn't decided which.
+- **Rhino** (read `demos/rhino/README.md` first):
+  - **Content:** built only from a full crawl of rhinocoating.co.uk, recorded in `content-inventory.md`. All 32 live URL slugs are kept (`trailingSlash: false`). `redirects.md`, `beats-current-site.md` and `DESIGN.md` sit alongside.
+  - **Editable config:** estimator £/m² rates and the form key (Web3Forms/Formspree, empty = demo mode) are in `rates.config.mjs`. The rates are placeholders for David to set.
+  - **Images:** Rhino's own photos only. The hero is the McLaren purple flake image from their Instagram, re-cropped so the whole car shows; it is mood only, never captioned. Their 7-layer Instagram graphic is on `/process` and the garage page. The kitchen photo was excluded as likely stock.
+  - **No fake content:** no invented reviews; the reviews section is a labelled Google slot.
+  - **Finance maths:** 0% for 12 months, then 9% APR, as a level payment `M = P/(k + annuity)`. His live site's example is wrong.
+  - **Mobile layout:** the 3D layer stack fits itself to the viewport. The comparison table becomes a segmented switcher.
+  - **Audit build:** `NOINDEX=0 OUT=dist-launch node build.mjs`. Last Lighthouse mobile result: home 100/100/100/100, LCP 1.8s.
+- **Branch note:** this session worked on `claude/awesome-shannon-10jt2i`. Revive and Rhino are on draft PR dnilicj-wq/Clause-code#3, which targets `claude/luxury-agency-website-funnel-yBr8n` and isn't merged yet.
 
 - **Vercel team scope:** `dnilicj-2275s-projects`
 - **Do NOT touch** the other Vercel projects in that team: `enrollflo` (the repo-root project described in `/CLAUDE.md`) and `clientgateway`.

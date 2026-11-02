@@ -46,5 +46,8 @@ All set in Vercel env vars — see `.env` locally or Vercel dashboard. Keys: `GH
 - `OPENAI_KEY` — activates AI conversation during calls
 - GHL calendar open hours — needed for real slot fetching (currently uses fallback)
 
+## Clientgateway demo sites
+Separate from EnrollFlo. The `demos/` folder holds solar, coating, lethal-precision, revive and rhino. Each is its own Vercel project, `clientgateway-<name>`. Read `HANDOVER-clientgateway-demos.md` (and `demos/rhino/README.md` for Rhino) before touching them.
+
 ## User preference
 Minimal messages. Only message when important. User asks questions if needed.
