@@ -28,6 +28,22 @@ await build({
   outfile: path.join(OUT, 'assets', 'styles.css'), logLevel: 'warning',
 });
 
+const crypto = await import('node:crypto');
+// Version every image URL by its content: /img/* is cached for a week, so an
+// image replaced under the same filename must get a new URL, or returning
+// visitors keep seeing the old one. Covers HTML, CSS and window.__SITE__.imgv (for JS).
+const IMGV = {};
+(function walk(dir, base) {
+  if (!fs.existsSync(dir)) return;
+  for (const f of fs.readdirSync(dir)) {
+    const a = path.join(dir, f);
+    if (fs.statSync(a).isDirectory()) walk(a, base + f + '/');
+    else IMGV['/img/' + base + f] = crypto.createHash('sha1').update(fs.readFileSync(a)).digest('hex').slice(0, 8);
+  }
+})(path.join(SRC, 'img'), '');
+const verImg = (s) => s.replace(/\/img\/[A-Za-z0-9._\/-]+\.[a-z0-9]+(?![?\w]|":)/g, (u) => (IMGV[u] ? `${u}?v=${IMGV[u]}` : u));
+{ const css = path.join(OUT, 'assets', 'styles.css'); fs.writeFileSync(css, verImg(fs.readFileSync(css, 'utf8'))); }
+
 // Version the unhashed entry files: /assets/* is cached as immutable, so the
 // HTML must point at a new URL whenever the CSS or JS changes.
 const ASSET_VER = (await import('node:crypto')).createHash('sha1')
@@ -176,13 +192,16 @@ function page(file, extraTokens = {}, area = null) {
   // Icon + text with tokens inside a flex/gap container: keep the text as one
   // flex item so filled-in values don't get extra gaps around them.
   html = html.replace(/(<\/svg>)([^<]*\{[A-Z][A-Za-z0-9]*\}[^<]*)(<\/(?:li|a|span|p|button|b)>)/g, (_, a, t, c) => `${a}<span>${t.trim()}</span>${c}`);
-  const publicConfig = { ...config, areas, tokens, area };
+  const publicConfig = { ...config, areas, tokens, area, imgv: IMGV };
   html = html.replace('<!--SITE-->',
     `<script>window.__SITE__=${JSON.stringify(publicConfig).replace(/</g, '\\u003c')}</script>\n${schema(tokens, area)}`);
   html = html.replace(/<!--AREAS-->/g, areas
     .map((a) => `<li><a href="/areas/${slug(a)}/">${esc(config.service)} in ${esc(a)}</a></li>`).join(''));
   html = bake(html, tokens);
   checkFilled(html, file + (area ? ` (${area})` : ''));
+  html = verImg(html);
+  const stale = html.match(/(?:src|srcset|href|content|poster|data-[a-z]+)="[^"]*\/img\/[^"?]+"/);
+  if (stale) throw new Error(`${file}: image URL without a version stamp (browsers would cache it): ${stale[0]}`);
   return html;
 }
 

@@ -131,7 +131,7 @@ const config = (() => {
   }
   function apply(origin) {
     if (state.cfg) state.cfg.pourFinish(state.type, state.key, origin || state.lastPoint);
-    else if (poster) poster.src = `/img/finish-${state.type}-${state.key}.webp`;
+    else if (poster) { const u = `/img/finish-${state.type}-${state.key}.webp`, v = SITE.imgv?.[u]; poster.src = v ? `${u}?v=${v}` : u; }
     hint?.classList.add('is-used');
     track('finish_preview', { type: state.type, color: state.key });
   }
