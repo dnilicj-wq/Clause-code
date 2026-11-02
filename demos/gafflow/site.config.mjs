@@ -63,7 +63,7 @@ export default {
 
   // Finishes Gafflow installs (live site: "Marble Effects, Flake Systems, Metallics, Single Colours", PU comfort, resin bound).
   finishes: [
-    { code: 'metallic', name: 'Metallic epoxy', line: 'Swirled, marbled and layered metallic pigment in a clear Money Coat. No two floors are the same.', img: 'cocktail-bar', alt: 'Red and gold metallic epoxy floor in a cocktail bar', where: 'Homes, bars, salons, showrooms' },
+    { code: 'metallic', name: 'Metallic epoxy', line: 'Swirled, marbled and layered metallic pigment in a clear Money Coat. No two floors are the same.', img: 'bathroom-black-gold', alt: 'Gloss black and gold metallic epoxy floor in a bathroom', where: 'Homes, bars, salons, showrooms' },
     { code: 'marble', name: 'Marble effect', line: 'White, ivory and grey veining that reads as stone, without the grout lines or the cold.', img: 'hotel-marble', alt: 'Marble effect resin floor installed across a hotel event space', where: 'Hallways, kitchens, hotels' },
     { code: 'flake', name: 'Flake and single colour', line: 'Hard-wearing flake systems and solid colours for garages, workshops and working floors.', img: 'grey-marble', alt: 'Grey resin floor with subtle marble movement', where: 'Garages, warehouses, workshops' },
     { code: 'pu', name: 'PU comfort flooring', line: 'The Arturo polyurethane system: softer underfoot, acoustic options, and it copes with movement and underfloor heating.', img: 'pu-mistral', alt: 'Arturo PU comfort floor in a warm neutral living space (manufacturer image)', where: 'Hospitals, schools, offices, homes', maker: true },
