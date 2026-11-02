@@ -30,6 +30,7 @@ These are two demo websites for **Clientgateway**, an agency selling high-conver
 | `demos/lethal-precision/` | Prospect: Lethal Precision, Hervey Bay QLD (from coating template) | https://clientgateway-lethal-precision.vercel.app | `clientgateway-lethal-precision` |
 | `demos/revive/` | Prospect: Revive Coatings, Boise/Nampa ID (from coating template) | https://clientgateway-revive.vercel.app | `clientgateway-revive` |
 | `demos/rhino/` | Prospect: Rhino Coating Ltd, Middleton, Manchester (owner David O'Rourke). Standalone static generator, not the coating template | https://clientgateway-rhino.vercel.app | `clientgateway-rhino` |
+| `demos/gafflow/` | Prospect: Gafflow Resin Finishes, Eastbourne (installs + courses + shop). Built on the Rhino generator | https://clientgateway-gafflow.vercel.app | `clientgateway-gafflow` |
 
 ### Prospect demos (session 2026-11-02)
 - **Prospect pattern:** copy the coating template, then tailor `site.config.mjs`, the palette in `styles.css` and the images. Set `noindex: true`.
@@ -50,7 +51,14 @@ These are two demo websites for **Clientgateway**, an agency selling high-conver
   - **Finance maths:** 0% for 12 months, then 9% APR, as a level payment `M = P/(k + annuity)`. His live site's example is wrong.
   - **Mobile layout:** the 3D layer stack fits itself to the viewport. The comparison table becomes a segmented switcher.
   - **Audit build:** `NOINDEX=0 OUT=dist-launch node build.mjs`. Last Lighthouse mobile result: home 100/100/100/100, LCP 1.8s.
-- **Branch note:** this session worked on `claude/awesome-shannon-10jt2i`. Revive and Rhino are on draft PR dnilicj-wq/Clause-code#3, which targets `claude/luxury-agency-website-funnel-yBr8n` and isn't merged yet.
+- **Gafflow** (read `demos/gafflow/README.md` first):
+  - **Base and content:** built on the Rhino generator (UK, multi-page), not the coating template. Content comes from a full crawl of gafflowresinfinishes.com, recorded in `content-inventory.md`. All 65 live URLs are kept with trailing slashes (`trailingSlash: true`), including 41 `/product/<slug>/` pages.
+  - **Shop:** "Buy" and "Book" hand off to their live WooCommerce store. `/checkout/` and `/my-account/` redirect there.
+  - **Signature:** "Design your floor", a WebGL2 metallic pour shader (`src/js/pour.js`) using their 4 base and 20 metallic pigments, each linked to its product. "Every layer is a Gafflow product" is the layer stack.
+  - **Honesty:** testimonials are quoted from their site (there are none for installs, so a Google slot is shown). Estimator rates in `rates.config.mjs` are placeholders. The Arturo PU images are labelled as manufacturer images.
+  - **Lighthouse mobile (live, noindex):** home 95/100/100, LCP 1.7s. Their current site scores 28 with LCP 8.4s.
+  - **node_modules:** a symlink to `../rhino/node_modules`.
+- **Branch note:** this session worked on `claude/awesome-shannon-10jt2i`. Revive, Rhino and Gafflow are on draft PR dnilicj-wq/Clause-code#3, which targets `claude/luxury-agency-website-funnel-yBr8n` and isn't merged yet.
 
 - **Vercel team scope:** `dnilicj-2275s-projects`
 - **Do NOT touch** the other Vercel projects in that team: `enrollflo` (the repo-root project described in `/CLAUDE.md`) and `clientgateway`.
