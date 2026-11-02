@@ -7,7 +7,7 @@ export const FINISHES = {
     sandstone: { name: 'Sandstone', colors: ['#6e6152', '#3d362f', '#a8987f', '#e6dfd2'] },
   },
   metallic: {
-    midnight: { name: 'Midnight', colors: ['#141a2e', '#3f63b8', '#070910', '#25346a'] },
+    midnight: { name: 'Midnight', colors: ['#06173a', '#1f74e8', '#030a1c', '#0d4c8a'] },
     pewter: { name: 'Pewter', colors: ['#55595f', '#b4b9bf', '#26292d', '#8a9097'] },
     copper: { name: 'Copper', colors: ['#3d2318', '#b8724a', '#1c110c', '#7a4329'] },
   },

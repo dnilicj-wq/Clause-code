@@ -1,6 +1,6 @@
 import {
   SITE, reduceMotion, finePointer, personalise, track, wireCallTracking, wireForm,
-  reveals, countTo, faq, chrome, smoothScroll, viewProgress, refreshDerived, whenReadyFor3D,
+  reveals, countTo, faq, chrome, smoothScroll, viewProgress, refreshDerived, whenReadyFor3D, LITE,
 } from './core.js';
 import derive, { estimate, monthly, usd } from './derive.js';
 import { FINISHES } from './finishes.js';
@@ -167,6 +167,16 @@ const config = (() => {
   };
   return state;
 })();
+
+/* ---------- Hero pour as a pre-rendered video (lite mode): no 3D engine on the phone ---------- */
+const heroVideo = document.querySelector('.hero-video');
+if (heroVideo && LITE && !reduceMotion) {
+  const small = matchMedia('(max-width: 760px)').matches;
+  heroVideo.src = small ? heroVideo.dataset.m : heroVideo.dataset.d;
+  heroVideo.preload = 'auto';
+  heroVideo.addEventListener('playing', () => heroVideo.classList.add('is-playing'), { once: true });
+  heroVideo.play().catch(() => {});
+}
 
 /* ---------- 3D: hero pour + finish configurator ---------- */
 const heroCanvas = document.getElementById('hero-canvas');
