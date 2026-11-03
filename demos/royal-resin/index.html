@@ -1,0 +1,963 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Luxury Epoxy Resin Flooring | Metallic &amp; Marble Floors | Royal Resin, Derby</title>
+<meta name="description" content="Luxury metallic and faux-marble epoxy resin floors with no grout lines, designed with you and installed UK-wide by Royal Resin Ltd, Derby. 5.0 from 63 Google reviews. Free design consultation with sample boards.">
+<meta name="theme-color" content="#0f0e0d">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="canonical" href="https://royalresin.uk/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Royal Resin | Luxury Epoxy Resin Floors, Installed Nationwide">
+<meta property="og:description" content="Metallic and faux-marble floors with no grout lines, every one a 1 of 1. Based in Derby, working across the UK.">
+<meta property="og:image" content="images/hero-1920.webp">
+<meta property="og:locale" content="en_GB">
+<link rel="preload" href="fonts/cormorant-garamond-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/outfit-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" as="image" href="images/hero-m.webp" media="(max-width: 767px)" fetchpriority="high">
+<link rel="preload" as="image" imagesrcset="images/hero-1200.webp 1200w, images/hero-1920.webp 1920w" imagesizes="100vw" media="(min-width: 768px)" fetchpriority="high">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HomeAndConstructionBusiness",
+  "name": "Royal Resin Ltd",
+  "description": "Luxury metallic, faux-marble, flake and industrial epoxy resin floors. Based in Derby, working across the UK.",
+  "url": "https://royalresin.uk/",
+  "image": "https://royalresin.uk/images/hero-1920.webp",
+  "telephone": "+441283295234",
+  "email": "harry@royalresin.uk",
+  "address": { "@type": "PostalAddress", "addressLocality": "Derby", "addressRegion": "Derbyshire", "addressCountry": "GB" },
+  "areaServed": { "@type": "Country", "name": "United Kingdom" },
+  "openingHoursSpecification": [{ "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "09:00", "closes": "17:00" }],
+  "contactPoint": [{ "@type": "ContactPoint", "telephone": "+447947620266", "contactType": "customer service", "areaServed": "GB", "availableLanguage": "English" }],
+  "sameAs": ["https://www.facebook.com/374989715690788", "https://www.instagram.com/royalresinuk", "https://www.tiktok.com/@royalresin.uk"],
+  "makesOffer": [
+    { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Metallic epoxy resin floors" } },
+    { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Faux marble epoxy resin floors" } },
+    { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Flake epoxy floors" } },
+    { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Industrial high-build epoxy floors" } }
+  ]
+}
+</script>
+<style>
+/* Royal Resin: dark showroom. One theme (brand is black and gold), locked.
+   Radius rule: buttons, chips and tabs are full pills; cards and media 14px; inputs 10px. */
+@font-face { font-family: "Cormorant"; src: url(fonts/cormorant-garamond-latin-500-normal.woff2) format("woff2"); font-weight: 500; font-display: swap; }
+@font-face { font-family: "Cormorant"; src: url(fonts/cormorant-garamond-latin-600-normal.woff2) format("woff2"); font-weight: 600; font-display: swap; }
+@font-face { font-family: "Cormorant"; src: url(fonts/cormorant-garamond-latin-500-italic.woff2) format("woff2"); font-weight: 500; font-style: italic; font-display: swap; }
+@font-face { font-family: "Outfit"; src: url(fonts/outfit-latin-wght-normal.woff2) format("woff2"); font-weight: 100 900; font-display: swap; }
+
+:root {
+  --bg: oklch(0.165 0.006 70);
+  --bg-2: oklch(0.2 0.007 70);
+  --bg-3: oklch(0.245 0.008 70);
+  --line: oklch(0.9 0.02 80 / 0.12);
+  --line-2: oklch(0.9 0.02 80 / 0.22);
+  --ink: oklch(0.95 0.012 85);
+  --ink-2: oklch(0.8 0.015 80);
+  --ink-3: oklch(0.7 0.015 80);
+  --gold: oklch(0.79 0.095 80);
+  --gold-2: oklch(0.86 0.085 85);
+  --gold-ink: oklch(0.2 0.03 75);
+  --wa: #25d366;
+  --wa-ink: #052e16;
+  --r-card: 14px;
+  --r-input: 10px;
+  --serif: "Cormorant", "Cormorant Garamond", Georgia, serif;
+  --sans: "Outfit", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-io: cubic-bezier(0.77, 0, 0.175, 1);
+  --wrap: min(1240px, 100% - 2 * var(--gut));
+  --gut: clamp(16px, 4vw, 40px);
+  /* z-index scale */
+  --z-header: 30; --z-bar: 40; --z-cookie: 45; --z-dialog: 60;
+  color-scheme: dark;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: 76px; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1.0625rem/1.6 var(--sans); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; overflow-x: clip; }
+img { display: block; max-width: 100%; height: auto; }
+a { color: inherit; }
+button, input, select, textarea { font: inherit; color: inherit; }
+h1, h2, h3 { font-family: var(--serif); font-weight: 500; line-height: 1.05; letter-spacing: -0.01em; margin: 0; text-wrap: balance; }
+h2 { font-size: clamp(2.3rem, 4.6vw, 3.9rem); }
+h3 { font-size: clamp(1.6rem, 2.4vw, 2.1rem); line-height: 1.1; }
+p { margin: 0; text-wrap: pretty; }
+em { font-style: italic; }
+.wrap { width: var(--wrap); margin-inline: auto; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.i { width: 1.25em; height: 1.25em; flex: none; fill: currentColor; }
+.lede { color: var(--ink-2); font-size: clamp(1.05rem, 1.3vw, 1.2rem); max-width: 56ch; }
+.kicker { font: 500 0.78rem/1 var(--sans); letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); }
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 6px; }
+.skip { position: absolute; left: 12px; top: -60px; z-index: 100; background: var(--gold); color: var(--gold-ink); padding: 10px 16px; border-radius: 999px; font-weight: 600; text-decoration: none; }
+.skip:focus { top: 12px; }
+
+/* Buttons */
+.btn { --h: 52px; display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: var(--h); padding: 0 26px; border-radius: 999px; border: 1px solid transparent; font: 600 1rem/1 var(--sans); letter-spacing: 0.005em; text-decoration: none; white-space: nowrap; cursor: pointer; transition: transform 160ms var(--ease-out), background-color 200ms ease, border-color 200ms ease, color 200ms ease; -webkit-tap-highlight-color: transparent; }
+.btn:active { transform: scale(0.97); }
+.btn .i { transition: transform 220ms var(--ease-out); }
+.btn-gold { background: var(--gold); color: var(--gold-ink); }
+.btn-wa { background: var(--wa); color: var(--wa-ink); }
+.btn-ghost { border-color: var(--line-2); color: var(--ink); background: oklch(0.2 0.007 70 / 0.4); }
+.btn-sm { --h: 42px; padding: 0 18px; font-size: 0.94rem; }
+@media (hover: hover) and (pointer: fine) {
+  .btn-gold:hover { background: var(--gold-2); }
+  .btn-wa:hover { background: #3ee07b; }
+  .btn-ghost:hover { border-color: var(--gold); color: var(--gold-2); }
+  .btn:hover .i-arrow { transform: translateX(3px); }
+}
+.proof { display: inline-flex; align-items: center; gap: 8px; font-size: 0.92rem; color: var(--ink-2); text-decoration: none; }
+.proof .stars { display: inline-flex; gap: 1px; color: var(--gold); }
+.proof .stars .i { width: 15px; height: 15px; }
+.proof b { color: var(--ink); font-weight: 600; }
+a.proof:hover b { color: var(--gold-2); }
+
+/* Header */
+.hdr { position: fixed; inset: 0 0 auto; z-index: var(--z-header); transition: background-color 300ms ease, border-color 300ms ease, backdrop-filter 300ms ease; border-bottom: 1px solid transparent; }
+.hdr.solid { background: oklch(0.165 0.006 70 / 0.86); -webkit-backdrop-filter: blur(14px) saturate(140%); backdrop-filter: blur(14px) saturate(140%); border-color: var(--line); }
+.hdr .wrap { display: flex; align-items: center; gap: 28px; height: 72px; }
+.logo { display: inline-flex; align-items: baseline; gap: 8px; text-decoration: none; margin-right: auto; }
+.logo span { font: 600 1.7rem/1 var(--serif); letter-spacing: 0.01em; }
+.logo small { font: 500 0.66rem/1 var(--sans); letter-spacing: 0.22em; color: var(--gold); }
+.nav { display: flex; gap: 26px; }
+.nav a { font-size: 0.95rem; color: var(--ink-2); text-decoration: none; position: relative; padding: 6px 0; transition: color 200ms ease; }
+.nav a::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform 260ms var(--ease-out); }
+@media (hover: hover) { .nav a:hover { color: var(--ink); } .nav a:hover::after { transform: scaleX(1); } }
+.hdr-tel { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; font-weight: 500; font-size: 0.95rem; color: var(--ink); }
+.hdr-tel .i { color: var(--gold); }
+@media (max-width: 1120px) { .nav { display: none; } }
+@media (max-width: 767px) { .hdr .wrap { height: 60px; } .hdr .btn, .hdr-tel span { display: none; } .hdr-tel { width: 44px; height: 44px; justify-content: center; border: 1px solid var(--line-2); border-radius: 999px; } .logo span { font-size: 1.5rem; } }
+
+/* Hero */
+.hero { position: relative; min-height: 100svh; display: flex; flex-direction: column; justify-content: flex-end; isolation: isolate; overflow: hidden; }
+.hero-media { position: absolute; inset: 0; z-index: -2; }
+.hero-media img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 55%; }
+.hero::before { content: ""; position: absolute; inset: 0; z-index: -1; background:
+  linear-gradient(180deg, oklch(0.12 0.006 70 / 0.6) 0%, transparent 22%, transparent 50%, oklch(0.12 0.006 70 / 0.7) 80%, var(--bg) 100%),
+  linear-gradient(90deg, oklch(0.12 0.006 70 / 0.82) 0%, oklch(0.12 0.006 70 / 0.45) 42%, transparent 72%); }
+.hero-inner { padding: 120px 0 34px; }
+.hero h1 { font-size: clamp(2.5rem, 5.6vw, 5.1rem); line-height: 1.02; max-width: 15.5ch; }
+.hero h1 .l2 { display: block; font-style: italic; color: var(--gold-2); font-size: 0.74em; line-height: 1.12; margin-top: 0.12em; padding-bottom: 0.06em; max-width: 22ch; }
+.hero .sub { margin-top: 22px; font-size: clamp(1.05rem, 1.35vw, 1.22rem); color: var(--ink); opacity: 0.9; max-width: 50ch; }
+.hero-ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+.trust { border-top: 1px solid var(--line); background: oklch(0.15 0.006 70 / 0.55); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+.trust ul { list-style: none; margin: 0 auto; padding: 18px 0; display: flex; flex-wrap: wrap; gap: 10px 40px; font-size: 0.95rem; color: var(--ink-2); }
+.trust li { display: inline-flex; align-items: center; gap: 10px; }
+.trust .i { color: var(--gold); width: 18px; height: 18px; }
+.trust a { text-decoration: none; }
+.trust b { color: var(--ink); font-weight: 600; }
+@media (max-width: 767px) {
+  .hero { justify-content: flex-start; }
+  .hero-media img { object-position: 50% 70%; }
+  .hero::before { background: linear-gradient(180deg, oklch(0.12 0.006 70 / 0.75) 0%, oklch(0.12 0.006 70 / 0.55) 45%, oklch(0.12 0.006 70 / 0.88) 75%, var(--bg) 100%); }
+  .hero-inner { padding: 84px 0 22px; flex: 1; display: flex; flex-direction: column; justify-content: center; }
+  .hero h1 { font-size: clamp(2.3rem, 10.4vw, 2.9rem); }
+  .hero .sub { margin-top: 16px; font-size: 1.02rem; }
+  .hero-ctas { flex-direction: column; margin-top: 24px; gap: 10px; }
+  .hero-ctas .btn { width: 100%; white-space: normal; text-align: center; line-height: 1.2; padding-block: 12px; }
+  .trust ul { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 16px; font-size: 0.88rem; padding: 16px 0 20px; }
+  .trust li:first-child { grid-column: 1 / -1; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hero-media img { animation: heroIn 1800ms var(--ease-out) both; }
+  .hero [data-in] { animation: rise 900ms var(--ease-out) both; animation-delay: calc(var(--d, 0) * 90ms + 150ms); }
+  @keyframes heroIn { from { transform: scale(1.06); opacity: 0.4; } to { transform: none; opacity: 1; } }
+  @keyframes rise { from { opacity: 0; transform: translateY(18px); filter: blur(6px); } to { opacity: 1; transform: none; filter: none; } }
+}
+
+/* Signature: pinned floor, zoom + annotation cards.
+   NOTE: this image-based sequence can later be swapped for a scroll-driven video
+   (frame sequence on canvas) built with the 3d-animation-creator skill. Keep the
+   .pin structure and the four .note cards; only the .pin-media layer changes. */
+.pin { position: relative; height: 420vh; }
+.pin-stage { position: sticky; top: 0; height: 100vh; height: 100dvh; overflow: hidden; isolation: isolate; }
+.pin-media { position: absolute; inset: 0; z-index: -2; }
+.pin-media img { width: 100%; height: 100%; object-fit: cover; transform-origin: 58% 62%; will-change: transform; }
+.pin-stage::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, oklch(0.12 0.006 70 / 0.8) 0%, oklch(0.12 0.006 70 / 0.35) 45%, oklch(0.12 0.006 70 / 0.1) 100%), linear-gradient(180deg, var(--bg) 0%, transparent 16%, transparent 80%, var(--bg) 100%); }
+.pin-copy { position: absolute; left: 0; right: 0; top: 50%; transform: translateY(-50%); }
+.pin-title { font: 400 clamp(1rem, 1.2vw, 1.1rem)/1.4 var(--sans); letter-spacing: 0; color: var(--ink-2); margin-bottom: 18px; display: flex; align-items: center; gap: 14px; }
+.ticks { display: inline-flex; gap: 6px; }
+.ticks i { width: 26px; height: 2px; background: var(--line-2); border-radius: 2px; position: relative; overflow: hidden; }
+.ticks i::after { content: ""; position: absolute; inset: 0; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform 500ms var(--ease-out); }
+.ticks i.on::after { transform: scaleX(1); }
+.notes { position: relative; min-height: 330px; max-width: 520px; }
+.note { position: absolute; inset: 0 auto auto 0; width: 100%; padding: 30px 32px 32px; border-radius: var(--r-card); background: oklch(0.17 0.006 70 / 0.72); -webkit-backdrop-filter: blur(18px) saturate(140%); backdrop-filter: blur(18px) saturate(140%); border: 1px solid var(--line-2); box-shadow: inset 0 1px 0 oklch(1 0 0 / 0.08); opacity: 0; transform: translateY(26px) scale(0.98); filter: blur(6px); transition: opacity 520ms var(--ease-out), transform 620ms var(--ease-out), filter 520ms var(--ease-out); pointer-events: none; }
+.note.on { opacity: 1; transform: none; filter: none; pointer-events: auto; }
+.note.past { opacity: 0; transform: translateY(-22px) scale(0.98); filter: blur(6px); transition-duration: 300ms; }
+.note .n { font: 500 italic 1.2rem/1 var(--serif); color: var(--gold); }
+.note h3 { font-size: clamp(2rem, 3.2vw, 2.8rem); margin: 10px 0 12px; }
+.note p { color: var(--ink-2); }
+.note.final h3 { font-size: clamp(2.1rem, 3.6vw, 3.1rem); }
+.note.final .btn { margin-top: 22px; }
+@media (prefers-reduced-transparency: reduce) { .note { background: var(--bg-2); -webkit-backdrop-filter: none; backdrop-filter: none; } }
+/* Small screens and reduced motion: no pinning, a simple fade-in sequence. */
+.pin.static { height: auto; }
+.pin.static .pin-stage { position: relative; height: auto; overflow: visible; padding: 0 0 72px; }
+.pin.static .pin-media { position: relative; height: 62vh; min-height: 340px; inset: auto; }
+.pin.static .pin-media img { transform: none !important; }
+.pin.static .pin-stage::before { background: linear-gradient(180deg, var(--bg) 0%, transparent 18%, transparent 55%, var(--bg) 62vh); }
+.pin.static .pin-copy { position: relative; top: auto; transform: none; margin-top: -90px; }
+.pin.static .ticks { display: none; }
+.pin.static .notes { min-height: 0; max-width: none; display: grid; gap: 14px; }
+.pin.static .note { position: relative; opacity: 1; transform: none; filter: none; pointer-events: auto; padding: 24px 22px; }
+.pin.static .note h3 { font-size: 1.9rem; }
+
+/* Sections */
+section { position: relative; }
+.sec { padding: clamp(84px, 11vw, 150px) 0; }
+.sec-head { max-width: 760px; margin-bottom: clamp(36px, 5vw, 60px); }
+.sec-head p { margin-top: 18px; }
+
+/* Services */
+.svc { display: grid; grid-template-columns: repeat(12, 1fr); gap: 18px; }
+.card { position: relative; border-radius: var(--r-card); overflow: hidden; background: var(--bg-2); border: 1px solid var(--line); display: flex; flex-direction: column; isolation: isolate; }
+.svc .card:nth-child(1) { grid-column: span 7; }
+.svc .card:nth-child(2) { grid-column: span 5; }
+.svc .card:nth-child(3), .svc .card:nth-child(4) { grid-column: span 6; }
+.card-media { position: relative; aspect-ratio: 16 / 10; overflow: hidden; }
+.svc .card:nth-child(-n+2) .card-media { aspect-ratio: auto; flex: 1; min-height: 340px; }
+.card-media img { width: 100%; height: 100%; object-fit: cover; transition: transform 900ms var(--ease-out); }
+@media (hover: hover) { .card:hover .card-media img { transform: scale(1.035); } }
+.card-body { padding: 26px 28px 28px; display: flex; flex-direction: column; gap: 12px; }
+.card-body .tag-line { font: 500 italic 1.3rem/1.3 var(--serif); color: var(--gold-2); }
+.card-body p { color: var(--ink-2); font-size: 0.98rem; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0 6px; padding: 0; list-style: none; }
+.tags li { font-size: 0.8rem; padding: 5px 12px; border-radius: 999px; border: 1px solid var(--line-2); color: var(--ink-2); }
+.card-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-top: auto; padding-top: 8px; }
+.card.tex { background: var(--bg-2) url(images/texture-gold.webp) center / cover; }
+.card.tex::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(160deg, oklch(0.17 0.006 70 / 0.55), oklch(0.15 0.006 70 / 0.92) 70%); }
+.card.tex .card-body { padding-top: 120px; }
+.card.tex .ic { position: absolute; top: 26px; left: 28px; width: 52px; height: 52px; border-radius: 999px; display: grid; place-items: center; border: 1px solid var(--line-2); color: var(--gold); background: oklch(0.17 0.006 70 / 0.6); }
+@media (max-width: 900px) { .svc .card:nth-child(n) { grid-column: 1 / -1; } .svc .card:nth-child(-n+2) .card-media { aspect-ratio: 16 / 10; flex: none; min-height: 0; } }
+@media (max-width: 767px) { .card-body { padding: 22px 20px 22px; } .card.tex .card-body { padding-top: 96px; } .card.tex .ic { left: 20px; top: 22px; } }
+
+/* Gallery */
+.gal-top { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; flex-wrap: wrap; margin-bottom: 34px; }
+.gal-top h2 { font-size: clamp(2.6rem, 6vw, 5rem); }
+.tabs { display: flex; gap: 6px; flex-wrap: wrap; padding: 5px; border-radius: 999px; border: 1px solid var(--line); background: var(--bg-2); }
+.tabs button { border: 0; background: transparent; padding: 10px 18px; border-radius: 999px; cursor: pointer; font-size: 0.94rem; color: var(--ink-2); transition: background-color 220ms ease, color 220ms ease, transform 160ms var(--ease-out); }
+.tabs button:active { transform: scale(0.96); }
+.tabs button[aria-pressed="true"] { background: var(--gold); color: var(--gold-ink); font-weight: 600; }
+@media (hover: hover) { .tabs button[aria-pressed="false"]:hover { color: var(--ink); background: var(--bg-3); } }
+.gal { columns: 3 320px; column-gap: 16px; }
+.gal figure { margin: 0 0 16px; break-inside: avoid; border-radius: var(--r-card); overflow: hidden; position: relative; background: var(--bg-2); }
+.gal figure[hidden] { display: none; }
+.gal button.shot { all: unset; display: block; cursor: zoom-in; width: 100%; position: relative; }
+.gal button.shot:focus-visible { outline: 2px solid var(--gold); outline-offset: -2px; }
+.gal img { width: 100%; transition: transform 900ms var(--ease-out), opacity 400ms ease; }
+@media (hover: hover) { .gal button.shot:hover img { transform: scale(1.03); } }
+.gal figcaption { padding: 12px 16px 14px; font-size: 0.9rem; color: var(--ink-2); display: flex; justify-content: space-between; gap: 10px; }
+.gal figcaption span:last-child { color: var(--gold); white-space: nowrap; }
+.gal .empty { background: url(images/texture-gold.webp) center / cover; padding: 34px 28px; display: flex; flex-direction: column; gap: 14px; min-height: 300px; justify-content: flex-end; isolation: isolate; }
+.gal .empty::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, oklch(0.16 0.006 70 / 0.35), oklch(0.15 0.006 70 / 0.9)); }
+.gal .empty h3 { font-size: 1.9rem; }
+.gal .empty p { color: var(--ink-2); font-size: 0.98rem; }
+.gal .empty .btn { align-self: flex-start; }
+.gal-cta { margin-top: 30px; display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; }
+@media (max-width: 767px) { .gal { columns: 2; column-gap: 10px; } .gal figure { margin-bottom: 10px; } .gal figcaption { font-size: 0.8rem; padding: 10px 12px; flex-direction: column; gap: 2px; } .gal .empty { min-height: 0; padding: 22px 18px; column-span: all; } .tabs { width: 100%; overflow-x: auto; flex-wrap: nowrap; scrollbar-width: none; -webkit-mask-image: linear-gradient(90deg, #000 82%, transparent); mask-image: linear-gradient(90deg, #000 82%, transparent); } .tabs button { flex: none; } }
+dialog.lb { border: 0; padding: 0; background: transparent; max-width: min(92vw, 1100px); max-height: 92vh; color: var(--ink); }
+dialog.lb::backdrop { background: oklch(0.1 0.005 70 / 0.88); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+dialog.lb img { max-height: 84vh; width: auto; border-radius: var(--r-card); }
+dialog.lb p { margin-top: 10px; color: var(--ink-2); font-size: 0.95rem; }
+dialog.lb .x { position: absolute; top: 10px; right: 10px; width: 44px; height: 44px; border-radius: 999px; border: 1px solid var(--line-2); background: oklch(0.15 0.006 70 / 0.75); display: grid; place-items: center; cursor: pointer; }
+@media (prefers-reduced-motion: no-preference) {
+  dialog.lb[open] { animation: lbIn 280ms var(--ease-out); }
+  @keyframes lbIn { from { opacity: 0; transform: scale(0.97); } }
+}
+
+/* Reviews */
+.rev { display: grid; grid-template-columns: 5fr 7fr; gap: clamp(32px, 6vw, 90px); align-items: start; }
+.score { position: sticky; top: 110px; }
+.score .big { font: 500 clamp(6rem, 13vw, 10rem)/0.85 var(--serif); letter-spacing: -0.02em; }
+.score .stars { display: flex; gap: 4px; color: var(--gold); margin: 18px 0 14px; }
+.score .stars .i { width: 26px; height: 26px; }
+.score p { color: var(--ink-2); }
+.score p b { color: var(--ink); }
+.score .btn { margin-top: 26px; }
+.quotes { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+.quotes li { padding: 36px 0; border-top: 1px solid var(--line); }
+.quotes li:last-child { border-bottom: 1px solid var(--line); }
+.quotes blockquote { margin: 0; font: 500 clamp(1.8rem, 3vw, 2.6rem)/1.15 var(--serif); text-wrap: balance; }
+.quotes li:nth-child(2) blockquote { padding-left: clamp(0px, 6vw, 80px); }
+.quotes li:nth-child(3) blockquote { padding-left: clamp(0px, 3vw, 40px); }
+.quotes cite { display: flex; align-items: center; gap: 10px; margin-top: 14px; font-style: normal; color: var(--ink-2); font-size: 0.95rem; }
+.quotes cite .stars { display: inline-flex; color: var(--gold); } .quotes cite .i { width: 14px; height: 14px; }
+.quotes li:nth-child(2) cite { padding-left: clamp(0px, 6vw, 80px); }
+.quotes li:nth-child(3) cite { padding-left: clamp(0px, 3vw, 40px); }
+@media (max-width: 900px) { .rev { grid-template-columns: 1fr; } .score { position: static; } }
+
+/* WhatsApp photo quote */
+.wa { background: linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 30%, var(--bg-2) 70%, var(--bg) 100%); }
+.wa-grid { display: grid; grid-template-columns: 1fr minmax(320px, 400px); gap: clamp(36px, 7vw, 110px); align-items: center; }
+.steps { list-style: none; padding: 0; margin: 34px 0 34px; display: grid; gap: 22px; counter-reset: s; }
+.steps li { display: grid; grid-template-columns: 52px 1fr; gap: 18px; align-items: start; }
+.steps .ic { width: 52px; height: 52px; border-radius: 999px; border: 1px solid var(--line-2); display: grid; place-items: center; color: var(--wa); }
+.steps h3 { font-size: 1.7rem; }
+.steps p { color: var(--ink-2); margin-top: 4px; font-size: 0.98rem; }
+.wa-actions { display: flex; flex-wrap: wrap; gap: 14px 22px; align-items: center; }
+.phone { position: relative; border-radius: 34px; padding: 10px; background: oklch(0.12 0.005 70); border: 1px solid var(--line-2); box-shadow: 0 30px 60px -30px oklch(0 0 0 / 0.7); }
+.phone-in { border-radius: 26px; overflow: hidden; background: #0b141a; }
+.chat-top { display: flex; align-items: center; gap: 12px; padding: 14px 16px; background: #1f2c34; }
+.avatar { width: 38px; height: 38px; border-radius: 999px; background: var(--gold); color: var(--gold-ink); display: grid; place-items: center; font: 600 1.15rem/1 var(--serif); }
+.chat-top b { display: block; font-weight: 500; font-size: 0.98rem; }
+.chat-top small { color: #8696a0; font-size: 0.78rem; }
+.chat { padding: 16px 12px 18px; display: flex; flex-direction: column; gap: 8px; min-height: 470px; background: #0b141a radial-gradient(circle at 20% 10%, #13212b 0, transparent 55%); font-size: 0.9rem; line-height: 1.4; }
+.msg { max-width: 82%; padding: 7px 10px 6px; border-radius: 10px; position: relative; }
+.msg time { display: block; text-align: right; font-size: 0.68rem; color: #8fa3ad; margin-top: 2px; }
+.msg.me { align-self: flex-end; background: #005c4b; border-top-right-radius: 3px; }
+.msg.rr { align-self: flex-start; background: #1f2c34; border-top-left-radius: 3px; }
+.msg.photo { padding: 4px; }
+.msg.photo .ph { width: 210px; height: 150px; border-radius: 8px; overflow: hidden; position: relative; background: #3a3632; }
+.msg.photo .ph img { width: 100%; height: 100%; object-fit: cover; filter: saturate(0.2) brightness(0.8); }
+.msg.photo .ph span { position: absolute; inset: auto 8px 8px auto; display: inline-flex; align-items: center; gap: 5px; font-size: 0.72rem; background: oklch(0 0 0 / 0.5); padding: 3px 7px; border-radius: 999px; }
+.msg.photo p { padding: 6px 6px 0; }
+.booked { align-self: center; margin-top: 6px; display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 999px; background: oklch(0.79 0.095 80 / 0.16); border: 1px solid oklch(0.79 0.095 80 / 0.5); color: var(--gold-2); font-weight: 600; font-size: 0.88rem; }
+.chat-note { text-align: center; color: var(--ink-3); font-size: 0.82rem; margin-top: 12px; }
+.js .chat .msg, .js .chat .booked { opacity: 0; transform: translateY(10px) scale(0.98); }
+.chat.play .msg, .chat.play .booked { animation: pop 420ms var(--ease-out) forwards; animation-delay: calc(var(--k) * 520ms + 200ms); }
+@keyframes pop { to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .js .chat .msg, .js .chat .booked { opacity: 1; transform: none; } .chat.play .msg, .chat.play .booked { animation: none; } }
+@media (max-width: 900px) { .wa-grid { grid-template-columns: 1fr; } .phone { max-width: 400px; width: 100%; margin-inline: auto; } }
+
+/* Process */
+.proc { display: grid; grid-template-columns: 7fr 5fr; grid-template-rows: auto auto; gap: 18px; }
+.proc .step { border-radius: var(--r-card); border: 1px solid var(--line); background: var(--bg-2); padding: 32px; position: relative; overflow: hidden; isolation: isolate; display: flex; flex-direction: column; gap: 12px; }
+.proc .step .n { font: 500 italic 1.15rem/1 var(--serif); color: var(--gold); }
+.proc .step p { color: var(--ink-2); }
+.proc .star { grid-row: span 2; min-height: 560px; justify-content: flex-end; background: url(images/texture-gold.webp) center / cover; }
+.proc .star::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, oklch(0.16 0.006 70 / 0.1) 0%, oklch(0.15 0.006 70 / 0.94) 70%); }
+.proc .star h3 { font-size: clamp(2.4rem, 4vw, 3.5rem); }
+.boards { display: flex; gap: 10px; margin-bottom: auto; }
+.boards span { width: 92px; aspect-ratio: 3 / 4; border-radius: 6px; border: 1px solid oklch(1 0 0 / 0.18); box-shadow: 0 18px 30px -18px oklch(0 0 0 / 0.8); background-size: cover; }
+.boards span:nth-child(1) { background-image: url(images/g-marble-swirl.webp); transform: rotate(-5deg) translateY(6px); }
+.boards span:nth-child(2) { background-image: url(images/g-metallic-london.webp); transform: rotate(2deg); }
+.boards span:nth-child(3) { background-image: url(images/g-marble-gold-kitchen.webp); transform: rotate(7deg) translateY(10px); }
+.proc .list { list-style: none; padding: 0; margin: 6px 0 0; display: grid; gap: 8px; }
+.proc .list li { display: flex; gap: 10px; align-items: flex-start; color: var(--ink-2); }
+.proc .list .i { color: var(--gold); margin-top: 3px; width: 18px; height: 18px; }
+.proc .ph-step { padding: 0; }
+.proc .ph-step img { width: 100%; height: 200px; object-fit: cover; object-position: 50% 70%; }
+.proc .ph-step > div { padding: 24px 32px 32px; display: flex; flex-direction: column; gap: 10px; }
+.proc-cta { margin-top: 32px; display: flex; flex-wrap: wrap; gap: 14px 22px; align-items: center; }
+@media (max-width: 900px) { .proc { grid-template-columns: 1fr; } .proc .star { grid-row: auto; min-height: 480px; } }
+@media (max-width: 767px) { .proc .step { padding: 24px 20px; } .proc .ph-step > div { padding: 20px 20px 24px; } .boards span { width: 74px; } }
+
+/* Areas */
+.areas { display: grid; grid-template-columns: 6fr 5fr; gap: clamp(36px, 6vw, 90px); align-items: center; }
+.chips { list-style: none; padding: 0; margin: 30px 0 26px; display: flex; flex-wrap: wrap; gap: 8px; }
+.chips li { padding: 10px 16px; border-radius: 999px; border: 1px solid var(--line-2); font-size: 0.95rem; color: var(--ink); background: var(--bg-2); }
+.chips li.home { border-color: var(--gold); color: var(--gold-2); }
+.ask { font: 500 italic clamp(1.5rem, 2.2vw, 1.9rem)/1.2 var(--serif); color: var(--ink); margin-bottom: 20px; }
+.map { position: relative; max-width: 420px; justify-self: center; width: 100%; }
+.map svg { width: 100%; height: auto; overflow: visible; }
+.map .ie { fill: oklch(0.24 0.006 70); }
+.map .uk { fill: oklch(0.27 0.01 75); stroke: oklch(0.79 0.095 80 / 0.55); stroke-width: 0.8; stroke-linejoin: round; }
+.map .ring { fill: none; stroke: var(--gold); stroke-width: 0.6; opacity: 0.45; }
+.map .dot { fill: var(--gold); }
+.map .pulse { fill: none; stroke: var(--gold); stroke-width: 1; transform-box: fill-box; transform-origin: center; }
+@media (prefers-reduced-motion: no-preference) { .map .pulse { animation: pulse 2600ms var(--ease-out) infinite; } @keyframes pulse { from { transform: scale(0.4); opacity: 0.9; } to { transform: scale(3.2); opacity: 0; } } }
+.map .lbl { font: 600 13px/1 var(--sans); fill: var(--ink); }
+.map .lbl2 { font: 400 9px/1 var(--sans); fill: var(--ink-2); letter-spacing: 0.1em; }
+@media (max-width: 900px) { .areas { grid-template-columns: 1fr; } .map { max-width: 300px; order: -1; } }
+
+/* Events */
+.events { padding: clamp(84px, 10vw, 140px) 0; background: url(images/texture-gold.webp) center / cover; isolation: isolate; }
+.events::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, var(--bg) 0%, oklch(0.165 0.006 70 / 0.55) 22%, oklch(0.165 0.006 70 / 0.55) 78%, var(--bg) 100%); }
+.ev-list { list-style: none; padding: 0; margin: 40px 0 36px; }
+.ev-list li { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 12px 40px; align-items: baseline; padding: 26px 0; border-top: 1px solid var(--line-2); }
+.ev-list li:last-child { border-bottom: 1px solid var(--line-2); }
+.ev-list h3 { font-size: clamp(2.2rem, 4.4vw, 3.8rem); font-weight: 500; }
+.ev-list p { color: var(--ink-2); max-width: 46ch; }
+@media (max-width: 767px) { .ev-list li { grid-template-columns: 1fr; padding: 22px 0; } }
+
+/* Quote form */
+.quote { display: grid; grid-template-columns: 5fr 7fr; gap: clamp(36px, 6vw, 90px); align-items: start; }
+.contact-list { list-style: none; padding: 0; margin: 30px 0 0; display: grid; gap: 4px; }
+.contact-list a, .contact-list div { display: flex; align-items: center; gap: 14px; padding: 14px 0; text-decoration: none; border-bottom: 1px solid var(--line); }
+.contact-list .i { color: var(--gold); width: 22px; height: 22px; }
+.contact-list small { display: block; color: var(--ink-3); font-size: 0.82rem; }
+.contact-list b { font-weight: 500; }
+@media (hover: hover) { .contact-list a:hover b { color: var(--gold-2); } }
+form.qf { border-radius: var(--r-card); border: 1px solid var(--line); background: var(--bg-2); padding: clamp(22px, 3.6vw, 40px); display: grid; grid-template-columns: 1fr 1fr; gap: 20px 18px; }
+.f { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.f.full { grid-column: 1 / -1; }
+.f label, .f legend { font-size: 0.92rem; font-weight: 500; color: var(--ink); padding: 0; }
+.f .opt { color: var(--ink-3); font-weight: 400; }
+.f input[type=text], .f input[type=tel], .f input[type=email] { height: 52px; padding: 0 16px; border-radius: var(--r-input); border: 1px solid var(--line-2); background: var(--bg); transition: border-color 200ms ease, box-shadow 200ms ease; font-size: 1rem; }
+.f input:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px oklch(0.79 0.095 80 / 0.22); }
+.f input::placeholder { color: var(--ink-3); }
+.f .err { color: oklch(0.78 0.13 30); font-size: 0.86rem; min-height: 0; }
+.f .err:empty { display: none; }
+.f[data-bad] input { border-color: oklch(0.7 0.15 30); }
+fieldset.f { border: 0; margin: 0; padding: 0; }
+.seg { display: flex; flex-wrap: wrap; gap: 8px; }
+.seg label { position: relative; cursor: pointer; }
+.seg input { position: absolute; opacity: 0; inset: 0; cursor: pointer; }
+.seg span { display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 999px; border: 1px solid var(--line-2); font-size: 0.94rem; color: var(--ink-2); font-weight: 400; transition: background-color 200ms ease, border-color 200ms ease, color 200ms ease, transform 160ms var(--ease-out); }
+.seg label:active span { transform: scale(0.97); }
+.seg input:checked + span { background: var(--gold); border-color: var(--gold); color: var(--gold-ink); font-weight: 600; }
+.seg input:focus-visible + span { outline: 2px solid var(--gold); outline-offset: 2px; }
+@media (hover: hover) { .seg label:hover input:not(:checked) + span { border-color: var(--gold); color: var(--ink); } }
+.drop { position: relative; border: 1px dashed var(--line-2); border-radius: var(--r-input); padding: 18px; display: flex; align-items: center; gap: 14px; background: var(--bg); transition: border-color 200ms ease, background-color 200ms ease; }
+.drop.over { border-color: var(--gold); background: oklch(0.79 0.095 80 / 0.06); }
+.drop input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+.drop .ic { width: 44px; height: 44px; border-radius: 999px; display: grid; place-items: center; border: 1px solid var(--line-2); color: var(--gold); flex: none; }
+.drop b { font-weight: 500; display: block; }
+.drop small { color: var(--ink-3); font-size: 0.84rem; }
+.files { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.files li { font-size: 0.82rem; padding: 4px 10px; border-radius: 999px; background: var(--bg-3); color: var(--ink-2); max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.submit-row { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; gap: 14px 20px; margin-top: 4px; }
+.submit-row .btn[disabled] { opacity: 0.7; cursor: progress; }
+.nudge { grid-column: 1 / -1; display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; padding: 16px 18px; border-radius: var(--r-input); background: oklch(0.6 0.15 150 / 0.1); border: 1px solid oklch(0.7 0.15 150 / 0.35); }
+.nudge p { font-weight: 500; }
+.form-msg { grid-column: 1 / -1; font-size: 0.92rem; color: var(--ink-2); }
+.done { grid-column: 1 / -1; text-align: left; padding: 10px 0; }
+.done .i { width: 44px; height: 44px; color: var(--gold); }
+.done h3 { margin: 14px 0 8px; font-size: 2.3rem; }
+.done p { color: var(--ink-2); }
+.done .btn { margin-top: 20px; }
+@media (max-width: 900px) { .quote { grid-template-columns: 1fr; } }
+@media (max-width: 600px) { form.qf { grid-template-columns: 1fr; } .submit-row .btn { width: 100%; } }
+
+/* Footer */
+footer { border-top: 1px solid var(--line); padding: 56px 0 40px; }
+.foot { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 32px; align-items: start; }
+.foot h2 { font-size: 2rem; }
+.foot p, .foot a, .foot li { color: var(--ink-2); font-size: 0.96rem; }
+.foot ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+.foot a { text-decoration: none; } .foot a:hover { color: var(--gold-2); }
+.foot h3 { font: 500 0.95rem/1 var(--sans); color: var(--ink); margin-bottom: 14px; }
+.legal { margin-top: 44px; padding-top: 22px; border-top: 1px solid var(--line); color: var(--ink-3); font-size: 0.85rem; }
+@media (max-width: 767px) { .foot { grid-template-columns: 1fr; } footer { padding-bottom: 110px; } }
+
+/* Mobile sticky bar */
+.bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: var(--z-bar); display: none; grid-template-columns: 1fr 1.25fr 1fr; gap: 8px; padding: 10px 12px calc(10px + env(safe-area-inset-bottom)); background: oklch(0.15 0.006 70 / 0.92); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border-top: 1px solid var(--line); transform: translateY(110%); transition: transform 360ms var(--ease-out); }
+.bar.show { transform: none; }
+.bar a { --h: 48px; padding: 0 10px; font-size: 0.95rem; gap: 7px; }
+@media (max-width: 767px) { .bar { display: grid; } }
+
+/* Cookie bar (small, never covers the page) */
+.cookie { position: fixed; right: 16px; bottom: 16px; z-index: var(--z-cookie); max-width: 360px; display: flex; align-items: center; gap: 14px; padding: 12px 12px 12px 16px; border-radius: 12px; background: var(--bg-3); border: 1px solid var(--line-2); font-size: 0.86rem; color: var(--ink-2); box-shadow: 0 6px 8px -4px oklch(0 0 0 / 0.5); transition: opacity 240ms ease, transform 240ms var(--ease-out); }
+.cookie[hidden] { display: none; }
+.cookie.bye { opacity: 0; transform: translateY(8px); }
+.cookie button { flex: none; border: 1px solid var(--line-2); background: transparent; border-radius: 999px; padding: 8px 14px; cursor: pointer; font-weight: 600; font-size: 0.86rem; }
+.cookie button:active { transform: scale(0.97); }
+@media (max-width: 767px) { .cookie { left: 10px; right: 10px; max-width: none; bottom: 12px; transition: opacity 240ms ease, transform 240ms var(--ease-out), bottom 360ms var(--ease-out); } body.bar-on .cookie { bottom: calc(80px + env(safe-area-inset-bottom)); } }
+
+/* Scroll reveals: content is visible without JS; JS only enhances. */
+@media (prefers-reduced-motion: no-preference) {
+  .js [data-rv] { opacity: 0; transform: translateY(22px); filter: blur(4px); transition: opacity 800ms var(--ease-out), transform 900ms var(--ease-out), filter 800ms var(--ease-out); transition-delay: calc(var(--d, 0) * 70ms); }
+  .js [data-rv].in { opacity: 1; transform: none; filter: none; }
+  .js .card-media[data-rv] { opacity: 1; filter: none; transform: none; clip-path: inset(0 0 100% 0); transition: clip-path 1100ms var(--ease-io); }
+  .js .card-media[data-rv].in { clip-path: inset(0 0 0 0); }
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="i-phone" viewBox="0 0 256 256"><path d="M222.37,158.46l-47.11-21.11-.13-.06a16,16,0,0,0-15.17,1.4,8.12,8.12,0,0,0-.75.56L134.87,160c-15.42-7.49-31.34-23.29-38.83-38.51l20.78-24.71c.2-.25.39-.5.57-.77a16,16,0,0,0,1.32-15.06l0-.12L97.54,33.64a16,16,0,0,0-16.62-9.52A56.26,56.26,0,0,0,32,80c0,79.4,64.6,144,144,144a56.26,56.26,0,0,0,55.88-48.92A16,16,0,0,0,222.37,158.46ZM176,208A128.14,128.14,0,0,1,48,80,40.2,40.2,0,0,1,82.87,40a.61.61,0,0,0,0,.12l21,47L83.2,111.86a6.13,6.13,0,0,0-.57.77,16,16,0,0,0-1,15.7c9.06,18.53,27.73,37.06,46.46,46.11a16,16,0,0,0,15.75-1.14,8.44,8.44,0,0,0,.74-.56L168.89,152l47,21.05h0s.08,0,.11,0A40.21,40.21,0,0,1,176,208Z"/></symbol><symbol id="i-wa" viewBox="0 0 256 256"><path d="M152.58,145.23l23,11.48A24,24,0,0,1,152,176a72.08,72.08,0,0,1-72-72A24,24,0,0,1,99.29,80.46l11.48,23L101,118a8,8,0,0,0-.73,7.51,56.47,56.47,0,0,0,30.15,30.15A8,8,0,0,0,138,155ZM232,128A104,104,0,0,1,79.12,219.82L45.07,231.17a16,16,0,0,1-20.24-20.24l11.35-34.05A104,104,0,1,1,232,128Zm-40,24a8,8,0,0,0-4.42-7.16l-32-16a8,8,0,0,0-8,.5l-14.69,9.8a40.55,40.55,0,0,1-16-16l9.8-14.69a8,8,0,0,0,.5-8l-16-32A8,8,0,0,0,104,64a40,40,0,0,0-40,40,88.1,88.1,0,0,0,88,88A40,40,0,0,0,192,152Z"/></symbol><symbol id="i-star" viewBox="0 0 256 256"><path d="M234.29,114.85l-45,38.83L203,211.75a16.4,16.4,0,0,1-24.5,17.82L128,198.49,77.47,229.57A16.4,16.4,0,0,1,53,211.75l13.76-58.07-45-38.83A16.46,16.46,0,0,1,31.08,86l59-4.76,22.76-55.08a16.36,16.36,0,0,1,30.27,0l22.75,55.08,59,4.76a16.46,16.46,0,0,1,9.37,28.86Z"/></symbol><symbol id="i-swatches" viewBox="0 0 256 256"><path d="M88,180a12,12,0,1,1-12-12A12,12,0,0,1,88,180Zm152-23.81V208a16,16,0,0,1-16,16H76a46.36,46.36,0,0,1-7.94-.68,44,44,0,0,1-35.43-50.95l25-143.13a15.94,15.94,0,0,1,18.47-13L130.84,26a16,16,0,0,1,12.92,18.52l-12.08,69L199.49,89a16,16,0,0,1,20.45,9.52L239,150.69A18.35,18.35,0,0,1,240,156.19ZM103,184.87,128,41.74,73.46,32l-25,143.1A28,28,0,0,0,70.9,207.57,27.29,27.29,0,0,0,91.46,203,27.84,27.84,0,0,0,103,184.87ZM116.78,195,224,156.11,204.92,104,128.5,131.7l-9.78,55.92A44.63,44.63,0,0,1,116.78,195ZM224,173.12,127.74,208H224Z"/></symbol><symbol id="i-house" viewBox="0 0 256 256"><path d="M219.31,108.68l-80-80a16,16,0,0,0-22.62,0l-80,80A15.87,15.87,0,0,0,32,120v96a8,8,0,0,0,8,8h64a8,8,0,0,0,8-8V160h32v56a8,8,0,0,0,8,8h64a8,8,0,0,0,8-8V120A15.87,15.87,0,0,0,219.31,108.68ZM208,208H160V152a8,8,0,0,0-8-8H104a8,8,0,0,0-8,8v56H48V120l80-80,80,80Z"/></symbol><symbol id="i-pin" viewBox="0 0 256 256"><path d="M128,64a40,40,0,1,0,40,40A40,40,0,0,0,128,64Zm0,64a24,24,0,1,1,24-24A24,24,0,0,1,128,128Zm0-112a88.1,88.1,0,0,0-88,88c0,31.4,14.51,64.68,42,96.25a254.19,254.19,0,0,0,41.45,38.3,8,8,0,0,0,9.18,0A254.19,254.19,0,0,0,174,200.25c27.45-31.57,42-64.85,42-96.25A88.1,88.1,0,0,0,128,16Zm0,206c-16.53-13-72-60.75-72-118a72,72,0,0,1,144,0C200,161.23,144.53,209,128,222Z"/></symbol><symbol id="i-arrow" viewBox="0 0 256 256"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></symbol><symbol id="i-sparkle" viewBox="0 0 256 256"><path d="M197.58,129.06,146,110l-19-51.62a15.92,15.92,0,0,0-29.88,0L78,110l-51.62,19a15.92,15.92,0,0,0,0,29.88L78,178l19,51.62a15.92,15.92,0,0,0,29.88,0L146,178l51.62-19a15.92,15.92,0,0,0,0-29.88ZM137,164.22a8,8,0,0,0-4.74,4.74L112,223.85,91.78,169A8,8,0,0,0,87,164.22L32.15,144,87,123.78A8,8,0,0,0,91.78,119L112,64.15,132.22,119a8,8,0,0,0,4.74,4.74L191.85,144ZM144,40a8,8,0,0,1,8-8h16V16a8,8,0,0,1,16,0V32h16a8,8,0,0,1,0,16H184V64a8,8,0,0,1-16,0V48H152A8,8,0,0,1,144,40ZM248,88a8,8,0,0,1-8,8h-8v8a8,8,0,0,1-16,0V96h-8a8,8,0,0,1,0-16h8V72a8,8,0,0,1,16,0v8h8A8,8,0,0,1,248,88Z"/></symbol><symbol id="i-factory" viewBox="0 0 256 256"><path d="M116,176a8,8,0,0,1-8,8H80a8,8,0,0,1,0-16h28A8,8,0,0,1,116,176Zm60-8H148a8,8,0,0,0,0,16h28a8,8,0,0,0,0-16Zm64,48a8,8,0,0,1-8,8H24a8,8,0,0,1,0-16h8V88a8,8,0,0,1,12.8-6.4L96,120V88a8,8,0,0,1,12.8-6.4l38.74,29.05L159.1,29.74A16.08,16.08,0,0,1,174.94,16h18.12A16.08,16.08,0,0,1,208.9,29.74l15,105.13s.08.78.08,1.13v72h8A8,8,0,0,1,240,216Zm-77.86-94.4,8.53,6.4h36.11L193.06,32H174.94ZM48,208H208V144H168a8,8,0,0,1-4.8-1.6l-14.4-10.8,0,0L112,104v32a8,8,0,0,1-12.8,6.4L48,104Z"/></symbol><symbol id="i-camera" viewBox="0 0 256 256"><path d="M208,56H180.28L166.65,35.56A8,8,0,0,0,160,32H96a8,8,0,0,0-6.65,3.56L75.71,56H48A24,24,0,0,0,24,80V192a24,24,0,0,0,24,24H208a24,24,0,0,0,24-24V80A24,24,0,0,0,208,56Zm8,136a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V80a8,8,0,0,1,8-8H80a8,8,0,0,0,6.66-3.56L100.28,48h55.43l13.63,20.44A8,8,0,0,0,176,72h32a8,8,0,0,1,8,8ZM128,88a44,44,0,1,0,44,44A44.05,44.05,0,0,0,128,88Zm0,72a28,28,0,1,1,28-28A28,28,0,0,1,128,160Z"/></symbol><symbol id="i-check-circle" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm45.66,85.66-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32Z"/></symbol><symbol id="i-check" viewBox="0 0 256 256"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></symbol><symbol id="i-mail" viewBox="0 0 256 256"><path d="M224,48H32a8,8,0,0,0-8,8V192a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A8,8,0,0,0,224,48ZM203.43,64,128,133.15,52.57,64ZM216,192H40V74.19l82.59,75.71a8,8,0,0,0,10.82,0L216,74.19V192Z"/></symbol><symbol id="i-clock" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm64-88a8,8,0,0,1-8,8H128a8,8,0,0,1-8-8V72a8,8,0,0,1,16,0v48h48A8,8,0,0,1,192,128Z"/></symbol><symbol id="i-upload" viewBox="0 0 256 256"><path d="M224,144v64a8,8,0,0,1-8,8H40a8,8,0,0,1-8-8V144a8,8,0,0,1,16,0v56H208V144a8,8,0,0,1,16,0ZM93.66,77.66,120,51.31V144a8,8,0,0,0,16,0V51.31l26.34,26.35a8,8,0,0,0,11.32-11.32l-40-40a8,8,0,0,0-11.32,0l-40,40A8,8,0,0,0,93.66,77.66Z"/></symbol><symbol id="i-x" viewBox="0 0 256 256"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"/></symbol></svg>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="hdr" id="hdr">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="Royal Resin, back to top"><span>Royal Resin</span><small>LTD</small></a>
+    <nav class="nav" aria-label="Main">
+      <a href="#floors">Floors</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#process">Process</a>
+      <a href="#areas">Areas</a>
+    </nav>
+    <a class="hdr-tel" href="tel:+441283295234" aria-label="Call 01283 295234"><svg class="i"><use href="#i-phone"/></svg><span>01283 295234</span></a>
+    <a class="btn btn-gold btn-sm" href="#quote">Book a free design consultation</a>
+  </div>
+</header>
+
+<main id="main">
+<section class="hero" id="top" aria-labelledby="h1">
+  <picture class="hero-media">
+    <source media="(max-width: 767px)" srcset="images/hero-m.webp">
+    <img src="images/hero-1920.webp" srcset="images/hero-1200.webp 1200w, images/hero-1920.webp 1920w" sizes="100vw" width="1920" height="1080" alt="A white faux-marble epoxy resin floor by Royal Resin, ceiling spotlights reflected in its glass finish" fetchpriority="high" decoding="async">
+  </picture>
+  <div class="hero-inner wrap">
+    <h1 id="h1"><span data-in style="--d:0">Luxury Epoxy Resin Floors</span><span class="l2" data-in style="--d:1">Designed With You, Installed Nationwide</span></h1>
+    <p class="sub" data-in style="--d:2">Metallic and faux-marble floors with no grout lines, every one a 1 of 1. Based in Derby, working across the UK.</p>
+    <div class="hero-ctas" id="heroCtas" data-in style="--d:3">
+      <a class="btn btn-gold" href="#quote">Book a free design consultation</a>
+      <a class="btn btn-wa" href="https://wa.me/447947620266?text=Hi%20Harry%2C%20here%27s%20a%20photo%20of%20my%20space%20for%20a%20resin%20floor." target="_blank" rel="noopener"><svg class="i"><use href="#i-wa"/></svg>WhatsApp us a photo of your space</a>
+    </div>
+  </div>
+  <div class="trust" data-in style="--d:4">
+    <ul class="wrap" aria-label="Why Royal Resin">
+      <li><a class="proof" href="#reviews"><span class="stars" aria-hidden="true"><svg class="i"><use href="#i-star"/></svg><svg class="i"><use href="#i-star"/></svg><svg class="i"><use href="#i-star"/></svg><svg class="i"><use href="#i-star"/></svg><svg class="i"><use href="#i-star"/></svg></span><span><b>5.0</b> from 63 Google reviews</span></a></li>
+      <li><svg class="i"><use href="#i-swatches"/></svg>Free sample boards</li>
+      <li><svg class="i"><use href="#i-house"/></svg>Homes &amp; commercial</li>
+      <li><svg class="i"><use href="#i-pin"/></svg>UK-wide</li>
+    </ul>
+  </div>
+</section>
+
+<!-- Signature scroll moment. Can later be replaced by a scroll-driven video (3d-animation-creator skill). -->
+<section class="pin" id="pin" aria-label="How a Royal Resin floor is made">
+  <div class="pin-stage">
+    <div class="pin-media"><picture>
+      <source media="(max-width: 767px)" srcset="images/pin-m.webp">
+      <img src="images/pin-1920.webp" width="1920" height="1200" alt="Close view of a pearl-white marble resin floor, garden doors reflected in the gloss" loading="lazy" decoding="async">
+    </picture></div>
+    <div class="pin-copy wrap">
+      <h2 class="pin-title"><span>How your floor is made</span><span class="ticks" aria-hidden="true"><i></i><i></i><i></i><i></i></span></h2>
+      <div class="notes">
+        <article class="note on">
+          <p class="n">1.</p>
+          <h3>Preparation</h3>
+          <p>We get your existing floor ready first. If it needs work before resin can go down, we handle it.</p>
+        </article>
+        <article class="note">
+          <p class="n">2.</p>
+          <h3>Design coat</h3>
+          <p>The colours and veining go down by hand, placed where you chose them at your consultation.</p>
+        </article>
+        <article class="note">
+          <p class="n">3.</p>
+          <h3>Glass top coat</h3>
+          <p>A clear top coat seals the design in and gives the deep, mirror-like finish you see here.</p>
+        </article>
+        <article class="note final">
+          <h3>No grout lines. <em>Every floor a 1 of 1.</em></h3>
+          <a class="btn btn-gold" href="#quote">Book a free design consultation</a>
+          <p style="margin-top:14px"><span class="proof"><span class="stars" aria-hidden="true"><svg class="i"><use href="#i-star"/></svg><svg class="i"><use href="#i-star"/></svg><svg class="i"><use href="#i-star"/></svg><svg class="i"><use href="#i-star"/></svg><svg class="i"><use href="#i-star"/></svg></span><span><b>5.0</b> from 63 Google reviews</span></span></p>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="floors" aria-labelledby="floors-h">
+  <div class="wrap">
+    <div class="sec-head" data-rv>
+      <h2 id="floors-h">Four finishes, one standard of work</h2>
+      <p class="lede">From a showroom-grade metallic to a hard-wearing warehouse floor, every system goes down seamless.</p>
+    </div>
+    <div class="svc">
+      <article class="card" data-rv>
+        <div class="card-media" data-rv><img src="images/g-metallic-london.webp" width="900" height="1350" alt="Deep blue and silver metallic epoxy floor in a 160m² London showroom, Harry kneeling on the finished floor" loading="lazy" decoding="async" style="object-position:50% 72%"></div>
+        <div class="card-body">
+          <h3>Metallic epoxy floors</h3>
+          <p class="tag-line">Depth and movement that shift as the light moves.</p>
+          <p>A flawless glass finish, designed with you. Every metallic floor is a 1 of 1.</p>
+          <ul class="tags" aria-label="Typical rooms"><li>Lounge</li><li>Kitchen</li><li>Showroom</li><li>Salon</li></ul>
+          <div class="card-foot"><a class="btn btn-gold btn-sm" href="#quote" data-finish="Metallic">Get a quote <svg class="i i-arrow"><use href="#i-arrow"/></svg></a></div>
+        </div>
+      </article>
+      <article class="card" data-rv style="--d:1">
+        <div class="card-media" data-rv><img src="images/g-marble-gold-kitchen.webp" width="900" height="1182" alt="Cream and gold faux-marble epoxy floor running the length of a farmhouse kitchen" loading="lazy" decoding="async"></div>
+        <div class="card-body">
+          <h3>Faux marble epoxy floors</h3>
+          <p class="tag-line">Veining that flows room to room, with no grout lines.</p>
+          <p>Our most popular design. You choose where the marbling goes: fuller here, plainer there.</p>
+          <ul class="tags" aria-label="Typical rooms"><li>Kitchen</li><li>Bathroom</li><li>Lounge</li></ul>
+          <div class="card-foot"><a class="btn btn-gold btn-sm" href="#quote" data-finish="Marble">Get a quote <svg class="i i-arrow"><use href="#i-arrow"/></svg></a></div>
+        </div>
+      </article>
+      <article class="card tex" data-rv>
+        <span class="ic" aria-hidden="true"><svg class="i"><use href="#i-sparkle"/></svg></span>
+        <div class="card-body">
+          <h3>Flake floors</h3>
+          <p class="tag-line">A textured, forgiving finish that hides everyday dirt.</p>
+          <p>Durable and very low maintenance, for spaces that work hard.</p>
+          <ul class="tags" aria-label="Typical rooms"><li>Garage</li><li>Kitchen</li></ul>
+          <div class="card-foot"><a class="btn btn-gold btn-sm" href="#quote" data-finish="Flake">Get a quote <svg class="i i-arrow"><use href="#i-arrow"/></svg></a></div>
+        </div>
+      </article>
+      <article class="card tex" data-rv style="--d:1">
+        <span class="ic" aria-hidden="true"><svg class="i"><use href="#i-factory"/></svg></span>
+        <div class="card-body">
+          <h3>Industrial high-build epoxy</h3>
+          <p class="tag-line">Hygienic, cost effective and built for footfall.</p>
+          <p>For factories, warehouses, walkways and car parks, in a wide range of colours.</p>
+          <ul class="tags" aria-label="Typical rooms"><li>Warehouse</li><li>Garage</li><li>Showroom</li></ul>
+          <div class="card-foot"><a class="btn btn-gold btn-sm" href="#quote" data-finish="Industrial">Get a quote <svg class="i i-arrow"><use href="#i-arrow"/></svg></a></div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="gallery" aria-labelledby="gal-h" style="padding-top:0">
+  <div class="wrap">
+    <div class="gal-top" data-rv>
+      <h2 id="gal-h">Every floor is <em>a 1 of 1</em></h2>
+      <div class="tabs" role="group" aria-label="Filter floors">
+        <button type="button" aria-pressed="true" data-f="all">All</button>
+        <button type="button" aria-pressed="false" data-f="metallic">Metallic</button>
+        <button type="button" aria-pressed="false" data-f="marble">Marble</button>
+        <button type="button" aria-pressed="false" data-f="flake">Flake</button>
+        <button type="button" aria-pressed="false" data-f="industrial">Industrial</button>
+        <button type="button" aria-pressed="false" data-f="events">Events</button>
+      </div>
+    </div>
+    <div class="gal" id="gal" aria-live="polite">
+      <figure data-cat="metallic"><button type="button" class="shot" data-cap="Blue and silver metallic, 160m² London showroom" aria-label="Enlarge: Blue and silver metallic, 160m² London showroom"><img src="images/g-metallic-london.webp" width="900" height="1350" alt="Deep blue and silver metallic epoxy floor in a London showroom, Harry kneeling on it" loading="lazy" decoding="async"></button><figcaption><span>Blue and silver metallic, 160m² London showroom</span><span>Metallic</span></figcaption></figure>
+      <figure data-cat="marble"><button type="button" class="shot" data-cap="Close-up of grey and gold marble veining" aria-label="Enlarge: Close-up of grey and gold marble veining"><img src="images/g-marble-swirl.webp" width="900" height="1167" alt="Close-up of grey, white and gold faux-marble veining in epoxy resin" loading="lazy" decoding="async"></button><figcaption><span>Close-up of grey and gold marble veining</span><span>Marble</span></figcaption></figure>
+      <figure data-cat="marble"><button type="button" class="shot" data-cap="Cream and gold marble kitchen" aria-label="Enlarge: Cream and gold marble kitchen"><img src="images/g-marble-gold-kitchen.webp" width="900" height="1182" alt="Cream and gold faux-marble epoxy floor in a farmhouse kitchen" loading="lazy" decoding="async"></button><figcaption><span>Cream and gold marble kitchen</span><span>Marble</span></figcaption></figure>
+      <figure data-cat="metallic"><button type="button" class="shot" data-cap="Metallic garage floor" aria-label="Enlarge: Metallic garage floor"><img src="images/g-metallic-garage.webp" width="900" height="675" alt="Grey and white metallic epoxy floor in a car collector’s garage" loading="lazy" decoding="async"></button><figcaption><span>Metallic garage floor</span><span>Metallic</span></figcaption></figure>
+      <figure data-cat="marble"><button type="button" class="shot" data-cap="Gloss so deep it reflects the doors" aria-label="Enlarge: Gloss so deep it reflects the doors"><img src="images/g-marble-reflection.webp" width="900" height="1172" alt="Low view across a marble resin floor reflecting the patio doors" loading="lazy" decoding="async"></button><figcaption><span>Gloss so deep it reflects the doors</span><span>Marble</span></figcaption></figure>
+      <figure data-cat="metallic"><button type="button" class="shot" data-cap="Smoke grey metallic" aria-label="Enlarge: Smoke grey metallic"><img src="images/g-metallic-grey.webp" width="900" height="1400" alt="Smoke grey metallic epoxy floor in front of bi-fold doors" loading="lazy" decoding="async"></button><figcaption><span>Smoke grey metallic</span><span>Metallic</span></figcaption></figure>
+      <figure data-cat="marble"><button type="button" class="shot" data-cap="Pearl white open-plan living space" aria-label="Enlarge: Pearl white open-plan living space"><img src="images/g-marble-lounge.webp" width="900" height="1200" alt="Pearl white marble epoxy floor through an open-plan living space" loading="lazy" decoding="async"></button><figcaption><span>Pearl white open-plan living space</span><span>Marble</span></figcaption></figure>
+      <figure data-cat="marble"><button type="button" class="shot" data-cap="Sand and gold garden room" aria-label="Enlarge: Sand and gold garden room"><img src="images/g-marble-sunroom.webp" width="900" height="1190" alt="Sand and gold marble epoxy floor in a garden room" loading="lazy" decoding="async"></button><figcaption><span>Sand and gold garden room</span><span>Marble</span></figcaption></figure>
+      <figure data-cat="metallic"><button type="button" class="shot" data-cap="Grey metallic kitchen" aria-label="Enlarge: Grey metallic kitchen"><img src="images/g-metallic-kitchen.webp" width="900" height="1435" alt="Grey metallic epoxy floor in a modern kitchen" loading="lazy" decoding="async"></button><figcaption><span>Grey metallic kitchen</span><span>Metallic</span></figcaption></figure>
+      <figure data-cat="marble"><button type="button" class="shot" data-cap="Grey marble kitchen diner" aria-label="Enlarge: Grey marble kitchen diner"><img src="images/g-marble-kitchen.webp" width="900" height="1157" alt="Grey marble epoxy floor in a kitchen diner" loading="lazy" decoding="async"></button><figcaption><span>Grey marble kitchen diner</span><span>Marble</span></figcaption></figure>
+      <figure data-cat="metallic"><button type="button" class="shot" data-cap="Black and white metallic" aria-label="Enlarge: Black and white metallic"><img src="images/g-metallic-mono.webp" width="900" height="375" alt="Black and white metallic epoxy floor being walked on" loading="lazy" decoding="async"></button><figcaption><span>Black and white metallic</span><span>Metallic</span></figcaption></figure>
+      <figure data-cat="marble"><button type="button" class="shot" data-cap="White and gold marble hallway" aria-label="Enlarge: White and gold marble hallway"><img src="images/g-marble-hallway.webp" width="900" height="1191" alt="White and gold marble epoxy floor through a hallway and stairs" loading="lazy" decoding="async"></button><figcaption><span>White and gold marble hallway</span><span>Marble</span></figcaption></figure>
+      <figure data-cat="marble"><button type="button" class="shot" data-cap="Grey and white marble" aria-label="Enlarge: Grey and white marble"><img src="images/g-marble-open-plan.webp" width="900" height="1437" alt="Grey and white marble epoxy floor in a large room" loading="lazy" decoding="async"></button><figcaption><span>Grey and white marble</span><span>Marble</span></figcaption></figure>
+      <figure class="empty" data-cat="flake" hidden><h3>Flake floors</h3><p>Photos of recent flake floors are on their way to this page. Ask Harry and he’ll send you examples today.</p><a class="btn btn-wa btn-sm" href="https://wa.me/447947620266?text=Hi%20Harry%2C%20could%20you%20send%20me%20photos%20of%20your%20flake%20floors%3F" target="_blank" rel="noopener"><svg class="i"><use href="#i-wa"/></svg>Ask for photos</a></figure>
+      <figure class="empty" data-cat="industrial" hidden><h3>Industrial floors</h3><p>Photos of recent industrial floors are on their way to this page. Ask Harry for examples from similar sites.</p><a class="btn btn-wa btn-sm" href="https://wa.me/447947620266?text=Hi%20Harry%2C%20could%20you%20send%20me%20photos%20of%20your%20industrial%20floors%3F" target="_blank" rel="noopener"><svg class="i"><use href="#i-wa"/></svg>Ask for photos</a></figure>
+      <figure class="empty" data-cat="events" hidden><h3>Event floors</h3><p>Dance floors, mandap stages and logo floors. Ask Harry for photos of recent event work.</p><a class="btn btn-wa btn-sm" href="https://wa.me/447947620266?text=Hi%20Harry%2C%20could%20you%20send%20me%20photos%20of%20your%20event%20floors%3F" target="_blank" rel="noopener"><svg class="i"><use href="#i-wa"/></svg>Ask for photos</a></figure>
+    </div>
+    <div class="gal-cta" data-rv>
+      <a class="btn btn-gold" href="#quote">Book a free design consultation</a>
+      <a class="proof" href="#reviews"><span class="stars" aria-hidden="true"><svg class="i"><use href="#i-star"/></svg><svg class="i"><use href="#i-star"/></svg><svg class="i"><use href="#i-star"/></svg><svg class="i"><use href="#i-star"/></svg><svg class="i"><use href="#i-star"/></svg></span><span><b>5.0</b> from 63 Google reviews</span></a>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="reviews" aria-labelledby="rev-h" style="padding-top:clamp(40px,5vw,80px)">
+  <div class="wrap rev">
+    <div class="score" data-rv>
+      <h2 id="rev-h" class="sr">Google reviews</h2>
+      <p class="big" aria-hidden="true">5.0</p>
+      <div class="stars" aria-hidden="true"><svg class="i"><use href="#i-star"/></svg><svg class="i"><use href="#i-star"/></svg><svg class="i"><use href="#i-star"/></svg><svg class="i"><use href="#i-star"/></svg><svg class="i"><use href="#i-star"/></svg></div>
+      <p>Rated <b>5.0 out of 5</b> from <b>63 Google reviews</b>.</p>
+      <a class="btn btn-ghost" href="https://www.google.com/search?q=Royal+Resin+Ltd+Derby+reviews" target="_blank" rel="noopener">Read all 63 reviews on Google <svg class="i i-arrow"><use href="#i-arrow"/></svg></a>
+    </div>
+    <ul class="quotes">
+      <li data-rv><blockquote>“What an amazing job, the colours have blown my mind”</blockquote><cite><span class="stars" aria-hidden="true"><svg class="i"><use href="#i-star"/></svg><svg class="i"><use href="#i-star"/></svg><svg class="i"><use href="#i-star"/></svg><svg class="i"><use href="#i-star"/></svg><svg class="i"><use href="#i-star"/></svg></span>Deb Col</cite></li>
+      <li data-rv><blockquote>“Royal Resin have done an amazing job installing our floor”</blockquote><cite><span class="stars" aria-hidden="true"><svg class="i"><use href="#i-star"/></svg><svg class="i"><use href="#i-star"/></svg><svg class="i"><use href="#i-star"/></svg><svg class="i"><use href="#i-star"/></svg><svg class="i"><use href="#i-star"/></svg></span>Simon (Bod)</cite></li>
+      <li data-rv><blockquote>“Perfect, 1000% recommended”</blockquote><cite><span class="stars" aria-hidden="true"><svg class="i"><use href="#i-star"/></svg><svg class="i"><use href="#i-star"/></svg><svg class="i"><use href="#i-star"/></svg><svg class="i"><use href="#i-star"/></svg><svg class="i"><use href="#i-star"/></svg></span>Gez Bennett</cite></li>
+    </ul>
+  </div>
+</section>
+
+<section class="sec wa" id="whatsapp" aria-labelledby="wa-h">
+  <div class="wrap wa-grid">
+    <div>
+      <p class="kicker" data-rv>Quickest way to a price</p>
+      <h2 id="wa-h" data-rv style="margin-top:16px">Send us a photo. Get a design idea back.</h2>
+      <ol class="steps">
+        <li data-rv><span class="ic" aria-hidden="true"><svg class="i"><use href="#i-camera"/></svg></span><div><h3>Snap your floor</h3><p>One or two photos of the room as it is now. Rough size helps if you know it.</p></div></li>
+        <li data-rv style="--d:1"><span class="ic" aria-hidden="true"><svg class="i"><use href="#i-wa"/></svg></span><div><h3>Send it on WhatsApp</h3><p>Straight to Harry on 07947 620266.</p></div></li>
+        <li data-rv style="--d:2"><span class="ic" aria-hidden="true"><svg class="i"><use href="#i-swatches"/></svg></span><div><h3>Get a design idea and a ballpark price</h3><p>Then, if you like it, we book in your free sample boards.</p></div></li>
+      </ol>
+      <div class="wa-actions" data-rv>
+        <a class="btn btn-wa" href="https://wa.me/447947620266?text=Hi%20Harry%2C%20here%27s%20a%20photo%20of%20my%20space%20for%20a%20resin%20floor." target="_blank" rel="noopener"><svg class="i"><use href="#i-wa"/></svg>WhatsApp us a photo of your space</a>
+        <span class="proof"><span class="stars" aria-hidden="true"><svg class="i"><use href="#i-star"/></svg><svg class="i"><use href="#i-star"/></svg><svg class="i"><use href="#i-star"/></svg><svg class="i"><use href="#i-star"/></svg><svg class="i"><use href="#i-star"/></svg></span><span><b>5.0</b> from 63 Google reviews</span></span>
+      </div>
+    </div>
+    <figure style="margin:0" data-rv>
+      <div class="phone" aria-label="Example WhatsApp conversation" role="img">
+        <div class="phone-in">
+          <div class="chat-top"><span class="avatar" aria-hidden="true">R</span><div><b>Royal Resin</b><small>online</small></div></div>
+          <div class="chat" id="chat" aria-hidden="true">
+            <div class="msg me photo" style="--k:0"><div class="ph"><img src="images/g-marble-open-plan.webp" alt="" loading="lazy" style="object-position:50% 80%"><span><svg class="i" style="width:12px;height:12px"><use href="#i-camera"/></svg>Photo</span></div><p>Hi Harry, this is our kitchen and lounge, about 45m². Could we do a white marble?</p><time>10:42</time></div>
+            <div class="msg rr" style="--k:1">That would look stunning with all that light. I'll sketch a design idea for you now.<time>10:51</time></div>
+            <div class="msg rr" style="--k:2">White base, soft grey veining running towards the doors. Ballpark price is on its way too.<time>11:20</time></div>
+            <div class="msg me" style="--k:3">Love it. Can we see it in person?<time>11:24</time></div>
+            <div class="msg rr" style="--k:4">Of course. I'll bring sample boards to you. Does Thursday work?<time>11:26</time></div>
+            <div class="booked" style="--k:5"><svg class="i"><use href="#i-check-circle"/></svg>Sample boards booked</div>
+          </div>
+        </div>
+      </div>
+      <figcaption class="chat-note">An example of how a WhatsApp quote goes.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="sec" id="process" aria-labelledby="proc-h">
+  <div class="wrap">
+    <div class="sec-head" data-rv>
+      <h2 id="proc-h">See your floor before it's poured</h2>
+      <p class="lede">Three steps, and it starts with something you can hold.</p>
+    </div>
+    <div class="proc">
+      <article class="step star" data-rv>
+        <div class="boards" aria-hidden="true"><span></span><span></span><span></span></div>
+        <p class="n">1. Free design consultation</p>
+        <h3>Sample boards made for your room</h3>
+        <p>We talk through the look you want, then make physical sample boards so you can see the colours and finish in your own light before anything is poured.</p>
+        <div style="margin-top:10px"><a class="btn btn-gold" href="#quote">Book a free design consultation</a></div>
+      </article>
+      <article class="step ph-step" data-rv style="--d:1">
+        <img src="images/install-metallic.webp" width="900" height="1200" alt="Harry installing a blue and silver metallic epoxy floor" loading="lazy" decoding="async">
+        <div>
+          <p class="n">2. Installation</p>
+          <h3>We handle it all</h3>
+          <ul class="list">
+            <li><svg class="i"><use href="#i-check"/></svg>Preparation</li>
+            <li><svg class="i"><use href="#i-check"/></svg>Design coat</li>
+            <li><svg class="i"><use href="#i-check"/></svg>Top coat</li>
+          </ul>
+        </div>
+      </article>
+      <article class="step" data-rv style="--d:2">
+        <p class="n">3. Aftercare</p>
+        <h3>Made to last, easy to refresh</h3>
+        <p>Resin floors have an expected life of 20 years. You get cleaning advice, re-polishing to bring the gleam back, and a new design can go straight on top with no prep.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="areas" aria-labelledby="areas-h" style="padding-top:0">
+  <div class="wrap areas">
+    <div>
+      <h2 id="areas-h" data-rv>Based in Derby. Working across the UK.</h2>
+      <ul class="chips" aria-label="Regions we cover" data-rv>
+        <li class="home">East Midlands</li><li>West Midlands</li><li>London &amp; the Home Counties</li><li>North West</li><li>Yorkshire</li><li>South &amp; South West</li><li>Wales</li><li>Scotland</li>
+      </ul>
+      <p class="ask" data-rv>Not sure we cover you? Ask, we travel UK-wide.</p>
+      <div class="wa-actions" data-rv>
+        <a class="btn btn-ghost" href="tel:+441283295234"><svg class="i"><use href="#i-phone"/></svg>Call 01283 295234</a>
+        <a class="btn btn-wa" href="https://wa.me/447947620266" target="_blank" rel="noopener"><svg class="i"><use href="#i-wa"/></svg>WhatsApp Harry</a>
+      </div>
+    </div>
+    <div class="map" data-rv>
+      <svg viewBox="-6 -6 249 460" role="img" aria-label="Map of the UK with Derby marked at its centre">
+<path class="ie" d="M-40.6 283.4L-40.7 284.6L-42.5 283.2L-43.3 281.6L-48 280.9L-46.1 279.3L-41.7 279.8L-40.6 283.4ZM22.8 236.3L19.1 238.9L17.5 243.8L16.2 247L15.1 249.3L13.8 250.2L11.8 250.9L10.7 251.6L9.4 251.2L7.6 251.3L6.7 252.1L7.3 253.4L8.8 254.4L10.6 255.4L9.5 257.1L3.6 259.5L1.9 260.9L1.9 263.4L6.5 268.2L8 271.4L12.1 272.5L13.8 274.3L15.2 274.6L18.3 274.5L19.6 275.2L20.8 273.8L23.4 271.4L24.3 270.4L23.8 269L24.8 265.8L26.7 263.7L29.4 265L30.7 266.8L30.9 268.2L32.5 271.4L35.6 272.6L35.6 276.6L38.4 277.7L40.9 277.5L42.7 276.9L44.1 276.2L46 276.4L47 277.9L47.4 279.3L45.8 279.8L43.9 279.6L43.1 280.5L43 282.3L43.7 284.7L44.8 286.4L45.8 290.2L46.6 294.3L47.8 296.9L48 300L47.9 301.6L48.1 304.3L47.9 308L49.4 313.4L50 316.4L50.4 322.9L49.4 325.4L48.1 327.7L47.2 330.5L46.5 333.4L46.1 338.3L43.1 343.9L41.8 345.3L40.3 346.2L43.6 350.1L40.9 351.9L38.1 352.5L34.9 351.5L33 351.6L31.1 352.9L29.9 353.2L28.7 350L27.8 353.4L25.9 354.4L22.9 354.2L17.7 355.1L15.7 356.1L14.8 357.5L14.2 359.3L13.3 360.2L8.4 362L5.7 365.4L3.3 367L1.3 367.5L-0.5 365.9L-1.2 364.9L-4.8 364.5L-3.4 366.1L-3.2 368.3L-3.5 370.5L-4.8 371.5L-6.4 371.7L-9 373.9L-12.4 374.5L-14.3 376.6L-25.5 380.1L-27.7 379.2L-29.3 378.9L-31 379.1L-35.7 381.1L-38 380.7L-35.1 375.9L-31.2 373.4L-32.1 372.5L-39.4 374.1L-42 375.6L-44.6 376L-43.5 373.8L-40.1 370.8L-38.4 369.3L-37.2 368.8L-36 367L-32.5 365L-43.8 369.1L-46.7 368.6L-47.4 367.5L-49.7 368L-50.6 365.2L-47.2 361L-45.2 359.2L-42.8 358.2L-40.5 356.8L-39.7 355.1L-40.8 354.5L-47.6 355L-50.9 354.6L-50.7 353.2L-50.1 351.7L-46.7 349.1L-44.9 348.7L-43.2 349L-41.6 349.6L-40.4 350.5L-36.5 350L-38.1 348.4L-38.4 345L-39.6 343.9L-38 342.3L-36.3 341.4L-33.3 338.1L-32.2 337.6L-26.2 336.8L-19.9 335.2L-13.5 332.8L-16.8 331.5L-18.4 329.8L-20.9 333.3L-22.6 334.6L-27.7 335.3L-29.3 334.9L-31.6 333.9L-33 335.1L-36.4 336.8L-39.9 337.2L-35.8 334.1L-30.6 328.8L-29.4 327.1L-27.7 324.1L-28.2 322.9L-29.3 322.1L-25.6 316.1L-24.2 315L-21.8 314.8L-20 313.9L-18.5 313.5L-17 311.7L-19.4 310.6L-21.8 310L-29.5 310.6L-31.5 309.9L-32.6 307.1L-34.8 306.6L-36.5 307.3L-37.8 307.2L-38.9 306.3L-37 304.2L-39.4 303.7L-41.9 304.1L-44 303.5L-44 302.2L-43 300.9L-44.3 299.6L-44.5 298L-43.2 297.3L-41.9 297.5L-38.9 296.4L-35.4 295.8L-38.4 294.7L-39.7 293.7L-39.8 292.2L-39.5 290.9L-35.9 288.7L-32 287.8L-32.3 286.4L-32 284.8L-35.9 284.3L-39.8 285.5L-39.4 282.5L-38.4 279.8L-38.3 278.1L-38.4 276.2L-40.3 277L-40.5 274.3L-41.3 272.5L-44 273.8L-43.9 271.4L-43.1 269.7L-41.7 268.9L-40.3 269.3L-37.8 269.3L-35.3 268L-31.7 267.7L-25.9 268L-22 271.6L-19.4 268.7L-12.7 269.5L-9 270.7L-8.6 267.9L-9.8 266.2L-8.3 263.9L-6.3 262.3L-5 261.6L-2 260.6L-0.7 259.7L0.2 256.8L1.5 254.3L-6 255.6L-13.1 252.7L-11.9 250.7L-10.4 249.6L-7.8 248.7L-6.3 246.7L-4.2 244.4L-4.9 241.4L-4.5 239.2L-2.9 237.8L-2.4 235.7L-1.7 234.1L1.4 233.6L4.5 232.2L9.2 232L10.5 232.5L10.1 230L12.4 229.8L13.7 232L14.7 233.2L14.9 235.1L14.2 236.6L13.1 237.8L14.2 239L12.6 241.2L14.3 240.3L16.7 238.1L16.7 236.4L16.2 234.2L15.5 232.3L15.8 230.1L17.2 228.7L20.8 228L19.3 225.6L20.7 225.4L22.2 225.9L24.3 227.8L26.4 229.3L28.8 230.5L26.5 232.9L23.9 234.5L22.8 236.3Z"/><path class="uk" d="M128.5 375.1L126.8 376.8L121.3 378.4L118.9 380.2L114.8 384.1L107.7 383.4L103 378.4L100.1 376.4L98.9 376.1L97.6 376.7L94.8 377.3L92.1 377.3L93.5 374.9L95.4 373.6L91.2 372.7L89.9 372L88.6 370.4L85.2 370.1L83.6 370.5L80.9 372.7L76.6 375L71.4 371.8L70.4 370.4L70.4 367.7L69.7 365.5L68.3 364.8L70.1 362L72.3 360.2L77.1 358.3L84.6 354L88.7 352.1L92.5 348.9L94.1 347L95.3 344.3L96.4 341L98 338.3L96.4 337.7L95.7 335.7L95.9 333.6L96.6 331.8L96 329.6L94.8 327.2L94.9 325.4L95.2 323.4L92.3 323.5L89.2 324.1L86.6 325.5L84 327.4L81.7 327.7L81.7 326.2L82.7 324.3L85.3 321.7L88.2 319.5L89.2 317.7L89.9 315.8L91.3 314.2L95 311.2L102 307.9L105.8 308.1L108.5 307.6L110.8 306.4L113.2 306.1L118.5 309.6L116.9 304.2L119.3 303L122.7 307.8L123.9 308.3L126.6 307.6L125.5 306.8L122.8 306L121.5 304.4L119.3 299.5L119.4 296.6L120.9 293.5L122.5 290.7L121.2 290.1L120 289.1L119.8 286.2L120.2 283.8L123.1 281.6L123.9 278.2L124.4 274.6L123.9 272.9L120.9 273.2L119.5 273.9L118.3 275L116.9 274.9L113.3 270.8L111.2 267.7L107.6 261.3L107.1 257.4L110 249.1L114.6 243.7L119.9 241.8L110.7 241.4L108 242.1L105.5 244.3L104 245L102.6 245.2L101.2 246.3L99.9 247.8L98.5 248.8L95.8 248.5L94.4 248.9L93.5 248L92.8 246.5L90.5 246.6L88.1 248.5L85.6 249.7L82.6 248.4L78.5 246.2L76.9 249.1L76.4 252.4L73.6 249.6L71.2 245.7L70.3 243.3L70.3 240.6L71.6 239.5L73 240.5L75.1 234L79.3 225.6L80.8 223.2L81.8 220L81.6 217.8L80.7 216.1L76.9 212.1L76.9 208.7L77.3 205L78.4 202.8L84 202.5L82 201.3L78 198L79 193.7L77.7 195.4L76 198.9L75 199.7L72.2 200.5L71.7 202.2L69.8 202.8L69.3 204.4L68.6 202.8L68.6 200L69.2 197.3L70.3 195.3L74.4 190.7L72.4 192.1L67.8 196.4L65.4 199.2L64.6 201L65.7 206.9L65.3 209.2L61.4 224.4L60.6 225.9L59.3 226.9L57.4 226.6L56.5 225.5L56.5 224.2L56.9 222.3L58.5 215L59.2 213L60.3 211.2L62.6 207.9L61 208.3L59.9 207.5L60.1 197.8L61.4 194.6L61.9 190L63 186L64.2 183.1L65.2 179.4L66.7 177.8L67.1 175.3L68.7 172.5L69.9 169.7L61.2 177.3L59.1 178.7L56.4 178.4L54.2 177.5L52.5 175.7L51.8 172.4L49.8 172.3L48 171.7L50.3 169.4L54 168.8L57.4 165.9L54.3 163.9L57.2 161.6L60.6 155.9L61.3 150.7L59.6 148.2L59.1 146.6L55.9 144.8L55.3 142.5L55.7 141.3L56.7 140L58.3 139.1L60.8 138.1L58.6 137.1L57.7 136L57.1 134.3L58.2 128.9L58.9 127.1L60.2 124.8L66.2 124.9L66.9 123.9L70.7 124.8L70.2 123.7L65.2 118.2L66.2 114.3L66.2 113L66.1 111.5L68.1 109.9L72.9 110L74.1 109.5L73.6 108L72.4 106.2L72.3 104.6L72.5 103.2L72.6 100.4L72.8 99.2L73.9 97.3L76.1 96.4L78.8 97.1L79.8 97.8L81 99.6L85.1 97.6L87.5 99.5L93.2 97.7L100.8 96.9L105.4 95.7L110.2 95.3L114.8 94L119.5 94.6L119.4 96.4L118.3 99.4L118.4 102.6L117.6 104.8L115.8 107.1L111.2 110.4L102.8 117.9L97.8 121.6L97.1 123.5L96.8 126L99.7 126.4L100.9 127.3L100.2 128.5L95.8 132.9L94.4 136.9L97.9 136.8L100.6 136L106.2 133.5L111.4 131.6L113.9 131.6L118.8 133L122 132.4L124.1 132.3L138.3 132.8L142.3 131.9L144.9 133L147.1 135.5L149.2 140.3L147.9 143.2L145.5 145.9L143.5 149.6L142.9 151.6L142.6 153.9L141.9 155.9L138 165.5L134.1 170.7L132.4 174.6L130.2 177.5L128.2 179.4L126 180.7L119.7 182.1L117.9 183L115.8 184.6L113.6 185.5L116.2 185.3L118.8 184.4L123.4 184.1L128.9 187.3L128.4 189.8L126.2 191.9L121.3 192.3L116.7 196.8L114.6 198.2L112.4 198.9L109.6 198.7L104.6 197.5L102.5 196.2L104.5 198.2L106.6 199.3L119.7 201.9L124.5 198.9L130.1 198.9L140.6 203.9L143.6 207.7L147.9 213.1L150.3 215.3L152 217.2L153 220L155.1 229.6L157.4 238.9L160.5 249.1L161.8 251.8L163.7 253.8L172.9 258.4L174.9 259.8L178.5 264.2L181.9 268.9L185.1 272.4L188.5 275.2L186.8 276.8L185.7 279.1L186.6 282.3L187.9 285.4L190.7 290.3L193.2 295.7L192.3 294.8L190 294.5L188.8 294.3L186.4 292.6L184.2 290.5L179.7 291.4L177.3 291L175.1 291L179.2 292.2L183.7 292.3L193.4 301.3L196.8 306.6L198.7 313.6L197.4 316.8L195.3 318.8L193.4 321.1L191.5 323.8L197 327.7L199.4 327L200.5 325.7L202.5 322.5L203.5 321.4L206.8 320.9L209.7 321.1L212.5 321.8L215 321.6L220 323L222.5 324.3L229 329.8L230.3 332.9L231 336.8L231.1 341.2L230 345.2L228.7 348.9L228 353.5L227.5 355.2L226.7 356.5L223.3 360.2L221 361.7L219.1 361.1L220 363.9L220.1 366.2L218.1 367.9L216 368.6L212.7 367.7L207.9 370.8L211.3 372.4L212 374.1L211.2 377.1L209.1 378.5L206.7 379.1L204.2 379.2L202.2 380L200.3 381.4L202.7 380.6L204.4 381.3L205.5 383.8L211.2 385.6L214 385.6L219.7 385L222.4 385L223.4 387.5L223 392.7L222.2 393.8L214.8 398.1L213.2 401.1L212.8 402.9L208.4 402.7L206.4 404.5L202.8 405.9L200.1 407.3L197.5 409L195.2 409.5L185.7 407.4L180 407.6L172.2 409.4L170.2 409.1L167.3 407.4L164.2 406.2L160.7 405.7L157.6 404.1L159.5 407.2L155.2 410.1L153.3 410.7L151.3 410.6L147.1 411.4L143.3 411L143.9 413.1L144.9 414.9L143.2 415.9L135.9 414.5L134 416L131.3 415.4L128.7 413.2L126 411.8L123.1 411.1L120.8 411.4L111.4 414.7L109.5 418.1L108.6 422.9L107.2 427.1L105 430.4L102.4 430.9L99.9 428.6L95.2 426.1L93.5 424.3L90.7 425.7L88.7 425.7L85.8 426.3L80.6 428.4L78.5 429.8L74.1 433.6L73.2 434.6L71.6 438.4L69.1 439.1L66.8 436.7L64.2 435.8L61.6 436.7L59.9 437.9L59.1 436.9L59.1 434.8L61.1 432.1L66.4 430.2L71 425L73.4 421.9L74.2 420.2L75.4 419.1L76.8 418.6L77.5 416.7L84 408.9L84.6 407.2L84.9 404L85.4 400.9L90.7 398.9L93.2 392.5L101.2 390.8L106.6 390.9L112.1 392.1L114.8 392.3L117.6 391.8L119.8 390L123.5 383.8L125.6 381L128 378.5L130.3 375.7L134 370.4L131.5 372.2L128.5 375.1ZM93 307.1L93.9 307.9L96.4 307.7L95.6 309.4L92.9 311.3L91.1 313.1L88.9 314.6L87.8 312.9L86.6 313L84.7 309.6L84.4 304.6L86.8 303.2L90.2 303.3L93 307.1ZM131.2 70.7L128.6 70.8L130 68.5L131.6 67.8L134.6 68.1L131.2 70.7ZM166.3 19.4L163.4 15.8L165.1 11.2L167.1 11.3L167.4 12.6L166.2 13.8L166.4 16.3L166.4 18.8ZM160.1 18.5L160.6 21.3L161.7 20.6L163.6 23.3L166 22.2L165.7 24.7L164.2 31.7L163.7 32.9L163.4 35.1L162.6 39.7L161.6 41.2L160.7 44.5L159 43.5L160.3 38.4L160.8 35.4L160.5 33.9L159.7 32.5L157.7 32.4L156.1 33L155.6 31.1L153 30.8L151.9 29.5L153.9 28L155.7 28.3L158.6 26.7L156.8 21.2L154.5 20.7L154.4 19.3L155.6 18.8L157.6 16L158.8 15.6L160.2 15.7L160.1 18.5ZM172.5 7.5L171.3 11.4L169.4 12.5L168.7 10.2L168.9 8.1L169.8 7.3L171.4 6.7L172.5 7.5ZM116.9 88.2L115.6 88.7L114.3 88.7L112.2 86.4L111.5 84.7L112.5 83.2L114.5 83.8L115.5 85.7L115.6 87L117.1 88ZM122.4 90.3L119.9 87.1L122.2 86.6L122.8 88L122.4 90.3ZM119.4 78.8L120.9 79.8L123.4 80.6L125 80.7L126.3 81.8L125.6 83.7L123.9 84.4L120.9 82.4L116.9 83.2L115.6 82.5L115.4 80.4L113.7 81.3L112.7 80.5L112.6 79.2L112.7 77.4L113.6 74.8L115 74.2L117.2 74.6L119.6 76L120.4 76.9L119.4 78.8ZM127 72.6L125 73.5L124 70.1L121.6 69L120.4 68.3L119.6 67.1L121.4 66.1L124 68.5L125.1 70.4L127 71L127 72.6ZM37 176.6L35.6 176.9L37.9 173.5L39.3 173.1L38.8 174.9L37 176.6ZM71.9 222.1L68.9 222.1L66.7 220.7L65.2 215.3L65.7 213.3L66.9 211.6L68.5 211.3L70 212.3L71.9 217.1L72.1 220.3L71.9 222.1ZM56.3 186.2L47 188.4L43.8 188.2L44.2 186.4L46.8 185.7L47.9 180.4L43.9 177.9L44 176L46.8 174.3L48.7 174.1L50.4 175.6L52.4 178.6L54.9 179.1L56.6 180.4L56.3 186.2ZM48.1 202.8L48.9 207.9L49.8 211.1L49 213.7L45.3 215.7L44 215.7L44.8 213.2L44.1 210.9L44.4 209.1L40.6 211.8L40.2 209.2L40.3 207.7L41.5 205.8L43.1 205L46.1 203.8L48.1 202.8ZM51.8 207.4L50.1 207.8L49.4 206.1L49.4 204.3L50.1 203L53.1 201L51.8 200.3L52.5 198.2L55.8 195.7L57.5 195.3L55.8 199.8L51.8 207.4ZM46.5 105.5L43.5 112.4L41.3 114.4L38.2 116.3L41 116.3L41.7 118.3L37.7 122.3L35.2 123.6L32.6 126.9L31.3 126.9L30 129.1L28.9 130L27.5 129.6L25.9 127.5L28.9 125.4L31.2 123L27.8 121L26.5 119.8L28.2 118L26.9 117.1L25.8 116.2L25.7 114.5L25.9 112.7L26.9 111.9L27.6 110.9L29 111.3L30.5 112.7L32.2 112.1L34.2 112.4L32.8 108.7L33.9 107.1L38.5 104.7L44.2 100.5L45.6 99.9L46.6 102.6L46.5 105.5ZM44.6 161.4L43.1 161.9L41.1 159.3L43.6 158L44.7 158.7L45 160.6ZM47.8 139.8L47.7 141.6L47.3 143.7L47.9 145.9L47.9 147.4L49.5 148.7L53.9 149.5L58 149.2L58.8 151L58.1 152.1L55.9 154.1L53.1 157.5L51.4 158.2L50.3 151.9L47.4 152.7L44.9 152.6L43.6 151.9L42.7 150.5L40.8 146.9L35.4 145.5L33.9 143.5L33.4 142.3L34.7 140.2L36.1 140.7L37.6 139.7L36.8 137.9L42.3 135.9L42.8 133.3L44 133.1L45.3 133.9L47.3 136.6L47.8 139.8ZM23.1 132.7L25.7 134.9L23.6 138.7L20.4 138.7L15.9 136L16.2 134.6L17.7 133.7L18.8 134.2L20.3 133.5L21.6 133.7L23.1 132.7ZM22.1 155.4L19.8 155.4L18.3 152.3L18.1 150.8L18.4 148L18.3 144.8L21 144.6L22.1 155ZM18.2 161.4L16.2 161.9L15.2 161.1L15.7 159.7L17.3 159.2L18.4 160L18.2 161.4ZM46 276.4L44.1 276.2L42.7 276.9L40.9 277.5L38.4 277.7L36 277.7L36.1 273.4L33.3 272.2L31.1 269.3L30.7 266.8L29.4 265L27.7 263.7L24.8 265.8L23.2 268L24.3 270.4L23.4 271.4L20.8 273.8L19.6 275.2L18.3 274.5L15.2 274.6L13.8 274.3L12.1 272.5L8 271.4L7.3 268.7L1.9 263.4L1.3 261.8L3.6 259.5L9.5 257.1L10.4 256.2L8.8 254.4L7.3 253.4L6.7 252.1L7.6 251.3L9.4 251.2L10.7 251.6L11.8 250.9L13.8 250.2L15.1 249.3L16.2 247L17.4 244.9L18.6 239.8L22.8 236.3L23.7 237.8L25.5 238.1L27.2 236.8L29.1 232.7L30.5 232.5L32 232.8L34.9 232.3L40.1 230.4L42.4 230.3L45.7 231.3L48.1 231.3L50.3 234.2L51.4 238.8L54.1 243.4L57.7 247.3L57.8 249.7L56.5 251L53.9 252.6L54 254.3L55.6 253.4L57.1 253.1L60.8 253.4L62.1 255.2L62.9 257.8L63.4 260L63.1 262.3L61.1 259.5L60.1 258.5L58.7 258L59.3 260.9L59.1 264.8L61.4 265.2L60.2 269.1L57.9 270.2L55.1 270.6L54.5 272L54 273.8L52.5 276.4L50.7 278L48.4 277.7L46 276.4ZM165.8 412.4L163.8 413.8L163.2 415.4L161.4 416.4L160.2 416.5L155.3 413.2L154.1 413.4L155.2 411.8L158.3 410.7L160 409.1L163.9 410.6L165.8 412.4Z"/>
+<circle class="ring" cx="156.2" cy="323.1" r="60"/><circle class="ring" cx="156.2" cy="323.1" r="125" opacity=".3"/>
+<circle class="pulse" cx="156.2" cy="323.1" r="6"/><circle class="dot" cx="156.2" cy="323.1" r="4.5"/>
+<text class="lbl" x="166.2" y="317.1">Derby</text><text class="lbl2" x="166.2" y="331.1">BASE</text></svg>
+    </div>
+  </div>
+</section>
+
+<section class="events" id="events" aria-labelledby="ev-h">
+  <div class="wrap">
+    <h2 id="ev-h" data-rv>Events &amp; special projects</h2>
+    <ul class="ev-list">
+      <li data-rv><h3>Dance floors</h3><p>Seamless high-gloss floors made to be the centre of the night.</p></li>
+      <li data-rv><h3>Mandap &amp; event stages</h3><p>Stage floors designed around your colours and your occasion.</p></li>
+      <li data-rv><h3>Logo floors</h3><p>Your logo set into the resin, for venues, showrooms and salons.</p></li>
+    </ul>
+    <div class="wa-actions" data-rv>
+      <a class="btn btn-gold" href="#quote">Book a free design consultation</a>
+      <a class="btn btn-wa" href="https://wa.me/447947620266?text=Hi%20Harry%2C%20I%27d%20like%20to%20ask%20about%20an%20event%20floor." target="_blank" rel="noopener"><svg class="i"><use href="#i-wa"/></svg>Ask about an event floor</a>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="quote" aria-labelledby="q-h">
+  <div class="wrap quote">
+    <div data-rv>
+      <h2 id="q-h">Book your free design consultation</h2>
+      <p class="lede" style="margin-top:18px">Tell us about the space. Harry will come back to you with a design idea, a ballpark price and a time for your sample boards.</p>
+      <p style="margin-top:20px"><span class="proof"><span class="stars" aria-hidden="true"><svg class="i"><use href="#i-star"/></svg><svg class="i"><use href="#i-star"/></svg><svg class="i"><use href="#i-star"/></svg><svg class="i"><use href="#i-star"/></svg><svg class="i"><use href="#i-star"/></svg></span><span><b>5.0</b> from 63 Google reviews</span></span></p>
+      <ul class="contact-list">
+        <li><a href="tel:+441283295234"><svg class="i"><use href="#i-phone"/></svg><span><small>Call</small><b>01283 295234</b></span></a></li>
+        <li><a href="https://wa.me/447947620266" target="_blank" rel="noopener"><svg class="i"><use href="#i-wa"/></svg><span><small>Mobile and WhatsApp</small><b>07947 620266</b></span></a></li>
+        <li><a href="mailto:harry@royalresin.uk"><svg class="i"><use href="#i-mail"/></svg><span><small>Email</small><b>harry@royalresin.uk</b></span></a></li>
+        <li><div><svg class="i"><use href="#i-clock"/></svg><span><small>Hours</small><b>Mon-Fri 09:00-17:00</b></span></div></li>
+      </ul>
+    </div>
+    <form class="qf" id="qf" novalidate data-rv style="--d:1">
+      <div class="f"><label for="q-name">Name</label><input id="q-name" name="name" type="text" autocomplete="name" required><p class="err" id="e-name"></p></div>
+      <div class="f"><label for="q-phone">Phone</label><input id="q-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required><p class="err" id="e-phone"></p></div>
+      <div class="f"><label for="q-email">Email</label><input id="q-email" name="email" type="email" autocomplete="email" inputmode="email" required><p class="err" id="e-email"></p></div>
+      <div class="f"><label for="q-pc">Postcode</label><input id="q-pc" name="postcode" type="text" autocomplete="postal-code" autocapitalize="characters" required><p class="err" id="e-postcode"></p></div>
+      <fieldset class="f full"><legend>Is this for a home or a business?</legend>
+        <div class="seg"><label><input type="radio" name="type" value="Home" checked><span>Home</span></label><label><input type="radio" name="type" value="Business"><span>Business</span></label></div>
+      </fieldset>
+      <fieldset class="f full"><legend>Which finish?</legend>
+        <div class="seg"><label><input type="radio" name="finish" value="Metallic"><span>Metallic</span></label><label><input type="radio" name="finish" value="Marble"><span>Marble</span></label><label><input type="radio" name="finish" value="Flake"><span>Flake</span></label><label><input type="radio" name="finish" value="Industrial"><span>Industrial</span></label><label><input type="radio" name="finish" value="Not sure yet" checked><span>Not sure yet</span></label></div>
+      </fieldset>
+      <fieldset class="f full"><legend>Rough size</legend>
+        <div class="seg"><label><input type="radio" name="size" value="Under 20m²"><span>Under 20m²</span></label><label><input type="radio" name="size" value="20-50m²" checked><span>20-50m²</span></label><label><input type="radio" name="size" value="50-100m²"><span>50-100m²</span></label><label><input type="radio" name="size" value="100m²+"><span>100m²+</span></label></div>
+      </fieldset>
+      <div class="f full"><label for="q-photo">Photo of the space <span class="opt">(optional)</span></label>
+        <div class="drop" id="drop"><span class="ic" aria-hidden="true"><svg class="i"><use href="#i-upload"/></svg></span><span><b>Add photos</b><small>Tap to choose, or drop them here. Up to 5 images.</small></span><input id="q-photo" name="photos" type="file" accept="image/*" multiple></div>
+        <ul class="files" id="files"></ul><p class="err" id="e-photos"></p>
+      </div>
+      <div class="submit-row"><button class="btn btn-gold" type="submit" id="qbtn">Book a free design consultation</button><span class="proof"><span class="stars" aria-hidden="true"><svg class="i"><use href="#i-star"/></svg><svg class="i"><use href="#i-star"/></svg><svg class="i"><use href="#i-star"/></svg><svg class="i"><use href="#i-star"/></svg><svg class="i"><use href="#i-star"/></svg></span><span><b>5.0</b> from 63 Google reviews</span></span></div>
+      <p class="form-msg" id="fmsg" role="status"></p>
+      <div class="nudge"><p>Faster? WhatsApp us a photo.</p><a class="btn btn-wa btn-sm" href="https://wa.me/447947620266?text=Hi%20Harry%2C%20here%27s%20a%20photo%20of%20my%20space%20for%20a%20resin%20floor." target="_blank" rel="noopener"><svg class="i"><use href="#i-wa"/></svg>WhatsApp 07947 620266</a></div>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div><h2>Royal Resin Ltd</h2><p style="margin-top:10px">Derby. Working across the UK.</p></div>
+      <div><h3>Contact</h3><ul>
+        <li><a href="tel:+441283295234">01283 295234</a></li>
+        <li><a href="https://wa.me/447947620266" target="_blank" rel="noopener">07947 620266 (mobile and WhatsApp)</a></li>
+        <li><a href="mailto:harry@royalresin.uk">harry@royalresin.uk</a></li>
+      </ul></div>
+      <div><h3>Hours</h3><ul><li>Mon-Fri 09:00-17:00</li></ul></div>
+    </div>
+    <p class="legal">© <span id="yr">2026</span> Royal Resin Ltd</p>
+  </div>
+</footer>
+
+<nav class="bar" id="bar" aria-label="Quick contact">
+  <a class="btn btn-ghost" href="tel:+441283295234"><svg class="i"><use href="#i-phone"/></svg>Call</a>
+  <a class="btn btn-wa" href="https://wa.me/447947620266?text=Hi%20Harry%2C%20here%27s%20a%20photo%20of%20my%20space%20for%20a%20resin%20floor." target="_blank" rel="noopener"><svg class="i"><use href="#i-wa"/></svg>WhatsApp</a>
+  <a class="btn btn-gold" href="#quote">Quote</a>
+</nav>
+
+<div class="cookie" id="cookie" hidden role="region" aria-label="Cookies">
+  <p>We only use essential cookies to make this site work.</p>
+  <button type="button" id="cookieOk">OK</button>
+</div>
+
+<dialog class="lb" id="lb" aria-label="Floor photo">
+  <button class="x" type="button" aria-label="Close"><svg class="i"><use href="#i-x"/></svg></button>
+  <img id="lbImg" src="data:," alt="">
+  <p id="lbCap"></p>
+</dialog>
+
+<script>
+(() => {
+  // Where quote requests go. Leave empty until a form service is connected:
+  // the form then hands the answers to WhatsApp so no lead is lost.
+  const FORM_ENDPOINT = '';
+  const WA = '447947620266';
+
+  const d = document, html = d.documentElement;
+  html.classList.add('js');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const $ = (s, r = d) => r.querySelector(s), $$ = (s, r = d) => [...r.querySelectorAll(s)];
+  $('#yr').textContent = new Date().getFullYear();
+
+  // Small cookie notice
+  const ck = $('#cookie');
+  let seen = false; try { seen = localStorage.getItem('rr-cookie') === '1'; } catch (_) {}
+  function showCookie() { if (!seen && ck.hidden && !ck.dataset.done) ck.hidden = false; }
+  $('#cookieOk').addEventListener('click', () => { try { localStorage.setItem('rr-cookie', '1'); } catch (_) {} ck.dataset.done = '1'; ck.classList.add('bye'); setTimeout(() => ck.hidden = true, 260); });
+
+  // Header turns solid after the hero top; sticky bar appears once hero buttons leave view.
+  const hdr = $('#hdr'), bar = $('#bar');
+  new IntersectionObserver(([e]) => hdr.classList.toggle('solid', !e.isIntersecting), { rootMargin: '-80px 0px 0px 0px' }).observe($('.hero-inner'));
+  const ctaObs = new IntersectionObserver(([e]) => {
+    const past = !e.isIntersecting && e.boundingClientRect.top < 0;
+    bar.classList.toggle('show', past); d.body.classList.toggle('bar-on', past);
+    if (past) showCookie();
+  });
+  ctaObs.observe($('#heroCtas'));
+  // Hide the bar while the quote form is on screen (it has its own buttons).
+  new IntersectionObserver(([e]) => { if (e.isIntersecting) { bar.classList.remove('show'); d.body.classList.remove('bar-on'); } else if ($('#heroCtas').getBoundingClientRect().bottom < 0) { bar.classList.add('show'); d.body.classList.add('bar-on'); } }, { threshold: 0.25 }).observe($('#qf'));
+
+  // Reveals
+  const rv = new IntersectionObserver((es) => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); rv.unobserve(e.target); } }), { rootMargin: '0px 0px -8% 0px' });
+  $$('[data-rv]').forEach(el => { if (!el.closest('.pin') || $('#pin').classList.contains('static')) rv.observe(el); });
+
+  // Signature pinned sequence
+  const pin = $('#pin'), img = $('.pin-media img', pin), notes = $$('.note', pin), ticks = $$('.ticks i', pin);
+  const big = matchMedia('(min-width: 768px)');
+  let raf = 0, cur = 0, live = false, idx = -1;
+  function setIdx(i) {
+    if (i === idx) return; idx = i;
+    notes.forEach((n, k) => { n.classList.toggle('on', k === i); n.classList.toggle('past', k < i); });
+    ticks.forEach((t, k) => t.classList.toggle('on', k <= i));
+  }
+  function frame() {
+    raf = requestAnimationFrame(frame);
+    const r = pin.getBoundingClientRect(), span = r.height - innerHeight;
+    const p = Math.min(1, Math.max(0, -r.top / span));
+    cur += (p - cur) * 0.1;
+    img.style.transform = `scale(${1 + cur * 0.22}) translate3d(0, ${cur * -1.5}%, 0)`;
+    setIdx(p < 0.24 ? 0 : p < 0.48 ? 1 : p < 0.72 ? 2 : 3);
+  }
+  const pinObs = new IntersectionObserver(([e]) => { live = e.isIntersecting; cancelAnimationFrame(raf); if (live) raf = requestAnimationFrame(frame); });
+  function setupPin() {
+    const animated = big.matches && !reduce;
+    pin.classList.toggle('static', !animated);
+    if (animated) { notes.forEach(n => n.removeAttribute('data-rv')); idx = -1; setIdx(0); pinObs.observe(pin); }
+    else { pinObs.unobserve(pin); cancelAnimationFrame(raf); img.style.transform = ''; notes.forEach((n, k) => { n.classList.remove('past'); n.classList.add('on'); n.setAttribute('data-rv', ''); n.style.setProperty('--d', k); rv.observe(n); }); }
+  }
+  setupPin(); big.addEventListener('change', setupPin);
+
+  // Gallery filter (View Transitions where supported)
+  const gal = $('#gal'), tabs = $$('.tabs button');
+  tabs.forEach(b => b.addEventListener('click', () => {
+    const f = b.dataset.f;
+    const apply = () => {
+      tabs.forEach(t => t.setAttribute('aria-pressed', String(t === b)));
+      $$('figure', gal).forEach(fig => { const c = fig.dataset.cat; fig.hidden = f === 'all' ? fig.classList.contains('empty') : c !== f; });
+    };
+    if (d.startViewTransition && !reduce) d.startViewTransition(apply); else apply();
+  }));
+
+  // Lightbox
+  const lb = $('#lb'), lbImg = $('#lbImg'), lbCap = $('#lbCap');
+  gal.addEventListener('click', (e) => {
+    const s = e.target.closest('button.shot'); if (!s) return;
+    const im = $('img', s); lbImg.src = im.currentSrc || im.src; lbImg.alt = im.alt; lbCap.textContent = s.dataset.cap || '';
+    lb.showModal();
+  });
+  $('.x', lb).addEventListener('click', () => lb.close());
+  lb.addEventListener('click', (e) => { if (e.target === lb) lb.close(); });
+
+  // WhatsApp chat plays once when visible
+  const chat = $('#chat');
+  new IntersectionObserver(([e], o) => { if (e.isIntersecting) { chat.classList.add('play'); o.disconnect(); } }, { threshold: 0.35 }).observe(chat);
+
+  // Service "Get a quote" preselects the finish
+  $$('[data-finish]').forEach(a => a.addEventListener('click', () => {
+    const r = $(`input[name=finish][value="${a.dataset.finish}"]`); if (r) r.checked = true;
+  }));
+
+  // Photo upload
+  const file = $('#q-photo'), drop = $('#drop'), list = $('#files');
+  const showFiles = () => { list.innerHTML = ''; [...file.files].slice(0, 5).forEach(f => { const li = d.createElement('li'); li.textContent = f.name; list.append(li); }); };
+  file.addEventListener('change', showFiles);
+  ['dragenter', 'dragover'].forEach(t => drop.addEventListener(t, () => drop.classList.add('over')));
+  ['dragleave', 'drop'].forEach(t => drop.addEventListener(t, () => drop.classList.remove('over')));
+
+  // Quote form
+  const form = $('#qf'), msg = $('#fmsg'), btn = $('#qbtn');
+  const rules = {
+    name: v => v.trim().length > 1 || 'Please add your name.',
+    phone: v => v.replace(/[^\d+]/g, '').length >= 10 || 'Please add a phone number we can call you on.',
+    email: v => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()) || 'Please check your email address.',
+    postcode: v => /^[A-Za-z]{1,2}\d[A-Za-z\d]?\s*\d[A-Za-z]{2}$/.test(v.trim()) || 'Please add a full UK postcode, like DE1 1AA.',
+  };
+  function check(name) {
+    const el = form.elements[name], res = rules[name](el.value), box = el.closest('.f'), err = $('#e-' + name);
+    if (res === true) { box.removeAttribute('data-bad'); el.removeAttribute('aria-invalid'); err.textContent = ''; return true; }
+    box.setAttribute('data-bad', ''); el.setAttribute('aria-invalid', 'true'); el.setAttribute('aria-describedby', 'e-' + name); err.textContent = res; return false;
+  }
+  Object.keys(rules).forEach(n => form.elements[n].addEventListener('blur', () => { if (form.elements[n].value) check(n); }));
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const bad = Object.keys(rules).filter(n => !check(n));
+    if (file.files.length > 5) { $('#e-photos').textContent = 'Please choose up to 5 photos.'; bad.push('photos'); } else $('#e-photos').textContent = '';
+    if (bad.length) { const first = form.elements[bad[0]]; (first.focus ? first : file).focus(); return; }
+    const data = new FormData(form);
+    const text = `Hi Harry, I'd like a free design consultation.\nName: ${data.get('name')}\nPhone: ${data.get('phone')}\nEmail: ${data.get('email')}\nPostcode: ${data.get('postcode').toUpperCase()}\nFor: ${data.get('type')}\nFinish: ${data.get('finish')}\nSize: ${data.get('size')}`;
+    btn.disabled = true; btn.textContent = 'Sending...'; msg.textContent = '';
+    if (FORM_ENDPOINT) {
+      try {
+        const r = await fetch(FORM_ENDPOINT, { method: 'POST', body: data, headers: { Accept: 'application/json' } });
+        if (!r.ok) throw new Error(r.status);
+        done(false);
+      } catch (_) {
+        btn.disabled = false; btn.textContent = 'Book a free design consultation';
+        msg.textContent = 'That did not send. Please try again, call 01283 295234 or WhatsApp 07947 620266.';
+      }
+    } else {
+      window.open(`https://wa.me/${WA}?text=${encodeURIComponent(text + (file.files.length ? '\n(I\'ll attach my photos here.)' : ''))}`, '_blank', 'noopener');
+      done(true);
+    }
+  });
+  function done(viaWa) {
+    form.innerHTML = `<div class="done" role="status"><svg class="i"><use href="#i-check-circle"/></svg><h3>Thank you</h3><p>${viaWa ? 'Your details are ready in WhatsApp. Press send there (and attach your photos), and Harry will reply with a design idea and a time for your sample boards.' : 'Harry will be in touch shortly with a design idea and a time for your sample boards. Mon-Fri 09:00-17:00.'}</p><a class="btn btn-ghost" href="tel:+441283295234"><svg class="i"><use href="#i-phone"/></svg>Or call 01283 295234</a></div>`;
+    $('.done', form).focus?.();
+  }
+
+})();
+</script>
+</body>
+</html>
