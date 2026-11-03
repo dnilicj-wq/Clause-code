@@ -27,4 +27,4 @@ A WebGL2 marble shader is inlined in the second `<script>`. The palette, presets
 - Events work: dance floors, mandap stages, logo floors
 - From the masterpiece page: over 10 years' experience in resin flooring; most floors finished in about 5 days; resin can go over tiles with no cracking or movement; the 19 recent jobs on the map; the four commercial names
 
-The site states no certifications, years in business, warranties or prices.
+The site states no certifications, warranties or prices. The only time-in-trade figure is Harry's own "over 10 years' experience in resin flooring".
