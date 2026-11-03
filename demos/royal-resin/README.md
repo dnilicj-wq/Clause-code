@@ -4,6 +4,7 @@ This is a one-page site for Royal Resin Ltd (Derby, works UK-wide). The live dem
 
 - `index.html` is the whole page, with its CSS and JS inline. The icons and the UK map are inline SVG.
 - `images/` holds the photos, compressed to WebP. They are Harry's own, taken from royalresin.uk and the masterpiece-of-the-week page. His AdobeStock images were left out.
+- The project captions (Sleaford, Portsmouth, Solihull, "Our most popular design", "Another 1 of 1") come from royalresin.uk/masterpiece-of-the-week; the stills for those are thumbnails of his own Vimeo videos. Other captions are plain descriptions.
 - `images/texture-gold.webp` is a generated dark marble texture with gold veins. It fills the places where no photo of his exists yet: the flake and industrial cards, the events section, and the sample-board panel.
 - `fonts/` holds Cormorant Garamond (headings) and Outfit (body), both self-hosted.
 
@@ -13,6 +14,9 @@ This is a one-page site for Royal Resin Ltd (Derby, works UK-wide). The live dem
 3. **Gallery tabs.** Flake, Industrial and Events have no photos yet. Each tab shows a note asking visitors to request photos instead. Add images as `<figure data-cat="flake">` and so on.
 4. **Pinned scroll section.** The "How your floor is made" section can later become a scroll-driven video using the 3d-animation-creator skill. See the comment above `.pin` in the CSS.
 
+## Design your floor
+A WebGL2 marble shader is inlined in the second `<script>`. The palette, presets and combo names are in the `BASE`, `VEIN` and preset `data-p` values. Without WebGL it falls back to a CSS gradient in the chosen colours.
+
 ## Facts used (do not add more)
 - Phone 01283 295234
 - Mobile and WhatsApp 07947 620266
@@ -21,5 +25,6 @@ This is a one-page site for Royal Resin Ltd (Derby, works UK-wide). The live dem
 - 5.0 from 63 Google reviews, with three named snippets
 - The four services, the three-step process, the 20-year expected life
 - Events work: dance floors, mandap stages, logo floors
+- From the masterpiece page: over 10 years' experience in resin flooring; most floors finished in about 5 days; resin can go over tiles with no cracking or movement; the 19 recent jobs on the map; the four commercial names
 
 The site states no certifications, years in business, warranties or prices.

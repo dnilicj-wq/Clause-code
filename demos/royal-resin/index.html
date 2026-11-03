@@ -10,13 +10,13 @@
 <link rel="canonical" href="https://royalresin.uk/">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Royal Resin | Luxury Epoxy Resin Floors, Installed Nationwide">
-<meta property="og:description" content="Metallic and faux-marble floors with no grout lines, every one a 1 of 1. Based in Derby, working across the UK.">
-<meta property="og:image" content="images/hero-1920.webp">
+<meta property="og:description" content="Metallic and faux-marble floors with no grout lines, every one a 1&nbsp;of&nbsp;1. Based in Derby, working across the UK.">
+<meta property="og:image" content="images/hero-1206.webp">
 <meta property="og:locale" content="en_GB">
 <link rel="preload" href="fonts/cormorant-garamond-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/outfit-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" as="image" href="images/hero-m.webp" media="(max-width: 767px)" fetchpriority="high">
-<link rel="preload" as="image" imagesrcset="images/hero-1200.webp 1200w, images/hero-1920.webp 1920w" imagesizes="100vw" media="(min-width: 768px)" fetchpriority="high">
+<link rel="preload" as="image" href="images/hero-m.webp" media="(max-width: 899px)" fetchpriority="high">
+<link rel="preload" as="image" imagesrcset="images/hero-760.webp 760w, images/hero-1206.webp 1206w" imagesizes="54vw" media="(min-width: 900px)" fetchpriority="high">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -24,7 +24,7 @@
   "name": "Royal Resin Ltd",
   "description": "Luxury metallic, faux-marble, flake and industrial epoxy resin floors. Based in Derby, working across the UK.",
   "url": "https://royalresin.uk/",
-  "image": "https://royalresin.uk/images/hero-1920.webp",
+  "image": "https://royalresin.uk/images/hero-1206.webp",
   "telephone": "+441283295234",
   "email": "harry@royalresin.uk",
   "address": { "@type": "PostalAddress", "addressLocality": "Derby", "addressRegion": "Derbyshire", "addressCountry": "GB" },
@@ -41,8 +41,10 @@
 }
 </script>
 <style>
-/* Royal Resin: dark showroom. One theme (brand is black and gold), locked.
-   Radius rule: buttons, chips and tabs are full pills; cards and media 14px; inputs 10px. */
+/* Royal Resin: dark showroom, one theme (the brand is black and gold), locked.
+   Radius rule: buttons, chips, tabs and swatches are full pills or circles; cards and media 14px; inputs 10px.
+   Depth system: grain on a fixed layer, faint marble on .rich sections, layered shadows on floating
+   cards, a gold hairline border that lights up on hover, a slow sheen on the hero and gold type. */
 @font-face { font-family: "Cormorant"; src: url(fonts/cormorant-garamond-latin-500-normal.woff2) format("woff2"); font-weight: 500; font-display: swap; }
 @font-face { font-family: "Cormorant"; src: url(fonts/cormorant-garamond-latin-600-normal.woff2) format("woff2"); font-weight: 600; font-display: swap; }
 @font-face { font-family: "Cormorant"; src: url(fonts/cormorant-garamond-latin-500-italic.woff2) format("woff2"); font-weight: 500; font-style: italic; font-display: swap; }
@@ -59,6 +61,7 @@
   --ink-3: oklch(0.7 0.015 80);
   --gold: oklch(0.79 0.095 80);
   --gold-2: oklch(0.86 0.085 85);
+  --gold-hi: oklch(0.97 0.04 90);
   --gold-ink: oklch(0.2 0.03 75);
   --wa: #25d366;
   --wa-ink: #052e16;
@@ -68,16 +71,19 @@
   --sans: "Outfit", system-ui, -apple-system, "Segoe UI", sans-serif;
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-io: cubic-bezier(0.77, 0, 0.175, 1);
-  --wrap: min(1240px, 100% - 2 * var(--gut));
   --gut: clamp(16px, 4vw, 40px);
+  --wrap: min(1240px, 100% - 2 * var(--gut));
+  --lift: inset 0 1px 0 oklch(1 0 0 / 0.06), 0 1px 2px oklch(0 0 0 / 0.3), 0 8px 16px -4px oklch(0 0 0 / 0.35), 0 28px 48px -18px oklch(0 0 0 / 0.6);
   /* z-index scale */
-  --z-header: 30; --z-bar: 40; --z-cookie: 45; --z-dialog: 60;
+  --z-grain: 20; --z-header: 30; --z-bar: 40; --z-cookie: 45; --z-dialog: 60;
   color-scheme: dark;
 }
 *, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: 76px; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: 76px; overflow-x: clip; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1.0625rem/1.6 var(--sans); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; overflow-x: clip; }
+/* Fine grain so the black never reads flat (fixed layer, no repaints on scroll). */
+body::after { content: ""; position: fixed; inset: 0; z-index: var(--z-grain); pointer-events: none; background: url(images/grain.png); opacity: 0.035; mix-blend-mode: overlay; }
 img { display: block; max-width: 100%; height: auto; }
 a { color: inherit; }
 button, input, select, textarea { font: inherit; color: inherit; }
@@ -95,28 +101,52 @@ em { font-style: italic; }
 .skip { position: absolute; left: 12px; top: -60px; z-index: 100; background: var(--gold); color: var(--gold-ink); padding: 10px 16px; border-radius: 999px; font-weight: 600; text-decoration: none; }
 .skip:focus { top: 12px; }
 
+/* Gold: hairlines, sheen on gold type, light-catching borders */
+.hair { height: 1px; width: var(--wrap); margin: 0 auto; background: linear-gradient(90deg, transparent, oklch(0.79 0.095 80 / 0.55) 22%, var(--gold-2) 50%, oklch(0.79 0.095 80 / 0.55) 78%, transparent); opacity: 0.5; }
+.sheen { color: var(--gold-2); }
+@supports (-webkit-background-clip: text) or (background-clip: text) {
+  .sheen { background: linear-gradient(100deg, var(--gold-2) 0%, var(--gold-2) 40%, var(--gold-hi) 50%, var(--gold-2) 60%, var(--gold-2) 100%) 100% 0 / 300% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .sheen { animation: textSweep 11s var(--ease-io) infinite; }
+  @keyframes textSweep { 0%, 35% { background-position: 100% 0; } 75%, 100% { background-position: 0% 0; } }
+}
+.lux { position: relative; }
+.lux::after { content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1px; pointer-events: none; background: linear-gradient(125deg, var(--gold-2), oklch(0.79 0.095 80 / 0.15) 30%, transparent 50%, oklch(0.79 0.095 80 / 0.25) 75%, var(--gold)); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; opacity: 0; transition: opacity 500ms var(--ease-out); }
+@media (hover: hover) and (pointer: fine) { .lux:hover::after { opacity: 1; } }
+/* Faint marble under rich sections */
+.rich { isolation: isolate; }
+.rich::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: url(images/texture-gold.webp) center / cover; opacity: 0.16; -webkit-mask-image: linear-gradient(180deg, transparent, #000 18%, #000 82%, transparent); mask-image: linear-gradient(180deg, transparent, #000 18%, #000 82%, transparent); }
+
 /* Buttons */
-.btn { --h: 52px; display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: var(--h); padding: 0 26px; border-radius: 999px; border: 1px solid transparent; font: 600 1rem/1 var(--sans); letter-spacing: 0.005em; text-decoration: none; white-space: nowrap; cursor: pointer; transition: transform 160ms var(--ease-out), background-color 200ms ease, border-color 200ms ease, color 200ms ease; -webkit-tap-highlight-color: transparent; }
+.btn { --h: 52px; display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: var(--h); padding: 0 26px; border-radius: 999px; border: 1px solid transparent; font: 600 1rem/1 var(--sans); letter-spacing: 0.005em; text-decoration: none; white-space: nowrap; cursor: pointer; transition: transform 160ms var(--ease-out), background-color 200ms ease, border-color 200ms ease, color 200ms ease, box-shadow 300ms ease; -webkit-tap-highlight-color: transparent; }
 .btn:active { transform: scale(0.97); }
 .btn .i { transition: transform 220ms var(--ease-out); }
-.btn-gold { background: var(--gold); color: var(--gold-ink); }
-.btn-wa { background: var(--wa); color: var(--wa-ink); }
+.btn-gold { background: linear-gradient(180deg, var(--gold-2), var(--gold)); color: var(--gold-ink); box-shadow: inset 0 1px 0 oklch(1 0 0 / 0.35), 0 6px 18px -8px oklch(0.79 0.095 80 / 0.55); }
+.btn-wa { background: var(--wa); color: var(--wa-ink); box-shadow: inset 0 1px 0 oklch(1 0 0 / 0.3), 0 6px 18px -8px rgb(37 211 102 / 0.5); }
 .btn-ghost { border-color: var(--line-2); color: var(--ink); background: oklch(0.2 0.007 70 / 0.4); }
 .btn-sm { --h: 42px; padding: 0 18px; font-size: 0.94rem; }
 @media (hover: hover) and (pointer: fine) {
-  .btn-gold:hover { background: var(--gold-2); }
+  .btn-gold:hover { background: linear-gradient(180deg, var(--gold-hi), var(--gold-2)); }
   .btn-wa:hover { background: #3ee07b; }
   .btn-ghost:hover { border-color: var(--gold); color: var(--gold-2); }
   .btn:hover .i-arrow { transform: translateX(3px); }
 }
+.reflect { -webkit-box-reflect: below 3px linear-gradient(transparent 58%, rgb(255 255 255 / 0.13)); }
+/* Phones: keep the depth cheap. No full-screen blend layer, no reflections, no blended sheen. */
+@media (max-width: 767px), (pointer: coarse) {
+  body::after { display: none; }
+  .reflect, .phone, .dz-panel { -webkit-box-reflect: none; }
+  .hero-media::after, .pin-media::after { mix-blend-mode: normal; opacity: 0.45; }
+}
 .proof { display: inline-flex; align-items: center; gap: 8px; font-size: 0.92rem; color: var(--ink-2); text-decoration: none; }
-.proof .stars { display: inline-flex; gap: 1px; color: var(--gold); }
+.stars { display: inline-flex; gap: 1px; color: var(--gold); }
 .proof .stars .i { width: 15px; height: 15px; }
 .proof b { color: var(--ink); font-weight: 600; }
 a.proof:hover b { color: var(--gold-2); }
 
 /* Header */
-.hdr { position: fixed; inset: 0 0 auto; z-index: var(--z-header); transition: background-color 300ms ease, border-color 300ms ease, backdrop-filter 300ms ease; border-bottom: 1px solid transparent; }
+.hdr { position: fixed; inset: 0 0 auto; z-index: var(--z-header); transition: background-color 300ms ease, border-color 300ms ease; border-bottom: 1px solid transparent; }
 .hdr.solid { background: oklch(0.165 0.006 70 / 0.86); -webkit-backdrop-filter: blur(14px) saturate(140%); backdrop-filter: blur(14px) saturate(140%); border-color: var(--line); }
 .hdr .wrap { display: flex; align-items: center; gap: 28px; height: 72px; }
 .logo { display: inline-flex; align-items: baseline; gap: 8px; text-decoration: none; margin-right: auto; }
@@ -128,80 +158,84 @@ a.proof:hover b { color: var(--gold-2); }
 @media (hover: hover) { .nav a:hover { color: var(--ink); } .nav a:hover::after { transform: scaleX(1); } }
 .hdr-tel { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; font-weight: 500; font-size: 0.95rem; color: var(--ink); }
 .hdr-tel .i { color: var(--gold); }
-@media (max-width: 1120px) { .nav { display: none; } }
-@media (max-width: 767px) { .hdr .wrap { height: 60px; } .hdr .btn, .hdr-tel span { display: none; } .hdr-tel { width: 44px; height: 44px; justify-content: center; border: 1px solid var(--line-2); border-radius: 999px; } .logo span { font-size: 1.5rem; } }
+@media (max-width: 1180px) { .nav { display: none; } }
+@media (max-width: 767px) { .hdr .wrap { height: 60px; } .hdr .btn, .hdr-tel span { display: none; } .hdr-tel { width: 44px; height: 44px; justify-content: center; border: 1px solid var(--line-2); border-radius: 999px; background: oklch(0.165 0.006 70 / 0.5); } .logo span { font-size: 1.5rem; } }
 
-/* Hero */
-.hero { position: relative; min-height: 100svh; display: flex; flex-direction: column; justify-content: flex-end; isolation: isolate; overflow: hidden; }
-.hero-media { position: absolute; inset: 0; z-index: -2; }
-.hero-media img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 55%; }
-.hero::before { content: ""; position: absolute; inset: 0; z-index: -1; background:
-  linear-gradient(180deg, oklch(0.12 0.006 70 / 0.6) 0%, transparent 22%, transparent 50%, oklch(0.12 0.006 70 / 0.7) 80%, var(--bg) 100%),
-  linear-gradient(90deg, oklch(0.12 0.006 70 / 0.82) 0%, oklch(0.12 0.006 70 / 0.45) 42%, transparent 72%); }
-.hero-inner { padding: 120px 0 34px; }
-.hero h1 { font-size: clamp(2.5rem, 5.6vw, 5.1rem); line-height: 1.02; max-width: 15.5ch; }
-.hero h1 .l2 { display: block; font-style: italic; color: var(--gold-2); font-size: 0.74em; line-height: 1.12; margin-top: 0.12em; padding-bottom: 0.06em; max-width: 22ch; }
-.hero .sub { margin-top: 22px; font-size: clamp(1.05rem, 1.35vw, 1.22rem); color: var(--ink); opacity: 0.9; max-width: 50ch; }
-.hero-ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
-.trust { border-top: 1px solid var(--line); background: oklch(0.15 0.006 70 / 0.55); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
-.trust ul { list-style: none; margin: 0 auto; padding: 18px 0; display: flex; flex-wrap: wrap; gap: 10px 40px; font-size: 0.95rem; color: var(--ink-2); }
+/* Hero: no entrance animation on any hero content. It renders instantly.
+   Desktop: text on the dark left, Harry's floor bleeding off the right edge (never stretched).
+   Mobile: the floor full-bleed at the top, a gradient only behind the text. */
+.hero { position: relative; isolation: isolate; min-height: calc(100svh - 62px); display: flex; align-items: center; overflow: hidden; }
+.hero-media { display: block; position: absolute; top: 0; right: 0; bottom: 0; width: 54vw; z-index: -1; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 24%); mask-image: linear-gradient(90deg, transparent 0%, #000 24%); }
+.hero-media img { width: 100%; height: 112%; object-fit: cover; object-position: 50% 62%; will-change: transform; }
+.hero-media::before { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, oklch(0.12 0.006 70 / 0.5) 0%, transparent 18%, transparent 80%, oklch(0.165 0.006 70 / 0.65) 100%); pointer-events: none; }
+.hero-media::after { content: ""; position: absolute; inset: -10% -60%; z-index: 2; pointer-events: none; background: linear-gradient(100deg, transparent 38%, rgb(255 246 225 / 0.22) 47%, rgb(255 255 255 / 0.32) 50%, rgb(255 246 225 / 0.22) 53%, transparent 62%); mix-blend-mode: soft-light; transform: translateX(-60%); }
+@media (prefers-reduced-motion: no-preference) {
+  .hero-media::after { animation: sweep 12s var(--ease-io) infinite 1.5s; }
+  @keyframes sweep { 0% { transform: translateX(-60%); } 45%, 100% { transform: translateX(60%); } }
+}
+.hero-inner { padding: 120px 0 72px; }
+.hero-copy { max-width: min(640px, 46vw); }
+.hero h1 { font-size: clamp(2.6rem, 5.5vw, 5.75rem); line-height: 1; letter-spacing: -0.015em; }
+.hero h1 .l2 { display: block; font-style: italic; font-size: 0.66em; line-height: 1.12; margin-top: 0.22em; padding-bottom: 0.08em; }
+.hero .sub { margin-top: 28px; font-size: clamp(1.05rem, 1.3vw, 1.22rem); color: var(--ink-2); max-width: 46ch; }
+.hero-ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 38px; }
+.hero-cap { position: absolute; right: var(--gut); bottom: 22px; font-size: 0.82rem; color: oklch(0.97 0.01 85 / 0.8); text-shadow: 0 1px 8px oklch(0 0 0 / 0.6); }
+.trust { position: relative; border-block: 1px solid var(--line); background: oklch(0.18 0.007 70 / 0.6); }
+.trust ul { list-style: none; margin: 0 auto; padding: 19px 0; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 28px; font-size: 0.94rem; color: var(--ink-2); }
 .trust li { display: inline-flex; align-items: center; gap: 10px; }
 .trust .i { color: var(--gold); width: 18px; height: 18px; }
 .trust a { text-decoration: none; }
 .trust b { color: var(--ink); font-weight: 600; }
-@media (max-width: 767px) {
-  .hero { justify-content: flex-start; }
-  .hero-media img { object-position: 50% 70%; }
-  .hero::before { background: linear-gradient(180deg, oklch(0.12 0.006 70 / 0.75) 0%, oklch(0.12 0.006 70 / 0.55) 45%, oklch(0.12 0.006 70 / 0.88) 75%, var(--bg) 100%); }
-  .hero-inner { padding: 84px 0 22px; flex: 1; display: flex; flex-direction: column; justify-content: center; }
-  .hero h1 { font-size: clamp(2.3rem, 10.4vw, 2.9rem); }
-  .hero .sub { margin-top: 16px; font-size: 1.02rem; }
-  .hero-ctas { flex-direction: column; margin-top: 24px; gap: 10px; }
-  .hero-ctas .btn { width: 100%; white-space: normal; text-align: center; line-height: 1.2; padding-block: 12px; }
-  .trust ul { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 16px; font-size: 0.88rem; padding: 16px 0 20px; }
-  .trust li:first-child { grid-column: 1 / -1; }
+@media (max-width: 899px) {
+  .hero { min-height: 100svh; align-items: flex-end; }
+  .hero-media { inset: 0; width: auto; -webkit-mask-image: none; mask-image: none; }
+  .hero-media img { height: 100%; object-position: 50% 0%; }
+  .hero-media::before { background: linear-gradient(180deg, oklch(0.12 0.006 70 / 0.45) 0%, transparent 13%, transparent 34%, oklch(0.165 0.006 70 / 0.78) 50%, var(--bg) 62%); }
+  .hero-inner { padding: 0 0 28px; }
+  .hero-copy { max-width: 560px; }
+  .hero-cap { display: none; }
 }
-@media (prefers-reduced-motion: no-preference) {
-  .hero-media img { animation: heroIn 1800ms var(--ease-out) both; }
-  .hero [data-in] { animation: rise 900ms var(--ease-out) both; animation-delay: calc(var(--d, 0) * 90ms + 150ms); }
-  @keyframes heroIn { from { transform: scale(1.06); opacity: 0.4; } to { transform: none; opacity: 1; } }
-  @keyframes rise { from { opacity: 0; transform: translateY(18px); filter: blur(6px); } to { opacity: 1; transform: none; filter: none; } }
+@media (max-width: 767px) {
+  .hero h1 { font-size: clamp(2.2rem, 10vw, 2.85rem); }
+  .hero h1 .l2 { font-size: 0.72em; margin-top: 0.16em; }
+  .hero .sub { margin-top: 14px; font-size: 1rem; color: var(--ink); }
+  .hero-ctas { flex-direction: column; margin-top: 22px; gap: 10px; }
+  .hero-ctas .btn { width: 100%; white-space: normal; text-align: center; line-height: 1.2; padding-block: 12px; }
+  .trust ul { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 16px; font-size: 0.88rem; padding: 18px 0 20px; }
+  .trust li:first-child, .trust li:nth-child(2) { grid-column: 1 / -1; }
 }
 
-/* Signature: pinned floor, zoom + annotation cards.
+/* Signature: pinned floor, zoom + annotation cards. About two screens of scroll.
    NOTE: this image-based sequence can later be swapped for a scroll-driven video
    (frame sequence on canvas) built with the 3d-animation-creator skill. Keep the
    .pin structure and the four .note cards; only the .pin-media layer changes. */
-.pin { position: relative; height: 420vh; }
-.pin-stage { position: sticky; top: 0; height: 100vh; height: 100dvh; overflow: hidden; isolation: isolate; }
-.pin-media { position: absolute; inset: 0; z-index: -2; }
-.pin-media img { width: 100%; height: 100%; object-fit: cover; transform-origin: 58% 62%; will-change: transform; }
-.pin-stage::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, oklch(0.12 0.006 70 / 0.8) 0%, oklch(0.12 0.006 70 / 0.35) 45%, oklch(0.12 0.006 70 / 0.1) 100%), linear-gradient(180deg, var(--bg) 0%, transparent 16%, transparent 80%, var(--bg) 100%); }
-.pin-copy { position: absolute; left: 0; right: 0; top: 50%; transform: translateY(-50%); }
-.pin-title { font: 400 clamp(1rem, 1.2vw, 1.1rem)/1.4 var(--sans); letter-spacing: 0; color: var(--ink-2); margin-bottom: 18px; display: flex; align-items: center; gap: 14px; }
+.pin { position: relative; height: 210vh; }
+.pin-stage { position: sticky; top: 0; height: 100vh; height: 100dvh; display: grid; grid-template-columns: 5fr 7fr; align-items: center; gap: clamp(32px, 5vw, 80px); width: var(--wrap); margin-inline: auto; padding-top: 40px; }
+.pin-media { position: relative; height: min(78vh, 760px); border-radius: var(--r-card); overflow: hidden; box-shadow: var(--lift); }
+.pin-media img { width: 100%; height: 100%; object-fit: cover; transform-origin: 55% 70%; will-change: transform; }
+.pin-media::after { content: ""; position: absolute; inset: -10% -60%; pointer-events: none; background: linear-gradient(100deg, transparent 40%, rgb(255 250 235 / 0.2) 50%, transparent 60%); mix-blend-mode: soft-light; transform: translateX(var(--sx, -60%)); }
+.pin-title { font: 400 1.05rem/1.4 var(--sans); letter-spacing: 0; color: var(--ink-2); margin-bottom: 18px; display: flex; align-items: center; gap: 14px; }
 .ticks { display: inline-flex; gap: 6px; }
 .ticks i { width: 26px; height: 2px; background: var(--line-2); border-radius: 2px; position: relative; overflow: hidden; }
 .ticks i::after { content: ""; position: absolute; inset: 0; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform 500ms var(--ease-out); }
 .ticks i.on::after { transform: scaleX(1); }
-.notes { position: relative; min-height: 330px; max-width: 520px; }
-.note { position: absolute; inset: 0 auto auto 0; width: 100%; padding: 30px 32px 32px; border-radius: var(--r-card); background: oklch(0.17 0.006 70 / 0.72); -webkit-backdrop-filter: blur(18px) saturate(140%); backdrop-filter: blur(18px) saturate(140%); border: 1px solid var(--line-2); box-shadow: inset 0 1px 0 oklch(1 0 0 / 0.08); opacity: 0; transform: translateY(26px) scale(0.98); filter: blur(6px); transition: opacity 520ms var(--ease-out), transform 620ms var(--ease-out), filter 520ms var(--ease-out); pointer-events: none; }
+.notes { position: relative; min-height: 300px; }
+.note { position: absolute; inset: 0 auto auto 0; width: 100%; padding: 30px 32px 32px; border-radius: var(--r-card); background: oklch(0.2 0.007 70 / 0.62); -webkit-backdrop-filter: blur(18px) saturate(140%); backdrop-filter: blur(18px) saturate(140%); border: 1px solid var(--line); box-shadow: var(--lift); opacity: 0; transform: translateY(26px) scale(0.98); filter: blur(6px); transition: opacity 520ms var(--ease-out), transform 620ms var(--ease-out), filter 520ms var(--ease-out); pointer-events: none; }
 .note.on { opacity: 1; transform: none; filter: none; pointer-events: auto; }
 .note.past { opacity: 0; transform: translateY(-22px) scale(0.98); filter: blur(6px); transition-duration: 300ms; }
 .note .n { font: 500 italic 1.2rem/1 var(--serif); color: var(--gold); }
 .note h3 { font-size: clamp(2rem, 3.2vw, 2.8rem); margin: 10px 0 12px; }
 .note p { color: var(--ink-2); }
-.note.final h3 { font-size: clamp(2.1rem, 3.6vw, 3.1rem); }
+.note.final h3 { font-size: clamp(2.1rem, 3.4vw, 3rem); }
 .note.final .btn { margin-top: 22px; }
 @media (prefers-reduced-transparency: reduce) { .note { background: var(--bg-2); -webkit-backdrop-filter: none; backdrop-filter: none; } }
 /* Small screens and reduced motion: no pinning, a simple fade-in sequence. */
-.pin.static { height: auto; }
-.pin.static .pin-stage { position: relative; height: auto; overflow: visible; padding: 0 0 72px; }
-.pin.static .pin-media { position: relative; height: 62vh; min-height: 340px; inset: auto; }
+.pin.static { height: auto; padding: clamp(64px, 9vw, 120px) 0 0; }
+.pin.static .pin-stage { position: relative; height: auto; display: flex; flex-direction: column-reverse; align-items: stretch; padding: 0; gap: 28px; }
+.pin.static .pin-media { height: 64vh; min-height: 340px; }
 .pin.static .pin-media img { transform: none !important; }
-.pin.static .pin-stage::before { background: linear-gradient(180deg, var(--bg) 0%, transparent 18%, transparent 55%, var(--bg) 62vh); }
-.pin.static .pin-copy { position: relative; top: auto; transform: none; margin-top: -90px; }
 .pin.static .ticks { display: none; }
-.pin.static .notes { min-height: 0; max-width: none; display: grid; gap: 14px; }
+.pin.static .notes { min-height: 0; display: grid; gap: 12px; }
 .pin.static .note { position: relative; opacity: 1; transform: none; filter: none; pointer-events: auto; padding: 24px 22px; }
 .pin.static .note h3 { font-size: 1.9rem; }
 
@@ -213,14 +247,13 @@ section { position: relative; }
 
 /* Services */
 .svc { display: grid; grid-template-columns: repeat(12, 1fr); gap: 18px; }
-.card { position: relative; border-radius: var(--r-card); overflow: hidden; background: var(--bg-2); border: 1px solid var(--line); display: flex; flex-direction: column; isolation: isolate; }
+.card { position: relative; border-radius: var(--r-card); overflow: hidden; background: var(--bg-2); border: 1px solid var(--line); display: flex; flex-direction: column; isolation: isolate; box-shadow: var(--lift); }
 .svc .card:nth-child(1) { grid-column: span 7; }
 .svc .card:nth-child(2) { grid-column: span 5; }
 .svc .card:nth-child(3), .svc .card:nth-child(4) { grid-column: span 6; }
-.card-media { position: relative; aspect-ratio: 16 / 10; overflow: hidden; }
-.svc .card:nth-child(-n+2) .card-media { aspect-ratio: auto; flex: 1; min-height: 340px; }
-.card-media img { width: 100%; height: 100%; object-fit: cover; transition: transform 900ms var(--ease-out); }
-@media (hover: hover) { .card:hover .card-media img { transform: scale(1.035); } }
+.card-media { position: relative; overflow: hidden; flex: 1; min-height: 340px; }
+.card-media img { position: absolute; inset: -8% 0; width: 100%; height: 116%; object-fit: cover; transition: scale 900ms var(--ease-out); }
+@media (hover: hover) { .card:hover .card-media img { scale: 1.035; } }
 .card-body { padding: 26px 28px 28px; display: flex; flex-direction: column; gap: 12px; }
 .card-body .tag-line { font: 500 italic 1.3rem/1.3 var(--serif); color: var(--gold-2); }
 .card-body p { color: var(--ink-2); font-size: 0.98rem; }
@@ -228,11 +261,11 @@ section { position: relative; }
 .tags li { font-size: 0.8rem; padding: 5px 12px; border-radius: 999px; border: 1px solid var(--line-2); color: var(--ink-2); }
 .card-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-top: auto; padding-top: 8px; }
 .card.tex { background: var(--bg-2) url(images/texture-gold.webp) center / cover; }
-.card.tex::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(160deg, oklch(0.17 0.006 70 / 0.55), oklch(0.15 0.006 70 / 0.92) 70%); }
+.card.tex::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(160deg, oklch(0.17 0.006 70 / 0.5), oklch(0.15 0.006 70 / 0.92) 70%); }
 .card.tex .card-body { padding-top: 120px; }
 .card.tex .ic { position: absolute; top: 26px; left: 28px; width: 52px; height: 52px; border-radius: 999px; display: grid; place-items: center; border: 1px solid var(--line-2); color: var(--gold); background: oklch(0.17 0.006 70 / 0.6); }
-@media (max-width: 900px) { .svc .card:nth-child(n) { grid-column: 1 / -1; } .svc .card:nth-child(-n+2) .card-media { aspect-ratio: 16 / 10; flex: none; min-height: 0; } }
-@media (max-width: 767px) { .card-body { padding: 22px 20px 22px; } .card.tex .card-body { padding-top: 96px; } .card.tex .ic { left: 20px; top: 22px; } }
+@media (max-width: 900px) { .svc .card:nth-child(n) { grid-column: 1 / -1; } .card-media { flex: none; min-height: 0; aspect-ratio: 16 / 10; } }
+@media (max-width: 767px) { .card-body { padding: 22px 20px; } .card.tex .card-body { padding-top: 96px; } .card.tex .ic { left: 20px; top: 22px; } }
 
 /* Gallery */
 .gal-top { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; flex-wrap: wrap; margin-bottom: 34px; }
@@ -243,12 +276,12 @@ section { position: relative; }
 .tabs button[aria-pressed="true"] { background: var(--gold); color: var(--gold-ink); font-weight: 600; }
 @media (hover: hover) { .tabs button[aria-pressed="false"]:hover { color: var(--ink); background: var(--bg-3); } }
 .gal { columns: 3 320px; column-gap: 16px; }
-.gal figure { margin: 0 0 16px; break-inside: avoid; border-radius: var(--r-card); overflow: hidden; position: relative; background: var(--bg-2); }
+.gal figure { margin: 0 0 16px; break-inside: avoid; border-radius: var(--r-card); overflow: hidden; position: relative; background: var(--bg-2); border: 1px solid var(--line); }
 .gal figure[hidden] { display: none; }
-.gal button.shot { all: unset; display: block; cursor: zoom-in; width: 100%; position: relative; }
+.gal button.shot { all: unset; display: block; cursor: zoom-in; width: 100%; position: relative; overflow: hidden; }
 .gal button.shot:focus-visible { outline: 2px solid var(--gold); outline-offset: -2px; }
-.gal img { width: 100%; transition: transform 900ms var(--ease-out), opacity 400ms ease; }
-@media (hover: hover) { .gal button.shot:hover img { transform: scale(1.03); } }
+.gal img { width: 100%; transition: scale 900ms var(--ease-out); }
+@media (hover: hover) { .gal button.shot:hover img { scale: 1.03; } }
 .gal figcaption { padding: 12px 16px 14px; font-size: 0.9rem; color: var(--ink-2); display: flex; justify-content: space-between; gap: 10px; }
 .gal figcaption span:last-child { color: var(--gold); white-space: nowrap; }
 .gal .empty { background: url(images/texture-gold.webp) center / cover; padding: 34px 28px; display: flex; flex-direction: column; gap: 14px; min-height: 300px; justify-content: flex-end; isolation: isolate; }
@@ -263,49 +296,94 @@ dialog.lb::backdrop { background: oklch(0.1 0.005 70 / 0.88); -webkit-backdrop-f
 dialog.lb img { max-height: 84vh; width: auto; border-radius: var(--r-card); }
 dialog.lb p { margin-top: 10px; color: var(--ink-2); font-size: 0.95rem; }
 dialog.lb .x { position: absolute; top: 10px; right: 10px; width: 44px; height: 44px; border-radius: 999px; border: 1px solid var(--line-2); background: oklch(0.15 0.006 70 / 0.75); display: grid; place-items: center; cursor: pointer; }
-@media (prefers-reduced-motion: no-preference) {
-  dialog.lb[open] { animation: lbIn 280ms var(--ease-out); }
-  @keyframes lbIn { from { opacity: 0; transform: scale(0.97); } }
+@media (prefers-reduced-motion: no-preference) { dialog.lb[open] { animation: lbIn 280ms var(--ease-out); } @keyframes lbIn { from { opacity: 0; transform: scale(0.97); } } }
+
+/* Design your floor */
+.dz { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(28px, 4vw, 64px); align-items: start; }
+.dz-stage { position: sticky; top: 96px; }
+.dz-panel { position: relative; aspect-ratio: 5 / 4; border-radius: var(--r-card); overflow: hidden; box-shadow: var(--lift); background: radial-gradient(120% 90% at 30% 20%, var(--v, #c79a3e) 0%, transparent 38%), radial-gradient(90% 80% at 80% 75%, var(--v, #c79a3e) 0%, transparent 34%), var(--b, #eadcc0); margin-bottom: 64px; -webkit-box-reflect: below 6px linear-gradient(transparent 82%, rgb(255 255 255 / 0.1)); }
+.dz-panel canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; opacity: 0; transition: opacity 600ms ease; }
+.dz-panel.gl-on canvas { opacity: 1; }
+.dz-panel::after { content: ""; position: absolute; inset: 0; border-radius: inherit; box-shadow: inset 0 0 0 1px oklch(1 0 0 / 0.1), inset 0 1px 0 oklch(1 0 0 / 0.25); pointer-events: none; }
+.dz-name { position: absolute; left: 16px; right: 16px; bottom: 16px; z-index: 1; padding: 12px 16px; border-radius: 12px; background: oklch(0.17 0.006 70 / 0.6); -webkit-backdrop-filter: blur(14px) saturate(140%); backdrop-filter: blur(14px) saturate(140%); border: 1px solid oklch(1 0 0 / 0.12); font: 500 1.35rem/1.25 var(--serif); }
+.dz-name small { display: block; font: 500 0.72rem/1 var(--sans); letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+.dz-ctl { display: grid; gap: 26px; min-width: 0; }
+.dz > *, .dz-ctl > * { min-width: 0; }
+.dz-ctl fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
+.dz-ctl legend { font-size: 0.92rem; font-weight: 500; margin-bottom: 12px; padding: 0; display: flex; gap: 8px; align-items: baseline; }
+.dz-ctl legend span { color: var(--gold); font: 500 italic 1.05rem/1 var(--serif); }
+.sws { display: grid; grid-template-columns: repeat(auto-fill, minmax(70px, 1fr)); gap: 12px 8px; }
+.sw { position: relative; display: flex; flex-direction: column; align-items: center; gap: 7px; cursor: pointer; text-align: center; font-size: 0.78rem; line-height: 1.2; color: var(--ink-2); -webkit-tap-highlight-color: transparent; }
+.sw input { position: absolute; opacity: 0; inset: 0; cursor: pointer; margin: 0; }
+.sw .chip { width: 48px; height: 48px; border-radius: 50%; background: radial-gradient(circle at 32% 28%, rgb(255 255 255 / 0.55), transparent 42%), var(--c); box-shadow: inset 0 0 0 1px oklch(1 0 0 / 0.16), 0 4px 10px -4px oklch(0 0 0 / 0.6); transition: transform 180ms var(--ease-out), box-shadow 200ms ease; }
+.sw input:checked + .chip { box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--gold), 0 6px 14px -4px oklch(0 0 0 / 0.6); }
+.sw input:checked ~ .nm { color: var(--ink); }
+.sw input:focus-visible + .chip { outline: 2px solid var(--gold); outline-offset: 5px; }
+.sw:active .chip { transform: scale(0.94); }
+@media (hover: hover) { .sw:hover .chip { transform: translateY(-2px); } }
+.seg { display: flex; flex-wrap: wrap; gap: 8px; }
+.seg label { position: relative; cursor: pointer; }
+.seg input { position: absolute; opacity: 0; inset: 0; cursor: pointer; margin: 0; }
+.seg span { display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; border-radius: 999px; border: 1px solid var(--line-2); font-size: 0.94rem; color: var(--ink-2); font-weight: 400; transition: background-color 200ms ease, border-color 200ms ease, color 200ms ease, transform 160ms var(--ease-out); }
+.seg label:active span { transform: scale(0.97); }
+.seg input:checked + span { background: var(--gold); border-color: var(--gold); color: var(--gold-ink); font-weight: 600; }
+.seg input:focus-visible + span { outline: 2px solid var(--gold); outline-offset: 2px; }
+@media (hover: hover) { .seg label:hover input:not(:checked) + span { border-color: var(--gold); color: var(--ink); } }
+.presets { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
+.presets button { flex: none; text-align: left; border: 1px solid var(--line-2); background: var(--bg-2); border-radius: 12px; padding: 9px 14px 10px; cursor: pointer; transition: border-color 200ms ease, transform 160ms var(--ease-out); }
+.presets button:active { transform: scale(0.97); }
+.presets button b { display: block; font-weight: 500; font-size: 0.9rem; }
+.presets button small { color: var(--ink-3); font-size: 0.78rem; }
+.presets button[aria-pressed="true"] { border-color: var(--gold); }
+@media (hover: hover) { .presets button:hover { border-color: var(--gold); } }
+.dz-go { display: grid; gap: 10px; }
+.dz-go .btn { white-space: normal; line-height: 1.2; text-align: center; padding-block: 14px; }
+.dz-note { font-size: 0.86rem; color: var(--ink-3); }
+@media (max-width: 899px) {
+  .dz { grid-template-columns: 1fr; gap: 20px; }
+  .dz-stage { top: 60px; z-index: 2; margin-inline: calc(var(--gut) * -1); padding: 10px var(--gut) 12px; background: oklch(0.165 0.006 70 / 0.92); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+  .dz-panel { aspect-ratio: auto; height: 32svh; min-height: 200px; margin-bottom: 0; -webkit-box-reflect: none; }
+  .dz-name { left: 10px; right: 10px; bottom: 10px; padding: 8px 12px; font-size: 1.05rem; }
+  .dz-name small { display: none; }
+  .sws { grid-template-columns: repeat(4, 1fr); }
 }
 
 /* Reviews */
 .rev { display: grid; grid-template-columns: 5fr 7fr; gap: clamp(32px, 6vw, 90px); align-items: start; }
 .score { position: sticky; top: 110px; }
 .score .big { font: 500 clamp(6rem, 13vw, 10rem)/0.85 var(--serif); letter-spacing: -0.02em; }
-.score .stars { display: flex; gap: 4px; color: var(--gold); margin: 18px 0 14px; }
-.score .stars .i { width: 26px; height: 26px; }
+.score .stars { display: flex; gap: 4px; margin: 18px 0 14px; }
+.score .stars .i { width: 26px; height: 26px; filter: drop-shadow(0 0 8px oklch(0.79 0.095 80 / 0.35)); }
 .score p { color: var(--ink-2); }
 .score p b { color: var(--ink); }
 .score .btn { margin-top: 26px; }
-.quotes { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
-.quotes li { padding: 36px 0; border-top: 1px solid var(--line); }
-.quotes li:last-child { border-bottom: 1px solid var(--line); }
+.quotes { list-style: none; margin: 0; padding: 0; }
+.quotes li { padding: 36px 0; position: relative; }
+.quotes li::before, .quotes li:last-child::after { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 1px; background: linear-gradient(90deg, oklch(0.79 0.095 80 / 0.5), transparent 85%); }
+.quotes li:last-child::after { top: auto; bottom: 0; }
 .quotes blockquote { margin: 0; font: 500 clamp(1.8rem, 3vw, 2.6rem)/1.15 var(--serif); text-wrap: balance; }
-.quotes li:nth-child(2) blockquote { padding-left: clamp(0px, 6vw, 80px); }
-.quotes li:nth-child(3) blockquote { padding-left: clamp(0px, 3vw, 40px); }
 .quotes cite { display: flex; align-items: center; gap: 10px; margin-top: 14px; font-style: normal; color: var(--ink-2); font-size: 0.95rem; }
-.quotes cite .stars { display: inline-flex; color: var(--gold); } .quotes cite .i { width: 14px; height: 14px; }
-.quotes li:nth-child(2) cite { padding-left: clamp(0px, 6vw, 80px); }
-.quotes li:nth-child(3) cite { padding-left: clamp(0px, 3vw, 40px); }
+.quotes cite .i { width: 14px; height: 14px; }
+.quotes li:nth-child(2) blockquote, .quotes li:nth-child(2) cite { padding-left: clamp(0px, 6vw, 80px); }
+.quotes li:nth-child(3) blockquote, .quotes li:nth-child(3) cite { padding-left: clamp(0px, 3vw, 40px); }
 @media (max-width: 900px) { .rev { grid-template-columns: 1fr; } .score { position: static; } }
 
 /* WhatsApp photo quote */
-.wa { background: linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 30%, var(--bg-2) 70%, var(--bg) 100%); }
 .wa-grid { display: grid; grid-template-columns: 1fr minmax(320px, 400px); gap: clamp(36px, 7vw, 110px); align-items: center; }
-.steps { list-style: none; padding: 0; margin: 34px 0 34px; display: grid; gap: 22px; counter-reset: s; }
+.steps { list-style: none; padding: 0; margin: 34px 0; display: grid; gap: 22px; }
 .steps li { display: grid; grid-template-columns: 52px 1fr; gap: 18px; align-items: start; }
 .steps .ic { width: 52px; height: 52px; border-radius: 999px; border: 1px solid var(--line-2); display: grid; place-items: center; color: var(--wa); }
 .steps h3 { font-size: 1.7rem; }
 .steps p { color: var(--ink-2); margin-top: 4px; font-size: 0.98rem; }
 .wa-actions { display: flex; flex-wrap: wrap; gap: 14px 22px; align-items: center; }
-.phone { position: relative; border-radius: 34px; padding: 10px; background: oklch(0.12 0.005 70); border: 1px solid var(--line-2); box-shadow: 0 30px 60px -30px oklch(0 0 0 / 0.7); }
+.phone { position: relative; border-radius: 34px; padding: 10px; background: oklch(0.12 0.005 70); border: 1px solid var(--line-2); box-shadow: var(--lift); -webkit-box-reflect: below 8px linear-gradient(transparent 88%, rgb(255 255 255 / 0.08)); }
 .phone-in { border-radius: 26px; overflow: hidden; background: #0b141a; }
 .chat-top { display: flex; align-items: center; gap: 12px; padding: 14px 16px; background: #1f2c34; }
 .avatar { width: 38px; height: 38px; border-radius: 999px; background: var(--gold); color: var(--gold-ink); display: grid; place-items: center; font: 600 1.15rem/1 var(--serif); }
 .chat-top b { display: block; font-weight: 500; font-size: 0.98rem; }
 .chat-top small { color: #8696a0; font-size: 0.78rem; }
 .chat { padding: 16px 12px 18px; display: flex; flex-direction: column; gap: 8px; min-height: 470px; background: #0b141a radial-gradient(circle at 20% 10%, #13212b 0, transparent 55%); font-size: 0.9rem; line-height: 1.4; }
-.msg { max-width: 82%; padding: 7px 10px 6px; border-radius: 10px; position: relative; }
+.msg { max-width: 82%; padding: 7px 10px 6px; border-radius: 10px; }
 .msg time { display: block; text-align: right; font-size: 0.68rem; color: #8fa3ad; margin-top: 2px; }
 .msg.me { align-self: flex-end; background: #005c4b; border-top-right-radius: 3px; }
 .msg.rr { align-self: flex-start; background: #1f2c34; border-top-left-radius: 3px; }
@@ -323,53 +401,93 @@ dialog.lb .x { position: absolute; top: 10px; right: 10px; width: 44px; height: 
 @media (max-width: 900px) { .wa-grid { grid-template-columns: 1fr; } .phone { max-width: 400px; width: 100%; margin-inline: auto; } }
 
 /* Process */
-.proc { display: grid; grid-template-columns: 7fr 5fr; grid-template-rows: auto auto; gap: 18px; }
-.proc .step { border-radius: var(--r-card); border: 1px solid var(--line); background: var(--bg-2); padding: 32px; position: relative; overflow: hidden; isolation: isolate; display: flex; flex-direction: column; gap: 12px; }
+.proc { display: grid; grid-template-columns: 7fr 5fr; gap: 18px; }
+.proc .step { border-radius: var(--r-card); border: 1px solid var(--line); background: var(--bg-2); padding: 32px; overflow: hidden; isolation: isolate; display: flex; flex-direction: column; gap: 12px; box-shadow: var(--lift); }
 .proc .step .n { font: 500 italic 1.15rem/1 var(--serif); color: var(--gold); }
 .proc .step p { color: var(--ink-2); }
-.proc .star { grid-row: span 2; min-height: 560px; justify-content: flex-end; background: url(images/texture-gold.webp) center / cover; }
+.proc .star { grid-row: span 2; min-height: 580px; justify-content: flex-end; background: url(images/texture-gold.webp) center / cover; }
 .proc .star::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, oklch(0.16 0.006 70 / 0.1) 0%, oklch(0.15 0.006 70 / 0.94) 70%); }
 .proc .star h3 { font-size: clamp(2.4rem, 4vw, 3.5rem); }
 .boards { display: flex; gap: 10px; margin-bottom: auto; }
-.boards span { width: 92px; aspect-ratio: 3 / 4; border-radius: 6px; border: 1px solid oklch(1 0 0 / 0.18); box-shadow: 0 18px 30px -18px oklch(0 0 0 / 0.8); background-size: cover; }
-.boards span:nth-child(1) { background-image: url(images/g-marble-swirl.webp); transform: rotate(-5deg) translateY(6px); }
-.boards span:nth-child(2) { background-image: url(images/g-metallic-london.webp); transform: rotate(2deg); }
-.boards span:nth-child(3) { background-image: url(images/g-marble-gold-kitchen.webp); transform: rotate(7deg) translateY(10px); }
+.boards span { width: 92px; aspect-ratio: 3 / 4; border-radius: 6px; border: 1px solid oklch(1 0 0 / 0.18); box-shadow: 0 2px 4px oklch(0 0 0 / 0.4), 0 18px 30px -14px oklch(0 0 0 / 0.8); background-size: cover; transition: transform 500ms var(--ease-out); }
+.boards span:nth-child(1) { background-image: url(images/b1.webp); transform: rotate(-5deg) translateY(6px); }
+.boards span:nth-child(2) { background-image: url(images/b2.webp); transform: rotate(2deg); }
+.boards span:nth-child(3) { background-image: url(images/b3.webp); transform: rotate(7deg) translateY(10px); }
+@media (hover: hover) { .star:hover .boards span:nth-child(1) { transform: rotate(-9deg) translate(-6px, 2px); } .star:hover .boards span:nth-child(3) { transform: rotate(11deg) translate(6px, 8px); } }
 .proc .list { list-style: none; padding: 0; margin: 6px 0 0; display: grid; gap: 8px; }
 .proc .list li { display: flex; gap: 10px; align-items: flex-start; color: var(--ink-2); }
 .proc .list .i { color: var(--gold); margin-top: 3px; width: 18px; height: 18px; }
 .proc .ph-step { padding: 0; }
-.proc .ph-step img { width: 100%; height: 200px; object-fit: cover; object-position: 50% 70%; }
-.proc .ph-step > div { padding: 24px 32px 32px; display: flex; flex-direction: column; gap: 10px; }
-.proc-cta { margin-top: 32px; display: flex; flex-wrap: wrap; gap: 14px 22px; align-items: center; }
-@media (max-width: 900px) { .proc { grid-template-columns: 1fr; } .proc .star { grid-row: auto; min-height: 480px; } }
-@media (max-width: 767px) { .proc .step { padding: 24px 20px; } .proc .ph-step > div { padding: 20px 20px 24px; } .boards span { width: 74px; } }
+.proc .ph-step .ph { height: 210px; flex: none; overflow: hidden; position: relative; }
+.proc .ph-step .ph img { position: absolute; inset: -10% 0; width: 100%; height: 120%; object-fit: cover; object-position: 50% 70%; }
+.proc .ph-step > div:last-child { padding: 24px 32px 32px; display: flex; flex-direction: column; gap: 10px; }
+.days { margin-top: 8px; padding-top: 16px; border-top: 1px solid var(--line); display: flex; align-items: baseline; gap: 14px; }
+.days b { font: 500 2.6rem/1 var(--serif); color: var(--gold-2); white-space: nowrap; }
+.days span { color: var(--ink-2); font-size: 0.96rem; }
+.faq { margin-top: 18px; display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 12px 40px; align-items: baseline; padding: 26px 0; position: relative; }
+.faq::before, .faq::after { content: ""; position: absolute; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, oklch(0.79 0.095 80 / 0.5) 30%, oklch(0.79 0.095 80 / 0.5) 70%, transparent); }
+.faq::before { top: 0; } .faq::after { bottom: 0; }
+.faq h3 { font-size: clamp(1.7rem, 2.6vw, 2.2rem); }
+.faq p { color: var(--ink-2); }
+@media (max-width: 900px) { .proc { grid-template-columns: 1fr; } .proc .star { grid-row: auto; min-height: 480px; } .faq { grid-template-columns: 1fr; } }
+@media (max-width: 767px) { .proc .step { padding: 24px 20px; } .proc .ph-step > div:last-child { padding: 20px 20px 24px; } .boards span { width: 74px; } }
 
-/* Areas */
-.areas { display: grid; grid-template-columns: 6fr 5fr; gap: clamp(36px, 6vw, 90px); align-items: center; }
-.chips { list-style: none; padding: 0; margin: 30px 0 26px; display: flex; flex-wrap: wrap; gap: 8px; }
-.chips li { padding: 10px 16px; border-radius: 999px; border: 1px solid var(--line-2); font-size: 0.95rem; color: var(--ink); background: var(--bg-2); }
-.chips li.home { border-color: var(--gold); color: var(--gold-2); }
-.ask { font: 500 italic clamp(1.5rem, 2.2vw, 1.9rem)/1.2 var(--serif); color: var(--ink); margin-bottom: 20px; }
-.map { position: relative; max-width: 420px; justify-self: center; width: 100%; }
-.map svg { width: 100%; height: auto; overflow: visible; }
-.map .ie { fill: oklch(0.24 0.006 70); }
-.map .uk { fill: oklch(0.27 0.01 75); stroke: oklch(0.79 0.095 80 / 0.55); stroke-width: 0.8; stroke-linejoin: round; }
-.map .ring { fill: none; stroke: var(--gold); stroke-width: 0.6; opacity: 0.45; }
-.map .dot { fill: var(--gold); }
-.map .pulse { fill: none; stroke: var(--gold); stroke-width: 1; transform-box: fill-box; transform-origin: center; }
-@media (prefers-reduced-motion: no-preference) { .map .pulse { animation: pulse 2600ms var(--ease-out) infinite; } @keyframes pulse { from { transform: scale(0.4); opacity: 0.9; } to { transform: scale(3.2); opacity: 0; } } }
-.map .lbl { font: 600 13px/1 var(--sans); fill: var(--ink); }
-.map .lbl2 { font: 400 9px/1 var(--sans); fill: var(--ink-2); letter-spacing: 0.1em; }
-@media (max-width: 900px) { .areas { grid-template-columns: 1fr; } .map { max-width: 300px; order: -1; } }
+/* Recent floors map */
+.areas-head { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: 20px 60px; align-items: end; margin-bottom: 20px; }
+.ask { font: 500 italic clamp(1.4rem, 2vw, 1.8rem)/1.2 var(--serif); margin-bottom: 18px; }
+.map { position: relative; }
+.map svg { width: 100%; height: auto; display: block; overflow: visible; }
+.map .land-o { fill: oklch(0.215 0.006 70); }
+.map .land { fill: oklch(0.27 0.01 75); stroke: oklch(0.79 0.095 80 / 0.5); stroke-width: 0.9; stroke-linejoin: round; }
+.map .ring { fill: none; stroke: var(--gold); stroke-width: 0.7; opacity: 0.3; stroke-dasharray: 2 5; }
+.map .job .lead { stroke: oklch(0.79 0.095 80 / 0.45); stroke-width: 0.8; fill: none; }
+.map .job .jd { fill: var(--gold-2); stroke: var(--bg); stroke-width: 1.5; }
+.map .job .jn { font: 500 17px/1 var(--serif); fill: var(--ink); }
+.map .job .jt { font: 400 11.5px/1 var(--sans); fill: var(--ink-2); }
+.map .job { transition: opacity 300ms ease; }
+.map svg:has(.job:hover) .job:not(:hover) { opacity: 0.35; }
+.map .job:hover .jd { fill: var(--gold-hi); }
+.map .base .dot { fill: var(--gold); }
+.map .base .pulse { fill: none; stroke: var(--gold); stroke-width: 1.2; transform-box: fill-box; transform-origin: center; }
+.map .base .bn { font: 600 19px/1 var(--serif); fill: var(--gold-2); }
+.map .base .bt { font: 500 10px/1 var(--sans); fill: var(--gold); letter-spacing: 0.14em; }
+@media (prefers-reduced-motion: no-preference) {
+  .map .base .pulse { animation: pulse 2600ms var(--ease-out) infinite; }
+  @keyframes pulse { from { transform: scale(0.5); opacity: 0.9; } to { transform: scale(3.4); opacity: 0; } }
+  .js .map .job { opacity: 0; }
+  .js .map.in .job { animation: jobIn 600ms var(--ease-out) forwards; animation-delay: calc(var(--i) * 45ms + 200ms); }
+  @keyframes jobIn { from { opacity: 0; } to { opacity: 1; } }
+}
+.jobs { display: none; }
+@media (max-width: 999px) {
+  .map .job .lead, .map .job text { display: none; }
+  .map .job .jd { r: 7px; }
+  .map .base .bn { font-size: 30px; } .map .base .bt { font-size: 16px; }
+  .map svg { width: 150%; margin-left: -25%; }
+  .map { overflow: hidden; }
+  .jobs { display: grid; grid-template-columns: 1fr 1fr; gap: 0 18px; list-style: none; padding: 0; margin: 10px 0 0; }
+  .jobs li { padding: 10px 0; border-top: 1px solid var(--line); font-size: 0.92rem; line-height: 1.3; }
+  .jobs li b { display: block; font: 500 1.15rem/1.2 var(--serif); }
+  .jobs li span { color: var(--ink-3); font-size: 0.82rem; }
+  .areas-head { grid-template-columns: 1fr; }
+}
 
-/* Events */
-.events { padding: clamp(84px, 10vw, 140px) 0; background: url(images/texture-gold.webp) center / cover; isolation: isolate; }
+/* Commercial proof + events */
+.clients p.lbl { color: var(--ink-3); font-size: 0.92rem; margin-bottom: 18px; }
+.clients ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); }
+.clients li { padding: 20px 24px; position: relative; }
+.clients li + li::before { content: ""; position: absolute; left: 0; top: 18%; bottom: 18%; width: 1px; background: linear-gradient(180deg, transparent, oklch(0.79 0.095 80 / 0.6), transparent); }
+.clients li:first-child { padding-left: 0; }
+.clients b { display: block; font: 500 clamp(1.45rem, 2vw, 1.85rem)/1.15 var(--serif); }
+.clients span { color: var(--ink-3); font-size: 0.88rem; }
+@media (max-width: 900px) { .clients ul { grid-template-columns: 1fr 1fr; } .clients li { padding: 16px 16px 16px 0; border-top: 1px solid var(--line); } .clients li + li::before { display: none; } }
+.events { padding: clamp(72px, 9vw, 130px) 0 clamp(84px, 10vw, 140px); isolation: isolate; overflow: hidden; }
+.events-bg { position: absolute; inset: -12% 0; z-index: -2; background: url(images/texture-gold.webp) center / cover; will-change: transform; }
 .events::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, var(--bg) 0%, oklch(0.165 0.006 70 / 0.55) 22%, oklch(0.165 0.006 70 / 0.55) 78%, var(--bg) 100%); }
 .ev-list { list-style: none; padding: 0; margin: 40px 0 36px; }
 .ev-list li { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 12px 40px; align-items: baseline; padding: 26px 0; border-top: 1px solid var(--line-2); }
 .ev-list li:last-child { border-bottom: 1px solid var(--line-2); }
-.ev-list h3 { font-size: clamp(2.2rem, 4.4vw, 3.8rem); font-weight: 500; }
+.ev-list h3 { font-size: clamp(2.2rem, 4.4vw, 3.8rem); }
 .ev-list p { color: var(--ink-2); max-width: 46ch; }
 @media (max-width: 767px) { .ev-list li { grid-template-columns: 1fr; padding: 22px 0; } }
 
@@ -381,26 +499,18 @@ dialog.lb .x { position: absolute; top: 10px; right: 10px; width: 44px; height: 
 .contact-list small { display: block; color: var(--ink-3); font-size: 0.82rem; }
 .contact-list b { font-weight: 500; }
 @media (hover: hover) { .contact-list a:hover b { color: var(--gold-2); } }
-form.qf { border-radius: var(--r-card); border: 1px solid var(--line); background: var(--bg-2); padding: clamp(22px, 3.6vw, 40px); display: grid; grid-template-columns: 1fr 1fr; gap: 20px 18px; }
+form.qf { border-radius: var(--r-card); border: 1px solid var(--line); background: oklch(0.2 0.007 70 / 0.82); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); padding: clamp(22px, 3.6vw, 40px); display: grid; grid-template-columns: 1fr 1fr; gap: 20px 18px; box-shadow: var(--lift); }
 .f { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
 .f.full { grid-column: 1 / -1; }
 .f label, .f legend { font-size: 0.92rem; font-weight: 500; color: var(--ink); padding: 0; }
 .f .opt { color: var(--ink-3); font-weight: 400; }
-.f input[type=text], .f input[type=tel], .f input[type=email] { height: 52px; padding: 0 16px; border-radius: var(--r-input); border: 1px solid var(--line-2); background: var(--bg); transition: border-color 200ms ease, box-shadow 200ms ease; font-size: 1rem; }
-.f input:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px oklch(0.79 0.095 80 / 0.22); }
-.f input::placeholder { color: var(--ink-3); }
-.f .err { color: oklch(0.78 0.13 30); font-size: 0.86rem; min-height: 0; }
+.f input[type=text], .f input[type=tel], .f input[type=email], .f textarea { min-height: 52px; padding: 0 16px; border-radius: var(--r-input); border: 1px solid var(--line-2); background: var(--bg); transition: border-color 200ms ease, box-shadow 200ms ease; font-size: 1rem; }
+.f textarea { padding: 14px 16px; min-height: 92px; resize: vertical; line-height: 1.5; }
+.f input:focus, .f textarea:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px oklch(0.79 0.095 80 / 0.22); }
+.f .err { color: oklch(0.78 0.13 30); font-size: 0.86rem; }
 .f .err:empty { display: none; }
 .f[data-bad] input { border-color: oklch(0.7 0.15 30); }
 fieldset.f { border: 0; margin: 0; padding: 0; }
-.seg { display: flex; flex-wrap: wrap; gap: 8px; }
-.seg label { position: relative; cursor: pointer; }
-.seg input { position: absolute; opacity: 0; inset: 0; cursor: pointer; }
-.seg span { display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 999px; border: 1px solid var(--line-2); font-size: 0.94rem; color: var(--ink-2); font-weight: 400; transition: background-color 200ms ease, border-color 200ms ease, color 200ms ease, transform 160ms var(--ease-out); }
-.seg label:active span { transform: scale(0.97); }
-.seg input:checked + span { background: var(--gold); border-color: var(--gold); color: var(--gold-ink); font-weight: 600; }
-.seg input:focus-visible + span { outline: 2px solid var(--gold); outline-offset: 2px; }
-@media (hover: hover) { .seg label:hover input:not(:checked) + span { border-color: var(--gold); color: var(--ink); } }
 .drop { position: relative; border: 1px dashed var(--line-2); border-radius: var(--r-input); padding: 18px; display: flex; align-items: center; gap: 14px; background: var(--bg); transition: border-color 200ms ease, background-color 200ms ease; }
 .drop.over { border-color: var(--gold); background: oklch(0.79 0.095 80 / 0.06); }
 .drop input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
@@ -414,16 +524,19 @@ fieldset.f { border: 0; margin: 0; padding: 0; }
 .nudge { grid-column: 1 / -1; display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; padding: 16px 18px; border-radius: var(--r-input); background: oklch(0.6 0.15 150 / 0.1); border: 1px solid oklch(0.7 0.15 150 / 0.35); }
 .nudge p { font-weight: 500; }
 .form-msg { grid-column: 1 / -1; font-size: 0.92rem; color: var(--ink-2); }
-.done { grid-column: 1 / -1; text-align: left; padding: 10px 0; }
+.form-msg:empty { display: none; }
+.done { grid-column: 1 / -1; padding: 10px 0; }
+.done:focus { outline: none; }
 .done .i { width: 44px; height: 44px; color: var(--gold); }
 .done h3 { margin: 14px 0 8px; font-size: 2.3rem; }
 .done p { color: var(--ink-2); }
 .done .btn { margin-top: 20px; }
+@media (prefers-reduced-motion: no-preference) { .done { animation: rise 600ms var(--ease-out); } @keyframes rise { from { opacity: 0; transform: translateY(12px); } } }
 @media (max-width: 900px) { .quote { grid-template-columns: 1fr; } }
 @media (max-width: 600px) { form.qf { grid-template-columns: 1fr; } .submit-row .btn { width: 100%; } }
 
 /* Footer */
-footer { border-top: 1px solid var(--line); padding: 56px 0 40px; }
+footer { padding: 56px 0 40px; }
 .foot { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 32px; align-items: start; }
 .foot h2 { font-size: 2rem; }
 .foot p, .foot a, .foot li { color: var(--ink-2); font-size: 0.96rem; }
@@ -439,25 +552,27 @@ footer { border-top: 1px solid var(--line); padding: 56px 0 40px; }
 .bar a { --h: 48px; padding: 0 10px; font-size: 0.95rem; gap: 7px; }
 @media (max-width: 767px) { .bar { display: grid; } }
 
-/* Cookie bar (small, never covers the page) */
+/* Cookie bar (small, appears after the hero, never covers the first screen) */
 .cookie { position: fixed; right: 16px; bottom: 16px; z-index: var(--z-cookie); max-width: 360px; display: flex; align-items: center; gap: 14px; padding: 12px 12px 12px 16px; border-radius: 12px; background: var(--bg-3); border: 1px solid var(--line-2); font-size: 0.86rem; color: var(--ink-2); box-shadow: 0 6px 8px -4px oklch(0 0 0 / 0.5); transition: opacity 240ms ease, transform 240ms var(--ease-out); }
 .cookie[hidden] { display: none; }
 .cookie.bye { opacity: 0; transform: translateY(8px); }
 .cookie button { flex: none; border: 1px solid var(--line-2); background: transparent; border-radius: 999px; padding: 8px 14px; cursor: pointer; font-weight: 600; font-size: 0.86rem; }
 .cookie button:active { transform: scale(0.97); }
-@media (max-width: 767px) { .cookie { left: 10px; right: 10px; max-width: none; bottom: 12px; transition: opacity 240ms ease, transform 240ms var(--ease-out), bottom 360ms var(--ease-out); } body.bar-on .cookie { bottom: calc(80px + env(safe-area-inset-bottom)); } }
+@media (max-width: 767px) { .cookie { left: 10px; right: 10px; max-width: none; bottom: 12px; } body.bar-on .cookie { bottom: calc(80px + env(safe-area-inset-bottom)); } }
 
-/* Scroll reveals: content is visible without JS; JS only enhances. */
+/* Scroll reveals and image wipes: content is visible without JS; JS only enhances.
+   Nothing in the hero uses these. */
 @media (prefers-reduced-motion: no-preference) {
   .js [data-rv] { opacity: 0; transform: translateY(22px); filter: blur(4px); transition: opacity 800ms var(--ease-out), transform 900ms var(--ease-out), filter 800ms var(--ease-out); transition-delay: calc(var(--d, 0) * 70ms); }
   .js [data-rv].in { opacity: 1; transform: none; filter: none; }
-  .js .card-media[data-rv] { opacity: 1; filter: none; transform: none; clip-path: inset(0 0 100% 0); transition: clip-path 1100ms var(--ease-io); }
-  .js .card-media[data-rv].in { clip-path: inset(0 0 0 0); }
+  /* Mask wipe: a panel slides off the image (the image itself is never clipped, so lazy loading still fires). */
+  .js [data-wipe]::before { content: ""; position: absolute; inset: 0; z-index: 3; background: var(--bg-2); transform-origin: 50% 100%; transition: transform 1200ms var(--ease-io); transition-delay: calc(var(--d, 0) * 80ms); pointer-events: none; }
+  .js [data-wipe].in::before { transform: scaleY(0); }
 }
 </style>
 </head>
 <body>
-<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="i-phone" viewBox="0 0 256 256"><path d="M222.37,158.46l-47.11-21.11-.13-.06a16,16,0,0,0-15.17,1.4,8.12,8.12,0,0,0-.75.56L134.87,160c-15.42-7.49-31.34-23.29-38.83-38.51l20.78-24.71c.2-.25.39-.5.57-.77a16,16,0,0,0,1.32-15.06l0-.12L97.54,33.64a16,16,0,0,0-16.62-9.52A56.26,56.26,0,0,0,32,80c0,79.4,64.6,144,144,144a56.26,56.26,0,0,0,55.88-48.92A16,16,0,0,0,222.37,158.46ZM176,208A128.14,128.14,0,0,1,48,80,40.2,40.2,0,0,1,82.87,40a.61.61,0,0,0,0,.12l21,47L83.2,111.86a6.13,6.13,0,0,0-.57.77,16,16,0,0,0-1,15.7c9.06,18.53,27.73,37.06,46.46,46.11a16,16,0,0,0,15.75-1.14,8.44,8.44,0,0,0,.74-.56L168.89,152l47,21.05h0s.08,0,.11,0A40.21,40.21,0,0,1,176,208Z"/></symbol><symbol id="i-wa" viewBox="0 0 256 256"><path d="M152.58,145.23l23,11.48A24,24,0,0,1,152,176a72.08,72.08,0,0,1-72-72A24,24,0,0,1,99.29,80.46l11.48,23L101,118a8,8,0,0,0-.73,7.51,56.47,56.47,0,0,0,30.15,30.15A8,8,0,0,0,138,155ZM232,128A104,104,0,0,1,79.12,219.82L45.07,231.17a16,16,0,0,1-20.24-20.24l11.35-34.05A104,104,0,1,1,232,128Zm-40,24a8,8,0,0,0-4.42-7.16l-32-16a8,8,0,0,0-8,.5l-14.69,9.8a40.55,40.55,0,0,1-16-16l9.8-14.69a8,8,0,0,0,.5-8l-16-32A8,8,0,0,0,104,64a40,40,0,0,0-40,40,88.1,88.1,0,0,0,88,88A40,40,0,0,0,192,152Z"/></symbol><symbol id="i-star" viewBox="0 0 256 256"><path d="M234.29,114.85l-45,38.83L203,211.75a16.4,16.4,0,0,1-24.5,17.82L128,198.49,77.47,229.57A16.4,16.4,0,0,1,53,211.75l13.76-58.07-45-38.83A16.46,16.46,0,0,1,31.08,86l59-4.76,22.76-55.08a16.36,16.36,0,0,1,30.27,0l22.75,55.08,59,4.76a16.46,16.46,0,0,1,9.37,28.86Z"/></symbol><symbol id="i-swatches" viewBox="0 0 256 256"><path d="M88,180a12,12,0,1,1-12-12A12,12,0,0,1,88,180Zm152-23.81V208a16,16,0,0,1-16,16H76a46.36,46.36,0,0,1-7.94-.68,44,44,0,0,1-35.43-50.95l25-143.13a15.94,15.94,0,0,1,18.47-13L130.84,26a16,16,0,0,1,12.92,18.52l-12.08,69L199.49,89a16,16,0,0,1,20.45,9.52L239,150.69A18.35,18.35,0,0,1,240,156.19ZM103,184.87,128,41.74,73.46,32l-25,143.1A28,28,0,0,0,70.9,207.57,27.29,27.29,0,0,0,91.46,203,27.84,27.84,0,0,0,103,184.87ZM116.78,195,224,156.11,204.92,104,128.5,131.7l-9.78,55.92A44.63,44.63,0,0,1,116.78,195ZM224,173.12,127.74,208H224Z"/></symbol><symbol id="i-house" viewBox="0 0 256 256"><path d="M219.31,108.68l-80-80a16,16,0,0,0-22.62,0l-80,80A15.87,15.87,0,0,0,32,120v96a8,8,0,0,0,8,8h64a8,8,0,0,0,8-8V160h32v56a8,8,0,0,0,8,8h64a8,8,0,0,0,8-8V120A15.87,15.87,0,0,0,219.31,108.68ZM208,208H160V152a8,8,0,0,0-8-8H104a8,8,0,0,0-8,8v56H48V120l80-80,80,80Z"/></symbol><symbol id="i-pin" viewBox="0 0 256 256"><path d="M128,64a40,40,0,1,0,40,40A40,40,0,0,0,128,64Zm0,64a24,24,0,1,1,24-24A24,24,0,0,1,128,128Zm0-112a88.1,88.1,0,0,0-88,88c0,31.4,14.51,64.68,42,96.25a254.19,254.19,0,0,0,41.45,38.3,8,8,0,0,0,9.18,0A254.19,254.19,0,0,0,174,200.25c27.45-31.57,42-64.85,42-96.25A88.1,88.1,0,0,0,128,16Zm0,206c-16.53-13-72-60.75-72-118a72,72,0,0,1,144,0C200,161.23,144.53,209,128,222Z"/></symbol><symbol id="i-arrow" viewBox="0 0 256 256"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></symbol><symbol id="i-sparkle" viewBox="0 0 256 256"><path d="M197.58,129.06,146,110l-19-51.62a15.92,15.92,0,0,0-29.88,0L78,110l-51.62,19a15.92,15.92,0,0,0,0,29.88L78,178l19,51.62a15.92,15.92,0,0,0,29.88,0L146,178l51.62-19a15.92,15.92,0,0,0,0-29.88ZM137,164.22a8,8,0,0,0-4.74,4.74L112,223.85,91.78,169A8,8,0,0,0,87,164.22L32.15,144,87,123.78A8,8,0,0,0,91.78,119L112,64.15,132.22,119a8,8,0,0,0,4.74,4.74L191.85,144ZM144,40a8,8,0,0,1,8-8h16V16a8,8,0,0,1,16,0V32h16a8,8,0,0,1,0,16H184V64a8,8,0,0,1-16,0V48H152A8,8,0,0,1,144,40ZM248,88a8,8,0,0,1-8,8h-8v8a8,8,0,0,1-16,0V96h-8a8,8,0,0,1,0-16h8V72a8,8,0,0,1,16,0v8h8A8,8,0,0,1,248,88Z"/></symbol><symbol id="i-factory" viewBox="0 0 256 256"><path d="M116,176a8,8,0,0,1-8,8H80a8,8,0,0,1,0-16h28A8,8,0,0,1,116,176Zm60-8H148a8,8,0,0,0,0,16h28a8,8,0,0,0,0-16Zm64,48a8,8,0,0,1-8,8H24a8,8,0,0,1,0-16h8V88a8,8,0,0,1,12.8-6.4L96,120V88a8,8,0,0,1,12.8-6.4l38.74,29.05L159.1,29.74A16.08,16.08,0,0,1,174.94,16h18.12A16.08,16.08,0,0,1,208.9,29.74l15,105.13s.08.78.08,1.13v72h8A8,8,0,0,1,240,216Zm-77.86-94.4,8.53,6.4h36.11L193.06,32H174.94ZM48,208H208V144H168a8,8,0,0,1-4.8-1.6l-14.4-10.8,0,0L112,104v32a8,8,0,0,1-12.8,6.4L48,104Z"/></symbol><symbol id="i-camera" viewBox="0 0 256 256"><path d="M208,56H180.28L166.65,35.56A8,8,0,0,0,160,32H96a8,8,0,0,0-6.65,3.56L75.71,56H48A24,24,0,0,0,24,80V192a24,24,0,0,0,24,24H208a24,24,0,0,0,24-24V80A24,24,0,0,0,208,56Zm8,136a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V80a8,8,0,0,1,8-8H80a8,8,0,0,0,6.66-3.56L100.28,48h55.43l13.63,20.44A8,8,0,0,0,176,72h32a8,8,0,0,1,8,8ZM128,88a44,44,0,1,0,44,44A44.05,44.05,0,0,0,128,88Zm0,72a28,28,0,1,1,28-28A28,28,0,0,1,128,160Z"/></symbol><symbol id="i-check-circle" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm45.66,85.66-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32Z"/></symbol><symbol id="i-check" viewBox="0 0 256 256"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></symbol><symbol id="i-mail" viewBox="0 0 256 256"><path d="M224,48H32a8,8,0,0,0-8,8V192a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A8,8,0,0,0,224,48ZM203.43,64,128,133.15,52.57,64ZM216,192H40V74.19l82.59,75.71a8,8,0,0,0,10.82,0L216,74.19V192Z"/></symbol><symbol id="i-clock" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm64-88a8,8,0,0,1-8,8H128a8,8,0,0,1-8-8V72a8,8,0,0,1,16,0v48h48A8,8,0,0,1,192,128Z"/></symbol><symbol id="i-upload" viewBox="0 0 256 256"><path d="M224,144v64a8,8,0,0,1-8,8H40a8,8,0,0,1-8-8V144a8,8,0,0,1,16,0v56H208V144a8,8,0,0,1,16,0ZM93.66,77.66,120,51.31V144a8,8,0,0,0,16,0V51.31l26.34,26.35a8,8,0,0,0,11.32-11.32l-40-40a8,8,0,0,0-11.32,0l-40,40A8,8,0,0,0,93.66,77.66Z"/></symbol><symbol id="i-x" viewBox="0 0 256 256"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"/></symbol></svg>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="i-phone" viewBox="0 0 256 256"><path d="M222.37,158.46l-47.11-21.11-.13-.06a16,16,0,0,0-15.17,1.4,8.12,8.12,0,0,0-.75.56L134.87,160c-15.42-7.49-31.34-23.29-38.83-38.51l20.78-24.71c.2-.25.39-.5.57-.77a16,16,0,0,0,1.32-15.06l0-.12L97.54,33.64a16,16,0,0,0-16.62-9.52A56.26,56.26,0,0,0,32,80c0,79.4,64.6,144,144,144a56.26,56.26,0,0,0,55.88-48.92A16,16,0,0,0,222.37,158.46ZM176,208A128.14,128.14,0,0,1,48,80,40.2,40.2,0,0,1,82.87,40a.61.61,0,0,0,0,.12l21,47L83.2,111.86a6.13,6.13,0,0,0-.57.77,16,16,0,0,0-1,15.7c9.06,18.53,27.73,37.06,46.46,46.11a16,16,0,0,0,15.75-1.14,8.44,8.44,0,0,0,.74-.56L168.89,152l47,21.05h0s.08,0,.11,0A40.21,40.21,0,0,1,176,208Z"/></symbol><symbol id="i-wa" viewBox="0 0 256 256"><path d="M152.58,145.23l23,11.48A24,24,0,0,1,152,176a72.08,72.08,0,0,1-72-72A24,24,0,0,1,99.29,80.46l11.48,23L101,118a8,8,0,0,0-.73,7.51,56.47,56.47,0,0,0,30.15,30.15A8,8,0,0,0,138,155ZM232,128A104,104,0,0,1,79.12,219.82L45.07,231.17a16,16,0,0,1-20.24-20.24l11.35-34.05A104,104,0,1,1,232,128Zm-40,24a8,8,0,0,0-4.42-7.16l-32-16a8,8,0,0,0-8,.5l-14.69,9.8a40.55,40.55,0,0,1-16-16l9.8-14.69a8,8,0,0,0,.5-8l-16-32A8,8,0,0,0,104,64a40,40,0,0,0-40,40,88.1,88.1,0,0,0,88,88A40,40,0,0,0,192,152Z"/></symbol><symbol id="i-star" viewBox="0 0 256 256"><path d="M234.29,114.85l-45,38.83L203,211.75a16.4,16.4,0,0,1-24.5,17.82L128,198.49,77.47,229.57A16.4,16.4,0,0,1,53,211.75l13.76-58.07-45-38.83A16.46,16.46,0,0,1,31.08,86l59-4.76,22.76-55.08a16.36,16.36,0,0,1,30.27,0l22.75,55.08,59,4.76a16.46,16.46,0,0,1,9.37,28.86Z"/></symbol><symbol id="i-swatches" viewBox="0 0 256 256"><path d="M88,180a12,12,0,1,1-12-12A12,12,0,0,1,88,180Zm152-23.81V208a16,16,0,0,1-16,16H76a46.36,46.36,0,0,1-7.94-.68,44,44,0,0,1-35.43-50.95l25-143.13a15.94,15.94,0,0,1,18.47-13L130.84,26a16,16,0,0,1,12.92,18.52l-12.08,69L199.49,89a16,16,0,0,1,20.45,9.52L239,150.69A18.35,18.35,0,0,1,240,156.19ZM103,184.87,128,41.74,73.46,32l-25,143.1A28,28,0,0,0,70.9,207.57,27.29,27.29,0,0,0,91.46,203,27.84,27.84,0,0,0,103,184.87ZM116.78,195,224,156.11,204.92,104,128.5,131.7l-9.78,55.92A44.63,44.63,0,0,1,116.78,195ZM224,173.12,127.74,208H224Z"/></symbol><symbol id="i-house" viewBox="0 0 256 256"><path d="M219.31,108.68l-80-80a16,16,0,0,0-22.62,0l-80,80A15.87,15.87,0,0,0,32,120v96a8,8,0,0,0,8,8h64a8,8,0,0,0,8-8V160h32v56a8,8,0,0,0,8,8h64a8,8,0,0,0,8-8V120A15.87,15.87,0,0,0,219.31,108.68ZM208,208H160V152a8,8,0,0,0-8-8H104a8,8,0,0,0-8,8v56H48V120l80-80,80,80Z"/></symbol><symbol id="i-pin" viewBox="0 0 256 256"><path d="M128,64a40,40,0,1,0,40,40A40,40,0,0,0,128,64Zm0,64a24,24,0,1,1,24-24A24,24,0,0,1,128,128Zm0-112a88.1,88.1,0,0,0-88,88c0,31.4,14.51,64.68,42,96.25a254.19,254.19,0,0,0,41.45,38.3,8,8,0,0,0,9.18,0A254.19,254.19,0,0,0,174,200.25c27.45-31.57,42-64.85,42-96.25A88.1,88.1,0,0,0,128,16Zm0,206c-16.53-13-72-60.75-72-118a72,72,0,0,1,144,0C200,161.23,144.53,209,128,222Z"/></symbol><symbol id="i-arrow" viewBox="0 0 256 256"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></symbol><symbol id="i-sparkle" viewBox="0 0 256 256"><path d="M197.58,129.06,146,110l-19-51.62a15.92,15.92,0,0,0-29.88,0L78,110l-51.62,19a15.92,15.92,0,0,0,0,29.88L78,178l19,51.62a15.92,15.92,0,0,0,29.88,0L146,178l51.62-19a15.92,15.92,0,0,0,0-29.88ZM137,164.22a8,8,0,0,0-4.74,4.74L112,223.85,91.78,169A8,8,0,0,0,87,164.22L32.15,144,87,123.78A8,8,0,0,0,91.78,119L112,64.15,132.22,119a8,8,0,0,0,4.74,4.74L191.85,144ZM144,40a8,8,0,0,1,8-8h16V16a8,8,0,0,1,16,0V32h16a8,8,0,0,1,0,16H184V64a8,8,0,0,1-16,0V48H152A8,8,0,0,1,144,40ZM248,88a8,8,0,0,1-8,8h-8v8a8,8,0,0,1-16,0V96h-8a8,8,0,0,1,0-16h8V72a8,8,0,0,1,16,0v8h8A8,8,0,0,1,248,88Z"/></symbol><symbol id="i-factory" viewBox="0 0 256 256"><path d="M116,176a8,8,0,0,1-8,8H80a8,8,0,0,1,0-16h28A8,8,0,0,1,116,176Zm60-8H148a8,8,0,0,0,0,16h28a8,8,0,0,0,0-16Zm64,48a8,8,0,0,1-8,8H24a8,8,0,0,1,0-16h8V88a8,8,0,0,1,12.8-6.4L96,120V88a8,8,0,0,1,12.8-6.4l38.74,29.05L159.1,29.74A16.08,16.08,0,0,1,174.94,16h18.12A16.08,16.08,0,0,1,208.9,29.74l15,105.13s.08.78.08,1.13v72h8A8,8,0,0,1,240,216Zm-77.86-94.4,8.53,6.4h36.11L193.06,32H174.94ZM48,208H208V144H168a8,8,0,0,1-4.8-1.6l-14.4-10.8,0,0L112,104v32a8,8,0,0,1-12.8,6.4L48,104Z"/></symbol><symbol id="i-camera" viewBox="0 0 256 256"><path d="M208,56H180.28L166.65,35.56A8,8,0,0,0,160,32H96a8,8,0,0,0-6.65,3.56L75.71,56H48A24,24,0,0,0,24,80V192a24,24,0,0,0,24,24H208a24,24,0,0,0,24-24V80A24,24,0,0,0,208,56Zm8,136a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V80a8,8,0,0,1,8-8H80a8,8,0,0,0,6.66-3.56L100.28,48h55.43l13.63,20.44A8,8,0,0,0,176,72h32a8,8,0,0,1,8,8ZM128,88a44,44,0,1,0,44,44A44.05,44.05,0,0,0,128,88Zm0,72a28,28,0,1,1,28-28A28,28,0,0,1,128,160Z"/></symbol><symbol id="i-check-circle" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm45.66,85.66-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32Z"/></symbol><symbol id="i-check" viewBox="0 0 256 256"><path d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"/></symbol><symbol id="i-mail" viewBox="0 0 256 256"><path d="M224,48H32a8,8,0,0,0-8,8V192a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A8,8,0,0,0,224,48ZM203.43,64,128,133.15,52.57,64ZM216,192H40V74.19l82.59,75.71a8,8,0,0,0,10.82,0L216,74.19V192Z"/></symbol><symbol id="i-clock" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm64-88a8,8,0,0,1-8,8H128a8,8,0,0,1-8-8V72a8,8,0,0,1,16,0v48h48A8,8,0,0,1,192,128Z"/></symbol><symbol id="i-upload" viewBox="0 0 256 256"><path d="M224,144v64a8,8,0,0,1-8,8H40a8,8,0,0,1-8-8V144a8,8,0,0,1,16,0v56H208V144a8,8,0,0,1,16,0ZM93.66,77.66,120,51.31V144a8,8,0,0,0,16,0V51.31l26.34,26.35a8,8,0,0,0,11.32-11.32l-40-40a8,8,0,0,0-11.32,0l-40,40A8,8,0,0,0,93.66,77.66Z"/></symbol><symbol id="i-x" viewBox="0 0 256 256"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"/></symbol><symbol id="i-medal" viewBox="0 0 256 256"><path d="M216,96A88,88,0,1,0,72,163.83V240a8,8,0,0,0,11.58,7.16L128,225l44.43,22.21A8.07,8.07,0,0,0,176,248a8,8,0,0,0,8-8V163.83A87.85,87.85,0,0,0,216,96ZM56,96a72,72,0,1,1,72,72A72.08,72.08,0,0,1,56,96ZM168,227.06l-36.43-18.21a8,8,0,0,0-7.16,0L88,227.06V174.37a87.89,87.89,0,0,0,80,0ZM128,152A56,56,0,1,0,72,96,56.06,56.06,0,0,0,128,152Zm0-96A40,40,0,1,1,88,96,40,40,0,0,1,128,56Z"/></symbol></svg>
 <a class="skip" href="#main">Skip to content</a>
 
 <header class="hdr" id="hdr">
@@ -466,9 +581,9 @@ footer { border-top: 1px solid var(--line); padding: 56px 0 40px; }
     <nav class="nav" aria-label="Main">
       <a href="#floors">Floors</a>
       <a href="#gallery">Gallery</a>
+      <a href="#design">Design your floor</a>
       <a href="#reviews">Reviews</a>
-      <a href="#process">Process</a>
-      <a href="#areas">Areas</a>
+      <a href="#areas">Recent floors</a>
     </nav>
     <a class="hdr-tel" href="tel:+441283295234" aria-label="Call 01283 295234"><svg class="i"><use href="#i-phone"/></svg><span>01283 295234</span></a>
     <a class="btn btn-gold btn-sm" href="#quote">Book a free design consultation</a>
@@ -478,36 +593,36 @@ footer { border-top: 1px solid var(--line); padding: 56px 0 40px; }
 <main id="main">
 <section class="hero" id="top" aria-labelledby="h1">
   <picture class="hero-media">
-    <source media="(max-width: 767px)" srcset="images/hero-m.webp">
-    <img src="images/hero-1920.webp" srcset="images/hero-1200.webp 1200w, images/hero-1920.webp 1920w" sizes="100vw" width="1920" height="1080" alt="A white faux-marble epoxy resin floor by Royal Resin, ceiling spotlights reflected in its glass finish" fetchpriority="high" decoding="async">
+    <source media="(max-width: 899px)" srcset="images/hero-m.webp">
+    <img src="images/hero-1206.webp" srcset="images/hero-760.webp 760w, images/hero-1206.webp 1206w" sizes="54vw" width="1206" height="1390" alt="Cream and gold faux-marble resin floor in a farmhouse kitchen in Sleaford, the garden window reflected in its glass finish" fetchpriority="high" decoding="async" data-px="0.06">
   </picture>
   <div class="hero-inner wrap">
-    <h1 id="h1"><span data-in style="--d:0">Luxury Epoxy Resin Floors</span><span class="l2" data-in style="--d:1">Designed With You, Installed Nationwide</span></h1>
-    <p class="sub" data-in style="--d:2">Metallic and faux-marble floors with no grout lines, every one a 1 of 1. Based in Derby, working across the UK.</p>
-    <div class="hero-ctas" id="heroCtas" data-in style="--d:3">
-      <a class="btn btn-gold" href="#quote">Book a free design consultation</a>
-      <a class="btn btn-wa" href="https://wa.me/447947620266?text=Hi%20Harry%2C%20here%27s%20a%20photo%20of%20my%20space%20for%20a%20resin%20floor." target="_blank" rel="noopener"><svg class="i"><use href="#i-wa"/></svg>WhatsApp us a photo of your space</a>
+    <div class="hero-copy">
+      <h1 id="h1">Luxury Epoxy Resin Floors <span class="l2 sheen">Designed With You, Installed Nationwide</span></h1>
+      <p class="sub">Metallic and faux-marble floors with no grout lines, every one a 1&nbsp;of&nbsp;1. Based in Derby, working across the UK.</p>
+      <div class="hero-ctas" id="heroCtas">
+        <a class="btn btn-gold reflect" href="#quote">Book a free design consultation</a>
+        <a class="btn btn-wa reflect" href="https://wa.me/447947620266?text=Hi%20Harry%2C%20here%27s%20a%20photo%20of%20my%20space%20for%20a%20resin%20floor." target="_blank" rel="noopener"><svg class="i"><use href="#i-wa"/></svg>WhatsApp us a photo of your space</a>
+      </div>
     </div>
   </div>
-  <div class="trust" data-in style="--d:4">
-    <ul class="wrap" aria-label="Why Royal Resin">
-      <li><a class="proof" href="#reviews"><span class="stars" aria-hidden="true"><svg class="i"><use href="#i-star"/></svg><svg class="i"><use href="#i-star"/></svg><svg class="i"><use href="#i-star"/></svg><svg class="i"><use href="#i-star"/></svg><svg class="i"><use href="#i-star"/></svg></span><span><b>5.0</b> from 63 Google reviews</span></a></li>
-      <li><svg class="i"><use href="#i-swatches"/></svg>Free sample boards</li>
-      <li><svg class="i"><use href="#i-house"/></svg>Homes &amp; commercial</li>
-      <li><svg class="i"><use href="#i-pin"/></svg>UK-wide</li>
-    </ul>
-  </div>
+  <p class="hero-cap">Sleaford, 85m²</p>
 </section>
+<div class="trust">
+  <ul class="wrap" aria-label="Why Royal Resin">
+    <li><a class="proof" href="#reviews"><span class="stars" aria-hidden="true"><svg class="i"><use href="#i-star"/></svg><svg class="i"><use href="#i-star"/></svg><svg class="i"><use href="#i-star"/></svg><svg class="i"><use href="#i-star"/></svg><svg class="i"><use href="#i-star"/></svg></span><span><b>5.0</b> from 63 Google reviews</span></a></li>
+    <li><svg class="i"><use href="#i-medal"/></svg><span><b>Over 10 years'</b> experience in resin flooring</span></li>
+    <li><svg class="i"><use href="#i-swatches"/></svg>Free sample boards</li>
+    <li><svg class="i"><use href="#i-house"/></svg>Homes &amp; commercial</li>
+    <li><svg class="i"><use href="#i-pin"/></svg>UK-wide</li>
+  </ul>
+</div>
 
 <!-- Signature scroll moment. Can later be replaced by a scroll-driven video (3d-animation-creator skill). -->
-<section class="pin" id="pin" aria-label="How a Royal Resin floor is made">
+<section class="pin" id="pin" aria-labelledby="pin-h">
   <div class="pin-stage">
-    <div class="pin-media"><picture>
-      <source media="(max-width: 767px)" srcset="images/pin-m.webp">
-      <img src="images/pin-1920.webp" width="1920" height="1200" alt="Close view of a pearl-white marble resin floor, garden doors reflected in the gloss" loading="lazy" decoding="async">
-    </picture></div>
-    <div class="pin-copy wrap">
-      <h2 class="pin-title"><span>How your floor is made</span><span class="ticks" aria-hidden="true"><i></i><i></i><i></i><i></i></span></h2>
+    <div class="pin-copy">
+      <h2 class="pin-title" id="pin-h"><span>How your floor is made</span><span class="ticks" aria-hidden="true"><i></i><i></i><i></i><i></i></span></h2>
       <div class="notes">
         <article class="note on">
           <p class="n">1.</p>
@@ -525,12 +640,13 @@ footer { border-top: 1px solid var(--line); padding: 56px 0 40px; }
           <p>A clear top coat seals the design in and gives the deep, mirror-like finish you see here.</p>
         </article>
         <article class="note final">
-          <h3>No grout lines. <em>Every floor a 1 of 1.</em></h3>
+          <h3>No grout lines. <em class="sheen">Every floor a 1 of 1.</em></h3>
           <a class="btn btn-gold" href="#quote">Book a free design consultation</a>
           <p style="margin-top:14px"><span class="proof"><span class="stars" aria-hidden="true"><svg class="i"><use href="#i-star"/></svg><svg class="i"><use href="#i-star"/></svg><svg class="i"><use href="#i-star"/></svg><svg class="i"><use href="#i-star"/></svg><svg class="i"><use href="#i-star"/></svg></span><span><b>5.0</b> from 63 Google reviews</span></span></p>
         </article>
       </div>
     </div>
+    <div class="pin-media"><img src="images/pin-1206.webp" srcset="images/pin-760.webp 760w, images/pin-1206.webp 1206w" sizes="(min-width: 900px) 56vw, 100vw" width="1206" height="1570" alt="Low view across a glossy marble resin floor, the patio doors reflected in it like glass" loading="lazy" decoding="async"></div>
   </div>
 </section>
 
@@ -541,8 +657,8 @@ footer { border-top: 1px solid var(--line); padding: 56px 0 40px; }
       <p class="lede">From a showroom-grade metallic to a hard-wearing warehouse floor, every system goes down seamless.</p>
     </div>
     <div class="svc">
-      <article class="card" data-rv>
-        <div class="card-media" data-rv><img src="images/g-metallic-london.webp" width="900" height="1350" alt="Deep blue and silver metallic epoxy floor in a 160m² London showroom, Harry kneeling on the finished floor" loading="lazy" decoding="async" style="object-position:50% 72%"></div>
+      <article class="card lux" data-rv>
+        <div class="card-media" data-wipe><img src="images/g-smoke-metallic.webp" width="900" height="1400" alt="Smoke grey metallic epoxy floor reflecting a wall of bi-fold doors" loading="lazy" decoding="async" data-px="0.05" style="object-position:50% 60%"></div>
         <div class="card-body">
           <h3>Metallic epoxy floors</h3>
           <p class="tag-line">Depth and movement that shift as the light moves.</p>
@@ -551,8 +667,8 @@ footer { border-top: 1px solid var(--line); padding: 56px 0 40px; }
           <div class="card-foot"><a class="btn btn-gold btn-sm" href="#quote" data-finish="Metallic">Get a quote <svg class="i i-arrow"><use href="#i-arrow"/></svg></a></div>
         </div>
       </article>
-      <article class="card" data-rv style="--d:1">
-        <div class="card-media" data-rv><img src="images/g-marble-gold-kitchen.webp" width="900" height="1182" alt="Cream and gold faux-marble epoxy floor running the length of a farmhouse kitchen" loading="lazy" decoding="async"></div>
+      <article class="card lux" data-rv style="--d:1">
+        <div class="card-media" data-wipe style="--d:1"><img src="images/g-hallway.webp" width="900" height="1191" alt="White and gold faux-marble epoxy floor flowing through a hallway" loading="lazy" decoding="async" data-px="0.05"></div>
         <div class="card-body">
           <h3>Faux marble epoxy floors</h3>
           <p class="tag-line">Veining that flows room to room, with no grout lines.</p>
@@ -561,7 +677,7 @@ footer { border-top: 1px solid var(--line); padding: 56px 0 40px; }
           <div class="card-foot"><a class="btn btn-gold btn-sm" href="#quote" data-finish="Marble">Get a quote <svg class="i i-arrow"><use href="#i-arrow"/></svg></a></div>
         </div>
       </article>
-      <article class="card tex" data-rv>
+      <article class="card tex lux" data-rv>
         <span class="ic" aria-hidden="true"><svg class="i"><use href="#i-sparkle"/></svg></span>
         <div class="card-body">
           <h3>Flake floors</h3>
@@ -571,7 +687,7 @@ footer { border-top: 1px solid var(--line); padding: 56px 0 40px; }
           <div class="card-foot"><a class="btn btn-gold btn-sm" href="#quote" data-finish="Flake">Get a quote <svg class="i i-arrow"><use href="#i-arrow"/></svg></a></div>
         </div>
       </article>
-      <article class="card tex" data-rv style="--d:1">
+      <article class="card tex lux" data-rv style="--d:1">
         <span class="ic" aria-hidden="true"><svg class="i"><use href="#i-factory"/></svg></span>
         <div class="card-body">
           <h3>Industrial high-build epoxy</h3>
@@ -588,7 +704,7 @@ footer { border-top: 1px solid var(--line); padding: 56px 0 40px; }
 <section class="sec" id="gallery" aria-labelledby="gal-h" style="padding-top:0">
   <div class="wrap">
     <div class="gal-top" data-rv>
-      <h2 id="gal-h">Every floor is <em>a 1 of 1</em></h2>
+      <h2 id="gal-h">Every floor is <em class="sheen">a 1 of 1</em></h2>
       <div class="tabs" role="group" aria-label="Filter floors">
         <button type="button" aria-pressed="true" data-f="all">All</button>
         <button type="button" aria-pressed="false" data-f="metallic">Metallic</button>
@@ -599,20 +715,21 @@ footer { border-top: 1px solid var(--line); padding: 56px 0 40px; }
       </div>
     </div>
     <div class="gal" id="gal" aria-live="polite">
-      <figure data-cat="metallic"><button type="button" class="shot" data-cap="Blue and silver metallic, 160m² London showroom" aria-label="Enlarge: Blue and silver metallic, 160m² London showroom"><img src="images/g-metallic-london.webp" width="900" height="1350" alt="Deep blue and silver metallic epoxy floor in a London showroom, Harry kneeling on it" loading="lazy" decoding="async"></button><figcaption><span>Blue and silver metallic, 160m² London showroom</span><span>Metallic</span></figcaption></figure>
-      <figure data-cat="marble"><button type="button" class="shot" data-cap="Close-up of grey and gold marble veining" aria-label="Enlarge: Close-up of grey and gold marble veining"><img src="images/g-marble-swirl.webp" width="900" height="1167" alt="Close-up of grey, white and gold faux-marble veining in epoxy resin" loading="lazy" decoding="async"></button><figcaption><span>Close-up of grey and gold marble veining</span><span>Marble</span></figcaption></figure>
-      <figure data-cat="marble"><button type="button" class="shot" data-cap="Cream and gold marble kitchen" aria-label="Enlarge: Cream and gold marble kitchen"><img src="images/g-marble-gold-kitchen.webp" width="900" height="1182" alt="Cream and gold faux-marble epoxy floor in a farmhouse kitchen" loading="lazy" decoding="async"></button><figcaption><span>Cream and gold marble kitchen</span><span>Marble</span></figcaption></figure>
-      <figure data-cat="metallic"><button type="button" class="shot" data-cap="Metallic garage floor" aria-label="Enlarge: Metallic garage floor"><img src="images/g-metallic-garage.webp" width="900" height="675" alt="Grey and white metallic epoxy floor in a car collector’s garage" loading="lazy" decoding="async"></button><figcaption><span>Metallic garage floor</span><span>Metallic</span></figcaption></figure>
-      <figure data-cat="marble"><button type="button" class="shot" data-cap="Gloss so deep it reflects the doors" aria-label="Enlarge: Gloss so deep it reflects the doors"><img src="images/g-marble-reflection.webp" width="900" height="1172" alt="Low view across a marble resin floor reflecting the patio doors" loading="lazy" decoding="async"></button><figcaption><span>Gloss so deep it reflects the doors</span><span>Marble</span></figcaption></figure>
-      <figure data-cat="metallic"><button type="button" class="shot" data-cap="Smoke grey metallic" aria-label="Enlarge: Smoke grey metallic"><img src="images/g-metallic-grey.webp" width="900" height="1400" alt="Smoke grey metallic epoxy floor in front of bi-fold doors" loading="lazy" decoding="async"></button><figcaption><span>Smoke grey metallic</span><span>Metallic</span></figcaption></figure>
-      <figure data-cat="marble"><button type="button" class="shot" data-cap="Pearl white open-plan living space" aria-label="Enlarge: Pearl white open-plan living space"><img src="images/g-marble-lounge.webp" width="900" height="1200" alt="Pearl white marble epoxy floor through an open-plan living space" loading="lazy" decoding="async"></button><figcaption><span>Pearl white open-plan living space</span><span>Marble</span></figcaption></figure>
-      <figure data-cat="marble"><button type="button" class="shot" data-cap="Sand and gold garden room" aria-label="Enlarge: Sand and gold garden room"><img src="images/g-marble-sunroom.webp" width="900" height="1190" alt="Sand and gold marble epoxy floor in a garden room" loading="lazy" decoding="async"></button><figcaption><span>Sand and gold garden room</span><span>Marble</span></figcaption></figure>
-      <figure data-cat="metallic"><button type="button" class="shot" data-cap="Grey metallic kitchen" aria-label="Enlarge: Grey metallic kitchen"><img src="images/g-metallic-kitchen.webp" width="900" height="1435" alt="Grey metallic epoxy floor in a modern kitchen" loading="lazy" decoding="async"></button><figcaption><span>Grey metallic kitchen</span><span>Metallic</span></figcaption></figure>
-      <figure data-cat="marble"><button type="button" class="shot" data-cap="Grey marble kitchen diner" aria-label="Enlarge: Grey marble kitchen diner"><img src="images/g-marble-kitchen.webp" width="900" height="1157" alt="Grey marble epoxy floor in a kitchen diner" loading="lazy" decoding="async"></button><figcaption><span>Grey marble kitchen diner</span><span>Marble</span></figcaption></figure>
-      <figure data-cat="metallic"><button type="button" class="shot" data-cap="Black and white metallic" aria-label="Enlarge: Black and white metallic"><img src="images/g-metallic-mono.webp" width="900" height="375" alt="Black and white metallic epoxy floor being walked on" loading="lazy" decoding="async"></button><figcaption><span>Black and white metallic</span><span>Metallic</span></figcaption></figure>
-      <figure data-cat="marble"><button type="button" class="shot" data-cap="White and gold marble hallway" aria-label="Enlarge: White and gold marble hallway"><img src="images/g-marble-hallway.webp" width="900" height="1191" alt="White and gold marble epoxy floor through a hallway and stairs" loading="lazy" decoding="async"></button><figcaption><span>White and gold marble hallway</span><span>Marble</span></figcaption></figure>
-      <figure data-cat="marble"><button type="button" class="shot" data-cap="Grey and white marble" aria-label="Enlarge: Grey and white marble"><img src="images/g-marble-open-plan.webp" width="900" height="1437" alt="Grey and white marble epoxy floor in a large room" loading="lazy" decoding="async"></button><figcaption><span>Grey and white marble</span><span>Marble</span></figcaption></figure>
-      <figure class="empty" data-cat="flake" hidden><h3>Flake floors</h3><p>Photos of recent flake floors are on their way to this page. Ask Harry and he’ll send you examples today.</p><a class="btn btn-wa btn-sm" href="https://wa.me/447947620266?text=Hi%20Harry%2C%20could%20you%20send%20me%20photos%20of%20your%20flake%20floors%3F" target="_blank" rel="noopener"><svg class="i"><use href="#i-wa"/></svg>Ask for photos</a></figure>
+      <figure data-cat="marble"><button type="button" class="shot" data-cap="Our most popular design" aria-label="Enlarge: Our most popular design" data-wipe style="--d:0"><img src="images/g-popular.webp" width="900" height="1350" alt="Glossy marble resin floor running the length of an open-plan room, bi-fold doors reflected in it" loading="lazy" decoding="async"></button><figcaption><span>Our most popular design</span><span>Marble</span></figcaption></figure>
+      <figure data-cat="marble"><button type="button" class="shot" data-cap="Pearl white open-plan living space" aria-label="Enlarge: Pearl white open-plan living space" data-wipe style="--d:1"><img src="images/g-pearl-living.webp" width="900" height="1200" alt="Pearl white marble resin floor through an empty open-plan living space, spotlights reflected in the gloss" loading="lazy" decoding="async"></button><figcaption><span>Pearl white open-plan living space</span><span>Marble</span></figcaption></figure>
+      <figure data-cat="marble"><button type="button" class="shot" data-cap="Sleaford, 85m²" aria-label="Enlarge: Sleaford, 85m²" data-wipe style="--d:2"><img src="images/g-sleaford.webp" width="900" height="1037" alt="Cream and gold marble resin floor in a farmhouse kitchen in Sleaford" loading="lazy" decoding="async"></button><figcaption><span>Sleaford, 85m²</span><span>Marble</span></figcaption></figure>
+      <figure data-cat="marble"><button type="button" class="shot" data-cap="Another 1 of 1" aria-label="Enlarge: Another 1 of 1" data-wipe style="--d:0"><img src="images/g-one-of-one.webp" width="900" height="1392" alt="Long open-plan room with a pearl grey resin floor and spotlights reflected in it" loading="lazy" decoding="async"></button><figcaption><span>Another 1 of 1</span><span>Marble</span></figcaption></figure>
+      <figure data-cat="marble"><button type="button" class="shot" data-cap="Sand and gold garden room" aria-label="Enlarge: Sand and gold garden room" data-wipe style="--d:1"><img src="images/g-sand-gold.webp" width="900" height="1190" alt="Sand and gold marble resin floor in a garden room, windows reflected in the gloss" loading="lazy" decoding="async"></button><figcaption><span>Sand and gold garden room</span><span>Marble</span></figcaption></figure>
+      <figure data-cat="marble"><button type="button" class="shot" data-cap="Grey and white marble" aria-label="Enlarge: Grey and white marble" data-wipe style="--d:2"><img src="images/g-grey-white.webp" width="900" height="1437" alt="Grey and white marble resin floor in a large empty room" loading="lazy" decoding="async"></button><figcaption><span>Grey and white marble</span><span>Marble</span></figcaption></figure>
+      <figure data-cat="marble"><button type="button" class="shot" data-cap="White and gold marble hallway" aria-label="Enlarge: White and gold marble hallway" data-wipe style="--d:0"><img src="images/g-hallway.webp" width="900" height="1191" alt="White and gold marble resin floor through a hallway and up to the stairs" loading="lazy" decoding="async"></button><figcaption><span>White and gold marble hallway</span><span>Marble</span></figcaption></figure>
+      <figure data-cat="marble"><button type="button" class="shot" data-cap="Portsmouth, 80m², white, cream &amp; gold" aria-label="Enlarge: Portsmouth, 80m², white, cream &amp; gold" data-wipe style="--d:1"><img src="images/g-portsmouth.webp" width="900" height="1250" alt="White, cream and gold marble resin floor in Portsmouth, a spotlight reflected in the gloss" loading="lazy" decoding="async"></button><figcaption><span>Portsmouth, 80m², white, cream &amp; gold</span><span>Marble</span></figcaption></figure>
+      <figure data-cat="metallic"><button type="button" class="shot" data-cap="Grey metallic kitchen" aria-label="Enlarge: Grey metallic kitchen" data-wipe style="--d:2"><img src="images/g-metallic-kitchen.webp" width="900" height="1435" alt="Grey metallic resin floor in a modern kitchen" loading="lazy" decoding="async"></button><figcaption><span>Grey metallic kitchen</span><span>Metallic</span></figcaption></figure>
+      <figure data-cat="marble"><button type="button" class="shot" data-cap="Grey marble kitchen diner" aria-label="Enlarge: Grey marble kitchen diner" data-wipe style="--d:0"><img src="images/g-grey-kitchen.webp" width="900" height="1075" alt="Grey marble resin floor in a kitchen diner with garden doors" loading="lazy" decoding="async"></button><figcaption><span>Grey marble kitchen diner</span><span>Marble</span></figcaption></figure>
+      <figure data-cat="marble"><button type="button" class="shot" data-cap="Cream hallway" aria-label="Enlarge: Cream hallway" data-wipe style="--d:1"><img src="images/g-cream-hall.webp" width="900" height="1102" alt="Bright cream resin floor through a hallway" loading="lazy" decoding="async"></button><figcaption><span>Cream hallway</span><span>Marble</span></figcaption></figure>
+      <figure data-cat="metallic"><button type="button" class="shot" data-cap="Metallic garage floor" aria-label="Enlarge: Metallic garage floor" data-wipe style="--d:2"><img src="images/g-garage.webp" width="900" height="675" alt="Grey and white metallic resin floor in a car collector’s garage" loading="lazy" decoding="async"></button><figcaption><span>Metallic garage floor</span><span>Metallic</span></figcaption></figure>
+      <figure data-cat="metallic"><button type="button" class="shot" data-cap="Solihull, 120m², pearl &amp; white" aria-label="Enlarge: Solihull, 120m², pearl &amp; white" data-wipe style="--d:0"><img src="images/g-solihull.webp" width="900" height="1475" alt="Metallic pearl and white resin floor in a hallway in Solihull" loading="lazy" decoding="async"></button><figcaption><span>Solihull, 120m², pearl &amp; white</span><span>Metallic</span></figcaption></figure>
+      <figure data-cat="metallic"><button type="button" class="shot" data-cap="Smoke grey metallic" aria-label="Enlarge: Smoke grey metallic" data-wipe style="--d:1"><img src="images/g-smoke-metallic.webp" width="900" height="1400" alt="Smoke grey metallic resin floor reflecting bi-fold doors" loading="lazy" decoding="async"></button><figcaption><span>Smoke grey metallic</span><span>Metallic</span></figcaption></figure>
+      <figure class="empty" data-cat="flake" hidden><h3>Flake floors</h3><p>Photos of recent flake floors are on their way to this page. Ask Harry and he’ll send you examples.</p><a class="btn btn-wa btn-sm" href="https://wa.me/447947620266?text=Hi%20Harry%2C%20could%20you%20send%20me%20photos%20of%20your%20flake%20floors%3F" target="_blank" rel="noopener"><svg class="i"><use href="#i-wa"/></svg>Ask for photos</a></figure>
       <figure class="empty" data-cat="industrial" hidden><h3>Industrial floors</h3><p>Photos of recent industrial floors are on their way to this page. Ask Harry for examples from similar sites.</p><a class="btn btn-wa btn-sm" href="https://wa.me/447947620266?text=Hi%20Harry%2C%20could%20you%20send%20me%20photos%20of%20your%20industrial%20floors%3F" target="_blank" rel="noopener"><svg class="i"><use href="#i-wa"/></svg>Ask for photos</a></figure>
       <figure class="empty" data-cat="events" hidden><h3>Event floors</h3><p>Dance floors, mandap stages and logo floors. Ask Harry for photos of recent event work.</p><a class="btn btn-wa btn-sm" href="https://wa.me/447947620266?text=Hi%20Harry%2C%20could%20you%20send%20me%20photos%20of%20your%20event%20floors%3F" target="_blank" rel="noopener"><svg class="i"><use href="#i-wa"/></svg>Ask for photos</a></figure>
     </div>
@@ -623,7 +740,58 @@ footer { border-top: 1px solid var(--line); padding: 56px 0 40px; }
   </div>
 </section>
 
-<section class="sec" id="reviews" aria-labelledby="rev-h" style="padding-top:clamp(40px,5vw,80px)">
+<div class="hair" aria-hidden="true"></div>
+
+<section class="sec rich" id="design" aria-labelledby="dz-h">
+  <div class="wrap">
+    <div class="sec-head" data-rv>
+      <p class="kicker">Try it</p>
+      <h2 id="dz-h" style="margin-top:14px">Design your floor</h2>
+      <p class="lede">Pick a finish, a base colour, the veining and how much movement you want. Then send it straight to Harry.</p>
+    </div>
+    <div class="dz">
+      <div class="dz-stage">
+        <div class="dz-panel" id="dzPanel">
+          <canvas id="dzCanvas" aria-hidden="true"></canvas>
+          <p class="dz-name" aria-live="polite"><small>Your design</small><span id="dzName">Cream marble with Gold veining, Flowing</span></p>
+        </div>
+      </div>
+      <form class="dz-ctl" id="dz" onsubmit="return false">
+        <div>
+          <p class="sr" id="pre-l">Presets from real floors</p>
+          <div class="presets" role="group" aria-labelledby="pre-l">
+            <button type="button" aria-pressed="false" data-p="marble,cream,gold,flowing"><b>White, Cream &amp; Gold</b><small>Portsmouth</small></button>
+            <button type="button" aria-pressed="false" data-p="metallic,pearl,white,flowing"><b>Pearl &amp; White</b><small>Solihull and London</small></button>
+            <button type="button" aria-pressed="false" data-p="metallic,mocha,white,flowing"><b>Pearl, White &amp; Mocha</b><small>Southampton</small></button>
+            <button type="button" aria-pressed="false" data-p="marble,lightgrey,grey,bold"><b>2-tone Grey</b><small>Peterborough</small></button>
+            <button type="button" aria-pressed="false" data-p="marble,almond,white,flowing"><b>Almond &amp; White</b><small>Wirksworth</small></button>
+          </div>
+        </div>
+        <fieldset><legend><span>1.</span>Finish</legend>
+          <div class="seg"><label><input type="radio" name="finish" value="marble" checked><span>Marble</span></label><label><input type="radio" name="finish" value="metallic"><span>Metallic</span></label></div>
+        </fieldset>
+        <fieldset><legend><span>2.</span>Base colour</legend>
+          <div class="sws" id="swBase"><label class="sw"><input type="radio" name="base" value="pearl"><span class="chip" style="--c:#ebe7df"></span><span class="nm">Pearl White</span></label><label class="sw"><input type="radio" name="base" value="cream" checked><span class="chip" style="--c:#ebdcbf"></span><span class="nm">Cream</span></label><label class="sw"><input type="radio" name="base" value="almond"><span class="chip" style="--c:#d8c0a0"></span><span class="nm">Nude / Almond</span></label><label class="sw"><input type="radio" name="base" value="mocha"><span class="chip" style="--c:#6d5242"></span><span class="nm">Mocha</span></label><label class="sw"><input type="radio" name="base" value="lightgrey"><span class="chip" style="--c:#c5c5c2"></span><span class="nm">Light Grey</span></label><label class="sw"><input type="radio" name="base" value="smoke"><span class="chip" style="--c:#86888b"></span><span class="nm">Smoke Grey</span></label><label class="sw"><input type="radio" name="base" value="charcoal"><span class="chip" style="--c:#3a3a3c"></span><span class="nm">Charcoal</span></label><label class="sw"><input type="radio" name="base" value="black"><span class="chip" style="--c:#151516"></span><span class="nm">Black</span></label></div>
+        </fieldset>
+        <fieldset><legend><span>3.</span>Vein colour</legend>
+          <div class="sws" id="swVein"><label class="sw"><input type="radio" name="vein" value="gold" checked><span class="chip" style="--c:#c99a3a"></span><span class="nm">Gold</span></label><label class="sw"><input type="radio" name="vein" value="champagne"><span class="chip" style="--c:#e4cf9c"></span><span class="nm">Champagne</span></label><label class="sw"><input type="radio" name="vein" value="white"><span class="chip" style="--c:#faf9f5"></span><span class="nm">White</span></label><label class="sw"><input type="radio" name="vein" value="silver"><span class="chip" style="--c:#c9ced5"></span><span class="nm">Silver</span></label><label class="sw"><input type="radio" name="vein" value="grey"><span class="chip" style="--c:#8b8d90"></span><span class="nm">Grey</span></label><label class="sw"><input type="radio" name="vein" value="black"><span class="chip" style="--c:#1a1a1b"></span><span class="nm">Black</span></label></div>
+        </fieldset>
+        <fieldset><legend><span>4.</span>Movement</legend>
+          <div class="seg"><label><input type="radio" name="move" value="subtle"><span>Subtle</span></label><label><input type="radio" name="move" value="flowing" checked><span>Flowing</span></label><label><input type="radio" name="move" value="bold"><span>Bold</span></label></div>
+        </fieldset>
+        <div class="dz-go">
+          <a class="btn btn-wa" id="dzWa" href="https://wa.me/447947620266" target="_blank" rel="noopener"><svg class="i"><use href="#i-wa"/></svg>Send this design to Harry on WhatsApp</a>
+          <a class="btn btn-gold" id="dzBoards" href="#quote">Get sample boards of this design</a>
+          <p class="dz-note">A preview, not a promise. Every real floor is a 1 of 1, and your sample boards show the true colours.</p>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<div class="hair" aria-hidden="true"></div>
+
+<section class="sec" id="reviews" aria-labelledby="rev-h">
   <div class="wrap rev">
     <div class="score" data-rv>
       <h2 id="rev-h" class="sr">Google reviews</h2>
@@ -640,7 +808,7 @@ footer { border-top: 1px solid var(--line); padding: 56px 0 40px; }
   </div>
 </section>
 
-<section class="sec wa" id="whatsapp" aria-labelledby="wa-h">
+<section class="sec rich" id="whatsapp" aria-labelledby="wa-h">
   <div class="wrap wa-grid">
     <div>
       <p class="kicker" data-rv>Quickest way to a price</p>
@@ -655,12 +823,12 @@ footer { border-top: 1px solid var(--line); padding: 56px 0 40px; }
         <span class="proof"><span class="stars" aria-hidden="true"><svg class="i"><use href="#i-star"/></svg><svg class="i"><use href="#i-star"/></svg><svg class="i"><use href="#i-star"/></svg><svg class="i"><use href="#i-star"/></svg><svg class="i"><use href="#i-star"/></svg></span><span><b>5.0</b> from 63 Google reviews</span></span>
       </div>
     </div>
-    <figure style="margin:0" data-rv>
+    <figure style="margin:0 0 40px" data-rv>
       <div class="phone" aria-label="Example WhatsApp conversation" role="img">
         <div class="phone-in">
           <div class="chat-top"><span class="avatar" aria-hidden="true">R</span><div><b>Royal Resin</b><small>online</small></div></div>
           <div class="chat" id="chat" aria-hidden="true">
-            <div class="msg me photo" style="--k:0"><div class="ph"><img src="images/g-marble-open-plan.webp" alt="" loading="lazy" style="object-position:50% 80%"><span><svg class="i" style="width:12px;height:12px"><use href="#i-camera"/></svg>Photo</span></div><p>Hi Harry, this is our kitchen and lounge, about 45m². Could we do a white marble?</p><time>10:42</time></div>
+            <div class="msg me photo" style="--k:0"><div class="ph"><img src="images/g-grey-white.webp" alt="" loading="lazy" style="object-position:50% 80%"><span><svg class="i" style="width:12px;height:12px"><use href="#i-camera"/></svg>Photo</span></div><p>Hi Harry, this is our kitchen and lounge, about 45m². Could we do a white marble?</p><time>10:42</time></div>
             <div class="msg rr" style="--k:1">That would look stunning with all that light. I'll sketch a design idea for you now.<time>10:51</time></div>
             <div class="msg rr" style="--k:2">White base, soft grey veining running towards the doors. Ballpark price is on its way too.<time>11:20</time></div>
             <div class="msg me" style="--k:3">Love it. Can we see it in person?<time>11:24</time></div>
@@ -681,15 +849,15 @@ footer { border-top: 1px solid var(--line); padding: 56px 0 40px; }
       <p class="lede">Three steps, and it starts with something you can hold.</p>
     </div>
     <div class="proc">
-      <article class="step star" data-rv>
+      <article class="step star lux" data-rv>
         <div class="boards" aria-hidden="true"><span></span><span></span><span></span></div>
         <p class="n">1. Free design consultation</p>
         <h3>Sample boards made for your room</h3>
         <p>We talk through the look you want, then make physical sample boards so you can see the colours and finish in your own light before anything is poured.</p>
         <div style="margin-top:10px"><a class="btn btn-gold" href="#quote">Book a free design consultation</a></div>
       </article>
-      <article class="step ph-step" data-rv style="--d:1">
-        <img src="images/install-metallic.webp" width="900" height="1200" alt="Harry installing a blue and silver metallic epoxy floor" loading="lazy" decoding="async">
+      <article class="step ph-step lux" data-rv style="--d:1">
+        <div class="ph" data-wipe style="--d:1"><img src="images/install-metallic.webp" width="900" height="1200" alt="Harry installing a blue and silver metallic epoxy floor" loading="lazy" decoding="async" data-px="0.06"></div>
         <div>
           <p class="n">2. Installation</p>
           <h3>We handle it all</h3>
@@ -698,42 +866,56 @@ footer { border-top: 1px solid var(--line); padding: 56px 0 40px; }
             <li><svg class="i"><use href="#i-check"/></svg>Design coat</li>
             <li><svg class="i"><use href="#i-check"/></svg>Top coat</li>
           </ul>
+          <p class="days"><b>5 days</b><span>Most floors are finished in about 5 days.</span></p>
         </div>
       </article>
-      <article class="step" data-rv style="--d:2">
+      <article class="step lux" data-rv style="--d:2">
         <p class="n">3. Aftercare</p>
         <h3>Made to last, easy to refresh</h3>
         <p>Resin floors have an expected life of 20 years. You get cleaning advice, re-polishing to bring the gleam back, and a new design can go straight on top with no prep.</p>
       </article>
     </div>
+    <div class="faq" data-rv>
+      <h3>Can resin go over my tiles?</h3>
+      <p>Yes, if they're showing no sign of cracking or movement. Leave it to us, we handle it all.</p>
+    </div>
   </div>
 </section>
 
-<section class="sec" id="areas" aria-labelledby="areas-h" style="padding-top:0">
-  <div class="wrap areas">
-    <div>
-      <h2 id="areas-h" data-rv>Based in Derby. Working across the UK.</h2>
-      <ul class="chips" aria-label="Regions we cover" data-rv>
-        <li class="home">East Midlands</li><li>West Midlands</li><li>London &amp; the Home Counties</li><li>North West</li><li>Yorkshire</li><li>South &amp; South West</li><li>Wales</li><li>Scotland</li>
-      </ul>
-      <p class="ask" data-rv>Not sure we cover you? Ask, we travel UK-wide.</p>
-      <div class="wa-actions" data-rv>
-        <a class="btn btn-ghost" href="tel:+441283295234"><svg class="i"><use href="#i-phone"/></svg>Call 01283 295234</a>
-        <a class="btn btn-wa" href="https://wa.me/447947620266" target="_blank" rel="noopener"><svg class="i"><use href="#i-wa"/></svg>WhatsApp Harry</a>
+<section class="sec rich" id="areas" aria-labelledby="areas-h" style="padding-top:clamp(40px,6vw,90px)">
+  <div class="wrap">
+    <div class="areas-head">
+      <div data-rv>
+        <h2 id="areas-h">Recent floors across the UK</h2>
+        <p class="lede" style="margin-top:16px">Every pin is a recent Royal Resin floor. We're based in Derby and travel UK-wide.</p>
+      </div>
+      <div data-rv style="--d:1">
+        <p class="ask">Not sure we cover you? Ask, we travel UK-wide.</p>
+        <div class="wa-actions">
+          <a class="btn btn-ghost" href="tel:+441283295234"><svg class="i"><use href="#i-phone"/></svg>Call 01283 295234</a>
+          <a class="btn btn-wa" href="https://wa.me/447947620266" target="_blank" rel="noopener"><svg class="i"><use href="#i-wa"/></svg>WhatsApp Harry</a>
+        </div>
       </div>
     </div>
-    <div class="map" data-rv>
-      <svg viewBox="-6 -6 249 460" role="img" aria-label="Map of the UK with Derby marked at its centre">
-<path class="ie" d="M-40.6 283.4L-40.7 284.6L-42.5 283.2L-43.3 281.6L-48 280.9L-46.1 279.3L-41.7 279.8L-40.6 283.4ZM22.8 236.3L19.1 238.9L17.5 243.8L16.2 247L15.1 249.3L13.8 250.2L11.8 250.9L10.7 251.6L9.4 251.2L7.6 251.3L6.7 252.1L7.3 253.4L8.8 254.4L10.6 255.4L9.5 257.1L3.6 259.5L1.9 260.9L1.9 263.4L6.5 268.2L8 271.4L12.1 272.5L13.8 274.3L15.2 274.6L18.3 274.5L19.6 275.2L20.8 273.8L23.4 271.4L24.3 270.4L23.8 269L24.8 265.8L26.7 263.7L29.4 265L30.7 266.8L30.9 268.2L32.5 271.4L35.6 272.6L35.6 276.6L38.4 277.7L40.9 277.5L42.7 276.9L44.1 276.2L46 276.4L47 277.9L47.4 279.3L45.8 279.8L43.9 279.6L43.1 280.5L43 282.3L43.7 284.7L44.8 286.4L45.8 290.2L46.6 294.3L47.8 296.9L48 300L47.9 301.6L48.1 304.3L47.9 308L49.4 313.4L50 316.4L50.4 322.9L49.4 325.4L48.1 327.7L47.2 330.5L46.5 333.4L46.1 338.3L43.1 343.9L41.8 345.3L40.3 346.2L43.6 350.1L40.9 351.9L38.1 352.5L34.9 351.5L33 351.6L31.1 352.9L29.9 353.2L28.7 350L27.8 353.4L25.9 354.4L22.9 354.2L17.7 355.1L15.7 356.1L14.8 357.5L14.2 359.3L13.3 360.2L8.4 362L5.7 365.4L3.3 367L1.3 367.5L-0.5 365.9L-1.2 364.9L-4.8 364.5L-3.4 366.1L-3.2 368.3L-3.5 370.5L-4.8 371.5L-6.4 371.7L-9 373.9L-12.4 374.5L-14.3 376.6L-25.5 380.1L-27.7 379.2L-29.3 378.9L-31 379.1L-35.7 381.1L-38 380.7L-35.1 375.9L-31.2 373.4L-32.1 372.5L-39.4 374.1L-42 375.6L-44.6 376L-43.5 373.8L-40.1 370.8L-38.4 369.3L-37.2 368.8L-36 367L-32.5 365L-43.8 369.1L-46.7 368.6L-47.4 367.5L-49.7 368L-50.6 365.2L-47.2 361L-45.2 359.2L-42.8 358.2L-40.5 356.8L-39.7 355.1L-40.8 354.5L-47.6 355L-50.9 354.6L-50.7 353.2L-50.1 351.7L-46.7 349.1L-44.9 348.7L-43.2 349L-41.6 349.6L-40.4 350.5L-36.5 350L-38.1 348.4L-38.4 345L-39.6 343.9L-38 342.3L-36.3 341.4L-33.3 338.1L-32.2 337.6L-26.2 336.8L-19.9 335.2L-13.5 332.8L-16.8 331.5L-18.4 329.8L-20.9 333.3L-22.6 334.6L-27.7 335.3L-29.3 334.9L-31.6 333.9L-33 335.1L-36.4 336.8L-39.9 337.2L-35.8 334.1L-30.6 328.8L-29.4 327.1L-27.7 324.1L-28.2 322.9L-29.3 322.1L-25.6 316.1L-24.2 315L-21.8 314.8L-20 313.9L-18.5 313.5L-17 311.7L-19.4 310.6L-21.8 310L-29.5 310.6L-31.5 309.9L-32.6 307.1L-34.8 306.6L-36.5 307.3L-37.8 307.2L-38.9 306.3L-37 304.2L-39.4 303.7L-41.9 304.1L-44 303.5L-44 302.2L-43 300.9L-44.3 299.6L-44.5 298L-43.2 297.3L-41.9 297.5L-38.9 296.4L-35.4 295.8L-38.4 294.7L-39.7 293.7L-39.8 292.2L-39.5 290.9L-35.9 288.7L-32 287.8L-32.3 286.4L-32 284.8L-35.9 284.3L-39.8 285.5L-39.4 282.5L-38.4 279.8L-38.3 278.1L-38.4 276.2L-40.3 277L-40.5 274.3L-41.3 272.5L-44 273.8L-43.9 271.4L-43.1 269.7L-41.7 268.9L-40.3 269.3L-37.8 269.3L-35.3 268L-31.7 267.7L-25.9 268L-22 271.6L-19.4 268.7L-12.7 269.5L-9 270.7L-8.6 267.9L-9.8 266.2L-8.3 263.9L-6.3 262.3L-5 261.6L-2 260.6L-0.7 259.7L0.2 256.8L1.5 254.3L-6 255.6L-13.1 252.7L-11.9 250.7L-10.4 249.6L-7.8 248.7L-6.3 246.7L-4.2 244.4L-4.9 241.4L-4.5 239.2L-2.9 237.8L-2.4 235.7L-1.7 234.1L1.4 233.6L4.5 232.2L9.2 232L10.5 232.5L10.1 230L12.4 229.8L13.7 232L14.7 233.2L14.9 235.1L14.2 236.6L13.1 237.8L14.2 239L12.6 241.2L14.3 240.3L16.7 238.1L16.7 236.4L16.2 234.2L15.5 232.3L15.8 230.1L17.2 228.7L20.8 228L19.3 225.6L20.7 225.4L22.2 225.9L24.3 227.8L26.4 229.3L28.8 230.5L26.5 232.9L23.9 234.5L22.8 236.3Z"/><path class="uk" d="M128.5 375.1L126.8 376.8L121.3 378.4L118.9 380.2L114.8 384.1L107.7 383.4L103 378.4L100.1 376.4L98.9 376.1L97.6 376.7L94.8 377.3L92.1 377.3L93.5 374.9L95.4 373.6L91.2 372.7L89.9 372L88.6 370.4L85.2 370.1L83.6 370.5L80.9 372.7L76.6 375L71.4 371.8L70.4 370.4L70.4 367.7L69.7 365.5L68.3 364.8L70.1 362L72.3 360.2L77.1 358.3L84.6 354L88.7 352.1L92.5 348.9L94.1 347L95.3 344.3L96.4 341L98 338.3L96.4 337.7L95.7 335.7L95.9 333.6L96.6 331.8L96 329.6L94.8 327.2L94.9 325.4L95.2 323.4L92.3 323.5L89.2 324.1L86.6 325.5L84 327.4L81.7 327.7L81.7 326.2L82.7 324.3L85.3 321.7L88.2 319.5L89.2 317.7L89.9 315.8L91.3 314.2L95 311.2L102 307.9L105.8 308.1L108.5 307.6L110.8 306.4L113.2 306.1L118.5 309.6L116.9 304.2L119.3 303L122.7 307.8L123.9 308.3L126.6 307.6L125.5 306.8L122.8 306L121.5 304.4L119.3 299.5L119.4 296.6L120.9 293.5L122.5 290.7L121.2 290.1L120 289.1L119.8 286.2L120.2 283.8L123.1 281.6L123.9 278.2L124.4 274.6L123.9 272.9L120.9 273.2L119.5 273.9L118.3 275L116.9 274.9L113.3 270.8L111.2 267.7L107.6 261.3L107.1 257.4L110 249.1L114.6 243.7L119.9 241.8L110.7 241.4L108 242.1L105.5 244.3L104 245L102.6 245.2L101.2 246.3L99.9 247.8L98.5 248.8L95.8 248.5L94.4 248.9L93.5 248L92.8 246.5L90.5 246.6L88.1 248.5L85.6 249.7L82.6 248.4L78.5 246.2L76.9 249.1L76.4 252.4L73.6 249.6L71.2 245.7L70.3 243.3L70.3 240.6L71.6 239.5L73 240.5L75.1 234L79.3 225.6L80.8 223.2L81.8 220L81.6 217.8L80.7 216.1L76.9 212.1L76.9 208.7L77.3 205L78.4 202.8L84 202.5L82 201.3L78 198L79 193.7L77.7 195.4L76 198.9L75 199.7L72.2 200.5L71.7 202.2L69.8 202.8L69.3 204.4L68.6 202.8L68.6 200L69.2 197.3L70.3 195.3L74.4 190.7L72.4 192.1L67.8 196.4L65.4 199.2L64.6 201L65.7 206.9L65.3 209.2L61.4 224.4L60.6 225.9L59.3 226.9L57.4 226.6L56.5 225.5L56.5 224.2L56.9 222.3L58.5 215L59.2 213L60.3 211.2L62.6 207.9L61 208.3L59.9 207.5L60.1 197.8L61.4 194.6L61.9 190L63 186L64.2 183.1L65.2 179.4L66.7 177.8L67.1 175.3L68.7 172.5L69.9 169.7L61.2 177.3L59.1 178.7L56.4 178.4L54.2 177.5L52.5 175.7L51.8 172.4L49.8 172.3L48 171.7L50.3 169.4L54 168.8L57.4 165.9L54.3 163.9L57.2 161.6L60.6 155.9L61.3 150.7L59.6 148.2L59.1 146.6L55.9 144.8L55.3 142.5L55.7 141.3L56.7 140L58.3 139.1L60.8 138.1L58.6 137.1L57.7 136L57.1 134.3L58.2 128.9L58.9 127.1L60.2 124.8L66.2 124.9L66.9 123.9L70.7 124.8L70.2 123.7L65.2 118.2L66.2 114.3L66.2 113L66.1 111.5L68.1 109.9L72.9 110L74.1 109.5L73.6 108L72.4 106.2L72.3 104.6L72.5 103.2L72.6 100.4L72.8 99.2L73.9 97.3L76.1 96.4L78.8 97.1L79.8 97.8L81 99.6L85.1 97.6L87.5 99.5L93.2 97.7L100.8 96.9L105.4 95.7L110.2 95.3L114.8 94L119.5 94.6L119.4 96.4L118.3 99.4L118.4 102.6L117.6 104.8L115.8 107.1L111.2 110.4L102.8 117.9L97.8 121.6L97.1 123.5L96.8 126L99.7 126.4L100.9 127.3L100.2 128.5L95.8 132.9L94.4 136.9L97.9 136.8L100.6 136L106.2 133.5L111.4 131.6L113.9 131.6L118.8 133L122 132.4L124.1 132.3L138.3 132.8L142.3 131.9L144.9 133L147.1 135.5L149.2 140.3L147.9 143.2L145.5 145.9L143.5 149.6L142.9 151.6L142.6 153.9L141.9 155.9L138 165.5L134.1 170.7L132.4 174.6L130.2 177.5L128.2 179.4L126 180.7L119.7 182.1L117.9 183L115.8 184.6L113.6 185.5L116.2 185.3L118.8 184.4L123.4 184.1L128.9 187.3L128.4 189.8L126.2 191.9L121.3 192.3L116.7 196.8L114.6 198.2L112.4 198.9L109.6 198.7L104.6 197.5L102.5 196.2L104.5 198.2L106.6 199.3L119.7 201.9L124.5 198.9L130.1 198.9L140.6 203.9L143.6 207.7L147.9 213.1L150.3 215.3L152 217.2L153 220L155.1 229.6L157.4 238.9L160.5 249.1L161.8 251.8L163.7 253.8L172.9 258.4L174.9 259.8L178.5 264.2L181.9 268.9L185.1 272.4L188.5 275.2L186.8 276.8L185.7 279.1L186.6 282.3L187.9 285.4L190.7 290.3L193.2 295.7L192.3 294.8L190 294.5L188.8 294.3L186.4 292.6L184.2 290.5L179.7 291.4L177.3 291L175.1 291L179.2 292.2L183.7 292.3L193.4 301.3L196.8 306.6L198.7 313.6L197.4 316.8L195.3 318.8L193.4 321.1L191.5 323.8L197 327.7L199.4 327L200.5 325.7L202.5 322.5L203.5 321.4L206.8 320.9L209.7 321.1L212.5 321.8L215 321.6L220 323L222.5 324.3L229 329.8L230.3 332.9L231 336.8L231.1 341.2L230 345.2L228.7 348.9L228 353.5L227.5 355.2L226.7 356.5L223.3 360.2L221 361.7L219.1 361.1L220 363.9L220.1 366.2L218.1 367.9L216 368.6L212.7 367.7L207.9 370.8L211.3 372.4L212 374.1L211.2 377.1L209.1 378.5L206.7 379.1L204.2 379.2L202.2 380L200.3 381.4L202.7 380.6L204.4 381.3L205.5 383.8L211.2 385.6L214 385.6L219.7 385L222.4 385L223.4 387.5L223 392.7L222.2 393.8L214.8 398.1L213.2 401.1L212.8 402.9L208.4 402.7L206.4 404.5L202.8 405.9L200.1 407.3L197.5 409L195.2 409.5L185.7 407.4L180 407.6L172.2 409.4L170.2 409.1L167.3 407.4L164.2 406.2L160.7 405.7L157.6 404.1L159.5 407.2L155.2 410.1L153.3 410.7L151.3 410.6L147.1 411.4L143.3 411L143.9 413.1L144.9 414.9L143.2 415.9L135.9 414.5L134 416L131.3 415.4L128.7 413.2L126 411.8L123.1 411.1L120.8 411.4L111.4 414.7L109.5 418.1L108.6 422.9L107.2 427.1L105 430.4L102.4 430.9L99.9 428.6L95.2 426.1L93.5 424.3L90.7 425.7L88.7 425.7L85.8 426.3L80.6 428.4L78.5 429.8L74.1 433.6L73.2 434.6L71.6 438.4L69.1 439.1L66.8 436.7L64.2 435.8L61.6 436.7L59.9 437.9L59.1 436.9L59.1 434.8L61.1 432.1L66.4 430.2L71 425L73.4 421.9L74.2 420.2L75.4 419.1L76.8 418.6L77.5 416.7L84 408.9L84.6 407.2L84.9 404L85.4 400.9L90.7 398.9L93.2 392.5L101.2 390.8L106.6 390.9L112.1 392.1L114.8 392.3L117.6 391.8L119.8 390L123.5 383.8L125.6 381L128 378.5L130.3 375.7L134 370.4L131.5 372.2L128.5 375.1ZM93 307.1L93.9 307.9L96.4 307.7L95.6 309.4L92.9 311.3L91.1 313.1L88.9 314.6L87.8 312.9L86.6 313L84.7 309.6L84.4 304.6L86.8 303.2L90.2 303.3L93 307.1ZM131.2 70.7L128.6 70.8L130 68.5L131.6 67.8L134.6 68.1L131.2 70.7ZM166.3 19.4L163.4 15.8L165.1 11.2L167.1 11.3L167.4 12.6L166.2 13.8L166.4 16.3L166.4 18.8ZM160.1 18.5L160.6 21.3L161.7 20.6L163.6 23.3L166 22.2L165.7 24.7L164.2 31.7L163.7 32.9L163.4 35.1L162.6 39.7L161.6 41.2L160.7 44.5L159 43.5L160.3 38.4L160.8 35.4L160.5 33.9L159.7 32.5L157.7 32.4L156.1 33L155.6 31.1L153 30.8L151.9 29.5L153.9 28L155.7 28.3L158.6 26.7L156.8 21.2L154.5 20.7L154.4 19.3L155.6 18.8L157.6 16L158.8 15.6L160.2 15.7L160.1 18.5ZM172.5 7.5L171.3 11.4L169.4 12.5L168.7 10.2L168.9 8.1L169.8 7.3L171.4 6.7L172.5 7.5ZM116.9 88.2L115.6 88.7L114.3 88.7L112.2 86.4L111.5 84.7L112.5 83.2L114.5 83.8L115.5 85.7L115.6 87L117.1 88ZM122.4 90.3L119.9 87.1L122.2 86.6L122.8 88L122.4 90.3ZM119.4 78.8L120.9 79.8L123.4 80.6L125 80.7L126.3 81.8L125.6 83.7L123.9 84.4L120.9 82.4L116.9 83.2L115.6 82.5L115.4 80.4L113.7 81.3L112.7 80.5L112.6 79.2L112.7 77.4L113.6 74.8L115 74.2L117.2 74.6L119.6 76L120.4 76.9L119.4 78.8ZM127 72.6L125 73.5L124 70.1L121.6 69L120.4 68.3L119.6 67.1L121.4 66.1L124 68.5L125.1 70.4L127 71L127 72.6ZM37 176.6L35.6 176.9L37.9 173.5L39.3 173.1L38.8 174.9L37 176.6ZM71.9 222.1L68.9 222.1L66.7 220.7L65.2 215.3L65.7 213.3L66.9 211.6L68.5 211.3L70 212.3L71.9 217.1L72.1 220.3L71.9 222.1ZM56.3 186.2L47 188.4L43.8 188.2L44.2 186.4L46.8 185.7L47.9 180.4L43.9 177.9L44 176L46.8 174.3L48.7 174.1L50.4 175.6L52.4 178.6L54.9 179.1L56.6 180.4L56.3 186.2ZM48.1 202.8L48.9 207.9L49.8 211.1L49 213.7L45.3 215.7L44 215.7L44.8 213.2L44.1 210.9L44.4 209.1L40.6 211.8L40.2 209.2L40.3 207.7L41.5 205.8L43.1 205L46.1 203.8L48.1 202.8ZM51.8 207.4L50.1 207.8L49.4 206.1L49.4 204.3L50.1 203L53.1 201L51.8 200.3L52.5 198.2L55.8 195.7L57.5 195.3L55.8 199.8L51.8 207.4ZM46.5 105.5L43.5 112.4L41.3 114.4L38.2 116.3L41 116.3L41.7 118.3L37.7 122.3L35.2 123.6L32.6 126.9L31.3 126.9L30 129.1L28.9 130L27.5 129.6L25.9 127.5L28.9 125.4L31.2 123L27.8 121L26.5 119.8L28.2 118L26.9 117.1L25.8 116.2L25.7 114.5L25.9 112.7L26.9 111.9L27.6 110.9L29 111.3L30.5 112.7L32.2 112.1L34.2 112.4L32.8 108.7L33.9 107.1L38.5 104.7L44.2 100.5L45.6 99.9L46.6 102.6L46.5 105.5ZM44.6 161.4L43.1 161.9L41.1 159.3L43.6 158L44.7 158.7L45 160.6ZM47.8 139.8L47.7 141.6L47.3 143.7L47.9 145.9L47.9 147.4L49.5 148.7L53.9 149.5L58 149.2L58.8 151L58.1 152.1L55.9 154.1L53.1 157.5L51.4 158.2L50.3 151.9L47.4 152.7L44.9 152.6L43.6 151.9L42.7 150.5L40.8 146.9L35.4 145.5L33.9 143.5L33.4 142.3L34.7 140.2L36.1 140.7L37.6 139.7L36.8 137.9L42.3 135.9L42.8 133.3L44 133.1L45.3 133.9L47.3 136.6L47.8 139.8ZM23.1 132.7L25.7 134.9L23.6 138.7L20.4 138.7L15.9 136L16.2 134.6L17.7 133.7L18.8 134.2L20.3 133.5L21.6 133.7L23.1 132.7ZM22.1 155.4L19.8 155.4L18.3 152.3L18.1 150.8L18.4 148L18.3 144.8L21 144.6L22.1 155ZM18.2 161.4L16.2 161.9L15.2 161.1L15.7 159.7L17.3 159.2L18.4 160L18.2 161.4ZM46 276.4L44.1 276.2L42.7 276.9L40.9 277.5L38.4 277.7L36 277.7L36.1 273.4L33.3 272.2L31.1 269.3L30.7 266.8L29.4 265L27.7 263.7L24.8 265.8L23.2 268L24.3 270.4L23.4 271.4L20.8 273.8L19.6 275.2L18.3 274.5L15.2 274.6L13.8 274.3L12.1 272.5L8 271.4L7.3 268.7L1.9 263.4L1.3 261.8L3.6 259.5L9.5 257.1L10.4 256.2L8.8 254.4L7.3 253.4L6.7 252.1L7.6 251.3L9.4 251.2L10.7 251.6L11.8 250.9L13.8 250.2L15.1 249.3L16.2 247L17.4 244.9L18.6 239.8L22.8 236.3L23.7 237.8L25.5 238.1L27.2 236.8L29.1 232.7L30.5 232.5L32 232.8L34.9 232.3L40.1 230.4L42.4 230.3L45.7 231.3L48.1 231.3L50.3 234.2L51.4 238.8L54.1 243.4L57.7 247.3L57.8 249.7L56.5 251L53.9 252.6L54 254.3L55.6 253.4L57.1 253.1L60.8 253.4L62.1 255.2L62.9 257.8L63.4 260L63.1 262.3L61.1 259.5L60.1 258.5L58.7 258L59.3 260.9L59.1 264.8L61.4 265.2L60.2 269.1L57.9 270.2L55.1 270.6L54.5 272L54 273.8L52.5 276.4L50.7 278L48.4 277.7L46 276.4ZM165.8 412.4L163.8 413.8L163.2 415.4L161.4 416.4L160.2 416.5L155.3 413.2L154.1 413.4L155.2 411.8L158.3 410.7L160 409.1L163.9 410.6L165.8 412.4Z"/>
-<circle class="ring" cx="156.2" cy="323.1" r="60"/><circle class="ring" cx="156.2" cy="323.1" r="125" opacity=".3"/>
-<circle class="pulse" cx="156.2" cy="323.1" r="6"/><circle class="dot" cx="156.2" cy="323.1" r="4.5"/>
-<text class="lbl" x="166.2" y="317.1">Derby</text><text class="lbl2" x="166.2" y="331.1">BASE</text></svg>
+    <div class="map" id="map">
+      <svg viewBox="0 0 1035 678" role="img" aria-label="Map of England and Wales with Derby marked as Royal Resin's base and pins on 19 recent floors"><defs><linearGradient id="fadeTop" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000"/><stop offset=".14" stop-color="#fff"/></linearGradient><mask id="mtop"><rect width="100%" height="100%" fill="url(#fadeTop)"/></mask></defs><g mask="url(#mtop)"><path class="land" d="M505.1 453.3L499.9 458.3L482.6 463.3L475.2 468.5L462.1 480.2L459.7 481.2L440.1 478.3L425.4 463.3L416.2 457.1L412.2 456.2L408.3 458.1L399.7 460L391 459.8L395.5 452.7L401.5 448.7L388.1 446L384.2 443.9L380 439.1L369.5 438.3L364.5 439.6L355.8 446L342.5 452.9L326.2 443.3L323 439.1L323 431L320.7 424.6L316.2 422.5L322 414.1L328.8 408.5L344 402.9L367.4 390L380.2 384.4L392.3 374.8L397.3 368.9L401 360.8L404.4 351L409.6 342.9L404.6 341L402.3 335L403.1 328.9L405.2 323.5L403.3 316.7L399.7 309.6L399.9 304.2L400.7 298.1L391.5 298.5L382.1 300.4L373.7 304.6L365.5 310.2L358.5 311.2L358.5 306.7L361.6 301L369.7 293.1L378.7 286.4L381.8 281.2L384.2 275.4L388.6 270.6L400.2 261.7L422 251.7L425.4 251L434 252.3L442.4 250.8L449.8 247.1L457.4 246.2L473.9 256.9L468.9 240.6L476.3 236.9L487 251.4L491 252.9L499.4 250.8L496 248.3L492.3 248.1L487.3 246L483.4 241.2L476.3 226.4L476.8 217.7L481.3 208.5L486.5 200L482.3 198.3L478.6 195.2L477.8 186.7L479.2 179.4L488.3 172.7L491 162.7L492.3 151.7L490.7 146.7L481.5 147.5L477.1 149.6L473.1 152.9L468.9 152.7L457.6 140.4L451.1 131.2L439.5 111.9L438 100.2L447.1 75.2L461.6 59.2L478.4 53.5L475.2 52.5L449.5 52.3L440.9 54.4L433 60.8L428.5 62.9L424.1 63.5L419.6 66.9L415.7 71.5L411.2 74.4L402.5 73.5L398.3 74.6L395.5 71.9L393.1 67.5L389.7 66.5L386 67.7L378.4 73.5L370.5 77.1L361.1 73.3L348.5 66.5L346.1 69L343.2 75.4L341.7 85.2L333 76.7L325.4 65L322.8 57.9L322.8 49.8L326.7 46.5L331.2 49.4L337.7 30L350.9 4.8L355.6 -2.5L358.7 -12.1L358.2 -18.5L355.3 -23.7L343.2 -35.8L343.2 -45.8L344.6 -56.9L348 -63.5L349.3 -64.8L365.5 -64.6L359.2 -68.1L346.7 -78.1L346.9 -81.7L349.8 -91L348.5 -90L345.9 -85.8L340.6 -75.4L337.5 -72.9L328.5 -70.4L327 -65.4L325.4 -64L320.9 -63.5L319.6 -58.7L317.3 -63.5L317.3 -72.1L319.1 -80L322.5 -86L335.4 -100L329.1 -95.6L314.6 -82.7L307.3 -74.4L305.5 -71.5L304.7 -69L304.7 -66.2L308.1 -51.2L307 -44.4L294.7 1.3L292.3 5.8L290.2 8.1L288.1 8.8L282.1 7.9L279.2 4.4L279.2 0.6L280.5 -5.2L285.5 -26.9L287.9 -32.9L291.3 -38.5L298.4 -48.3L293.4 -47.1L291.3 -47.7L290 -49.6L290.8 -78.5L294.7 -88.1L296.3 -102.1L299.7 -113.9L303.6 -122.7L306.8 -133.7L311.2 -138.7L312.5 -146.2L317.5 -154.4L321.5 -162.9L319.4 -162.1L294.2 -140L287.6 -135.8L279 -136.9L272.1 -139.4L266.9 -144.8L264.5 -154.8L258.2 -155L252.7 -156.9L259.8 -163.7L271.3 -165.6L282.1 -174.4L272.4 -180.4L273.2 -182.3L281.6 -187.3L292.1 -204.4L294.4 -220L289.2 -227.3L287.4 -232.1L277.4 -237.5L275.5 -244.4L276.9 -248.1L280 -251.9L285 -254.8L292.9 -257.7L285.8 -260.6L283.2 -264.1L281.1 -269.1L281.1 -272.3L284.7 -285.4L286.8 -290.8L291 -297.7L309.9 -297.3L312 -300.4L314.1 -300.6L323.8 -297.7L322.3 -300.8L306.5 -317.3L305.2 -320.4L309.7 -329.1L309.9 -333.1L309.4 -337.5L310.7 -340.6L315.7 -342.3L330.9 -342.1L334.6 -343.5L333 -347.9L329.3 -353.5L328.8 -358.1L329.6 -362.3L329.9 -370.8L330.4 -374.3L334.1 -380L336.9 -381.6L340.9 -382.7L349.3 -380.8L352.4 -378.5L356.1 -373.1L358.7 -373.7L369.2 -379.3L372.4 -380.2L376.6 -373.5L394.4 -378.9L418.3 -381.2L432.7 -384.8L447.9 -386L462.1 -390L477.1 -388.1L477.6 -385.8L476.8 -382.7L473.1 -373.9L473.6 -364.1L472.9 -361L471 -357.5L465.5 -350.6L451.1 -340.8L424.6 -318.3L408.8 -307.1L406.7 -301.6L405.7 -294.1L414.9 -292.7L418.5 -290.2L416.4 -286.4L402.5 -273.3L398.3 -261.2L409.1 -261.6L417.8 -263.9L435.3 -271.4L451.6 -277.1L459.5 -277.3L475 -272.9L478.4 -272.7L484.9 -274.8L491.5 -275L536.1 -273.7L548.4 -276.2L556.8 -273.1L563.6 -265.4L570.2 -251.2L569.9 -248.9L566 -242.5L558.7 -234.4L552.4 -223.1L550.5 -217.1L549.5 -210.4L547.4 -204.4L535 -175.6L522.7 -159.8L517.5 -148.3L510.6 -139.4L504.3 -133.7L497.5 -130L477.6 -125.8L472.1 -123.1L465.5 -118.1L458.4 -115.6L466.6 -116L474.7 -118.7L489.4 -119.8L506.4 -110.2L504.9 -102.5L498.1 -96.2L482.6 -95.2L468.1 -81.7L461.6 -77.5L454.8 -75.4L446.1 -76L430.4 -79.6L423.5 -83.3L429.8 -77.3L436.7 -74L477.6 -66.2L479.9 -67.1L492.8 -75.2L510.1 -75.2L543.2 -60.4L552.6 -49L566.3 -32.7L573.6 -26.2L579.1 -20.4L582.3 -11.9L588.8 16.9L595.9 44.8L605.6 75.2L609.8 83.5L615.6 89.4L644.5 103.1L650.8 107.5L662 120.6L672.8 134.6L682.8 145.2L693.5 153.7L688.3 158.3L684.6 165.4L687.5 175L691.7 184.2L700.4 198.9L708.2 215L705.3 212.5L702.5 211.2L698.3 211.4L694.3 210.8L687 205.8L679.9 199.6L666 202.1L658.4 201L651.5 201L664.4 204.6L678.3 205L709 231.9L719.5 247.7L725.5 268.7L721.3 278.3L714.8 284.4L708.7 291.4L703 299.4L720 311L723.7 310.6L727.6 308.9L731.1 305L737.3 295.4L740.5 292.1L751 290.8L759.9 291.4L768.8 293.5L776.7 292.9L792.5 297.1L800.3 300.8L820.5 317.5L824.7 326.7L826.8 338.5L827.1 351.6L823.7 363.7L819.7 374.6L817.4 388.5L815.8 393.7L813.4 397.5L802.7 408.7L795.6 413.1L792.7 411.2L789.6 411.4L789.3 414.1L792.5 419.8L792.7 426.6L786.4 431.6L779.9 433.7L769.4 431L754.4 440.4L765.2 445.2L767.3 450.4L764.6 459.4L758.1 463.5L750.5 465.2L742.9 465.6L736.6 467.9L730.5 472.1L738.1 469.8L743.4 471.8L746.8 479.3L749.7 481.6L764.6 484.8L773.6 484.8L791.4 482.9L799.8 483.1L802.9 484.3L802.9 490.6L801.6 506.2L799.3 509.3L775.9 522.3L770.9 531.4L769.6 536.8L756 536L749.7 541.6L738.4 545.6L730 549.8L721.6 555L714.5 556.4L684.9 550.2L666.8 550.8L642.4 556.2L636.1 555.2L626.9 550.2L617.2 546.6L606.2 545.2L596.4 540.4L602.5 549.6L589.1 558.3L583.1 560L576.8 559.8L563.6 562.3L551.6 561L553.4 567.3L556.6 572.7L554.2 575L551.3 575.6L528.5 571.4L525.1 572.3L522.5 576L514.1 574.1L505.9 567.7L497.3 563.3L488.3 561.2L481 562.1L451.6 572.1L445.6 582.3L442.7 596.6L438.5 609.3L431.4 619.1L423.3 620.6L415.4 613.7L400.7 606.2L395.5 601L393.9 600.8L392.3 602.7L386.5 605L380.5 605L371.3 607L355 613.1L348.5 617.3L334.6 628.7L331.7 631.8L326.7 643.3L318.8 645.4L311.8 638.1L303.6 635.4L295.2 638.1L290 641.8L287.6 638.7L287.4 632.3L293.7 624.3L310.4 618.5L324.9 603.1L332.2 593.7L334.8 588.5L338.5 585.2L343 583.9L345.3 578.1L365.5 554.8L367.4 549.6L368.4 540L370 530.8L386.5 524.8L394.4 505.4L396.5 503.9L419.6 500.4L436.7 500.6L453.7 504.3L462.4 504.8L471 503.3L477.8 498.1L489.7 479.3L496.2 471L503.8 463.5L510.9 455L522.5 439.1L514.6 444.6L505.1 453.3ZM393.9 249.4L396.8 251.7L404.6 251.2L402 256.2L393.6 261.9L387.8 267.3L381 271.9L377.6 266.7L373.7 266.9L367.9 256.7L366.9 241.7L374.5 237.7L385.2 237.9L393.9 249.4ZM327.5 -5.8L318.3 -5.8L315.2 -6.9L311.2 -9.8L306.8 -26.2L308.3 -32.1L310.2 -34.8L312 -37.1L317 -38.1L321.7 -35L323.6 -32.1L327.5 -20.8L328.3 -11.2L327.5 -5.8ZM253 -63.7L255.6 -48.3L258.2 -38.7L258.2 -35.4L255.9 -30.8L244.1 -24.8L240.1 -24.8L242.7 -32.5L240.4 -39.4L241.4 -44.8L238 -45L229.4 -36.5L226.5 -35.6L226.2 -37.3L228.3 -44.4L228.6 -49L229.9 -51.9L232.3 -54.6L235.1 -56.7L237.2 -56.9L239.6 -54.8L246.7 -60.6L253 -63.7ZM246.4 157.3L240.4 156.7L235.9 158.7L233 160.6L230.4 160.4L222.5 161L214.9 161L213.9 157.9L215.2 148.3L213.6 145.8L206.5 144.6L203.9 142.3L199.7 135.8L198.9 132.7L198.4 128.5L194.2 123.1L189 119.2L185.8 119L179.8 125.4L174.8 131.9L176.6 135L178.2 139.2L175.3 142.3L167.2 149.4L165.9 152.1L163.5 153.5L159.6 151.5L149.9 151.9L145.4 150.8L140.2 145.6L127.3 142.1L124.9 134L122.6 132.5L107.9 118.3L106 113.5L107.9 110.8L113.4 106.5L131.8 99.4L134.6 96.7L135.2 94.2L129.7 91.2L124.9 88.1L123.4 86L123.1 84.2L126 81.9L131.5 81.7L135.7 82.7L139.1 80.6L145.4 78.5L149.3 75.8L153 69L156.7 62.7L156.9 59.4L160.4 47.5L161.9 44.6L173.5 36.9L176.4 41.3L182.1 42.3L187.4 38.3L193.4 26L197.6 25.4L202.3 26.3L211.5 24.8L227.8 19.2L235.1 19L245.4 21.9L253 21.9L259.8 30.6L263.5 44.4L271.9 58.1L283.2 70L283.4 77.1L279.5 81L271.1 85.8L271.3 91L276.6 88.3L281.3 87.3L292.9 88.3L296.8 93.7L299.4 101.5L301 107.9L299.9 115L297.1 112.7L293.9 106.5L290.5 103.5L286.3 102.1L288.1 110.6L287.4 122.3L289.2 123.3L294.7 123.5L291 135.2L283.7 138.5L275 139.8L272.9 144L271.3 149.4L266.9 157.3L261.1 161.9L253.8 161L246.4 157.3ZM622.2 565.2L615.9 569.3L614 574.1L612.5 576L608.5 577.3L604.6 577.5L589.4 567.7L585.7 568.1L589.1 563.5L598.8 560L604.1 555.2L616.4 559.8L622.2 565.2Z"/></g><circle class="ring" cx="592.2" cy="297.3" r="140"/><circle class="ring" cx="592.2" cy="297.3" r="290"/><g class="job" style="--i:0"><polyline class="lead" points="586.7,192 842,174.60000000000002"/><circle class="jd" cx="586.7" cy="192" r="4.5"/><text class="jn" x="852" y="172.60000000000002" text-anchor="start">Leeds</text><text class="jt" x="852" y="187.60000000000002" text-anchor="start">65m²</text></g><g class="job" style="--i:1"><polyline class="lead" points="536.4,230.4 248,219.79999999999998"/><circle class="jd" cx="536.4" cy="230.4" r="4.5"/><text class="jn" x="238" y="217.79999999999998" text-anchor="end">Manchester</text><text class="jt" x="238" y="232.79999999999998" text-anchor="end">150m², The Vault 2</text></g><g class="job" style="--i:2"><polyline class="lead" points="660.3,260.4 842,243"/><circle class="jd" cx="660.3" cy="260.4" r="4.5"/><text class="jn" x="852" y="241" text-anchor="start">Lincoln</text><text class="jt" x="852" y="256" text-anchor="start">100m²</text></g><g class="job" style="--i:3"><polyline class="lead" points="521.9,276 248,265.4"/><circle class="jd" cx="521.9" cy="276" r="4.5"/><text class="jn" x="238" y="263.4" text-anchor="end">Crewe</text><text class="jt" x="238" y="278.4" text-anchor="end">80m²</text></g><g class="job" style="--i:4"><polyline class="lead" points="669.8,288 842,283"/><circle class="jd" cx="669.8" cy="288" r="4.5"/><text class="jn" x="852" y="281" text-anchor="start">Sleaford</text><text class="jt" x="852" y="296" text-anchor="start">85m²</text></g><g class="job" style="--i:5"><polyline class="lead" points="585.3,278.4 248,305.4"/><circle class="jd" cx="585.3" cy="278.4" r="4.5"/><text class="jn" x="238" y="303.4" text-anchor="end">Wirksworth</text><text class="jt" x="238" y="318.4" text-anchor="end">100m²</text></g><g class="job" style="--i:6"><polyline class="lead" points="682.2,339.6 842,323"/><circle class="jd" cx="682.2" cy="339.6" r="4.5"/><text class="jn" x="852" y="321" text-anchor="start">Peterborough</text><text class="jt" x="852" y="336" text-anchor="start">170m²</text></g><g class="job" style="--i:7"><polyline class="lead" points="548.1,346.8 248,345.4"/><circle class="jd" cx="548.1" cy="346.8" r="4.5"/><text class="jn" x="238" y="350.4" text-anchor="end">Dudley</text></g><g class="job" style="--i:8"><polyline class="lead" points="634.1,379.2 842,363"/><circle class="jd" cx="634.1" cy="379.2" r="4.5"/><text class="jn" x="852" y="368" text-anchor="start">Northampton</text></g><g class="job" style="--i:9"><polyline class="lead" points="561.9,350.4 248,385.4"/><circle class="jd" cx="561.9" cy="350.4" r="4.5"/><text class="jn" x="238" y="383.4" text-anchor="end">Birmingham</text><text class="jt" x="238" y="398.4" text-anchor="end">Supercar garage</text></g><g class="job" style="--i:10"><polyline class="lead" points="570,358.8 248,425.4"/><circle class="jd" cx="570" cy="358.8" r="4.5"/><text class="jn" x="238" y="423.4" text-anchor="end">Solihull</text><text class="jt" x="238" y="438.4" text-anchor="end">120m², pearl &amp; white</text></g><g class="job" style="--i:11"><polyline class="lead" points="690.2,466.8 842,449.40000000000003"/><circle class="jd" cx="690.2" cy="466.8" r="4.5"/><text class="jn" x="852" y="447.40000000000003" text-anchor="start">London</text><text class="jt" x="852" y="462.40000000000003" text-anchor="start">70m², pearl &amp; white</text></g><g class="job" style="--i:12"><polyline class="lead" points="588.2,373.2 248,465.4"/><circle class="jd" cx="588.2" cy="373.2" r="4.5"/><text class="jn" x="238" y="463.4" text-anchor="end">Leamington Spa</text><text class="jt" x="238" y="478.4" text-anchor="end">Aesthetics Inspired Clinics</text></g><g class="job" style="--i:13"><polyline class="lead" points="666.9,498 842,489.40000000000003"/><circle class="jd" cx="666.9" cy="498" r="4.5"/><text class="jn" x="852" y="487.40000000000003" text-anchor="start">Surrey</text><text class="jt" x="852" y="502.40000000000003" text-anchor="start">120m², light grey</text></g><g class="job" style="--i:14"><polyline class="lead" points="536.4,424.8 248,505.4"/><circle class="jd" cx="536.4" cy="424.8" r="4.5"/><text class="jn" x="238" y="503.4" text-anchor="end">Gloucester</text><text class="jt" x="238" y="518.4" text-anchor="end">100m²</text></g><g class="job" style="--i:15"><polyline class="lead" points="597.7,540 842,529.4000000000001"/><circle class="jd" cx="597.7" cy="540" r="4.5"/><text class="jn" x="852" y="527.4000000000001" text-anchor="start">Southampton</text><text class="jt" x="852" y="542.4000000000001" text-anchor="start">130m², pearl, white &amp; mocha</text></g><g class="job" style="--i:16"><polyline class="lead" points="510.9,474 248,545.4"/><circle class="jd" cx="510.9" cy="474" r="4.5"/><text class="jn" x="238" y="543.4" text-anchor="end">Bristol</text><text class="jt" x="238" y="558.4" text-anchor="end">The School House</text></g><g class="job" style="--i:17"><polyline class="lead" points="620.3,552 842,569.4000000000001"/><circle class="jd" cx="620.3" cy="552" r="4.5"/><text class="jn" x="852" y="567.4000000000001" text-anchor="start">Portsmouth</text><text class="jt" x="852" y="582.4000000000001" text-anchor="start">80m², white, cream &amp; gold</text></g><g class="job" style="--i:18"><polyline class="lead" points="520.4,574.8 248,585.4"/><circle class="jd" cx="520.4" cy="574.8" r="4.5"/><text class="jn" x="238" y="583.4" text-anchor="end">Weymouth</text><text class="jt" x="238" y="598.4" text-anchor="end">140m²</text></g><g class="base"><circle class="pulse" cx="592.2" cy="297.3" r="7"/><circle class="dot" cx="592.2" cy="297.3" r="7"/><text class="bn" x="604.2" y="319.3">Derby</text><text class="bt" x="604.2" y="333.3">OUR BASE</text></g></svg>
     </div>
+    <ul class="jobs"><li><b>Birmingham</b><span>Supercar garage</span></li><li><b>Bristol</b><span>The School House</span></li><li><b>Crewe</b><span>80m²</span></li><li><b>Dudley</b><span>&nbsp;</span></li><li><b>Gloucester</b><span>100m²</span></li><li><b>Leamington Spa</b><span>Aesthetics Inspired Clinics</span></li><li><b>Leeds</b><span>65m²</span></li><li><b>Lincoln</b><span>100m²</span></li><li><b>London</b><span>70m², pearl &amp; white</span></li><li><b>Manchester</b><span>150m², The Vault 2</span></li><li><b>Northampton</b><span>&nbsp;</span></li><li><b>Peterborough</b><span>170m²</span></li><li><b>Portsmouth</b><span>80m², white, cream &amp; gold</span></li><li><b>Sleaford</b><span>85m²</span></li><li><b>Solihull</b><span>120m², pearl &amp; white</span></li><li><b>Southampton</b><span>130m², pearl, white &amp; mocha</span></li><li><b>Surrey</b><span>120m², light grey</span></li><li><b>Weymouth</b><span>140m²</span></li><li><b>Wirksworth</b><span>100m²</span></li></ul>
   </div>
 </section>
 
 <section class="events" id="events" aria-labelledby="ev-h">
+  <div class="events-bg" aria-hidden="true"><div data-px="0.08" style="position:absolute;inset:0;background:inherit"></div></div>
   <div class="wrap">
+    <div class="clients" data-rv style="margin-bottom:clamp(56px,8vw,100px)">
+      <p class="lbl">Commercial floors include</p>
+      <ul>
+        <li><b>Aesthetics Inspired Clinics</b><span>Leamington Spa</span></li>
+        <li><b>The Vault 2</b><span>Manchester</span></li>
+        <li><b>The School House</b><span>Bristol</span></li>
+        <li><b>Supercar garage</b><span>Birmingham</span></li>
+      </ul>
+    </div>
     <h2 id="ev-h" data-rv>Events &amp; special projects</h2>
     <ul class="ev-list">
       <li data-rv><h3>Dance floors</h3><p>Seamless high-gloss floors made to be the centre of the night.</p></li>
@@ -747,7 +929,7 @@ footer { border-top: 1px solid var(--line); padding: 56px 0 40px; }
   </div>
 </section>
 
-<section class="sec" id="quote" aria-labelledby="q-h">
+<section class="sec rich" id="quote" aria-labelledby="q-h">
   <div class="wrap quote">
     <div data-rv>
       <h2 id="q-h">Book your free design consultation</h2>
@@ -778,6 +960,7 @@ footer { border-top: 1px solid var(--line); padding: 56px 0 40px; }
         <div class="drop" id="drop"><span class="ic" aria-hidden="true"><svg class="i"><use href="#i-upload"/></svg></span><span><b>Add photos</b><small>Tap to choose, or drop them here. Up to 5 images.</small></span><input id="q-photo" name="photos" type="file" accept="image/*" multiple></div>
         <ul class="files" id="files"></ul><p class="err" id="e-photos"></p>
       </div>
+      <div class="f full"><label for="q-notes">Anything else? <span class="opt">(optional)</span></label><textarea id="q-notes" name="notes" rows="3"></textarea></div>
       <div class="submit-row"><button class="btn btn-gold" type="submit" id="qbtn">Book a free design consultation</button><span class="proof"><span class="stars" aria-hidden="true"><svg class="i"><use href="#i-star"/></svg><svg class="i"><use href="#i-star"/></svg><svg class="i"><use href="#i-star"/></svg><svg class="i"><use href="#i-star"/></svg><svg class="i"><use href="#i-star"/></svg></span><span><b>5.0</b> from 63 Google reviews</span></span></div>
       <p class="form-msg" id="fmsg" role="status"></p>
       <div class="nudge"><p>Faster? WhatsApp us a photo.</p><a class="btn btn-wa btn-sm" href="https://wa.me/447947620266?text=Hi%20Harry%2C%20here%27s%20a%20photo%20of%20my%20space%20for%20a%20resin%20floor." target="_blank" rel="noopener"><svg class="i"><use href="#i-wa"/></svg>WhatsApp 07947 620266</a></div>
@@ -786,6 +969,7 @@ footer { border-top: 1px solid var(--line); padding: 56px 0 40px; }
 </section>
 </main>
 
+<div class="hair" aria-hidden="true"></div>
 <footer>
   <div class="wrap">
     <div class="foot">
@@ -820,8 +1004,11 @@ footer { border-top: 1px solid var(--line); padding: 56px 0 40px; }
 
 <script>
 (() => {
-  // Where quote requests go. Leave empty until a form service is connected:
-  // the form then hands the answers to WhatsApp so no lead is lost.
+  // QUOTE FORM DESTINATION
+  // Before go-live this must be connected so requests reach harry@royalresin.uk:
+  // set FORM_ENDPOINT to a form service (Formspree, Basin or similar) that forwards to
+  // harry@royalresin.uk and accepts photo uploads. Until then the form hands the answers
+  // to WhatsApp so no lead is lost.
   const FORM_ENDPOINT = '';
   const WA = '447947620266';
 
@@ -831,32 +1018,46 @@ footer { border-top: 1px solid var(--line); padding: 56px 0 40px; }
   const $ = (s, r = d) => r.querySelector(s), $$ = (s, r = d) => [...r.querySelectorAll(s)];
   $('#yr').textContent = new Date().getFullYear();
 
-  // Small cookie notice
+  // Small cookie notice: only after the visitor has scrolled past the hero.
   const ck = $('#cookie');
   let seen = false; try { seen = localStorage.getItem('rr-cookie') === '1'; } catch (_) {}
   function showCookie() { if (!seen && ck.hidden && !ck.dataset.done) ck.hidden = false; }
   $('#cookieOk').addEventListener('click', () => { try { localStorage.setItem('rr-cookie', '1'); } catch (_) {} ck.dataset.done = '1'; ck.classList.add('bye'); setTimeout(() => ck.hidden = true, 260); });
 
-  // Header turns solid after the hero top; sticky bar appears once hero buttons leave view.
-  const hdr = $('#hdr'), bar = $('#bar');
-  new IntersectionObserver(([e]) => hdr.classList.toggle('solid', !e.isIntersecting), { rootMargin: '-80px 0px 0px 0px' }).observe($('.hero-inner'));
-  const ctaObs = new IntersectionObserver(([e]) => {
-    const past = !e.isIntersecting && e.boundingClientRect.top < 0;
-    bar.classList.toggle('show', past); d.body.classList.toggle('bar-on', past);
-    if (past) showCookie();
-  });
-  ctaObs.observe($('#heroCtas'));
-  // Hide the bar while the quote form is on screen (it has its own buttons).
-  new IntersectionObserver(([e]) => { if (e.isIntersecting) { bar.classList.remove('show'); d.body.classList.remove('bar-on'); } else if ($('#heroCtas').getBoundingClientRect().bottom < 0) { bar.classList.add('show'); d.body.classList.add('bar-on'); } }, { threshold: 0.25 }).observe($('#qf'));
+  // Header and mobile sticky bar
+  const hdr = $('#hdr'), bar = $('#bar'), heroCtas = $('#heroCtas');
+  new IntersectionObserver(([e]) => hdr.classList.toggle('solid', !e.isIntersecting), { rootMargin: '-80px 0px 0px 0px' }).observe($('.hero-copy'));
+  let formOnScreen = false;
+  const syncBar = () => { const past = heroCtas.getBoundingClientRect().bottom < 0; const on = past && !formOnScreen; bar.classList.toggle('show', on); d.body.classList.toggle('bar-on', on); if (past) showCookie(); };
+  new IntersectionObserver(syncBar).observe(heroCtas);
+  new IntersectionObserver(([e]) => { formOnScreen = e.isIntersecting; syncBar(); }, { threshold: 0.2 }).observe($('#qf'));
 
-  // Reveals
+  // Reveals and image wipes (never used in the hero)
   const rv = new IntersectionObserver((es) => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); rv.unobserve(e.target); } }), { rootMargin: '0px 0px -8% 0px' });
-  $$('[data-rv]').forEach(el => { if (!el.closest('.pin') || $('#pin').classList.contains('static')) rv.observe(el); });
+  $$('[data-rv], [data-wipe]').forEach(el => rv.observe(el));
+  const mapEl = $('#map');
+  new IntersectionObserver(([e], o) => { if (e.isIntersecting) { mapEl.classList.add('in'); o.disconnect(); } }, { threshold: 0.2 }).observe(mapEl);
+
+  // Soft parallax: images drift slower than the cards around them. Desktop only,
+  // one rAF loop that runs only while a parallax element is on screen.
+  const fine = matchMedia('(min-width: 900px) and (pointer: fine)');
+  const pxEls = $$('[data-px]'); const pxLive = new Set(); let pxRaf = 0;
+  function pxFrame() {
+    pxRaf = 0; if (!pxLive.size) return;
+    const vh = innerHeight;
+    pxLive.forEach(el => { const r = el.parentElement.getBoundingClientRect(); const off = (r.top + r.height / 2 - vh / 2); el.style.transform = `translate3d(0, ${(-off * +el.dataset.px).toFixed(1)}px, 0)`; });
+    pxRaf = requestAnimationFrame(pxFrame);
+  }
+  if (!reduce) {
+    const pxObs = new IntersectionObserver(es => { es.forEach(e => e.isIntersecting && fine.matches ? pxLive.add(e.target) : pxLive.delete(e.target)); if (pxLive.size && !pxRaf) pxRaf = requestAnimationFrame(pxFrame); }, { rootMargin: '10% 0px' });
+    pxEls.forEach(el => pxObs.observe(el));
+    fine.addEventListener('change', () => { if (!fine.matches) { pxLive.clear(); pxEls.forEach(el => el.style.transform = ''); } });
+  }
 
   // Signature pinned sequence
-  const pin = $('#pin'), img = $('.pin-media img', pin), notes = $$('.note', pin), ticks = $$('.ticks i', pin);
-  const big = matchMedia('(min-width: 768px)');
-  let raf = 0, cur = 0, live = false, idx = -1;
+  const pin = $('#pin'), pmedia = $('.pin-media', pin), img = $('img', pmedia), notes = $$('.note', pin), ticks = $$('.ticks i', pin);
+  const big = matchMedia('(min-width: 900px)');
+  let raf = 0, cur = 0, idx = -1;
   function setIdx(i) {
     if (i === idx) return; idx = i;
     notes.forEach((n, k) => { n.classList.toggle('on', k === i); n.classList.toggle('past', k < i); });
@@ -867,25 +1068,26 @@ footer { border-top: 1px solid var(--line); padding: 56px 0 40px; }
     const r = pin.getBoundingClientRect(), span = r.height - innerHeight;
     const p = Math.min(1, Math.max(0, -r.top / span));
     cur += (p - cur) * 0.1;
-    img.style.transform = `scale(${1 + cur * 0.22}) translate3d(0, ${cur * -1.5}%, 0)`;
-    setIdx(p < 0.24 ? 0 : p < 0.48 ? 1 : p < 0.72 ? 2 : 3);
+    img.style.transform = `scale(${(1.04 + cur * 0.16).toFixed(4)}) translate3d(0, ${(cur * -2).toFixed(2)}%, 0)`;
+    pmedia.style.setProperty('--sx', `${(-60 + cur * 120).toFixed(1)}%`);
+    setIdx(p < 0.22 ? 0 : p < 0.46 ? 1 : p < 0.7 ? 2 : 3);
   }
-  const pinObs = new IntersectionObserver(([e]) => { live = e.isIntersecting; cancelAnimationFrame(raf); if (live) raf = requestAnimationFrame(frame); });
+  const pinObs = new IntersectionObserver(([e]) => { cancelAnimationFrame(raf); if (e.isIntersecting) raf = requestAnimationFrame(frame); });
   function setupPin() {
     const animated = big.matches && !reduce;
     pin.classList.toggle('static', !animated);
-    if (animated) { notes.forEach(n => n.removeAttribute('data-rv')); idx = -1; setIdx(0); pinObs.observe(pin); }
+    if (animated) { notes.forEach(n => { n.removeAttribute('data-rv'); n.classList.remove('in'); }); idx = -1; setIdx(0); pinObs.observe(pin); }
     else { pinObs.unobserve(pin); cancelAnimationFrame(raf); img.style.transform = ''; notes.forEach((n, k) => { n.classList.remove('past'); n.classList.add('on'); n.setAttribute('data-rv', ''); n.style.setProperty('--d', k); rv.observe(n); }); }
   }
   setupPin(); big.addEventListener('change', setupPin);
 
-  // Gallery filter (View Transitions where supported)
+  // Gallery filter
   const gal = $('#gal'), tabs = $$('.tabs button');
   tabs.forEach(b => b.addEventListener('click', () => {
     const f = b.dataset.f;
     const apply = () => {
       tabs.forEach(t => t.setAttribute('aria-pressed', String(t === b)));
-      $$('figure', gal).forEach(fig => { const c = fig.dataset.cat; fig.hidden = f === 'all' ? fig.classList.contains('empty') : c !== f; });
+      $$('figure', gal).forEach(fig => { fig.hidden = f === 'all' ? fig.classList.contains('empty') : fig.dataset.cat !== f; });
     };
     if (d.startViewTransition && !reduce) d.startViewTransition(apply); else apply();
   }));
@@ -904,20 +1106,17 @@ footer { border-top: 1px solid var(--line); padding: 56px 0 40px; }
   const chat = $('#chat');
   new IntersectionObserver(([e], o) => { if (e.isIntersecting) { chat.classList.add('play'); o.disconnect(); } }, { threshold: 0.35 }).observe(chat);
 
-  // Service "Get a quote" preselects the finish
-  $$('[data-finish]').forEach(a => a.addEventListener('click', () => {
-    const r = $(`input[name=finish][value="${a.dataset.finish}"]`); if (r) r.checked = true;
-  }));
+  // Quote form
+  const form = $('#qf'), msg = $('#fmsg'), btn = $('#qbtn');
+  const setFinish = (v) => { const r = form.querySelector(`input[name=finish][value="${v}"]`); if (r) r.checked = true; };
+  $$('[data-finish]').forEach(a => a.addEventListener('click', () => setFinish(a.dataset.finish)));
+  window.rrPrefill = (finish, note) => { setFinish(finish); const n = form.elements.notes; if (n) n.value = note; };
 
-  // Photo upload
   const file = $('#q-photo'), drop = $('#drop'), list = $('#files');
-  const showFiles = () => { list.innerHTML = ''; [...file.files].slice(0, 5).forEach(f => { const li = d.createElement('li'); li.textContent = f.name; list.append(li); }); };
-  file.addEventListener('change', showFiles);
+  file.addEventListener('change', () => { list.innerHTML = ''; [...file.files].slice(0, 5).forEach(f => { const li = d.createElement('li'); li.textContent = f.name; list.append(li); }); });
   ['dragenter', 'dragover'].forEach(t => drop.addEventListener(t, () => drop.classList.add('over')));
   ['dragleave', 'drop'].forEach(t => drop.addEventListener(t, () => drop.classList.remove('over')));
 
-  // Quote form
-  const form = $('#qf'), msg = $('#fmsg'), btn = $('#qbtn');
   const rules = {
     name: v => v.trim().length > 1 || 'Please add your name.',
     phone: v => v.replace(/[^\d+]/g, '').length >= 10 || 'Please add a phone number we can call you on.',
@@ -934,9 +1133,10 @@ footer { border-top: 1px solid var(--line); padding: 56px 0 40px; }
     e.preventDefault();
     const bad = Object.keys(rules).filter(n => !check(n));
     if (file.files.length > 5) { $('#e-photos').textContent = 'Please choose up to 5 photos.'; bad.push('photos'); } else $('#e-photos').textContent = '';
-    if (bad.length) { const first = form.elements[bad[0]]; (first.focus ? first : file).focus(); return; }
+    if (bad.length) { (form.elements[bad[0]] || file).focus(); return; }
     const data = new FormData(form);
-    const text = `Hi Harry, I'd like a free design consultation.\nName: ${data.get('name')}\nPhone: ${data.get('phone')}\nEmail: ${data.get('email')}\nPostcode: ${data.get('postcode').toUpperCase()}\nFor: ${data.get('type')}\nFinish: ${data.get('finish')}\nSize: ${data.get('size')}`;
+    const notes = (data.get('notes') || '').trim();
+    const text = `Hi Harry, I'd like a free design consultation.\nName: ${data.get('name')}\nPhone: ${data.get('phone')}\nEmail: ${data.get('email')}\nPostcode: ${data.get('postcode').toUpperCase()}\nFor: ${data.get('type')}\nFinish: ${data.get('finish')}\nSize: ${data.get('size')}${notes ? '\nNotes: ' + notes : ''}`;
     btn.disabled = true; btn.textContent = 'Sending...'; msg.textContent = '';
     if (FORM_ENDPOINT) {
       try {
@@ -953,10 +1153,181 @@ footer { border-top: 1px solid var(--line); padding: 56px 0 40px; }
     }
   });
   function done(viaWa) {
-    form.innerHTML = `<div class="done" role="status"><svg class="i"><use href="#i-check-circle"/></svg><h3>Thank you</h3><p>${viaWa ? 'Your details are ready in WhatsApp. Press send there (and attach your photos), and Harry will reply with a design idea and a time for your sample boards.' : 'Harry will be in touch shortly with a design idea and a time for your sample boards. Mon-Fri 09:00-17:00.'}</p><a class="btn btn-ghost" href="tel:+441283295234"><svg class="i"><use href="#i-phone"/></svg>Or call 01283 295234</a></div>`;
-    $('.done', form).focus?.();
+    form.innerHTML = `<div class="done" role="status" tabindex="-1"><svg class="i"><use href="#i-check-circle"/></svg><h3>Thank you</h3><p>${viaWa ? 'Your details are ready in WhatsApp. Press send there (and attach your photos), and Harry will reply with a design idea and a time for your sample boards.' : 'Harry will be in touch shortly with a design idea and a time for your sample boards. Mon-Fri 09:00-17:00.'}</p><a class="btn btn-ghost" href="tel:+441283295234"><svg class="i"><use href="#i-phone"/></svg>Or call 01283 295234</a></div>`;
+    $('.done', form).focus({ preventScroll: true });
+    form.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' });
   }
+})();
+</script>
+<script>
+/* Design your floor: live WebGL2 marble, smooth one-second blends between choices. */
+(() => {
+  const d = document, $ = (s, r = d) => r.querySelector(s), $$ = (s, r = d) => [...r.querySelectorAll(s)];
+  const BASE = { pearl: ['Pearl White', '#ebe7df'], cream: ['Cream', '#ebdcbf'], almond: ['Nude / Almond', '#d8c0a0'], mocha: ['Mocha', '#6d5242'], lightgrey: ['Light Grey', '#c5c5c2'], smoke: ['Smoke Grey', '#86888b'], charcoal: ['Charcoal', '#3a3a3c'], black: ['Black', '#151516'] };
+  const VEIN = { gold: ['Gold', '#c99a3a'], champagne: ['Champagne', '#e4cf9c'], white: ['White', '#faf9f5'], silver: ['Silver', '#c9ced5'], grey: ['Grey', '#8b8d90'], black: ['Black', '#1a1a1b'] };
+  const MOVE = { subtle: 0, flowing: 0.5, bold: 1 };
+  const form = $('#dz'), panel = $('#dzPanel'), nameEl = $('#dzName'), waBtn = $('#dzWa'), boardsBtn = $('#dzBoards');
+  const val = (n) => form.querySelector(`input[name=${n}]:checked`).value;
+  const cap = (s) => s[0].toUpperCase() + s.slice(1);
+  const hex = (s) => [1, 3, 5].map(i => parseInt(s.slice(i, i + 2), 16) / 255);
+  const comboName = () => `${BASE[val('base')][0]} ${val('finish')} with ${VEIN[val('vein')][0]} veining, ${cap(val('move'))}`;
+  let gl = null;
+  function update() {
+    const name = comboName();
+    nameEl.textContent = name;
+    waBtn.href = `https://wa.me/447947620266?text=${encodeURIComponent(`Hi Harry, I designed this on your site: ${name}. Here's a photo of my space:`)}`;
+    panel.style.setProperty('--b', BASE[val('base')][1]); panel.style.setProperty('--v', VEIN[val('vein')][1]);
+    const key = [val('finish'), val('base'), val('vein'), val('move')].join(',');
+    $$('.presets button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.p === key)));
+    if (gl) gl.set(hex(BASE[val('base')][1]), hex(VEIN[val('vein')][1]), val('finish') === 'metallic' ? 1 : 0, MOVE[val('move')]);
+  }
+  form.addEventListener('change', update);
+  $$('.presets button').forEach(b => b.addEventListener('click', () => {
+    const [f, bs, v, m] = b.dataset.p.split(',');
+    [['finish', f], ['base', bs], ['vein', v], ['move', m]].forEach(([n, x]) => { const r = form.querySelector(`input[name=${n}][value="${x}"]`); if (r) r.checked = true; });
+    update();
+  }));
+  boardsBtn.addEventListener('click', () => { window.rrPrefill && window.rrPrefill(val('finish') === 'metallic' ? 'Metallic' : 'Marble', `Sample boards of this design, please: ${comboName()}.`); });
+  update();
 
+  const VS = `#version 300 es
+in vec2 a; void main(){ gl_Position = vec4(a, 0., 1.); }`;
+  const FS = `#version 300 es
+precision highp float;
+uniform vec2 R; uniform float T; uniform vec3 B; uniform vec3 V; uniform float F; uniform float A; uniform vec2 P;
+out vec4 o;
+float h(vec2 p){ vec3 q = fract(vec3(p.xyx) * .1031); q += dot(q, q.yzx + 33.33); return fract((q.x + q.y) * q.z); }
+float n(vec2 p){ vec2 i = floor(p), f = fract(p); vec2 u = f*f*f*(f*(f*6.-15.)+10.);
+  return mix(mix(h(i), h(i+vec2(1,0)), u.x), mix(h(i+vec2(0,1)), h(i+vec2(1,1)), u.x), u.y); }
+float fbm(vec2 p){ float v = 0., a = .5; mat2 m = mat2(1.6, 1.2, -1.2, 1.6);
+  for (int i = 0; i < 4; i++){ v += a * n(p); p = m * p; a *= .5; } return v; }
+float line(float s, float w){ float b = abs(fract(s) - .5) * 2.; return exp(-(b*b)/(w*w)); }
+void main(){
+  float asp = R.x / R.y;
+  vec2 uv = gl_FragCoord.xy / R.y;
+  float t = T * .022;
+  vec2 p = uv * 1.35 + vec2(3.1, 1.7);
+  vec2 q = vec2(fbm(p + vec2(0., t)), fbm(p + vec2(5.2, 1.3) - t * .8));
+  vec2 r = vec2(fbm(p + 2.2*q + vec2(1.7, 9.2) + .15*t), fbm(p + 2.2*q + vec2(8.3, 2.8) - .12*t));
+  float warp = fbm(p + 2.6*r);
+  float fine = fbm(p * 5.5 + r * 2.);
+  // marble: veins follow the poured flow; movement sets how many, how bold
+  float freq = mix(1.0, 2.0, A);
+  float s = (p.x*.62 + p.y*.78) * freq + warp * mix(1.1, 1.9, A) + r.x * .7 + fine * .12;
+  float w = mix(.02, .05, A) * (.55 + fbm(p*1.7 + 4.2));
+  float vmask = mix(mix(.25, .5, A), 1., smoothstep(.3, .68, fbm(p*.8 + r*1.3 + 3.1)));
+  float vein = line(s, w) * vmask;
+  float halo = line(s, w * 7.) * vmask * mix(.16, .28, A);
+  float bandc = line(s * .5 + .25, .4) * mix(.1, .22, A);
+  float s2 = (p.x*.7 + p.y*.5) * freq * 2.4 + warp * 2.2 + q.y * 1.2 + fine * .3;
+  float vein2 = line(s2, w * .35) * smoothstep(.5, .8, fbm(p*1.3 + q*2. + 7.)) * mix(.25, .7, A);
+  float cloud = smoothstep(.4, .8, fbm(p*1.1 + r*2. + 11.)) * mix(.08, .22, A);
+  vec3 base = B * (.93 + .1 * fbm(p*3. + q*3.) + .04 * fine);
+  vec3 marble = mix(base, V, cloud + bandc);
+  marble = mix(marble, V, clamp(halo + vein * mix(.85, 1., A) + vein2, 0., 1.));
+  // surface normal from the flow, for gloss and metallic shimmer
+  vec2 gp = p * 1.3 + r * 1.6; float e = .02;
+  float g0 = fbm(gp), gx = fbm(gp + vec2(e, 0.)), gy = fbm(gp + vec2(0., e));
+  vec3 nrm = normalize(vec3(-(gx - g0) / e * .2, -(gy - g0) / e * .2, 1.));
+  vec2 lp = vec2(P.x * asp, P.y);
+  vec3 L = normalize(vec3(lp - uv, .8));
+  vec3 H = normalize(L + vec3(0., 0., 1.));
+  float facing = max(dot(nrm, L), 0.);
+  // metallic: pigment pools into cells that brighten as they face the light
+  float m = smoothstep(.5, .78, warp) * mix(.6, .95, A);
+  float sh = .42 + .62 * facing;
+  vec3 metal = mix(B * (.7 + .24 * facing), V * sh, m);
+  float lace = exp(-pow((warp - .5) / mix(.008, .018, A), 2.));
+  metal += mix(V, vec3(1.), .4) * lace * .22 * sh;
+  metal += (fine - .5) * .06 * sh;
+  metal = mix(metal, V * sh, line(s, w * 1.3) * vmask * .4);
+  vec3 col = mix(marble * (.96 + .07 * facing), metal, F);
+  // clear glass top coat: a crisp highlight, soft sheen and ceiling-light reflections
+  vec3 n2 = normalize(mix(vec3(0., 0., 1.), nrm, mix(.5, 1., F)));
+  float spec = pow(max(dot(n2, H), 0.), mix(600., 160., F));
+  col += spec * mix(.2, .26, F);
+  vec2 dd = (uv - lp) * vec2(1., 1.3);
+  col += exp(-dot(dd, dd) * 6.) * .035;
+  for (int i = 0; i < 3; i++) {
+    vec2 c = vec2(asp * (.22 + .28 * float(i)) + (P.x - .5) * .08, .86 - .04 * float(i));
+    vec2 k = (uv - c) * vec2(1., 2.6) + n2.xy * .012;
+    col += exp(-dot(k, k) * 2600.) * .35 + exp(-dot(k, k) * 120.) * .025;
+  }
+  float band = (uv.x * .8 + uv.y * .45) - fract(T * .018) * (asp + 2.) + .6;
+  col += exp(-band * band / .015) * .035;
+  vec2 v = gl_FragCoord.xy / R - .5;
+  col *= 1. - dot(v, v) * .4;
+  col += (h(gl_FragCoord.xy + fract(T) * 61.) - .5) / 255.;
+  o = vec4(clamp(col, 0., 1.), 1.);
+}`;
+  function initGL() {
+    const canvas = $('#dzCanvas');
+    const c = canvas.getContext('webgl2', { antialias: false, alpha: false, powerPreference: 'high-performance' });
+    if (!c) return null;
+    const mk = (type, src) => { const s = c.createShader(type); c.shaderSource(s, src); c.compileShader(s); return s; };
+    const prog = c.createProgram(); c.attachShader(prog, mk(c.VERTEX_SHADER, VS)); c.attachShader(prog, mk(c.FRAGMENT_SHADER, FS)); c.linkProgram(prog);
+    if (!c.getProgramParameter(prog, c.LINK_STATUS)) { console.warn(c.getProgramInfoLog(prog)); return null; }
+    c.useProgram(prog);
+    c.bindBuffer(c.ARRAY_BUFFER, c.createBuffer()); c.bufferData(c.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), c.STATIC_DRAW);
+    const loc = c.getAttribLocation(prog, 'a'); c.enableVertexAttribArray(loc); c.vertexAttribPointer(loc, 2, c.FLOAT, false, 0, 0);
+    const U = Object.fromEntries(['R', 'T', 'B', 'V', 'F', 'A', 'P'].map(k => [k, c.getUniformLocation(prog, k)]));
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const coarse = matchMedia('(pointer: coarse)').matches;
+    let fps = coarse ? 30 : 60, slow = 0, dprCap = coarse ? 1.5 : 2;
+    const cur = { B: hex(BASE[val('base')][1]), V: hex(VEIN[val('vein')][1]), F: val('finish') === 'metallic' ? 1 : 0, A: MOVE[val('move')] };
+    const tgt = { B: cur.B.slice(), V: cur.V.slice(), F: cur.F, A: cur.A };
+    let ptr = [0.66, 0.74], ptrTo = [0.66, 0.74], time = 12, last = performance.now(), lastDraw = 0, lastInput = -1e9, live = false, raf = 0;
+    function size() {
+      const dpr = Math.min(devicePixelRatio || 1, dprCap);
+      const w = Math.round(canvas.clientWidth * dpr), h = Math.round(canvas.clientHeight * dpr);
+      if (w && h && (canvas.width !== w || canvas.height !== h)) { canvas.width = w; canvas.height = h; c.viewport(0, 0, w, h); }
+    }
+    function step(now) {
+      const dt = Math.min(100, now - last); last = now;
+      const k = 1 - Math.exp(-dt / 260); // about one second to settle
+      for (let i = 0; i < 3; i++) { cur.B[i] += (tgt.B[i] - cur.B[i]) * k; cur.V[i] += (tgt.V[i] - cur.V[i]) * k; }
+      cur.F += (tgt.F - cur.F) * k; cur.A += (tgt.A - cur.A) * k;
+      if (!reduce) {
+        time += dt / 1000;
+        if (now - lastInput > 2500) { const s = now / 1000; ptrTo = [0.55 + 0.25 * Math.sin(s * 0.3), 0.62 + 0.16 * Math.sin(s * 0.23 + 1.3)]; }
+      }
+      ptr = ptr.map((v, i) => v + (ptrTo[i] - v) * (reduce ? 1 : 0.1));
+    }
+    function render() {
+      size();
+      c.uniform2f(U.R, canvas.width, canvas.height); c.uniform1f(U.T, time);
+      c.uniform3fv(U.B, cur.B); c.uniform3fv(U.V, cur.V); c.uniform1f(U.F, cur.F); c.uniform1f(U.A, cur.A); c.uniform2f(U.P, ptr[0], ptr[1]);
+      c.drawArrays(c.TRIANGLES, 0, 3);
+    }
+    function loop(now) {
+      raf = requestAnimationFrame(loop);
+      const gap = now - lastDraw;
+      if (gap < 1000 / fps - 2) return;
+      if (lastDraw && gap < 500) { slow = gap > 1000 / fps * 1.6 ? slow + 1 : Math.max(0, slow - 1); if (slow > 20) { if (dprCap > 1) dprCap = Math.max(1, dprCap - 0.5); else if (fps > 20) fps = Math.round(fps / 1.5); slow = 0; } }
+      lastDraw = now; step(now); render();
+    }
+    // Reduced motion: no flow, but colour changes still blend over about a second.
+    let blendUntil = 0;
+    function blendLoop(now) { step(now); render(); if (now < blendUntil) raf = requestAnimationFrame(blendLoop); }
+    function still() { cancelAnimationFrame(raf); blendUntil = performance.now() + 1400; last = performance.now(); raf = requestAnimationFrame(blendLoop); }
+    function aim(x, y) {
+      const r = canvas.getBoundingClientRect();
+      ptrTo = [Math.min(1, Math.max(0, (x - r.left) / r.width)), Math.min(1, Math.max(0, 1 - (y - r.top) / r.height))];
+      lastInput = performance.now();
+      if (reduce && live) still();
+    }
+    panel.addEventListener('pointermove', (e) => aim(e.clientX, e.clientY), { passive: true });
+    panel.addEventListener('touchmove', (e) => { const t = e.touches[0]; aim(t.clientX, t.clientY); }, { passive: true });
+    new IntersectionObserver(([en]) => {
+      live = en.isIntersecting; cancelAnimationFrame(raf);
+      if (live && !reduce) { last = performance.now(); raf = requestAnimationFrame(loop); } else if (live) still();
+    }).observe(canvas);
+    addEventListener('resize', () => { if (live && reduce) still(); }, { passive: true });
+    render(); panel.classList.add('gl-on');
+    return { set(b, v, f, a) { tgt.B = b; tgt.V = v; tgt.F = f; tgt.A = a; if (reduce && live) still(); } };
+  }
+  // Start the shader only when the designer is near the viewport.
+  new IntersectionObserver(([e], o) => { if (!e.isIntersecting) return; o.disconnect(); try { gl = initGL(); } catch (_) { gl = null; } }, { rootMargin: '400px 0px' }).observe(panel);
 })();
 </script>
 </body>
