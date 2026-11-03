@@ -58,12 +58,18 @@ npx -y vercel@latest deploy --prod --yes --scope dnilicj-2275s-projects --token 
 Never print or commit `VERCEL_TOKEN`. Don't touch the `enrollflo` or `clientgateway` Vercel projects.
 
 - **cmd-tiling** (CMD Tiling, Irchester, Northamptonshire) is a single-file `index.html` plus 6 PNG project photos. The user rejected their own redesign, so keep my original design and change only what is asked. Still placeholders: the review names and towns, the certificates, `[FORM ENDPOINT]`, and the CONFIRM tags.
-- **royal-resin** (Royal Resin Ltd, Derby, owner Harry) has a built `index.html` whose source and build script live outside the repo. Edit `demos/royal-resin/index.html` directly.
-  - Sections: split or full-bleed hero, pinned "How your floor is made" (about 2 screens), services, gallery with filters, a WebGL "Design your floor" marble designer, reviews, WhatsApp photo quote, process (5 days, tiles FAQ), a "Recent floors" map of 19 real jobs, a commercial strip, events, and the quote form.
-  - The hero photo is the user-supplied kitchen photo (`images/hero-1365.webp`, no caption).
-  - Facts: use only those listed in its README; captions only from royalresin.uk/masterpiece-of-the-week; no prices, warranties or certifications.
-  - Still to do before go-live: `FORM_ENDPOINT` must forward to harry@royalresin.uk, and the Google reviews link needs his Business Profile URL.
-  - Mobile rule: the hero must be fully visible at 375px wide, with no entrance animations, and the page must never be wider than the viewport.
+- **royal-resin** (Royal Resin Ltd, Derby, owner Harry) is v2, "The Royal Gallery". Its `index.html` is built by a script outside the repo, so edit `demos/royal-resin/index.html` directly.
+  - Look: ivory and stone walls, with dark only in the hero and the designer. Every floor carries a museum placard (location · m² · colourway).
+  - Brand: the crest is redrawn in one gold, in `brand/`. Don't bring back his multi-colour logo.
+  - Hero: the `video/hero-walkthrough.mp4` clip. On desktop it hangs as a framed portrait; on phones it plays full-screen.
+  - Media: all video is Harry's own, from Vimeo, max 576×1024. Never show a video still wider than 576px; large slots use the full-size photos only.
+  - Facts: use only those listed in the README. Captions come only from royalresin.uk/masterpiece-of-the-week. No prices, warranties or certifications.
+  - Still to do before go-live: `FORM_ENDPOINT` must forward to harry@royalresin.uk, and the Google reviews link needs his Business Profile URL. Facebook needs a login, so nothing was taken from it.
+  - Mobile rules:
+    - The hero must be fully visible at 375px wide, with no entrance animations.
+    - The sticky bar stays hidden over the hero and the form.
+    - The cookie pill sits top-left and goes after the first scroll or 6 seconds.
+    - The page must never be wider than the viewport.
 
 ## User preference
 Minimal messages. Only message when important. User asks questions if needed.
