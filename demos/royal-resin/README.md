@@ -1,57 +1,50 @@
-# Royal Resin demo, v2: "The Royal Gallery"
+# Royal Resin demo, v3
 
 This is a one-page site for Royal Resin Ltd (Derby, works UK-wide). The live demo is on Vercel project `clientgateway-royal-resin`.
 
 ## The idea
-Harry already calls his work "Masterpiece of the week", so every floor is shown like a hung artwork:
-- **Walls:** warm ivory and stone, with near-black type and gold kept for small accents.
-- **Dark sections:** only the hero and the "Design your floor" section.
-- **Placards:** every floor has a museum-style label (location · m² · colourway).
+v3 is "fewer, better, bigger":
+- **Backgrounds** alternate ivory (#F6F2EB), espresso ink (#14110E) and warm stone (#E9E3DA), with full-bleed floor photos between them. No two neighbouring sections share a background.
+- **Gold** is one flat colour (#B8893B) for the crest and wordmark.
+- **Placards** give location · m² · colourway, taken only from the masterpiece page.
 
 ## Files
-- `index.html`: the whole page, with its CSS and JS inline (icons, crest and map are inline SVG).
-- `brand/`: the redrawn crest, all one gold.
-  - `crest.svg`: the crest on its own.
-  - `lockup.svg`: crest and name side by side.
-  - `lockup-stacked.svg`: crest above the name, used in the footer.
+- `index.html`: the whole page, with CSS and JS inline.
+- `brand/`: the crest is one flat gold, an outer ring plus a three-point crown, with no gradients.
+  - `crest.svg`, `lockup.svg` and `lockup-stacked.svg` (the wordmark is Cormorant 600 converted to paths).
   - `favicon.svg` (also copied to `/favicon.svg`) and `apple-touch-icon.png`.
-  - The page uses inline copies whose gold gradient deepens on the ivory walls. On the hero, a light sheen sweeps across the crest once on load.
-- `video/`: all clips are Harry's own Vimeo videos from the masterpiece page, with the largest version Vimeo serves (576×1024, portrait).
-  - `hero-walkthrough.mp4`: an 8.5s muted cut of his glossiest walkthrough. Blues are desaturated so no edge tape shows. To use a longer cut, replace this file and keep the name.
-  - `southampton.mp4`: Masterpiece of the week.
-  - `harry-at-work.mp4`: "Harry doing what he does best".
-  - `customer-reaction.mp4`: keeps its sound, which plays when the visitor taps for it.
-- `images/hero`: the hero poster and a blurred wash behind it.
-- `images/gallery`: the gallery stills, grabbed from the sharpest frames of his videos, plus three full-size photos from royalresin.uk.
-- `images/team`: Harry, from his own clip.
-- Display sizes: video stills are never shown wider than 576px. The large slots (the full-width pearl kitchen and the garage) use the full-resolution photos.
-- `fonts/`: Cormorant Garamond (headings) and Outfit (body), both self-hosted.
+  - On the page the crest appears only twice, in the header and the footer.
+- `images/hero/`: Harry's pearl marble kitchen floor, cropped tight on the swirls and the door reflections, with no tape and no kitchen units. `hero-d.webp` is the desktop crop and `hero-m.webp` the phone crop. The hero drifts slowly for 20 seconds, scaling from 1.0 to 1.06.
+- `images/gallery/`:
+  - The six collection floors, which are stills from his Vimeo videos. They are shown at thumbnail size only, never full width.
+  - `garage-*`: the number plates are painted out.
+  - `macro.webp`: the marble band.
+  - `cream-gold-room.webp`: the backdrop behind Harry's line.
+- `video/southampton.mp4`: the Masterpiece of the week clip, one of Harry's Vimeo videos.
+- `fonts/`: Cormorant Garamond and Outfit, both self-hosted.
 
 ## Before going live
-1. **Quote form.** Set `FORM_ENDPOINT` at the top of the first script. It must forward to harry@royalresin.uk and accept photo uploads (Formspree, Basin or similar). Until then the form opens WhatsApp with the answers filled in.
-2. **Google reviews link.** It currently opens a Google search. Swap it for his Business Profile reviews URL.
-3. **Facebook.** The page needs a login, so nothing was taken from it. If he has a sharper photo of Harry and Kris together, it can replace the clip in "Meet Harry".
+1. **Quote form.** Set `FORM_ENDPOINT` at the top of the first script. It must forward to harry@royalresin.uk and accept photo uploads. Until then the form opens WhatsApp with the answers filled in.
+2. **Google reviews link.** Swap the link for his Business Profile reviews URL.
+3. **Photo of Harry.** If he has a sharp one, it could go back in "Meet Harry". Facebook needs a login, so nothing was taken from it.
 
 ## Design your floor
-A WebGL2 shader inlined in the second script draws the floor in gentle perspective:
-- wide, soft veins with fine lacing;
-- a hazier layer under the clear coat;
-- pearlescent cells for metallic;
-- windows and downlights reflected in the gloss.
+- **Render:** a WebGL2 shader of poured resin.
+- **Default controls:** the presets and the base colour. Finish, vein colour and movement sit behind "More options".
+- **Presets:** these are real floors. Wirksworth, Solihull and Southampton show their photo next to the render. Portsmouth, Peterborough and Derby show only the name and place, because their photos are not sharp or clean enough.
 
-The colours (`BASE`, `VEIN`) live in that script. The presets (the `.presets` buttons, `data-p="finish,base,vein,movement"` plus `data-img`/`data-where`/`data-what`) are real floors: Portsmouth, Solihull, Southampton, Peterborough, Wirksworth and Derby. Each preset shows Harry's photo of that floor ("As installed in …"). If the visitor changes a setting, the label becomes "Closest real floor". Without WebGL the panel shows a CSS gradient in the chosen colours.
-
-## Facts used (do not add more)
+## Facts used (checked against the royalresin.uk text; do not add more)
 - **Contact:** phone 01283 295234; mobile and WhatsApp 07947 620266; harry@royalresin.uk; Mon-Fri 09:00-17:00.
-- **Reviews:** 5.0 from 63 Google reviews, plus three named snippets (Deb Col, Simon (Bod), Gez Bennett).
-- **What he does:** metallic, marble, flake and industrial floors; a 20-year expected life; events work (dance floors, mandap stages, logo floors).
-- **From royalresin.uk/masterpiece-of-the-week:**
-  - over 10 years' experience in resin flooring;
-  - most floors finished in about 5 days;
-  - resin can go over tiles with no cracking or movement;
+- **Reviews:** 5.0 from 63 Google reviews, with three named snippets.
+- **Consultation:** a free design consultation, with sample boards made (the site doesn't say the boards are free).
+- **From the masterpiece page:**
+  - over 10 years' experience;
+  - about 5 days;
+  - resin over tiles with no cracking or movement;
   - "Prepared, designed & installed by Harry & Kris";
-  - the 19 jobs on the map, with their locations, m² and colourways;
-  - his own lines: "Resin Strong, Royal Standards", "We walked in with a mess, we came out with a masterpiece", "every floor is one of one", "Hello, I am Harry! And I love what I do";
-  - the Southampton thank-you to Mark & Berlinda.
-
-The site states no certifications, warranties or prices.
+  - the 19 mapped jobs;
+  - his own lines, including "We walked in with a mess, we came out with a masterpiece" (from the 65m² Leeds post);
+  - the Southampton thank-you to Mark & Berlinda;
+  - the four commercial venues.
+- **Not used:** the 20-year life and re-polishing, which are on his site but were cut from v3 for length.
+- The site states no certifications, warranties or prices.
