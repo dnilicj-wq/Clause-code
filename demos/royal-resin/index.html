@@ -11,12 +11,11 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="Royal Resin | Luxury Epoxy Resin Floors, Installed Nationwide">
 <meta property="og:description" content="Metallic and faux-marble floors with no grout lines, every one a 1&nbsp;of&nbsp;1. Based in Derby, working across the UK.">
-<meta property="og:image" content="images/hero-1206.webp">
+<meta property="og:image" content="images/hero-1365.webp">
 <meta property="og:locale" content="en_GB">
 <link rel="preload" href="fonts/cormorant-garamond-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/outfit-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" as="image" href="images/hero-m.webp" media="(max-width: 899px)" fetchpriority="high">
-<link rel="preload" as="image" imagesrcset="images/hero-760.webp 760w, images/hero-1206.webp 1206w" imagesizes="54vw" media="(min-width: 900px)" fetchpriority="high">
+<link rel="preload" as="image" imagesrcset="images/hero-900.webp 900w, images/hero-1365.webp 1365w" imagesizes="100vw" fetchpriority="high">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -24,7 +23,7 @@
   "name": "Royal Resin Ltd",
   "description": "Luxury metallic, faux-marble, flake and industrial epoxy resin floors. Based in Derby, working across the UK.",
   "url": "https://royalresin.uk/",
-  "image": "https://royalresin.uk/images/hero-1206.webp",
+  "image": "https://royalresin.uk/images/hero-1365.webp",
   "telephone": "+441283295234",
   "email": "harry@royalresin.uk",
   "address": { "@type": "PostalAddress", "addressLocality": "Derby", "addressRegion": "Derbyshire", "addressCountry": "GB" },
@@ -165,9 +164,9 @@ a.proof:hover b { color: var(--gold-2); }
    Desktop: text on the dark left, Harry's floor bleeding off the right edge (never stretched).
    Mobile: the floor full-bleed at the top, a gradient only behind the text. */
 .hero { position: relative; isolation: isolate; min-height: calc(100svh - 62px); display: flex; align-items: center; overflow: hidden; }
-.hero-media { display: block; position: absolute; top: 0; right: 0; bottom: 0; width: 54vw; z-index: -1; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 24%); mask-image: linear-gradient(90deg, transparent 0%, #000 24%); }
-.hero-media img { width: 100%; height: 112%; object-fit: cover; object-position: 50% 62%; will-change: transform; }
-.hero-media::before { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, oklch(0.12 0.006 70 / 0.5) 0%, transparent 18%, transparent 80%, oklch(0.165 0.006 70 / 0.65) 100%); pointer-events: none; }
+.hero-media { display: block; position: absolute; inset: 0; z-index: -1; overflow: hidden; }
+.hero-media img { width: 100%; height: 106%; object-fit: cover; object-position: 50% 62%; will-change: transform; }
+.hero-media::before { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(180deg, oklch(0.12 0.006 70 / 0.55) 0%, transparent 16%, transparent 84%, oklch(0.165 0.006 70 / 0.6) 100%), linear-gradient(90deg, oklch(0.14 0.006 70 / 0.92) 0%, oklch(0.14 0.006 70 / 0.8) 32%, oklch(0.14 0.006 70 / 0.35) 50%, transparent 64%); }
 .hero-media::after { content: ""; position: absolute; inset: -10% -60%; z-index: 2; pointer-events: none; background: linear-gradient(100deg, transparent 38%, rgb(255 246 225 / 0.22) 47%, rgb(255 255 255 / 0.32) 50%, rgb(255 246 225 / 0.22) 53%, transparent 62%); mix-blend-mode: soft-light; transform: translateX(-60%); }
 @media (prefers-reduced-motion: no-preference) {
   .hero-media::after { animation: sweep 12s var(--ease-io) infinite 1.5s; }
@@ -179,7 +178,6 @@ a.proof:hover b { color: var(--gold-2); }
 .hero h1 .l2 { display: block; font-style: italic; font-size: 0.66em; line-height: 1.12; margin-top: 0.22em; padding-bottom: 0.08em; }
 .hero .sub { margin-top: 28px; font-size: clamp(1.05rem, 1.3vw, 1.22rem); color: var(--ink-2); max-width: 46ch; }
 .hero-ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 38px; }
-.hero-cap { position: absolute; right: var(--gut); bottom: 22px; font-size: 0.82rem; color: oklch(0.97 0.01 85 / 0.8); text-shadow: 0 1px 8px oklch(0 0 0 / 0.6); }
 .trust { position: relative; border-block: 1px solid var(--line); background: oklch(0.18 0.007 70 / 0.6); }
 .trust ul { list-style: none; margin: 0 auto; padding: 19px 0; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 28px; font-size: 0.94rem; color: var(--ink-2); }
 .trust li { display: inline-flex; align-items: center; gap: 10px; }
@@ -187,13 +185,13 @@ a.proof:hover b { color: var(--gold-2); }
 .trust a { text-decoration: none; }
 .trust b { color: var(--ink); font-weight: 600; }
 @media (max-width: 899px) {
-  .hero { min-height: 100svh; align-items: flex-end; }
-  .hero-media { inset: 0; width: auto; -webkit-mask-image: none; mask-image: none; }
-  .hero-media img { height: 100%; object-position: 50% 0%; }
-  .hero-media::before { background: linear-gradient(180deg, oklch(0.12 0.006 70 / 0.45) 0%, transparent 13%, transparent 34%, oklch(0.165 0.006 70 / 0.78) 50%, var(--bg) 62%); }
-  .hero-inner { padding: 0 0 28px; }
+  /* Phones: the floor as a clean band at the top, text below on the dark. Nothing covers the floor. */
+  .hero { min-height: 100svh; display: block; }
+  .hero-media { position: relative; inset: auto; height: clamp(210px, calc(100svh - 440px), 460px); }
+  .hero-media img { height: 100%; object-position: 50% 78%; }
+  .hero-media::before { background: linear-gradient(180deg, oklch(0.12 0.006 70 / 0.75) 0%, oklch(0.12 0.006 70 / 0.3) 24%, transparent 40%, transparent 74%, var(--bg) 100%); }
+  .hero-inner { padding: 14px 0 28px; }
   .hero-copy { max-width: 560px; }
-  .hero-cap { display: none; }
 }
 @media (max-width: 767px) {
   .hero h1 { font-size: clamp(2.2rem, 10vw, 2.85rem); }
@@ -593,8 +591,7 @@ footer { padding: 56px 0 40px; }
 <main id="main">
 <section class="hero" id="top" aria-labelledby="h1">
   <picture class="hero-media">
-    <source media="(max-width: 899px)" srcset="images/hero-m.webp">
-    <img src="images/hero-1206.webp" srcset="images/hero-760.webp 760w, images/hero-1206.webp 1206w" sizes="54vw" width="1206" height="1390" alt="Cream and gold faux-marble resin floor in a farmhouse kitchen in Sleaford, the garden window reflected in its glass finish" fetchpriority="high" decoding="async" data-px="0.06">
+    <img src="images/hero-1365.webp" srcset="images/hero-900.webp 900w, images/hero-1365.webp 1365w" sizes="100vw" width="1365" height="756" alt="Cream and soft gold marble resin floor in a newly fitted kitchen, the white units reflected in its glass finish" fetchpriority="high" decoding="async" data-px="0.06">
   </picture>
   <div class="hero-inner wrap">
     <div class="hero-copy">
@@ -606,7 +603,6 @@ footer { padding: 56px 0 40px; }
       </div>
     </div>
   </div>
-  <p class="hero-cap">Sleaford, 85m²</p>
 </section>
 <div class="trust">
   <ul class="wrap" aria-label="Why Royal Resin">
