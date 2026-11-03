@@ -14,7 +14,7 @@ v3 is "fewer, better, bigger":
   - `crest.svg`, `lockup.svg` and `lockup-stacked.svg` (the wordmark is Cormorant 600 converted to paths).
   - `favicon.svg` (also copied to `/favicon.svg`) and `apple-touch-icon.png`.
   - On the page the crest appears only twice, in the header and the footer.
-- `images/hero/`: Harry's pearl marble kitchen floor, cropped tight on the swirls and the door reflections, with no tape and no kitchen units. `hero-d.webp` is the desktop crop and `hero-m.webp` the phone crop. The hero drifts slowly for 20 seconds, scaling from 1.0 to 1.06.
+- `images/hero/`: Harry's pearl marble kitchen floor, cropped tight on the swirls and the door reflections, with no tape and no kitchen units. It was upscaled 4x with Real-ESRGAN (Harry's own photo, not generated), then lightly graded. Sizes: `hero-d-2880` and `hero-d-1600` for desktop, `hero-m-1170` and `hero-m-780` for phones. The hero drifts slowly for 20 seconds, scaling from 1.0 to 1.06.
 - `images/gallery/`:
   - The six collection floors, which are stills from his Vimeo videos. They are shown at thumbnail size only, never full width.
   - `garage-*`: the number plates are painted out.
