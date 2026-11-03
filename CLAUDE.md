@@ -47,7 +47,23 @@ All set in Vercel env vars — see `.env` locally or Vercel dashboard. Keys: `GH
 - GHL calendar open hours — needed for real slot fetching (currently uses fallback)
 
 ## Clientgateway demo sites
-Separate from EnrollFlo. The `demos/` folder holds solar, coating, lethal-precision, revive, rhino and gafflow. Each is its own Vercel project, `clientgateway-<name>`. Read `HANDOVER-clientgateway-demos.md` (and `demos/rhino/README.md` / `demos/gafflow/README.md` for those two) before touching them.
+Separate from EnrollFlo. The `demos/` folder holds solar, coating, lethal-precision, revive, rhino, gafflow, cmd-tiling and royal-resin. Each is its own Vercel project, `clientgateway-<name>` (scope `dnilicj-2275s-projects`). Before touching them, read `HANDOVER-clientgateway-demos.md`, plus `demos/<name>/README.md` where it exists (rhino, gafflow and royal-resin have one).
+
+Deploy from the demo folder:
+
+```bash
+npx -y vercel@latest deploy --prod --yes --scope dnilicj-2275s-projects --token "$VERCEL_TOKEN"
+```
+
+Never print or commit `VERCEL_TOKEN`. Don't touch the `enrollflo` or `clientgateway` Vercel projects.
+
+- **cmd-tiling** (CMD Tiling, Irchester, Northamptonshire) is a single-file `index.html` plus 6 PNG project photos. The user rejected their own redesign, so keep my original design and change only what is asked. Still placeholders: the review names and towns, the certificates, `[FORM ENDPOINT]`, and the CONFIRM tags.
+- **royal-resin** (Royal Resin Ltd, Derby, owner Harry) has a built `index.html` whose source and build script live outside the repo. Edit `demos/royal-resin/index.html` directly.
+  - Sections: split or full-bleed hero, pinned "How your floor is made" (about 2 screens), services, gallery with filters, a WebGL "Design your floor" marble designer, reviews, WhatsApp photo quote, process (5 days, tiles FAQ), a "Recent floors" map of 19 real jobs, a commercial strip, events, and the quote form.
+  - The hero photo is the user-supplied kitchen photo (`images/hero-1365.webp`, no caption).
+  - Facts: use only those listed in its README; captions only from royalresin.uk/masterpiece-of-the-week; no prices, warranties or certifications.
+  - Still to do before go-live: `FORM_ENDPOINT` must forward to harry@royalresin.uk, and the Google reviews link needs his Business Profile URL.
+  - Mobile rule: the hero must be fully visible at 375px wide, with no entrance animations, and the page must never be wider than the viewport.
 
 ## User preference
 Minimal messages. Only message when important. User asks questions if needed.
