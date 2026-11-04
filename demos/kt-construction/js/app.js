@@ -274,7 +274,7 @@ const cfg = (() => {
     if (x.kind === 'mc') add(xa, RATE.worktop); else survey.push(`Liquid Stone ${s.feature.toLowerCase()}`);
     const r50 = v => Math.round(v / 50) * 50;
     $('#estT').textContent = `${gbp(r50(lo))} to ${gbp(r50(hi))}`;
-    $('#estN').textContent = (survey.length ? `${survey.join(' and ')} priced on survey. ` : '') + `Guide from KT's published 2026 installed rates for the South of England${wet ? ' (full waterproof wet-room build)' : ''}. Exact price after a free survey.`;
+    $('#estN').textContent = (survey.length ? `${survey.join(' and ')} priced on survey. ` : '') + `Guide range from KT's 2026 cost guide for the South of England${wet ? ' (full waterproof wet-room build)' : ''}. Exact price after a free survey.`;
     $('#estL1').textContent = 'Floor'; $('#estL2').textContent = 'Walls'; $('#estL3').textContent = s.feature;
     $('#a1').value = fa; $('#a2').value = wa; $('#a3').value = xa;
     return { lo: r50(lo), hi: r50(hi), survey };
@@ -344,10 +344,14 @@ function setChip(hex, k, v) { $('#chipSw').style.setProperty('--sw', hex); $('#c
     const f = document.createElement('figure'); f.className = 'frame'; const portrait = h > w;
     f.style.setProperty('--w', portrait ? '24vw' : '36vw');
     const big = w >= 1800 ? 1280 : (w >= 1200 ? 1200 : w);
-    f.innerHTML = `<picture><source type="image/avif" data-srcset="img/${k}-640.avif 640w, img/${k}-${big}.avif ${big}w" sizes="(max-width:760px) 72vw, 36vw"><img data-src="img/${k}-${big}.webp" data-srcset="img/${k}-640.webp 640w, img/${k}-${big}.webp ${big}w" sizes="(max-width:760px) 72vw, 36vw" alt="${t}, ${s.toLowerCase()}. A KT Construction project" width="${w}" height="${h}" decoding="async"></picture><figcaption><b>${t}</b><span>${s}</span></figcaption>`;
+    f.innerHTML = `<picture><source type="image/avif" data-srcset="img/${k}-640.avif 640w, img/${k}-${big}.avif ${big}w" sizes="(max-width:760px) 72vw, 36vw"><img data-src="img/${k}-${big}.webp" data-srcset="img/${k}-640.webp 640w, img/${k}-${big}.webp ${big}w" sizes="(max-width:760px) 72vw, 36vw" alt="${t}, ${s.toLowerCase()}. A KT Construction project" width="${w}" height="${h}" decoding="async" loading="lazy"></picture><figcaption><b>${t}</b><span>${s}</span></figcaption>`;
     f.dataset.k = k; f.dataset.cap = `${t} · ${s}`; f.tabIndex = 0; corr.append(f); return f;
   });
   const D = 1150; let loadedSet = new Set();
+  const swipe = () => innerWidth < 760;
+  function setMode() { sec.classList.toggle('swipe', swipe()); if (swipe()) frames.forEach((_, i) => load(i)); }
+  setMode(); addEventListener('resize', setMode);
+  corr.addEventListener('scroll', () => { if (!swipe()) return; const i = Math.round(corr.scrollLeft / (frames[0].offsetWidth + 12)); $('#wc').textContent = String(Math.min(n, i + 1)).padStart(2, '0'); }, { passive: true });
   function load(i) { if (loadedSet.has(i)) return; loadedSet.add(i); const f = frames[i]; $$('[data-srcset]', f).forEach(s => s.srcset = s.dataset.srcset); const im = $('img', f); im.src = im.dataset.src; }
   function frame() {
     const r = sec.getBoundingClientRect(); const total = r.height - innerHeight; const p = clamp(-r.top / total, 0, 1);
@@ -369,7 +373,7 @@ function setChip(hex, k, v) { $('#chipSw').style.setProperty('--sw', hex); $('#c
   }
   let on = false;
   new IntersectionObserver(([en]) => { on = en.isIntersecting; if (on) { load(0); load(1); load(2); loop(); } }, { rootMargin: '400px' }).observe(sec);
-  function loop() { if (!on) return; frame(); requestAnimationFrame(loop); }
+  function loop() { if (!on) return; if (!swipe()) frame(); requestAnimationFrame(loop); }
   // lightbox
   const lb = $('#lb');
   const open = f => { const k = f.dataset.k; const w = WORK.find(x => x[0] === k); $('#lbImg').src = `img/${k}-${w[3] >= 1800 ? 1920 : (w[3] >= 1200 ? 1200 : w[3])}.webp`; $('#lbImg').alt = f.dataset.cap; $('#lbCap').textContent = f.dataset.cap; lb.classList.add('open'); lenis && lenis.stop(); track('gallery_open', { photo: k }); };

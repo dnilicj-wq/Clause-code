@@ -17,8 +17,8 @@ A one-page "journey" site for KT Construction (microcement, Liquid Stone and lim
 2. **Seamless**: grout calculator (wall size + tile size = metres of grout) with a drag compare, plus the 8 properties from their site as Magic UI style spotlight cards.
 3. **Three millimetres**: pinned scroll, a CSS 3D layer stack builds up over existing tiles (prep, primer, mesh, base coats, finish coats, sealer).
 4. **Your surface**: 3D configurator. Wet room / Kitchen / Living, floor / walls / feature, Microcement (28), Liquid Stone (10), Natural Limewash (12) with KT's real colour codes and hex values, daylight / golden hour / evening. Guide price from KT's published 2026 rates. "Send this spec" prefills the brief; "Save" downloads a moodboard PNG.
-5. **The work**: scroll-driven 3D corridor through 14 real KT photos, with a lightbox.
-6. **The team**: scroll text reveal, number tickers, Facebook proof, masterclasses.
+5. **The work**: scroll-driven 3D corridor through 14 real KT photos, with a lightbox. Phones get a native swipe row instead.
+6. **The team**: scroll text reveal, stats shown at their final values (no count-up), Facebook proof. Masterclasses are a footer link only.
 7. **Where**: radar from the workshop with their 10 listed towns (real coordinates, miles rings) and a postcode check.
 8. **Begin**: 5-step brief with the 3D spec attached, then a WhatsApp handoff.
 
@@ -29,6 +29,23 @@ A one-page "journey" site for KT Construction (microcement, Liquid Stone and lim
 - From the brief: Facebook 552 likes, 100% recommend from 40 reviews, phone/WhatsApp, email, address, socials, hours (from a directory listing).
 - Their site says "from our Crawley base" but the address is Hurstpierpoint; the page says the workshop is at Hurstpierpoint.
 - Photo captions use their own gallery labels where the photo matched one, otherwise only what's visible. No towns on captions. AI/manufacturer images from their site (Nova, Sahara, Velour, Lumea, etc.) are not used.
+
+## Claim sources (checked 2026-11-04 against kt-construction.co.uk)
+| Claim | Page |
+|---|---|
+| Colour codes, names, hex, "28 shades" | /colours (and /colours/microcement-n3-linen-mist etc.) |
+| "Match any RAL code on request" | /services/microcement |
+| 2026 rates, "South of England" | /inspiration/microcement-cost-uk (note: /guides/microcement-cost-per-m2 lists lower rates) |
+| Limewash £55-85/m², limewash not waterproof | /inspiration/venetian-plaster-vs-microcement-vs-limewash |
+| Fire resistant, eco friendly, UV, slip resistant | / and /services |
+| Wet-room build: primer, two base coats with mesh, two finishing coats, tanking membrane, two PU sealer coats | /colours/microcement-* pages |
+| "100% waterproof when sealed" | /services/microcement. Page says "Waterproof once sealed, over a tanking membrane in showers and wet rooms" |
+| 10+ years, in-house never subcontracted, premium materials | /about |
+| Fully insured, workmanship guarantee, designers & architects | / and /about |
+| Batch consistency in writing | /services/tech/colour-matching |
+| Call back within a few hours on working days | /quote |
+| Towns and regions | /areas |
+| "2 to 6 coats" (home page) was dropped: it conflicts with "2–3 fine coats" on /services/microcement and "3–4 thin coats" on the colour pages. |
 
 ## Rates used in the configurator (£/m², KT 2026 published)
 Walls dry 140-180 · wet-room build 200-260 · floors residential 160-200 · worktops/feature 220-300 · limewash walls 55-85. Liquid Stone has no published rate, so it shows "priced on survey".

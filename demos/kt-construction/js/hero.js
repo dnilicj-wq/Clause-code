@@ -173,7 +173,7 @@ export function initHero(opts) {
   function demo() {
     if (W < 700) {
       // phones: two passes so the first screen already shows the finish
-      runGhost(t => { const k = t * 2, row = Math.min(1, Math.floor(k)), fr = k - row; const x = row ? W * (1.1 - fr * 1.2) : W * (-0.1 + fr * 1.2); return [x, H * (0.36 + row * 0.13) + Math.sin(fr * Math.PI * 2) * H * 0.03]; }, 2600);
+      runGhost(t => { const k = t * 2, row = Math.min(1, Math.floor(k)), fr = k - row; const x = row ? W * (1.1 - fr * 1.2) : W * (-0.1 + fr * 1.2); return [x, H * (0.3 + row * 0.1) + Math.sin(fr * Math.PI * 2) * H * 0.02]; }, 2600);
       return;
     }
     const x0 = W * .46, x1 = W * .94, yc = H * .42;

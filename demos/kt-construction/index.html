@@ -272,6 +272,7 @@ input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;bac
 .l-mesh{--t:2px;background:repeating-linear-gradient(0deg,transparent 0 9px,rgba(236,230,220,.75) 9px 11px),repeating-linear-gradient(90deg,transparent 0 9px,rgba(236,230,220,.75) 9px 11px);background-color:rgba(255,255,255,.05);box-shadow:none}
 .l-base{--t:6px;background:#8f8a82 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3'/%3E%3CfeColorMatrix values='0 0 0 0 .2 0 0 0 0 .2 0 0 0 0 .2 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 .l-finish{--t:4px;background:#e6decb url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.012 .03' numOctaves='4'/%3E%3CfeColorMatrix values='0 0 0 0 .45 0 0 0 0 .4 0 0 0 0 .32 0 0 0 .35 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E") center/cover}
+.l-tank{--t:2px;background:linear-gradient(135deg,rgba(120,140,128,.85),rgba(96,116,106,.85))}
 .l-seal{--t:1px;background:linear-gradient(115deg,rgba(255,255,255,.04) 30%,rgba(255,255,255,.55) 48%,rgba(255,255,255,.05) 62%);box-shadow:inset 0 0 0 1px rgba(255,255,255,.35)}
 .lab{position:absolute;left:0;top:0;font-family:var(--mono);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--bone);white-space:nowrap;display:flex;align-items:center;gap:10px;opacity:0;transition:opacity .5s;pointer-events:none}
 .lab::before{content:"";width:46px;height:1px;background:var(--gold)}
@@ -491,6 +492,38 @@ input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;bac
   .mbar a svg{width:17px;height:17px}
   .mbar a.q{background:linear-gradient(180deg,var(--gold-2),var(--gold));color:#1b150c}
 }
+
+/* ---- phone compaction ---- */
+@media (max-width:760px){
+  .seam{padding:64px 0 48px}.cfg{padding:64px 0 40px}.team{padding:64px 0}.where{padding:60px 0}.begin{padding:64px 0 96px}
+  .ch-head{gap:14px;margin-bottom:28px}
+  h2{font-size:clamp(2rem,9vw,2.6rem)}
+  .props{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:10px;margin:32px calc(-1 * var(--pad)) 0;padding:0 var(--pad) 6px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .props::-webkit-scrollbar{display:none}
+  .props .mcard{flex:0 0 64vw;min-height:150px;scroll-snap-align:start}
+  .grout-viz{min-height:260px}.grout-panel{gap:14px;padding:18px}
+  .anat{height:260vh!important}
+  .reveal-text{font-size:1.7rem}
+  .stats{margin-top:36px}.stat{padding:16px 10px 16px 0}.stat b{font-size:2.6rem}
+  .team-grid{margin-top:40px;gap:22px}.team-img{aspect-ratio:16/10}
+  .team-list li{padding:14px 0}
+  .where-grid{gap:20px}.radar{max-width:340px}
+  .contact-list{margin-top:22px;gap:10px}
+  .ft{padding:44px 0 calc(90px + env(safe-area-inset-bottom))}.ft-big{margin-top:30px;font-size:3rem}
+  .ft-grid{gap:22px}
+  /* gallery: native swipe row instead of the 3D corridor */
+  .work.swipe{height:auto!important;padding:60px 0 44px}
+  .work.swipe .work-stage{position:relative;height:auto;overflow:visible;perspective:none}
+  .work.swipe .work-title{position:relative;left:auto;top:auto;padding:0 var(--pad);margin-bottom:24px;opacity:1!important}
+  .work.swipe .work-floor{display:none}
+  .work.swipe .corr{position:relative;inset:auto;display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:0 var(--pad);scrollbar-width:none;transform-style:flat}
+  .work.swipe .corr::-webkit-scrollbar{display:none}
+  .work.swipe .frame{position:relative;left:auto;top:auto;flex:0 0 78vw;transform:none!important;opacity:1!important;visibility:visible!important;scroll-snap-align:center;margin:0}
+  .work.swipe .frame img{aspect-ratio:4/5;object-fit:cover;width:100%}
+  .work.swipe .work-count{position:relative;right:auto;bottom:auto;padding:16px var(--pad) 0;display:block}
+  /* keep the hero eyebrow readable over any trowel strokes */
+  .hero .eyebrow{display:inline-block;align-self:flex-start;letter-spacing:.08em;font-size:.62rem;white-space:nowrap;padding:6px 10px;border-radius:999px;background:rgba(17,16,14,.72);color:var(--gold-2);margin-bottom:14px}
+}
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
   .grain{display:none}
@@ -602,7 +635,7 @@ input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;bac
       </div>
     </div>
     <div class="props">
-      <div class="mcard rv"><svg><use href="#i-drop"/></svg><div><h3>100% waterproof</h3><p>Once sealed. Made for showers, wet rooms and kitchens.</p></div></div>
+      <div class="mcard rv"><svg><use href="#i-drop"/></svg><div><h3>Waterproof once sealed</h3><p>Over a tanking membrane in showers and wet rooms.</p></div></div>
       <div class="mcard rv"><svg><use href="#i-seam"/></svg><div><h3>Seamless</h3><p>No joints or grout lines, from floor to wall to worktop.</p></div></div>
       <div class="mcard rv"><svg><use href="#i-bond"/></svg><div><h3>Bonds to what's there</h3><p>Tile, concrete, plaster and plywood. Less rip-out, less mess.</p></div></div>
       <div class="mcard rv"><svg><use href="#i-step"/></svg><div><h3>Slip resistant</h3><p>Anti-slip treatment for bathroom floors and wet areas.</p></div></div>
@@ -624,9 +657,9 @@ input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;bac
       <div class="prog" id="prog"><i></i><i></i><i></i><i></i></div>
       <div class="steps">
         <div class="step on" data-s="0"><b>01 · Prepare</b><h3>Your existing surface stays.</h3><p>Sound tiles, concrete, plaster or plywood. We prepare the substrate properly first, because that is what makes the finish last.</p></div>
-        <div class="step" data-s="1"><b>02 · Base coats</b><h3>Primer, mesh and base coats.</h3><p>The base builds strength and flattens out the old surface, joints and all.</p></div>
-        <div class="step" data-s="2"><b>03 · Finishing coats</b><h3>Hand-trowelled finish.</h3><p>Applied in 2 to 6 coats depending on the manufacturer's system and the look you choose, from smooth to cloudy.</p></div>
-        <div class="step" data-s="3"><b>04 · Seal &amp; protect</b><h3>Sealed against real life.</h3><p>A high-quality sealer protects from dirt, moisture and daily wear. Fully waterproof once sealed.</p></div>
+        <div class="step" data-s="1"><b>02 · Base coats</b><h3>Primer, then two base coats with mesh.</h3><p>Reinforcing mesh goes into the base, which builds strength and flattens out the old surface, joints and all.</p></div>
+        <div class="step" data-s="2"><b>03 · Finishing coats</b><h3>Two hand-trowelled finishing coats.</h3><p>Fine coats, trowelled and burnished by hand. This is where the colour and the look come from, smooth or cloudy.</p></div>
+        <div class="step" data-s="3"><b>04 · Seal &amp; protect</b><h3>Tanked and sealed.</h3><p>In wet rooms a tanking membrane goes on, then two coats of polyurethane sealer against dirt, moisture and daily wear. Waterproof once sealed.</p></div>
       </div>
     </div>
     <div class="iso" id="iso">
@@ -638,7 +671,8 @@ input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;bac
         <div class="layer l-base" data-l="Base coat"></div>
         <div class="layer l-finish" data-l="Finishing coat"></div>
         <div class="layer l-finish" data-l="Finishing coat"></div>
-        <div class="layer l-seal" data-l="Protective sealer"></div>
+        <div class="layer l-tank" data-l="Tanking membrane"></div>
+        <div class="layer l-seal" data-l="Polyurethane sealer ×2"></div>
       </div>
     </div>
   </div>
@@ -650,7 +684,7 @@ input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;bac
     <div class="ch-head">
       <div class="ch-num"><b>04</b><i></i><span class="mono">Your surface</span></div>
       <h2 class="split">Design it <em>before we arrive.</em></h2>
-      <p class="lede rv">Real KT colour codes, real 2026 guide prices. Pick a room, change every surface, spin it round, then send the spec straight to the team.</p>
+      <p class="lede rv">KT's own colour codes and their 2026 guide prices. Pick a room, change every surface, spin it round, then send the spec straight to the team.</p>
     </div>
     <div class="cfg-grid">
       <div class="cfg-view rv" id="cfgView">
@@ -671,7 +705,7 @@ input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;bac
           <div class="row"><span id="estL2">Wall area</span><span><input id="a2" type="number" inputmode="decimal" min="1" max="400" value="18" aria-label="Wall area in square metres"> m²</span></div>
           <div class="row"><span id="estL3">Feature</span><span><input id="a3" type="number" inputmode="decimal" min="0" max="100" value="1.5" aria-label="Feature area in square metres"> m²</span></div>
           <div class="total"><span class="mono" style="color:var(--mute-d)">Guide price</span><b id="estT">£0</b></div>
-          <small id="estN">Based on KT's published 2026 installed rates for the South of England. Your exact price comes after a free survey.</small>
+          <small id="estN">Guide range from KT's 2026 cost guide for the South of England. Exact price after a free survey.</small>
         </div>
         <div class="cfg-actions"><a class="btn btn-gold" id="sendSpec" href="#begin">Send this spec to KT <svg><use href="#i-arrow"/></svg></a><button class="btn btn-ghost" id="saveBoard" type="button" title="Download your moodboard" style="color:var(--ink);border-color:rgba(17,16,14,.2)">Save</button></div>
       </div>
@@ -695,10 +729,10 @@ input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;bac
     <div class="ch-num" style="margin-bottom:30px"><b>06</b><i></i><span class="mono">The team</span></div>
     <p class="reveal-text" id="rtext">Every surface on this page was trowelled by hand, by KT's own team. <em>Never subcontracted.</em> Trusted by designers, architects, developers and homeowners across the South of England.</p>
     <div class="stats">
-      <div class="stat rv"><b><span data-count="10">0</span><sup>+</sup></b><span>years of microcement and decorative finishes</span></div>
-      <div class="stat rv"><b><span data-count="100">0</span><sup>%</sup></b><span>recommend KT, from 40 Facebook reviews</span></div>
-      <div class="stat rv"><b><span data-count="552">0</span></b><span>Facebook page likes</span></div>
-      <div class="stat rv"><b><span data-count="0">0</span></b><span>subcontractors. Every job is KT's own installers.</span></div>
+      <div class="stat rv"><b>10<sup>+</sup></b><span>years of microcement and decorative finishes</span></div>
+      <div class="stat rv"><b>100<sup>%</sup></b><span>recommend KT, from 40 Facebook reviews</span></div>
+      <div class="stat rv"><b>552</b><span>Facebook page likes</span></div>
+      <div class="stat rv"><b>0</b><span>subcontractors. Every job is KT's own installers.</span></div>
     </div>
     <div class="team-grid">
       <div class="team-img rv"><picture><source type="image/avif" srcset="img/swatches-640.avif 640w, img/swatches-1280.avif 1280w" sizes="(max-width:900px) 92vw, 50vw"><img src="img/swatches-1280.webp" srcset="img/swatches-640.webp 640w, img/swatches-1280.webp 1280w" sizes="(max-width:900px) 92vw, 50vw" alt="A fan of KT sample swatches held against a finished wall" loading="lazy" width="1280" height="1707"></picture></div>
@@ -712,11 +746,6 @@ input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;bac
         </ul>
         <div class="fb"><a class="score" href="https://www.facebook.com/ktconstruction1/reviews" target="_blank" rel="noopener"><i>f</i><span><b>100% recommend</b><small>40 reviews on Facebook</small></span></a><a class="btn btn-ghost" href="https://www.instagram.com/ktcon_struction/" target="_blank" rel="noopener">See it on Instagram</a></div>
       </div>
-    </div>
-    <div class="school rv">
-      <div class="beam" aria-hidden="true"><i></i></div>
-      <div><span class="eyebrow">KT Masterclasses</span><h3 style="margin-top:12px">We train the trade, too.</h3><p>Small-group, hands-on days with premium materials. You leave with sample boards and the confidence to use these systems on your own projects.</p><a class="btn btn-gold" style="margin-top:22px" href="https://kt-construction.co.uk/workshops" target="_blank" rel="noopener">Masterclass details <svg><use href="#i-arrow"/></svg></a></div>
-      <ul><li>Microcement Masterclass<b>£275 + VAT</b></li><li>Decorative Paint Collection<b>£199 + VAT</b></li><li>Held every two months<b>1 day</b></li><li>Groups of 10 or more<b>40% off</b></li></ul>
     </div>
   </div>
 </section>
@@ -818,7 +847,7 @@ input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;bac
       <div><img src="brand/logo-720.webp" alt="KT Construction" width="720" height="88" style="width:240px;height:auto" loading="lazy"><p style="margin-top:18px;max-width:34ch">Specialists in high-end microcement and decorative surface finishes for homes and businesses across the South of England.</p></div>
       <div><h4>Visit</h4><p style="color:var(--stone)">Unit 10, Bridgers Farm<br>Langton Lane, Hurstpierpoint<br>Hassocks BN6 9HA</p></div>
       <div><h4>Talk</h4><ul><li><a href="tel:+447385259215">07385 259215</a></li><li><a href="https://wa.me/447385259215">WhatsApp</a></li><li><a href="mailto:enquiries@kt-construction.co.uk">enquiries@kt-construction.co.uk</a></li><li>Mon to Fri 9 to 6 · Sat 9 to 3</li></ul></div>
-      <div><h4>Follow</h4><ul><li><a href="https://www.facebook.com/ktconstruction1/" target="_blank" rel="noopener">Facebook</a></li><li><a href="https://www.instagram.com/ktcon_struction/" target="_blank" rel="noopener">Instagram</a></li><li><a href="https://www.tiktok.com/@ktconstruction7" target="_blank" rel="noopener">TikTok</a></li><li><a href="https://www.linkedin.com/company/kt-constructions" target="_blank" rel="noopener">LinkedIn</a></li></ul></div>
+      <div><h4>Follow</h4><ul><li><a href="https://www.facebook.com/ktconstruction1/" target="_blank" rel="noopener">Facebook</a></li><li><a href="https://www.instagram.com/ktcon_struction/" target="_blank" rel="noopener">Instagram</a></li><li><a href="https://www.tiktok.com/@ktconstruction7" target="_blank" rel="noopener">TikTok</a></li><li><a href="https://www.linkedin.com/company/kt-constructions" target="_blank" rel="noopener">LinkedIn</a></li><li><a href="https://kt-construction.co.uk/workshops" target="_blank" rel="noopener">Masterclasses for trades</a></li></ul></div>
     </div>
     <div class="ft-big" aria-hidden="true">Seamless, <em>by hand.</em></div>
     <div class="ft-base"><span>© <span id="yr">2026</span> KT Construction. All rights reserved.</span><span>Microcement · Liquid Stone · Limewash · Sussex · Surrey · Kent · Hampshire · London</span></div>
