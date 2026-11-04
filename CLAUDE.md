@@ -57,11 +57,18 @@ npx -y vercel@latest deploy --prod --yes --scope dnilicj-2275s-projects --token 
 
 Never print or commit `VERCEL_TOKEN`. Don't touch the `enrollflo` or `clientgateway` Vercel projects.
 
+Rules for all demos:
+- **Image caching:** `vercel.json` caches images, fonts and brand files as immutable for a year. When an image changes, give it a new filename and update the references. Never overwrite a file in place; phones keep showing the old one.
+- **Upscaling:** use Real-ESRGAN locally (CPU torch, model `RealESRGAN_x4plus.pth`), only for photos the user asks to sharpen. Use the client's real photos only, never generated imagery. The Higgsfield account was out of credits.
+- **Blocked sources:** Checkatrade (Cloudflare) and Facebook (login) can't be fetched. Never invent reviews or work around a login; ask the user, or use clearly labelled placeholders.
+- **Pitch images:** side-by-side "Your site today" vs "Your new site" images go in `demos/<name>/pitch/`, captured at a device scale factor of 2.
+
 - **cmd-tiling** (CMD Tiling, Irchester, Northamptonshire) is a single-file `index.html` plus 6 PNG project photos. The user rejected their own redesign, so keep my original design and change only what is asked. Still placeholders: the review names and towns, the certificates, `[FORM ENDPOINT]`, and the CONFIRM tags.
 - **royal-resin** (Royal Resin Ltd, Derby, owner Harry) is v3, "fewer, better, bigger". Its `index.html` is built by a script outside the repo, so edit `demos/royal-resin/index.html` directly.
   - **Look:** backgrounds alternate ivory, espresso #14110E and stone #E9E3DA, with full-bleed floors between, and no two neighbouring sections share one. There are no white frames around photos.
   - **Brand:** the crest is one flat gold (#B8893B), a ring plus a 3-point crown, in `brand/`. It appears only in the header and the footer. Don't bring back the multi-colour logo, gradients or the crest used as an avatar.
-  - **Hero:** the pearl marble kitchen photo (`images/hero/`) with no video, a 20s drift and a bottom gradient only.
+  - **Hero:** the pearl marble kitchen photo with no video, a 20s drift and a bottom gradient only.
+    - It's upscaled 4× with Real-ESRGAN: `images/hero/hero-d-1600`/`-2880` for desktop and `hero-m-780`/`-1170` for phones.
   - **Media:** video stills (max 576-720 wide) may only appear at thumbnail size. The collection shows a maximum of 6 floors. Never show customer names, number plates or tape.
   - **Facts:** use only those in the README, checked against the royalresin.uk text. The site doesn't say sample boards are free. No prices, warranties or certifications.
   - **Go-live:** `FORM_ENDPOINT` must forward to harry@royalresin.uk, and the Google reviews link needs his Business Profile URL.
