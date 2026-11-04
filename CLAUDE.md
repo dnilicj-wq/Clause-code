@@ -77,7 +77,7 @@ Never print or commit `VERCEL_TOKEN`. Don't touch the `enrollflo` or `clientgate
   - **Calls to action:** one primary label, "Get my free roof quote".
   - **Quote section:** a navy band with the white form card.
   - **Facts:** only those in `demos/colt/README.md`. Never invent reviews. The Checkatrade quotes are still placeholders (it blocks bots).
-  - **Photos:** their own photos only.
+  - **Photos:** their own photos only. Images are cached as immutable, so give a changed image a new filename; never overwrite one in place.
     - The hero is the crew working on the roof of a big brick house (g-01r, upscaled 4×). The user chose it; keep it.
     - Recent work leads with finished roofs, then at most 2 shots captioned "How we build it".
   - **Reviews:** the three cards are visible placeholders until the client supplies real Checkatrade reviews.
