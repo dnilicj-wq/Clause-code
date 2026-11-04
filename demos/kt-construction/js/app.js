@@ -66,15 +66,20 @@ Promise.race([Promise.all([document.fonts ? document.fonts.ready : 0, new Promis
 
 // ---------- header, rail, chip, mobile bar ----------
 const hd = $('#hd'), chip = $('#chip'), mbar = $('#mbar');
-let lastY = 0;
+let lastY = 0, dirAnchor = 0;
 const chapters = $$('main .ch');
 const railLinks = $$('.rail a');
 function onScroll() {
   const y = scrollY, vh = innerHeight;
   hd.classList.toggle('scrolled', y > 40);
   $('#progTop').style.setProperty('--sp', y / Math.max(1, document.documentElement.scrollHeight - vh));
-  hd.classList.toggle('hide', y > lastY + 4 && y > vh * 0.8);
-  if (y < lastY - 4) hd.classList.remove('hide');
+  // hide on scroll down / show on scroll up, with hysteresis so momentum and toolbar resizes don't flicker it (phones keep it fixed)
+  if (innerWidth > 760) {
+    if (y < vh * 0.8) { hd.classList.remove('hide'); dirAnchor = y; }
+    else if (y > dirAnchor + 80) { hd.classList.add('hide'); dirAnchor = y; }
+    else if (y < dirAnchor - 60) { hd.classList.remove('hide'); dirAnchor = y; }
+    if (hd.classList.contains('hide') ? y > dirAnchor : y < dirAnchor) dirAnchor = y;
+  } else hd.classList.remove('hide');
   lastY = y;
   let on = 0; chapters.forEach((c, i) => { if (c.getBoundingClientRect().top < vh * 0.5) on = i; });
   railLinks.forEach((a, i) => a.classList.toggle('on', i === on));
@@ -204,11 +209,11 @@ finishBtn.addEventListener('click', () => { hero && hero.finish(); track('hero_f
     const p = clamp(-r.top / total, 0, 1);
     if (Math.abs(p - lastP) < 0.0005) return; lastP = p;
     const explode = p < 0.78 ? Math.min(1, p / 0.12) : lerp(1, 0.1, clamp((p - 0.78) / 0.14, 0, 1));
-    const gapPx = mobile() ? 30 : 46;
+    const gapPx = mobile() ? 16 : 46;
     let mm = 0;
     layers.forEach((l, i) => {
       const a = ARR[i]; const k = a < 0 ? 1 : clamp((p - a) / 0.07, 0, 1); const e = 1 - Math.pow(1 - k, 3);
-      const base = i === 0 ? 0 : 18 + i * 2.2; const z = base + i * gapPx * explode + (1 - e) * 280;
+      const base = i === 0 ? 0 : 18 + i * 2.2; const z = base + i * gapPx * explode + (1 - e) * (mobile() ? 60 : 280);
       l.style.transform = `translateZ(${z}px)`; l.style.opacity = a < 0 ? 1 : e;
       if (i > 0) mm += e * (3 / (layers.length - 1));
       const show = (a < 0 || e > 0.6) && explode > 0.5;

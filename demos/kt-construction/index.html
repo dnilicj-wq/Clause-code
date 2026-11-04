@@ -278,9 +278,12 @@ input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;bac
 .lab.on{opacity:1}
 @media (max-width:860px){
   .anat{height:480vh}
-  .anat-stage{grid-template-columns:1fr;grid-template-rows:auto 1fr;align-content:start;padding-top:calc(84px + env(safe-area-inset-top));gap:0}
-  .anat-copy{gap:12px}
-  .anat-copy h2{font-size:2.1rem}
+  .anat-stage{grid-template-columns:1fr;grid-template-rows:auto minmax(0,1fr);align-content:stretch;padding-top:calc(76px + env(safe-area-inset-top));padding-bottom:calc(84px + env(safe-area-inset-bottom));gap:0}
+  .anat-copy{gap:10px;position:relative;z-index:3;background:var(--ink);padding-bottom:10px}
+  .anat-copy h2{font-size:1.8rem}
+  .iso{position:relative;z-index:1;overflow:hidden;clip-path:inset(0);contain:paint;min-height:0;align-items:center}
+  .stack{width:min(48vw,240px)!important;margin-top:70px}
+  .lab{display:none}
   .steps{min-height:150px}
   .step h3{font-size:1.4rem;margin:6px 0}
   .step p{font-size:.92rem}
@@ -476,10 +479,13 @@ input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;bac
 /* mobile bar */
 .mbar{display:none}
 @media (max-width:760px){
+  .hd{transform:none!important;transition:background .3s}
+  .hd.scrolled{background:rgba(17,16,14,.97);box-shadow:0 1px 0 rgba(236,230,220,.08)}
+  .chip{background:rgba(26,24,21,.97)}
   .hd-call span{display:none}.hd-call{padding:.7em}
   .hd .btn{display:none}
   .hd-logo img{height:20px}
-  .mbar{position:fixed;left:10px;right:10px;bottom:max(10px,env(safe-area-inset-bottom));z-index:76;display:grid;grid-template-columns:1fr 1fr 1.4fr;gap:6px;padding:6px;border-radius:999px;background:rgba(26,24,21,.88);border:1px solid var(--line-d);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);transform:translateY(160%);transition:transform .6s var(--ease)}
+  .mbar{position:fixed;left:10px;right:10px;bottom:max(10px,env(safe-area-inset-bottom));z-index:76;display:grid;grid-template-columns:1fr 1fr 1.4fr;gap:6px;padding:6px;border-radius:999px;background:rgba(26,24,21,.88);border:1px solid var(--line-d);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);transform:translateY(160%);background:rgba(26,24,21,.97)!important;transition:transform .6s var(--ease)}
   .mbar.show{transform:none}
   .mbar a{display:flex;align-items:center;justify-content:center;gap:6px;padding:.85em .4em;border-radius:999px;text-decoration:none;font-weight:600;font-size:.86rem}
   .mbar a svg{width:17px;height:17px}
