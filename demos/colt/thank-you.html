@@ -1,0 +1,465 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Thank you | COLT Building Contractors</title>
+<meta name="description" content="Family-run roofers for three generations. New roofs, repairs and flat roofs across Bucks, Berks and West London. Our own scaffolding and skips, no deposit, pay when you're happy. 9.84/10 on Checkatrade.">
+<meta name="theme-color" content="#0b1d3a">
+<meta name="robots" content="noindex">
+<link rel="icon" href="favicon.ico" sizes="48x48">
+<link rel="icon" href="brand/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="brand/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="COLT Building Contractors">
+<meta property="og:title" content="Three generations. One standard of roof.">
+<meta property="og:description" content="Family-run roofers in High Wycombe. Our own roofers, scaffolding and skips. No deposit, pay when you're happy. 9.84/10 on Checkatrade.">
+<meta property="og:image" content="https://clientgateway-colt.vercel.app/img/share.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_GB">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Three generations. One standard of roof.">
+<meta name="twitter:description" content="Family-run roofers in High Wycombe. No deposit, pay when you're happy. 9.84/10 on Checkatrade.">
+<meta name="twitter:image" content="https://clientgateway-colt.vercel.app/img/share.jpg">
+<link rel="preload" href="fonts/newsreader-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/inter-tight-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+
+<!-- META PIXEL: they run Facebook ads. Paste the Meta Pixel base code here (replace PIXEL_ID), then uncomment.
+<script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','PIXEL_ID');fbq('track','PageView');</script>
+-->
+
+<style>
+@font-face{font-family:"Newsreader";src:url(fonts/newsreader-latin-wght-normal.woff2) format("woff2");font-weight:200 800;font-display:swap}
+@font-face{font-family:"Newsreader";src:url(fonts/newsreader-latin-wght-italic.woff2) format("woff2");font-weight:200 800;font-style:italic;font-display:swap}
+@font-face{font-family:"Inter Tight";src:url(fonts/inter-tight-latin-wght-normal.woff2) format("woff2");font-weight:100 900;font-display:swap}
+
+/*
+  COLT: heritage craft, modern precision.
+  Palette built around the logo: deep navy, warm paper, and the logo's yellow as the single
+  accent (CTAs and key numbers only). Shape rule: buttons are full pills, panels and photos 14px,
+  inputs and tiles 12px. z-index scale: header 30, sticky bar 40, dialog (top layer).
+*/
+:root{
+  --navy:#0b1d3a; --navy-2:#122a52; --navy-3:#1b3a6b;
+  --paper:#f4f1ec; --paper-2:#ebe6de; --white:#fcfbf9;
+  --ink:#121a26; --ink-2:#4a5262; --ink-3:#6b7280;
+  --line:rgb(18 26 38 / .12);
+  --on-navy:#f4f1ec; --on-navy-2:#b9c3d4;
+  --y:#facd01; --y-2:#ffd92e; --y-ink:#7a6200;
+  --wa:#1fa855;
+  --serif:"Newsreader",Georgia,"Times New Roman",serif;
+  --sans:"Inter Tight",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --ease:cubic-bezier(0.23,1,0.32,1);
+  --gut:clamp(20px,4vw,56px);
+  --sec:clamp(80px,10vw,144px);
+  --r:14px;
+  --shadow:0 1px 2px rgb(11 29 58 / .06),0 24px 48px -28px rgb(11 29 58 / .35);
+}
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:84px;overflow-x:clip}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 17px/1.6 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:clip}
+img,svg,video{display:block;max-width:100%}
+img{height:auto}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+h1,h2,h3,h4{margin:0;font-family:var(--serif);font-weight:500;line-height:1.06;letter-spacing:-.015em;text-wrap:balance}
+p{margin:0;text-wrap:pretty}
+ul,ol{margin:0;padding:0;list-style:none}
+figure{margin:0}
+.wrap{width:100%;max-width:1240px;margin-inline:auto;padding-inline:var(--gut)}
+.sr{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.i{width:1.15em;height:1.15em;fill:currentColor;flex:none}
+:focus-visible{outline:3px solid var(--y);outline-offset:3px;border-radius:6px}
+.on-paper :focus-visible,.paper :focus-visible{outline-color:var(--navy-3)}
+.skip{position:absolute;left:12px;top:-80px;z-index:60;background:var(--navy);color:#fff;padding:12px 18px;border-radius:999px}
+.skip:focus{top:12px}
+.h2{font-size:clamp(38px,4.8vw,64px)}
+.lede{margin-top:18px;font-size:clamp(17px,1.35vw,19px);color:var(--ink-2);max-width:56ch}
+.dark .lede{color:var(--on-navy-2)}
+.num{font-family:var(--serif);font-variant-numeric:lining-nums tabular-nums}
+
+/* Buttons: one primary label everywhere ("Get my free roof quote") */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:54px;padding:0 26px;border-radius:999px;border:1.5px solid transparent;font:600 16px/1 var(--sans);letter-spacing:-.005em;text-decoration:none;white-space:nowrap;cursor:pointer;transition:transform 140ms var(--ease),background-color 180ms ease,border-color 180ms ease,color 180ms ease;-webkit-tap-highlight-color:transparent}
+.btn:active{transform:scale(.97)}
+.btn .i{width:20px;height:20px}
+.btn-y{background:var(--y);color:var(--navy);box-shadow:inset 0 -2px 0 rgb(0 0 0 / .12)}
+.btn-y .i{transition:transform 200ms var(--ease)}
+.btn-line{background:transparent;color:var(--navy);border-color:rgb(11 29 58 / .28)}
+.dark .btn-line,.hero .btn-line{color:#fff;border-color:rgb(255 255 255 / .5);background:rgb(11 29 58 / .35)}
+.btn-wa .i{color:var(--wa)}
+.dark .btn-wa .i,.hero .btn-wa .i{color:#45d483}
+@media (hover:hover) and (pointer:fine){
+  .btn-y:hover{background:var(--y-2)}
+  .btn-y:hover .i-arr{transform:translateX(3px)}
+  .btn-line:hover{border-color:currentColor}
+}
+.ctas{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.trustline{margin-top:14px;font-size:14px;color:var(--ink-2);display:flex;flex-wrap:wrap;gap:4px 14px}
+.trustline b{color:var(--ink);font-weight:600}
+.dark .trustline,.hero .trustline{color:var(--on-navy-2)}
+.dark .trustline b,.hero .trustline b{color:#fff}
+.link{display:inline-flex;align-items:center;gap:8px;font-weight:600;text-decoration:none;color:var(--navy-3);border-bottom:2px solid var(--y);padding-bottom:2px}
+.dark .link{color:#fff}
+
+/* Header: paper, logo on its own colours (never on navy); shrinks after the hero */
+.hdr{position:sticky;top:0;z-index:30;background:rgb(244 241 236 / .96);border-bottom:1px solid transparent;transition:border-color 200ms ease,box-shadow 200ms ease}
+.hdr .wrap{display:flex;align-items:center;gap:28px;height:84px;transition:height 260ms var(--ease)}
+.hdr .logo{display:block;margin-right:auto}
+.hdr .logo img{height:52px;width:auto;transition:height 260ms var(--ease)}
+.hdr.small{border-color:var(--line);box-shadow:0 10px 30px -24px rgb(11 29 58 / .5)}
+.hdr.small .wrap{height:64px}
+.hdr.small .logo img{height:38px}
+.nav{display:flex;gap:24px}
+.nav a{font-size:15px;font-weight:500;text-decoration:none;color:var(--ink-2);padding:6px 0;background:linear-gradient(var(--y),var(--y)) 0 100%/0 2px no-repeat;transition:background-size 220ms var(--ease),color 160ms}
+.nav a:hover{color:var(--ink);background-size:100% 2px}
+.hdr-tel{display:inline-flex;align-items:center;gap:8px;font-weight:600;text-decoration:none;color:var(--navy)}
+.hdr .btn{min-height:46px;padding:0 20px;font-size:15px}
+@media (max-width:1120px){.nav{display:none}}
+@media (max-width:767px){
+  .hdr .wrap{height:64px;gap:10px}
+  .hdr .logo img{height:40px}
+  .hdr.small .logo img{height:34px}
+  .hdr.small .wrap{height:56px}
+  .hdr-tel span,.hdr .btn{display:none}
+  .hdr-tel{width:46px;height:46px;justify-content:center;border-radius:999px;background:var(--navy);color:#fff}
+  .hdr-tel .i{width:21px;height:21px}
+}
+.leak{display:none}
+@media (max-width:767px){
+  .leak{display:flex;align-items:center;justify-content:center;gap:8px;padding:9px 16px;background:var(--navy);color:#fff;font-size:14px;text-decoration:none}
+  .leak b{color:var(--y);font-weight:600}
+  .leak .i{color:var(--y)}
+}
+
+/* HERO */
+.hero{position:relative;isolation:isolate;color:#fff;background:var(--navy);overflow:hidden}
+.hero picture,.hero picture img{position:absolute;inset:0;width:100%;height:100%}
+.hero picture{z-index:-2}
+.hero picture img{object-fit:cover;object-position:50% 40%}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgb(8 20 42 / .9) 0%,rgb(8 20 42 / .72) 38%,rgb(8 20 42 / .18) 72%,rgb(8 20 42 / .05)),linear-gradient(0deg,rgb(8 20 42 / .55),transparent 40%)}
+.hero .wrap{min-height:min(calc(100svh - 84px),860px);display:flex;flex-direction:column;justify-content:flex-end;padding-top:72px;padding-bottom:clamp(40px,6vw,80px)}
+.hero h1{font-size:clamp(46px,6.2vw,88px);line-height:1;letter-spacing:-.025em;max-width:12ch}
+.hero h1 em{font-style:italic;color:var(--y)}
+.hero .sub{margin-top:22px;font-size:clamp(17px,1.4vw,20px);line-height:1.5;color:#e6eaf2;max-width:52ch}
+.hero .ctas{margin-top:30px}
+.hero .trustline{margin-top:20px;font-size:14.5px}
+.hero .trustline span{display:inline-flex;align-items:center;gap:6px}
+.hero .trustline .i{color:var(--y);width:16px;height:16px}
+@media (max-width:767px){
+  .hero .wrap{min-height:calc(100svh - 64px - 38px);padding-top:40px;padding-bottom:22px}
+  .hero::after{background:linear-gradient(0deg,rgb(8 20 42 / .96) 0%,rgb(8 20 42 / .82) 46%,rgb(8 20 42 / .25) 74%,rgb(8 20 42 / .1))}
+  .hero picture img{object-position:62% 30%}
+  .hero h1{font-size:clamp(40px,11.4vw,52px)}
+  .hero .sub{font-size:16px;margin-top:14px}
+  .hero .ctas{margin-top:20px;display:grid;grid-template-columns:1fr;gap:10px}
+  .hero .ctas .btn{width:100%}
+  .hero .trustline{gap:4px 12px;font-size:13.5px;margin-top:14px}
+}
+@media (max-width:767px) and (max-height:700px){.hero .sub{display:none}}
+
+/* Section shells */
+.sec{padding-block:var(--sec)}
+.paper{background:var(--paper)}
+.paper-2{background:var(--paper-2)}
+.dark{background:var(--navy);color:var(--on-navy)}
+.white{background:var(--white)}
+.endcta{margin-top:clamp(40px,5vw,64px)}
+
+/* One family, one team */
+.team-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:clamp(32px,5vw,80px);align-items:center}
+.team-photo{border-radius:var(--r);overflow:hidden;aspect-ratio:4/3;box-shadow:var(--shadow);position:relative}
+.team-photo img{width:100%;height:100%;object-fit:cover;object-position:30% 50%}
+.cos{margin-top:30px;display:grid;gap:0;border-top:1px solid var(--line)}
+.cos li{display:grid;grid-template-columns:48px minmax(0,1fr);gap:16px;padding:20px 0;border-bottom:1px solid var(--line);align-items:start}
+.cos .ic{display:grid;place-items:center;width:48px;height:48px;border-radius:12px;background:var(--navy);color:var(--y)}
+.cos .ic .i{width:24px;height:24px}
+.cos b{display:block;font:600 21px/1.2 var(--serif);letter-spacing:-.01em}
+.cos span{font-size:15.5px;color:var(--ink-2)}
+.cos .join{position:relative}
+.promise{margin-top:clamp(56px,7vw,96px);padding:clamp(28px,4vw,56px);border-radius:var(--r);background:var(--navy);color:#fff;display:grid;grid-template-columns:auto minmax(0,1fr);gap:clamp(20px,4vw,56px);align-items:center;position:relative;overflow:hidden}
+.promise .big{font:500 clamp(84px,11vw,160px)/.86 var(--serif);color:var(--y);letter-spacing:-.04em}
+.promise .big small{display:block;font:600 14px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--on-navy-2);margin-top:14px}
+.promise h3{font-size:clamp(28px,3.2vw,44px)}
+.promise p{margin-top:12px;color:var(--on-navy-2);max-width:52ch}
+@media (max-width:899px){.team-grid{grid-template-columns:1fr}.promise{grid-template-columns:1fr}}
+
+/* Anatomy of a Colt roof */
+.anat-head{max-width:720px}
+.anat{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(32px,5vw,80px);margin-top:clamp(32px,4vw,56px)}
+.anat-steps li{min-height:62vh;display:flex;flex-direction:column;justify-content:center;padding-block:24px;opacity:.38;transition:opacity 400ms var(--ease)}
+.anat-steps li.on{opacity:1}
+.anat-steps li:first-child{min-height:44vh;justify-content:flex-start;padding-top:8vh}
+.anat-steps li:last-child{min-height:52vh}
+.anat-steps .k{font:italic 500 20px/1 var(--serif);color:var(--y-ink)}
+.anat-steps h3{margin-top:10px;font-size:clamp(28px,2.8vw,38px)}
+.anat-steps p{margin-top:10px;color:var(--ink-2);max-width:40ch}
+.anat-fig{position:sticky;top:calc(84px + 6vh);align-self:start;height:min(70vh,560px);display:grid;place-items:center;border-radius:var(--r);background:radial-gradient(120% 90% at 50% 0%,#fff,var(--paper) 70%);box-shadow:inset 0 0 0 1px var(--line)}
+.anat-fig svg{width:100%;height:100%}
+.anat-fig .cap{position:absolute;left:18px;bottom:16px;font:600 12.5px/1 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+.roof .L{opacity:0;transform:translateY(-14px);transition:opacity 600ms var(--ease),transform 700ms var(--ease)}
+.roof .L .hl{fill:none;stroke:var(--y);stroke-width:3;opacity:0;transition:opacity 300ms ease}
+.roof[data-s="1"] .L1,.roof[data-s="2"] .L1,.roof[data-s="2"] .L2,.roof[data-s="3"] :is(.L1,.L2,.L3),.roof[data-s="4"] :is(.L1,.L2,.L3,.L4),.roof[data-s="5"] :is(.L1,.L2,.L3,.L4,.L5),.roof[data-s="6"] .L{opacity:1;transform:none}
+.roof[data-s="1"] .L1 .hl,.roof[data-s="2"] .L2 .hl,.roof[data-s="3"] .L3 .hl,.roof[data-s="4"] .L4 .hl,.roof[data-s="5"] .L5 .hl,.roof[data-s="6"] .L6 .hl{opacity:1}
+.roof .ghost{fill:none;stroke:rgb(18 26 38 / .14);stroke-width:1.5;stroke-dasharray:4 6}
+@media (prefers-reduced-motion:reduce){.roof .L{transition:none}}
+@media (max-width:899px){
+  .anat{grid-template-columns:1fr;gap:0}
+  .anat-fig{order:-1;top:calc(56px + 8px);height:40vh;z-index:2;background:var(--white)}
+  .anat-steps li,.anat-steps li:first-child,.anat-steps li:last-child{min-height:56vh;padding-top:0;justify-content:center}
+  .anat-steps li:first-child{padding-top:24px}
+}
+
+/* Services */
+.svc-grid{margin-top:clamp(36px,4vw,56px);display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:16px}
+.svc-hero{grid-column:span 7;grid-row:span 3;position:relative;border-radius:var(--r);overflow:hidden;color:#fff;display:flex;flex-direction:column;justify-content:flex-end;min-height:520px;padding:clamp(22px,3vw,36px);isolation:isolate}
+.svc-hero picture,.svc-hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
+.svc-hero::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(0deg,rgb(8 20 42 / .92),rgb(8 20 42 / .35) 55%,transparent)}
+.svc-hero h3{font-size:clamp(32px,3.4vw,48px)}
+.svc-hero p{margin-top:10px;color:#e3e8f1;max-width:44ch}
+.svc-hero .btn{margin-top:22px;align-self:flex-start}
+.svc{grid-column:span 5;display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:14px;align-items:center;padding:16px 18px;border-radius:12px;background:var(--white);box-shadow:inset 0 0 0 1px var(--line);text-decoration:none;transition:box-shadow 200ms ease,transform 160ms var(--ease)}
+.svc .ic{display:grid;place-items:center;width:44px;height:44px;border-radius:10px;background:var(--paper-2);color:var(--navy-3)}
+.svc b{display:block;font:600 19px/1.2 var(--serif)}
+.svc span{display:block;font-size:14.5px;color:var(--ink-2);margin-top:2px}
+.svc .go{font-size:13.5px;font-weight:600;color:var(--navy-3);display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.svc:active{transform:scale(.985)}
+@media (hover:hover){.svc:hover{box-shadow:inset 0 0 0 1.5px var(--navy-3)}}
+.svc-more{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.svc-more .svc{grid-column:auto}
+@media (max-width:1023px){.svc-hero,.svc{grid-column:1/-1}.svc-hero{min-height:420px;grid-row:auto}.svc-more{grid-template-columns:1fr 1fr}}
+@media (max-width:599px){.svc-more{grid-template-columns:1fr}.svc{grid-template-columns:40px minmax(0,1fr)}.svc .go{display:none}.svc-hero{min-height:380px}}
+
+/* Projects */
+.proj-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:20px}
+.gal{margin-top:clamp(32px,4vw,52px);display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:220px;gap:14px;grid-auto-flow:dense}
+.gal button{position:relative;display:block;padding:0;border:0;border-radius:12px;overflow:hidden;cursor:zoom-in;background:var(--paper-2);text-align:left}
+.gal img{width:100%;height:100%;object-fit:cover;transition:transform 700ms var(--ease)}
+.gal .t{grid-row:span 2}
+.gal .w{grid-column:span 2}
+.gal figcaption{position:absolute;left:0;right:0;bottom:0;padding:28px 14px 12px;background:linear-gradient(transparent,rgb(8 20 42 / .78));color:#fff;font-size:14px;font-weight:500}
+@media (hover:hover) and (pointer:fine){.gal button:hover img{transform:scale(1.04)}}
+@media (max-width:899px){.gal{grid-template-columns:1fr 1fr;grid-auto-rows:170px}.gal .w{grid-column:span 2}}
+.ba{margin-top:clamp(48px,6vw,80px);display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:clamp(24px,4vw,56px);align-items:center}
+.ba-box{position:relative;border-radius:var(--r);overflow:hidden;aspect-ratio:700/528;box-shadow:var(--shadow);user-select:none;touch-action:pan-y}
+.ba-box img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.ba-box .after{clip-path:inset(0 0 0 var(--p,50%))}
+.ba-box .bar-l{position:absolute;top:0;bottom:0;left:var(--p,50%);width:2px;margin-left:-1px;background:#fff;box-shadow:0 0 0 1px rgb(0 0 0 / .15);pointer-events:none}
+.ba-box .knob{position:absolute;top:50%;left:var(--p,50%);width:48px;height:48px;margin:-24px 0 0 -24px;border-radius:999px;background:var(--y);color:var(--navy);display:grid;place-items:center;box-shadow:0 8px 20px -8px rgb(0 0 0 / .5);pointer-events:none}
+.ba-box input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize;margin:0}
+.ba-box .tag{position:absolute;top:14px;padding:6px 10px;border-radius:999px;background:rgb(8 20 42 / .8);color:#fff;font-size:13px;font-weight:600;pointer-events:none}
+.ba-box .tag.b{left:14px}.ba-box .tag.a{right:14px}
+.ba-box input:focus-visible~.knob{outline:3px solid #fff;outline-offset:3px}
+@media (max-width:899px){.ba{grid-template-columns:1fr}}
+
+/* Lightbox */
+.lb{border:0;padding:0;background:transparent;max-width:min(94vw,1000px);overflow:visible;color:#fff}
+.lb::backdrop{background:rgb(8 14 26 / .9)}
+.lb img{max-height:80vh;width:auto;border-radius:12px}
+.lb p{margin-top:12px;text-align:center;font-size:15px}
+.lb .x{position:absolute;top:-16px;right:-16px;width:46px;height:46px;border-radius:999px;border:0;background:#fff;color:var(--navy);display:grid;place-items:center;cursor:pointer}
+.lb[open]{animation:lbIn 240ms var(--ease)}
+@keyframes lbIn{from{opacity:0;transform:scale(.97)}}
+
+/* Reviews */
+.rev{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:clamp(32px,6vw,96px);align-items:center}
+.score{display:flex;align-items:flex-end;gap:16px}
+.score .n{font:500 clamp(110px,15vw,200px)/.8 var(--serif);letter-spacing:-.045em;color:var(--navy)}
+.score .of{font:500 clamp(28px,3vw,40px)/1 var(--serif);color:var(--ink-3);padding-bottom:10px}
+.rev .stars{display:flex;gap:3px;color:var(--y);margin-top:20px}
+.rev .stars .i{width:22px;height:22px;filter:drop-shadow(0 1px 0 rgb(0 0 0 / .15))}
+.rev .src{margin-top:14px;font-size:17px}
+.rev .src b{font-weight:600}
+.rev-facts{display:grid;gap:12px}
+.rev-facts li{display:flex;gap:14px;align-items:center;padding:18px 20px;border-radius:12px;background:var(--white);box-shadow:inset 0 0 0 1px var(--line);font-size:17px}
+.rev-facts .i{color:var(--navy-3);width:24px;height:24px}
+.rev .link{margin-top:26px}
+@media (max-width:899px){.rev{grid-template-columns:1fr}}
+
+/* Zero-risk roofing */
+.zr-head{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;align-items:end}
+.zr-head h2 em{font-style:italic;color:var(--y)}
+.zr{margin-top:clamp(36px,4vw,56px);display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:rgb(255 255 255 / .12);border-radius:var(--r);overflow:hidden}
+.zr li{background:var(--navy);padding:clamp(20px,2.4vw,32px);display:grid;gap:12px;align-content:start;min-height:190px}
+.zr .i{width:30px;height:30px;color:var(--y)}
+.zr b{font:500 clamp(22px,2vw,27px)/1.15 var(--serif);color:#fff}
+.zr span{font-size:15px;color:var(--on-navy-2)}
+.zr .wide{grid-column:span 2;background:var(--navy-2)}
+.zr .wide b{font-size:clamp(26px,2.6vw,36px)}
+@media (max-width:899px){.zr{grid-template-columns:1fr 1fr}.zr-head{grid-template-columns:1fr}}
+@media (max-width:479px){.zr li{min-height:0}.zr b{font-size:20px}}
+
+/* How it works */
+.how{margin-top:clamp(36px,4vw,56px);display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;counter-reset:s;position:relative}
+.how::before{content:"";position:absolute;left:24px;right:24px;top:24px;height:2px;background:repeating-linear-gradient(90deg,var(--navy-3) 0 6px,transparent 6px 12px);opacity:.3}
+.how li{position:relative;padding-right:24px}
+.how .dot{position:relative;display:grid;place-items:center;width:50px;height:50px;border-radius:999px;background:var(--navy);color:var(--y);font:600 20px/1 var(--serif)}
+.how h3{margin-top:22px;font-size:clamp(22px,2vw,27px)}
+.how p{margin-top:8px;color:var(--ink-2);font-size:15.5px;max-width:30ch}
+@media (max-width:899px){.how{grid-template-columns:1fr;gap:28px}.how::before{left:24px;right:auto;top:24px;bottom:24px;width:2px;height:auto;background:repeating-linear-gradient(180deg,var(--navy-3) 0 6px,transparent 6px 12px)}.how li{display:grid;grid-template-columns:50px minmax(0,1fr);gap:0 18px;padding:0}.how h3{margin-top:10px}.how p{grid-column:2}}
+
+/* Areas */
+.areas{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(32px,6vw,96px);align-items:start}
+.counties{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px 32px}
+.counties h3{font-size:22px;padding-bottom:10px;border-bottom:2px solid var(--y);display:inline-block}
+.counties ul{margin-top:12px;display:flex;flex-wrap:wrap;gap:8px}
+.counties li{padding:6px 12px;border-radius:999px;background:var(--white);box-shadow:inset 0 0 0 1px var(--line);font-size:15px}
+.pc{margin-top:30px;padding:22px;border-radius:var(--r);background:var(--navy);color:#fff}
+.pc label{display:block;font-weight:600;margin-bottom:10px}
+.pc-row{display:flex;gap:8px}
+.pc input{flex:1;min-width:0;min-height:54px;padding:0 16px;border-radius:12px;border:0;background:#fff;color:var(--ink);font-size:17px;text-transform:uppercase}
+.pc input::placeholder{text-transform:none;color:#6b7280}
+.pc .res{margin-top:12px;font-size:15.5px;color:var(--on-navy-2);min-height:1.5em}
+.pc .res.ok{color:#fff}
+.pc .res.ok .i{color:#45d483}
+@media (max-width:899px){.areas{grid-template-columns:1fr}}
+@media (max-width:479px){.counties{grid-template-columns:1fr}}
+
+/* Quote form */
+.q-grid{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:clamp(32px,5vw,80px);align-items:start}
+.q-side .h2{font-size:clamp(36px,4.2vw,56px)}
+.q-proof{margin-top:28px;padding:22px;border-radius:var(--r);background:var(--white);box-shadow:inset 0 0 0 1px var(--line)}
+.q-proof .row{display:flex;align-items:center;gap:12px}
+.q-proof .n{font:500 44px/1 var(--serif);color:var(--navy)}
+.q-proof p{font-size:15px;color:var(--ink-2)}
+.q-proof ul{margin-top:16px;display:grid;gap:8px;font-size:15.5px}
+.q-proof li{display:flex;gap:10px;align-items:center}
+.q-proof li .i{color:var(--wa)}
+.q-call{margin-top:18px;display:grid;gap:10px}
+.qf{position:relative;background:var(--white);border-radius:var(--r);box-shadow:var(--shadow),inset 0 0 0 1px var(--line);padding:clamp(20px,3vw,36px);min-height:520px;display:flex;flex-direction:column}
+.qf-top{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:14px;color:var(--ink-2)}
+.qf-back{display:inline-flex;align-items:center;gap:6px;min-height:40px;padding:0 10px 0 4px;border:0;background:none;font-weight:600;color:var(--navy-3);cursor:pointer;border-radius:8px}
+.prog{margin-top:12px;height:6px;border-radius:999px;background:var(--paper-2);overflow:hidden}
+.prog i{display:block;height:100%;width:var(--w,20%);background:var(--navy-3);border-radius:999px;transition:width 420ms var(--ease)}
+.steps{position:relative;flex:1;margin-top:26px}
+.step{border:0;margin:0;padding:0;min-width:0}
+.step legend{padding:0;font:500 clamp(26px,2.6vw,34px)/1.1 var(--serif);letter-spacing:-.015em;margin-bottom:6px}
+.step .hint{color:var(--ink-2);font-size:15.5px;margin-bottom:20px}
+.js .step{display:none}
+.js .step.cur{display:block;animation:stepIn 360ms var(--ease)}
+.js .step.cur.back{animation-name:stepBack}
+@keyframes stepIn{from{opacity:0;transform:translateX(18px)}}
+@keyframes stepBack{from{opacity:0;transform:translateX(-18px)}}
+@media (prefers-reduced-motion:reduce){.js .step.cur{animation:none}}
+.tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.tiles.two{grid-template-columns:1fr}
+.tile{position:relative}
+.tile input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
+.tile span{display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;gap:12px;min-height:112px;padding:16px;border-radius:12px;background:var(--paper);box-shadow:inset 0 0 0 1.5px var(--line);font-weight:600;font-size:16px;line-height:1.25;transition:box-shadow 160ms ease,background-color 160ms ease,transform 140ms var(--ease)}
+.tile .i{width:28px;height:28px;color:var(--navy-3)}
+.tile small{display:block;font-weight:400;font-size:14px;color:var(--ink-2);margin-top:2px}
+.tiles.two .tile span{min-height:72px;flex-direction:row;align-items:center;justify-content:flex-start;gap:16px}
+.tile input:checked+span{background:#fff8d6;box-shadow:inset 0 0 0 2px var(--navy-3)}
+.tile input:focus-visible+span{outline:3px solid var(--navy-3);outline-offset:2px}
+.tile input:active+span{transform:scale(.98)}
+@media (hover:hover){.tile span:hover{box-shadow:inset 0 0 0 1.5px var(--navy-3)}}
+@media (max-width:599px){.tiles{grid-template-columns:1fr 1fr}.tile span{min-height:96px}}
+.fld{display:grid;gap:8px;margin-bottom:16px}
+.fld label{font-weight:600;font-size:15px}
+.fld .opt{font-weight:400;color:var(--ink-2)}
+.fld input{width:100%;min-height:56px;padding:0 16px;border-radius:12px;border:1.5px solid rgb(18 26 38 / .28);background:#fff;font-size:17px;transition:border-color 160ms ease,box-shadow 160ms ease}
+.fld input:focus{outline:none;border-color:var(--navy-3);box-shadow:0 0 0 4px rgb(27 58 107 / .15)}
+.fld[data-bad] input{border-color:#b42318}
+.err{font-size:14px;color:#b42318}
+.err:empty{display:none}
+.okline{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:600;color:#14733f}
+.okline:empty{display:none}
+.okline.maybe{color:var(--ink-2);font-weight:500}
+.drop{position:relative;display:flex;align-items:center;gap:16px;padding:22px;border-radius:12px;border:1.5px dashed rgb(18 26 38 / .35);background:var(--paper)}
+.drop input{position:absolute;inset:0;opacity:0;cursor:pointer}
+.drop .ic{display:grid;place-items:center;width:52px;height:52px;border-radius:999px;background:#fff;color:var(--navy-3)}
+.drop small{display:block;color:var(--ink-2);font-size:14px}
+.files{margin-top:10px;font-size:14px;color:var(--ink-2)}
+.q-next{margin-top:22px;display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.q-next .btn{min-width:180px}
+.skipb{border:0;background:none;color:var(--navy-3);font-weight:600;cursor:pointer;min-height:44px;padding:0 8px;text-decoration:underline;text-underline-offset:3px}
+.q-legal{margin-top:14px;font-size:13px;color:var(--ink-2)}
+.q-legal a{color:inherit}
+.emerg{display:grid;gap:14px;text-align:left}
+.emerg h3{font-size:clamp(28px,3vw,38px)}
+.emerg p{color:var(--ink-2)}
+.emerg .btn{width:100%;min-height:62px;font-size:18px}
+.emerg .btn-y{font-size:20px}
+.emerg .skipb{justify-self:start}
+
+/* FAQ */
+.faq{display:grid;grid-template-columns:minmax(0,.7fr) minmax(0,1.3fr);gap:clamp(32px,6vw,96px);align-items:start}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:22px 0;cursor:pointer;list-style:none;font:500 clamp(20px,1.8vw,24px)/1.25 var(--serif)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary .pm{flex:none;display:grid;place-items:center;width:34px;height:34px;border-radius:999px;background:var(--paper-2);transition:transform 260ms var(--ease),background-color 200ms}
+.faq details[open] summary .pm{transform:rotate(45deg);background:var(--y)}
+.faq .ans{padding:0 0 22px;color:var(--ink-2);max-width:62ch}
+.faq details[open] .ans{animation:fadeDown 300ms var(--ease)}
+@keyframes fadeDown{from{opacity:0;transform:translateY(-6px)}}
+@media (max-width:899px){.faq{grid-template-columns:1fr}}
+
+/* Final band and footer */
+.final{position:relative;isolation:isolate;overflow:hidden;color:#fff;text-align:left}
+.final picture,.final img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
+.final::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgb(8 20 42 / .94),rgb(8 20 42 / .7))}
+.final h2{font-size:clamp(40px,5vw,72px);max-width:16ch}
+.final .ctas{margin-top:28px}
+footer{background:var(--paper-2);padding-block:clamp(56px,7vw,96px) 32px;font-size:15.5px}
+.foot{display:grid;grid-template-columns:minmax(0,1.3fr) repeat(3,minmax(0,1fr));gap:36px}
+.foot .logo img{height:64px;width:auto}
+.foot h3{font:600 13px/1 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);margin-bottom:14px}
+.foot li{padding:4px 0}
+.foot a{text-decoration:none}
+.foot a:hover{text-decoration:underline;text-underline-offset:3px}
+.foot .addr{margin-top:18px;color:var(--ink-2)}
+.mats{margin-top:44px;padding-top:22px;border-top:1px solid var(--line);font-size:14px;color:var(--ink-2)}
+.legal{margin-top:16px;display:flex;flex-wrap:wrap;gap:8px 24px;font-size:14px;color:var(--ink-2)}
+@media (max-width:899px){.foot{grid-template-columns:1fr 1fr}.foot>div:first-child{grid-column:1/-1}}
+
+/* Mobile sticky bar */
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:40;display:none;grid-template-columns:1fr 1.15fr 1.3fr;gap:8px;padding:10px 10px calc(10px + env(safe-area-inset-bottom));background:rgb(252 251 249 / .97);box-shadow:0 -1px 0 var(--line),0 -14px 30px -20px rgb(11 29 58 / .45);transform:translateY(110%);transition:transform 300ms var(--ease)}
+.bar .btn{min-height:50px;padding:0 8px;font-size:15px;gap:7px}
+.bar.show{transform:none}
+@media (max-width:767px){.bar{display:grid}body.bar-on footer{padding-bottom:110px}}
+
+/* Reveals: content is visible without JS; this only adds the settle */
+.js [data-rv]{opacity:0;transform:translateY(16px);transition:opacity 600ms var(--ease),transform 700ms var(--ease);transition-delay:calc(var(--d,0) * 60ms)}
+.js [data-rv].in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.js [data-rv]{transform:none;transition:opacity 300ms ease}}
+.cv{content-visibility:auto;contain-intrinsic-size:auto 900px}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="i-phone" viewBox="0 0 256 256"><path d="M222.37,158.46l-47.11-21.11-.13-.06a16,16,0,0,0-15.17,1.4,8.12,8.12,0,0,0-.75.56L134.87,160c-15.42-7.49-31.34-23.29-38.83-38.51l20.78-24.71c.2-.25.39-.5.57-.77a16,16,0,0,0,1.32-15.06l0-.12L97.54,33.64a16,16,0,0,0-16.62-9.52A56.26,56.26,0,0,0,32,80c0,79.4,64.6,144,144,144a56.26,56.26,0,0,0,55.88-48.92A16,16,0,0,0,222.37,158.46ZM176,208A128.14,128.14,0,0,1,48,80,40.2,40.2,0,0,1,82.87,40a.61.61,0,0,0,0,.12l21,47L83.2,111.86a6.13,6.13,0,0,0-.57.77,16,16,0,0,0-1,15.7c9.06,18.53,27.73,37.06,46.46,46.11a16,16,0,0,0,15.75-1.14,8.44,8.44,0,0,0,.74-.56L168.89,152l47,21.05h0s.08,0,.11,0A40.21,40.21,0,0,1,176,208Z"/></symbol><symbol id="i-wa" viewBox="0 0 256 256"><path d="M152.58,145.23l23,11.48A24,24,0,0,1,152,176a72.08,72.08,0,0,1-72-72A24,24,0,0,1,99.29,80.46l11.48,23L101,118a8,8,0,0,0-.73,7.51,56.47,56.47,0,0,0,30.15,30.15A8,8,0,0,0,138,155ZM232,128A104,104,0,0,1,79.12,219.82L45.07,231.17a16,16,0,0,1-20.24-20.24l11.35-34.05A104,104,0,1,1,232,128Zm-40,24a8,8,0,0,0-4.42-7.16l-32-16a8,8,0,0,0-8,.5l-14.69,9.8a40.55,40.55,0,0,1-16-16l9.8-14.69a8,8,0,0,0,.5-8l-16-32A8,8,0,0,0,104,64a40,40,0,0,0-40,40,88.1,88.1,0,0,0,88,88A40,40,0,0,0,192,152Z"/></symbol><symbol id="i-arrow" viewBox="0 0 256 256"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></symbol><symbol id="i-arrow-l" viewBox="0 0 256 256"><path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"/></symbol><symbol id="i-star" viewBox="0 0 256 256"><path d="M234.29,114.85l-45,38.83L203,211.75a16.4,16.4,0,0,1-24.5,17.82L128,198.49,77.47,229.57A16.4,16.4,0,0,1,53,211.75l13.76-58.07-45-38.83A16.46,16.46,0,0,1,31.08,86l59-4.76,22.76-55.08a16.36,16.36,0,0,1,30.27,0l22.75,55.08,59,4.76a16.46,16.46,0,0,1,9.37,28.86Z"/></symbol><symbol id="i-drop" viewBox="0 0 256 256"><path d="M174,47.75a254.19,254.19,0,0,0-41.45-38.3,8,8,0,0,0-9.18,0A254.19,254.19,0,0,0,82,47.75C54.51,79.32,40,112.6,40,144a88,88,0,0,0,176,0C216,112.6,201.49,79.32,174,47.75ZM128,216a72.08,72.08,0,0,1-72-72c0-57.23,55.47-105,72-118,16.53,13,72,60.75,72,118A72.08,72.08,0,0,1,128,216Zm55.89-62.66a57.6,57.6,0,0,1-46.56,46.55A8.75,8.75,0,0,1,136,200a8,8,0,0,1-1.32-15.89c16.57-2.79,30.63-16.85,33.44-33.45a8,8,0,0,1,15.78,2.68Z"/></symbol><symbol id="i-house" viewBox="0 0 256 256"><path d="M240,208H224V136l2.34,2.34A8,8,0,0,0,237.66,127L139.31,28.68a16,16,0,0,0-22.62,0L18.34,127a8,8,0,0,0,11.32,11.31L32,136v72H16a8,8,0,0,0,0,16H240a8,8,0,0,0,0-16ZM48,120l80-80,80,80v88H160V152a8,8,0,0,0-8-8H104a8,8,0,0,0-8,8v56H48Zm96,88H112V160h32Z"/></symbol><symbol id="i-ladder" viewBox="0 0 256 256"><path d="M215.52,213.26,164.51,73l9.09-25H184a8,8,0,0,0,0-16H88a8,8,0,0,0,0,16h4.58L32.48,213.26a8,8,0,0,0,4.79,10.26A8.14,8.14,0,0,0,40,224a8,8,0,0,0,7.52-5.27L57.24,192h47l-7.74,21.26a8,8,0,0,0,4.79,10.26A8.14,8.14,0,0,0,104,224a8,8,0,0,0,7.52-5.27L130,168H182l18.45,50.73A8,8,0,0,0,208,224a8.14,8.14,0,0,0,2.73-.48A8,8,0,0,0,215.52,213.26Zm-88-85.26h-47L92.15,96h47Zm29.09-80L144.94,80H98L109.6,48ZM63.06,176,74.7,144h47L110,176Zm72.72-24L156,96.41,176.21,152Z"/></symbol><symbol id="i-recycle" viewBox="0 0 256 256"><path d="M96,208a8,8,0,0,1-8,8H40a24,24,0,0,1-20.77-36l34.29-59.25L39.47,124.5A8,8,0,1,1,35.33,109l32.77-8.77a8,8,0,0,1,9.8,5.66l8.79,32.77A8,8,0,0,1,81,148.5a8.37,8.37,0,0,1-2.08.27,8,8,0,0,1-7.72-5.93l-3.8-14.15L33.11,188A8,8,0,0,0,40,200H88A8,8,0,0,1,96,208Zm140.73-28-23.14-40a8,8,0,0,0-13.84,8l23.14,40A8,8,0,0,1,216,200H147.31l10.34-10.34a8,8,0,0,0-11.31-11.32l-24,24a8,8,0,0,0,0,11.32l24,24a8,8,0,0,0,11.31-11.32L147.31,216H216a24,24,0,0,0,20.77-36ZM128,32a7.85,7.85,0,0,1,6.92,4l34.29,59.25-14.08-3.78A8,8,0,0,0,151,106.92l32.78,8.79a8.23,8.23,0,0,0,2.07.27,8,8,0,0,0,7.72-5.93l8.79-32.79a8,8,0,1,0-15.45-4.14l-3.8,14.17L148.77,28a24,24,0,0,0-41.54,0L84.07,68a8,8,0,0,0,13.85,8l23.16-40A7.85,7.85,0,0,1,128,32Z"/></symbol><symbol id="i-stack" viewBox="0 0 256 256"><path d="M230.91,172A8,8,0,0,1,228,182.91l-96,56a8,8,0,0,1-8.06,0l-96-56A8,8,0,0,1,36,169.09l92,53.65,92-53.65A8,8,0,0,1,230.91,172ZM220,121.09l-92,53.65L36,121.09A8,8,0,0,0,28,134.91l96,56a8,8,0,0,0,8.06,0l96-56A8,8,0,1,0,220,121.09ZM24,80a8,8,0,0,1,4-6.91l96-56a8,8,0,0,1,8.06,0l96,56a8,8,0,0,1,0,13.82l-96,56a8,8,0,0,1-8.06,0l-96-56A8,8,0,0,1,24,80Zm23.88,0L128,126.74,208.12,80,128,33.26Z"/></symbol><symbol id="i-wrench" viewBox="0 0 256 256"><path d="M226.76,69a8,8,0,0,0-12.84-2.88l-40.3,37.19-17.23-3.7-3.7-17.23,37.19-40.3A8,8,0,0,0,187,29.24,72,72,0,0,0,88,96,72.34,72.34,0,0,0,94,124.94L33.79,177c-.15.12-.29.26-.43.39a32,32,0,0,0,45.26,45.26c.13-.13.27-.28.39-.42L131.06,162A72,72,0,0,0,232,96,71.56,71.56,0,0,0,226.76,69ZM160,152a56.14,56.14,0,0,1-27.07-7,8,8,0,0,0-9.92,1.77L67.11,211.51a16,16,0,0,1-22.62-22.62L109.18,133a8,8,0,0,0,1.77-9.93,56,56,0,0,1,58.36-82.31l-31.2,33.81a8,8,0,0,0-1.94,7.1L141.83,108a8,8,0,0,0,6.14,6.14l26.35,5.66a8,8,0,0,0,7.1-1.94l33.81-31.2A56.06,56.06,0,0,1,160,152Z"/></symbol><symbol id="i-hammer" viewBox="0 0 256 256"><path d="M251.34,112,183.88,44.08a96.1,96.1,0,0,0-135.77,0l-.09.09L34.25,58.4A8,8,0,0,0,45.74,69.53L59.47,55.35a79.92,79.92,0,0,1,18.71-13.9L124.68,88l-96,96a16,16,0,0,0,0,22.63l20.69,20.69a16,16,0,0,0,22.63,0l96-96,14.34,14.34h0L200,163.3a16,16,0,0,0,22.63,0l28.69-28.69A16,16,0,0,0,251.34,112ZM60.68,216,40,195.31l68-68L128.68,148ZM162.34,114.32,140,136.67,119.31,116l22.35-22.35a8,8,0,0,0,0-11.32L94.32,35a80,80,0,0,1,78.23,20.41l44.22,44.51L188,128.66l-14.34-14.34A8,8,0,0,0,162.34,114.32Zm49,37.66-12-12L228,111.25l12,12Z"/></symbol><symbol id="i-seal" viewBox="0 0 256 256"><path d="M225.86,102.82c-3.77-3.94-7.67-8-9.14-11.57-1.36-3.27-1.44-8.69-1.52-13.94-.15-9.76-.31-20.82-8-28.51s-18.75-7.85-28.51-8c-5.25-.08-10.67-.16-13.94-1.52-3.56-1.47-7.63-5.37-11.57-9.14C146.28,23.51,138.44,16,128,16s-18.27,7.51-25.18,14.14c-3.94,3.77-8,7.67-11.57,9.14C88,40.64,82.56,40.72,77.31,40.8c-9.76.15-20.82.31-28.51,8S41,67.55,40.8,77.31c-.08,5.25-.16,10.67-1.52,13.94-1.47,3.56-5.37,7.63-9.14,11.57C23.51,109.72,16,117.56,16,128s7.51,18.27,14.14,25.18c3.77,3.94,7.67,8,9.14,11.57,1.36,3.27,1.44,8.69,1.52,13.94.15,9.76.31,20.82,8,28.51s18.75,7.85,28.51,8c5.25.08,10.67.16,13.94,1.52,3.56,1.47,7.63,5.37,11.57,9.14C109.72,232.49,117.56,240,128,240s18.27-7.51,25.18-14.14c3.94-3.77,8-7.67,11.57-9.14,3.27-1.36,8.69-1.44,13.94-1.52,9.76-.15,20.82-.31,28.51-8s7.85-18.75,8-28.51c.08-5.25.16-10.67,1.52-13.94,1.47-3.56,5.37-7.63,9.14-11.57C232.49,146.28,240,138.44,240,128S232.49,109.73,225.86,102.82Zm-11.55,39.29c-4.79,5-9.75,10.17-12.38,16.52-2.52,6.1-2.63,13.07-2.73,19.82-.1,7-.21,14.33-3.32,17.43s-10.39,3.22-17.43,3.32c-6.75.1-13.72.21-19.82,2.73-6.35,2.63-11.52,7.59-16.52,12.38S132,224,128,224s-9.15-4.92-14.11-9.69-10.17-9.75-16.52-12.38c-6.1-2.52-13.07-2.63-19.82-2.73-7-.1-14.33-.21-17.43-3.32s-3.22-10.39-3.32-17.43c-.1-6.75-.21-13.72-2.73-19.82-2.63-6.35-7.59-11.52-12.38-16.52S32,132,32,128s4.92-9.15,9.69-14.11,9.75-10.17,12.38-16.52c2.52-6.1,2.63-13.07,2.73-19.82.1-7,.21-14.33,3.32-17.43S70.51,56.9,77.55,56.8c6.75-.1,13.72-.21,19.82-2.73,6.35-2.63,11.52-7.59,16.52-12.38S124,32,128,32s9.15,4.92,14.11,9.69,10.17,9.75,16.52,12.38c6.1,2.52,13.07,2.63,19.82,2.73,7,.1,14.33.21,17.43,3.32s3.22,10.39,3.32,17.43c.1,6.75.21,13.72,2.73,19.82,2.63,6.35,7.59,11.52,12.38,16.52S224,124,224,128,219.08,137.15,214.31,142.11ZM173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34Z"/></symbol><symbol id="i-sparkle" viewBox="0 0 256 256"><path d="M197.58,129.06,146,110l-19-51.62a15.92,15.92,0,0,0-29.88,0L78,110l-51.62,19a15.92,15.92,0,0,0,0,29.88L78,178l19,51.62a15.92,15.92,0,0,0,29.88,0L146,178l51.62-19a15.92,15.92,0,0,0,0-29.88ZM137,164.22a8,8,0,0,0-4.74,4.74L112,223.85,91.78,169A8,8,0,0,0,87,164.22L32.15,144,87,123.78A8,8,0,0,0,91.78,119L112,64.15,132.22,119a8,8,0,0,0,4.74,4.74L191.85,144ZM144,40a8,8,0,0,1,8-8h16V16a8,8,0,0,1,16,0V32h16a8,8,0,0,1,0,16H184V64a8,8,0,0,1-16,0V48H152A8,8,0,0,1,144,40ZM248,88a8,8,0,0,1-8,8h-8v8a8,8,0,0,1-16,0V96h-8a8,8,0,0,1,0-16h8V72a8,8,0,0,1,16,0v8h8A8,8,0,0,1,248,88Z"/></symbol><symbol id="i-x" viewBox="0 0 256 256"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"/></symbol><symbol id="i-paint" viewBox="0 0 256 256"><path d="M232,88H216V64a16,16,0,0,0-16-16H48A16,16,0,0,0,32,64V88H16a8,8,0,0,0,0,16H32v24a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V104h16v50L131.6,182.65A16.07,16.07,0,0,0,120,198v34a8,8,0,0,0,16,0V198l100.4-28.68A16.07,16.07,0,0,0,248,154V104A16,16,0,0,0,232,88Zm-32,40H48V64H200v64Z"/></symbol><symbol id="i-check" viewBox="0 0 256 256"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"/></symbol><symbol id="i-check-circle" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm45.66,85.66-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32Z"/></symbol><symbol id="i-clock" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm64-88a8,8,0,0,1-8,8H128a8,8,0,0,1-8-8V72a8,8,0,0,1,16,0v48h48A8,8,0,0,1,192,128Z"/></symbol><symbol id="i-hand-coins" viewBox="0 0 256 256"><path d="M230.33,141.06a24.43,24.43,0,0,0-21.24-4.23l-41.84,9.62A28,28,0,0,0,140,112H89.94a31.82,31.82,0,0,0-22.63,9.37L44.69,144H16A16,16,0,0,0,0,160v40a16,16,0,0,0,16,16H120a7.93,7.93,0,0,0,1.94-.24l64-16a6.94,6.94,0,0,0,1.19-.4L226,182.82l.44-.2a24.6,24.6,0,0,0,3.93-41.56ZM16,160H40v40H16Zm203.43,8.21-38,16.18L119,200H56V155.31l22.63-22.62A15.86,15.86,0,0,1,89.94,128H140a12,12,0,0,1,0,24H112a8,8,0,0,0,0,16h32a8.32,8.32,0,0,0,1.79-.2l67-15.41.31-.08a8.6,8.6,0,0,1,6.3,15.9ZM164,96a36,36,0,0,0,5.9-.48,36,36,0,1,0,28.22-47A36,36,0,1,0,164,96Zm60-12a20,20,0,1,1-20-20A20,20,0,0,1,224,84ZM164,40a20,20,0,0,1,19.25,14.61,36,36,0,0,0-15,24.93A20.42,20.42,0,0,1,164,80a20,20,0,0,1,0-40Z"/></symbol><symbol id="i-calendar" viewBox="0 0 256 256"><path d="M208,32H184V24a8,8,0,0,0-16,0v8H88V24a8,8,0,0,0-16,0v8H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM72,48v8a8,8,0,0,0,16,0V48h80v8a8,8,0,0,0,16,0V48h24V80H48V48ZM208,208H48V96H208V208Zm-96-88v64a8,8,0,0,1-16,0V132.94l-4.42,2.22a8,8,0,0,1-7.16-14.32l16-8A8,8,0,0,1,112,120Zm59.16,30.45L152,176h16a8,8,0,0,1,0,16H136a8,8,0,0,1-6.4-12.8l28.78-38.37A8,8,0,1,0,145.07,132a8,8,0,1,1-13.85-8A24,24,0,0,1,176,136,23.76,23.76,0,0,1,171.16,150.45Z"/></symbol><symbol id="i-shield" viewBox="0 0 256 256"><path d="M208,40H48A16,16,0,0,0,32,56v56c0,52.72,25.52,84.67,46.93,102.19,23.06,18.86,46,25.26,47,25.53a8,8,0,0,0,4.2,0c1-.27,23.91-6.67,47-25.53C198.48,196.67,224,164.72,224,112V56A16,16,0,0,0,208,40Zm0,72c0,37.07-13.66,67.16-40.6,89.42A129.3,129.3,0,0,1,128,223.62a128.25,128.25,0,0,1-38.92-21.81C61.82,179.51,48,149.3,48,112l0-56,160,0ZM82.34,141.66a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32l-56,56a8,8,0,0,1-11.32,0Z"/></symbol><symbol id="i-truck" viewBox="0 0 256 256"><path d="M255.42,117l-14-35A15.93,15.93,0,0,0,226.58,72H192V64a8,8,0,0,0-8-8H32A16,16,0,0,0,16,72V184a16,16,0,0,0,16,16H49a32,32,0,0,0,62,0h50a32,32,0,0,0,62,0h17a16,16,0,0,0,16-16V120A7.94,7.94,0,0,0,255.42,117ZM192,88h34.58l9.6,24H192ZM32,72H176v64H32ZM80,208a16,16,0,1,1,16-16A16,16,0,0,1,80,208Zm81-24H111a32,32,0,0,0-62,0H32V152H176v12.31A32.11,32.11,0,0,0,161,184Zm31,24a16,16,0,1,1,16-16A16,16,0,0,1,192,208Zm48-24H223a32.06,32.06,0,0,0-31-24V128h48Z"/></symbol><symbol id="i-arrows" viewBox="0 0 256 256"><path d="M213.66,181.66l-32,32a8,8,0,0,1-11.32-11.32L188.69,184H48a8,8,0,0,1,0-16H188.69l-18.35-18.34a8,8,0,0,1,11.32-11.32l32,32A8,8,0,0,1,213.66,181.66Zm-139.32-64a8,8,0,0,0,11.32-11.32L67.31,88H208a8,8,0,0,0,0-16H67.31L85.66,53.66A8,8,0,0,0,74.34,42.34l-32,32a8,8,0,0,0,0,11.32Z"/></symbol><symbol id="i-question" viewBox="0 0 256 256"><path d="M140,180a12,12,0,1,1-12-12A12,12,0,0,1,140,180ZM128,72c-22.06,0-40,16.15-40,36v4a8,8,0,0,0,16,0v-4c0-11,10.77-20,24-20s24,9,24,20-10.77,20-24,20a8,8,0,0,0-8,8v8a8,8,0,0,0,16,0v-.72c18.24-3.35,32-17.9,32-35.28C168,88.15,150.06,72,128,72Zm104,56A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></symbol><symbol id="i-warning" viewBox="0 0 256 256"><path d="M236.8,188.09,149.35,36.22h0a24.76,24.76,0,0,0-42.7,0L19.2,188.09a23.51,23.51,0,0,0,0,23.72A24.35,24.35,0,0,0,40.55,224h174.9a24.35,24.35,0,0,0,21.33-12.19A23.51,23.51,0,0,0,236.8,188.09ZM222.93,203.8a8.5,8.5,0,0,1-7.48,4.2H40.55a8.5,8.5,0,0,1-7.48-4.2,7.59,7.59,0,0,1,0-7.72L120.52,44.21a8.75,8.75,0,0,1,15,0l87.45,151.87A7.59,7.59,0,0,1,222.93,203.8ZM120,144V104a8,8,0,0,1,16,0v40a8,8,0,0,1-16,0Zm20,36a12,12,0,1,1-12-12A12,12,0,0,1,140,180Z"/></symbol><symbol id="i-camera" viewBox="0 0 256 256"><path d="M208,56H180.28L166.65,35.56A8,8,0,0,0,160,32H96a8,8,0,0,0-6.65,3.56L75.71,56H48A24,24,0,0,0,24,80V192a24,24,0,0,0,24,24H208a24,24,0,0,0,24-24V80A24,24,0,0,0,208,56Zm8,136a8,8,0,0,1-8,8H48a8,8,0,0,1-8-8V80a8,8,0,0,1,8-8H80a8,8,0,0,0,6.66-3.56L100.28,48h55.43l13.63,20.44A8,8,0,0,0,176,72h32a8,8,0,0,1,8,8ZM128,88a44,44,0,1,0,44,44A44.05,44.05,0,0,0,128,88Zm0,72a28,28,0,1,1,28-28A28,28,0,0,1,128,160Z"/></symbol><symbol id="i-plus" viewBox="0 0 256 256"><path d="M224,128a8,8,0,0,1-8,8H136v80a8,8,0,0,1-16,0V136H40a8,8,0,0,1,0-16h80V40a8,8,0,0,1,16,0v80h80A8,8,0,0,1,224,128Z"/></symbol></svg><header class="hdr small"><div class="wrap"><a class="logo" href="/" aria-label="COLT Building Contractors, home"><img src="brand/logo-320.png" width="84" height="38" alt="COLT Building Contractors"></a><a class="hdr-tel" href="tel:+447473989092" aria-label="Call 07473 989092"><svg class="i"><use href="#i-phone"/></svg><span>07473 989092</span></a></div></header>
+<main class="sec paper" style="min-height:calc(100svh - 64px)">
+  <div class="wrap" style="max-width:760px">
+    <svg class="i" style="width:56px;height:56px;color:#14733f"><use href="#i-check-circle"/></svg>
+    <h1 class="h2" style="margin-top:18px" id="tyH">Thank you. Your quote request is in.</h1>
+    <p class="lede" id="tySum">We'll be in touch shortly to arrange your free survey.</p>
+    <div class="qf" style="min-height:0;margin-top:30px">
+      <h2 style="font-size:28px">Want it even faster?</h2>
+      <p style="margin-top:8px;color:var(--ink-2)">Send the same details to us on WhatsApp, and add photos of the roof there.</p>
+      <div class="ctas" style="margin-top:20px">
+        <a class="btn btn-y" id="tyWa" href="https://wa.me/447473989092" target="_blank" rel="noopener"><svg class="i"><use href="#i-wa"/></svg>Send this to us on WhatsApp too</a>
+        <a class="btn btn-line" href="tel:+447473989092"><svg class="i"><use href="#i-phone"/></svg>Call 07473 989092</a>
+      </div>
+      <p class="trustline"><span><b>9.84/10</b> on Checkatrade</span><span>No deposit</span><span>Pay when you're happy</span></p>
+    </div>
+    <p style="margin-top:28px"><a class="link" href="/">Back to the homepage</a></p>
+  </div>
+</main><script>
+(() => {
+  const JOBS = { 'new-roof': 'New roof', 'leak-repair': 'Leak or repair', 'flat-roof': 'Flat roof', 'chimney': 'Chimney or leadwork', 'roofline': 'Roofline', 'not-sure': 'Not sure yet' };
+  const URG = { emergency: 'Emergency', 'this-month': 'This month', planning: 'Planning ahead' };
+  let l = null; try { l = JSON.parse(sessionStorage.getItem('colt-lead')); } catch (_) {}
+  window.dataLayer = window.dataLayer || []; window.dataLayer.push({ event: 'thank_you_view' });
+  document.addEventListener('click', (e) => { const a = e.target.closest('a'); if (!a) return; const h = a.getAttribute('href') || ''; if (h.startsWith('tel:')) dataLayer.push({ event: 'call_click', location: 'thank-you' }); else if (h.includes('wa.me')) dataLayer.push({ event: 'whatsapp_click', location: 'thank-you' }); });
+  if (!l) return;
+  const first = (l.name || '').split(' ')[0];
+  document.getElementById('tyH').textContent = `Thanks ${first}. Your quote request is in.`;
+  document.getElementById('tySum').textContent = `${JOBS[l.job] || 'Roof work'}${l.urgency ? ', ' + (URG[l.urgency] || '').toLowerCase() : ''}, ${l.postcode}. We'll call or text ${l.mobile} to arrange your free survey.`;
+  const text = `Hi Colt, I've just asked for a free roof quote on your website.\nJob: ${JOBS[l.job] || '-'}\nUrgency: ${URG[l.urgency] || '-'}\nPostcode: ${l.postcode}\nName: ${l.name}\nMobile: ${l.mobile}${l.email ? '\nEmail: ' + l.email : ''}${l.photos ? '\n(I\'ll send my photos here.)' : ''}`;
+  document.getElementById('tyWa').href = 'https://wa.me/447473989092?text=' + encodeURIComponent(text);
+})();
+</script>
+</body>
+</html>

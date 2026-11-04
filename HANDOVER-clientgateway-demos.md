@@ -31,6 +31,7 @@ These are two demo websites for **Clientgateway**, an agency selling high-conver
 | `demos/revive/` | Prospect: Revive Coatings, Boise/Nampa ID (from coating template) | https://clientgateway-revive.vercel.app | `clientgateway-revive` |
 | `demos/rhino/` | Prospect: Rhino Coating Ltd, Middleton, Manchester (owner David O'Rourke). Standalone static generator, not the coating template | https://clientgateway-rhino.vercel.app | `clientgateway-rhino` |
 | `demos/gafflow/` | Prospect: Gafflow Resin Finishes, Eastbourne (installs + courses + shop). Built on the Rhino generator | https://clientgateway-gafflow.vercel.app | `clientgateway-gafflow` |
+| `demos/colt/` | Prospect: COLT Building Contractors, High Wycombe roofers. Single-file static page with a 5-step quote form | https://clientgateway-colt.vercel.app | `clientgateway-colt` |
 
 ### Prospect demos (session 2026-11-02)
 - **Prospect pattern:** copy the coating template, then tailor `site.config.mjs`, the palette in `styles.css` and the images. Set `noindex: true`.

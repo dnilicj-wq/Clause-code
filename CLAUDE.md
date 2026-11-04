@@ -47,7 +47,7 @@ All set in Vercel env vars — see `.env` locally or Vercel dashboard. Keys: `GH
 - GHL calendar open hours — needed for real slot fetching (currently uses fallback)
 
 ## Clientgateway demo sites
-Separate from EnrollFlo. The `demos/` folder holds solar, coating, lethal-precision, revive, rhino, gafflow, cmd-tiling and royal-resin. Each is its own Vercel project, `clientgateway-<name>` (scope `dnilicj-2275s-projects`). Before touching them, read `HANDOVER-clientgateway-demos.md`, plus `demos/<name>/README.md` where it exists (rhino, gafflow and royal-resin have one).
+Separate from EnrollFlo. The `demos/` folder holds solar, coating, lethal-precision, revive, rhino, gafflow, cmd-tiling, royal-resin and colt. Each is its own Vercel project, `clientgateway-<name>` (scope `dnilicj-2275s-projects`). Before touching them, read `HANDOVER-clientgateway-demos.md`, plus `demos/<name>/README.md` where it exists (rhino, gafflow, royal-resin and colt have one).
 
 Deploy from the demo folder:
 
@@ -71,6 +71,12 @@ Never print or commit `VERCEL_TOKEN`. Don't touch the `enrollflo` or `clientgate
     - The cookie pill sits top-left and goes after the first scroll or 6 seconds.
     - The page must never be wider than the viewport.
     - Don't add `backdrop-filter` over the drifting hero; it costs about 400ms of TBT.
+
+- **colt** (COLT Building Contractors, High Wycombe roofers) is a single-file `index.html`, plus `thank-you.html` and `privacy.html`. Its `index.html` is built by a script outside the repo, so edit the files directly.
+  - **Palette:** built around their navy and yellow logo (navy #0b1d3a, paper #f4f1ec, logo yellow #facd01 for calls to action). Keep the logo unchanged, on light backgrounds only.
+  - **Calls to action:** one primary label, "Get my free roof quote".
+  - **Facts:** only those in `demos/colt/README.md`. Never invent reviews. The Checkatrade quotes are still placeholders (it blocks bots).
+  - **Photos:** their own photos only, 700–750px wide. The user said to skip upscaling unless they ask for it.
 
 ## User preference
 Minimal messages. Only message when important. User asks questions if needed.
