@@ -7,8 +7,8 @@ This is a one-page roofing site for COLT Building Contractors (High Wycombe, fam
 - `thank-you.html`: shows the lead summary and a "Send this to us on WhatsApp too" button, prefilled from sessionStorage.
 - `privacy.html`: a draft, marked with a placeholder for the client to confirm.
 - `img/`: their own photos, from the gallery and service pages of coltbuildingcontractors.co.uk, all given the same colour grade.
-  - **Hero:** a tight crop of a finished clay-tile ridge from their roof-repairs page, upscaled 4× with Real-ESRGAN (`hero-*`, `hero-m-*`). It's the best finished, sunny shot they publish, but it's still a close-up (flagged to the user).
-  - **Finished roofs:** `f-*`. Further 4× upscales: `f-hip`, `f-ridge`, `f-chimney`, `reroof`. `f-flat` is used at its original size.
+  - **Hero:** their crew working on the roof of a large brick house on their own scaffold (gallery g-01r), upscaled 4× with Real-ESRGAN (`hero-*`, `hero-m-*`). The user chose it from 10 options.
+  - **Finished roofs:** `f-*`. Further 4× upscales: `f-hip`, `f-ridge`, `f-chimney`. `crew` is the services card photo. `f-flat` is used at its original size.
   - **"How we build it":** `rafters` and `scaffold-team`.
   - **Video poster:** `video-960`, the thumbnail of their YouTube video (sF5i-rCdAB0). The video only loads on tap, from youtube-nocookie.
   - **Share image:** `share.jpg`.

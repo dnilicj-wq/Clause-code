@@ -75,9 +75,10 @@ Never print or commit `VERCEL_TOKEN`. Don't touch the `enrollflo` or `clientgate
 - **colt** (COLT Building Contractors, High Wycombe roofers) is a single-file `index.html`, plus `thank-you.html` and `privacy.html`. Its `index.html` is built by a script outside the repo, so edit the files directly.
   - **Palette:** built around their navy and yellow logo (navy #0b1d3a, paper #f4f1ec, logo yellow #facd01 for calls to action). Keep the logo unchanged, on light backgrounds only.
   - **Calls to action:** one primary label, "Get my free roof quote".
+  - **Quote section:** a navy band with the white form card.
   - **Facts:** only those in `demos/colt/README.md`. Never invent reviews. The Checkatrade quotes are still placeholders (it blocks bots).
   - **Photos:** their own photos only.
-    - The hero is a finished clay-tile ridge close-up, upscaled 4× with Real-ESRGAN. A wide, finished roof photo from the client would be better.
+    - The hero is the crew working on the roof of a big brick house (g-01r, upscaled 4×). The user chose it; keep it.
     - Recent work leads with finished roofs, then at most 2 shots captioned "How we build it".
   - **Reviews:** the three cards are visible placeholders until the client supplies real Checkatrade reviews.
   - **Mobile:** the page must stay under 12 phone screens (about 9,860px now).
