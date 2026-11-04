@@ -10,7 +10,7 @@
 <link rel="canonical" href="https://kt-construction.co.uk/">
 <meta property="og:type" content="website">
 <meta property="og:title" content="KT Construction: keep the walls, lose the joints">
-<meta property="og:description" content="Microcement and decorative finishes, hand-applied 2 to 3 mm thin. Design your surface in 3D with real KT colour codes.">
+<meta property="og:description" content="Microcement and decorative finishes, hand-applied 2 to 3 mm thin. Design your surface in 3D.">
 <meta property="og:image" content="https://clientgateway-kt-construction.vercel.app/img/share.jpg">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="apple-touch-icon" href="brand/icon-180.png">
@@ -338,8 +338,10 @@ input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;bac
 .est .row{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:.84rem;color:var(--mute-d)}
 .est .row input{width:64px;padding:.35em .5em;border-radius:8px;border:1px solid var(--line-d);background:var(--ink-2);color:var(--bone);font:500 .85rem var(--mono);text-align:right}
 .est .total{display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid var(--line-d);padding-top:12px}
-.est .total b{font-family:var(--serif);font-weight:400;font-size:1.9rem;color:var(--gold-2);font-variant-numeric:tabular-nums}
+.est .total b{font-family:var(--serif);font-weight:400;font-size:1.55rem;white-space:nowrap;color:var(--gold-2);font-variant-numeric:tabular-nums}
 .est small{font-size:.72rem;color:var(--mute);line-height:1.45}
+.est small a{color:var(--gold-2)}
+.sw-note{font-size:.78rem;color:#6a6358;margin-top:4px}
 .cfg-actions{display:grid;grid-template-columns:1fr auto;gap:8px}
 .cfg-actions .btn{justify-content:center}
 .beam{position:absolute;inset:0;border-radius:inherit;pointer-events:none;border:1.5px solid transparent;-webkit-mask:linear-gradient(transparent,transparent),linear-gradient(#000,#000);-webkit-mask-clip:padding-box,border-box;-webkit-mask-composite:source-in;mask:linear-gradient(transparent,transparent) padding-box,linear-gradient(#000,#000) border-box;mask-composite:intersect}
@@ -584,7 +586,7 @@ input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;bac
   <a href="#begin"><i></i><span>08 Begin</span></a>
 </nav>
 
-<a class="chip" id="chip" href="#begin" aria-label="Your spec, send it to KT"><span class="chip-sw" id="chipSw"></span><span><small id="chipK">Your spec</small><b id="chipV">Linen Mist N3</b></span><span class="arr"><svg width="14" height="14"><use href="#i-arrow"/></svg></span></a>
+<a class="chip" id="chip" href="#begin" aria-label="Your spec, send it to KT"><span class="chip-sw" id="chipSw"></span><span><small id="chipK">Your spec</small><b id="chipV">Ivory microcement</b></span><span class="arr"><svg width="14" height="14"><use href="#i-arrow"/></svg></span></a>
 
 <main id="top">
 <!-- 01 THE WALL -->
@@ -597,7 +599,7 @@ input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;bac
     <div class="gc"><div class="meter">Grout lines left</div><div class="big"><span id="groutLeft">0</span><small>m</small></div></div>
     <div class="hint" id="hint"><i></i><span id="hintT">Move across the wall to trowel</span></div>
     <div class="dock" role="group" aria-label="Microcement colour"><span class="sr">Pick a microcement colour</span></div>
-    <span class="dock-l" id="dockL">MC-N3 · Linen Mist</span>
+    <span class="dock-l" id="dockL">Example colour · Ivory</span>
     <button class="btn btn-ghost finish-btn" id="finishBtn" type="button">Finish the wall <svg><use href="#i-arrow"/></svg></button>
   </div>
   <div class="hero-in">
@@ -640,9 +642,7 @@ input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;bac
       <div class="mcard rv"><svg><use href="#i-bond"/></svg><div><h3>Bonds to what's there</h3><p>Tile, concrete, plaster and plywood. Less rip-out, less mess.</p></div></div>
       <div class="mcard rv"><svg><use href="#i-step"/></svg><div><h3>Slip resistant</h3><p>Anti-slip treatment for bathroom floors and wet areas.</p></div></div>
       <div class="mcard rv"><svg><use href="#i-sun"/></svg><div><h3>UV resistant</h3><p>Holds its colour in sunlit rooms and outside.</p></div></div>
-      <div class="mcard rv"><svg><use href="#i-flame"/></svg><div><h3>Fire resistant</h3><p>Fire-resistant properties for added safety.</p></div></div>
-      <div class="mcard rv"><svg><use href="#i-leaf"/></svg><div><h3>Eco friendly</h3><p>Eco cement, minerals, water-based resins and recycled aggregates.</p></div></div>
-      <div class="mcard rv"><svg><use href="#i-swatch"/></svg><div><h3>Any colour</h3><p>28 microcement shades, or matched to any RAL code on request.</p></div></div>
+                  <div class="mcard rv"><svg><use href="#i-swatch"/></svg><div><h3>Your colour</h3><p>Wide colour range, or matched to any RAL code.</p></div></div>
     </div>
   </div>
 </section>
@@ -684,7 +684,7 @@ input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;bac
     <div class="ch-head">
       <div class="ch-num"><b>04</b><i></i><span class="mono">Your surface</span></div>
       <h2 class="split">Design it <em>before we arrive.</em></h2>
-      <p class="lede rv">KT's own colour codes and their 2026 guide prices. Pick a room, change every surface, spin it round, then send the spec straight to the team.</p>
+      <p class="lede rv">Example colours and guide prices from KT's 2026 cost guide. Pick a room, change every surface, spin it round, then send the spec straight to the team.</p>
     </div>
     <div class="cfg-grid">
       <div class="cfg-view rv" id="cfgView">
@@ -698,14 +698,15 @@ input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;bac
         <div class="beam" aria-hidden="true"><i></i></div>
         <div><h3>1 · Surface</h3><div class="surf" id="surf" role="group" aria-label="Surface"></div></div>
         <div><h3>2 · Finish</h3><div class="fin" id="fin" role="group" aria-label="Finish"></div><div class="fin-note" id="finNote"></div></div>
-        <div><h3>3 · Colour</h3><div class="sw" id="sw" role="group" aria-label="Colour"></div><div class="sw-name"><b id="swName">Linen Mist N3</b><span id="swCode">MC-N3</span></div></div>
+        <div><h3>3 · Colour <span style="text-transform:none;letter-spacing:0">(example colours)</span></h3><div class="sw" id="sw" role="group" aria-label="Colour"></div><div class="sw-name"><b id="swName">Ivory</b><span id="swCode">Example colour</span></div><p class="sw-note">Wide colour range, or matched to any RAL code.</p></div>
         <div><h3>4 · Light</h3><div class="light-seg" id="lightSeg" role="group" aria-label="Lighting"><button type="button" data-v="day" aria-pressed="true"><i style="--c:#f3efe6"></i>Daylight</button><button type="button" data-v="golden" aria-pressed="false"><i style="--c:#e9b778"></i>Golden hour</button><button type="button" data-v="evening" aria-pressed="false"><i style="--c:#3b3a48"></i>Evening</button></div></div>
         <div class="est" id="est">
-          <div class="row"><span id="estL1">Floor area</span><span><input id="a1" type="number" inputmode="decimal" min="1" max="400" value="6" aria-label="Floor area in square metres"> m²</span></div>
-          <div class="row"><span id="estL2">Wall area</span><span><input id="a2" type="number" inputmode="decimal" min="1" max="400" value="18" aria-label="Wall area in square metres"> m²</span></div>
-          <div class="row"><span id="estL3">Feature</span><span><input id="a3" type="number" inputmode="decimal" min="0" max="100" value="1.5" aria-label="Feature area in square metres"> m²</span></div>
+          <div class="row" id="estFixed"><span>Typical family bathroom, fully tanked</span><span class="mono" style="color:var(--gold-2)">£3,500 to £6,500</span></div>
+          <div class="row"><span id="estL1">Floor area</span><span><input id="a1" type="number" inputmode="decimal" min="1" max="400" value="6" aria-label="Floor area in square metres"> <i class="u" style="font-style:normal">m²</i></span></div>
+          <div class="row"><span id="estL2">Wall area</span><span><input id="a2" type="number" inputmode="decimal" min="1" max="400" value="18" aria-label="Wall area in square metres"> <i class="u" style="font-style:normal">m²</i></span></div>
+          <div class="row"><span id="estL3">Feature</span><span><input id="a3" type="number" inputmode="decimal" min="0" max="100" value="1.5" aria-label="Feature area in square metres"> <i class="u" style="font-style:normal">m²</i></span></div>
           <div class="total"><span class="mono" style="color:var(--mute-d)">Guide price</span><b id="estT">£0</b></div>
-          <small id="estN">Guide range from KT's 2026 cost guide for the South of England. Exact price after a free survey.</small>
+          <small id="estN">Guide range from <a href="https://kt-construction.co.uk/guides/microcement-cost-per-m2" target="_blank" rel="noopener">KT's 2026 cost guide</a>. Exact price after a free survey.</small>
         </div>
         <div class="cfg-actions"><a class="btn btn-gold" id="sendSpec" href="#begin">Send this spec to KT <svg><use href="#i-arrow"/></svg></a><button class="btn btn-ghost" id="saveBoard" type="button" title="Download your moodboard" style="color:var(--ink);border-color:rgba(17,16,14,.2)">Save</button></div>
       </div>

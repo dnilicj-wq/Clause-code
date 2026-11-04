@@ -16,7 +16,7 @@ A one-page "journey" site for KT Construction (microcement, Liquid Stone and lim
 1. **The wall**: drag (desktop: just move) across a dated tiled wall to trowel microcement on. Live "grout lines left" counter, 6 KT colours, "Finish the wall" cures it. Phones get an auto demo and sideways swipes.
 2. **Seamless**: grout calculator (wall size + tile size = metres of grout) with a drag compare, plus the 8 properties from their site as Magic UI style spotlight cards.
 3. **Three millimetres**: pinned scroll, a CSS 3D layer stack builds up over existing tiles (prep, primer, mesh, base coats, finish coats, sealer).
-4. **Your surface**: 3D configurator. Wet room / Kitchen / Living, floor / walls / feature, Microcement (28), Liquid Stone (10), Natural Limewash (12) with KT's real colour codes and hex values, daylight / golden hour / evening. Guide price from KT's published 2026 rates. "Send this spec" prefills the brief; "Save" downloads a moodboard PNG.
+4. **Your surface**: 3D configurator. Wet room / Kitchen / Living, floor / walls / feature, Microcement, Liquid Stone and Natural Limewash with plain-named example colours (no product codes), daylight / golden hour / evening. Guide price from KT's cost guide (linked). "Send this spec" prefills the brief; "Save" downloads a moodboard PNG.
 5. **The work**: scroll-driven 3D corridor through 14 real KT photos, with a lightbox. Phones get a native swipe row instead.
 6. **The team**: scroll text reveal, stats shown at their final values (no count-up), Facebook proof. Masterclasses are a footer link only.
 7. **Where**: radar from the workshop with their 10 listed towns (real coordinates, miles rings) and a postcode check.
@@ -33,11 +33,10 @@ A one-page "journey" site for KT Construction (microcement, Liquid Stone and lim
 ## Claim sources (checked 2026-11-04 against kt-construction.co.uk)
 | Claim | Page |
 |---|---|
-| Colour codes, names, hex, "28 shades" | /colours (and /colours/microcement-n3-linen-mist etc.) |
 | "Match any RAL code on request" | /services/microcement |
-| 2026 rates, "South of England" | /inspiration/microcement-cost-uk (note: /guides/microcement-cost-per-m2 lists lower rates) |
-| Limewash £55-85/m², limewash not waterproof | /inspiration/venetian-plaster-vs-microcement-vs-limewash |
-| Fire resistant, eco friendly, UV, slip resistant | / and /services |
+| Configurator rates | /guides/microcement-cost-per-m2 |
+| Limewash not waterproof | /inspiration/venetian-plaster-vs-microcement-vs-limewash |
+| UV, slip resistant | / and /services |
 | Wet-room build: primer, two base coats with mesh, two finishing coats, tanking membrane, two PU sealer coats | /colours/microcement-* pages |
 | "100% waterproof when sealed" | /services/microcement. Page says "Waterproof once sealed, over a tanking membrane in showers and wet rooms" |
 | 10+ years, in-house never subcontracted, premium materials | /about |
@@ -47,8 +46,12 @@ A one-page "journey" site for KT Construction (microcement, Liquid Stone and lim
 | Towns and regions | /areas |
 | "2 to 6 coats" (home page) was dropped: it conflicts with "2–3 fine coats" on /services/microcement and "3–4 thin coats" on the colour pages. |
 
-## Rates used in the configurator (£/m², KT 2026 published)
-Walls dry 140-180 · wet-room build 200-260 · floors residential 160-200 · worktops/feature 220-300 · limewash walls 55-85. Liquid Stone has no published rate, so it shows "priced on survey".
+## Rates used in the configurator
+From https://kt-construction.co.uk/guides/microcement-cost-per-m2: walls £100-150/m² · floors, open areas £110-160/m² · small floors under 15 m² £150-220/m² · wet room fully tanked £3,500-6,500 for a typical family bathroom · worktops £350-550 per linear metre · stairs £120-180 per tread (not in the configurator).
+- Wet room = the family-bathroom range, plus an optional microcement vanity top per linear metre (default 0, so the default sits at £3,500-6,500).
+- Kitchen default: 20 m² floor + 4 linear m worktops = £3,600-5,400. Living default: 24 m² floor = £2,650-3,850.
+- Limewash, Liquid Stone and the living-room bench aren't on that page, so they show "priced on survey".
+- The earlier /inspiration/microcement-cost-uk rates are no longer used. Colour codes and names, "28 shades", and the fire/eco cards were removed at the client's request.
 
 ## Rules baked in
 - Floors: microcement only. Limewash: walls only, and not in a wet room (not waterproof).

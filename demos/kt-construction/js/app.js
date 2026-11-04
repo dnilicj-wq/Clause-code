@@ -1,17 +1,20 @@
 import { initHero } from './hero.js';
 
-// ---------- data (KT's own colour codes and published 2026 rates) ----------
-const MC = [["MC-N1","Pure White N1","#F1ECE3"],["MC-N2","Mineral N2","#E8E4DB"],["MC-N3","Linen Mist N3","#E6DECB"],["MC-N4","Shell N4","#EAD9C2"],["MC-N5","Oat N5","#D9CAA8"],["MC-N6","Putty N6","#C8BAA0"],["MC-N7","Taupe Drift N7","#B5A48E"],["MC-N8","Driftwood N8","#A28F76"],["MC-N9","Greige N9","#B0A89A"],["MC-N10","Mushroom Stone N10","#9C9285"],["MC-N11","Pebble Wash N11","#A6A39B"],["MC-N12","Concrete Mist N12","#8E8C87"],["MC-N13","Slate Mist N13","#7A7C7E"],["MC-N14","Storm N14","#666664"],["MC-N15","Graphite N15","#4C4C4A"],["MC-N16","Bitter Cocoa N16","#4A3A30"],["MC-N17","Espresso Stone N17","#3A2E26"],["MC-N18","Carbon N18","#28282A"],["MC-N19","Ink Stone N19","#1C1F22"],["MC-N20","Onyx N20","#141416"],["MC-01","Pure Alabaster","#EFE6D5"],["MC-02","Soft Sand","#E4D6BC"],["MC-03","Champagne","#E8D9B8"],["MC-04","Honey Sand","#D8B98A"],["MC-05","Pale Stone","#E2E2DE"],["MC-06","Mid Stone","#BFBFBA"],["MC-07","Charcoal","#5A5A58"],["MC-08","Anthracite","#2C2F33"]];
-const LS = [["LS-01","Travertine","#DDCCB0"],["LS-02","Limestone","#D7CFBC"],["LS-03","Sandstone","#C8AE85"],["LS-04","Marble White","#ECE6DA"],["LS-05","Pietra Grey","#9B968D"],["LS-06","Basalt","#5C5957"],["LS-07","Concrete Raw","#A8A29A"],["LS-08","Granite","#6D6A65"],["LS-09","Slate Stone","#454A4E"],["LS-10","Lava","#2A2622"]];
-const NL = [["NL-01","Chalk","#F0EBDE"],["NL-02","Quicklime","#EDE6D2"],["NL-03","Cotton","#E8E1D0"],["NL-04","Buttermilk","#EDDFB8"],["NL-05","Wheat Husk","#D9C292"],["NL-06","Pale Clay","#D0B498"],["NL-07","Dusk Rose","#C99B89"],["NL-08","Sage Wash","#B7C2A8"],["NL-09","Eucalyptus Lime","#8FA48B"],["NL-10","Olive Grove","#6E7245"],["NL-11","Iron Earth","#7C4A37"],["NL-12","Soot","#2E2A28"]];
+// ---------- data (example colours; rates from KT's microcement cost guide) ----------
+// Example colours only (plain names, no product codes). KT tints to a wide range or any RAL code.
+const MC = [["mc1","Warm white","#F1ECE3"],["mc2","Soft white","#E8E4DB"],["mc3","Ivory","#E6DECB"],["mc4","Sand","#D9CAA8"],["mc5","Putty","#C8BAA0"],["mc6","Taupe","#B5A48E"],["mc7","Greige","#B0A89A"],["mc8","Stone","#9C9285"],["mc9","Concrete","#8E8C87"],["mc10","Storm grey","#666664"],["mc11","Graphite","#4C4C4A"],["mc12","Cocoa","#4A3A30"],["mc13","Charcoal","#28282A"],["mc14","Near black","#141416"]];
+const LS = [["ls1","Warm stone","#DDCCB0"],["ls2","Pale stone","#D7CFBC"],["ls3","Sand stone","#C8AE85"],["ls4","Light stone","#ECE6DA"],["ls5","Mid grey","#9B968D"],["ls6","Dark grey","#5C5957"],["ls7","Grey stone","#6D6A65"],["ls8","Slate","#454A4E"]];
+const NL = [["nl1","Chalk white","#F0EBDE"],["nl2","Cream","#EDE6D2"],["nl3","Buttermilk","#EDDFB8"],["nl4","Wheat","#D9C292"],["nl5","Clay","#D0B498"],["nl6","Dusty pink","#C99B89"],["nl7","Sage","#B7C2A8"],["nl8","Olive","#6E7245"],["nl9","Earth","#7C4A37"],["nl10","Soot","#2E2A28"]];
 const FIN = { mc: { name: 'Microcement', list: MC }, ls: { name: 'Liquid Stone', list: LS }, nl: { name: 'Natural Limewash', list: NL } };
 const byCode = c => { for (const k in FIN) { const f = FIN[k].list.find(x => x[0] === c); if (f) return { kind: k, code: f[0], name: f[1], hex: f[2] }; } };
-// £/m² from KT's "2026 installed pricing by application" (South of England)
-const RATE = { wallDry: [140, 180], wallWet: [200, 260], floorRes: [160, 200], floorWet: [200, 260], worktop: [220, 300], lime: [55, 85] };
+// Rates from kt-construction.co.uk/guides/microcement-cost-per-m2
+const COST_URL = 'https://kt-construction.co.uk/guides/microcement-cost-per-m2';
+const RATE = { wall: [100, 150], floorOpen: [110, 160], floorSmall: [150, 220], wetRoom: [3500, 6500], worktopLm: [350, 550] };
+// areas: [floor m², walls m², feature linear metres]
 const SPACES = {
-  bath: { name: 'Wet room', feature: 'Vanity', areas: [6, 22, 1.2], s: { floor: 'MC-N9', walls: 'MC-N3', feature: 'MC-N5' } },
-  kitchen: { name: 'Kitchen', feature: 'Island & worktops', areas: [20, 24, 4.5], s: { floor: 'MC-N12', walls: 'NL-02', feature: 'MC-N18' } },
-  living: { name: 'Living', feature: 'Bench & table', areas: [24, 30, 2], s: { floor: 'MC-N6', walls: 'NL-06', feature: 'LS-01' } }
+  bath: { name: 'Wet room', feature: 'Vanity', areas: [0, 0, 0], s: { floor: 'mc7', walls: 'mc3', feature: 'mc4' } },
+  kitchen: { name: 'Kitchen', feature: 'Worktops', areas: [20, 24, 4], s: { floor: 'mc9', walls: 'nl2', feature: 'mc13' } },
+  living: { name: 'Living', feature: 'Bench', areas: [24, 30, 0], s: { floor: 'mc5', walls: 'nl5', feature: 'ls1' } }
 };
 const WORK = [
   ['pool', 'Indoor pool and spa', 'Seamless walls', 1920, 1280],
@@ -115,16 +118,16 @@ $$('.mcard').forEach(c => c.addEventListener('pointermove', e => { const r = c.g
 
 // ---------- 01 hero ----------
 let specTouched = false;
-const HERO_SW = ['MC-N1', 'MC-N3', 'MC-N7', 'MC-N11', 'MC-N14', 'MC-N18'];
+const HERO_SW = ['mc1', 'mc3', 'mc6', 'mc9', 'mc10', 'mc13'];
 let hero = null;
 const dock = $('.dock');
-HERO_SW.forEach(code => { const c = byCode(code); const b = document.createElement('button'); b.type = 'button'; b.style.setProperty('--c', c.hex); b.setAttribute('aria-label', `${c.name} (${c.code})`); b.setAttribute('aria-pressed', code === 'MC-N3'); b.dataset.code = code; dock.append(b); });
+HERO_SW.forEach(code => { const c = byCode(code); const b = document.createElement('button'); b.type = 'button'; b.style.setProperty('--c', c.hex); b.setAttribute('aria-label', c.name); b.setAttribute('aria-pressed', code === 'mc3'); b.dataset.code = code; dock.append(b); });
 dock.addEventListener('click', e => {
   const b = e.target.closest('button'); if (!b) return; const c = byCode(b.dataset.code);
-  $$('button', dock).forEach(x => x.setAttribute('aria-pressed', x === b)); $('#dockL').textContent = `${c.code} · ${c.name.replace(/ N\d+$/, '')}`;
+  $$('button', dock).forEach(x => x.setAttribute('aria-pressed', x === b)); $('#dockL').textContent = `Example colour · ${c.name}`;
   hero && hero.setColour(c.hex);
-  setChip(c.hex, 'Wall colour', `${c.name} · ${c.code}`); specTouched = true;
-  track('hero_colour', { code: c.code });
+  setChip(c.hex, 'Wall colour', `${c.name} microcement`); specTouched = true;
+  track('hero_colour', { colour: c.name });
 });
 const groutEl = $('#groutLeft'), finishBtn = $('#finishBtn'), hint = $('#hintT');
 let firstMove = false;
@@ -234,7 +237,7 @@ finishBtn.addEventListener('click', () => { hero && hero.finish(); track('hero_f
 
 // ---------- 04 configurator ----------
 const cfg = (() => {
-  const saved = store.get('kt-spec');
+  const saved = store.get('kt-spec3');
   const state = { space: 'bath', light: 'day', group: 'walls', sp: JSON.parse(JSON.stringify(SPACES)) };
   if (saved && saved.sp) { for (const k in saved.sp) if (state.sp[k]) { state.sp[k].s = saved.sp[k].s; state.sp[k].areas = saved.sp[k].areas; } }
   let room = null;
@@ -250,7 +253,7 @@ const cfg = (() => {
     const s = S(); surfEl.innerHTML = '';
     [['floor', 'Floor'], ['walls', 'Walls'], ['feature', s.feature]].forEach(([g, label]) => {
       const c = byCode(s.s[g]); const b = document.createElement('button'); b.type = 'button'; b.dataset.g = g; b.setAttribute('aria-pressed', g === state.group);
-      b.innerHTML = `<i style="--c:${c.hex}"></i><span>${label}</span><small>${c.code} · ${FIN[c.kind].name}</small>`; surfEl.append(b);
+      b.innerHTML = `<i style="--c:${c.hex}"></i><span>${label}</span><small>${FIN[c.kind].name} · ${c.name}</small>`; surfEl.append(b);
     });
   }
   function renderFin() {
@@ -261,41 +264,49 @@ const cfg = (() => {
   }
   function renderSw() {
     const cur = byCode(S().s[state.group]); swEl.innerHTML = '';
-    FIN[cur.kind].list.forEach(([code, name, hex]) => { const b = document.createElement('button'); b.type = 'button'; b.style.setProperty('--c', hex); b.dataset.code = code; b.title = `${name} (${code})`; b.setAttribute('aria-label', `${name}, ${code}`); b.setAttribute('aria-pressed', code === cur.code); swEl.append(b); });
-    $('#swName').textContent = cur.name; $('#swCode').textContent = cur.code;
+    FIN[cur.kind].list.forEach(([code, name, hex]) => { const b = document.createElement('button'); b.type = 'button'; b.style.setProperty('--c', hex); b.dataset.code = code; b.title = name; b.setAttribute('aria-label', `${name}, example colour`); b.setAttribute('aria-pressed', code === cur.code); swEl.append(b); });
+    $('#swName').textContent = cur.name; $('#swCode').textContent = 'Example colour';
   }
   function price() {
-    const s = S(); const [fa, wa, xa] = s.areas; const bits = [];
-    const f = byCode(s.s.floor), w = byCode(s.s.walls), x = byCode(s.s.feature); let lo = 0, hi = 0, survey = [];
-    const wet = state.space === 'bath';
-    const add = (a, r) => { lo += a * r[0]; hi += a * r[1]; };
-    add(fa, wet ? RATE.floorWet : RATE.floorRes);
-    if (w.kind === 'mc') add(wa, wet ? RATE.wallWet : RATE.wallDry); else if (w.kind === 'nl') add(wa, RATE.lime); else survey.push('Liquid Stone walls');
-    if (x.kind === 'mc') add(xa, RATE.worktop); else survey.push(`Liquid Stone ${s.feature.toLowerCase()}`);
+    const s = S(); const [fa, wa, xa] = s.areas;
+    const w = byCode(s.s.walls), x = byCode(s.s.feature); let lo = 0, hi = 0; const survey = [];
+    const add = (q, r) => { lo += q * r[0]; hi += q * r[1]; };
+    const row = (n, label, show, val) => { const el = $('#a' + n); el.closest('.row').style.display = show ? '' : 'none'; $('#estL' + n).textContent = label; el.parentElement.querySelector('.u').textContent = /linear/.test(label) ? 'm' : 'm²'; if (val !== undefined) el.value = val; };
+    if (state.space === 'bath') {
+      add(1, RATE.wetRoom); // typical family bathroom, fully tanked
+      if (w.kind === 'ls') survey.push('Liquid Stone walls');
+      if (x.kind === 'mc') add(xa, RATE.worktopLm); else survey.push('Liquid Stone vanity');
+      row(1, 'Typical family bathroom, fully tanked', false); row(2, '', false); row(3, 'Vanity top (linear m, optional)', x.kind === 'mc', xa);
+      $('#estFixed').style.display = '';
+    } else {
+      $('#estFixed').style.display = 'none';
+      add(fa, fa < 15 ? RATE.floorSmall : RATE.floorOpen);
+      if (w.kind === 'mc') add(wa, RATE.wall); else survey.push(`${FIN[w.kind].name} walls`);
+      if (state.space === 'kitchen' && x.kind === 'mc') add(xa, RATE.worktopLm); else survey.push(`${FIN[x.kind].name} ${s.feature.toLowerCase()}`);
+      row(1, `Floor${fa < 15 ? ' (small, under 15 m²)' : ''}`, true, fa); row(2, 'Walls', w.kind === 'mc', wa); row(3, 'Worktops (linear m)', state.space === 'kitchen' && x.kind === 'mc', xa);
+    }
     const r50 = v => Math.round(v / 50) * 50;
     $('#estT').textContent = `${gbp(r50(lo))} to ${gbp(r50(hi))}`;
-    $('#estN').textContent = (survey.length ? `${survey.join(' and ')} priced on survey. ` : '') + `Guide range from KT's 2026 cost guide for the South of England${wet ? ' (full waterproof wet-room build)' : ''}. Exact price after a free survey.`;
-    $('#estL1').textContent = 'Floor'; $('#estL2').textContent = 'Walls'; $('#estL3').textContent = s.feature;
-    $('#a1').value = fa; $('#a2').value = wa; $('#a3').value = xa;
+    $('#estN').innerHTML = (survey.length ? `${survey.join(' and ')} priced on survey. ` : '') + `Guide range from <a href="${COST_URL}" target="_blank" rel="noopener">KT's 2026 cost guide</a>. Exact price after a free survey.`;
     return { lo: r50(lo), hi: r50(hi), survey };
   }
   function spec() {
-    const s = S(); const out = { space: s.name, light: state.light, surfaces: {} };
-    ['floor', 'walls', 'feature'].forEach(g => { const c = byCode(s.s[g]); out.surfaces[g === 'feature' ? s.feature : g[0].toUpperCase() + g.slice(1)] = `${FIN[c.kind].name} ${c.code} ${c.name}`; });
+    const s = S(); const out = { space: s.name, light: state.light, surfaces: {}, hex: {} };
+    ['floor', 'walls', 'feature'].forEach(g => { const c = byCode(s.s[g]); out.surfaces[g === 'feature' ? s.feature : g[0].toUpperCase() + g.slice(1)] = `${FIN[c.kind].name} · ${c.name}`; out.hex[g] = c.hex; });
     out.areas = s.areas; out.price = price(); return out;
   }
   function sync(push = true) {
     renderSurf(); renderFin(); renderSw(); const pr = price();
     if (room) ['floor', 'walls', 'feature'].forEach(g => { const c = byCode(S().s[g]); room.setFinish(g, c.kind, c.hex); });
-    if (push) { const c = byCode(S().s[state.group]); setChip(c.hex, `${S().name} spec`, `${c.name} · ${c.code}`); store.set('kt-spec', { sp: state.sp, space: state.space }); }
+    if (push) { const c = byCode(S().s[state.group]); setChip(c.hex, `${S().name} spec`, `${FIN[c.kind].name} · ${c.name}`); store.set('kt-spec3', { sp: state.sp, space: state.space }); }
     return pr;
   }
   $('#space').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; state.space = b.dataset.v; $$('#space button').forEach(x => x.setAttribute('aria-pressed', x === b)); room && room.setSpace(state.space); sync(); specTouched = true; track('config_space', { space: state.space }); });
   surfEl.addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; state.group = b.dataset.g; room && room.focus(state.group); sync(false); });
   finEl.addEventListener('click', e => { const b = e.target.closest('button'); if (!b || b.disabled) return; const list = FIN[b.dataset.k].list; const cur = byCode(S().s[state.group]); const near = list.reduce((best, x) => dist(x[2], cur.hex) < dist(best[2], cur.hex) ? x : best, list[0]); S().s[state.group] = near[0]; sync(); specTouched = true; track('config_finish', { finish: b.dataset.k }); });
-  swEl.addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; S().s[state.group] = b.dataset.code; sync(); specTouched = true; track('config_colour', { code: b.dataset.code, surface: state.group }); });
+  swEl.addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; S().s[state.group] = b.dataset.code; sync(); specTouched = true; track('config_colour', { colour: b.dataset.code, surface: state.group }); });
   $('#lightSeg').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; state.light = b.dataset.v; $$('#lightSeg button').forEach(x => x.setAttribute('aria-pressed', x === b)); room && room.setLight(state.light); });
-  ['a1', 'a2', 'a3'].forEach((id, i) => $('#' + id).addEventListener('input', e => { const v = parseFloat(e.target.value); if (v >= 0 && v < 1000) { S().areas[i] = v; price(); store.set('kt-spec', { sp: state.sp, space: state.space }); } }));
+  ['a1', 'a2', 'a3'].forEach((id, i) => $('#' + id).addEventListener('input', e => { const v = parseFloat(e.target.value); if (v >= 0 && v < 1000) { S().areas[i] = v; price(); store.set('kt-spec3', { sp: state.sp, space: state.space }); } }));
   $('#sendSpec').addEventListener('click', () => { specTouched = true; prefill(spec()); track('config_send'); });
   $('#saveBoard').addEventListener('click', () => { moodboard(room, spec()); track('config_save'); });
   function dist(a, b) { const p = h => [1, 3, 5].map(i => parseInt(h.substr(i, 2), 16)); const x = p(a), y = p(b); return (x[0] - y[0]) ** 2 + (x[1] - y[1]) ** 2 + (x[2] - y[2]) ** 2; }
@@ -325,7 +336,7 @@ function moodboard(room, sp) {
   const done = () => {
     x.fillStyle = '#11100e'; x.font = '600 22px Hanken, sans-serif'; x.fillText('KT CONSTRUCTION · SURFACE SPEC', 1260, 110);
     x.font = '48px Bodoni, serif'; x.fillText(sp.space, 1260, 180);
-    let y = 260; Object.entries(sp.surfaces).forEach(([k, v]) => { const code = v.match(/(MC|LS|NL)-N?\d+/)[0]; const col = byCode(code).hex; x.fillStyle = col; x.beginPath(); x.arc(1290, y - 10, 28, 0, Math.PI * 2); x.fill(); x.strokeStyle = 'rgba(0,0,0,.15)'; x.stroke(); x.fillStyle = '#7a7266'; x.font = '500 16px Mono, monospace'; x.fillText(k.toUpperCase(), 1340, y - 22); x.fillStyle = '#11100e'; x.font = '600 22px Hanken, sans-serif'; x.fillText(v.replace(/^(\S+ ?\S*?) /, '$1 · '), 1340, y + 8); y += 100; });
+    let y = 260; Object.entries(sp.surfaces).forEach(([k, v], i) => { const col = Object.values(sp.hex)[i]; x.fillStyle = col; x.beginPath(); x.arc(1290, y - 10, 28, 0, Math.PI * 2); x.fill(); x.strokeStyle = 'rgba(0,0,0,.15)'; x.stroke(); x.fillStyle = '#7a7266'; x.font = '500 16px Mono, monospace'; x.fillText(k.toUpperCase(), 1340, y - 22); x.fillStyle = '#11100e'; x.font = '600 22px Hanken, sans-serif'; x.fillText(v, 1340, y + 8); y += 100; });
     x.fillStyle = '#11100e'; x.fillRect(1260, y + 10, 480, 150); x.fillStyle = '#a39b8f'; x.font = '500 15px Mono, monospace'; x.fillText('GUIDE PRICE', 1290, y + 50); x.fillStyle = '#e2c68f'; x.font = '44px Bodoni, serif'; x.fillText(`${gbp(sp.price.lo)} to ${gbp(sp.price.hi)}`, 1290, y + 110);
     x.fillStyle = '#5f584e'; x.font = '18px Hanken, sans-serif'; x.fillText('07385 259215 · enquiries@kt-construction.co.uk', 1260, 1040);
     const a = document.createElement('a'); a.download = 'kt-surface-spec.png'; a.href = c.toDataURL('image/png'); a.click();
@@ -459,8 +470,8 @@ $('#bNext').addEventListener('click', async () => {
   store.set('kt-brief', null);
 });
 function prefill(sp) {
-  $('#specPre').classList.add('on'); $('#specPre i').style.setProperty('--sw', byCode((Object.values(sp.surfaces)[1].match(/(MC|LS|NL)-N?\d+/) || [])[0])?.hex || '#e6decb');
-  $('#specPreT').textContent = `${sp.space}, ${Object.values(sp.surfaces).map(v => v.match(/(MC|LS|NL)-N?\d+/)[0]).join(' / ')}`;
+  $('#specPre').classList.add('on'); $('#specPre i').style.setProperty('--sw', sp.hex.walls || '#e6decb');
+  $('#specPreT').textContent = `${sp.space}: ${Object.entries(sp.surfaces).map(([k, v]) => `${k.toLowerCase()} ${v.split(' · ')[1].toLowerCase()} ${v.split(' · ')[0].toLowerCase()}`).join(', ')}`;
   const map = { 'Wet room': 'Bathroom / wet room', Kitchen: 'Kitchen / worktops', Living: 'Living / bedroom walls' };
   const r = $(`input[name=space][value="${map[sp.space]}"]`, brief); if (r) r.checked = true;
   const fins = Object.values(sp.surfaces).map(v => v.split(' ')[0]); const f = fins.includes('Microcement') ? 'Microcement' : fins.includes('Liquid') ? 'Liquid Stone' : 'Natural Limewash';
