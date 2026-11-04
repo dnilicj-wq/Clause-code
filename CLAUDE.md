@@ -76,7 +76,7 @@ Never print or commit `VERCEL_TOKEN`. Don't touch the `enrollflo` or `clientgate
   - **Palette:** built around their navy and yellow logo (navy #0b1d3a, paper #f4f1ec, logo yellow #facd01 for calls to action). Keep the logo unchanged, on light backgrounds only.
   - **Calls to action:** one primary label, "Get my free roof quote".
   - **Facts:** only those in `demos/colt/README.md`. Never invent reviews. The Checkatrade quotes are still placeholders (it blocks bots).
-  - **Photos:** their own photos only, 700–750px wide. The user said to skip upscaling unless they ask for it.
+  - **Photos:** their own photos only. The hero is a 4× Real-ESRGAN upscale, which the user asked for. The other photos are 700–750px wide; don't upscale them unless asked.
 
 ## User preference
 Minimal messages. Only message when important. User asks questions if needed.

@@ -25,7 +25,8 @@
 <meta name="twitter:image" content="https://clientgateway-colt.vercel.app/img/share.jpg">
 <link rel="preload" href="fonts/newsreader-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/inter-tight-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" as="image" type="image/avif" imagesrcset="img/hero-480.avif 480w, img/hero-700.avif 700w" imagesizes="100vw" fetchpriority="high">
+<link rel="preload" as="image" type="image/avif" media="(max-width:767px)" imagesrcset="img/hero-m-820.avif 820w, img/hero-m-1240.avif 1240w" imagesizes="100vw" fetchpriority="high">
+<link rel="preload" as="image" type="image/avif" media="(min-width:768px)" imagesrcset="img/hero-1600.avif 1600w, img/hero-2400.avif 2400w" imagesizes="100vw" fetchpriority="high">
 <!-- META PIXEL: they run Facebook ads. Paste the Meta Pixel base code here (replace PIXEL_ID), then uncomment.
 <script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','PIXEL_ID');fbq('track','PageView');</script>
 -->
@@ -436,7 +437,7 @@ figure{margin:0}
 @media (max-width:767px){
   .hero .wrap{min-height:calc(100svh - 64px - 38px);padding-top:40px;padding-bottom:22px}
   .hero::after{background:linear-gradient(0deg,rgb(8 20 42 / .96) 0%,rgb(8 20 42 / .82) 46%,rgb(8 20 42 / .25) 74%,rgb(8 20 42 / .1))}
-  .hero picture img{object-position:62% 30%}
+  .hero picture img{object-position:50% 30%}
   .hero h1{font-size:clamp(40px,11.4vw,52px)}
   .hero .sub{font-size:16px;margin-top:14px}
   .hero .ctas{margin-top:20px;display:grid;grid-template-columns:1fr;gap:10px}
@@ -743,9 +744,11 @@ footer{background:var(--paper-2);padding-block:clamp(56px,7vw,96px) 32px;font-si
 <!-- AD MATCH: no Facebook ad screenshot was supplied. When you have it, align this headline, offer and image with the ad so visitors know they're in the right place. -->
 <section class="hero" id="top" aria-labelledby="h1">
   <picture>
-    <source type="image/avif" srcset="img/hero-480.avif 480w, img/hero-700.avif 700w" sizes="100vw">
-    <source type="image/webp" srcset="img/hero-480.webp 480w, img/hero-700.webp 700w" sizes="100vw">
-    <img src="img/hero-700.webp" width="700" height="528" alt="Colt roofers on the scaffold of a large brick house, stripping the old roof" fetchpriority="high" decoding="async">
+    <source media="(max-width:767px)" type="image/avif" srcset="img/hero-m-820.avif 820w, img/hero-m-1240.avif 1240w" sizes="100vw">
+    <source media="(max-width:767px)" type="image/webp" srcset="img/hero-m-820.webp 820w, img/hero-m-1240.webp 1240w" sizes="100vw">
+    <source type="image/avif" srcset="img/hero-1600.avif 1600w, img/hero-2400.avif 2400w" sizes="100vw">
+    <source type="image/webp" srcset="img/hero-1600.webp 1600w, img/hero-2400.webp 2400w" sizes="100vw">
+    <img src="img/hero-1600.webp" width="1600" height="1207" alt="Colt roofers on the scaffold of a large brick house, stripping the old roof" fetchpriority="high" decoding="async">
   </picture>
   <div class="wrap">
     <h1 id="h1">Three generations. <em>One standard of roof.</em></h1>

@@ -8,7 +8,7 @@ This is a one-page roofing site for COLT Building Contractors (High Wycombe, fam
 - `privacy.html`: a draft, marked with a placeholder for the client to confirm.
 - `img/`: their own photos from the gallery and homepage of coltbuildingcontractors.co.uk, all given the same colour grade.
   - Formats: AVIF and WebP at 480px and full width (700–750px is the largest they publish).
-  - Upscaling was skipped at the user's request.
+  - Upscaling: only the hero (`hero-*`) was upscaled 4× with Real-ESRGAN, from their own photo, not generated. It's exported as a desktop crop (1600 and 2400px) and a phone crop (`hero-m`, 820 and 1240px).
   - `share.jpg` is the 1200×630 social share image.
 - `brand/`: `logo.png` is their logo, unchanged. `logo-320.png` is a 64-colour copy for the header and footer. Also here: the favicon set (the horse mark) and the web manifest icons.
 - `fonts/`: Newsreader for headings and Inter Tight for body text, subset to the characters the pages use.
@@ -45,4 +45,4 @@ This is a one-page roofing site for COLT Building Contractors (High Wycombe, fam
 2. **Facebook ad.** No ad screenshot was supplied. Match the hero headline and image to the ad (see the `AD MATCH` comment). Facebook needs a login, so no photos came from it.
 3. **Lead delivery.** Wire up the lead endpoint (email or CRM) and the Meta Pixel ID.
 4. **Privacy.** The client should confirm the privacy text.
-5. **Photos.** The sharpest photos they publish are only 700–750px wide. Upscaling, or sending originals, would sharpen the hero.
+5. **Photos.** Apart from the hero, the photos are 700–750px wide. Original photos from the client would sharpen them.
