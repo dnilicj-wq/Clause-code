@@ -6,10 +6,12 @@ This is a one-page roofing site for COLT Building Contractors (High Wycombe, fam
 - `index.html`: the whole page, with CSS, JS, the icon sprite and the roof cross-section inline. It's built from a script outside the repo, so edit this file directly.
 - `thank-you.html`: shows the lead summary and a "Send this to us on WhatsApp too" button, prefilled from sessionStorage.
 - `privacy.html`: a draft, marked with a placeholder for the client to confirm.
-- `img/`: their own photos from the gallery and homepage of coltbuildingcontractors.co.uk, all given the same colour grade.
-  - Formats: AVIF and WebP at 480px and full width (700–750px is the largest they publish).
-  - Upscaling: only the hero (`hero-*`) was upscaled 4× with Real-ESRGAN, from their own photo, not generated. It's exported as a desktop crop (1600 and 2400px) and a phone crop (`hero-m`, 820 and 1240px).
-  - `share.jpg` is the 1200×630 social share image.
+- `img/`: their own photos, from the gallery and service pages of coltbuildingcontractors.co.uk, all given the same colour grade.
+  - **Hero:** a tight crop of a finished clay-tile ridge from their roof-repairs page, upscaled 4× with Real-ESRGAN (`hero-*`, `hero-m-*`). It's the best finished, sunny shot they publish, but it's still a close-up (flagged to the user).
+  - **Finished roofs:** `f-*`. Further 4× upscales: `f-hip`, `f-ridge`, `f-chimney`, `reroof`. `f-flat` is used at its original size.
+  - **"How we build it":** `rafters` and `scaffold-team`.
+  - **Video poster:** `video-960`, the thumbnail of their YouTube video (sF5i-rCdAB0). The video only loads on tap, from youtube-nocookie.
+  - **Share image:** `share.jpg`.
 - `brand/`: `logo.png` is their logo, unchanged. `logo-320.png` is a 64-colour copy for the header and footer. Also here: the favicon set (the horse mark) and the web manifest icons.
 - `fonts/`: Newsreader for headings and Inter Tight for body text, subset to the characters the pages use.
 - `audit/`: screenshots of their current site and `findings.md`.
@@ -41,8 +43,8 @@ This is a one-page roofing site for COLT Building Contractors (High Wycombe, fam
 - **Contact:** phone numbers, email, and 18 High Street, High Wycombe HP11 2BE.
 
 ## Still to do before go-live
-1. **Reviews.** Checkatrade blocks automated access (Cloudflare), so no review text was copied. Add 3–4 real 10/10 reviews word for word, each with job type, date and postcode area and linked to the review. There are `PLACEHOLDER` comments in the reviews section and beside the form.
+1. **Reviews.** Checkatrade blocks automated access (Cloudflare), so no review text was copied. The reviews section has three visible yellow "Placeholder: real review to be added" cards. Replace each one with a real 10/10 review, word for word, with its job type, date and postcode area, linked to the review.
 2. **Facebook ad.** No ad screenshot was supplied. Match the hero headline and image to the ad (see the `AD MATCH` comment). Facebook needs a login, so no photos came from it.
 3. **Lead delivery.** Wire up the lead endpoint (email or CRM) and the Meta Pixel ID.
 4. **Privacy.** The client should confirm the privacy text.
-5. **Photos.** Apart from the hero, the photos are 700–750px wide. Original photos from the client would sharpen them.
+5. **Photos.** Ask the client for a wide, finished, sunny photo of a whole roof for the hero. Their published photos are mostly mid-job.

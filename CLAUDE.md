@@ -76,7 +76,12 @@ Never print or commit `VERCEL_TOKEN`. Don't touch the `enrollflo` or `clientgate
   - **Palette:** built around their navy and yellow logo (navy #0b1d3a, paper #f4f1ec, logo yellow #facd01 for calls to action). Keep the logo unchanged, on light backgrounds only.
   - **Calls to action:** one primary label, "Get my free roof quote".
   - **Facts:** only those in `demos/colt/README.md`. Never invent reviews. The Checkatrade quotes are still placeholders (it blocks bots).
-  - **Photos:** their own photos only. The hero is a 4× Real-ESRGAN upscale, which the user asked for. The other photos are 700–750px wide; don't upscale them unless asked.
+  - **Photos:** their own photos only.
+    - The hero is a finished clay-tile ridge close-up, upscaled 4× with Real-ESRGAN. A wide, finished roof photo from the client would be better.
+    - Recent work leads with finished roofs, then at most 2 shots captioned "How we build it".
+  - **Reviews:** the three cards are visible placeholders until the client supplies real Checkatrade reviews.
+  - **Mobile:** the page must stay under 12 phone screens (about 9,860px now).
+  - **Anatomy:** a stepper over an inline cutaway SVG.
 
 ## User preference
 Minimal messages. Only message when important. User asks questions if needed.
