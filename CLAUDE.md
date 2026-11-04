@@ -47,7 +47,7 @@ All set in Vercel env vars — see `.env` locally or Vercel dashboard. Keys: `GH
 - GHL calendar open hours — needed for real slot fetching (currently uses fallback)
 
 ## Clientgateway demo sites
-Separate from EnrollFlo. The `demos/` folder holds solar, coating, lethal-precision, revive, rhino, gafflow, cmd-tiling, royal-resin and colt. Each is its own Vercel project, `clientgateway-<name>` (scope `dnilicj-2275s-projects`). Before touching them, read `HANDOVER-clientgateway-demos.md`, plus `demos/<name>/README.md` where it exists (rhino, gafflow, royal-resin and colt have one).
+Separate from EnrollFlo. The `demos/` folder holds solar, coating, lethal-precision, revive, rhino, gafflow, cmd-tiling, royal-resin, colt and kt-construction. Each is its own Vercel project, `clientgateway-<name>` (scope `dnilicj-2275s-projects`). Before touching them, read `HANDOVER-clientgateway-demos.md`, plus `demos/<name>/README.md` where it exists (rhino, gafflow, royal-resin, colt and kt-construction have one).
 
 Deploy from the demo folder:
 
@@ -90,6 +90,8 @@ Rules for all demos:
   - **Reviews:** the three cards are visible placeholders until the client supplies real Checkatrade reviews.
   - **Mobile:** the page must stay under 12 phone screens (about 9,860px now).
   - **Anatomy:** a stepper over an inline cutaway SVG.
+
+- **kt-construction** (KT Construction, microcement and decorative finishes, Hurstpierpoint/Crawley) is an 8-chapter one-page "journey": WebGL trowel hero, CSS 3D layer stack, Three.js room configurator (real KT colour codes and published 2026 rates), 3D photo corridor. Vercel project `clientgateway-kt-construction`. After editing `src/config3d.js`, re-bundle it to `js/config3d.js` with esbuild. Real KT photos only (their site mixes in AI/manufacturer renders). No review text (Facebook login).
 
 ## User preference
 Minimal messages. Only message when important. User asks questions if needed.
