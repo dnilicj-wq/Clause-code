@@ -458,7 +458,8 @@ figure{margin:0}
 .svc-grid{margin-top:clamp(36px,4vw,56px);display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:16px}
 .svc-hero{grid-column:span 7;grid-row:span 3;position:relative;border-radius:var(--r);overflow:hidden;color:#fff;display:flex;flex-direction:column;justify-content:flex-end;min-height:520px;padding:clamp(22px,3vw,36px);isolation:isolate}
 .svc-hero picture,.svc-hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
-.svc-hero::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(0deg,rgb(8 20 42 / .92),rgb(8 20 42 / .35) 55%,transparent)}
+.svc-hero::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(0deg,rgb(8 20 42 / .97) 0%,rgb(8 20 42 / .9) 38%,rgb(8 20 42 / .55) 68%,rgb(8 20 42 / .2))}
+.svc-hero h3,.svc-hero p{text-shadow:0 1px 18px rgb(8 20 42 / .7)}
 .svc-hero h3{font-size:clamp(32px,3.4vw,48px)}
 .svc-hero p{margin-top:10px;color:#e3e8f1;max-width:44ch}
 .svc-hero .btn{margin-top:22px;align-self:flex-start}
@@ -658,6 +659,27 @@ figure{margin:0}
   footer{padding-block:44px 24px}.foot{grid-template-columns:1fr 1fr;gap:22px}.foot>div:last-child{display:none}.mats{margin-top:24px}
 }
 @media (max-width:767px){.h2{font-size:clamp(32px,8.6vw,40px)}.lede{margin-top:12px;font-size:16px}.endcta{margin-top:28px}.faq summary{padding:16px 0;font-size:19px}.qf{min-height:0}}
+
+
+/* Quote: a navy band so the form card is the brightest thing on the screen */
+.quote-sec{position:relative;overflow:hidden}
+.quote-sec::before{content:"";position:absolute;right:-12%;top:-30%;width:70%;height:120%;background:radial-gradient(closest-side,rgb(250 205 1 / .14),transparent);pointer-events:none}
+.quote-sec .q-grid{position:relative}
+.quote-sec .h2{color:#fff}
+.quote-sec .h2 em{font-style:italic;color:var(--y)}
+.quote-sec .q-proof{background:var(--navy-2);box-shadow:inset 0 0 0 1px rgb(255 255 255 / .12)}
+.quote-sec .q-proof .n{color:var(--y)}
+.quote-sec .q-proof p,.quote-sec .q-proof li{color:var(--on-navy-2)}
+.quote-sec .q-proof b{color:#fff}
+.quote-sec .q-proof li .i{color:#45d483}
+.quote-sec .q-call .btn-line{color:#fff;border-color:rgb(255 255 255 / .45);background:transparent}
+.quote-sec .qf{color:var(--ink);background:#fff;box-shadow:0 0 0 1px rgb(255 255 255 / .6),0 40px 90px -30px rgb(0 0 0 / .65),0 0 0 8px rgb(250 205 1 / .16)}
+.quote-sec .qf :focus-visible{outline-color:var(--navy-3)}
+.qf-top:has(#qBack:not([hidden])) .qf-badge{display:none}
+.qf-badge{display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border-radius:999px;background:var(--y);color:var(--navy);font:700 13px/1 var(--sans)}
+.qf-badge .i{width:16px;height:16px}
+.quote-sec .prog i{background:var(--navy)}
+.quote-sec .prog{background:#e9e4da}
 
 /* Quote form */
 .q-grid{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:clamp(32px,5vw,80px);align-items:start}
@@ -1006,10 +1028,10 @@ footer{background:var(--paper-2);padding-block:clamp(56px,7vw,96px) 32px;font-si
   </div>
 </section>
 
-<section class="sec white" id="quote" aria-labelledby="q-h">
+<section class="sec dark quote-sec" id="quote" aria-labelledby="q-h">
   <div class="wrap q-grid">
     <div class="q-side">
-      <h2 class="h2" id="q-h">Get my free roof quote</h2>
+      <h2 class="h2" id="q-h">Get my <em>free roof quote</em></h2>
       <p class="lede">Five quick taps, about 30 seconds. We'll come back to you with a free survey time.</p>
       <div class="q-proof">
         <div class="row"><span class="n num">9.84</span><p><b>/10 on Checkatrade</b><br>24 reviews in the last 12 months</p></div>
@@ -1026,7 +1048,7 @@ footer{background:var(--paper-2);padding-block:clamp(56px,7vw,96px) 32px;font-si
     </div>
 
     <form class="qf" id="qf" novalidate>
-      <div class="qf-top"><button type="button" class="qf-back" id="qBack" hidden><svg class="i"><use href="#i-arrow-l"/></svg>Back</button><span id="qCount" aria-live="polite">Step 1 of 5</span></div>
+      <div class="qf-top"><span class="qf-badge"><svg class="i"><use href="#i-clock"/></svg>About 30 seconds</span><button type="button" class="qf-back" id="qBack" hidden><svg class="i"><use href="#i-arrow-l"/></svg>Back</button><span id="qCount" aria-live="polite">Step 1 of 5</span></div>
       <div class="prog" aria-hidden="true"><i id="qProg"></i></div>
       <div class="steps">
         <fieldset class="step cur" data-step="1">
