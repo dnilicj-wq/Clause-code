@@ -91,7 +91,7 @@ export function Owner() {
   return (
     <section aria-label="Owner" className="section" style={{ background: 'var(--bg2)' }}>
       <div ref={ref} className="wrap grid items-center gap-6 md:gap-10 md:grid-cols-[.9fr_1.1fr] md:gap-16">
-        <div className="relative mx-auto aspect-square w-full max-w-[190px] md:aspect-[4/5] md:max-w-[420px] overflow-hidden rounded-[var(--radius)] border" style={{ borderColor: 'var(--line)', background: 'radial-gradient(120% 90% at 30% 20%, var(--surface), var(--bg))' }}>
+        <div className="relative mx-auto aspect-[16/10] w-full md:aspect-[4/5] md:max-w-[420px] overflow-hidden rounded-[var(--radius)] border" style={{ borderColor: 'var(--line)', background: 'radial-gradient(120% 90% at 30% 20%, var(--surface), var(--bg))' }}>
           {site.owner.photo ? (<>
             <img src={site.owner.photo} alt={site.owner.photoIsStandIn ? 'Hands smoothing a resin floor with a trowel' : `${site.owner.name}, owner of ${site.company}`} className="h-full w-full object-cover" loading="lazy" />
             {site.owner.photoIsStandIn && <span className="ex-tag bottom-2 left-2">Example image</span>}

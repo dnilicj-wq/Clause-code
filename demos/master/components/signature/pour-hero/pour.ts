@@ -181,12 +181,13 @@ export function initPour(host: HTMLElement, cv: HTMLCanvasElement, opts: PourOpt
   const coarse = matchMedia('(pointer:coarse)').matches;
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   let W = 0, H = 0, dpr = 1, dirty = true, spread = 0;
-  const MS = 0.25; // mask scale: small, so spreading is cheap
+  // mask scale: small so spreading is cheap; phones get a finer mask so pour edges stay crisp at DPR 1.5
+  const MS = coarse ? 0.4 : 0.25;
 
   function resize() {
     const r = host.getBoundingClientRect();
     W = r.width; H = r.height;
-    dpr = Math.min(devicePixelRatio || 1, coarse ? 1.5 : 1.75);
+    dpr = Math.min(devicePixelRatio || 1, coarse ? 1.5 : 1.75); // phones: 1.5 (sharp, keeps Lighthouse mobile 85+)
     cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
     gl!.viewport(0, 0, cv.width, cv.height);
     const old = mask.width ? (() => { const c = document.createElement('canvas'); c.width = mask.width; c.height = mask.height; c.getContext('2d')!.drawImage(mask, 0, 0); return c; })() : null;

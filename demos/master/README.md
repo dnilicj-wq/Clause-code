@@ -3,7 +3,7 @@
 Premium demo site template for trades businesses. Default demo: **Northfield Surfaces**, an epoxy floor company in Leeds (fictional, all examples labelled).
 
 ## Pages
-- `/` – the demo page (pour hero → services → visualiser → layers → bento with spill test → comparison → price → "how fast we reply" chat → gallery → reviews → owner → guarantee → FAQ → finale → large name footer)
+- `/` – the demo page (pour hero → services → full-bleed garage expansion → layers → comparison + spill test → price → "how fast we reply" chat → gallery → reviews → owner → guarantee → FAQ → finale → large name footer)
 - `/lab`, `/lab/<category>` – every component in the library, live, with source, licence, status and score
 - `/preview/<id>` – one library demo on its own page (for screenshots and review)
 - `/presets` – the 5 visual presets side by side
@@ -33,10 +33,8 @@ Presets live in `config/presets.ts`. Components read colours and fonts only thro
 - Changed image = new filename (`-v2`), never overwrite.
 - `vercel.json` sends `X-Robots-Tag: noindex` on everything.
 
-## Visualiser (Gemini) – off
-Switched off with `site.visualiser = false` (the free Gemini key has no image quota). With a paid key, set it to `true`.
-
-`api/visualise.ts` calls `gemini-2.5-flash-image`. Set `GEMINI_API_KEY` in Vercel (Production). Without it the visualiser shows "busy" with an example image. Limits: 3 per visitor, 50 per day, 8 MB upload.
+## Visualiser – disabled (needs paid API)
+Removed from the demo page and from the build: there is no `/api` route and no Gemini call ships. The client UI stays in `components/signature/visualiser/` and the old server handler in `visualiser/disabled/` (not deployed). It shows in /lab as "needs paid API, disabled".
 
 ## Commands
 ```bash

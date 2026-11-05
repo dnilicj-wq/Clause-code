@@ -40,7 +40,9 @@ export function Nav() {
   const links: [string, string][] = [['Finishes', '#gallery'], ['How it works', '#layers'], ['Prices', '#price'], ['Reviews', '#reviews']];
   return (
     <header className="fixed inset-x-0 top-0 z-50 flex justify-center px-3 pt-3" data-nopour>
-      <nav className={`flex w-full max-w-[1240px] items-center justify-between rounded-full py-2 pl-5 pr-2 transition-all duration-500 ${scrolled ? 'glass' : 'border border-transparent'}`}>
+      {/* scrolled: near-solid bar, so nothing scrolling underneath shows through the logo */}
+      <nav className="flex w-full max-w-[1240px] items-center justify-between rounded-full border py-2 pl-5 pr-2 transition-[background-color,border-color,box-shadow] duration-500"
+        style={scrolled ? { background: 'color-mix(in srgb, var(--bg) 94%, transparent)', borderColor: 'var(--line)', backdropFilter: 'blur(18px) saturate(140%)', WebkitBackdropFilter: 'blur(18px) saturate(140%)', boxShadow: '0 12px 32px -14px rgba(0,0,0,.65)' } : { borderColor: 'transparent' }}>
         <a href="#top" className="flex items-center gap-2.5 font-display text-[17px] font-semibold tracking-tight">
           <Mark /> {site.company}
         </a>

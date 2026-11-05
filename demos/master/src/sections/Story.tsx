@@ -25,7 +25,7 @@ export function Services() {
 }
 
 // Full-bleed finished floor: starts as an inset card and grows edge to edge as you scroll.
-export function Expand({ onVisualise }: { onVisualise?: () => void }) {
+export function Expand() {
   const { trade } = useSite();
   const e = trade.copy.expand!;
   const ref = useRef<HTMLDivElement>(null);
@@ -49,11 +49,7 @@ export function Expand({ onVisualise }: { onVisualise?: () => void }) {
         </motion.div>
         <motion.div className="pointer-events-none absolute inset-x-0 bottom-[10vh] flex flex-col items-center gap-4 px-6 text-center" style={{ opacity: textO, y: textY }}>
           <h2 className="h2 text-white" style={{ textShadow: '0 2px 30px rgba(0,0,0,.5)' }}>{e.title}</h2>
-          {onVisualise ? (
-            <button onClick={onVisualise} className="pointer-events-auto rounded-full px-6 py-3.5 text-[15px] font-semibold shadow-2xl" style={{ background: 'var(--accent)', color: 'var(--accent-ink)' }}>Visualise your garage</button>
-          ) : (
-            <a href="#price" className="pointer-events-auto rounded-full px-6 py-3.5 text-[15px] font-semibold shadow-2xl" style={{ background: 'var(--accent)', color: 'var(--accent-ink)' }}>See your price</a>
-          )}
+          <a href="#price" className="pointer-events-auto rounded-full px-6 py-3.5 text-[15px] font-semibold shadow-2xl" style={{ background: 'var(--accent)', color: 'var(--accent-ink)' }}>See your price</a>
         </motion.div>
       </div>
     </section>

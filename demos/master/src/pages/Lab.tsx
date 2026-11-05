@@ -48,7 +48,7 @@ const exReviews = [
 const demos: Record<string, () => ReactNode> = {
   'pour-hero': () => <Shot src="/posters/pour-d-v1.webp" to="/#top" label="Runs live as the home hero" />,
   'layer-explode': () => <Shot src="/demo/tex-flake-v1.webp" to="/#layers" label="Scroll-driven: open on the page" />,
-  visualiser: () => <Shot src="/demo/unit-gloss-800-v1.webp" to="/" label="Open from 'Visualise your garage' on the page" />,
+  visualiser: () => <Note>Needs paid API, disabled. Removed from the demo page and the build (no Gemini code ships). Source kept in components/signature/visualiser.</Note>,
   'quote-configurator': () => <Shot src={look('copper-metallic')} to="/#price" label="Open on the page" />,
   'bento-diagrams': () => <Shot src={look('storm-solid')} to="/" label="Bento section on the page" />,
   'pour-wipe-compare': () => <Shot src="/demo/ba-after-v1.webp" to="/#gallery" label="Gallery section on the page" />,

@@ -1,6 +1,4 @@
 // Everything below the hero, in its own chunk so the hero paints before this JS is parsed.
-import { useState } from 'react';
-import { Visualiser } from '@/components/signature/visualiser/Visualiser';
 import { Services, Expand, Layers, PhotoBreak } from './Story';
 import { Bento } from './Proof';
 import { Quote } from './Quote';
@@ -12,12 +10,11 @@ import { LargeNameFooter } from '@/components/library/large-name-footer/LargeNam
 import { Dock, CursorGlow } from './Chrome';
 
 export default function Below() {
-  const [vis, setVis] = useState(false);
   const { site, trade } = useSite();
   return (
     <>
       <Services />
-      {trade.copy.expand && <Expand onVisualise={site.visualiser ? () => setVis(true) : undefined} />}
+      {trade.copy.expand && <Expand />}
       <Layers />
       <Bento />
       <Quote />
@@ -34,7 +31,6 @@ export default function Below() {
       </div>
       <Dock />
       <CursorGlow />
-      {site.visualiser && <Visualiser open={vis} onClose={() => setVis(false)} />}
     </>
   );
 }

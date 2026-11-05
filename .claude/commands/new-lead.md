@@ -47,7 +47,7 @@ Dan doesn't code. Report in plain English, briefly: what was built, the URL, and
 2. Edit **only** `demos/<slug>/config/site.ts`. Set `demo: false` and **`sample: false`** (sample content is for the fictional master demo only; a prospect site must never show it), and fill company, shortName, trade, preset, town, region, phone, whatsapp, email, owner, hours, responseTime, areas, socials, proof (real numbers only, otherwise 0), guarantee and reviews.
    - **Unknown fields** stay as the master's labelled examples. Don't guess.
    - **`responseTime`:** use the prospect's own wording if they state it; otherwise use `'quickly'`, never a number.
-   - **`visualiser`:** stays `false` unless there is a working paid Gemini key.
+   - **Visualiser:** disabled and not in the build (needs a paid API). Don't add it back.
 3. **Trade pack:** `trade: 'epoxy' | 'microcement'`. If the prospect doesn't offer a service or finish listed in the pack, copy the pack to `config/trades/<slug>.ts`, remove it there, and register it in `config/trades/index.ts`. Set `offersUvStable: true` only with a source.
 4. **Preset:** choose from `config/presets.ts` using their logo and photo colours.
    - `obsidian-copper`: luxury, dark/warm.

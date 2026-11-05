@@ -84,9 +84,9 @@ export const epoxy = {
     surface: 'floor',
     hero: 'pour' as 'pour' | 'trowel',
     // Full-bleed finished floor that grows to fill the screen on scroll. null = skip (no matching image).
-    expand: { title: 'Your floor, finished.', image: '/demo/unit-gloss-1600-v1.webp', imageM: '/demo/unit-gloss-800-v1.webp', alt: 'A finished gloss resin floor', bg: '' } as { title: string; image: string; imageM?: string; alt?: string; bg: string } | null,
+    expand: { title: 'Your garage, finished.', image: '/demo/home-garage-car-1600-v1.webp', imageM: '/demo/home-garage-car-800-v1.webp', alt: 'A car parked in a clean, finished home garage', bg: '' } as { title: string; image: string; imageM?: string; alt?: string; bg: string } | null,
     // Full-bleed photo break between sections. null = skip.
-    photoBreak: { img: '/demo/warehouse-gloss-1600-v1.webp', imgM: '/demo/warehouse-gloss-800-v1.webp', alt: 'Mirror-gloss resin floor', line: 'Laid once. Looks like this for years.' } as { img: string; imgM?: string; alt: string; line: string } | null,
+    photoBreak: { img: '/demo/living-gloss-1600-v1.webp', imgM: '/demo/living-gloss-800-v1.webp', alt: 'Bright home interior with a seamless gloss floor', line: 'Laid once. Looks like this for years.' } as { img: string; imgM?: string; alt: string; line: string } | null,
     layers: { eyebrow: 'What goes into a floor', h1: 'Five layers.', h2: 'Skip one and it fails.', lede: 'A cheap quote is usually a missing layer. Scroll to take the floor apart.', tag: 'Rendered textures' },
     bento: {
       eyebrow: 'The difference you cannot see', h1: 'Done properly,', h2: 'it stays down.',
@@ -102,12 +102,13 @@ export const epoxy = {
     gallery: {
       h1: 'Pick a look.', h2: 'Every pour is one-off.', kind: 'resin finish',
       extra: [
-        { name: 'Gloss workshop floor', note: 'Commercial unit', img: '/demo/unit-gloss-800-v1.webp', alt: 'Gloss resin floor in a commercial unit (example image)', by: 'Example image · Pexels' },
-        { name: 'Hangar floor', note: 'Light grey gloss', img: '/demo/hangar-gloss-800-v1.webp', alt: 'Gloss floor in an aircraft hangar (example image)', by: 'Example image · Pexels' },
-        { name: 'Warehouse floor', note: 'Mirror finish', img: '/demo/warehouse-gloss-800-v1.webp', alt: 'Gloss warehouse floor (example image)', by: 'Example image · Pexels' },
-        { name: 'Studio floor', note: 'Reflective grey', img: '/demo/studio-gloss-800-v1.webp', alt: 'Reflective grey studio floor (example image)', by: 'Example image · Pexels' },
+        { name: 'Double garage', note: 'Gloss floor, home garage', img: '/demo/garage-gloss-car-800-v1.webp', alt: 'Sports car in a home garage with a gloss floor (example image)', by: 'Example image · Pexels' },
+        { name: 'Living space', note: 'Seamless gloss floor', img: '/demo/living-gloss-800-v1.webp', alt: 'Bright hallway and living space with a seamless gloss floor (example image)', by: 'Example image · Pexels' },
+        { name: 'Garage gym', note: 'Hard-wearing gloss', img: '/demo/garage-gym-800-v1.webp', alt: 'Home gym in a converted garage (example image)', by: 'Example image · Pexels' },
+        { name: 'Driveway', note: 'Outside the house', img: '/demo/driveway-800-v1.webp', alt: 'Wide driveway in front of a modern house (example image)', by: 'Example image · Pexels' },
       ] as GalleryExtra[],
-      beforeAfter: { before: '/demo/ba-before-v1.webp', after: '/demo/ba-after-v1.webp', beforeAlt: 'Bare cracked concrete before coating (illustration)', afterAlt: 'Same floor with a copper metallic resin finish (illustration)' } as { before: string; after: string; beforeAlt: string; afterAlt: string } | null,
+      // Not the same garage: a bare garage next to a finished one, labelled "Illustration" (no free matched pair exists)
+      beforeAfter: { before: '/demo/garage-bare-1600-v1.webp', after: '/demo/garage-gym-1600-v1.webp', beforeAlt: 'Empty garage with a bare concrete floor (example image)', afterAlt: 'A different garage with a finished gloss floor (example image)' } as { before: string; after: string; beforeAlt: string; afterAlt: string } | null,
     },
     finale: "Let's see your floor.",
     finaleSub: 'A free survey: we measure, test the slab and give you a fixed written price.',
