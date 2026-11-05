@@ -1,6 +1,6 @@
 // @ts-nocheck -- verbatim third-party port; types left as the author wrote them
 // Ported verbatim from https://21st.dev/@ravikatiyar/components/circular-gallery — copy: https://raw.githubusercontent.com/Deepender25/21st.dev-Component-Skill-/3de21651777d1c23cb2deed3a0ffc978c4270259/components/ravikatiyar162/circular-gallery.tsx
-// Changes: this header; caption no longer prefixes "Photo by:" (labels like "Example render" go in photo.by). Shims: framer-motion→motion/react, next/image→<img> (vite aliases).
+// Changes: this header; cards hide their backs and drop the backdrop blur (iOS Safari smeared overlapping cards); caption no longer prefixes "Photo by:" (labels like "Example render" go in photo.by). Shims: framer-motion→motion/react, next/image→<img> (vite aliases).
 import React, { useState, useEffect, useRef, HTMLAttributes } from 'react';
 
 // A simple utility for conditional class names
@@ -120,10 +120,11 @@ const CircularGallery = React.forwardRef<HTMLDivElement, CircularGalleryProps>(
                   marginLeft: '-150px',
                   marginTop: '-200px',
                   opacity: opacity,
-                  transition: 'opacity 0.3s linear'
+                  transition: 'opacity 0.3s linear',
+                  backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden'
                 }}
               >
-                <div className="relative w-full h-full rounded-lg shadow-2xl overflow-hidden group border border-border bg-card/70 dark:bg-card/30 backdrop-blur-lg">
+                <div className="relative w-full h-full rounded-lg shadow-2xl overflow-hidden group border border-border bg-card">
                   {item.photo.url ? (
                     <img
                       src={item.photo.url}

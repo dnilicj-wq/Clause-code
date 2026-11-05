@@ -59,14 +59,14 @@ export function PourHero({ compact = false }: { compact?: boolean }) {
         <img src={site.posters.d} alt="" className="h-full w-full object-cover" fetchPriority="high" decoding="async" />
       </picture>
       <canvas ref={canvas} className="absolute inset-0 -z-10 h-full w-full transition-opacity duration-700" style={{ opacity: live ? 1 : 0 }} aria-hidden="true" />
-      <div className="pointer-events-none absolute inset-0 -z-[5]" style={{ background: 'linear-gradient(180deg, rgba(0,0,0,.55) 0%, rgba(0,0,0,0) 28%, rgba(0,0,0,0) 52%, rgba(0,0,0,.72) 100%)' }} />
+      <div className="pointer-events-none absolute inset-0 -z-[5]" style={{ background: 'linear-gradient(180deg, rgba(0,0,0,.55) 0%, rgba(0,0,0,0) 24%, rgba(0,0,0,0) 38%, rgba(0,0,0,.5) 62%, rgba(0,0,0,.82) 100%)' }} />
 
       <div className="pointer-events-none relative mx-auto flex h-full max-w-[1240px] flex-col justify-end px-5 pb-[max(28px,env(safe-area-inset-bottom))] pt-24 md:px-16 md:pb-16">
-        <div className="eyebrow mb-4 flex items-center gap-2 text-[var(--ink)]/80" style={{ color: 'color-mix(in srgb, var(--ink) 75%, transparent)' }}>
+        <div className="eyebrow mb-4 flex w-fit items-center gap-2 rounded-full px-3 py-1.5" style={{ color: 'color-mix(in srgb, var(--ink) 94%, transparent)', background: 'rgba(12,10,8,.6)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,.08)' }}>
           <span className="inline-block h-1.5 w-1.5 rounded-full" style={{ background: 'var(--accent)', boxShadow: '0 0 12px var(--accent)' }} />
           {trade.hero.eyebrow} · {site.town}
         </div>
-        <h1 className="font-display text-[clamp(46px,8.4vw,128px)] font-semibold leading-[.9] tracking-[-.035em]" style={{ textShadow: '0 2px 30px rgba(0,0,0,.35)' }}>
+        <h1 className="font-display text-[clamp(46px,8.4vw,128px)] font-semibold leading-[.9] tracking-[-.035em]">
           {lines.map((l, i) => (
             <span key={i} className="block"><VerticalCutReveal splitBy="characters" staggerDuration={0.018} staggerFrom="first"
               transition={{ type: 'spring', stiffness: 200, damping: 24, delay: 0.15 + i * 0.16 }}

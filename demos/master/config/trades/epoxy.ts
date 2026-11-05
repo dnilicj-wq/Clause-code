@@ -87,9 +87,9 @@ export const epoxy = {
     surface: 'floor',
     hero: 'pour' as 'pour' | 'trowel',
     // Full-bleed finished floor that grows to fill the screen on scroll. null = skip (no matching image).
-    expand: { title: 'Your garage, finished.', image: '/demo/home-garage-flake-1600-v1.webp', imageM: '/demo/home-garage-flake-800-v1.webp', alt: 'Double garage with a grey flake floor and a car parked inside', bg: '', pos: '72% 50%' } as { title: string; image: string; imageM?: string; alt?: string; bg: string; pos?: string } | null,
+    expand: { title: 'Your garage, finished.', image: '/demo/home-garage-flake-2576-v1.webp', imageM: '/demo/home-garage-flake-phone-v1.webp', alt: 'Double garage with a grey flake floor and a car parked inside', bg: '', pos: '72% 50%', posM: '60% 50%' } as { title: string; image: string; imageM?: string; alt?: string; bg: string; pos?: string; posM?: string } | null,
     // Full-bleed photo break between sections. null = skip.
-    photoBreak: { img: '/demo/kitchen-metallic-1600-v1.webp', imgM: '/demo/kitchen-metallic-800-v1.webp', alt: 'Open-plan kitchen with a copper metallic resin floor', line: 'Laid once. Looks like this for years.' } as { img: string; imgM?: string; alt: string; line: string } | null,
+    photoBreak: { img: '/demo/kitchen-metallic-2576-v1.webp', imgM: '/demo/kitchen-metallic-phone-v1.webp', alt: 'Open-plan kitchen with a copper metallic resin floor', line: 'Laid once. Looks like this for years.' } as { img: string; imgM?: string; alt: string; line: string } | null,
     layers: { eyebrow: 'What goes into a floor', h1: 'Five layers.', h2: 'Skip one and it fails.', lede: 'A cheap quote is usually a missing layer. Scroll to take the floor apart.', tag: 'Rendered textures' },
     bento: {
       eyebrow: 'The difference you cannot see', h1: 'Done properly,', h2: 'it stays down.',

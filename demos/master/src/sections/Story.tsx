@@ -28,6 +28,7 @@ export function Services() {
 export function Expand() {
   const { trade } = useSite();
   const e = trade.copy.expand!;
+  const isPhone = typeof matchMedia !== 'undefined' && matchMedia('(max-width: 699px)').matches;
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end end'] });
   const inset = useTransform(scrollYProgress, [0.25, 0.85], [14, 0], { clamp: true });
@@ -42,7 +43,7 @@ export function Expand() {
         <motion.div className="absolute inset-0 overflow-hidden" style={{ clipPath: clip }}>
           <motion.picture className="absolute inset-0 block" style={{ scale }}>
             {e.imageM && <source media="(max-width: 699px)" srcSet={e.imageM} />}
-            <img src={e.image} alt={e.alt || ''} className="h-full w-full object-cover" style={e.pos ? { objectPosition: e.pos } : undefined} loading="lazy" decoding="async" />
+            <img src={e.image} alt={e.alt || ''} className="h-full w-full object-cover" style={e.pos ? { objectPosition: isPhone ? (e.posM || 'center') : e.pos } : undefined} loading="lazy" decoding="async" />
           </motion.picture>
           <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(0,0,0,.25), rgba(0,0,0,0) 35%, rgba(0,0,0,.65))' }} />
           <span className="ex-tag bottom-3 right-3 !text-[9px] !opacity-80">Example image</span>

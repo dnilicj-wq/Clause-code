@@ -12,7 +12,7 @@ import { finishBg, finishImg } from '@/config/trades/epoxy';
 export function Gallery() {
   const { site, trade } = useSite();
   const [r, setR] = useState(600);
-  useEffect(() => { const f = () => setR(innerWidth < 700 ? 400 : innerWidth < 1100 ? 480 : 620); f(); addEventListener('resize', f); return () => removeEventListener('resize', f); }, []);
+  useEffect(() => { const f = () => setR(innerWidth < 1100 ? 560 : 640); f(); addEventListener('resize', f); return () => removeEventListener('resize', f); }, []);
   const g = trade.copy.gallery;
   const items: GalleryItem[] = [
     ...trade.finishes.map((f) => ({ common: f.name, binomial: f.note, photo: f.img ? { url: f.img, text: `${f.name} ${g.kind}, ${f.photo ? 'example image' : site.sample ? 'rendered finish' : 'example render'}`, by: f.photo ? 'Example image' : site.sample ? 'Rendered finish' : 'Example render' } : { url: '', bg: finishBg(f), text: `${f.name} ${g.kind}, colour swatch`, by: 'Colour swatch' } })),
