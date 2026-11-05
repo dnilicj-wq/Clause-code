@@ -29,7 +29,7 @@ export function Bento() {
               <Tyre />
             </Tile>
           )}
-          <Tile className={c.spill ? 'max-md:hidden md:col-span-6' : 'md:col-span-3'} title={c.timelineTitle(days)} text={`Typical timeline. Your survey confirms it. We work ${site.hours.toLowerCase()}.`} tag="Typical">
+          <Tile className={c.spill ? 'max-md:hidden md:col-span-6' : 'md:col-span-3'} title={c.timelineTitle(days)} text={`Typical timeline. Your survey confirms it.${site.hours ? ` We work ${site.hours.toLowerCase()}.` : ''}`} tag="Typical">
             <Timeline steps={c.steps} />
           </Tile>
         </div>

@@ -54,8 +54,8 @@ export function PourHero({ compact = false }: { compact?: boolean }) {
     >
       {/* poster: a real rendered frame of the pour, so first paint is never flat */}
       <picture className="absolute inset-0 -z-20">
-        <source media="(max-width: 699px)" srcSet="/posters/pour-m-v1.webp" />
-        <img src="/posters/pour-d-v1.webp" alt="" className="h-full w-full object-cover" fetchPriority="high" decoding="async" />
+        <source media="(max-width: 699px)" srcSet={site.posters.m} />
+        <img src={site.posters.d} alt="" className="h-full w-full object-cover" fetchPriority="high" decoding="async" />
       </picture>
       <canvas ref={canvas} className="absolute inset-0 -z-10 h-full w-full transition-opacity duration-700" style={{ opacity: live ? 1 : 0 }} aria-hidden="true" />
       <div className="pointer-events-none absolute inset-0 -z-[5]" style={{ background: 'linear-gradient(180deg, rgba(0,0,0,.55) 0%, rgba(0,0,0,0) 28%, rgba(0,0,0,0) 52%, rgba(0,0,0,.72) 100%)' }} />

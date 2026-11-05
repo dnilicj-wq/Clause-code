@@ -56,7 +56,17 @@ Dan doesn't code. Report in plain English, briefly: what was built, the URL, and
    - `clean-domestic`: bright domestic.
    - `microcement-stone`: microcement.
    - If their brand colour is distinctive, add a `<slug>` preset (copy the nearest one, change only accent, accent2 and metal) and register it.
-5. **Their photos:**
+5. **Page shell for the chosen preset:**
+   - In `index.html`, set the `<title>`, the `theme-color`, the html/body background and text colours, and the `#boot` loader colours to the preset's `bg`, `ink` and `accent`.
+   - If the preset is not `obsidian-copper`, render new hero posters in that preset (never overwrite):
+     `CAPTURE_PRESET=<preset> CAPTURE_VER=<preset>-v1 node scripts/capture.mjs http://localhost:5210 posters`
+     This needs the dev server running. Then point `site.posters` and the two poster preloads in `index.html` at the new files.
+   - For a microcement trade, the trowel hero uses `public/posters/trowel-*`; re-render those with `scripts/capture-trowel.mjs` if the preset differs.
+6. **Unknown facts are blank, not examples:**
+   - `hours: ''` and the hours line disappears.
+   - `owner: { first: '', name: '', … }` and the wording becomes "We'll…" / "One team, start to finish". The monogram uses the company initials.
+   - Only reviews, the guarantee and prices keep the labelled example versions.
+7. **Their photos:**
    - Replace the gallery `extra` items and the before/after in their trade pack copy, if they have real job photos. Use `by: '<Company> job'`, never "Example".
    - Use a real owner photo only if they publish one.
 

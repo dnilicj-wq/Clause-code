@@ -12,7 +12,7 @@ export function Reply() {
     { from: 'them', text: `Thanks${ch.img ? ' for the photo' : ''}! For ${e.m2}m² in ${ch.finishWord} it's usually ${gbp(e.low)} to ${gbp(e.high)}${site.demo ? ' (example range)' : ''}. We check everything on a free survey first.` },
     { from: 'them', text: 'Tuesday 10am or Thursday 4pm?' },
     { from: 'you', text: 'Thursday works 👍' },
-    { from: 'them', text: `Booked ✓ ${site.owner.first} will text you the evening before.` },
+    { from: 'them', text: `Booked ✓ ${site.owner.first ? `${site.owner.first} will` : "We'll"} text you the evening before.` },
   ];
   const steps = [
     ['Send a photo', `WhatsApp or the form. ${ch.photoTip}`],

@@ -87,7 +87,7 @@ export function Owner() {
   const { site } = useSite();
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: '-25%' });
-  const initials = site.owner.name.split(' ').map((w) => w[0]).join('').slice(0, 2);
+  const initials = (site.owner.name || site.company).split(' ').map((w) => w[0]).join('').slice(0, 2);
   return (
     <section aria-label="Owner" className="section" style={{ background: 'var(--bg2)' }}>
       <div ref={ref} className="wrap grid items-center gap-6 md:gap-10 md:grid-cols-[.9fr_1.1fr] md:gap-16">
@@ -103,9 +103,9 @@ export function Owner() {
         </div>
         <div>
           <p className="eyebrow">Who turns up</p>
-          <h2 className="h2 mt-4 max-w-[14ch]">You deal with {site.owner.first}, <span className="serif" style={{ color: 'var(--accent2)' }}>start to finish.</span></h2>
+          <h2 className="h2 mt-4 max-w-[14ch]">{site.owner.first ? <>You deal with {site.owner.first},</> : 'One team,'} <span className="serif" style={{ color: 'var(--accent2)' }}>start to finish.</span></h2>
           <p className="lede mt-5">Example owner note. Replace with the business's own words: who they are, how long they have done this, and what they promise on every job.</p>
-          <Signature name={site.owner.signature} play={inView} />
+          {site.owner.signature && <Signature name={site.owner.signature} play={inView} />}
         </div>
       </div>
     </section>

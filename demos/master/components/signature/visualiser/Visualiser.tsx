@@ -89,7 +89,7 @@ export function Visualiser({ open, onClose }: { open: boolean; onClose: () => vo
                     <button className="rounded-full py-3.5 font-semibold" style={{ background: 'var(--accent)', color: 'var(--accent-ink)' }}>Send it</button>
                   </form>
                 )}
-                {state === 'sent' && <p className="font-medium">Sent. {site.owner.first} will be in touch {site.responseTime}.</p>}
+                {state === 'sent' && <p className="font-medium">Sent. {site.owner.first ? `${site.owner.first} will` : "We'll"} be in touch {site.responseTime}.</p>}
                 {src && <button onClick={() => { setSrc(null); setOut(null); setState('idle'); }} className="text-[13px] underline" style={{ color: 'var(--muted)' }}>Use a different photo</button>}
               </div>
             </div>

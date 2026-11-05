@@ -67,8 +67,38 @@ Where a 21st.dev component had no original repo, the code came from the public s
 | Hover Footer | mdafsarx | not stated | https://21st.dev/@mdafsarx/components/hover-footer | ported |
 | Halftone Wordmark Footer | Clientgateway (after kedhareswer) | not stated | https://21st.dev/@kedhareswer/components/halftone-wordmark-footer | ported |
 | Motion Footer (cinematic curtain) | easemize | not stated | https://21st.dev/@easemize/components/motion-footer | ported |
+| Features 8 | meschacirung | not stated | https://21st.dev/@meschacirung/components/features-8 | ported |
+| Feature Section With Hover Effects | aceternity | MIT | https://21st.dev/@aceternity/components/feature-section-with-hover-effects | ported |
+| Grid Feature Cards | sshahaider | not stated | https://21st.dev/@sshahaider/components/grid-feature-cards | ported |
+| How It Works | ravikatiyar162 | not stated | https://21st.dev/@ravikatiyar162/components/how-it-works | ported |
+| Liquid Glass Card | designali-in | not stated | https://21st.dev/@designali-in/components/liquid-glass-card | ported |
+| Ruixen Bento Cards | ruixen.ui | not stated | https://21st.dev/@ruixen.ui/components/ruixen-bento-cards | ported |
+| Card Fan Carousel | aayush-duhan | not stated | https://21st.dev/@aayush-duhan/components/card-fan-carousel | ported |
+| Card Stack | ruixen.ui | not stated | https://21st.dev/@ruixen.ui/components/card-stack | ported |
+| Story Scroll | boudjadjasamira | not stated | https://21st.dev/@boudjadjasamira/components/story-scroll | ported |
+| Dynamic Island TOC | digitalzone0707 | not stated | https://21st.dev/@digitalzone0707/components/dynamic-island-toc | ported |
+| Horizontal Scroll Carousel | uniquesonu | not stated | https://21st.dev/@uniquesonu/components/horizontal-scroll-carousel | ported |
+| Parallax Scrolling (Osmo) | osmosupply | not stated | https://21st.dev/@osmosupply/components/parallax-scrolling | rejected |
+| Stagger Testimonials | vaib215 | not stated | https://21st.dev/@vaib215/components/stagger-testimonials | ported |
+| Circular Testimonials | maxim.bort.devel | not stated | https://21st.dev/@maxim.bort.devel/components/circular-testimonials | ported |
+| 3D Testimonials (marquee wall) | sean0205 (ReUI) | MIT | https://21st.dev/@reui/components/3d-testimonails | ported |
+| Glass Testimonial Swiper | easemize | not stated | https://21st.dev/@easemize/components/glass-testimonial-swiper | ported |
+| Image Testimonial Grid | ravikatiyar162 | not stated | https://21st.dev/@ravikatiyar162/components/image-testimonial-grid | ported |
+| Scroll Reel Testimonials | smammar100 | not stated | https://21st.dev/@smammar100/components/scroll-reel-testimonials | ported |
+| Testimonials with Marquee | serafimcloud | not stated | https://21st.dev/@serafimcloud/components/testimonials-with-marquee | ported |
+| Texture Button | Cult UI | MIT | https://21st.dev/@cult-ui/components/texture-button | ported |
+| Eclipse Button | iamsatish4564 | not stated | https://21st.dev/@iamsatish4564/components/eclipse-button | ported |
+| Flow Button | xubohuah | not stated | https://21st.dev/@xubohuah/components/flow-button | ported |
+| Send Button | m.umairwaheedansari | not stated | https://21st.dev/@m.umairwaheedansari/components/send-button | ported |
+| Infinite Slider | ibelick (motion-primitives) | MIT | https://21st.dev/@ibelick/components/infinite-slider | ported |
+| Logo Marquee (material brands) | grootstudio (rebuilt) | not stated | https://21st.dev/@grootstudio/components/logo-marquee | ported |
+| Anime Navbar | jatin-yadav05 | not stated | https://21st.dev/@jatin-yadav05/components/anime-navbar | rejected |
+| Anti Metal Button | smammar | not stated | https://21st.dev/@smammar/components/anti-metal-button | rejected |
+| Save with Progress | ibrandify | not stated | https://21st.dev/@ibrandify/components/save-with-progress | rejected |
+| Motion Scroll Hide Header | motiondotdev | not stated | https://21st.dev/@motiondotdev/components/motion-scroll-hide-header | rejected |
+| Book a Demo (Book a free survey) | designali-in | not stated | https://21st.dev/@designali-in/components/book-a-demo-1 | rejected |
 
-Custom (Clientgateway): Pour & self-level hero, Layer explode (rendered textures), "See it in your garage" visualiser, Quote configurator (price before contact), Live diagram bento (moisture, hot tyre, spill, timeline), Pour-wipe before/after, How Fast We Reply chat, Flake Broadcast, Metallic Swirl Painter, Hot-Tyre Test, Spill Test, UV Sun Slider.
+Custom (Clientgateway): Pour & self-level hero, Layer explode (rendered textures), "See it in your garage" visualiser, Quote configurator (price before contact), Live diagram bento (moisture, hot tyre, spill, timeline), Pour-wipe before/after, How Fast We Reply chat, Flake Broadcast, Metallic Swirl Painter, Hot-Tyre Test, Spill Test, UV Sun Slider, Trowel hero (microcement over tiles).
 The pour shader's metallic field is adapted from Clientgateway's own `demos/gafflow/pour.js`.
 
 Images: see `public/demo/CREDITS.md` (Pexels licence; every photo is labelled "Example image").

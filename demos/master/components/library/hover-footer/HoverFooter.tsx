@@ -71,7 +71,7 @@ export function HoverFooter({ data, wordmark, className }: { data: FooterData; w
   const contact = [
     { icon: Phone, label: data.phone, href: data.tel },
     { icon: MessageCircle, label: 'WhatsApp us', href: data.whatsapp },
-    { icon: Clock, label: data.hours },
+    ...(data.hours ? [{ icon: Clock, label: data.hours }] : []),
     { icon: MapPin, label: `${data.town}, ${data.region}` },
   ];
   return (

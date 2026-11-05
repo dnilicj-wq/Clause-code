@@ -93,7 +93,7 @@ function Configurator() {
           {stage === 'form' && <LeadForm key="f" summary={`${est.m2} m² ${finish.name}, ${gbp(est.low)}–${gbp(est.high)}`} onDone={() => setStage('done')} />}
           {stage === 'done' && (
             <motion.div key="d" initial={{ opacity: 0, scale: .98 }} animate={{ opacity: 1, scale: 1 }} className="relative">
-              <h3 className="font-display text-[30px] font-semibold">Thanks. {site.owner.first} will call you {site.responseTime}.</h3>
+              <h3 className="font-display text-[30px] font-semibold">Thanks. {site.owner.first ? `${site.owner.first} will` : "We'll"} call you {site.responseTime}.</h3>
               <a className="mt-4 inline-flex rounded-full px-5 py-3 font-semibold" style={{ background: '#25D366', color: '#062b14' }}
                 href={`https://wa.me/${site.whatsapp}?text=${encodeURIComponent(`Hi, I priced a ${est.m2} m² ${finish.name} ${trade.copy.surface} on your site (${gbp(est.low)}–${gbp(est.high)}).`)}`} target="_blank" rel="noreferrer">Or message on WhatsApp now</a>
             </motion.div>

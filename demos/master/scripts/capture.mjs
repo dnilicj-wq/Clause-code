@@ -5,12 +5,14 @@ import { chromium } from 'playwright';
 import sharp from 'sharp';
 import fs from 'node:fs';
 const base = process.argv[2] || 'http://localhost:5190';
-const VER = 'v1';
+// Optional: CAPTURE_PRESET=<key> CAPTURE_VER=<tag> renders posters in another preset to new filenames.
+const VER = process.env.CAPTURE_VER || 'v1';
+const PRE = process.env.CAPTURE_PRESET ? `&preset=${process.env.CAPTURE_PRESET}` : '';
 fs.mkdirSync('public/posters', { recursive: true }); fs.mkdirSync('public/demo', { recursive: true });
 const b = await chromium.launch({ args: ['--use-angle=metal', '--enable-gpu', '--ignore-gpu-blocklist'] });
 async function shot(q, w, h, out, quality = 78, dpr = 1) {
   const p = await b.newPage({ viewport: { width: w, height: h }, deviceScaleFactor: dpr });
-  await p.goto(`${base}/capture?${q}&gl=force`);
+  await p.goto(`${base}/capture?${q}${PRE}&gl=force`);
   await p.waitForFunction(() => window.__ready === true, null, { timeout: 15000 });
   const buf = await p.screenshot({ type: 'png' });
   await sharp(buf).webp({ quality }).toFile(out);

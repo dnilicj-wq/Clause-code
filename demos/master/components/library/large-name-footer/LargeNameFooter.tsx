@@ -13,7 +13,7 @@ export function LargeNameFooter({ data, ctaHref = '#price', ctaLabel = 'Get your
 }) {
   const cols: { title: string; items: { label: string; href?: string }[] }[] = [
     { title: 'Services', items: data.services.slice(0, 5).map((s) => ({ label: s, href: '#services' })) },
-    { title: 'Contact', items: [{ label: data.phone, href: data.tel }, { label: 'WhatsApp', href: data.whatsapp }, ...(data.email ? [{ label: data.email, href: `mailto:${data.email}` }] : []), { label: data.hours }] },
+    { title: 'Contact', items: [{ label: data.phone, href: data.tel }, { label: 'WhatsApp', href: data.whatsapp }, ...(data.email ? [{ label: data.email, href: `mailto:${data.email}` }] : []), ...(data.hours ? [{ label: data.hours }] : [])] },
     { title: 'Areas', items: data.areas.slice(0, 5).map((a) => ({ label: a })) },
     ...(data.socials.length ? [{ title: 'Socials', items: data.socials.map((s) => ({ label: s.label, href: s.href })) }] : []),
   ];

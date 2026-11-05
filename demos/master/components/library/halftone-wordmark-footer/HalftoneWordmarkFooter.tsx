@@ -80,7 +80,7 @@ export function HalftoneWordmarkFooter({ data, wordmark }: { data: FooterData; w
           <a href={data.whatsapp} className="hover:text-[var(--ink)]">WhatsApp</a>
           <a href="#price" className="hover:text-[var(--ink)]">Prices</a>
           <a href="#faq" className="hover:text-[var(--ink)]">FAQ</a>
-          <span className="col-span-2">{data.hours}</span>
+          {data.hours && <span className="col-span-2">{data.hours}</span>}
         </div>
       </div>
       <HalftoneWordmark text={wordmark ?? data.shortName} className="mx-auto mt-8 max-w-7xl"aspect={Math.max(3.2, (wordmark ?? data.shortName).length * 0.5)} />

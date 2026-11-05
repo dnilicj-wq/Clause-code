@@ -49,6 +49,8 @@ export const site = {
   ] as Review[],
   // Gemini visualiser. Off until a working (paid) GEMINI_API_KEY is set in Vercel; the button then becomes "See your price".
   visualiser: false,
+  // Hero first-frame stills (rendered by scripts/capture.mjs in this site's preset). Keep index.html preloads in step.
+  posters: { d: '/posters/pour-d-v1.webp', m: '/posters/pour-m-v1.webp' },
   formEndpoint: '', // empty = demo mode (thank-you shown, lead handed to WhatsApp)
 };
 
