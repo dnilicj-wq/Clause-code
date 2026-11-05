@@ -10,6 +10,13 @@ Stock photos: Pexels licence (free for commercial use; credit appreciated). Ever
 | studio-gloss-* | cottonbro studio | https://www.pexels.com/photo/6713385/ |
 | warehouse-gloss-* | Jan van der Wolf | https://www.pexels.com/photo/29482812/ |
 | garage-before-* | hi room | https://www.pexels.com/photo/17181949/ |
+| home-garage-car-* | João Emanuel | https://www.pexels.com/photo/37703762/ |
+| garage-gloss-car-* | Dennis Truong | https://www.pexels.com/photo/9139594/ |
+| living-gloss-* | McFollis | https://www.pexels.com/photo/38975397/ |
+| garage-gym-* | Max Vakhtbovych | https://www.pexels.com/photo/7174396/ |
+| driveway-* | Max Vakhtbovych | https://www.pexels.com/photo/8134845/ |
+| garage-bare-* | Peter Vang | https://www.pexels.com/photo/34764058/ |
+| hands-trowel-* | David Antonio Cruz Naira | https://www.pexels.com/photo/38561968/ |
 
 Rendered (not photos), made by `scripts/capture.mjs` from the pour shader, labelled "Example render":
 - `look-*-v1.webp`: finish lookbook macro renders
