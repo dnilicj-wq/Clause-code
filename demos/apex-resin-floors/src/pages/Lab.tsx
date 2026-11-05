@@ -89,7 +89,7 @@ const demos: Record<string, () => ReactNode> = {
   ),
   'dotted-map': () => <div className="rounded-2xl p-4" style={{ background: 'var(--surface)' }}><DottedMap markers={[{ lat: 53.8, lng: -1.55, size: 0.6, pulse: true }]} dotColor="var(--muted)" markerColor="var(--accent)" className="w-full" /></div>,
   'radar-chart': () => <Suspense fallback={null}><Radar /></Suspense>,
-  'number-ticker': () => <div className="font-display text-5xl font-semibold">£<NumberTicker value={2400} startValue={1900} className="!text-[var(--ink)]" /> – £<NumberTicker value={3700} startValue={2900} className="!text-[var(--ink)]" /><p className="mt-2 text-sm" style={{ color: 'var(--muted)' }}>Example range</p></div>,
+  'number-ticker': () => <div className="font-display text-5xl font-semibold"><span className="whitespace-nowrap">£<NumberTicker value={2400} startValue={1900} className="!text-[var(--ink)]" /></span> – <span className="whitespace-nowrap">£<NumberTicker value={3700} startValue={2900} className="!text-[var(--ink)]" /></span><p className="mt-2 text-sm" style={{ color: 'var(--muted)' }}>Example range</p></div>,
   'circular-gallery': () => (
     <div className="relative h-[380px] overflow-hidden rounded-2xl" style={{ background: 'var(--bg2)' }}>
       <CircularGallery radius={360} items={looks.map((k) => ({ common: k.replace('-', ' '), binomial: 'Example image', photo: { url: look(k), text: 'Example finish', by: '' } }))} />

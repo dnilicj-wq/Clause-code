@@ -81,10 +81,10 @@ function Configurator() {
           {stage === 'price' && (
             <motion.div key="p" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="relative">
               <div className="flex items-center gap-2"><span className="label-chip rounded-full px-2.5 py-1.5" style={{ background: 'rgba(255,255,255,.08)' }}>{P.label}</span></div>
-              <div className="mt-4 font-display text-[44px] font-semibold leading-none tracking-tight md:text-[56px]">
-                £<NumberTicker value={est.low} startValue={Math.round(est.low * 0.8)} className="!text-[var(--ink)] tracking-tight" />
+              <div className="mt-4 font-display text-[clamp(30px,9.5vw,44px)] font-semibold leading-[1.05] tracking-tight md:text-[56px]">
+                <span className="whitespace-nowrap">£<NumberTicker value={est.low} startValue={Math.round(est.low * 0.8)} className="!text-[var(--ink)] tracking-tight" /></span>
                 <span style={{ color: 'var(--muted)' }}> – </span>
-                £<NumberTicker value={est.high} startValue={Math.round(est.high * 0.8)} className="!text-[var(--ink)] tracking-tight" />
+                <span className="whitespace-nowrap">£<NumberTicker value={est.high} startValue={Math.round(est.high * 0.8)} className="!text-[var(--ink)] tracking-tight" /></span>
               </div>
               <p className="mt-3 text-[15px]" style={{ color: 'var(--muted)' }}>{est.m2} m² · {finish.name} · about {est.days} days on site</p>
               <p className="mt-1 text-[13px]" style={{ color: 'var(--muted)' }}>Projects start from {gbp(P.minimumJob)}. Exact price after a free survey.</p>
