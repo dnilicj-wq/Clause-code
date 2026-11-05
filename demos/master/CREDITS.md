@@ -21,14 +21,14 @@ Where a 21st.dev component had no original repo, the code came from the public s
 | Radar Chart | LegionWebDev | not stated | https://21st.dev/@LegionWebDev/components/radar-chart | ported |
 | Number Ticker | Magic UI (MIT) | MIT | https://magicui.design/docs/components/number-ticker | ported |
 | Circular Gallery | ravikatiyar | not stated | https://21st.dev/@ravikatiyar162/components/circular-gallery | ported |
-| Glassy Coverflow Carousel | troyjlorents-gh | not stated | https://21st.dev/@troyjlorents-gh/components/glassy-coverflow-carousel | in-progress |
+| Glassy Coverflow Carousel | troyjlorents-gh | not stated | https://21st.dev/@troyjlorents-gh/components/glassy-coverflow-carousel | rejected |
 | Animated Testimonials | Aceternity UI | not stated | https://21st.dev/@manuarora700/components/animated-testimonials | ported |
 | Animated Cards Stack | YoucefBnm | not stated | https://21st.dev/@youcefbnm/components/animated-cards-stack | ported |
 | Infinite Moving Cards | Aceternity UI | not stated | https://21st.dev/@nexus-ui/components/infinite-moving-cards | ported |
 | Liquid Metal Button | johuniq | not stated | https://21st.dev/@johuniq/components/liquid-metal-button | ported |
 | Shiny Button | Magic UI (MIT) | MIT | https://magicui.design/docs/components/shiny-button | ported |
 | Interactive Hover Button | Magic UI (MIT) | MIT | https://21st.dev/@dillionverma/components/interactive-hover-button | ported |
-| Glass Button | easemize | not stated | https://21st.dev/@easemize/components/glass-button | in-progress |
+| Glass Button | easemize | not stated | https://21st.dev/@easemize/components/glass-button | rejected |
 | Liquid Glass Button | aliimam / designali | not stated | https://21st.dev/@designali-in/components/liquid-glass-button | ported |
 | Vertical Cut Reveal | Daniel Petho / fancy (MIT) | MIT | https://21st.dev/@cnippet-dev/components/vertical-cut-reveal | ported |
 | Morphing Text | Magic UI (MIT) | MIT | https://21st.dev/@dillionverma/components/morphing-text | ported |

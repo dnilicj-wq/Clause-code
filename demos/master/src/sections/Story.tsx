@@ -29,7 +29,7 @@ export function Services() {
 }
 
 // Scroll Expansion: a gloss floor grows to full screen, then "Visualise your garage".
-export function Expand({ onVisualise }: { onVisualise: () => void }) {
+export function Expand({ onVisualise }: { onVisualise?: () => void }) {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end end'] });
   const p = useTransform(scrollYProgress, [0, 0.8], [0, 1], { clamp: true });
@@ -44,11 +44,17 @@ export function Expand({ onVisualise }: { onVisualise: () => void }) {
         <motion.div className="pointer-events-none absolute inset-x-0 bottom-[9vh] flex flex-col items-center gap-3 px-6 text-center"
           animate={{ opacity: v > 0.92 ? 1 : 0, y: v > 0.92 ? 0 : 20 }} transition={{ duration: 0.5 }}>
           <p className="max-w-[34ch] text-[15px] md:text-[17px]" style={{ color: 'rgba(255,255,255,.88)', textShadow: '0 1px 20px rgba(0,0,0,.6)' }}>
-            Upload a photo of your garage and see it with the floor finished.
+            {onVisualise ? 'Upload a photo of your garage and see it with the floor finished.' : 'Pick a finish and see a real price range in ten seconds.'}
           </p>
-          <button onClick={onVisualise} className="pointer-events-auto rounded-full px-6 py-3.5 text-[15px] font-semibold shadow-2xl" style={{ background: 'var(--accent)', color: 'var(--accent-ink)' }}>
-            Visualise your garage
-          </button>
+          {onVisualise ? (
+            <button onClick={onVisualise} className="pointer-events-auto rounded-full px-6 py-3.5 text-[15px] font-semibold shadow-2xl" style={{ background: 'var(--accent)', color: 'var(--accent-ink)' }}>
+              Visualise your garage
+            </button>
+          ) : (
+            <a href="#price" className="pointer-events-auto rounded-full px-6 py-3.5 text-[15px] font-semibold shadow-2xl" style={{ background: 'var(--accent)', color: 'var(--accent-ink)' }}>
+              See your price
+            </a>
+          )}
         </motion.div>
         <span className="ex-tag left-4 top-20">Example image</span>
       </div>

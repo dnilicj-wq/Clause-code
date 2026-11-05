@@ -17,7 +17,7 @@ export default function Below() {
   return (
     <>
       <Services />
-      <Expand onVisualise={() => setVis(true)} />
+      <Expand onVisualise={site.visualiser ? () => setVis(true) : undefined} />
       <Layers />
       <Bento />
       <Compare />
@@ -34,7 +34,7 @@ export default function Below() {
       </div>
       <Dock />
       <CursorGlow />
-      <Visualiser open={vis} onClose={() => setVis(false)} />
+      {site.visualiser && <Visualiser open={vis} onClose={() => setVis(false)} />}
     </>
   );
 }

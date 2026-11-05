@@ -47,6 +47,8 @@ export const site = {
     { name: 'Example customer', town: 'Wakefield', job: 'Workshop, solid colour', source: 'Example',
       text: 'Example review. Swap in Google or Facebook reviews, each one linked to where it was posted.' },
   ] as Review[],
+  // Gemini visualiser. Off until a working (paid) GEMINI_API_KEY is set in Vercel; the button then becomes "See your price".
+  visualiser: false,
   formEndpoint: '', // empty = demo mode (thank-you shown, lead handed to WhatsApp)
 };
 
