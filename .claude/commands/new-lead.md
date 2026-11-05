@@ -100,6 +100,7 @@ Allow max 3 signature interactions per page, including the hero. The default pag
    ```
    cd demos/<slug>
    npx vercel@latest link --yes --project clientgateway-<slug> --scope dnilicj-2275s-projects
+   npx vercel@latest git disconnect --yes --scope dnilicj-2275s-projects   # deploys are prebuilt; Git builds only fail and email Dan
    npx vercel@latest build --prod --yes --scope dnilicj-2275s-projects
    npx vercel@latest deploy --prebuilt --prod --yes --scope dnilicj-2275s-projects
    ```
