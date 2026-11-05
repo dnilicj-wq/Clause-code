@@ -15,7 +15,7 @@ export function Gallery() {
   useEffect(() => { const f = () => setR(innerWidth < 700 ? 400 : innerWidth < 1100 ? 480 : 620); f(); addEventListener('resize', f); return () => removeEventListener('resize', f); }, []);
   const g = trade.copy.gallery;
   const items: GalleryItem[] = [
-    ...trade.finishes.map((f) => ({ common: f.name, binomial: f.note, photo: f.img ? { url: f.img, text: `${f.name} ${g.kind}, ${site.sample ? 'rendered finish' : 'example render'}`, by: site.sample ? 'Rendered finish' : 'Example render' } : { url: '', bg: finishBg(f), text: `${f.name} ${g.kind}, colour swatch`, by: 'Colour swatch' } })),
+    ...trade.finishes.map((f) => ({ common: f.name, binomial: f.note, photo: f.img ? { url: f.img, text: `${f.name} ${g.kind}, ${f.photo ? 'example image' : site.sample ? 'rendered finish' : 'example render'}`, by: f.photo ? 'Example image' : site.sample ? 'Rendered finish' : 'Example render' } : { url: '', bg: finishBg(f), text: `${f.name} ${g.kind}, colour swatch`, by: 'Colour swatch' } })),
     ...g.extra.map((x) => ({ common: x.name, binomial: x.note, photo: { url: x.img, text: x.alt, by: x.by } })),
   ];
   return (
@@ -53,7 +53,7 @@ function BeforeAfter({ ba }: { ba: { before: string; after: string; beforeAlt: s
         <div className="absolute left-1/2 top-1/2 grid h-11 w-11 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full text-[14px] font-bold" style={{ background: 'var(--accent)', color: 'var(--accent-ink)' }}>⇆</div>
       </div>
       <span className="ex-tag left-3 top-3">Before</span><span className="ex-tag right-3 top-3">After</span>
-      <span className="ex-tag bottom-3 left-3">Illustration</span>
+      <span className="ex-tag bottom-3 left-3">Example image</span>
     </div>
   );
 }
@@ -91,9 +91,9 @@ export function Owner() {
   return (
     <section aria-label="Owner" className="section" style={{ background: 'var(--bg2)' }}>
       <div ref={ref} className="wrap grid items-center gap-6 md:gap-10 md:grid-cols-[.9fr_1.1fr] md:gap-16">
-        <div className="relative mx-auto aspect-[16/10] w-full md:aspect-[4/5] md:max-w-[420px] overflow-hidden rounded-[var(--radius)] border" style={{ borderColor: 'var(--line)', background: 'radial-gradient(120% 90% at 30% 20%, var(--surface), var(--bg))' }}>
+        <div className="relative mx-auto aspect-[4/5] w-full max-w-[240px] md:max-w-[420px] overflow-hidden rounded-[var(--radius)] border" style={{ borderColor: 'var(--line)', background: 'radial-gradient(120% 90% at 30% 20%, var(--surface), var(--bg))' }}>
           {site.owner.photo ? (<>
-            <img src={site.owner.photo} alt={site.owner.photoIsStandIn ? 'Hands smoothing a resin floor with a trowel' : `${site.owner.name}, owner of ${site.company}`} className="h-full w-full object-cover" loading="lazy" />
+            <img src={site.owner.photo} alt={site.owner.photoIsStandIn ? 'Gloved hands rolling out a fresh resin floor' : `${site.owner.name}, owner of ${site.company}`} className="h-full w-full object-cover" loading="lazy" />
             {site.owner.photoIsStandIn && <span className="ex-tag bottom-2 left-2">Example image</span>}
           </>) : (
             <div className="grid h-full place-items-center">

@@ -1,7 +1,10 @@
 // Epoxy / resin flooring trade pack (default). Copy, layer system, finishes, pricing model.
 // Prices are DEMO rates, always shown with the label "Example range" until the business sets its own.
 
-export type Finish = { key: string; name: string; type: string; base: string; metal: string; note: string; img?: string };
+// Finishes with a real close-up photo (example images); the rest use rendered swatches.
+const PHOTO_LOOKS = ['copper-metallic', 'graphite-flake', 'quartz-sand'];
+
+export type Finish = { key: string; name: string; type: string; base: string; metal: string; note: string; img?: string; photo?: boolean };
 export type Layer = { key: string; name: string; what: string; why: string; tex?: string; colour?: string };
 export type GalleryExtra = { name: string; note: string; img: string; alt: string; by: string };
 
@@ -32,7 +35,7 @@ export const epoxy = {
     { key: 'midnight-metallic', name: 'Midnight metallic', type: 'metallic', base: '#06080F', metal: '#4D6FA8', note: 'Deep, glassy, dramatic' },
     { key: 'storm-solid', name: 'Storm grey solid', type: 'solid', base: '#6D7175', metal: '#9EA3A8', note: 'Clean and practical' },
     { key: 'quartz-sand', name: 'Sand quartz', type: 'quartz', base: '#B9A88F', metal: '#E4D7C1', note: 'Textured, anti-slip' },
-  ].map((f) => ({ ...f, img: `/demo/look-${f.key}-v2.webp` })) as Finish[],
+  ].map((f) => (PHOTO_LOOKS.includes(f.key) ? { ...f, img: `/demo/look-${f.key}-v3.webp`, photo: true } : { ...f, img: `/demo/look-${f.key}-v2.webp` })) as Finish[],
   layers: [
     { key: 'slab', tex: '/demo/tex-slab-v1.webp', name: 'Ground slab', what: 'Diamond-ground concrete', why: 'Opens the pores so the resin bonds into the slab, not onto dust.' },
     { key: 'primer', tex: '/demo/tex-primer-v1.webp', name: 'Primer', what: 'Penetrating epoxy primer', why: 'Soaks in and seals the slab. Skip it and you get pinholes and bubbles.' },
@@ -84,9 +87,9 @@ export const epoxy = {
     surface: 'floor',
     hero: 'pour' as 'pour' | 'trowel',
     // Full-bleed finished floor that grows to fill the screen on scroll. null = skip (no matching image).
-    expand: { title: 'Your garage, finished.', image: '/demo/home-garage-car-1600-v1.webp', imageM: '/demo/home-garage-car-800-v1.webp', alt: 'A car parked in a clean, finished home garage', bg: '' } as { title: string; image: string; imageM?: string; alt?: string; bg: string } | null,
+    expand: { title: 'Your garage, finished.', image: '/demo/home-garage-flake-1600-v1.webp', imageM: '/demo/home-garage-flake-800-v1.webp', alt: 'Double garage with a grey flake floor and a car parked inside', bg: '', pos: '72% 50%' } as { title: string; image: string; imageM?: string; alt?: string; bg: string; pos?: string } | null,
     // Full-bleed photo break between sections. null = skip.
-    photoBreak: { img: '/demo/living-gloss-1600-v1.webp', imgM: '/demo/living-gloss-800-v1.webp', alt: 'Bright home interior with a seamless gloss floor', line: 'Laid once. Looks like this for years.' } as { img: string; imgM?: string; alt: string; line: string } | null,
+    photoBreak: { img: '/demo/kitchen-metallic-1600-v1.webp', imgM: '/demo/kitchen-metallic-800-v1.webp', alt: 'Open-plan kitchen with a copper metallic resin floor', line: 'Laid once. Looks like this for years.' } as { img: string; imgM?: string; alt: string; line: string } | null,
     layers: { eyebrow: 'What goes into a floor', h1: 'Five layers.', h2: 'Skip one and it fails.', lede: 'A cheap quote is usually a missing layer. Scroll to take the floor apart.', tag: 'Rendered textures' },
     bento: {
       eyebrow: 'The difference you cannot see', h1: 'Done properly,', h2: 'it stays down.',
@@ -98,17 +101,17 @@ export const epoxy = {
     },
     compare: { eyebrow: 'Before you compare quotes', h1: 'Not all floor coatings', h2: 'are the same thing.', short: ['Resin system', 'Floor paint', 'DIY kit'] },
     quote: { conditionLabel: 'Concrete now', conditions: [['good', 'Sound'], ['cracked', 'Cracked'], ['coated', 'Old coating']] as [string, string][] },
-    chat: { space: 'double', finish: 'flake', finishWord: 'flake', ask: (town: string, m2: number) => `Hi, double garage in ${town}, about ${m2}m². Thinking flake. Rough price?`, img: '/demo/garage-before-800-v1.webp' as string | null, photoTip: 'Any phone photo of the floor is fine.' },
+    chat: { space: 'double', finish: 'flake', finishWord: 'flake', ask: (town: string, m2: number) => `Hi, double garage in ${town}, about ${m2}m². Thinking flake. Rough price?`, img: '/demo/ba-garage-before-800-v1.webp' as string | null, photoTip: 'Any phone photo of the floor is fine.' },
     gallery: {
       h1: 'Pick a look.', h2: 'Every pour is one-off.', kind: 'resin finish',
       extra: [
-        { name: 'Double garage', note: 'Gloss floor, home garage', img: '/demo/garage-gloss-car-800-v1.webp', alt: 'Sports car in a home garage with a gloss floor (example image)', by: 'Example image · Pexels' },
-        { name: 'Living space', note: 'Seamless gloss floor', img: '/demo/living-gloss-800-v1.webp', alt: 'Bright hallway and living space with a seamless gloss floor (example image)', by: 'Example image · Pexels' },
-        { name: 'Garage gym', note: 'Hard-wearing gloss', img: '/demo/garage-gym-800-v1.webp', alt: 'Home gym in a converted garage (example image)', by: 'Example image · Pexels' },
-        { name: 'Driveway', note: 'Outside the house', img: '/demo/driveway-800-v1.webp', alt: 'Wide driveway in front of a modern house (example image)', by: 'Example image · Pexels' },
+        { name: 'Double garage', note: 'Grey flake', img: '/demo/home-garage-flake-800-v1.webp', alt: 'Double garage with a grey flake floor (example image)', by: 'Example image' },
+        { name: 'Kitchen', note: 'Copper metallic', img: '/demo/kitchen-metallic-800-v1.webp', alt: 'Open-plan kitchen with a copper metallic floor (example image)', by: 'Example image' },
+        { name: 'Garage gym', note: 'Dark flake', img: '/demo/home-gym-flake-800-v1.webp', alt: 'Home gym in a garage with a dark flake floor (example image)', by: 'Example image' },
+        { name: 'Driveway', note: 'Resin-bound', img: '/demo/driveway-resin-800-v1.webp', alt: 'Resin-bound driveway in front of a semi-detached house (example image)', by: 'Example image' },
       ] as GalleryExtra[],
-      // Not the same garage: a bare garage next to a finished one, labelled "Illustration" (no free matched pair exists)
-      beforeAfter: { before: '/demo/garage-bare-1600-v1.webp', after: '/demo/garage-gym-1600-v1.webp', beforeAlt: 'Empty garage with a bare concrete floor (example image)', afterAlt: 'A different garage with a finished gloss floor (example image)' } as { before: string; after: string; beforeAlt: string; afterAlt: string } | null,
+      // Matched pair: the same garage before and after (example images supplied by Dan)
+      beforeAfter: { before: '/demo/ba-garage-before-1600-v1.webp', after: '/demo/ba-garage-after-1600-v1.webp', beforeAlt: 'Garage with a stained bare concrete floor (example image)', afterAlt: 'The same garage with a grey flake floor (example image)' } as { before: string; after: string; beforeAlt: string; afterAlt: string } | null,
     },
     finale: "Let's see your floor.",
     finaleSub: 'A free survey: we measure, test the slab and give you a fixed written price.',

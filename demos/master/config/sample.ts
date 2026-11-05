@@ -21,7 +21,7 @@ export function withSample(s: Site): Site {
     reviews,
     ownerNote: "I've been laying resin floors around Leeds for over a decade. I still survey every job myself, mix every batch on site and won't start until the slab is right. If something isn't right, you ring me, not a call centre.",
     // hands-and-trowel stand-in (stock, no face), labelled "Example image"
-    owner: { ...s.owner, photo: '/demo/hands-trowel-800-v1.webp', photoIsStandIn: true },
+    owner: { ...s.owner, photo: '/demo/owner-hands-800-v1.webp', photoIsStandIn: true },
     guarantee: {
       title: 'Written guarantee on every floor',
       text: 'If your floor lifts, peels or bubbles because of how we laid it, we come back and put it right free of charge. It is in writing before we start.',

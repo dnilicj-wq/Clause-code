@@ -9,16 +9,17 @@ Stock photos: Pexels licence (free for commercial use; credit appreciated). Ever
 | hangar-gloss-* | Joao Henrique Damiao de Oliveira | https://www.pexels.com/photo/20425755/ |
 | studio-gloss-* | cottonbro studio | https://www.pexels.com/photo/6713385/ |
 | warehouse-gloss-* | Jan van der Wolf | https://www.pexels.com/photo/29482812/ |
-| garage-before-* | hi room | https://www.pexels.com/photo/17181949/ |
-| home-garage-car-* | João Emanuel | https://www.pexels.com/photo/37703762/ |
-| garage-gloss-car-* | Dennis Truong | https://www.pexels.com/photo/9139594/ |
-| living-gloss-* | McFollis | https://www.pexels.com/photo/38975397/ |
-| garage-gym-* | Max Vakhtbovych | https://www.pexels.com/photo/7174396/ |
-| driveway-* | Max Vakhtbovych | https://www.pexels.com/photo/8134845/ |
-| garage-bare-* | Peter Vang | https://www.pexels.com/photo/34764058/ |
-| hands-trowel-* | David Antonio Cruz Naira | https://www.pexels.com/photo/38561968/ |
+
+Supplied by Dan (2026-11-05) for the master demo. Shown with an "Example image" label; never presented as a client's own work.
+- `home-garage-flake-*`: double garage, grey flake floor, car (number plate blurred)
+- `ba-garage-before-*` / `ba-garage-after-*`: matched before/after pair, same garage
+- `kitchen-metallic-*`: open-plan kitchen, copper metallic floor (photo break + gallery)
+- `home-gym-flake-*`: garage gym, dark flake floor
+- `driveway-resin-*`: resin-bound driveway (number plate blurred)
+- `owner-hands-*`: gloved hands with a spiked roller, cropped 4:5 (owner stand-in)
+- `look-copper-metallic-v3`, `look-graphite-flake-v3`, `look-quartz-sand-v3`: finish close-ups for the lookbook
 
 Rendered (not photos), made by `scripts/capture.mjs` from the pour shader, labelled "Example render":
-- `look-*-v1.webp`: finish lookbook macro renders
+- `look-*-v2.webp`: finish lookbook macro renders (pearl, midnight, storm)
 - `tex-*-v1.webp`: layer textures for the layer explode
 - `../posters/pour-*-v1.webp`: hero poster frames

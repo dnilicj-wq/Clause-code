@@ -42,7 +42,7 @@ export function Expand() {
         <motion.div className="absolute inset-0 overflow-hidden" style={{ clipPath: clip }}>
           <motion.picture className="absolute inset-0 block" style={{ scale }}>
             {e.imageM && <source media="(max-width: 699px)" srcSet={e.imageM} />}
-            <img src={e.image} alt={e.alt || ''} className="h-full w-full object-cover" loading="lazy" decoding="async" />
+            <img src={e.image} alt={e.alt || ''} className="h-full w-full object-cover" style={e.pos ? { objectPosition: e.pos } : undefined} loading="lazy" decoding="async" />
           </motion.picture>
           <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(0,0,0,.25), rgba(0,0,0,0) 35%, rgba(0,0,0,.65))' }} />
           <span className="ex-tag bottom-3 right-3 !text-[9px] !opacity-80">Example image</span>
