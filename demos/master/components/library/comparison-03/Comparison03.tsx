@@ -19,7 +19,7 @@ export type ComparisonProps = {
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
-export function Comparison03({ eyebrow = 'Side by side', heading, cols, short, rows, note, cta, className }: ComparisonProps) {
+export function Comparison03({ eyebrow = 'Side by side', heading, cols, short, rows, note, cta, className, bare = false }: ComparisonProps & { bare?: boolean }) {
   const [view, setView] = useState(0);
   const reduce = useReducedMotion();
   const enter = (i: number) => (reduce ? {} : {
@@ -27,11 +27,11 @@ export function Comparison03({ eyebrow = 'Side by side', heading, cols, short, r
     transition: { duration: 0.5, ease, delay: i * 0.06 },
   });
   return (
-    <section data-slot="comparison" className={cn('w-full', className)} aria-labelledby="comparison-03-heading">
-      <div className="max-w-2xl">
+    <section data-slot="comparison" className={cn('w-full', className)} aria-labelledby={bare ? undefined : "comparison-03-heading"}>
+      {!bare && <div className="max-w-2xl">
         <motion.p {...enter(0)} className="text-xs uppercase tracking-[0.16em]" style={{ color: 'var(--muted)' }}>{eyebrow}</motion.p>
         <motion.h2 {...enter(1)} id="comparison-03-heading" className="mt-3 text-3xl font-medium tracking-tight sm:text-4xl" style={{ fontFamily: 'var(--font-serif)' }}>{heading}</motion.h2>
-      </div>
+      </div>}
 
       <motion.div {...enter(2)} role="tablist" aria-label="Show" className="mt-8 flex w-full rounded-[calc(var(--radius)*.5)] border p-1 md:hidden" style={{ borderColor: 'var(--line)' }}>
         {cols.map((c, i) => (

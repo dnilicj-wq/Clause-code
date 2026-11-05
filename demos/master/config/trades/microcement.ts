@@ -68,7 +68,8 @@ export const microcement: TradePack = {
   copy: {
     surface: 'finish',
     hero: 'trowel',
-    expand: null, // add once there is a real or labelled example microcement photo
+    expand: null,
+    photoBreak: null, // add once there is a real or labelled example microcement photo
     layers: { eyebrow: 'What goes into a microcement finish', h1: 'Five layers.', h2: 'All of them by hand.', lede: 'A cheap quote is usually a skipped coat. Scroll to take the wall apart.', tag: 'Colour swatches' },
     bento: {
       eyebrow: 'The part you never see', h1: 'Prepared properly,', h2: 'it stays seamless.',

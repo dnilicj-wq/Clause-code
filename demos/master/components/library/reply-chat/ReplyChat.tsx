@@ -93,7 +93,7 @@ function Bubble({ m, last }: { m: ChatMsg; last: boolean }) {
         style={you ? { background: 'var(--accent)', color: 'var(--accent-ink)' } : { background: 'var(--surface)', color: 'var(--ink)' }}>
         {m.img && (
           <div className="relative">
-            <img src={m.img} alt={m.imgLabel || ''} className="h-28 w-56 object-cover" loading="lazy" />
+            <img src={m.img} alt={m.imgLabel || ''} className="block aspect-[2/1] w-full min-w-[224px] object-cover" decoding="async" style={{ background: "var(--bg2)" }} />
             {m.imgLabel && <span className="absolute bottom-1.5 left-1.5 rounded bg-black/55 px-1.5 py-0.5 text-[9.5px] text-white">{m.imgLabel}</span>}
           </div>
         )}

@@ -7,13 +7,14 @@ export type Review = {
   town?: string;
   text: string;          // word for word
   rating?: number;       // only if the source shows it
-  source: 'Google' | 'Facebook' | 'Checkatrade' | 'Trustpilot' | 'Website' | 'Example';
+  source: 'Google' | 'Facebook' | 'Checkatrade' | 'Trustpilot' | 'Website' | 'Example' | 'Sample';
   url?: string;
   job?: string;
 };
 
 export const site = {
-  demo: true, // master only. Shows "(example)" on reviews and "Example image" on images.
+  demo: true, // shows "(example)" on reviews and "Example" labels on anything not yet sourced.
+  sample: true, // MASTER ONLY: fictional business, swaps placeholders for sample content (config/sample.ts). /new-lead sets false.
   company: 'Northfield Surfaces',
   shortName: 'Northfield',
   trade: 'epoxy' as string, // key in config/trades/index.ts
@@ -23,7 +24,8 @@ export const site = {
   phone: '0113 496 0372',          // Ofcom drama number: safe for a demo
   whatsapp: '441134960372',
   email: 'hello@example.com',
-  owner: { first: 'Tom', name: 'Tom', photo: '' as string, signature: 'Tom' },
+  owner: { first: 'Tom', name: 'Tom', photo: '' as string, photoIsStandIn: false, signature: 'Tom' },
+  ownerNote: '', // the owner's own words, with a source; empty shows the labelled example note
   hours: 'Mon to Fri 8am to 6pm, Sat 9am to 1pm',
   responseTime: 'within 2 hours on working days',
   areas: ['Leeds', 'Wakefield', 'Harrogate', 'Bradford', 'York', 'Huddersfield', 'Halifax', 'Dewsbury'],

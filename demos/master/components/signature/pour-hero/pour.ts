@@ -142,7 +142,7 @@ void main(){
 export type PourOpts = {
   base: string; metal: string; kind: 'metallic' | 'flake' | 'solid' | 'quartz'; concrete: string;
   seed?: number;
-  onFirst?: () => void; onCoverage?: (c: number) => void; onFinished?: () => void; onReady?: () => void;
+  onFirst?: () => void; onCoverage?: (c: number) => void; onFinished?: () => void; onReady?: () => void; onLost?: () => void;
 };
 
 const KIND = { metallic: 0, flake: 1, solid: 2, quartz: 3 } as const;
@@ -273,7 +273,9 @@ export function initPour(host: HTMLElement, cv: HTMLCanvasElement, opts: PourOpt
   // first-screen demo: a pour already spreading when the page appears
   function demo() {
     if (W < 700) {
-      runGhost((t) => [W * (1.05 - t * 0.8), H * (0.3 + Math.sin(t * Math.PI * 1.5) * 0.05 + t * 0.06)], 1800);
+      // phones: the floor is already poured across the top 60% on the first frame (matches the poster), then a pour sweeps in
+      for (let i = 0; i < 9; i++) pour(W * (0.1 + (i % 3) * 0.4), H * (0.08 + Math.floor(i / 3) * 0.22), Math.max(W, H) * 0.22, 0.95);
+      runGhost((t) => [W * (1.05 - t * 0.9), H * (0.62 + Math.sin(t * Math.PI * 1.5) * 0.05)], 900);
     } else {
       runGhost((t) => { const a = t * Math.PI * 2.6; const rr = 20 + t * Math.min(W, H) * 0.17; return [W * 0.74 + Math.cos(a) * rr * 1.25, H * 0.46 + Math.sin(a) * rr * 0.8]; }, 2200);
     }
@@ -327,8 +329,20 @@ export function initPour(host: HTMLElement, cv: HTMLCanvasElement, opts: PourOpt
     gl!.uniform1f(U.uKind, kind); gl!.uniform1f(U.uSweep, sweep); gl!.uniform1i(U.uMask, 0);
     gl!.uniform2f(U.uTexel, 1 / mask.width, 1 / mask.height); gl!.uniform1f(U.uSeed, seed);
     gl!.drawArrays(gl!.TRIANGLES, 0, 3);
-    if (!ready) { ready = true; host.classList.add('gl-on'); opts.onReady && opts.onReady(); }
+    if (!ready && cv.width > 8 && (measure(), coverage >= 0.15) && frameLit()) { ready = true; host.classList.add('gl-on'); opts.onReady && opts.onReady(); }
   }
+  // sample a few pixels of the frame just drawn; a black/blank frame never replaces the poster
+  const px = new Uint8Array(4);
+  function frameLit() {
+    let sum = 0;
+    for (const [fx, fy] of [[.25, .8], [.5, .7], [.75, .85], [.5, .5], [.3, .6]]) {
+      gl!.readPixels(Math.floor(cv.width * fx), Math.floor(cv.height * fy), 1, 1, gl!.RGBA, gl!.UNSIGNED_BYTE, px);
+      sum += (px[0] + px[1] + px[2]) / 765;
+    }
+    return sum / 5 > 0.08;
+  }
+  const onLost = (e: Event) => { e.preventDefault(); ready = false; host.classList.remove('gl-on'); opts.onLost && opts.onLost(); };
+  cv.addEventListener('webglcontextlost', onLost);
   function loop() {
     cancelAnimationFrame(raf);
     raf = requestAnimationFrame(function f(now) {
@@ -355,7 +369,7 @@ export function initPour(host: HTMLElement, cv: HTMLCanvasElement, opts: PourOpt
     },
     get finished() { return finished; },
     destroy() {
-      cancelAnimationFrame(raf); clearInterval(mt); io.disconnect(); ro.disconnect();
+      cancelAnimationFrame(raf); clearInterval(mt); io.disconnect(); ro.disconnect(); cv.removeEventListener('webglcontextlost', onLost);
       host.removeEventListener('pointermove', onMove); host.removeEventListener('pointerleave', onLeave);
       host.removeEventListener('pointerdown', onDown); host.removeEventListener('pointerup', onUp); host.removeEventListener('pointercancel', onLeave);
       // don't lose the context here: React StrictMode re-mounts on the same canvas

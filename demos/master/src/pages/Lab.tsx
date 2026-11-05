@@ -117,7 +117,8 @@ const demos: Record<string, () => ReactNode> = {
 export default function Lab() {
   const { category } = useParams();
   const { preset, setPreset } = useSite();
-  const list = registry.filter((e) => !category || e.category === category);
+  const only = typeof window !== 'undefined' ? new URLSearchParams(location.search).get('only') : null; // tools/lab-posters.mjs
+  const list = registry.filter((e) => (only ? e.id === only : !category || e.category === category));
   const counts = { total: registry.length, ported: registry.filter((e) => e.status === 'ported').length, wip: registry.filter((e) => e.status === 'in-progress').length, rejected: registry.filter((e) => e.status === 'rejected').length };
   useEffect(() => { document.title = 'Component lab · Clientgateway master'; }, []);
   return (
@@ -150,9 +151,23 @@ function Tab({ to, on, children }: { to: string; on: boolean; children: ReactNod
   return <Link to={to} className="shrink-0 rounded-full border px-3 py-1.5" style={on ? { background: 'var(--ink)', color: 'var(--bg)', borderColor: 'var(--ink)' } : { borderColor: 'var(--line)' }}>{children}</Link>;
 }
 
+// Posters: a still of every demo (tools/lab-posters.mjs). WebGL and signature tiles show the still until tapped,
+// so the grid never shows black canvases; other tiles show the still until the live demo mounts.
+type PosterInfo = { v: number; gl: boolean };
+let posterIndex: Record<string, PosterInfo> | null = null;
+const posterLoad = fetch('/lab-posters/index.json').then((r) => r.json()).then((j) => (posterIndex = j)).catch(() => (posterIndex = {}));
+function usePosters() {
+  const [p, setP] = useState(posterIndex);
+  useEffect(() => { if (!p) posterLoad.then(() => setP(posterIndex)); }, [p]);
+  return p;
+}
+
 function Card({ e }: { e: Entry }) {
   const ref = useRef<HTMLDivElement>(null);
   const [seen, setSeen] = useState(false);
+  const [play, setPlay] = useState(false);
+  const posters = usePosters();
+  const capture = typeof window !== 'undefined' && new URLSearchParams(location.search).has('only');
   useEffect(() => {
     const io = new IntersectionObserver(([x]) => x.isIntersecting && setSeen(true), { rootMargin: '300px' });
     ref.current && io.observe(ref.current); return () => io.disconnect();
@@ -160,11 +175,19 @@ function Card({ e }: { e: Entry }) {
   const FileDemo = fileDemos[e.id];
   // A demo file wins over the inline map, so cards can be upgraded without touching this file.
   const demo = FileDemo ? () => <Suspense fallback={<div className="h-[200px]" />}><FileDemo /></Suspense> : demos[e.id];
+  const info = posters?.[e.id];
+  const heavy = !!info && (info.gl || e.category === 'signature');
+  const showLive = capture || (seen && !!demo && (play || (!!posters && !heavy)));
   const statusColour = e.status === 'ported' ? '#3FB37F' : e.status === 'in-progress' ? '#E9B949' : '#D9534F';
   return (
     <article ref={ref} id={e.id} className="flex flex-col overflow-hidden rounded-[var(--radius)] border" style={{ borderColor: 'var(--line)', background: 'var(--bg2)' }}>
       <div className="relative min-h-[220px] p-5" style={{ background: 'var(--bg)' }}>
-        {seen && demo ? demo() : <div className="h-[200px]" />}
+        {showLive && demo ? demo() : info ? (
+          <button onClick={() => setPlay(true)} className="group relative block h-[220px] w-full overflow-hidden rounded-xl" aria-label={`Play ${e.name}`}>
+            <img src={`/lab-posters/${e.id}-v${info.v}.webp`} alt="" loading="lazy" decoding="async" className="h-full w-full object-cover object-top" />
+            {heavy && <span className="absolute bottom-3 left-3 rounded-full bg-black/65 px-3 py-1.5 text-xs font-medium text-white backdrop-blur transition group-hover:bg-black/80">▶ Play live</span>}
+          </button>
+        ) : <div className="h-[200px]" />}
       </div>
       <div className="flex flex-1 flex-col gap-2 border-t p-5 text-sm" style={{ borderColor: 'var(--line)' }}>
         <div className="flex items-center gap-2">

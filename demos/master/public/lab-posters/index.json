@@ -1,0 +1,390 @@
+{
+ "pour-hero": {
+  "v": 1,
+  "gl": false
+ },
+ "layer-explode": {
+  "v": 1,
+  "gl": false
+ },
+ "visualiser": {
+  "v": 1,
+  "gl": false
+ },
+ "quote-configurator": {
+  "v": 1,
+  "gl": false
+ },
+ "bento-diagrams": {
+  "v": 1,
+  "gl": false
+ },
+ "pour-wipe-compare": {
+  "v": 1,
+  "gl": false
+ },
+ "lamp": {
+  "v": 1,
+  "gl": false
+ },
+ "beams-background": {
+  "v": 1,
+  "gl": false
+ },
+ "tilted-grid-hero": {
+  "v": 1,
+  "gl": false
+ },
+ "scroll-expansion-hero": {
+  "v": 1,
+  "gl": false
+ },
+ "container-scroll": {
+  "v": 1,
+  "gl": false
+ },
+ "stacking-cards": {
+  "v": 1,
+  "gl": false
+ },
+ "timeline": {
+  "v": 1,
+  "gl": false
+ },
+ "sticky-scroll-cards": {
+  "v": 1,
+  "gl": false
+ },
+ "svg-follow-scroll": {
+  "v": 1,
+  "gl": false
+ },
+ "text-reveal": {
+  "v": 1,
+  "gl": false
+ },
+ "magic-card": {
+  "v": 1,
+  "gl": false
+ },
+ "border-beam": {
+  "v": 1,
+  "gl": false
+ },
+ "dotted-map": {
+  "v": 1,
+  "gl": false
+ },
+ "radar-chart": {
+  "v": 1,
+  "gl": false
+ },
+ "number-ticker": {
+  "v": 1,
+  "gl": false
+ },
+ "circular-gallery": {
+  "v": 1,
+  "gl": false
+ },
+ "animated-testimonials": {
+  "v": 1,
+  "gl": false
+ },
+ "animated-cards-stack": {
+  "v": 1,
+  "gl": false
+ },
+ "infinite-moving-cards": {
+  "v": 1,
+  "gl": false
+ },
+ "liquid-metal-button": {
+  "v": 1,
+  "gl": true
+ },
+ "shiny-button": {
+  "v": 1,
+  "gl": false
+ },
+ "interactive-hover-button": {
+  "v": 1,
+  "gl": false
+ },
+ "liquid-glass-button": {
+  "v": 1,
+  "gl": false
+ },
+ "vertical-cut-reveal": {
+  "v": 1,
+  "gl": false
+ },
+ "morphing-text": {
+  "v": 1,
+  "gl": false
+ },
+ "word-rotate": {
+  "v": 1,
+  "gl": false
+ },
+ "blur-fade": {
+  "v": 1,
+  "gl": false
+ },
+ "marquee": {
+  "v": 1,
+  "gl": false
+ },
+ "message-dock": {
+  "v": 1,
+  "gl": false
+ },
+ "limelight-nav": {
+  "v": 1,
+  "gl": false
+ },
+ "reply-chat": {
+  "v": 1,
+  "gl": false
+ },
+ "flake-broadcast": {
+  "v": 1,
+  "gl": false
+ },
+ "metallic-swirl": {
+  "v": 1,
+  "gl": false
+ },
+ "hot-tyre-test": {
+  "v": 1,
+  "gl": false
+ },
+ "spill-test": {
+  "v": 1,
+  "gl": false
+ },
+ "uv-slider": {
+  "v": 1,
+  "gl": false
+ },
+ "milestone-chart": {
+  "v": 1,
+  "gl": false
+ },
+ "circularium-ring": {
+  "v": 1,
+  "gl": false
+ },
+ "partition-bar": {
+  "v": 1,
+  "gl": false
+ },
+ "funnel-chart": {
+  "v": 1,
+  "gl": false
+ },
+ "sparkline": {
+  "v": 1,
+  "gl": false
+ },
+ "heat-strip": {
+  "v": 1,
+  "gl": false
+ },
+ "dither-growth-chart": {
+  "v": 1,
+  "gl": false
+ },
+ "comparison-03": {
+  "v": 1,
+  "gl": false
+ },
+ "background-paths": {
+  "v": 1,
+  "gl": false
+ },
+ "liquid-metal-shader": {
+  "v": 1,
+  "gl": true
+ },
+ "liquid-chrome": {
+  "v": 1,
+  "gl": true
+ },
+ "fluid-particles-background": {
+  "v": 1,
+  "gl": false
+ },
+ "honey-ember-background": {
+  "v": 1,
+  "gl": true
+ },
+ "luminous-topography": {
+  "v": 1,
+  "gl": true
+ },
+ "blueprint-gradient-mesh": {
+  "v": 1,
+  "gl": false
+ },
+ "interactive-grid": {
+  "v": 1,
+  "gl": false
+ },
+ "perspective-tunnel-hero": {
+  "v": 1,
+  "gl": false
+ },
+ "aether-flow-hero": {
+  "v": 1,
+  "gl": false
+ },
+ "hero-scrub": {
+  "v": 1,
+  "gl": false
+ },
+ "text-roll": {
+  "v": 1,
+  "gl": false
+ },
+ "blur-reveal": {
+  "v": 1,
+  "gl": false
+ },
+ "fluid-text-morph": {
+  "v": 1,
+  "gl": false
+ },
+ "looping-words": {
+  "v": 1,
+  "gl": false
+ },
+ "magic-text": {
+  "v": 1,
+  "gl": false
+ },
+ "reading-text-reveal": {
+  "v": 1,
+  "gl": false
+ },
+ "motion-scroll-word-reveal": {
+  "v": 1,
+  "gl": false
+ },
+ "large-name-footer": {
+  "v": 1,
+  "gl": false
+ },
+ "hover-footer": {
+  "v": 1,
+  "gl": false
+ },
+ "halftone-wordmark-footer": {
+  "v": 1,
+  "gl": false
+ },
+ "motion-footer": {
+  "v": 1,
+  "gl": false
+ },
+ "features-8": {
+  "v": 1,
+  "gl": false
+ },
+ "feature-section-hover-effects": {
+  "v": 1,
+  "gl": false
+ },
+ "grid-feature-cards": {
+  "v": 1,
+  "gl": false
+ },
+ "how-it-works": {
+  "v": 1,
+  "gl": false
+ },
+ "liquid-glass-card": {
+  "v": 1,
+  "gl": false
+ },
+ "ruixen-bento-cards": {
+  "v": 1,
+  "gl": false
+ },
+ "card-fan-carousel": {
+  "v": 1,
+  "gl": false
+ },
+ "card-stack": {
+  "v": 1,
+  "gl": false
+ },
+ "story-scroll": {
+  "v": 1,
+  "gl": false
+ },
+ "dynamic-island-toc": {
+  "v": 1,
+  "gl": false
+ },
+ "horizontal-scroll-carousel": {
+  "v": 1,
+  "gl": false
+ },
+ "stagger-testimonials": {
+  "v": 1,
+  "gl": false
+ },
+ "circular-testimonials": {
+  "v": 1,
+  "gl": false
+ },
+ "3d-testimonials": {
+  "v": 1,
+  "gl": false
+ },
+ "glass-testimonial-swiper": {
+  "v": 1,
+  "gl": false
+ },
+ "image-testimonial-grid": {
+  "v": 1,
+  "gl": false
+ },
+ "scroll-reel-testimonials": {
+  "v": 1,
+  "gl": false
+ },
+ "testimonials-with-marquee": {
+  "v": 1,
+  "gl": false
+ },
+ "texture-button": {
+  "v": 1,
+  "gl": false
+ },
+ "eclipse-button": {
+  "v": 1,
+  "gl": false
+ },
+ "flow-button": {
+  "v": 1,
+  "gl": false
+ },
+ "send-button": {
+  "v": 1,
+  "gl": false
+ },
+ "infinite-slider": {
+  "v": 1,
+  "gl": false
+ },
+ "logo-marquee": {
+  "v": 1,
+  "gl": false
+ },
+ "trowel-hero": {
+  "v": 1,
+  "gl": true
+ }
+}

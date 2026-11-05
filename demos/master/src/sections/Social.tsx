@@ -10,12 +10,12 @@ import { Mark } from './Chrome';
 import { finishBg, finishImg } from '@/config/trades/epoxy';
 
 export function Gallery() {
-  const { trade } = useSite();
+  const { site, trade } = useSite();
   const [r, setR] = useState(600);
   useEffect(() => { const f = () => setR(innerWidth < 700 ? 400 : innerWidth < 1100 ? 480 : 620); f(); addEventListener('resize', f); return () => removeEventListener('resize', f); }, []);
   const g = trade.copy.gallery;
   const items: GalleryItem[] = [
-    ...trade.finishes.map((f) => ({ common: f.name, binomial: f.note, photo: f.img ? { url: f.img, text: `${f.name} ${g.kind}, example render`, by: 'Example render' } : { url: '', bg: finishBg(f), text: `${f.name} ${g.kind}, colour swatch`, by: 'Colour swatch' } })),
+    ...trade.finishes.map((f) => ({ common: f.name, binomial: f.note, photo: f.img ? { url: f.img, text: `${f.name} ${g.kind}, ${site.sample ? 'rendered finish' : 'example render'}`, by: site.sample ? 'Rendered finish' : 'Example render' } : { url: '', bg: finishBg(f), text: `${f.name} ${g.kind}, colour swatch`, by: 'Colour swatch' } })),
     ...g.extra.map((x) => ({ common: x.name, binomial: x.note, photo: { url: x.img, text: x.alt, by: x.by } })),
   ];
   return (
@@ -66,11 +66,11 @@ export function Reviews() {
   const t = list.map((r, i) => ({
     quote: r.text,
     name: r.source === 'Example' ? `${r.name} (example)` : r.name,
-    designation: [r.job, r.town, r.source === 'Example' ? 'Example review' : `${r.source} review`].filter(Boolean).join(' · '),
+    designation: [r.job, r.town, r.source === 'Example' ? 'Example review' : r.source === 'Sample' ? '' : `${r.source} review`].filter(Boolean).join(' · '),
     src: imgs[i % imgs.length],
   }));
   return (
-    <section id="reviews" aria-label="Reviews" className="section">
+    <section id="reviews" aria-label="Reviews" className="section" style={{ background: 'var(--bg)' }}>
       <div className="wrap">
         <p className="eyebrow">Reviews {site.demo && '(example)'}</p>
         <h2 className="h2 mt-4 max-w-[14ch]">What customers <span className="serif" style={{ color: 'var(--accent2)' }}>say after.</span></h2>
@@ -92,11 +92,14 @@ export function Owner() {
     <section aria-label="Owner" className="section" style={{ background: 'var(--bg2)' }}>
       <div ref={ref} className="wrap grid items-center gap-6 md:gap-10 md:grid-cols-[.9fr_1.1fr] md:gap-16">
         <div className="relative mx-auto aspect-square w-full max-w-[190px] md:aspect-[4/5] md:max-w-[420px] overflow-hidden rounded-[var(--radius)] border" style={{ borderColor: 'var(--line)', background: 'radial-gradient(120% 90% at 30% 20%, var(--surface), var(--bg))' }}>
-          {site.owner.photo ? <img src={site.owner.photo} alt={`${site.owner.name}, owner of ${site.company}`} className="h-full w-full object-cover" /> : (
+          {site.owner.photo ? (<>
+            <img src={site.owner.photo} alt={site.owner.photoIsStandIn ? 'Hands smoothing a resin floor with a trowel' : `${site.owner.name}, owner of ${site.company}`} className="h-full w-full object-cover" loading="lazy" />
+            {site.owner.photoIsStandIn && <span className="ex-tag bottom-2 left-2">Example image</span>}
+          </>) : (
             <div className="grid h-full place-items-center">
               <div className="text-center">
                 <div className="mx-auto grid h-24 w-24 md:h-36 md:w-36 place-items-center rounded-full font-display text-[44px] md:text-[64px] font-semibold" style={{ background: 'linear-gradient(145deg, var(--metal2), var(--metal1) 50%, var(--metal0))', color: 'var(--bg)' }}>{initials}</div>
-                <p className="mt-5 text-[13px] uppercase tracking-[.14em]" style={{ color: 'var(--muted)' }}>Your photo here</p>
+                {!site.sample && <p className="mt-5 text-[13px] uppercase tracking-[.14em]" style={{ color: 'var(--muted)' }}>Your photo here</p>}
               </div>
             </div>
           )}
@@ -104,7 +107,7 @@ export function Owner() {
         <div>
           <p className="eyebrow">Who turns up</p>
           <h2 className="h2 mt-4 max-w-[14ch]">{site.owner.first ? <>You deal with {site.owner.first},</> : 'One team,'} <span className="serif" style={{ color: 'var(--accent2)' }}>start to finish.</span></h2>
-          <p className="lede mt-5">Example owner note. Replace with the business's own words: who they are, how long they have done this, and what they promise on every job.</p>
+          <p className="lede mt-5">{site.ownerNote || "Example owner note. Replace with the business's own words: who they are, how long they have done this, and what they promise on every job."}</p>
           {site.owner.signature && <Signature name={site.owner.signature} play={inView} />}
         </div>
       </div>
@@ -130,7 +133,7 @@ function Signature({ name, play }: { name: string; play: boolean }) {
 export function Guarantee() {
   const { site } = useSite();
   return (
-    <section aria-label="Guarantee" className="section">
+    <section aria-label="Guarantee" className="section" style={{ background: 'var(--bg)' }}>
       <div className="wrap">
         <div className="relative mx-auto max-w-[860px] overflow-hidden rounded-[var(--radius)] border p-8 text-center md:p-14" style={{ borderColor: 'var(--line)', background: 'linear-gradient(160deg, var(--surface), var(--bg2))' }}>
           <Mark size={44} />
@@ -147,7 +150,7 @@ export function Faq() {
   const { trade } = useSite();
   const [open, setOpen] = useState(0);
   return (
-    <section aria-label="Questions" className="section pt-0">
+    <section aria-label="Questions" className="section" style={{ background: 'var(--bg2)' }}>
       <div className="wrap grid gap-10 md:grid-cols-[.8fr_1.2fr]">
         <div><p className="eyebrow">Questions</p><h2 className="h2 mt-4">Straight <span className="serif" style={{ color: 'var(--accent2)' }}>answers.</span></h2></div>
         <div className="divide-y border-y" style={{ borderColor: 'var(--line)' }}>
@@ -171,7 +174,7 @@ export function Finale() {
   const { site, trade } = useSite();
   return (
     <section aria-label="Book a survey" className="relative">
-      <LampContainer className="min-h-[600px] md:min-h-[780px] [&>div:last-child]:-translate-y-56 md:[&>div:last-child]:-translate-y-72">
+      <LampContainer className="min-h-[540px] md:min-h-[780px] [&>div:last-child]:-translate-y-56 md:[&>div:last-child]:-translate-y-72">
         <motion.h2 initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: 0.15, duration: 0.7, ease: 'easeInOut' }}
           className="mt-8 max-w-[16ch] text-center font-display text-[clamp(38px,6vw,76px)] font-semibold leading-[1] tracking-tight">
           {trade.copy.finale}

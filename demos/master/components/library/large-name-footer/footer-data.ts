@@ -18,7 +18,7 @@ export function footerData(site: Site, trade: TradePack): FooterData {
     phone: site.phone, tel: `tel:${site.phone.replace(/\s/g, '')}`, whatsapp: `https://wa.me/${site.whatsapp}`,
     email: site.email && !site.email.endsWith('@example.com') ? site.email : undefined,
     hours: site.hours, areas: site.areas, services: trade.services.slice(0, 6), tagline: trade.hero.eyebrow, socials,
-    demoNote: site.demo ? 'Demo site by Clientgateway. Images labelled "Example" are placeholders.' : undefined,
+    demoNote: site.sample ? 'Demo site, sample content' : site.demo ? 'Demo site by Clientgateway. Images labelled "Example" are placeholders.' : undefined,
     year: new Date().getFullYear(),
   };
 }

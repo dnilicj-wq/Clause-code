@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useSite } from '@/src/lib/ctx';
 import { estimate, gbp } from '@/config/trades/epoxy';
 import { ReplyChat, type ChatMsg } from '@/components/library/reply-chat/ReplyChat';
@@ -6,6 +7,8 @@ import { ReplyChat, type ChatMsg } from '@/components/library/reply-chat/ReplyCh
 export function Reply() {
   const { site, trade } = useSite();
   const ch = trade.copy.chat;
+  // warm the photo so its bubble never appears empty
+  useEffect(() => { if (ch.img) { const i = new Image(); i.src = ch.img; } }, [ch.img]);
   const e = estimate(trade.pricing, { space: ch.space, finish: ch.finish, condition: trade.copy.quote.conditions[0][0] });
   const msgs: ChatMsg[] = [
     { from: 'you', text: ch.ask(site.town, e.m2), ...(ch.img ? { img: ch.img, imgLabel: 'Your photo' } : {}) },
@@ -20,7 +23,7 @@ export function Reply() {
     ['Free survey', 'We check moisture and cracks, then fix the price in writing.'],
   ];
   return (
-    <section id="how" aria-label="How it works" className="section overflow-hidden">
+    <section id="how" aria-label="How it works" className="theme-light section overflow-hidden">
       <div className="wrap grid items-center gap-10 md:grid-cols-[1fr_auto] md:gap-16">
         <div>
           <p className="eyebrow">How it works{site.demo && ' (example conversation)'}</p>

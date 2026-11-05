@@ -83,7 +83,10 @@ export const epoxy = {
   copy: {
     surface: 'floor',
     hero: 'pour' as 'pour' | 'trowel',
-    expand: { title: 'Imagine yours', image: '/demo/unit-gloss-1600-v1.webp', bg: '/demo/tex-slab-v1.webp' } as { title: string; image: string; bg: string } | null, // null = skip the section (no matching image)
+    // Full-bleed finished floor that grows to fill the screen on scroll. null = skip (no matching image).
+    expand: { title: 'Your floor, finished.', image: '/demo/unit-gloss-1600-v1.webp', imageM: '/demo/unit-gloss-800-v1.webp', alt: 'A finished gloss resin floor', bg: '' } as { title: string; image: string; imageM?: string; alt?: string; bg: string } | null,
+    // Full-bleed photo break between sections. null = skip.
+    photoBreak: { img: '/demo/warehouse-gloss-1600-v1.webp', imgM: '/demo/warehouse-gloss-800-v1.webp', alt: 'Mirror-gloss resin floor', line: 'Laid once. Looks like this for years.' } as { img: string; imgM?: string; alt: string; line: string } | null,
     layers: { eyebrow: 'What goes into a floor', h1: 'Five layers.', h2: 'Skip one and it fails.', lede: 'A cheap quote is usually a missing layer. Scroll to take the floor apart.', tag: 'Rendered textures' },
     bento: {
       eyebrow: 'The difference you cannot see', h1: 'Done properly,', h2: 'it stays down.',

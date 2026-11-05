@@ -1,9 +1,8 @@
-import { useRef, useState } from 'react';
-import { motion, useScroll, useTransform, useMotionValueEvent } from 'motion/react';
+import { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'motion/react';
 import { layerBg } from '@/config/trades/epoxy';
 import { useSite } from '@/src/lib/ctx';
 import { Marquee } from '@/components/library/marquee/Marquee';
-import ScrollExpandMedia from '@/components/library/scroll-expansion-hero/ScrollExpansionHero';
 import StackingCards, { StackingCardItem } from '@/components/library/stacking-cards/StackingCards';
 import { LayerStack, useLayerScroll, type Layer } from '@/components/signature/layer-explode/LayerExplode';
 
@@ -25,37 +24,59 @@ export function Services() {
   );
 }
 
-// Scroll Expansion: a gloss floor grows to full screen, then "Visualise your garage".
+// Full-bleed finished floor: starts as an inset card and grows edge to edge as you scroll.
 export function Expand({ onVisualise }: { onVisualise?: () => void }) {
   const { trade } = useSite();
+  const e = trade.copy.expand!;
   const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end end'] });
-  const p = useTransform(scrollYProgress, [0, 0.8], [0, 1], { clamp: true });
-  const [v, setV] = useState(0);
-  useMotionValueEvent(p, 'change', setV);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end end'] });
+  const inset = useTransform(scrollYProgress, [0.25, 0.85], [14, 0], { clamp: true });
+  const radius = useTransform(scrollYProgress, [0.25, 0.85], [28, 0], { clamp: true });
+  const clip = useTransform([inset, radius], ([i, r]: number[]) => `inset(${i}% ${i * 0.7}% round ${r}px)`);
+  const scale = useTransform(scrollYProgress, [0.25, 1], [1.18, 1]);
+  const textO = useTransform(scrollYProgress, [0.7, 0.92], [0, 1]);
+  const textY = useTransform(scrollYProgress, [0.7, 0.92], [30, 0]);
   return (
-    <section ref={ref} aria-label="See it in your space" className="relative h-[125vh] md:h-[220vh]">
-      <div className="sticky top-0 h-[100dvh] overflow-hidden">
-        <ScrollExpandMedia progress={v} mediaType="image"
-          mediaSrc={trade.copy.expand!.image} bgImageSrc={trade.copy.expand!.bg}
-          title={trade.copy.expand!.title} scrollToExpand="Scroll to see it" textBlend />
-        <motion.div className="pointer-events-none absolute inset-x-0 bottom-[9vh] flex flex-col items-center gap-3 px-6 text-center"
-          animate={{ opacity: v > 0.92 ? 1 : 0, y: v > 0.92 ? 0 : 20 }} transition={{ duration: 0.5 }}>
-          <p className="max-w-[34ch] text-[15px] md:text-[17px]" style={{ color: 'rgba(255,255,255,.88)', textShadow: '0 1px 20px rgba(0,0,0,.6)' }}>
-            {onVisualise ? 'Upload a photo of your garage and see it with the floor finished.' : 'Pick a finish and see a real price range in ten seconds.'}
-          </p>
+    <section ref={ref} aria-label="See it in your space" className="relative h-[130vh] md:h-[200vh]">
+      <div className="sticky top-0 h-[100svh] overflow-hidden">
+        <motion.div className="absolute inset-0 overflow-hidden" style={{ clipPath: clip }}>
+          <motion.picture className="absolute inset-0 block" style={{ scale }}>
+            {e.imageM && <source media="(max-width: 699px)" srcSet={e.imageM} />}
+            <img src={e.image} alt={e.alt || ''} className="h-full w-full object-cover" loading="lazy" decoding="async" />
+          </motion.picture>
+          <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(0,0,0,.25), rgba(0,0,0,0) 35%, rgba(0,0,0,.65))' }} />
+          <span className="ex-tag bottom-3 right-3 !text-[9px] !opacity-80">Example image</span>
+        </motion.div>
+        <motion.div className="pointer-events-none absolute inset-x-0 bottom-[10vh] flex flex-col items-center gap-4 px-6 text-center" style={{ opacity: textO, y: textY }}>
+          <h2 className="h2 text-white" style={{ textShadow: '0 2px 30px rgba(0,0,0,.5)' }}>{e.title}</h2>
           {onVisualise ? (
-            <button onClick={onVisualise} className="pointer-events-auto rounded-full px-6 py-3.5 text-[15px] font-semibold shadow-2xl" style={{ background: 'var(--accent)', color: 'var(--accent-ink)' }}>
-              Visualise your garage
-            </button>
+            <button onClick={onVisualise} className="pointer-events-auto rounded-full px-6 py-3.5 text-[15px] font-semibold shadow-2xl" style={{ background: 'var(--accent)', color: 'var(--accent-ink)' }}>Visualise your garage</button>
           ) : (
-            <a href="#price" className="pointer-events-auto rounded-full px-6 py-3.5 text-[15px] font-semibold shadow-2xl" style={{ background: 'var(--accent)', color: 'var(--accent-ink)' }}>
-              See your price
-            </a>
+            <a href="#price" className="pointer-events-auto rounded-full px-6 py-3.5 text-[15px] font-semibold shadow-2xl" style={{ background: 'var(--accent)', color: 'var(--accent-ink)' }}>See your price</a>
           )}
         </motion.div>
-        <span className="ex-tag left-4 top-20">Example image</span>
       </div>
+    </section>
+  );
+}
+
+// Full-bleed photo break: one still, one line, no chrome.
+export function PhotoBreak() {
+  const { trade } = useSite();
+  const b = trade.copy.photoBreak;
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
+  const y = useTransform(scrollYProgress, [0, 1], ['-8%', '8%']);
+  if (!b) return null;
+  return (
+    <section ref={ref} aria-label="Photo" className="relative h-[62svh] overflow-hidden md:h-[88vh]">
+      <motion.picture className="absolute inset-[-10%_0] block" style={{ y }}>
+        {b.imgM && <source media="(max-width: 699px)" srcSet={b.imgM} />}
+        <img src={b.img} alt={b.alt} className="h-full w-full object-cover" loading="lazy" decoding="async" />
+      </motion.picture>
+      <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(0,0,0,0) 45%, rgba(0,0,0,.7))' }} />
+      <p className="absolute inset-x-0 bottom-8 mx-auto max-w-[1240px] px-5 font-display text-[clamp(28px,4.6vw,60px)] font-semibold leading-[1.02] tracking-tight text-white md:bottom-14 md:px-16">{b.line}</p>
+      <span className="ex-tag right-3 top-3 !text-[9px] !opacity-80">Example image</span>
     </section>
   );
 }
@@ -77,7 +98,7 @@ export function Layers() {
           <LayerStack layers={layers} progress={progress} active={active} />
           <span className="ex-tag bottom-3 right-0 md:bottom-16">{c.tag}</span>
         </div>
-        <StackingCards totalCards={layers.length} scaleMultiplier={0.035} className="pb-[12vh] [--card-top:46vh] md:[--card-top:18vh]">
+        <StackingCards totalCards={layers.length} scaleMultiplier={0.035} className="pb-[5vh] md:pb-[12vh] [--card-top:46vh] md:[--card-top:18vh]">
           {layers.map((l, i) => (
             <StackingCardItem key={l.key} index={i} className="h-[27vh] md:h-[60vh]" topPosition={`calc(var(--card-top) + ${i * 12}px)`}>
               <article className="flex h-full max-h-[260px] flex-col justify-between overflow-hidden rounded-[var(--radius)] border p-6 md:max-h-[340px] md:p-8"

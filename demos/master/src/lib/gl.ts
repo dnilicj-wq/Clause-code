@@ -35,8 +35,10 @@ export function whenReadyForGL(cb: () => void, opts: { eagerTouch?: boolean } = 
   evs.forEach((e) => addEventListener(e, go, { passive: true, once: true }));
   let idle = 0;
   const ric = (window as any).requestIdleCallback as undefined | ((f: () => void, o?: any) => number);
-  const delay = isCoarse() && !opts.eagerTouch ? 3500 : 250;
-  const t = setTimeout(() => { if (ric) idle = ric(go, { timeout: 1200 }); else go(); }, delay);
+  // phones with eagerTouch start straight away, so the pour is visible within a second
+  const eager = opts.eagerTouch && isCoarse();
+  const delay = isCoarse() && !opts.eagerTouch ? 3500 : eager ? 0 : 250;
+  const t = setTimeout(() => { if (ric && !eager) idle = ric(go, { timeout: 1200 }); else go(); }, delay);
   return cleanup;
 }
 

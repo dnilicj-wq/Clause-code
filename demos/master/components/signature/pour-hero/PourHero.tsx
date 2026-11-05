@@ -30,6 +30,7 @@ export function PourHero({ compact = false }: { compact?: boolean }) {
         onCoverage: (c) => setPoured(c),
         onFinished: () => setDone(true),
         onReady: () => setLive(true),
+        onLost: () => setLive(false),
       });
       if (!a) return;
       api.current = a;

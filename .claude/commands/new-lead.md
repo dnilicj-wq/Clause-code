@@ -44,7 +44,7 @@ Dan doesn't code. Report in plain English, briefly: what was built, the URL, and
 ### 2. Copy the template and set the config
 
 1. Run `cp -R demos/master demos/<slug>`, but exclude `node_modules`, `dist`, `.vercel` and `library-inbox`. Then run `npm install` in the new folder.
-2. Edit **only** `demos/<slug>/config/site.ts`. Set `demo: false`, and fill company, shortName, trade, preset, town, region, phone, whatsapp, email, owner, hours, responseTime, areas, socials, proof (real numbers only, otherwise 0), guarantee and reviews.
+2. Edit **only** `demos/<slug>/config/site.ts`. Set `demo: false` and **`sample: false`** (sample content is for the fictional master demo only; a prospect site must never show it), and fill company, shortName, trade, preset, town, region, phone, whatsapp, email, owner, hours, responseTime, areas, socials, proof (real numbers only, otherwise 0), guarantee and reviews.
    - **Unknown fields** stay as the master's labelled examples. Don't guess.
    - **`responseTime`:** use the prospect's own wording if they state it; otherwise use `'quickly'`, never a number.
    - **`visualiser`:** stays `false` unless there is a working paid Gemini key.
@@ -91,7 +91,8 @@ Allow max 3 signature interactions per page, including the hero. The default pag
 2. Load `/?gl=off`, scroll to the bottom, and dump `document.body.innerText`.
 3. Grep it for: `£`, digits, `%`, `guarantee`, `warrant`, `waterproof`, `fire`, `eco`, `UV`, `years`, `certified`, `rated`, `stars`, `reviews` and hex colour codes.
 4. Every hit must either match a line in `content-inventory.md` or sit next to an "Example" or "Illustration" label. Fix anything else.
-5. Check that no other client's images are referenced: grep `dist/` for other demo slugs and their image names.
+5. The page must not contain "Demo site, sample content" or any of the master's sample reviews (`config/sample.ts`). If it does, `sample` is still `true`.
+6. Check that no other client's images are referenced: grep `dist/` for other demo slugs and their image names.
 
 ### 5. Build, deploy and quality gate
 

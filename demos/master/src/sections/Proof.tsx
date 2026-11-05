@@ -5,17 +5,21 @@ const SpillTest = lazy(() => import('@/components/signature/spill-test/SpillTest
 import { useSite } from '@/src/lib/ctx';
 import { MagicCard } from '@/components/library/magic-card/MagicCard';
 
-// Bento with live diagrams. All are illustrations of how the work is done, never data.
+// "Not all floor coatings are the same thing": the comparison and the live proof tiles in ONE section
+// (was two: Bento + Compare). All tiles are illustrations of how the work is done, never data.
 export function Bento() {
   const { site, trade } = useSite();
   const days = trade.pricing.days[trade.pricing.defaultSpace] || 2;
   const c = trade.copy.bento;
+  const cmp = trade.compare;
+  const k = trade.copy.compare;
   return (
     <section aria-label="How we do it" className="section" style={{ background: 'var(--bg2)' }}>
       <div className="wrap">
-        <p className="eyebrow">{c.eyebrow}</p>
-        <h2 className="h2 mt-4 max-w-[14ch]">{c.h1} <span className="serif" style={{ color: 'var(--accent2)' }}>{c.h2}</span></h2>
-        <div className="mt-12 grid grid-cols-1 md:auto-rows-[minmax(200px,auto)] gap-3 md:grid-cols-6 md:gap-4">
+        <p className="eyebrow">{k.eyebrow}</p>
+        <h2 className="h2 mt-4 max-w-[16ch]">{k.h1} <span className="serif" style={{ color: 'var(--accent2)' }}>{k.h2}</span></h2>
+        <Comparison03 bare className="mt-2" heading={null} cols={cmp.cols} short={k.short} rows={cmp.rows} note={cmp.note} />
+        <div className="mt-8 grid grid-cols-1 md:mt-12 md:auto-rows-[minmax(200px,auto)] gap-3 md:grid-cols-6 md:gap-4">
           {c.spill && (
             <Tile className="max-md:[&_canvas]:!aspect-square md:col-span-4 md:row-span-2" title={c.spill.title} text={c.spill.text} tag="">
               <Suspense fallback={<div className="aspect-[4/5] sm:aspect-[16/10]" />}><SpillTest /></Suspense>
@@ -104,18 +108,5 @@ function Timeline({ steps }: { steps: [string, string][] }) {
         ))}
       </div>
     </div>
-  );
-}
-
-export function Compare() {
-  const { trade } = useSite();
-  const c = trade.compare;
-  const k = trade.copy.compare;
-  return (
-    <section aria-label="Comparison" className="section">
-      <div className="wrap">
-        <Comparison03 eyebrow={k.eyebrow} heading={<span className="h2 block max-w-[16ch] not-italic">{k.h1} <span className="serif" style={{ color: 'var(--accent2)' }}>{k.h2}</span></span>} cols={c.cols} short={k.short} rows={c.rows} note={c.note} cta={{ label: 'See your price', href: '#price' }} />
-      </div>
-    </section>
   );
 }

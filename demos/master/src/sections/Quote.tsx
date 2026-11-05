@@ -80,7 +80,7 @@ function Configurator() {
         <AnimatePresence mode="wait">
           {stage === 'price' && (
             <motion.div key="p" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="relative">
-              <div className="flex items-center gap-2"><span className="label-chip rounded-full px-2.5 py-1.5" style={{ background: 'rgba(255,255,255,.08)' }}>{P.label}</span></div>
+              <div className="flex items-center gap-2"><span className="label-chip rounded-full px-2.5 py-1.5" style={{ background: 'rgba(255,255,255,.08)' }}>{site.sample ? 'Typical range' : P.label}</span></div>
               <div className="mt-4 font-display text-[clamp(30px,9.5vw,44px)] font-semibold leading-[1.05] tracking-tight md:text-[56px]">
                 <span className="whitespace-nowrap">£<NumberTicker value={est.low} startValue={Math.round(est.low * 0.8)} className="!text-[var(--ink)] tracking-tight" /></span>
                 <span style={{ color: 'var(--muted)' }}> – </span>
