@@ -17,7 +17,7 @@ export default function Below() {
   return (
     <>
       <Services />
-      <Expand onVisualise={site.visualiser ? () => setVis(true) : undefined} />
+      {trade.copy.expand && <Expand onVisualise={site.visualiser ? () => setVis(true) : undefined} />}
       <Layers />
       <Bento />
       <Compare />

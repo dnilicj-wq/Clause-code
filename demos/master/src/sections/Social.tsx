@@ -7,32 +7,31 @@ import { BorderBeam } from '@/components/library/border-beam/BorderBeam';
 import { LampContainer } from '@/components/library/lamp/Lamp';
 import { MetalCTA } from '@/components/library/liquid-metal-button/MetalCTA';
 import { Mark } from './Chrome';
+import { finishBg, finishImg } from '@/config/trades/epoxy';
 
 export function Gallery() {
   const { trade } = useSite();
   const [r, setR] = useState(600);
   useEffect(() => { const f = () => setR(innerWidth < 700 ? 400 : innerWidth < 1100 ? 480 : 620); f(); addEventListener('resize', f); return () => removeEventListener('resize', f); }, []);
+  const g = trade.copy.gallery;
   const items: GalleryItem[] = [
-    ...trade.finishes.map((f) => ({ common: f.name, binomial: f.note, photo: { url: `/demo/look-${f.key}-v2.webp`, text: `${f.name} resin finish, example render`, by: 'Example render' } })),
-    { common: 'Gloss workshop floor', binomial: 'Commercial unit', photo: { url: '/demo/unit-gloss-800-v1.webp', text: 'Gloss resin floor in a commercial unit (example image)', by: 'Example image · Pexels' } },
-    { common: 'Hangar floor', binomial: 'Light grey gloss', photo: { url: '/demo/hangar-gloss-800-v1.webp', text: 'Gloss floor in an aircraft hangar (example image)', by: 'Example image · Pexels' } },
-    { common: 'Warehouse floor', binomial: 'Mirror finish', photo: { url: '/demo/warehouse-gloss-800-v1.webp', text: 'Gloss warehouse floor (example image)', by: 'Example image · Pexels' } },
-    { common: 'Studio floor', binomial: 'Reflective grey', photo: { url: '/demo/studio-gloss-800-v1.webp', text: 'Reflective grey studio floor (example image)', by: 'Example image · Pexels' } },
+    ...trade.finishes.map((f) => ({ common: f.name, binomial: f.note, photo: f.img ? { url: f.img, text: `${f.name} ${g.kind}, example render`, by: 'Example render' } : { url: '', bg: finishBg(f), text: `${f.name} ${g.kind}, colour swatch`, by: 'Colour swatch' } })),
+    ...g.extra.map((x) => ({ common: x.name, binomial: x.note, photo: { url: x.img, text: x.alt, by: x.by } })),
   ];
   return (
     <section id="gallery" aria-label="Finishes" className="relative overflow-hidden" style={{ background: 'var(--bg2)' }}>
       <div className="section wrap pb-0">
         <p className="eyebrow">Finishes</p>
-        <h2 className="h2 mt-4 max-w-[13ch]">Pick a look. <span className="serif" style={{ color: 'var(--accent2)' }}>Every pour is one-off.</span></h2>
+        <h2 className="h2 mt-4 max-w-[13ch]">{g.h1} <span className="serif" style={{ color: 'var(--accent2)' }}>{g.h2}</span></h2>
       </div>
       <div className="h-[440px] origin-center scale-[.72] md:h-[640px] md:scale-100"><CircularGallery items={items} radius={r} autoRotateSpeed={0.04} /></div>
-      <div className="wrap px-5 pb-[clamp(72px,10vw,140px)] md:px-16"><BeforeAfter /></div>
+      <div className="wrap px-5 pb-[clamp(72px,10vw,140px)] md:px-16">{g.beforeAfter && <BeforeAfter ba={g.beforeAfter} />}</div>
     </section>
   );
 }
 
 // Pour-wipe before/after: drag to wipe resin over bare concrete (illustration, not a customer job).
-function BeforeAfter() {
+function BeforeAfter({ ba }: { ba: { before: string; after: string; beforeAlt: string; afterAlt: string } }) {
   const [x, setX] = useState(50);
   const box = useRef<HTMLDivElement>(null);
   const inView = useInView(box, { once: true, margin: '-20%' });
@@ -46,9 +45,9 @@ function BeforeAfter() {
   return (
     <div ref={box} onPointerMove={(e) => (e.buttons || e.pointerType === 'mouse') && move(e)} onPointerDown={move}
       className="relative mt-4 aspect-[16/9] cursor-ew-resize touch-pan-y select-none overflow-hidden rounded-[var(--radius)] border md:aspect-[21/9]" style={{ borderColor: 'var(--line)' }}>
-      <img src="/demo/ba-before-v1.webp" alt="Bare cracked concrete before coating (illustration)" className="absolute inset-0 h-full w-full object-cover" loading="lazy" />
+      <img src={ba.before} alt={ba.beforeAlt} className="absolute inset-0 h-full w-full object-cover" loading="lazy" />
       <div className="absolute inset-0" style={{ clipPath: `inset(0 0 0 ${x}%)` }}>
-        <img src="/demo/ba-after-v1.webp" alt="Same floor with a copper metallic resin finish (illustration)" className="absolute inset-0 h-full w-full object-cover" loading="lazy" />
+        <img src={ba.after} alt={ba.afterAlt} className="absolute inset-0 h-full w-full object-cover" loading="lazy" />
       </div>
       <div className="absolute inset-y-0 w-[3px]" style={{ left: `${x}%`, background: 'var(--accent)', boxShadow: '0 0 20px var(--accent)' }}>
         <div className="absolute left-1/2 top-1/2 grid h-11 w-11 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full text-[14px] font-bold" style={{ background: 'var(--accent)', color: 'var(--accent-ink)' }}>⇆</div>
@@ -60,10 +59,10 @@ function BeforeAfter() {
 }
 
 export function Reviews() {
-  const { site } = useSite();
+  const { site, trade } = useSite();
   const real = site.reviews.filter((r) => r.source !== 'Example');
   const list = real.length ? real : site.reviews;
-  const imgs = ['/demo/look-graphite-flake-v2.webp', '/demo/look-copper-metallic-v2.webp', '/demo/look-storm-solid-v2.webp', '/demo/look-pearl-metallic-v2.webp'];
+  const imgs = trade.finishes.slice(0, 4).map(finishImg);
   const t = list.map((r, i) => ({
     quote: r.text,
     name: r.source === 'Example' ? `${r.name} (example)` : r.name,
@@ -169,15 +168,15 @@ export function Faq() {
 }
 
 export function Finale() {
-  const { site } = useSite();
+  const { site, trade } = useSite();
   return (
     <section aria-label="Book a survey" className="relative">
       <LampContainer className="min-h-[600px] md:min-h-[780px] [&>div:last-child]:-translate-y-56 md:[&>div:last-child]:-translate-y-72">
         <motion.h2 initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: 0.15, duration: 0.7, ease: 'easeInOut' }}
           className="mt-8 max-w-[16ch] text-center font-display text-[clamp(38px,6vw,76px)] font-semibold leading-[1] tracking-tight">
-          Let's see your floor.
+          {trade.copy.finale}
         </motion.h2>
-        <p className="mt-5 max-w-[42ch] text-center text-[16px]" style={{ color: 'var(--muted)' }}>A free survey: we measure, test the slab and give you a fixed written price.</p>
+        <p className="mt-5 max-w-[42ch] text-center text-[16px]" style={{ color: 'var(--muted)' }}>{trade.copy.finaleSub}</p>
         <div className="mt-8 flex flex-wrap justify-center gap-3">
           <MetalCTA label="Book a free survey" href="#price" width={230} height={56} />
           <a href={`https://wa.me/${site.whatsapp}`} className="glass inline-flex h-14 items-center rounded-full px-6 font-medium" target="_blank" rel="noreferrer">WhatsApp</a>
@@ -188,11 +187,11 @@ export function Finale() {
 }
 
 export function Footer() {
-  const { site } = useSite();
+  const { site, trade } = useSite();
   return (
     <footer className="relative overflow-hidden px-5 pt-16 md:px-16" style={{ background: 'var(--bg2)' }}>
       <div className="wrap grid gap-8 pb-10 text-[14px] md:grid-cols-4" style={{ color: 'var(--muted)' }}>
-        <div><div className="flex items-center gap-2 font-display text-[18px] font-semibold text-[var(--ink)]"><Mark /> {site.company}</div><p className="mt-3">Resin and epoxy floors, {site.town}.</p></div>
+        <div><div className="flex items-center gap-2 font-display text-[18px] font-semibold text-[var(--ink)]"><Mark /> {site.company}</div><p className="mt-3">{trade.hero.eyebrow}, {site.town}.</p></div>
         <div><p className="font-medium text-[var(--ink)]">Contact</p><p className="mt-2"><a href={`tel:${site.phone.replace(/\s/g, '')}`}>{site.phone}</a></p><p>{site.hours}</p></div>
         <div><p className="font-medium text-[var(--ink)]">Areas</p><p className="mt-2">{site.areas.join(', ')}</p></div>
         <div><p className="font-medium text-[var(--ink)]">Demo</p><p className="mt-2">Demo site by Clientgateway. Images labelled "Example" are placeholders.</p></div>

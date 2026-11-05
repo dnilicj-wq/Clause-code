@@ -8,24 +8,29 @@ import { MagicCard } from '@/components/library/magic-card/MagicCard';
 // Bento with live diagrams. All are illustrations of how the work is done, never data.
 export function Bento() {
   const { site, trade } = useSite();
-  const days = trade.pricing.days.double;
+  const days = trade.pricing.days[trade.pricing.defaultSpace] || 2;
+  const c = trade.copy.bento;
   return (
     <section aria-label="How we do it" className="section" style={{ background: 'var(--bg2)' }}>
       <div className="wrap">
-        <p className="eyebrow">The difference you cannot see</p>
-        <h2 className="h2 mt-4 max-w-[14ch]">Done properly, <span className="serif" style={{ color: 'var(--accent2)' }}>it stays down.</span></h2>
+        <p className="eyebrow">{c.eyebrow}</p>
+        <h2 className="h2 mt-4 max-w-[14ch]">{c.h1} <span className="serif" style={{ color: 'var(--accent2)' }}>{c.h2}</span></h2>
         <div className="mt-12 grid grid-cols-1 md:auto-rows-[minmax(200px,auto)] gap-3 md:grid-cols-6 md:gap-4">
-          <Tile className="max-md:[&_canvas]:!aspect-square md:col-span-4 md:row-span-2" title="Spills wipe off" text="Tap to spill. Oil and brake fluid sit on top of the sealer instead of soaking into bare concrete." tag="">
-            <Suspense fallback={<div className="aspect-[4/5] sm:aspect-[16/10]" />}><SpillTest /></Suspense>
-          </Tile>
-          <Tile className="md:col-span-2" title="We test the slab first" text="Damp concrete pushes coatings off. We check moisture before we quote." tag="Illustration">
+          {c.spill && (
+            <Tile className="max-md:[&_canvas]:!aspect-square md:col-span-4 md:row-span-2" title={c.spill.title} text={c.spill.text} tag="">
+              <Suspense fallback={<div className="aspect-[4/5] sm:aspect-[16/10]" />}><SpillTest /></Suspense>
+            </Tile>
+          )}
+          <Tile className={c.spill ? 'md:col-span-2' : 'md:col-span-3'} title={c.gauge.title} text={c.gauge.text} tag="Illustration">
             <Gauge />
           </Tile>
-          <Tile className="max-md:hidden md:col-span-2" title="Hot tyres stay put" text="Thin paint softens under a hot tyre and lifts. A bonded system stays down." tag="Illustration">
-            <Tyre />
-          </Tile>
-          <Tile className="max-md:hidden md:col-span-6" title={`About ${days} days for a double garage`} text={`Typical timeline. Your survey confirms it. We work ${site.hours.toLowerCase()}.`} tag="Typical">
-            <Timeline />
+          {c.tyre && (
+            <Tile className="max-md:hidden md:col-span-2" title={c.tyre.title} text={c.tyre.text} tag="Illustration">
+              <Tyre />
+            </Tile>
+          )}
+          <Tile className={c.spill ? 'max-md:hidden md:col-span-6' : 'md:col-span-3'} title={c.timelineTitle(days)} text={`Typical timeline. Your survey confirms it. We work ${site.hours.toLowerCase()}.`} tag="Typical">
+            <Timeline steps={c.steps} />
           </Tile>
         </div>
       </div>
@@ -83,8 +88,7 @@ function Tyre() {
 }
 
 
-function Timeline() {
-  const steps = [['Day 1', 'Grind & repair'], ['Day 1', 'Primer & base'], ['Day 2', 'Flake or metallic'], ['Day 2', 'Topcoat'], ['After', 'Cure, then drive on']];
+function Timeline({ steps }: { steps: [string, string][] }) {
   return (
     <div className="flex h-[120px] flex-col justify-center gap-4">
       <div className="relative h-1.5 rounded-full bg-white/10">
@@ -106,10 +110,11 @@ function Timeline() {
 export function Compare() {
   const { trade } = useSite();
   const c = trade.compare;
+  const k = trade.copy.compare;
   return (
     <section aria-label="Comparison" className="section">
       <div className="wrap">
-        <Comparison03 eyebrow="Before you compare quotes" heading={<span className="h2 block max-w-[16ch] not-italic">Not all floor coatings <span className="serif" style={{ color: 'var(--accent2)' }}>are the same thing.</span></span>} cols={c.cols} short={['Resin system', 'Floor paint', 'DIY kit']} rows={c.rows} note={c.note} cta={{ label: 'See your price', href: '#price' }} />
+        <Comparison03 eyebrow={k.eyebrow} heading={<span className="h2 block max-w-[16ch] not-italic">{k.h1} <span className="serif" style={{ color: 'var(--accent2)' }}>{k.h2}</span></span>} cols={c.cols} short={k.short} rows={c.rows} note={c.note} cta={{ label: 'See your price', href: '#price' }} />
       </div>
     </section>
   );

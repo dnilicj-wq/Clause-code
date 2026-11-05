@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useSite } from '@/src/lib/ctx';
-import { estimate, gbp, type Finish } from '@/config/trades/epoxy';
+import { estimate, gbp, finishBg, type Finish } from '@/config/trades/epoxy';
 import { ContainerScroll } from '@/components/library/container-scroll/ContainerScroll';
 import { NumberTicker } from '@/components/library/number-ticker/NumberTicker';
 
@@ -38,10 +38,11 @@ export function Quote() {
 function Configurator() {
   const { site, trade } = useSite();
   const P = trade.pricing;
-  const [space, setSpace] = useState('double');
-  const [m2, setM2] = useState(P.spaces.double.m2);
+  const [space, setSpace] = useState(P.defaultSpace);
+  const [m2, setM2] = useState(P.spaces[P.defaultSpace].m2);
   const [finish, setFinish] = useState<Finish>(trade.finishes[0]);
-  const [condition, setCondition] = useState('good');
+  const q = trade.copy.quote;
+  const [condition, setCondition] = useState(q.conditions[0][0]);
   const [stage, setStage] = useState<'price' | 'form' | 'done'>('price');
   const est = useMemo(() => estimate(P, { space, m2, finish: finish.type, condition }), [P, space, m2, finish, condition]);
 
@@ -63,19 +64,19 @@ function Configurator() {
             {trade.finishes.map((f) => (
               <button key={f.key} onClick={() => setFinish(f)} title={f.name} aria-label={f.name}
                 className="h-11 w-11 rounded-full bg-cover bg-center transition-transform hover:scale-105"
-                style={{ backgroundImage: `url(/demo/look-${f.key}-v2.webp)`, outline: finish.key === f.key ? '2px solid var(--accent)' : '1px solid var(--line)', outlineOffset: 2 }} />
+                style={{ backgroundImage: finishBg(f), outline: finish.key === f.key ? '2px solid var(--accent)' : '1px solid var(--line)', outlineOffset: 2 }} />
             ))}
           </div>
         </Field>
-        <Field label="Concrete now">
+        <Field label={q.conditionLabel}>
           <div className="grid grid-cols-3 gap-2">
-            {[['good', 'Sound'], ['cracked', 'Cracked'], ['coated', 'Old coating']].map(([k, l]) => <Chip key={k} on={condition === k} onClick={() => setCondition(k)}>{l}</Chip>)}
+            {q.conditions.map(([k, l]) => <Chip key={k} on={condition === k} onClick={() => setCondition(k)}>{l}</Chip>)}
           </div>
         </Field>
       </div>
 
       <div className="relative flex flex-col justify-between gap-5 overflow-hidden border-t p-5 md:border-l md:border-t-0 md:p-8" style={{ borderColor: 'var(--line)' }}>
-        <div className="pointer-events-none absolute inset-0 opacity-30" style={{ backgroundImage: `url(/demo/look-${finish.key}-v2.webp)`, backgroundSize: 'cover', maskImage: 'linear-gradient(180deg, transparent, #000 70%)' }} />
+        <div className="pointer-events-none absolute inset-0 opacity-30" style={{ backgroundImage: finishBg(finish), backgroundSize: 'cover', maskImage: 'linear-gradient(180deg, transparent, #000 70%)' }} />
         <AnimatePresence mode="wait">
           {stage === 'price' && (
             <motion.div key="p" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="relative">
@@ -94,7 +95,7 @@ function Configurator() {
             <motion.div key="d" initial={{ opacity: 0, scale: .98 }} animate={{ opacity: 1, scale: 1 }} className="relative">
               <h3 className="font-display text-[30px] font-semibold">Thanks. {site.owner.first} will call you {site.responseTime}.</h3>
               <a className="mt-4 inline-flex rounded-full px-5 py-3 font-semibold" style={{ background: '#25D366', color: '#062b14' }}
-                href={`https://wa.me/${site.whatsapp}?text=${encodeURIComponent(`Hi, I priced a ${est.m2} m² ${finish.name} floor on your site (${gbp(est.low)}–${gbp(est.high)}).`)}`} target="_blank" rel="noreferrer">Or message on WhatsApp now</a>
+                href={`https://wa.me/${site.whatsapp}?text=${encodeURIComponent(`Hi, I priced a ${est.m2} m² ${finish.name} ${trade.copy.surface} on your site (${gbp(est.low)}–${gbp(est.high)}).`)}`} target="_blank" rel="noreferrer">Or message on WhatsApp now</a>
             </motion.div>
           )}
         </AnimatePresence>

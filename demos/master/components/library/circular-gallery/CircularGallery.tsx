@@ -16,6 +16,7 @@ export interface GalleryItem {
     url: string; 
     text: string;
     pos?: string;
+    bg?: string; // CSS background used instead of an image (e.g. a colour swatch)
     by: string;
   };
 }
@@ -108,7 +109,7 @@ const CircularGallery = React.forwardRef<HTMLDivElement, CircularGalleryProps>(
 
             return (
               <div
-                key={item.photo.url} 
+                key={item.common + item.photo.url} 
                 role="group"
                 aria-label={item.common}
                 className="absolute w-[300px] h-[400px]"
@@ -123,12 +124,14 @@ const CircularGallery = React.forwardRef<HTMLDivElement, CircularGalleryProps>(
                 }}
               >
                 <div className="relative w-full h-full rounded-lg shadow-2xl overflow-hidden group border border-border bg-card/70 dark:bg-card/30 backdrop-blur-lg">
-                  <img
-                    src={item.photo.url}
-                    alt={item.photo.text}
-                    className="absolute inset-0 w-full h-full object-cover"
-                    style={{ objectPosition: item.photo.pos || 'center' }}
-                  />
+                  {item.photo.url ? (
+                    <img
+                      src={item.photo.url}
+                      alt={item.photo.text}
+                      className="absolute inset-0 w-full h-full object-cover"
+                      style={{ objectPosition: item.photo.pos || 'center' }}
+                    />
+                  ) : <div role="img" aria-label={item.photo.text} className="absolute inset-0" style={{ background: item.photo.bg }} />}
                   {/* Replaced text-primary-foreground with text-white for consistent color */}
                   <div className="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/80 to-transparent text-white">
                     <h2 className="text-xl font-bold">{item.common}</h2>

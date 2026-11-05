@@ -27,7 +27,7 @@ export function LargeNameFooter({ data, ctaHref = '#price', ctaLabel = 'Get your
               <h2 className="text-lg font-bold" style={{ fontFamily: 'var(--font-display)' }}>{data.company}</h2>
             </a>
             <p className="mt-4" style={{ color: 'var(--muted)' }}>
-              Resin and epoxy floors in <span style={{ color: 'var(--accent)' }}>{data.town}</span> and across {data.region}.
+              {data.tagline} in <span style={{ color: 'var(--accent)' }}>{data.town}</span> and across {data.region}.
             </p>
             <div className="mt-3 flex flex-wrap gap-2">
               <a href={ctaHref} className="inline-flex h-10 items-center rounded-[calc(var(--radius)*.5)] px-4 text-sm font-medium" style={{ background: 'var(--surface)', border: '1px solid var(--line)' }}>{ctaLabel}</a>

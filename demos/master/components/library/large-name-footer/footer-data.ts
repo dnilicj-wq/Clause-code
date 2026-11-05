@@ -6,7 +6,7 @@ import type { TradePack } from '@/config/trades/epoxy';
 export type FooterData = {
   company: string; shortName: string; town: string; region: string;
   phone: string; tel: string; whatsapp: string; email?: string; hours: string;
-  areas: string[]; services: string[];
+  areas: string[]; services: string[]; tagline: string;
   socials: { label: string; href: string }[];
   demoNote?: string; year: number;
 };
@@ -17,7 +17,7 @@ export function footerData(site: Site, trade: TradePack): FooterData {
     company: site.company, shortName: site.shortName, town: site.town, region: site.region,
     phone: site.phone, tel: `tel:${site.phone.replace(/\s/g, '')}`, whatsapp: `https://wa.me/${site.whatsapp}`,
     email: site.email && !site.email.endsWith('@example.com') ? site.email : undefined,
-    hours: site.hours, areas: site.areas, services: trade.services.slice(0, 6), socials,
+    hours: site.hours, areas: site.areas, services: trade.services.slice(0, 6), tagline: trade.hero.eyebrow, socials,
     demoNote: site.demo ? 'Demo site by Clientgateway. Images labelled "Example" are placeholders.' : undefined,
     year: new Date().getFullYear(),
   };

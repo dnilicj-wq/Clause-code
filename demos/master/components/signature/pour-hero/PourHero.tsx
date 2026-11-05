@@ -39,7 +39,7 @@ export function PourHero({ compact = false }: { compact?: boolean }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => { api.current?.set({ base: finish.type === 'metallic' && finish.key.includes('copper') ? preset.resin.base : finish.base, metal: finish.type === 'metallic' && finish.key.includes('copper') ? preset.resin.metal : finish.metal, kind: finish.type }); }, [finish, preset]);
+  useEffect(() => { api.current?.set({ base: finish.type === 'metallic' && finish.key.includes('copper') ? preset.resin.base : finish.base, metal: finish.type === 'metallic' && finish.key.includes('copper') ? preset.resin.metal : finish.metal, kind: finish.type as 'flake' | 'metallic' | 'quartz' | 'solid' }); }, [finish, preset]);
 
   const pct = Math.round(Math.min(1, poured / 0.6) * 100);
   const lines = trade.hero.lines;

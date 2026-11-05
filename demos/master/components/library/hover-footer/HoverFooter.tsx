@@ -80,7 +80,7 @@ export function HoverFooter({ data, wordmark, className }: { data: FooterData; w
         <div className="grid grid-cols-1 gap-10 pb-10 @md:grid-cols-2 @md:gap-8 @4xl:grid-cols-4 @4xl:gap-16">
           <div className="flex flex-col space-y-4">
             <div className="flex items-center gap-2"><span className="text-[22px]" style={{ color: 'var(--accent)' }}>◆</span><span className="text-2xl font-bold" style={{ fontFamily: 'var(--font-display)' }}>{data.company}</span></div>
-            <p className="text-sm leading-relaxed" style={{ color: 'var(--muted)' }}>Resin and epoxy floors across {data.town} and {data.region}. Price shown before you give us your details.</p>
+            <p className="text-sm leading-relaxed" style={{ color: 'var(--muted)' }}>{data.tagline} across {data.town} and {data.region}. Price shown before you give us your details.</p>
           </div>
           <div>
             <h4 className="mb-6 text-lg font-semibold">Services</h4>

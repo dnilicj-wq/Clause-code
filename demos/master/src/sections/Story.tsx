@@ -1,15 +1,12 @@
 import { useRef, useState } from 'react';
 import { motion, useScroll, useTransform, useMotionValueEvent } from 'motion/react';
+import { layerBg } from '@/config/trades/epoxy';
 import { useSite } from '@/src/lib/ctx';
 import { Marquee } from '@/components/library/marquee/Marquee';
 import ScrollExpandMedia from '@/components/library/scroll-expansion-hero/ScrollExpansionHero';
 import StackingCards, { StackingCardItem } from '@/components/library/stacking-cards/StackingCards';
 import { LayerStack, useLayerScroll, type Layer } from '@/components/signature/layer-explode/LayerExplode';
 
-const TEX: Record<string, string> = {
-  slab: '/demo/tex-slab-v1.webp', primer: '/demo/tex-primer-v1.webp', base: '/demo/tex-base-v1.webp',
-  flake: '/demo/tex-flake-v1.webp', top: '/demo/tex-top-v1.webp',
-};
 
 export function Services() {
   const { trade } = useSite();
@@ -30,6 +27,7 @@ export function Services() {
 
 // Scroll Expansion: a gloss floor grows to full screen, then "Visualise your garage".
 export function Expand({ onVisualise }: { onVisualise?: () => void }) {
+  const { trade } = useSite();
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end end'] });
   const p = useTransform(scrollYProgress, [0, 0.8], [0, 1], { clamp: true });
@@ -39,8 +37,8 @@ export function Expand({ onVisualise }: { onVisualise?: () => void }) {
     <section ref={ref} aria-label="See it in your space" className="relative h-[125vh] md:h-[220vh]">
       <div className="sticky top-0 h-[100dvh] overflow-hidden">
         <ScrollExpandMedia progress={v} mediaType="image"
-          mediaSrc="/demo/unit-gloss-1600-v1.webp" bgImageSrc="/demo/tex-slab-v1.webp"
-          title="Imagine yours" scrollToExpand="Scroll to see it" textBlend />
+          mediaSrc={trade.copy.expand!.image} bgImageSrc={trade.copy.expand!.bg}
+          title={trade.copy.expand!.title} scrollToExpand="Scroll to see it" textBlend />
         <motion.div className="pointer-events-none absolute inset-x-0 bottom-[9vh] flex flex-col items-center gap-3 px-6 text-center"
           animate={{ opacity: v > 0.92 ? 1 : 0, y: v > 0.92 ? 0 : 20 }} transition={{ duration: 0.5 }}>
           <p className="max-w-[34ch] text-[15px] md:text-[17px]" style={{ color: 'rgba(255,255,255,.88)', textShadow: '0 1px 20px rgba(0,0,0,.6)' }}>
@@ -64,19 +62,20 @@ export function Expand({ onVisualise }: { onVisualise?: () => void }) {
 
 export function Layers() {
   const { trade } = useSite();
-  const layers: Layer[] = trade.layers.map((l) => ({ ...l, tex: TEX[l.key] }));
+  const layers: Layer[] = trade.layers.map((l) => ({ ...l, bg: layerBg(l) }));
   const { ref, progress, active } = useLayerScroll(layers.length);
+  const c = trade.copy.layers;
   return (
     <section id="layers" aria-label="The layers" className="relative" style={{ background: 'var(--bg)' }}>
       <div className="section wrap pb-0">
-        <p className="eyebrow">What goes into a floor</p>
-        <h2 className="h2 mt-4">Five layers.<br /><span className="serif" style={{ color: 'var(--accent2)' }}>Skip one and it fails.</span></h2>
-        <p className="lede mt-5">A cheap quote is usually a missing layer. Scroll to take the floor apart.</p>
+        <p className="eyebrow">{c.eyebrow}</p>
+        <h2 className="h2 mt-4">{c.h1}<br /><span className="serif" style={{ color: 'var(--accent2)' }}>{c.h2}</span></h2>
+        <p className="lede mt-5">{c.lede}</p>
       </div>
       <div ref={ref} className="relative mx-auto grid max-w-[1240px] gap-0 px-5 md:grid-cols-2 md:gap-14 md:px-16">
         <div className="sticky top-0 z-10 flex h-[44vh] items-center justify-center md:h-screen" style={{ background: 'linear-gradient(var(--bg) 82%, transparent)' }}>
           <LayerStack layers={layers} progress={progress} active={active} />
-          <span className="ex-tag bottom-3 right-0 md:bottom-16">Rendered textures</span>
+          <span className="ex-tag bottom-3 right-0 md:bottom-16">{c.tag}</span>
         </div>
         <StackingCards totalCards={layers.length} scaleMultiplier={0.035} className="pb-[12vh] [--card-top:46vh] md:[--card-top:18vh]">
           {layers.map((l, i) => (
@@ -85,7 +84,7 @@ export function Layers() {
                 style={{ borderColor: active === i ? 'var(--accent)' : 'var(--line)', background: `linear-gradient(160deg, var(--surface), var(--bg2))`, boxShadow: '0 30px 60px -30px rgba(0,0,0,.7)' }}>
                 <div className="flex items-center justify-between">
                   <span className="font-display text-[44px] font-semibold leading-none md:text-[64px]" style={{ color: 'var(--accent)' }}>0{i + 1}</span>
-                  <span className="h-14 w-14 rounded-full border md:h-16 md:w-16" style={{ backgroundImage: `url(${l.tex})`, backgroundSize: 'cover', borderColor: 'var(--line)' }} />
+                  <span className="h-14 w-14 rounded-full border md:h-16 md:w-16" style={{ backgroundImage: l.bg, backgroundSize: 'cover', borderColor: 'var(--line)' }} />
                 </div>
                 <div>
                   <h3 className="font-display text-[26px] font-semibold md:text-[34px]">{l.name}</h3>

@@ -16,7 +16,7 @@ export const site = {
   demo: true, // master only. Shows "(example)" on reviews and "Example image" on images.
   company: 'Northfield Surfaces',
   shortName: 'Northfield',
-  trade: 'epoxy' as const,
+  trade: 'epoxy' as string, // key in config/trades/index.ts
   preset: 'obsidian-copper' as const,
   town: 'Leeds',
   region: 'West Yorkshire',
