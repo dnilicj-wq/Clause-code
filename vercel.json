@@ -6,6 +6,14 @@
     }
   },
   "rewrites": [
-    { "source": "/(.*)", "destination": "/api/index" }
-  ]
+    {
+      "source": "/(.*)",
+      "destination": "/api/index"
+    }
+  ],
+  "git": {
+    "deploymentEnabled": {
+      "claude/master-template-v3": false
+    }
+  }
 }
