@@ -56,16 +56,9 @@ function smooth() {
 function go(hash) { const el = $(hash); if (!el) return; if (lenis) lenis.scrollTo(el, { offset: 0, duration: 1.6 }); else el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' }); }
 document.addEventListener('click', e => { const a = e.target.closest('a[href^="#"]'); if (!a) return; const h = a.getAttribute('href'); if (h.length < 2) return; e.preventDefault(); go(h === '#top' ? '#hero' : h); });
 
-// ---------- loader ----------
-const ldBar = $('.ld-bar i'), ldmm = $('#ldmm');
-let ldP = 0; const ldStart = performance.now();
-const ldTick = setInterval(() => { ldP = Math.min(ldP + 0.07 + Math.random() * 0.05, 0.92); ldBar.style.setProperty('--p', ldP); ldmm.textContent = (ldP * 3).toFixed(1); }, 90);
-function loaded() {
-  clearInterval(ldTick); ldBar.style.setProperty('--p', 1); ldmm.textContent = '3.0';
-  setTimeout(() => { $('#loader').classList.add('done'); document.body.classList.add('ready'); hero && setTimeout(() => hero.demo(), 650); }, 280);
-}
-Promise.race([Promise.all([document.fonts ? document.fonts.ready : 0, new Promise(r => addEventListener('load', r))]), new Promise(r => setTimeout(r, 3500))])
-  .then(() => setTimeout(loaded, Math.max(0, 1100 - (performance.now() - ldStart))));
+// ---------- start (no loader: content shows immediately) ----------
+document.body.classList.add('ready');
+setTimeout(() => hero && hero.demo(), 900);
 
 // ---------- header, rail, chip, mobile bar ----------
 const hd = $('#hd'), chip = $('#chip'), mbar = $('#mbar');
