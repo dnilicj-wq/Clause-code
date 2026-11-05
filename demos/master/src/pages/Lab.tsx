@@ -31,7 +31,7 @@ const TiltedGridHero = lazy(() => import('@/components/library/tilted-grid-hero/
 const Radar = lazy(() => import('./lab/RadarDemo'));
 
 const looks = ['graphite-flake', 'copper-metallic', 'pearl-metallic', 'midnight-metallic', 'storm-solid', 'quartz-sand'];
-const look = (k: string) => `/demo/look-${k}-v1.webp`;
+const look = (k: string) => `/demo/look-${k}-v2.webp`;
 const exReviews = [
   { quote: 'Example review text. Real reviews from the business replace this.', name: 'Customer name (example)', designation: 'Double garage, Leeds', src: look('graphite-flake') },
   { quote: 'Example review text about the finish and the tidy job.', name: 'Customer name (example)', designation: 'Kitchen, Harrogate', src: look('copper-metallic') },

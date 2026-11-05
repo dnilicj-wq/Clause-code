@@ -1,38 +1,22 @@
-import { useState } from 'react';
+import { lazy, Suspense } from 'react';
 import { PourHero } from '@/components/signature/pour-hero/PourHero';
-import { Visualiser } from '@/components/signature/visualiser/Visualiser';
-import { Nav, Dock, CursorGlow, useLenis } from '../sections/Chrome';
-import { Services, Expand, Layers } from '../sections/Story';
-import { Bento, Compare } from '../sections/Proof';
-import { Quote } from '../sections/Quote';
-import { Gallery, Reviews, Owner, Guarantee, Faq, Finale, Footer } from '../sections/Social';
+import { Nav, useLenis } from '../sections/Chrome';
+
+const Below = lazy(() => import('../sections/Below'));
 
 // Default epoxy demo. Order follows the V3 brief (max 15 phone screens).
+// Hero + nav ship in the first chunk; the rest streams in straight after (keeps LCP on the hero).
 export default function Home() {
   useLenis();
-  const [vis, setVis] = useState(false);
   return (
     <>
-      <CursorGlow />
       <Nav />
       <main className="grain relative">
         <PourHero />
-        <Services />
-        <Expand onVisualise={() => setVis(true)} />
-        <Layers />
-        <Bento />
-        <Compare />
-        <Quote />
-        <Gallery />
-        <Reviews />
-        <Owner />
-        <Guarantee />
-        <Faq />
-        <Finale />
+        <Suspense fallback={<div style={{ height: '100vh' }} />}>
+          <Below />
+        </Suspense>
       </main>
-      <Footer />
-      <Dock />
-      <Visualiser open={vis} onClose={() => setVis(false)} />
     </>
   );
 }

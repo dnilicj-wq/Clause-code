@@ -13,7 +13,7 @@ export function Gallery() {
   const [r, setR] = useState(600);
   useEffect(() => { const f = () => setR(innerWidth < 700 ? 400 : innerWidth < 1100 ? 480 : 620); f(); addEventListener('resize', f); return () => removeEventListener('resize', f); }, []);
   const items: GalleryItem[] = [
-    ...trade.finishes.map((f) => ({ common: f.name, binomial: f.note, photo: { url: `/demo/look-${f.key}-v1.webp`, text: `${f.name} resin finish, example render`, by: 'Example render' } })),
+    ...trade.finishes.map((f) => ({ common: f.name, binomial: f.note, photo: { url: `/demo/look-${f.key}-v2.webp`, text: `${f.name} resin finish, example render`, by: 'Example render' } })),
     { common: 'Gloss workshop floor', binomial: 'Commercial unit', photo: { url: '/demo/unit-gloss-800-v1.webp', text: 'Gloss resin floor in a commercial unit (example image)', by: 'Example image · Pexels' } },
     { common: 'Hangar floor', binomial: 'Light grey gloss', photo: { url: '/demo/hangar-gloss-800-v1.webp', text: 'Gloss floor in an aircraft hangar (example image)', by: 'Example image · Pexels' } },
     { common: 'Warehouse floor', binomial: 'Mirror finish', photo: { url: '/demo/warehouse-gloss-800-v1.webp', text: 'Gloss warehouse floor (example image)', by: 'Example image · Pexels' } },
@@ -63,7 +63,7 @@ export function Reviews() {
   const { site } = useSite();
   const real = site.reviews.filter((r) => r.source !== 'Example');
   const list = real.length ? real : site.reviews;
-  const imgs = ['/demo/look-graphite-flake-v1.webp', '/demo/look-copper-metallic-v1.webp', '/demo/look-storm-solid-v1.webp', '/demo/look-pearl-metallic-v1.webp'];
+  const imgs = ['/demo/look-graphite-flake-v2.webp', '/demo/look-copper-metallic-v2.webp', '/demo/look-storm-solid-v2.webp', '/demo/look-pearl-metallic-v2.webp'];
   const t = list.map((r, i) => ({
     quote: r.text,
     name: r.source === 'Example' ? `${r.name} (example)` : r.name,

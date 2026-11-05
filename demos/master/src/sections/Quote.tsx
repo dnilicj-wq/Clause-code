@@ -63,7 +63,7 @@ function Configurator() {
             {trade.finishes.map((f) => (
               <button key={f.key} onClick={() => setFinish(f)} title={f.name} aria-label={f.name}
                 className="h-11 w-11 rounded-full bg-cover bg-center transition-transform hover:scale-105"
-                style={{ backgroundImage: `url(/demo/look-${f.key}-v1.webp)`, outline: finish.key === f.key ? '2px solid var(--accent)' : '1px solid var(--line)', outlineOffset: 2 }} />
+                style={{ backgroundImage: `url(/demo/look-${f.key}-v2.webp)`, outline: finish.key === f.key ? '2px solid var(--accent)' : '1px solid var(--line)', outlineOffset: 2 }} />
             ))}
           </div>
         </Field>
@@ -75,7 +75,7 @@ function Configurator() {
       </div>
 
       <div className="relative flex flex-col justify-between gap-5 overflow-hidden border-t p-5 md:border-l md:border-t-0 md:p-8" style={{ borderColor: 'var(--line)' }}>
-        <div className="pointer-events-none absolute inset-0 opacity-30" style={{ backgroundImage: `url(/demo/look-${finish.key}-v1.webp)`, backgroundSize: 'cover', maskImage: 'linear-gradient(180deg, transparent, #000 70%)' }} />
+        <div className="pointer-events-none absolute inset-0 opacity-30" style={{ backgroundImage: `url(/demo/look-${finish.key}-v2.webp)`, backgroundSize: 'cover', maskImage: 'linear-gradient(180deg, transparent, #000 70%)' }} />
         <AnimatePresence mode="wait">
           {stage === 'price' && (
             <motion.div key="p" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="relative">

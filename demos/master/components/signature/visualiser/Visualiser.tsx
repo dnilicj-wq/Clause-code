@@ -70,7 +70,7 @@ export function Visualiser({ open, onClose }: { open: boolean; onClose: () => vo
                   <div className="flex flex-wrap gap-2">
                     {trade.finishes.map((f) => (
                       <button key={f.key} onClick={() => setFinish(f.key)} aria-label={f.name} title={f.name} className="h-11 w-11 rounded-full bg-cover"
-                        style={{ backgroundImage: `url(/demo/look-${f.key}-v1.webp)`, outline: finish === f.key ? '2px solid var(--accent)' : '1px solid var(--line)', outlineOffset: 2 }} />
+                        style={{ backgroundImage: `url(/demo/look-${f.key}-v2.webp)`, outline: finish === f.key ? '2px solid var(--accent)' : '1px solid var(--line)', outlineOffset: 2 }} />
                     ))}
                   </div>
                 </div>

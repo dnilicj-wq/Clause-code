@@ -81,7 +81,7 @@ function Tyre() {
 
 function Spill() {
   return (
-    <div className="relative h-[110px] md:h-[150px] overflow-hidden rounded-xl" style={{ backgroundImage: 'url(/demo/look-copper-metallic-v1.webp)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
+    <div className="relative h-[110px] md:h-[150px] overflow-hidden rounded-xl" style={{ backgroundImage: 'url(/demo/look-copper-metallic-v2.webp)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
       {[0, 1, 2].map((i) => (
         <motion.span key={i} className="absolute rounded-full"
           style={{ left: `${22 + i * 24}%`, top: '42%', width: 26 - i * 4, height: 18 - i * 3, background: 'radial-gradient(circle at 35% 30%, rgba(255,255,255,.7), rgba(40,30,10,.85) 45%, rgba(10,8,4,.95))', boxShadow: '0 4px 8px rgba(0,0,0,.5)' }}
