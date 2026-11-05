@@ -1,5 +1,5 @@
 // Ported verbatim from https://21st.dev/@aliimam/components/liquid-glass-button — copy: https://raw.githubusercontent.com/Deepender25/21st.dev-Component-Skill-/3de21651777d1c23cb2deed3a0ffc978c4270259/components/designali-in/liquid-glass-button.tsx
-// Only change: this header. Shims: framer-motion→motion/react, next/image→<img> (vite aliases).
+// Changes: this header; dark: shadows keyed to a `tone` (auto = preset colour-scheme) because this app has no .dark class. Shims: framer-motion→motion/react, next/image→<img> (vite aliases).
 
 import * as React from "react"
 import { Slot } from "@radix-ui/react-slot"
@@ -95,20 +95,34 @@ function LiquidButton({
   variant,
   size,
   asChild = false,
+  tone = "auto",
   children,
   ...props
 }: React.ComponentProps<"button"> &
   VariantProps<typeof liquidbuttonVariants> & {
     asChild?: boolean
+    /** Re-skin: which glass rim to use. "auto" follows the page's color-scheme (preset), since this app has no .dark class. */
+    tone?: "auto" | "light" | "dark"
   }) {
   const Comp = asChild ? Slot : "button"
+  const [autoTone, setAutoTone] = React.useState<"light" | "dark">("light")
+  React.useEffect(() => {
+    if (tone !== "auto") return
+    const read = () => setAutoTone(getComputedStyle(document.documentElement).colorScheme.includes("dark") ? "dark" : "light")
+    read()
+    const mo = new MutationObserver(read)
+    mo.observe(document.documentElement, { attributes: true, attributeFilter: ["style", "class"] })
+    return () => mo.disconnect()
+  }, [tone])
+  const resolvedTone = tone === "auto" ? autoTone : tone
 
   return (
     <>
       <Comp
         data-slot="button"
+        data-tone={resolvedTone}
         className={cn(
-          "relative",
+          "relative group/lg",
           liquidbuttonVariants({ variant, size, className })
         )}
         {...props}
@@ -116,7 +130,7 @@ function LiquidButton({
         <div className="absolute top-0 left-0 z-0 h-full w-full rounded-full 
             shadow-[0_0_6px_rgba(0,0,0,0.03),0_2px_6px_rgba(0,0,0,0.08),inset_3px_3px_0.5px_-3px_rgba(0,0,0,0.9),inset_-3px_-3px_0.5px_-3px_rgba(0,0,0,0.85),inset_1px_1px_1px_-0.5px_rgba(0,0,0,0.6),inset_-1px_-1px_1px_-0.5px_rgba(0,0,0,0.6),inset_0_0_6px_6px_rgba(0,0,0,0.12),inset_0_0_2px_2px_rgba(0,0,0,0.06),0_0_12px_rgba(255,255,255,0.15)] 
         transition-all 
-        dark:shadow-[0_0_8px_rgba(0,0,0,0.03),0_2px_6px_rgba(0,0,0,0.08),inset_3px_3px_0.5px_-3.5px_rgba(255,255,255,0.09),inset_-3px_-3px_0.5px_-3.5px_rgba(255,255,255,0.85),inset_1px_1px_1px_-0.5px_rgba(255,255,255,0.6),inset_-1px_-1px_1px_-0.5px_rgba(255,255,255,0.6),inset_0_0_6px_6px_rgba(255,255,255,0.12),inset_0_0_2px_2px_rgba(255,255,255,0.06),0_0_12px_rgba(0,0,0,0.15)]" />
+        group-data-[tone=dark]/lg:shadow-[0_0_8px_rgba(0,0,0,0.03),0_2px_6px_rgba(0,0,0,0.08),inset_3px_3px_0.5px_-3.5px_rgba(255,255,255,0.09),inset_-3px_-3px_0.5px_-3.5px_rgba(255,255,255,0.85),inset_1px_1px_1px_-0.5px_rgba(255,255,255,0.6),inset_-1px_-1px_1px_-0.5px_rgba(255,255,255,0.6),inset_0_0_6px_6px_rgba(255,255,255,0.12),inset_0_0_2px_2px_rgba(255,255,255,0.06),0_0_12px_rgba(0,0,0,0.15)]" />
         <div
           className="absolute top-0 left-0 isolate -z-10 h-full w-full overflow-hidden rounded-md"
           style={{ backdropFilter: 'url("#container-glass")' }}

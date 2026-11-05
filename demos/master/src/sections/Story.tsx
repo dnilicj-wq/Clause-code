@@ -36,7 +36,7 @@ export function Expand({ onVisualise }: { onVisualise: () => void }) {
   const [v, setV] = useState(0);
   useMotionValueEvent(p, 'change', setV);
   return (
-    <section ref={ref} aria-label="See it in your space" className="relative h-[135vh] md:h-[220vh]">
+    <section ref={ref} aria-label="See it in your space" className="relative h-[125vh] md:h-[220vh]">
       <div className="sticky top-0 h-[100dvh] overflow-hidden">
         <ScrollExpandMedia progress={v} mediaType="image"
           mediaSrc="/demo/unit-gloss-1600-v1.webp" bgImageSrc="/demo/tex-slab-v1.webp"
@@ -74,7 +74,7 @@ export function Layers() {
         </div>
         <StackingCards totalCards={layers.length} scaleMultiplier={0.035} className="pb-[12vh] [--card-top:46vh] md:[--card-top:18vh]">
           {layers.map((l, i) => (
-            <StackingCardItem key={l.key} index={i} className="h-[30vh] md:h-[60vh]" topPosition={`calc(var(--card-top) + ${i * 12}px)`}>
+            <StackingCardItem key={l.key} index={i} className="h-[27vh] md:h-[60vh]" topPosition={`calc(var(--card-top) + ${i * 12}px)`}>
               <article className="flex h-full max-h-[260px] flex-col justify-between overflow-hidden rounded-[var(--radius)] border p-6 md:max-h-[340px] md:p-8"
                 style={{ borderColor: active === i ? 'var(--accent)' : 'var(--line)', background: `linear-gradient(160deg, var(--surface), var(--bg2))`, boxShadow: '0 30px 60px -30px rgba(0,0,0,.7)' }}>
                 <div className="flex items-center justify-between">

@@ -1,5 +1,5 @@
 // Ported verbatim from https://21st.dev/@YoucefBnm/components/animated-cards-stack — copy: https://raw.githubusercontent.com/Deepender25/21st.dev-Component-Skill-/3de21651777d1c23cb2deed3a0ffc978c4270259/components/youcefbnm/animated-cards-stack.tsx
-// Only change: this header. Shims: framer-motion→motion/react, next/image→<img> (vite aliases).
+// Changes: this header; optional `container` prop on ContainerScroll (scroll inside a box, for lab cards). Shims: framer-motion→motion/react, next/image→<img> (vite aliases).
 
 import * as React from "react"
 
@@ -58,12 +58,13 @@ function useContainerScrollContext() {
 }
 
 export const ContainerScroll: React.FC<
-  React.HTMLAttributes<HTMLDivElement>
-> = ({ children, style, className, ...props }) => {
+  React.HTMLAttributes<HTMLDivElement> & { container?: React.RefObject<HTMLElement | null> }
+> = ({ children, style, className, container, ...props }) => {
   const scrollRef = React.useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({
     target: scrollRef,
     offset: ["start center", "end end"],
+    ...(container ? { container } : {}),
   })
 
   return (

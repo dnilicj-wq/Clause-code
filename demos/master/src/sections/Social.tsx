@@ -77,7 +77,7 @@ export function Reviews() {
         <h2 className="h2 mt-4 max-w-[14ch]">What customers <span className="serif" style={{ color: 'var(--accent2)' }}>say after.</span></h2>
         {site.demo && <p className="lede mt-4 text-[14px]">These are layout examples. Real reviews are added word for word, each linked to where it was posted.</p>}
       </div>
-      <div className="max-md:[&_.h-80]:!h-56 max-md:[&_.gap-20]:!gap-8 [&_h3]:!text-[var(--ink)] [&_p]:!text-[var(--muted)] [&_.text-lg]:!text-[var(--ink)] [&_button]:!bg-white/10 [&_svg]:!text-[var(--ink)]">
+      <div className="max-md:[&_.h-80]:!h-44 max-md:[&_.gap-20]:!gap-6 [&_h3]:!text-[var(--ink)] [&_p]:!text-[var(--muted)] [&_.text-lg]:!text-[var(--ink)] [&_button]:!bg-white/10 [&_svg]:!text-[var(--ink)]">
         <AnimatedTestimonials testimonials={t} autoplay />
       </div>
     </section>
@@ -91,12 +91,12 @@ export function Owner() {
   const initials = site.owner.name.split(' ').map((w) => w[0]).join('').slice(0, 2);
   return (
     <section aria-label="Owner" className="section" style={{ background: 'var(--bg2)' }}>
-      <div ref={ref} className="wrap grid items-center gap-10 md:grid-cols-[.9fr_1.1fr] md:gap-16">
-        <div className="relative mx-auto aspect-square w-full max-w-[280px] md:aspect-[4/5] md:max-w-[420px] overflow-hidden rounded-[var(--radius)] border" style={{ borderColor: 'var(--line)', background: 'radial-gradient(120% 90% at 30% 20%, var(--surface), var(--bg))' }}>
+      <div ref={ref} className="wrap grid items-center gap-6 md:gap-10 md:grid-cols-[.9fr_1.1fr] md:gap-16">
+        <div className="relative mx-auto aspect-square w-full max-w-[190px] md:aspect-[4/5] md:max-w-[420px] overflow-hidden rounded-[var(--radius)] border" style={{ borderColor: 'var(--line)', background: 'radial-gradient(120% 90% at 30% 20%, var(--surface), var(--bg))' }}>
           {site.owner.photo ? <img src={site.owner.photo} alt={`${site.owner.name}, owner of ${site.company}`} className="h-full w-full object-cover" /> : (
             <div className="grid h-full place-items-center">
               <div className="text-center">
-                <div className="mx-auto grid h-36 w-36 place-items-center rounded-full font-display text-[64px] font-semibold" style={{ background: 'linear-gradient(145deg, var(--metal2), var(--metal1) 50%, var(--metal0))', color: 'var(--bg)' }}>{initials}</div>
+                <div className="mx-auto grid h-24 w-24 md:h-36 md:w-36 place-items-center rounded-full font-display text-[44px] md:text-[64px] font-semibold" style={{ background: 'linear-gradient(145deg, var(--metal2), var(--metal1) 50%, var(--metal0))', color: 'var(--bg)' }}>{initials}</div>
                 <p className="mt-5 text-[13px] uppercase tracking-[.14em]" style={{ color: 'var(--muted)' }}>Your photo here</p>
               </div>
             </div>
@@ -172,7 +172,7 @@ export function Finale() {
   const { site } = useSite();
   return (
     <section aria-label="Book a survey" className="relative">
-      <LampContainer className="min-h-[720px] md:min-h-[780px] [&>div:last-child]:-translate-y-56 md:[&>div:last-child]:-translate-y-72">
+      <LampContainer className="min-h-[600px] md:min-h-[780px] [&>div:last-child]:-translate-y-56 md:[&>div:last-child]:-translate-y-72">
         <motion.h2 initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: 0.15, duration: 0.7, ease: 'easeInOut' }}
           className="mt-8 max-w-[16ch] text-center font-display text-[clamp(38px,6vw,76px)] font-semibold leading-[1] tracking-tight">
           Let's see your floor.

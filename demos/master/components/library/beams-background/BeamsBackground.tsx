@@ -1,12 +1,26 @@
 // Ported verbatim from https://21st.dev/@kokonutd/components/beams-background — copy: https://raw.githubusercontent.com/Deepender25/21st.dev-Component-Skill-/3de21651777d1c23cb2deed3a0ffc978c4270259/components/kokonutd/beams-background.tsx
-// Only change: this header. Shims: framer-motion→motion/react, next/image→<img> (vite aliases).
+// Changes: this header; canvas sized to its container (was window); optional children replace the demo title; beam hues follow the preset accent (was fixed blue 190–260); bg-neutral-950 → var(--bg). Shims: framer-motion→motion/react, next/image→<img> (vite aliases).
 
 import { useEffect, useRef } from "react";
 import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
 
+// Hue of the preset accent (CSS var --accent, hex). Falls back to the original blue range.
+let HUE0 = 190;
+function readAccentHue() {
+    if (typeof document === "undefined") return;
+    const hex = getComputedStyle(document.documentElement).getPropertyValue("--accent").trim().replace("#", "");
+    if (hex.length !== 6) return;
+    const [r, g, b] = [0, 2, 4].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255);
+    const mx = Math.max(r, g, b), mn = Math.min(r, g, b), d = mx - mn;
+    if (!d) return;
+    let h = mx === r ? ((g - b) / d) % 6 : mx === g ? (b - r) / d + 2 : (r - g) / d + 4;
+    HUE0 = ((h * 60 + 360) % 360) - 15; // tighter spread (30°) keeps beams on-brand instead of drifting olive
+}
+
 interface AnimatedGradientBackgroundProps {
     className?: string;
+    /** Overlay content (unused in the original). Omit for the original demo title. */
     children?: React.ReactNode;
     intensity?: "subtle" | "medium" | "strong";
 }
@@ -34,7 +48,7 @@ function createBeam(width: number, height: number): Beam {
         angle: angle,
         speed: 0.6 + Math.random() * 1.2,
         opacity: 0.12 + Math.random() * 0.16,
-        hue: 190 + Math.random() * 70,
+        hue: HUE0 + Math.random() * 30,
         pulse: Math.random() * Math.PI * 2,
         pulseSpeed: 0.02 + Math.random() * 0.03,
     };
@@ -43,6 +57,7 @@ function createBeam(width: number, height: number): Beam {
 export function BeamsBackground({
     className,
     intensity = "strong",
+    children,
 }: AnimatedGradientBackgroundProps) {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const beamsRef = useRef<Beam[]>([]);
@@ -56,6 +71,7 @@ export function BeamsBackground({
     };
 
     useEffect(() => {
+        readAccentHue();
         const canvas = canvasRef.current;
         if (!canvas) return;
 
@@ -63,11 +79,16 @@ export function BeamsBackground({
         if (!ctx) return;
 
         const updateCanvasSize = () => {
-            const dpr = window.devicePixelRatio || 1;
-            canvas.width = window.innerWidth * dpr;
-            canvas.height = window.innerHeight * dpr;
-            canvas.style.width = `${window.innerWidth}px`;
-            canvas.style.height = `${window.innerHeight}px`;
+            // Sized to its container (was the window), so it also works inside a section or card.
+            const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+            const box = canvas.parentElement?.getBoundingClientRect();
+            const w = Math.max(1, Math.round(box?.width || window.innerWidth));
+            const h = Math.max(1, Math.round(box?.height || window.innerHeight));
+            canvas.width = w * dpr;
+            canvas.height = h * dpr;
+            canvas.style.width = `${w}px`;
+            canvas.style.height = `${h}px`;
+            ctx.setTransform(1, 0, 0, 1, 0, 0);
             ctx.scale(dpr, dpr);
 
             const totalBeams = MINIMUM_BEAMS * 1.5;
@@ -78,6 +99,8 @@ export function BeamsBackground({
 
         updateCanvasSize();
         window.addEventListener("resize", updateCanvasSize);
+        const ro = canvas.parentElement ? new ResizeObserver(updateCanvasSize) : null;
+        if (ro && canvas.parentElement) ro.observe(canvas.parentElement);
 
         function resetBeam(beam: Beam, index: number, totalBeams: number) {
             if (!canvas) return beam;
@@ -92,7 +115,7 @@ export function BeamsBackground({
                 (Math.random() - 0.5) * spacing * 0.5;
             beam.width = 100 + Math.random() * 100;
             beam.speed = 0.5 + Math.random() * 0.4;
-            beam.hue = 190 + (index * 70) / totalBeams;
+            beam.hue = HUE0 + (index * 30) / totalBeams;
             beam.opacity = 0.2 + Math.random() * 0.1;
             return beam;
         }
@@ -161,6 +184,7 @@ export function BeamsBackground({
 
         return () => {
             window.removeEventListener("resize", updateCanvasSize);
+            ro?.disconnect();
             if (animationFrameRef.current) {
                 cancelAnimationFrame(animationFrameRef.current);
             }
@@ -170,7 +194,7 @@ export function BeamsBackground({
     return (
         <div
             className={cn(
-                "relative min-h-screen w-full overflow-hidden bg-neutral-950",
+                "relative min-h-screen w-full overflow-hidden bg-[var(--bg)]",
                 className
             )}
         >
@@ -181,7 +205,7 @@ export function BeamsBackground({
             />
 
             <motion.div
-                className="absolute inset-0 bg-neutral-950/5"
+                className="absolute inset-0 bg-[var(--bg)]/5"
                 animate={{
                     opacity: [0.05, 0.15, 0.05],
                 }}
@@ -195,7 +219,8 @@ export function BeamsBackground({
                 }}
             />
 
-            <div className="relative z-10 flex h-screen w-full items-center justify-center">
+            <div className="absolute inset-0 z-10 flex w-full items-center justify-center">
+                {children ?? (
                 <div className="flex flex-col items-center justify-center gap-6 px-4 text-center">
                     <motion.h1
                         className="text-6xl md:text-7xl lg:text-8xl font-semibold text-white tracking-tighter"
@@ -216,6 +241,7 @@ export function BeamsBackground({
                         For your pleasure
                     </motion.p>
                 </div>
+                )}
             </div>
         </div>
     );

@@ -29,6 +29,12 @@ import { Home as HomeIcon, Phone, Calculator, Images } from 'lucide-react';
 
 const TiltedGridHero = lazy(() => import('@/components/library/tilted-grid-hero/TiltedGridHero'));
 const Radar = lazy(() => import('./lab/RadarDemo'));
+// Wave 2+: any src/pages/lab/demos/<registry-id>.tsx (default export) becomes that card's demo automatically.
+const demoFiles = import.meta.glob('./lab/demos/*.tsx') as Record<string, () => Promise<{ default: () => ReactNode }>>;
+const fileDemos: Record<string, ReturnType<typeof lazy>> = Object.fromEntries(
+  Object.entries(demoFiles).map(([path, load]) => [path.split('/').pop()!.replace('.tsx', ''), lazy(load as any)]),
+);
+export { fileDemos };
 
 const looks = ['graphite-flake', 'copper-metallic', 'pearl-metallic', 'midnight-metallic', 'storm-solid', 'quartz-sand'];
 const look = (k: string) => `/demo/look-${k}-v2.webp`;
@@ -151,7 +157,9 @@ function Card({ e }: { e: Entry }) {
     const io = new IntersectionObserver(([x]) => x.isIntersecting && setSeen(true), { rootMargin: '300px' });
     ref.current && io.observe(ref.current); return () => io.disconnect();
   }, []);
-  const demo = demos[e.id];
+  const FileDemo = fileDemos[e.id];
+  // A demo file wins over the inline map, so cards can be upgraded without touching this file.
+  const demo = FileDemo ? () => <Suspense fallback={<div className="h-[200px]" />}><FileDemo /></Suspense> : demos[e.id];
   const statusColour = e.status === 'ported' ? '#3FB37F' : e.status === 'in-progress' ? '#E9B949' : '#D9534F';
   return (
     <article ref={ref} id={e.id} className="flex flex-col overflow-hidden rounded-[var(--radius)] border" style={{ borderColor: 'var(--line)', background: 'var(--bg2)' }}>

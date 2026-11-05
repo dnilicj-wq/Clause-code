@@ -3,8 +3,9 @@
 Premium demo site template for trades businesses. Default demo: **Northfield Surfaces**, an epoxy floor company in Leeds (fictional, all examples labelled).
 
 ## Pages
-- `/` – the demo page (pour hero → services → visualiser → layers → proof → compare → price → gallery → reviews → owner → guarantee → FAQ → finale)
+- `/` – the demo page (pour hero → services → visualiser → layers → bento with spill test → comparison → price → "how fast we reply" chat → gallery → reviews → owner → guarantee → FAQ → finale → large name footer)
 - `/lab`, `/lab/<category>` – every component in the library, live, with source, licence, status and score
+- `/preview/<id>` – one library demo on its own page (for screenshots and review)
 - `/presets` – the 5 visual presets side by side
 - `/capture` – internal: renders shader stills for `scripts/capture.mjs`
 
@@ -36,4 +37,6 @@ node tools/walk.mjs <url> <outDir> 390 844               # phone contact sheet +
 ```
 
 ## Library
-`components/library/registry.ts` lists every component with `{ id, name, category, slot, source, author, tradeFit, vibe, perfCost, mobileSafe, needs, status, notes, score }`. `/new-lead` picks from it; `needs` stops a component being used without real content (e.g. `realReviews`). Raw sources sit in `library-inbox/` (not deployed). Signature interactions are in `components/signature/`.
+`components/library/registry.ts` lists every component with `{ id, name, category, slot, source, author, tradeFit, vibe, perfCost, mobileSafe, needs, status, notes, score }`. `/new-lead` picks from it; `needs` stops a component being used without real content (e.g. `realReviews`). Raw sources sit in `library-inbox/` (not deployed). Signature interactions are in `components/signature/` (pour hero, layer explode, visualiser, flake broadcast, metallic swirl, hot-tyre test, spill test, UV slider). Max 3 per page including the hero.
+
+To add a component to `/lab`: put it in `components/library/<id>/`, add a registry entry, and add `src/pages/lab/demos/<id>.tsx` (default export). The lab picks the demo file up automatically.

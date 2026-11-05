@@ -1,4 +1,7 @@
+import { Comparison03 } from '@/components/library/comparison-03/Comparison03';
+import { lazy, Suspense } from 'react';
 import { motion } from 'motion/react';
+const SpillTest = lazy(() => import('@/components/signature/spill-test/SpillTest'));
 import { useSite } from '@/src/lib/ctx';
 import { MagicCard } from '@/components/library/magic-card/MagicCard';
 
@@ -12,16 +15,16 @@ export function Bento() {
         <p className="eyebrow">The difference you cannot see</p>
         <h2 className="h2 mt-4 max-w-[14ch]">Done properly, <span className="serif" style={{ color: 'var(--accent2)' }}>it stays down.</span></h2>
         <div className="mt-12 grid grid-cols-1 md:auto-rows-[minmax(200px,auto)] gap-3 md:grid-cols-6 md:gap-4">
-          <Tile className="md:col-span-3" title="We test the slab first" text="Damp concrete pushes coatings off. We check moisture before we quote, and tell you straight if it is not suitable." tag="Illustration">
+          <Tile className="max-md:[&_canvas]:!aspect-square md:col-span-4 md:row-span-2" title="Spills wipe off" text="Tap to spill. Oil and brake fluid sit on top of the sealer instead of soaking into bare concrete." tag="">
+            <Suspense fallback={<div className="aspect-[4/5] sm:aspect-[16/10]" />}><SpillTest /></Suspense>
+          </Tile>
+          <Tile className="md:col-span-2" title="We test the slab first" text="Damp concrete pushes coatings off. We check moisture before we quote." tag="Illustration">
             <Gauge />
           </Tile>
-          <Tile className="md:col-span-3" title="Hot tyres stay put" text="Thin paint softens under a hot tyre and lifts. A bonded, built-up system is made to stay down." tag="Illustration">
+          <Tile className="max-md:hidden md:col-span-2" title="Hot tyres stay put" text="Thin paint softens under a hot tyre and lifts. A bonded system stays down." tag="Illustration">
             <Tyre />
           </Tile>
-          <Tile className="md:col-span-2" title="Spills wipe off" text="Oil and brake fluid sit on top of the sealer instead of soaking in." tag="Illustration">
-            <Spill />
-          </Tile>
-          <Tile className="md:col-span-4" title={`About ${days} days for a double garage`} text={`Typical timeline. Your survey confirms it. We work ${site.hours.toLowerCase()}.`} tag="Typical">
+          <Tile className="max-md:hidden md:col-span-6" title={`About ${days} days for a double garage`} text={`Typical timeline. Your survey confirms it. We work ${site.hours.toLowerCase()}.`} tag="Typical">
             <Timeline />
           </Tile>
         </div>
@@ -40,7 +43,7 @@ function Tile({ title, text, tag, className = '', children }: { title: string; t
           <p className="mt-1.5 text-[15px] leading-relaxed" style={{ color: 'var(--muted)' }}>{text}</p>
         </div>
       </div>
-      <span className="ex-tag right-3 top-3">{tag}</span>
+      {tag && <span className="ex-tag right-3 top-3">{tag}</span>}
     </MagicCard>
   );
 }
@@ -49,11 +52,11 @@ function Gauge() {
   return (
     <svg viewBox="0 0 200 120" className="h-full max-h-[110px] md:max-h-[150px] w-full">
       <defs><linearGradient id="gg" x1="0" x2="1"><stop offset="0" stopColor="#3FB37F" /><stop offset=".6" stopColor="#E9B949" /><stop offset="1" stopColor="#D9534F" /></linearGradient></defs>
-      <path d="M20 105 A80 80 0 0 1 180 105" fill="none" stroke="rgba(255,255,255,.08)" strokeWidth="14" strokeLinecap="round" />
+      <path d="M20 105 A80 80 0 0 1 180 105" fill="none" stroke="var(--line)" strokeWidth="14" strokeLinecap="round" />
       <path d="M20 105 A80 80 0 0 1 180 105" fill="none" stroke="url(#gg)" strokeWidth="14" strokeLinecap="round" strokeDasharray="252" strokeDashoffset="0" opacity=".9" />
-      <motion.g style={{ originX: '100px', originY: '105px' }} animate={{ rotate: [-70, -20, -48, -30, -70] }} transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}>
-        <line x1="100" y1="105" x2="100" y2="40" stroke="var(--ink)" strokeWidth="3" strokeLinecap="round" />
-      </motion.g>
+      <motion.line x1="100" y1="105" x2="100" y2="40" stroke="var(--ink)" strokeWidth="3" strokeLinecap="round"
+        style={{ originX: 0.5, originY: 1 }} initial={{ rotate: -70 }}
+        animate={{ rotate: [-70, -20, -48, -30, -70] }} transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }} />
       <circle cx="100" cy="105" r="7" fill="var(--ink)" />
       <text x="20" y="120" fontSize="10" fill="var(--muted)">Dry</text><text x="160" y="120" fontSize="10" fill="var(--muted)">Damp</text>
     </svg>
@@ -79,18 +82,6 @@ function Tyre() {
   );
 }
 
-function Spill() {
-  return (
-    <div className="relative h-[110px] md:h-[150px] overflow-hidden rounded-xl" style={{ backgroundImage: 'url(/demo/look-copper-metallic-v2.webp)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
-      {[0, 1, 2].map((i) => (
-        <motion.span key={i} className="absolute rounded-full"
-          style={{ left: `${22 + i * 24}%`, top: '42%', width: 26 - i * 4, height: 18 - i * 3, background: 'radial-gradient(circle at 35% 30%, rgba(255,255,255,.7), rgba(40,30,10,.85) 45%, rgba(10,8,4,.95))', boxShadow: '0 4px 8px rgba(0,0,0,.5)' }}
-          animate={{ scale: [0, 1, 1, 0], opacity: [0, 1, 1, 0], x: [0, 0, 30, 60] }}
-          transition={{ duration: 4, repeat: Infinity, delay: i * 0.25, times: [0, .2, .65, 1] }} />
-      ))}
-    </div>
-  );
-}
 
 function Timeline() {
   const steps = [['Day 1', 'Grind & repair'], ['Day 1', 'Primer & base'], ['Day 2', 'Flake or metallic'], ['Day 2', 'Topcoat'], ['After', 'Cure, then drive on']];
@@ -118,20 +109,7 @@ export function Compare() {
   return (
     <section aria-label="Comparison" className="section">
       <div className="wrap">
-        <p className="eyebrow">Before you compare quotes</p>
-        <h2 className="h2 mt-4 max-w-[16ch]">Not all floor coatings <span className="serif" style={{ color: 'var(--accent2)' }}>are the same thing.</span></h2>
-        <div className="mt-10 overflow-hidden rounded-[var(--radius)] border" style={{ borderColor: 'var(--line)' }}>
-          <div className="grid grid-cols-[1.1fr_1fr_1fr_1fr] text-[12px] md:text-[15px]">
-            <div className="p-3 md:p-5" />
-            {c.cols.map((h, i) => (
-              <div key={h} className="p-3 font-semibold md:p-5" style={i === 0 ? { background: 'color-mix(in srgb, var(--accent) 16%, transparent)', color: 'var(--ink)' } : { color: 'var(--muted)' }}>{h}</div>
-            ))}
-            {c.rows.map((r) => r.map((cell, j) => (
-              <div key={r[0] + j} className="border-t p-3 md:p-5" style={{ borderColor: 'var(--line)', ...(j === 1 ? { background: 'color-mix(in srgb, var(--accent) 9%, transparent)', color: 'var(--ink)', fontWeight: 500 } : { color: j === 0 ? 'var(--ink)' : 'var(--muted)' }) }}>{cell}</div>
-            )))}
-          </div>
-        </div>
-        <p className="mt-3 text-[12px]" style={{ color: 'var(--muted)' }}>{c.note}</p>
+        <Comparison03 eyebrow="Before you compare quotes" heading={<span className="h2 block max-w-[16ch] not-italic">Not all floor coatings <span className="serif" style={{ color: 'var(--accent2)' }}>are the same thing.</span></span>} cols={c.cols} short={['Resin system', 'Floor paint', 'DIY kit']} rows={c.rows} note={c.note} cta={{ label: 'See your price', href: '#price' }} />
       </div>
     </section>
   );

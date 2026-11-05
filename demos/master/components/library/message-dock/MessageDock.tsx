@@ -41,6 +41,9 @@ export interface MessageDockProps {
   // UI customization
   placeholder?: (characterName: string) => string;
   theme?: "light" | "dark" | "auto";
+  /** Re-skin: collapsed pill colour + border (e.g. preset surface). Defaults to the original theme colours. */
+  surface?: string;
+  border?: string;
   
   // Advanced settings
   autoFocus?: boolean;
@@ -107,6 +110,8 @@ export function MessageDock({
   animationDuration = 1,
   placeholder = (name: string) => `Message ${name}...`,
   theme = "light",
+  surface,
+  border,
   autoFocus = true,
   closeOnClickOutside = true,
   closeOnEscape = true,
@@ -231,11 +236,12 @@ export function MessageDock({
     >
       <motion.div
         className="rounded-full px-4 py-2 shadow-2xl border border-gray-200/50"
+        style={border ? { borderColor: border } : undefined}
         animate={{
           width: isExpanded ? expandedWidth : collapsedWidth,
           background: isExpanded && selectedCharacter
             ? `linear-gradient(to right, ${getGradientColors(selectedCharacter)})`
-            : theme === "dark" ? "#1f2937" : "#ffffff",
+            : surface ?? (theme === "dark" ? "#1f2937" : "#ffffff"),
         }}
         transition={enableAnimations ? { 
           type: "spring", 
@@ -289,6 +295,7 @@ export function MessageDock({
           )}
 
           {/* First separator */}
+          {showSparkleButton && (
           <motion.div
             className="w-px h-6 bg-gray-300 mr-2 -ml-2"
             animate={{
@@ -301,7 +308,7 @@ export function MessageDock({
               damping: 30,
               delay: isExpanded ? 0 : 0.3,
             }}
-          />
+          />)}
 
           {/* Character buttons */}
           {characters.slice(1, -1).map((character, index) => {
@@ -425,6 +432,7 @@ export function MessageDock({
           </AnimatePresence>
 
           {/* Second separator */}
+          {showMenuButton && (
           <motion.div
             className="w-px h-6 bg-gray-300 ml-2 -mr-2"
             animate={{
@@ -437,7 +445,7 @@ export function MessageDock({
               damping: 30,
               delay: isExpanded ? 0 : 0, // Remove delay when coming back
             }}
-          />
+          />)}
 
           {/* Menu button / Send button - transforms in place */}
           {showMenuButton && (

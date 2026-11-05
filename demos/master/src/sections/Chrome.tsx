@@ -68,32 +68,45 @@ export function Mark({ size = 26 }: { size?: number }) {
 
 // Mobile action bar (Message Dock): appears after the hero. Call / WhatsApp / Quote.
 export function Dock() {
-  const { site } = useSite();
+  const { site, preset } = useSite();
   const [show, setShow] = useState(false);
   useEffect(() => {
     const f = () => {
+      const mid = innerHeight * 0.5;
       const q = document.getElementById('price')?.getBoundingClientRect();
-      const inForm = q ? q.top < innerHeight * 0.5 && q.bottom > innerHeight * 0.5 : false;
-      setShow(scrollY > innerHeight * 0.8 && !inForm);
+      const inForm = q ? q.top < mid && q.bottom > mid : false;
+      // Hide once the footer (which has its own call/price buttons) comes into view.
+      const foot = document.querySelector('footer')?.getBoundingClientRect();
+      const atFoot = foot ? foot.top < innerHeight - 40 : false;
+      setShow(scrollY > innerHeight * 0.8 && !inForm && !atFoot);
     };
-    f(); addEventListener('scroll', f, { passive: true }); return () => removeEventListener('scroll', f);
+    f(); addEventListener('scroll', f, { passive: true }); addEventListener('resize', f);
+    return () => { removeEventListener('scroll', f); removeEventListener('resize', f); };
   }, []);
+  // The original renders characters.slice(1, -1): first/last slots belong to the sparkle/menu buttons (hidden here).
+  const grad = `${preset.surface}, ${preset.bg2}`;
+  const slot: Character = { emoji: '', name: '_', online: false };
   const chars: Character[] = [
-    { emoji: '📞', name: 'Call', online: true, backgroundColor: 'bg-emerald-300', gradientColors: '#6ee7b7, #d1fae5' },
-    { emoji: '💬', name: 'WhatsApp', online: true, backgroundColor: 'bg-green-300', gradientColors: '#86efac, #dcfce7' },
-    { emoji: '£', name: 'Quote', online: true, backgroundColor: 'bg-amber-200', gradientColors: '#fde68a, #fffbeb' },
+    slot,
+    { emoji: '📞', name: 'Call', online: true, backgroundColor: 'bg-[var(--accent2)]', gradientColors: grad },
+    { emoji: '💬', name: 'WhatsApp', online: true, backgroundColor: 'bg-[#4ADE80]', gradientColors: grad },
+    { emoji: '£', name: 'Quote', online: false, backgroundColor: 'bg-[var(--accent)] text-[var(--accent-ink)] font-display font-semibold', gradientColors: grad },
+    slot,
   ];
   return (
     <AnimatePresence>
       {show && (
         <motion.div initial={{ y: 90, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: 90, opacity: 0 }} transition={{ type: 'spring', stiffness: 260, damping: 28 }}
-          className="fixed inset-x-0 bottom-0 z-50 flex justify-center pb-[max(10px,env(safe-area-inset-bottom))] md:hidden" data-nopour>
+          className="pointer-events-none fixed inset-x-0 bottom-0 z-50 flex justify-center pb-[max(12px,env(safe-area-inset-bottom))] md:hidden" data-nopour>
           <MessageDock
+            className="pointer-events-auto !static !translate-x-0 [&>div]:!px-2.5 [&>div]:!py-1.5 [&>div]:backdrop-blur-xl [&>div]:!shadow-[0_10px_30px_rgba(0,0,0,.28)]"
             characters={chars}
             showSparkleButton={false}
             showMenuButton={false}
-            theme="dark"
-            expandedWidth={340}
+            theme={preset.dark ? 'dark' : 'light'}
+            surface={preset.dark ? preset.surface : '#FFFFFF'}
+            border={preset.line}
+            expandedWidth={Math.min(340, (typeof innerWidth !== 'undefined' ? innerWidth : 390) - 32)}
             placeholder={(n) => (n === 'WhatsApp' ? `Message ${site.shortName} on WhatsApp…` : n === 'Quote' ? 'Size of your floor? (e.g. double garage)' : 'Type your number, we call back…')}
             onCharacterSelect={(c) => {
               if (c.name === 'Call') location.href = `tel:${site.phone.replace(/\s/g, '')}`;

@@ -1,4 +1,4 @@
-// Ported verbatim from Magic UI (MIT) https://github.com/magicuidesign/magicui/blob/main/apps/www/registry/magicui/dotted-map.tsx. Only imports adapted.
+// Ported from Magic UI (MIT) https://github.com/magicuidesign/magicui/blob/main/apps/www/registry/magicui/dotted-map.tsx. Imports adapted; region/countries/radius passed through to svg-dotted-map so a map can zoom to a service area.
 import * as React from "react"
 import { createMap } from "svg-dotted-map"
 
@@ -29,6 +29,10 @@ export interface DottedMapProps<
   dotRadius?: number
   stagger?: boolean
   pulse?: boolean
+  /** svg-dotted-map options: crop to a lat/lng box and/or ISO3 countries (e.g. ["GBR"]). */
+  region?: { lat: { min: number; max: number }; lng: { min: number; max: number } }
+  countries?: string[]
+  radius?: number
 
   renderMarkerOverlay?: (args: {
     marker: MapMarker<M>
@@ -50,6 +54,9 @@ export function DottedMap<M extends Marker = Marker>({
   stagger = true,
   pulse = false,
   renderMarkerOverlay,
+  region,
+  countries,
+  radius,
   className,
   style,
   ...svgProps
@@ -58,6 +65,9 @@ export function DottedMap<M extends Marker = Marker>({
     width,
     height,
     mapSamples,
+    ...(region ? { region } : {}),
+    ...(countries ? { countries } : {}),
+    ...(radius != null ? { radius } : {}),
   })
   const processedMarkers = addMarkers(markers)
 

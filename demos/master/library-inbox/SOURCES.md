@@ -33,3 +33,41 @@ Notes:
 - radar-chart: brief named no author; this is LegionWebDev (recharts; 21st scrape metadata also lists it under @svg-ui). Other radar-charts in catalog: airbnb, intentui.
 - sticky-scroll-cards: catalog slug is sticky-scroll-cards-section by minhxthanh (21st @thanh).
 - Catalog repo pinned at commit 3de21651777d1c23cb2deed3a0ffc978c4270259.
+
+### Wave 2: text effects + footers (catalogue commit 3de2165…)
+slug | 21st URL | raw source | licence | confidence
+---|---|---|---|---
+text-roll | https://21st.dev/@motion-primitives/components/text-roll | components/ibelick/text-roll.tsx | mit | high
+blur-reveal | https://21st.dev/@badtzx0/components/blur-reveal | components/badtzx0/blur-reveal.tsx | not stated | high (brief named @tom_ui; not in catalogue)
+fluid-text-morph | https://21st.dev/@dhiluxui/components/fluid-text-morph | components/dhileepkumargm/fluid-text-morph.tsx | not stated | high
+looping-words | https://21st.dev/@osmosupply/components/looping-words-with-gsap | components/osmosupply/looping-words-with-gsap.tsx | not stated (Osmo resource) | high for TSX; CSS not in catalogue, rebuilt
+magic-text | https://21st.dev/@hextaui/components/magic-text | components/preetsuthar17/magic-text.tsx | not stated | high
+reading-text-reveal | https://21st.dev/@waleedkibhen/components/reading-text-reveal | components/waleedkibhen/reading-text-reveal.tsx | not stated | high
+hover-footer | https://21st.dev/@mdafsarx/components/hover-footer | components/mdafsarx/hover-footer.tsx | not stated | high for effect; layout rebuilt from demo
+motion-footer | https://21st.dev/@easemize/components/motion-footer | components/easemize/motion-footer.tsx | not stated | high (brief named @jahed; not in catalogue)
+large-name-footer | (see above) | (see above) | mit | high; icons file supplied locally
+motion-scroll-word-reveal | https://21st.dev/@motiondotdev/components/motion-scroll-word-reveal | none | - | REBUILT, not in catalogue
+halftone-wordmark-footer | https://21st.dev/@kedhareswer/components/halftone-wordmark-footer | none | - | REBUILT, not in catalogue
+
+## Wave 2: charts + comparison
+slug | 21st URL | source used | licence | confidence
+---|---|---|---|---
+partition-bar | https://21st.dev/@8starlabs/components/partition-bar | github.com/8starlabs/ui registry/8starlabs-ui/blocks/partition-bar.tsx | MIT | high - author's own registry
+comparison-03 | https://21st.dev/@mohammadshehadeh/components/comparison-03 | github.com/MohammadShehadeh/hirael registry/hirael/bases/radix/blocks/comparison-03/comparison-03.tsx | MIT | high - author's own registry
+circularium-ring | https://21st.dev/@daiwiikharihar/components/circularium-ring | github.com/daiv09/21st-dev-component-studio components/draft/ui/circularium-ring/circularium-ring.tsx | MIT | high - author's component studio repo
+dither-growth-chart (+ .useCanvasSetup.ts) | https://21st.dev/@su2491251/components/dither-growth-chart | github.com/Subhan-code/Monocharts src/components/dither-charts/DitherGrowthChart.tsx + src/hooks/useCanvasSetup.ts | MIT | high - author's repo (Subhan-code = su2491251)
+funnel-chart-big.reaviz | https://21st.dev/@reaviz/components/funnel-chart-big | catalogue components/reaviz/funnel-chart-big.tsx | not stated | high - but wraps the reaviz library, so the funnel was redrawn in SVG
+animated-sparkline.larsen66 | https://21st.dev/@larsen66/components/animated-sparkline | catalogue components/larsen66/animated-sparkline/sparkline.tsx | not stated | high - substitute: brief's @kuratlielia sparkline not found
+milestone-chart | https://21st.dev/@f0rextasy/components/milestone-chart | none found | - | rebuilt
+heat-strip | https://21st.dev/@eugeneshilow/components/heat-strip | none found (GitHub code search rate-limited after 2 tries) | - | rebuilt
+
+### Wave 2 · heroes & backgrounds
+slug | 21st URL | raw source used | licence | confidence
+---|---|---|---|---
+fluid-particles-background | https://21st.dev/@bundui/components/fluid-particles-background | https://raw.githubusercontent.com/Deepender25/21st.dev-Component-Skill-/3de21651777d1c23cb2deed3a0ffc978c4270259/components/bundui/fluid-particles-background.tsx | not stated | high - catalogue copy
+interactive-grid | https://21st.dev/@balick/components/interactive-grid | https://raw.githubusercontent.com/Deepender25/21st.dev-Component-Skill-/3de21651777d1c23cb2deed3a0ffc978c4270259/components/designali-in/interactive-grid.tsx | not stated | med - catalogue lists it under designali-in, brief says @balick
+aether-flow-hero | https://21st.dev/@dhileepkumargm/components/aether-flow-hero | https://raw.githubusercontent.com/Deepender25/21st.dev-Component-Skill-/3de21651777d1c23cb2deed3a0ffc978c4270259/components/dhileepkumargm/aether-flow-hero.tsx | not stated | high - catalogue copy
+hero-scrub | https://21st.dev/@jean.duthil13/components/hero-scrub | https://raw.githubusercontent.com/Deepender25/21st.dev-Component-Skill-/3de21651777d1c23cb2deed3a0ffc978c4270259/components/jean.duthil13/hero-scrub.tsx | not stated | high - catalogue copy
+blueprint-gradient-mesh | https://21st.dev/@larsen66/components/blueprint-gradient-mesh | https://raw.githubusercontent.com/Deepender25/21st.dev-Component-Skill-/3de21651777d1c23cb2deed3a0ffc978c4270259/components/larsen66/blueprint-gradient-mesh.tsx | not stated | high - catalogue copy
+liquid-chrome.reactbits | https://21st.dev/@ham7a311/components/liquid-chrome | https://raw.githubusercontent.com/DavidHDev/react-bits/main/src/ts-tailwind/Backgrounds/LiquidChrome/LiquidChrome.tsx | MIT + Commons Clause | med - 21st entry is the React Bits LiquidChrome; current React Bits version (raw WebGL2), not necessarily the 21st snapshot
+liquid-metal-shader, honey-ember-background, luminous-topography, perspective-tunnel-hero | (brief URLs) | none - not in the catalogue copy; GitHub code search rate-limited | - | rebuilt in spirit, marked in registry notes
