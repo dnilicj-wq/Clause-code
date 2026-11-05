@@ -82,7 +82,7 @@ export function PhotoBreak() {
 
 export function Layers() {
   const { trade } = useSite();
-  const layers: Layer[] = trade.layers.map((l) => ({ ...l, bg: layerBg(l) }));
+  const layers: Layer[] = trade.layers.map((l) => ({ ...l, bg: layerBg(l), edge: l.edge || l.colour }));
   const { ref, progress, active } = useLayerScroll(layers.length);
   const c = trade.copy.layers;
   return (
@@ -93,11 +93,11 @@ export function Layers() {
         <p className="lede mt-5">{c.lede}</p>
       </div>
       <div ref={ref} className="relative mx-auto grid max-w-[1240px] gap-0 px-5 md:grid-cols-2 md:gap-14 md:px-16">
-        <div className="sticky top-0 z-10 flex h-[44vh] items-center justify-center md:h-screen" style={{ background: 'linear-gradient(var(--bg) 82%, transparent)' }}>
+        <div className="sticky top-[68px] z-10 flex h-[42vh] items-center justify-center md:top-0 md:h-screen" style={{ background: 'linear-gradient(var(--bg) 86%, transparent)' }}>
           <LayerStack layers={layers} progress={progress} active={active} />
-          <span className="ex-tag bottom-3 right-0 md:bottom-16">{c.tag}</span>
+          <span className="ex-tag right-0 top-1 md:top-auto md:bottom-16">{c.tag}</span>
         </div>
-        <StackingCards totalCards={layers.length} scaleMultiplier={0.035} className="pb-[5vh] md:pb-[12vh] [--card-top:46vh] md:[--card-top:18vh]">
+        <StackingCards totalCards={layers.length} scaleMultiplier={0.035} className="pb-[5vh] md:pb-[12vh] [--card-top:calc(42vh+76px)] md:[--card-top:18vh]">
           {layers.map((l, i) => (
             <StackingCardItem key={l.key} index={i} className="h-[27vh] md:h-[60vh]" topPosition={`calc(var(--card-top) + ${i * 12}px)`}>
               <article className="flex h-full max-h-[260px] flex-col justify-between overflow-hidden rounded-[var(--radius)] border p-6 md:max-h-[340px] md:p-8"

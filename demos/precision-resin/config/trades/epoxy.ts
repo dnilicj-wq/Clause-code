@@ -5,7 +5,7 @@
 const PHOTO_LOOKS = ['copper-metallic', 'graphite-flake', 'quartz-sand'];
 
 export type Finish = { key: string; name: string; type: string; base: string; metal: string; note: string; img?: string; photo?: boolean };
-export type Layer = { key: string; name: string; what: string; why: string; tex?: string; colour?: string };
+export type Layer = { key: string; name: string; what: string; why: string; tex?: string; colour?: string; edge?: string };
 export type GalleryExtra = { name: string; note: string; img: string; alt: string; by: string };
 
 // A finish's look: its example image if the pack has one, otherwise a swatch drawn from its colours.

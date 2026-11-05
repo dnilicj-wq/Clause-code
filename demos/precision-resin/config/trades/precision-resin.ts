@@ -22,12 +22,12 @@ const heroFinishes: Finish[] = [
   { key: 'flake', name: 'Blue flake', type: 'flake', base: '#123A86', metal: '#C9D6EA', note: '' },
 ];
 
-const layers: Layer[] = [
-  { key: 'grind', tex: '/demo/tex-slab-v1.webp', name: 'Diamond grind', what: 'Old coatings, laitance and dust off', why: 'Resin bonds to open, clean concrete. This is the step cheap jobs skip.' },
-  { key: 'repair', colour: '#6B6F75', name: 'Repair', what: 'Cracks and joints filled, ground flush', why: 'Defects in the slab show straight through a gloss coat.' },
-  { key: 'primer', tex: '/demo/tex-primer-v1.webp', name: 'Epoxy primer', what: 'Soaks in and seals the slab', why: 'Stops pinholes and gives the coating something to grip.' },
-  { key: 'body', colour: '#1846A0', name: 'Epoxy coating', what: 'The colour and the build', why: 'This is what takes the traffic, the pallets and the spills.' },
-  { key: 'finish', colour: '#F2C200', name: 'Lines or anti-slip', what: 'Walkways, hatching, grip where needed', why: 'Safety markings and texture go on last, where people walk.' },
+const layers: (Layer & { edge: string })[] = [
+  { key: 'grind', tex: '/demo/tex-grind-pr-v1.webp', edge: '#6E7175', name: 'Diamond grind', what: 'Old coatings, laitance and dust off', why: 'Resin bonds to open, clean concrete. This is the step cheap jobs skip.' },
+  { key: 'repair', tex: '/demo/tex-repair-pr-v1.webp', edge: '#55595E', name: 'Repair', what: 'Cracks and joints filled, ground flush', why: 'Defects in the slab show straight through a gloss coat.' },
+  { key: 'primer', tex: '/demo/tex-primer-pr-v1.webp', edge: '#6B4714', name: 'Epoxy primer', what: 'Soaks in and seals the slab', why: 'Stops pinholes and gives the coating something to grip.' },
+  { key: 'body', tex: '/demo/tex-body-pr-v1.webp', edge: '#123A86', name: 'Epoxy coating', what: 'The colour and the build', why: 'This is what takes the traffic, the pallets and the spills.' },
+  { key: 'finish', tex: '/demo/tex-top-pr-v1.webp', edge: '#1A4596', name: 'Lines or anti-slip', what: 'Walkways, hatching, grip where needed', why: 'Safety markings and texture go on last, where people walk.' },
 ];
 
 const extra: GalleryExtra[] = [

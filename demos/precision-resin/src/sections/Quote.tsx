@@ -83,9 +83,9 @@ function Configurator() {
         <div className="pointer-events-none absolute inset-0 opacity-30" style={{ backgroundImage: finishBg(finish), backgroundSize: 'cover', maskImage: 'linear-gradient(180deg, transparent, #000 70%)' }} />
         <AnimatePresence mode="wait">
           {stage === 'price' && (
-            <motion.div key="p" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="relative">
+            <motion.div key="p" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="relative" style={{ containerType: 'inline-size' }}>
               <div className="flex items-center gap-2"><span className="label-chip rounded-full px-2.5 py-1.5" style={{ background: 'rgba(255,255,255,.08)' }}>{site.sample ? 'Typical range' : P.label}</span></div>
-              <div className="mt-4 font-display text-[clamp(30px,9.5vw,44px)] font-semibold leading-[1.05] tracking-tight md:text-[56px]">
+              <div className="mt-4 whitespace-nowrap font-display font-semibold leading-[1.05] tracking-tight tabular-nums" style={{ fontSize: priceSize(est.low, est.high) }}>
                 <span className="whitespace-nowrap">£<NumberTicker value={est.low} startValue={Math.round(est.low * 0.8)} className="!text-[var(--ink)] tracking-tight" /></span>
                 <span style={{ color: 'var(--muted)' }}> – </span>
                 <span className="whitespace-nowrap">£<NumberTicker value={est.high} startValue={Math.round(est.high * 0.8)} className="!text-[var(--ink)] tracking-tight" /></span>
@@ -112,6 +112,12 @@ function Configurator() {
       </div>
     </div>
   );
+}
+
+// One line always: size the price from its final character count against the panel width (container query units).
+function priceSize(lo: number, hi: number) {
+  const chars = gbp(lo).length + gbp(hi).length + 2.2;
+  return `min(56px, ${(100 / (chars * 0.64)).toFixed(2)}cqw)`;
 }
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
