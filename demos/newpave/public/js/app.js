@@ -52,10 +52,22 @@ let hero = null;
 let blendIdx = 0;
 (function heroInit() {
   const dockEl = $('#heroDock'), wrapB = $('#heroBlends');
-  BLENDS.forEach((b, i) => {
-    const btn = document.createElement('button'); btn.type = 'button'; btn.setAttribute('aria-pressed', i === 0); btn.setAttribute('aria-label', b.name);
-    btn.style.setProperty('--sw', `radial-gradient(circle at 35% 30%, ${b.c[2]}, ${b.c[0]} 55%, ${b.c[1]})`);
-    btn.addEventListener('click', () => { blendIdx = i; $$('button', wrapB).forEach((x, k) => x.setAttribute('aria-pressed', k === i)); hero && hero.setBlend(b.c); cfgSet({ blend: b.id }, false); track('hero_colour', { blend: b.id }); });
+  // surfaces, the same looks the designer opens with: textures are made the first time each is picked
+  const HS = [
+    { id: 'resin', name: 'Resin', sw: `radial-gradient(circle at 35% 30%, ${BLENDS[0].c[2]}, ${BLENDS[0].c[0]} 55%, ${BLENDS[0].c[1]})`, m: () => ({ kind: 0 }) },
+    { id: 'block', name: 'Block', sw: 'linear-gradient(135deg,#9a5a42 0 33%,#7a4232 33% 66%,#b06b4e 66%)', m: () => ({ kind: 1, c: T.blocks('herringbone', BLOCK_COLOURS[0].c, 512, 5), tile: 1.2, rot: Math.PI / 4, gloss: .12 }) },
+    { id: 'tarmac', name: 'Tarmac', sw: 'radial-gradient(circle at 35% 30%,#3a3a3c,#19191b)', m: () => ({ kind: 2, c: T.tarmac(false, 512, 9), tile: .9, gloss: .2 }) },
+    { id: 'porcelain', name: 'Porcelain', sw: 'linear-gradient(135deg,#c9c8c4,#a3a29e)', m: () => ({ kind: 3, c: T.porcelain(PORCELAIN[0].c, 512, 11), tile: 1.8, gloss: .5 }) }
+  ];
+  const hsCache = {};
+  HS.forEach((s, i) => {
+    const btn = document.createElement('button'); btn.type = 'button'; btn.setAttribute('aria-pressed', i === 0);
+    btn.innerHTML = `<i aria-hidden="true"></i>${s.name}`; btn.firstChild.style.setProperty('--sw', s.sw);
+    btn.addEventListener('click', () => {
+      $$('button', wrapB).forEach((x, k) => x.setAttribute('aria-pressed', k === i));
+      hero && hero.setSurface(hsCache[s.id] || (hsCache[s.id] = s.m()));
+      cfgSet({ surface: s.id }, false); track('hero_surface', { surface: s.id });
+    });
     wrapB.append(btn);
   });
   if (!hasGL || /poster/.test(location.search) && !/posterRender/.test(location.search)) return;
@@ -67,7 +79,7 @@ let blendIdx = 0;
       blend: BLENDS[0].c, poster: posterMode, posterDpr: 2,
       onFirst() { $('#hintTxt').textContent = coarse ? 'Keep swiping' : 'Keep going'; track('hero_interact'); },
       onCoverage(c) { $('#heroPct').textContent = Math.round(c * 100) + '%'; if (c > .12 && !shownFinish) { shownFinish = true; $('#heroFinish').classList.add('show'); } },
-      onDone() { $('#doneNote').classList.add('show'); $('#heroFinish').classList.remove('show'); $('#hintTxt').textContent = 'Done. Pick a colour'; track('hero_done'); setTimeout(() => $('#doneNote').classList.remove('show'), 4200); }
+      onDone() { $('#doneNote').classList.add('show'); $('#heroFinish').classList.remove('show'); $('#hintTxt').textContent = 'Done. Try another surface'; track('hero_done'); setTimeout(() => $('#doneNote').classList.remove('show'), 4200); }
     });
     if (!hero) return;
     if (posterMode) { hero.posterFrame(); setTimeout(() => (window.__posterReady = true), 600); return; }

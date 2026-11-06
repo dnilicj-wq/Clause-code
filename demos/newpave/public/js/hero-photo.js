@@ -16,6 +16,7 @@ uniform sampler2D uPhoto;uniform sampler2D uDrive;uniform sampler2D uMask;unifor
 uniform vec4 uCover;uniform vec2 uPS;uniform mat3 uH;uniform vec4 uDM;uniform float uVb;uniform vec3 uSun;
 uniform vec2 uTexel;uniform vec3 uC0;uniform vec3 uC1;uniform vec3 uC2;uniform float uDone;
 uniform vec4 uLit;uniform vec3 uTint;
+uniform sampler2D uSurf;uniform vec4 uMat; // non-resin surface: tile (m), rotation, gloss, kind (0 resin, 1 block, 2 tarmac, 3 porcelain)
 float h21(vec2 p){p=fract(p*vec2(123.34,456.21));p+=dot(p,p+45.32);return fract(p.x*p.y);}
 vec2 h22(vec2 p){return fract(sin(vec2(dot(p,vec2(127.1,311.7)),dot(p,vec2(269.5,183.3))))*43758.5453);}
 float vn(vec2 p){vec2 i=floor(p),f=fract(p);vec2 u=f*f*(3.-2.*f);
@@ -26,6 +27,7 @@ vec4 vor(vec2 p,out float idh){vec2 i=floor(p),f=fract(p);float d1=8.,d2=8.;vec2
  for(int y=-1;y<=1;y++)for(int x=-1;x<=1;x++){vec2 g=vec2(float(x),float(y));vec2 o=h22(i+g);o=.5+.42*sin(6.2831*o);vec2 r=g+o-f;float d=dot(r,r);
   if(d<d1){d2=d1;d1=d;off=r;id=i+g;}else if(d<d2){d2=d;}}
  idh=h21(id*1.37+.11);d1=sqrt(d1);d2=sqrt(d2);return vec4(d1,d2-d1,off);}
+vec2 rot2(vec2 g,float a){float c=cos(a),s=sin(a);return vec2(c*g.x-s*g.y,s*g.x+c*g.y);}
 vec2 puvAt(vec2 fc){return uCover.xy+vec2(fc.x/uRes.x,1.-fc.y/uRes.y)*uCover.zw;}
 vec2 plane(vec2 puv){vec3 q=uH*vec3(puv*uPS,1.);return q.xy/q.z;}
 void main(){
@@ -78,7 +80,9 @@ void main(){
   }
   // ----- new surface: resin-bound aggregate -----
   vec3 newc=vec3(0.);vec3 N=vec3(0,1,0);float glint=0.;float gap=0.;
-  if(m>.001){
+  if(m>.001&&uMat.w>.5){
+   newc=texture2D(uSurf,rot2(g,uMat.y)/uMat.x).rgb;
+  }else if(m>.001){
    float s=.0095;float idh;vec4 st=vor(g/s,idh);
    float lod=smoothstep(.35,1.1,eff/s);
    vec3 sc=idh<.42?uC0:(idh<.8?uC1:uC2);
@@ -115,10 +119,10 @@ void main(){
   vec2 rv=vec2(puv.x+N.x*(1.-wet)*.02,clamp(2.*uVb-puv.y+N.z*(1.-wet)*.03,.002,.998));
   vec3 refl=texture2D(uPhoto,rv,mix(3.,.6,wet)).rgb;
   float fres=.5;
-  float rk=m*((.02+.42*wet*wet)*(1.-gap*.9))+(1.-m)*(1.-oldRough)*.2;
+  float rk=m*((.02+.42*wet*wet)*(1.-gap*.9))*(uMat.w>.5?uMat.z+.15:1.)+(1.-m)*(1.-oldRough)*.2;
   lit=mix(lit,refl*ao,clamp(rk*(.6+fres),0.,.85));
   float tw=.55+.45*sin(uTime*2.6+X*61.+z*47.);
-  lit+=glint*m*sunC*.5*tw*ao*(1.-uLit.x*.7);
+  lit+=glint*m*sunC*.5*tw*ao*(1.-uLit.x*.7)*step(uMat.w,.5);
   // pour lip catches the light
   vec2 mu=vec2(uv.x,1.-uv.y);
   float mR=texture2D(uMask,mu+vec2(uTexel.x*2.,0)).r,mL=texture2D(uMask,mu-vec2(uTexel.x*2.,0)).r;
@@ -172,7 +176,7 @@ export function initHero(opts = {}) {
   const buf = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, buf);
   gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
   const loc = gl.getAttribLocation(prog, 'p'); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
-  const U = {}; ['uRes', 'uTime', 'uLight', 'uPhoto', 'uDrive', 'uMask', 'uWet', 'uCover', 'uPS', 'uH', 'uDM', 'uVb', 'uSun', 'uTexel', 'uC0', 'uC1', 'uC2', 'uDone', 'uLit', 'uTint'].forEach(n => U[n] = gl.getUniformLocation(prog, n));
+  const U = {}; ['uRes', 'uTime', 'uLight', 'uPhoto', 'uDrive', 'uMask', 'uWet', 'uCover', 'uPS', 'uH', 'uDM', 'uVb', 'uSun', 'uTexel', 'uC0', 'uC1', 'uC2', 'uDone', 'uLit', 'uTint', 'uSurf', 'uMat'].forEach(n => U[n] = gl.getUniformLocation(prog, n));
 
   const mkTex = (mip = false) => { const t = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, t); [[gl.TEXTURE_MIN_FILTER, mip ? gl.LINEAR_MIPMAP_LINEAR : gl.LINEAR], [gl.TEXTURE_MAG_FILTER, gl.LINEAR], [gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE], [gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE]].forEach(([k, v]) => gl.texParameteri(gl.TEXTURE_2D, k, v)); return t; };
   // static textures: photo (unit 2) and drive mask (unit 3)
@@ -220,6 +224,9 @@ export function initHero(opts = {}) {
   }
 
   let blend = (opts.blend || ['#b9b8b2', '#8d8c88', '#e3e1da']).map(hexToRgb);
+  // surface: resin is drawn stone by stone in the shader; block, tarmac and porcelain use the designer's textures
+  let mat = [1, 0, 0, 0]; const tSurf = gl.createTexture();
+  const aniso = gl.getExtension('EXT_texture_filter_anisotropic') || gl.getExtension('WEBKIT_EXT_texture_filter_anisotropic');
   let done = 0, doneT = -1, finished = false, coverage = 0;
   const light = { x: .62, y: .3, tx: .62, ty: .3 };
   let last = null, ghost = null, lastPaint = 0;
@@ -318,6 +325,7 @@ export function initHero(opts = {}) {
     gl.uniform4fv(U.uDM, DM.dm); gl.uniform1f(U.uVb, scene.vb / PH); gl.uniform3fv(U.uSun, scene.sun);
     gl.uniform3fv(U.uC0, blend[0]); gl.uniform3fv(U.uC1, blend[1]); gl.uniform3fv(U.uC2, blend[2]);
     gl.uniform1f(U.uDone, done);
+    gl.uniform1i(U.uSurf, 4); gl.uniform4fv(U.uMat, mat);
     const L = scene.lit; gl.uniform4f(U.uLit, L ? 1 : 0, L ? L.exp : 1, 0, 0); gl.uniform3fv(U.uTint, L ? L.tint : [1, 1, 1]);
     gl.drawArrays(gl.TRIANGLES, 0, 3);
     // keep animating while something is moving; otherwise idle at ~12fps for glints
@@ -333,6 +341,18 @@ export function initHero(opts = {}) {
   return {
     demo, finish,
     setBlend(c) { blend = c.map(hexToRgb); dirty = true; kick(); },
+    // m: { kind, c: canvas (power of two), tile, rot, gloss }; kind 0 = resin (uses the blend)
+    setSurface(m) {
+      if (m.kind > 0) {
+        gl.activeTexture(gl.TEXTURE4); gl.bindTexture(gl.TEXTURE_2D, tSurf);
+        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, m.c);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.REPEAT);
+        gl.generateMipmap(gl.TEXTURE_2D); if (aniso) gl.texParameterf(gl.TEXTURE_2D, aniso.TEXTURE_MAX_ANISOTROPY_EXT, 8);
+        gl.activeTexture(gl.TEXTURE0);
+      }
+      mat = [m.tile || 1, m.rot || 0, m.gloss || 0, m.kind]; dirty = true; kick();
+    },
     // poster: paint the demo stroke instantly and render one frame
     posterFrame() { const p = demoPath(); let prev = p(0); for (let i = 1; i <= 80; i++) { const q = p(i / 80); stroke(prev[0], prev[1], q[0], q[1], .92); prev = q; } wctx.fillStyle = 'rgba(0,0,0,.55)'; wctx.fillRect(0, 0, wet.width, wet.height); dirty = true; },
     get finished() { return finished; }
