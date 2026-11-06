@@ -1,4 +1,4 @@
-// Photo scenes for the hero and the driveway designer. Photos: Pexels (free licence), example images only.
+// Photo scenes for the hero and the driveway designer. Front drive: photo supplied by Dan (hero + designer); back garden: Pexels (free licence).
 // Coordinates are pixels in the original photo (size). H maps photo pixels to ground-plane metres,
 // solved from four points of a known rectangle on the ground (see scripts/prep-scenes.mjs).
 export function homography(src, dst) {
@@ -45,18 +45,7 @@ export const SCENES = {
     // lighting comes from the photo: the old drive's own brightness, blurred past the block pattern,
     // is baked into the mask (B) and multiplies the new surface. The dark edge courses are left out of it.
     lit: { exp: 1.02, tint: [.97, .985, 1.02], bias: .6, strips: [[[0, 837], [0, 612], [45, 500], [108, 292], [125, 295], [100, 500], [59, 837]], [[1338, 478], [1385, 480], [1382, 837], [1290, 837]]] },
-    focus: [.56, .6], sun: [-.35, .8, .5]
-  },
-  hero: {
-    label: 'Front drive', stock: 'pexels-8134845-front.jpg', src: '/img/scene-front-b.webp', mask: '/img/scene-front-mask-b.png', size: [2400, 1602],
-    // the inlaid square on the right of the drive is 1.6 m a side (8 blocks)
-    H: homography([[1563, 1213], [1767, 1093], [2142, 1148], [2100, 1350]], [[0, 0], [1.6, 0], [1.6, 1.6], [0, 1.6]]),
-    poly: [[-80, 1038], [90, 1027], [330, 987], [622, 963], [1040, 933], [1064, 915], [1298, 915], [1312, 927], [1546, 953], [1592, 963], [2000, 1011], [2480, 1074], [2480, 1700], [-80, 1700]],
-    vb: 935, // where the drive meets the house (photo y), for reflections
-    edges: [[0, 'kerb'], [1, 'kerb'], [2, 'kerb'], [3, 'house'], [4, 'house'], [5, 'house'], [6, 'house'], [7, 'house'], [8, 'kerb'], [9, 'kerb'], [10, 'kerb']],
-    // car cut-out: placed by its left edge, tyre line and width (photo px); foot = ground footprint corners as fractions of the cut-out
-    car: { src: '/img/car-eclass-a.webp', x: 1400, bottom: 1172, w: 730, foot: [[.05, .9], [.42, .985], [.95, .79], [.74, .72]] },
-    focus: [.6, .62], sun: [-.35, .8, .5]
+    focus: [.56, .6], heroFocusM: .47, sun: [-.35, .8, .5]
   },
   garden: {
     label: 'Back garden', stock: 'pexels-7546775-garden.jpg', src: '/img/scene-garden-b.webp', mask: '/img/scene-garden-mask-b.png', size: [2400, 1631],

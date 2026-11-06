@@ -67,7 +67,5 @@ Free photos from Pexels (Pexels licence: free to use, no attribution required). 
 
 | File | Used as | Source |
 |---|---|---|
-| `stock/dan-drive.jpg` | Designer "Front drive": the block drive is redrawn in the browser, the car and everything else stay as photographed | Supplied by Dan (Clientgateway), [CONFIRM: permission to use] |
-| `stock/pexels-8134845-front.jpg` | Hero background (the drive is redrawn in the browser) | https://www.pexels.com/photo/8134845/ |
+| `stock/dan-drive.jpg` | Hero and designer "Front drive": the block drive is redrawn in the browser, the car and everything else stay as photographed | Supplied by Dan (Clientgateway), [CONFIRM: permission to use] |
 | `stock/pexels-7546775-garden.jpg` | Designer "Back garden" (the patio is drawn onto the lawn) | https://www.pexels.com/photo/7546775/ |
-| `stock/pexels-15535501-eclass.jpg` | Mercedes E-Class on the designer drive, cut out with Apple Vision; the foreign number plate is blanked | https://www.pexels.com/photo/15535501/ |

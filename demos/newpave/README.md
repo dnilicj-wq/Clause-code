@@ -8,7 +8,7 @@ Plain static site: `public/` is the whole website. No build step except the 3D d
 ## The three things to show Charles first
 
 1. **Hero swipe.** A sharp, real house photo. Swipe or drag across the cracked old drive and fresh resin pours over it, in perspective. Tap the colour dots to change the blend.
-2. **Design your driveway.** Choose front drive or back garden, then resin, block, tarmac or porcelain, a colour, a size and any extras. The new surface is laid onto a real house photo in true perspective (the way Tobermore, Marshalls and Nicolock visualisers work), with a Mercedes E-Class on the drive that can be hidden. An example price range shows before any contact details are asked for.
+2. **Design your driveway.** Choose front drive or back garden, then resin, block, tarmac or porcelain, a colour, a size and any extras. The new surface is laid onto a real house photo in true perspective (the way Tobermore, Marshalls and Nicolock visualisers work), keeping the parked car and the photo's own light. An example price range shows before any contact details are asked for.
 3. **Booking flow.** "Book my free survey with this design" carries the design into a five-step booking (postcode check, optional photo, day and time, name and mobile). The last screen gives the customer a big WhatsApp button with everything pre-filled for Charles.
 
 ## Before go-live: CONFIRM list
@@ -34,7 +34,7 @@ Every placeholder on the site is a dashed orange `[CONFIRM: ...]` tag. Hide them
 | Google review link | Owner section, `SITE.googleReview` in `config.js` | Paste his Google Business Profile "ask for reviews" link. |
 | Testimonials: Sarah Thompson, James Carter, Rebecca Jones | `config.js` `TESTIMONIALS`, hidden (`showTestimonials: false`) | On his current site with no source. Get the exact wording and permission, then set the flag to `true`. |
 | Real-job photos are his own work | `IMAGES.md` | Two photos (compass rose, circle patio) looked like supplier shots and are not used. His Adobe Stock files are listed as stock in IMAGES.md and not used. |
-| Example photos in the hero and designer | `stock/`, `IMAGES.md` | Designer "Front drive" uses the block-paved drive photo Dan supplied (`stock/dan-drive.jpg`). Confirm we have permission to show it (whose house, and is the number plate fine blanked as it is). Hero and "Back garden" are free Pexels photos. All labelled "Example photo". |
+| Example photos in the hero and designer | `stock/`, `IMAGES.md` | Designer "Front drive" uses the block-paved drive photo Dan supplied (`stock/dan-drive.jpg`). Confirm we have permission to show it (whose house, and is the number plate fine blanked as it is). The hero uses the same photo (resin pours over the existing block paving). "Back garden" is a free Pexels photo. All labelled "Example photo". |
 | Survey days | booking step 4 | Offers the next 7 days including weekends. Trim if he doesn't survey on Sundays. |
 | Form handler | `config.js` `SITE.formEndpoint` | Empty = demo mode: the lead goes to Charles by WhatsApp from the customer's phone. Paste the form handler URL (same pattern as KT) and leads are also POSTed as JSON, photo included. |
 

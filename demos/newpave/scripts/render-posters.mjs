@@ -14,8 +14,8 @@ async function hero(name, w, h, dpr) {
   await sharp(png).webp({ quality: 74 }).toFile(OUT + name + '.webp');
   await p.close(); return png;
 }
-const d = await hero('hero-d-b', 1440, 900, 1.25);
-await hero('hero-m-b', 390, 844, 2);
+const d = await hero('hero-d-c', 1440, 900, 1.25);
+await hero('hero-m-c', 390, 844, 2);
 // designer poster
 { const p = await b.newPage({ viewport: { width: 1440, height: 1000 }, deviceScaleFactor: 1.5 });
   await p.goto(B + '/?posterRender', { waitUntil: 'load' }); await p.addStyleTag({ content: hide });
@@ -32,5 +32,5 @@ await hero('hero-m-b', 390, 844, 2);
   .l svg{height:46px;width:auto}.l svg [fill='#34343C'],.l svg [fill='#34343c']{fill:#f3f3f1}h1{font-stretch:72%;font-weight:800;text-transform:uppercase;font-size:88px;line-height:.92;letter-spacing:-.02em;margin:0;max-width:760px}
   p{font-size:28px;margin:18px 0 0;color:#e8e4dc}b{color:#f26a1b}</style></head><body><div class="s"></div><div class="c"><div class="l">${logo}</div><div><h1>Your driveway, done properly.</h1><p>Resin, block paving and tarmac in Telford and the West Midlands. <b>07787 707154</b></p></div></div></body></html>`);
   await p.waitForTimeout(800);
-  await p.screenshot({ path: OUT + 'og-b.jpg', type: 'jpeg', quality: 86 }); await p.close(); }
+  await p.screenshot({ path: OUT + 'og-c.jpg', type: 'jpeg', quality: 86 }); await p.close(); }
 await b.close(); console.log('posters done');

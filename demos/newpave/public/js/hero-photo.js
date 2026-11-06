@@ -1,6 +1,8 @@
 // Hero: a real house photo (sharp, no fake depth of field). Only the driveway is redrawn, in true
-// perspective: a homography maps every drive pixel to ground-plane metres, so the tired cracked
-// concrete and the new resin-bound stone are the right size everywhere. Move (desktop) or swipe
+// perspective: a homography maps every drive pixel to ground-plane metres, so the new resin-bound
+// stone is the right size everywhere. On a photo-lit scene the old drive is the photo itself and the
+// resin takes the photo's own light (lighting map in the mask's B channel); otherwise a tired concrete
+// drive is drawn. Move (desktop) or swipe
 // (phone) across the drive and fresh resin pours over it. Raw WebGL, one fragment shader.
 // Strokes go into a 2D mask canvas plus a "wet" canvas that fades: fresh resin is glossy
 // (it reflects the house) and settles to a satin finish.
@@ -13,6 +15,7 @@ uniform vec2 uRes;uniform float uTime;uniform vec2 uLight;
 uniform sampler2D uPhoto;uniform sampler2D uDrive;uniform sampler2D uMask;uniform sampler2D uWet;
 uniform vec4 uCover;uniform vec2 uPS;uniform mat3 uH;uniform vec4 uDM;uniform float uVb;uniform vec3 uSun;
 uniform vec2 uTexel;uniform vec3 uC0;uniform vec3 uC1;uniform vec3 uC2;uniform float uDone;
+uniform vec4 uLit;uniform vec3 uTint;
 float h21(vec2 p){p=fract(p*vec2(123.34,456.21));p+=dot(p,p+45.32);return fract(p.x*p.y);}
 vec2 h22(vec2 p){return fract(sin(vec2(dot(p,vec2(127.1,311.7)),dot(p,vec2(269.5,183.3))))*43758.5453);}
 float vn(vec2 p){vec2 i=floor(p),f=fract(p);vec2 u=f*f*(3.-2.*f);
@@ -42,7 +45,7 @@ void main(){
   float det=1.-smoothstep(.002,.02,eff);
   // ----- old surface: tired concrete slabs, cracks, moss, oil -----
   vec3 oldc=vec3(0.);float oldRough=1.;
-  if(m<.999){
+  if(m<.999&&uLit.x<.5){
    float n=fbm(g*2.2);
    float grit=vn(g*90.)*.5+vn(g*190.)*.5;
    vec3 conc=vec3(.60,.585,.55)*(.7+.45*n)*(1.+(grit-.5)*.3*det);
@@ -97,10 +100,17 @@ void main(){
   float ao=mix(.62,1.,smoothstep(.35,.97,dm.g));
   float nl=max(dot(N,sunD),0.);
   vec3 lit=alb*(skyC+sunC*mix(.75,1.,nl))*ao;
+  if(uLit.x>.5){
+   // overcast photo: the resin gets the old drive's own light and shade; outside the pour the photo stays as it is
+   float lm=dm.b*2.;float sky=.84+.2*clamp(dot(N,normalize(vec3(.15,1.,.35))),0.,1.);
+   vec3 ln=pow(newc,vec3(2.2))*lm*uLit.y*uTint*sky;
+   ln=mix(vec3(dot(ln,vec3(.2126,.7152,.0722))),ln,.85);
+   lit=mix(photo*(1.-edgeSh*.3),pow(ln,vec3(1./2.2))*mix(1.,ao,.25),m);
+  }
   vec3 V=normalize(vec3(0.,.55,-1.));
   float hs=max(dot(N,normalize(sunD+V)),0.);
   float gloss=mix(24.,120.,wet);
-  lit+=sunC*pow(hs,gloss)*m*(1.-gap)*mix(.3,1.2,wet)*ao;
+  lit+=sunC*pow(hs,gloss)*m*(1.-gap)*mix(.3,1.2,wet)*ao*(1.-uLit.x*.75);
   // wet resin mirrors the house; settled resin keeps a soft sheen
   vec2 rv=vec2(puv.x+N.x*(1.-wet)*.02,clamp(2.*uVb-puv.y+N.z*(1.-wet)*.03,.002,.998));
   vec3 refl=texture2D(uPhoto,rv,mix(3.,.6,wet)).rgb;
@@ -108,7 +118,7 @@ void main(){
   float rk=m*((.02+.42*wet*wet)*(1.-gap*.9))+(1.-m)*(1.-oldRough)*.2;
   lit=mix(lit,refl*ao,clamp(rk*(.6+fres),0.,.85));
   float tw=.55+.45*sin(uTime*2.6+X*61.+z*47.);
-  lit+=glint*m*sunC*.5*tw*ao;
+  lit+=glint*m*sunC*.5*tw*ao*(1.-uLit.x*.7);
   // pour lip catches the light
   vec2 mu=vec2(uv.x,1.-uv.y);
   float mR=texture2D(uMask,mu+vec2(uTexel.x*2.,0)).r,mL=texture2D(uMask,mu-vec2(uTexel.x*2.,0)).r;
@@ -124,7 +134,7 @@ void main(){
  gl_FragColor=vec4(col,1.);
 }`;
 
-const scene = SCENES.hero;
+const scene = SCENES.front;
 
 // Compile the shader without blocking the main thread (KHR_parallel_shader_compile),
 // so the page stays responsive while the GPU builds the hero.
@@ -162,7 +172,7 @@ export function initHero(opts = {}) {
   const buf = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, buf);
   gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
   const loc = gl.getAttribLocation(prog, 'p'); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
-  const U = {}; ['uRes', 'uTime', 'uLight', 'uPhoto', 'uDrive', 'uMask', 'uWet', 'uCover', 'uPS', 'uH', 'uDM', 'uVb', 'uSun', 'uTexel', 'uC0', 'uC1', 'uC2', 'uDone'].forEach(n => U[n] = gl.getUniformLocation(prog, n));
+  const U = {}; ['uRes', 'uTime', 'uLight', 'uPhoto', 'uDrive', 'uMask', 'uWet', 'uCover', 'uPS', 'uH', 'uDM', 'uVb', 'uSun', 'uTexel', 'uC0', 'uC1', 'uC2', 'uDone', 'uLit', 'uTint'].forEach(n => U[n] = gl.getUniformLocation(prog, n));
 
   const mkTex = (mip = false) => { const t = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, t); [[gl.TEXTURE_MIN_FILTER, mip ? gl.LINEAR_MIPMAP_LINEAR : gl.LINEAR], [gl.TEXTURE_MAG_FILTER, gl.LINEAR], [gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE], [gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE]].forEach(([k, v]) => gl.texParameteri(gl.TEXTURE_2D, k, v)); return t; };
   // static textures: photo (unit 2) and drive mask (unit 3)
@@ -186,12 +196,12 @@ export function initHero(opts = {}) {
   function fit() {
     const a = W / H, pa = PW / PH;
     let fw = 1, fh = 1; if (a > pa) fh = pa / a; else fw = a / pa;
-    const fx = a < 1 ? .54 : scene.focus[0], fy = scene.focus[1];
+    const fx = a < 1 ? (scene.heroFocusM || .54) : scene.focus[0], fy = scene.focus[1];
     cover[0] = Math.min(1 - fw, Math.max(0, fx - fw / 2)); cover[1] = Math.min(1 - fh, Math.max(0, fy - fh / 2) + (a > pa ? (1 - fh) * .25 : 0));
     cover[1] = Math.min(1 - fh, cover[1]); cover[2] = fw; cover[3] = fh;
   }
   // screen y (px from top) of the far edge of the drive
-  const wallBaseY = () => H * ((915 / PH) - cover[1]) / cover[3];
+  const wallBaseY = () => H * ((scene.vb / PH) - cover[1]) / cover[3];
   function resize() {
     const r = hero.getBoundingClientRect();
     W = r.width || innerWidth; H = r.height || innerHeight;
@@ -308,6 +318,7 @@ export function initHero(opts = {}) {
     gl.uniform4fv(U.uDM, DM.dm); gl.uniform1f(U.uVb, scene.vb / PH); gl.uniform3fv(U.uSun, scene.sun);
     gl.uniform3fv(U.uC0, blend[0]); gl.uniform3fv(U.uC1, blend[1]); gl.uniform3fv(U.uC2, blend[2]);
     gl.uniform1f(U.uDone, done);
+    const L = scene.lit; gl.uniform4f(U.uLit, L ? 1 : 0, L ? L.exp : 1, 0, 0); gl.uniform3fv(U.uTint, L ? L.tint : [1, 1, 1]);
     gl.drawArrays(gl.TRIANGLES, 0, 3);
     // keep animating while something is moving; otherwise idle at ~12fps for glints
     const busy = ghost || now - lastPaint < 7000 || Math.abs(light.tx - light.x) > .002 || (doneT > 0 && !finished);
