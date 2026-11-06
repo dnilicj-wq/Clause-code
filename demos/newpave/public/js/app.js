@@ -86,7 +86,8 @@ let blendIdx = 0;
     dockEl.dataset.s = '0'; dockEl.hidden = false;
     $('#hintTxt').textContent = coarse ? 'Swipe across the drive' : 'Move across the drive';
     $('#heroFinish').addEventListener('click', () => { hero.finish(); track('hero_finish'); });
-    if (!reduce) setTimeout(() => hero.demo(coarse ? 2000 : 1700), 450);
+    // wait for the loader to lift, so the pour is seen
+    if (!reduce) (window.__pl || Promise.resolve()).then(() => setTimeout(() => hero.demo(coarse ? 2000 : 1700), 600));
   }).catch(e => console.warn(e));
   // let the poster paint first (LCP), then swap in the live scene
   if (document.readyState === 'complete') idle(start); else addEventListener('load', () => idle(start));
