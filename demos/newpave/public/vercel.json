@@ -1,0 +1,105 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": true,
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=()"
+        }
+      ]
+    },
+    {
+      "source": "/img/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/fonts/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/brand/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=604800"
+        }
+      ]
+    },
+    {
+      "source": "/js/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600, must-revalidate"
+        }
+      ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/services/",
+      "destination": "/#services",
+      "permanent": true
+    },
+    {
+      "source": "/areas-covered/",
+      "destination": "/#areas",
+      "permanent": true
+    },
+    {
+      "source": "/gallery/",
+      "destination": "/#work",
+      "permanent": true
+    },
+    {
+      "source": "/reviews/",
+      "destination": "/#owner",
+      "permanent": true
+    },
+    {
+      "source": "/contact/",
+      "destination": "/#book",
+      "permanent": true
+    },
+    {
+      "source": "/contact-us/",
+      "destination": "/#book",
+      "permanent": true
+    },
+    {
+      "source": "/about/",
+      "destination": "/#owner",
+      "permanent": true
+    },
+    {
+      "source": "/about-us/",
+      "destination": "/#owner",
+      "permanent": true
+    }
+  ]
+}

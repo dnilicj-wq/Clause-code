@@ -13,7 +13,8 @@
   ],
   "git": {
     "deploymentEnabled": {
-      "claude/master-template-v3": false
+      "claude/master-template-v3": false,
+      "claude/newpave-demo": false
     }
   }
 }

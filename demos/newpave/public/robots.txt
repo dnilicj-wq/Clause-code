@@ -1,0 +1,4 @@
+# Demo build: kept out of search so it never competes with Newpave's live site.
+# At go-live, replace with:  User-agent: *  /  Allow: /  /  Sitemap: https://newpaveltd.co.uk/sitemap.xml
+User-agent: *
+Disallow: /

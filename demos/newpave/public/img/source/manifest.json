@@ -1,0 +1,614 @@
+{
+  "crawled": [
+    "https://newpaveltd.co.uk/",
+    "https://newpaveltd.co.uk/wp-content/themes/landscape-sil/dist/css/fonts.css?ver=1787581884",
+    "https://newpaveltd.co.uk/wp-content/themes/landscape-sil/dist/css/global.css?ver=1787581884",
+    "https://newpaveltd.co.uk/wp-content/themes/landscape-sil/dist/components/Error/style.css?ver=1787581884",
+    "https://newpaveltd.co.uk/wp-content/themes/landscape-sil/dist/blocks/banner-slider/style.css?ver=1787581884",
+    "https://newpaveltd.co.uk/wp-content/themes/landscape-sil/dist/blocks/service-slider/style.css?ver=1787581884",
+    "https://newpaveltd.co.uk/wp-content/themes/landscape-sil/dist/blocks/image-content-overlap/style.css?ver=1787581884",
+    "https://newpaveltd.co.uk/wp-content/themes/landscape-sil/dist/blocks/reviews/style.css?ver=1787581884",
+    "https://newpaveltd.co.uk/wp-content/themes/landscape-sil/dist/blocks/map/style.css?ver=1787581884",
+    "https://newpaveltd.co.uk/wp-content/themes/landscape-sil/dist/components/Input/style.css?ver=1787581884",
+    "https://newpaveltd.co.uk/wp-content/themes/landscape-sil/dist/components/Select/style.css?ver=1787581884",
+    "https://newpaveltd.co.uk/wp-content/themes/landscape-sil/dist/components/Icon/style.css?ver=1787581884",
+    "https://newpaveltd.co.uk/wp-content/themes/landscape-sil/dist/components/GoogleMap/style.css?ver=1787581884",
+    "https://newpaveltd.co.uk/services/",
+    "https://newpaveltd.co.uk/areas-covered/",
+    "https://newpaveltd.co.uk/gallery/",
+    "https://newpaveltd.co.uk/reviews/",
+    "https://newpaveltd.co.uk/contact/",
+    "https://newpaveltd.co.uk/services/block-paving/",
+    "https://newpaveltd.co.uk/wp-content/themes/landscape-sil/dist/blocks/columns/style.css?ver=1787581884",
+    "https://newpaveltd.co.uk/wp-content/themes/landscape-sil/dist/blocks/faqs/style.css?ver=1787581884",
+    "https://newpaveltd.co.uk/wp-content/themes/landscape-sil/dist/blocks/faq-item/style.css?ver=1787581884",
+    "https://newpaveltd.co.uk/wp-content/themes/landscape-sil/dist/components/Accordion/style.css?ver=1787581884",
+    "https://newpaveltd.co.uk/wp-content/themes/landscape-sil/dist/components/AccordionItem/style.css?ver=1787581884",
+    "https://newpaveltd.co.uk/wp-content/themes/landscape-sil/dist/components/AccordionTrigger/style.css?ver=1787581884",
+    "https://newpaveltd.co.uk/wp-content/themes/landscape-sil/dist/components/AccordionContent/style.css?ver=1787581884",
+    "https://newpaveltd.co.uk/services/patios/",
+    "https://newpaveltd.co.uk/services/resin-drives/",
+    "https://newpaveltd.co.uk/services/tarmac-driveways/",
+    "https://newpaveltd.co.uk/services/hard-landscaping/",
+    "https://newpaveltd.co.uk/areas-covered/telford/",
+    "https://newpaveltd.co.uk/areas-covered/wolverhampton/",
+    "https://newpaveltd.co.uk/areas-covered/birmingham/"
+  ],
+  "images": [
+    {
+      "file": "newpave-blocks-1.png",
+      "source": "https://newpaveltd.co.uk/wp-content/uploads/2026/08/newpave-blocks-1.png",
+      "bytes": 14191,
+      "fellBack": false,
+      "pages": [
+        "/",
+        "/services/resin-drives/",
+        "/services/hard-landscaping/"
+      ]
+    },
+    {
+      "file": "newpave-og.png",
+      "source": "https://newpaveltd.co.uk/wp-content/uploads/2026/09/newpave-og.png",
+      "bytes": 923569,
+      "fellBack": false,
+      "pages": [
+        "/"
+      ]
+    },
+    {
+      "file": "favicon-newpave.png",
+      "source": "https://newpaveltd.co.uk/wp-content/uploads/2026/08/favicon-newpave.png",
+      "bytes": 26280,
+      "fellBack": false,
+      "pages": [
+        "/",
+        "/services/",
+        "/areas-covered/",
+        "/gallery/",
+        "/reviews/",
+        "/contact/",
+        "/services/block-paving/",
+        "/services/patios/",
+        "/services/resin-drives/",
+        "/services/tarmac-driveways/",
+        "/services/hard-landscaping/",
+        "/areas-covered/telford/",
+        "/areas-covered/wolverhampton/",
+        "/areas-covered/birmingham/"
+      ]
+    },
+    {
+      "file": "facebook-white.png",
+      "source": "https://newpaveltd.co.uk/wp-content/themes/landscape-sil/dist/assets/images/facebook-white.png",
+      "bytes": 2882,
+      "fellBack": false,
+      "pages": [
+        "/",
+        "/services/",
+        "/areas-covered/",
+        "/gallery/",
+        "/reviews/",
+        "/contact/",
+        "/services/block-paving/",
+        "/services/patios/",
+        "/services/resin-drives/",
+        "/services/tarmac-driveways/",
+        "/services/hard-landscaping/",
+        "/areas-covered/telford/",
+        "/areas-covered/wolverhampton/",
+        "/areas-covered/birmingham/"
+      ]
+    },
+    {
+      "file": "newpave-removebg-preview-1.png",
+      "source": "https://newpaveltd.co.uk/wp-content/uploads/2026/08/newpave-removebg-preview-1.png",
+      "bytes": 115270,
+      "fellBack": false,
+      "pages": [
+        "/",
+        "/services/",
+        "/areas-covered/",
+        "/gallery/",
+        "/reviews/",
+        "/contact/",
+        "/services/block-paving/",
+        "/services/patios/",
+        "/services/resin-drives/",
+        "/services/tarmac-driveways/",
+        "/services/hard-landscaping/",
+        "/areas-covered/telford/",
+        "/areas-covered/wolverhampton/",
+        "/areas-covered/birmingham/",
+        "(brief)"
+      ]
+    },
+    {
+      "file": "facebook.png",
+      "source": "https://newpaveltd.co.uk/wp-content/themes/landscape-sil/dist/assets/images/facebook.png",
+      "bytes": 4483,
+      "fellBack": false,
+      "pages": [
+        "/",
+        "/services/",
+        "/areas-covered/",
+        "/gallery/",
+        "/reviews/",
+        "/contact/",
+        "/services/block-paving/",
+        "/services/patios/",
+        "/services/resin-drives/",
+        "/services/tarmac-driveways/",
+        "/services/hard-landscaping/",
+        "/areas-covered/telford/",
+        "/areas-covered/wolverhampton/",
+        "/areas-covered/birmingham/"
+      ]
+    },
+    {
+      "file": "WhatsApp_Image_2025-06-06_at_13.53.24_b0fbc6d7.jpg",
+      "source": "https://newpaveltd.co.uk/wp-content/uploads/2026/08/WhatsApp_Image_2025-06-06_at_13.53.24_b0fbc6d7.jpg",
+      "bytes": 406603,
+      "fellBack": false,
+      "pages": [
+        "/",
+        "/gallery/",
+        "/services/patios/"
+      ]
+    },
+    {
+      "file": "image222-Firefly-Upscaler-4x-scale.jpg",
+      "source": "https://newpaveltd.co.uk/wp-content/uploads/2026/08/image222-Firefly-Upscaler-4x-scale.jpg",
+      "bytes": 341692,
+      "fellBack": false,
+      "pages": [
+        "/"
+      ]
+    },
+    {
+      "file": "pav1.jpg",
+      "source": "https://newpaveltd.co.uk/wp-content/uploads/2026/08/pav1.jpg",
+      "bytes": 300869,
+      "fellBack": false,
+      "pages": [
+        "/",
+        "/services/",
+        "/gallery/",
+        "/services/block-paving/",
+        "/areas-covered/telford/",
+        "/areas-covered/wolverhampton/",
+        "/areas-covered/birmingham/"
+      ]
+    },
+    {
+      "file": "image25.jpg",
+      "source": "https://newpaveltd.co.uk/wp-content/uploads/2026/08/image25.jpg",
+      "bytes": 96741,
+      "fellBack": false,
+      "pages": [
+        "/",
+        "/services/",
+        "/areas-covered/",
+        "/gallery/",
+        "/services/patios/",
+        "/areas-covered/telford/",
+        "/areas-covered/wolverhampton/",
+        "/areas-covered/birmingham/"
+      ]
+    },
+    {
+      "file": "360fe9cc-269c-416f-9d16-1b9f193627e0.jpg",
+      "source": "https://newpaveltd.co.uk/wp-content/uploads/2026/08/360fe9cc-269c-416f-9d16-1b9f193627e0.jpg",
+      "bytes": 277258,
+      "fellBack": false,
+      "pages": [
+        "/",
+        "/services/",
+        "/gallery/",
+        "/services/resin-drives/",
+        "/areas-covered/telford/",
+        "/areas-covered/wolverhampton/",
+        "/areas-covered/birmingham/"
+      ]
+    },
+    {
+      "file": "photo31-1-1.jpg",
+      "source": "https://newpaveltd.co.uk/wp-content/uploads/2026/08/photo31-1-1.jpg",
+      "bytes": 124165,
+      "fellBack": false,
+      "pages": [
+        "/",
+        "/services/",
+        "/gallery/",
+        "/services/tarmac-driveways/",
+        "/areas-covered/telford/",
+        "/areas-covered/wolverhampton/",
+        "/areas-covered/birmingham/"
+      ]
+    },
+    {
+      "file": "AdobeStock_616622917.jpg",
+      "source": "https://newpaveltd.co.uk/wp-content/uploads/2026/08/AdobeStock_616622917.jpg",
+      "bytes": 270213,
+      "fellBack": false,
+      "pages": [
+        "/",
+        "/services/",
+        "/services/hard-landscaping/",
+        "/areas-covered/telford/",
+        "/areas-covered/wolverhampton/",
+        "/areas-covered/birmingham/"
+      ]
+    },
+    {
+      "file": "a2bba945-b872-4fc3-aeed-425d59174591.jpg",
+      "source": "https://newpaveltd.co.uk/wp-content/uploads/2026/08/a2bba945-b872-4fc3-aeed-425d59174591.jpg",
+      "bytes": 108722,
+      "fellBack": false,
+      "pages": [
+        "/",
+        "/services/",
+        "/areas-covered/telford/",
+        "/areas-covered/wolverhampton/",
+        "/areas-covered/birmingham/"
+      ]
+    },
+    {
+      "file": "p3step-1-Firefly-Upscaler-4x-scale-scaled.jpg",
+      "source": "https://newpaveltd.co.uk/wp-content/uploads/2026/08/p3step-1-Firefly-Upscaler-4x-scale-scaled.jpg",
+      "bytes": 354641,
+      "fellBack": false,
+      "pages": [
+        "/",
+        "/gallery/"
+      ]
+    },
+    {
+      "file": "AdobeStock_431017964.jpg",
+      "source": "https://newpaveltd.co.uk/wp-content/uploads/2026/08/AdobeStock_431017964.jpg",
+      "bytes": 306162,
+      "fellBack": false,
+      "pages": [
+        "/",
+        "/services/",
+        "/areas-covered/",
+        "/gallery/",
+        "/reviews/",
+        "/contact/",
+        "/services/block-paving/",
+        "/services/patios/",
+        "/services/resin-drives/",
+        "/services/tarmac-driveways/",
+        "/services/hard-landscaping/",
+        "/areas-covered/telford/",
+        "/areas-covered/wolverhampton/",
+        "/areas-covered/birmingham/"
+      ]
+    },
+    {
+      "file": "image-fotor-20260821132715.jpg",
+      "source": "https://newpaveltd.co.uk/wp-content/uploads/2026/08/image-fotor-20260821132715.jpg",
+      "bytes": 200113,
+      "fellBack": false,
+      "pages": [
+        "/"
+      ]
+    },
+    {
+      "file": "image2.jpg",
+      "source": "https://newpaveltd.co.uk/wp-content/uploads/2026/08/image2.jpg",
+      "bytes": 328130,
+      "fellBack": false,
+      "pages": [
+        "/",
+        "/gallery/",
+        "/services/block-paving/"
+      ]
+    },
+    {
+      "file": "AdobeStock_324308256.jpg",
+      "source": "https://newpaveltd.co.uk/wp-content/uploads/2026/08/AdobeStock_324308256.jpg",
+      "bytes": 358327,
+      "fellBack": false,
+      "pages": [
+        "/",
+        "/gallery/"
+      ]
+    },
+    {
+      "file": "p3step-1-Firefly-Upscaler-4x-scale.jpg",
+      "source": "https://newpaveltd.co.uk/wp-content/uploads/2026/08/p3step-1-Firefly-Upscaler-4x-scale.jpg",
+      "bytes": 329805,
+      "fellBack": false,
+      "pages": [
+        "/",
+        "/gallery/"
+      ]
+    },
+    {
+      "file": "img26.jpg",
+      "source": "https://newpaveltd.co.uk/wp-content/uploads/2026/08/img26.jpg",
+      "bytes": 196863,
+      "fellBack": false,
+      "pages": [
+        "/areas-covered/"
+      ]
+    },
+    {
+      "file": "775cea8d-a6ed-49f6-a8ac-203b642378ba-1-Firefly-Upscaler-4x-scale-fotor-20260821122125.jpg",
+      "source": "https://newpaveltd.co.uk/wp-content/uploads/2026/08/775cea8d-a6ed-49f6-a8ac-203b642378ba-1-Firefly-Upscaler-4x-scale-fotor-20260821122125.jpg",
+      "bytes": 313000,
+      "fellBack": false,
+      "pages": [
+        "/gallery/",
+        "/services/block-paving/"
+      ]
+    },
+    {
+      "file": "image-fotor-20260821125030.jpg",
+      "source": "https://newpaveltd.co.uk/wp-content/uploads/2026/08/image-fotor-20260821125030.jpg",
+      "bytes": 297464,
+      "fellBack": false,
+      "pages": [
+        "/gallery/",
+        "/services/block-paving/"
+      ]
+    },
+    {
+      "file": "p7.jpg",
+      "source": "https://newpaveltd.co.uk/wp-content/uploads/2026/08/p7.jpg",
+      "bytes": 114906,
+      "fellBack": false,
+      "pages": [
+        "/gallery/"
+      ]
+    },
+    {
+      "file": "p5-1.jpg",
+      "source": "https://newpaveltd.co.uk/wp-content/uploads/2026/08/p5-1.jpg",
+      "bytes": 125238,
+      "fellBack": false,
+      "pages": [
+        "/gallery/",
+        "/services/patios/"
+      ]
+    },
+    {
+      "file": "img11-1.jpg",
+      "source": "https://newpaveltd.co.uk/wp-content/uploads/2026/08/img11-1.jpg",
+      "bytes": 76704,
+      "fellBack": false,
+      "pages": [
+        "/gallery/",
+        "/services/patios/"
+      ]
+    },
+    {
+      "file": "img13-1.jpg",
+      "source": "https://newpaveltd.co.uk/wp-content/uploads/2026/08/img13-1.jpg",
+      "bytes": 196038,
+      "fellBack": false,
+      "pages": [
+        "/gallery/"
+      ]
+    },
+    {
+      "file": "img7.jpg",
+      "source": "https://newpaveltd.co.uk/wp-content/uploads/2026/08/img7.jpg",
+      "bytes": 154955,
+      "fellBack": false,
+      "pages": [
+        "/gallery/"
+      ]
+    },
+    {
+      "file": "img16-1.jpg",
+      "source": "https://newpaveltd.co.uk/wp-content/uploads/2026/08/img16-1.jpg",
+      "bytes": 147394,
+      "fellBack": false,
+      "pages": [
+        "/gallery/"
+      ]
+    },
+    {
+      "file": "img6-2.jpg",
+      "source": "https://newpaveltd.co.uk/wp-content/uploads/2026/08/img6-2.jpg",
+      "bytes": 137531,
+      "fellBack": false,
+      "pages": [
+        "/gallery/"
+      ]
+    },
+    {
+      "file": "pic45.jpg",
+      "source": "https://newpaveltd.co.uk/wp-content/uploads/2026/08/pic45.jpg",
+      "bytes": 126243,
+      "fellBack": false,
+      "pages": [
+        "/gallery/",
+        "/services/tarmac-driveways/"
+      ]
+    },
+    {
+      "file": "794997ca-67c9-4783-a919-70b0e7ed2219.jpg",
+      "source": "https://newpaveltd.co.uk/wp-content/uploads/2026/08/794997ca-67c9-4783-a919-70b0e7ed2219.jpg",
+      "bytes": 253373,
+      "fellBack": false,
+      "pages": [
+        "/gallery/"
+      ]
+    },
+    {
+      "file": "photo33.jpg",
+      "source": "https://newpaveltd.co.uk/wp-content/uploads/2026/08/photo33.jpg",
+      "bytes": 121405,
+      "fellBack": false,
+      "pages": [
+        "/gallery/",
+        "/services/tarmac-driveways/"
+      ]
+    },
+    {
+      "file": "photo37.jpg",
+      "source": "https://newpaveltd.co.uk/wp-content/uploads/2026/08/photo37.jpg",
+      "bytes": 105525,
+      "fellBack": false,
+      "pages": [
+        "/gallery/",
+        "/services/tarmac-driveways/"
+      ]
+    },
+    {
+      "file": "AdobeStock_877506167.jpg",
+      "source": "https://newpaveltd.co.uk/wp-content/uploads/2026/08/AdobeStock_877506167.jpg",
+      "bytes": 196614,
+      "fellBack": false,
+      "pages": [
+        "/reviews/"
+      ]
+    },
+    {
+      "file": "AdobeStock_609043778.jpg",
+      "source": "https://newpaveltd.co.uk/wp-content/uploads/2026/08/AdobeStock_609043778.jpg",
+      "bytes": 247463,
+      "fellBack": false,
+      "pages": [
+        "/contact/"
+      ]
+    },
+    {
+      "file": "p4-1-r22e1ylo3sc24koflzj045qf6cu6zurvxy1917i2xc-Firefly-Upscaler-4x-scale.png",
+      "source": "https://newpaveltd.co.uk/wp-content/uploads/2026/08/p4-1-r22e1ylo3sc24koflzj045qf6cu6zurvxy1917i2xc-Firefly-Upscaler-4x-scale.png",
+      "bytes": 962427,
+      "fellBack": false,
+      "pages": [
+        "/services/block-paving/"
+      ]
+    },
+    {
+      "file": "c7ae86bf-7c40-452d-92a4-77525dd34550-1.jpg",
+      "source": "https://newpaveltd.co.uk/wp-content/uploads/2026/08/c7ae86bf-7c40-452d-92a4-77525dd34550-1.jpg",
+      "bytes": 526821,
+      "fellBack": false,
+      "pages": [
+        "/services/resin-drives/"
+      ]
+    },
+    {
+      "file": "img10.jpg",
+      "source": "https://newpaveltd.co.uk/wp-content/uploads/2026/08/img10.jpg",
+      "bytes": 138902,
+      "fellBack": false,
+      "pages": [
+        "/services/resin-drives/"
+      ]
+    },
+    {
+      "file": "img15-4.jpg",
+      "source": "https://newpaveltd.co.uk/wp-content/uploads/2026/08/img15-4.jpg",
+      "bytes": 188167,
+      "fellBack": false,
+      "pages": [
+        "/services/hard-landscaping/"
+      ]
+    },
+    {
+      "file": "img14-1.jpg",
+      "source": "https://newpaveltd.co.uk/wp-content/uploads/2026/08/img14-1.jpg",
+      "bytes": 188966,
+      "fellBack": false,
+      "pages": [
+        "/services/hard-landscaping/"
+      ]
+    },
+    {
+      "file": "img9-1.jpg",
+      "source": "https://newpaveltd.co.uk/wp-content/uploads/2026/08/img9-1.jpg",
+      "bytes": 144175,
+      "fellBack": false,
+      "pages": [
+        "/services/hard-landscaping/"
+      ]
+    },
+    {
+      "file": "AdobeStock_536763185.jpg",
+      "source": "https://newpaveltd.co.uk/wp-content/uploads/2026/08/AdobeStock_536763185.jpg",
+      "bytes": 330049,
+      "fellBack": false,
+      "pages": [
+        "/areas-covered/telford/"
+      ]
+    },
+    {
+      "file": "AdobeStock_119468801.jpg",
+      "source": "https://newpaveltd.co.uk/wp-content/uploads/2026/08/AdobeStock_119468801.jpg",
+      "bytes": 295591,
+      "fellBack": false,
+      "pages": [
+        "/areas-covered/telford/"
+      ]
+    },
+    {
+      "file": "AdobeStock_296827784.jpg",
+      "source": "https://newpaveltd.co.uk/wp-content/uploads/2026/08/AdobeStock_296827784.jpg",
+      "bytes": 359509,
+      "fellBack": false,
+      "pages": [
+        "/areas-covered/telford/"
+      ]
+    },
+    {
+      "file": "AdobeStock_321359971.jpg",
+      "source": "https://newpaveltd.co.uk/wp-content/uploads/2026/08/AdobeStock_321359971.jpg",
+      "bytes": 312013,
+      "fellBack": false,
+      "pages": [
+        "/areas-covered/wolverhampton/"
+      ]
+    },
+    {
+      "file": "AdobeStock_526349945.jpg",
+      "source": "https://newpaveltd.co.uk/wp-content/uploads/2026/08/AdobeStock_526349945.jpg",
+      "bytes": 220949,
+      "fellBack": false,
+      "pages": [
+        "/areas-covered/wolverhampton/"
+      ]
+    },
+    {
+      "file": "AdobeStock_441699201.jpg",
+      "source": "https://newpaveltd.co.uk/wp-content/uploads/2026/08/AdobeStock_441699201.jpg",
+      "bytes": 356450,
+      "fellBack": false,
+      "pages": [
+        "/areas-covered/wolverhampton/"
+      ]
+    },
+    {
+      "file": "AdobeStock_68276489.jpg",
+      "source": "https://newpaveltd.co.uk/wp-content/uploads/2026/08/AdobeStock_68276489.jpg",
+      "bytes": 379147,
+      "fellBack": false,
+      "pages": [
+        "/areas-covered/birmingham/"
+      ]
+    },
+    {
+      "file": "AdobeStock_1029047953.jpg",
+      "source": "https://newpaveltd.co.uk/wp-content/uploads/2026/08/AdobeStock_1029047953.jpg",
+      "bytes": 385741,
+      "fellBack": false,
+      "pages": [
+        "/areas-covered/birmingham/"
+      ]
+    },
+    {
+      "file": "AdobeStock_204770026.jpg",
+      "source": "https://newpaveltd.co.uk/wp-content/uploads/2026/08/AdobeStock_204770026.jpg",
+      "bytes": 263955,
+      "fellBack": false,
+      "pages": [
+        "/areas-covered/birmingham/"
+      ]
+    }
+  ]
+}
