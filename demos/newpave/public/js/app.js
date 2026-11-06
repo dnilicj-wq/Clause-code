@@ -60,7 +60,7 @@ let blendIdx = 0;
   });
   if (!hasGL || /poster/.test(location.search) && !/posterRender/.test(location.search)) return;
   const posterMode = /posterRender/.test(location.search);
-  const start = () => import('./hero.js').then(async ({ initHero, prepareHero }) => {
+  const start = () => import('./hero-photo.js').then(async ({ initHero, prepareHero }) => {
     if (!(await prepareHero())) return;
     let shownFinish = false;
     hero = initHero({
@@ -201,6 +201,7 @@ const PANELS = {
     tags[3].textContent = surface === 'resin' ? 'Base course' : 'Sharp sand'; paint(); track('layers_toggle', { surface });
   }));
   const ARR = [-1, .1, .26, .42, .58];
+  const stackT = pp => `translateY(18%) rotateX(56deg) rotateZ(${-32 + pp * 10}deg)`;
   const mobile = () => innerWidth < 860;
   let lastP = -1;
   function frame() {
@@ -221,12 +222,38 @@ const PANELS = {
       tags[i].classList.toggle('on', show);
       if (show) { const lr = l.getBoundingClientRect(), ir = $('.iso').getBoundingClientRect(); tags[i].style.transform = `translate(${lr.right - ir.left + 6}px,${lr.top - ir.top + lr.height * .4}px)`; }
     });
-    stack.style.transform = mob ? `translateY(18%) rotateX(56deg) rotateZ(${-32 + p * 10}deg)` : `rotateX(${58 - p * 6}deg) rotateZ(${-34 + p * 12}deg)`;
+    stack.style.transform = mob ? stackT(p) : `rotateX(${58 - p * 6}deg) rotateZ(${-34 + p * 12}deg)`;
     steps.forEach((x, i) => x.classList.toggle('on', i === s));
     bars.forEach((x, i) => x.style.setProperty('--p', i < s ? 1 : i === s ? 1 : 0));
   }
+  // phones: measure the 3D stack at its biggest (every angle it turns through, top layer lifted) and scale/move it
+  // so it always sits in the space under the text, whatever the screen height or browser toolbars.
+  const iso = $('.iso'), copy = $('.layers-copy'), stage = $('.layers-stage');
+  function fit() {
+    iso.style.transform = '';
+    if (!mobile()) { lastP = -1; frame(); return; }
+    const keep = lays.map(l => l.style.transform); let u = null;
+    lays.forEach((l, i) => l.style.transform = `translateZ(${i * 30 + 22}px)`);
+    for (const pp of [0, .5, 1]) {
+      stack.style.transform = stackT(pp);
+      for (const l of lays) { const r = l.getBoundingClientRect(); u = u ? { l: Math.min(u.l, r.left), t: Math.min(u.t, r.top), r: Math.max(u.r, r.right), b: Math.max(u.b, r.bottom) } : { l: r.left, t: r.top, r: r.right, b: r.bottom }; }
+    }
+    lays.forEach((l, i) => l.style.transform = keep[i]);
+    const ir = iso.getBoundingClientRect(), sr = stage.getBoundingClientRect(), cs = getComputedStyle(stage);
+    const top = copy.getBoundingClientRect().bottom + 14, bot = sr.bottom - parseFloat(cs.paddingBottom) + 8;
+    const left = sr.left + 12, right = sr.right - 12, w = u.r - u.l, h = u.b - u.t;
+    const k = Math.min(1.25, (bot - top) / h, (right - left) / w);
+    const tx = left + (right - left - w * k) / 2 - ir.left - k * (u.l - ir.left);
+    const ty = top + Math.max(0, (bot - top - h * k) / 2) - ir.top - k * (u.t - ir.top);
+    iso.style.transformOrigin = '0 0'; iso.style.transform = `translate(${tx.toFixed(1)}px,${ty.toFixed(1)}px) scale(${k.toFixed(3)})`;
+    lastP = -1; frame();
+  }
+  let fitT; const refit = () => { clearTimeout(fitT); fitT = setTimeout(fit, 120); };
+  addEventListener('resize', refit); addEventListener('orientationchange', refit);
+  if (document.fonts) document.fonts.ready.then(fit);
+  $$('.ltoggle button').forEach(b => b.addEventListener('click', () => requestAnimationFrame(fit)));
   let on = false;
-  new IntersectionObserver(([en]) => { on = en.isIntersecting; if (on) loop(); }).observe(sec);
+  new IntersectionObserver(([en]) => { on = en.isIntersecting; if (on) { fit(); loop(); } }).observe(sec);
   function loop() { if (!on) return; frame(); requestAnimationFrame(loop); }
   frame();
 })();

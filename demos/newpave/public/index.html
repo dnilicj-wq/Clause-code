@@ -138,8 +138,8 @@ dialog.panel[open]{animation:pop .3s var(--ease)}
 .layers-stage{position:sticky;top:0;height:100svh;overflow:hidden;display:grid;grid-template-columns:minmax(320px,.85fr) 1.15fr;align-items:center;gap:20px;padding:0 var(--pad);max-width:1500px;margin:0 auto}
 .layers-copy{display:grid;gap:20px;max-width:500px;position:relative;z-index:2}
 .layers-copy h2{font-size:clamp(2.3rem,4.6vw,4.4rem)}
-.lsteps{position:relative;min-height:150px}
-.lstep{position:absolute;inset:0;opacity:0;transform:translateY(14px);transition:opacity .5s var(--ease),transform .5s var(--ease)}
+.lsteps{display:grid;min-height:150px}
+.lstep{grid-area:1/1;opacity:0;transform:translateY(14px);transition:opacity .5s var(--ease),transform .5s var(--ease)}
 .lstep.on{opacity:1;transform:none}
 .lstep b{font-family:var(--mono);font-weight:500;font-size:.72rem;letter-spacing:.12em;color:var(--acc)}
 .lstep h3{font-size:clamp(1.6rem,2.4vw,2.1rem);margin:8px 0}
@@ -163,7 +163,7 @@ dialog.panel[open]{animation:pop .3s var(--ease)}
   .layers-stage{grid-template-columns:1fr;grid-template-rows:auto minmax(0,1fr);padding-top:calc(72px + env(safe-area-inset-top));padding-bottom:calc(84px + env(safe-area-inset-bottom));gap:0}
   .layers-copy{gap:12px}
   .layers-copy h2{font-size:2.2rem}
-  .lsteps{min-height:128px}.lstep h3{font-size:1.45rem;margin:4px 0}.lstep p{font-size:.94rem}
+  .lsteps{min-height:0}.lstep h3{font-size:1.45rem;margin:4px 0}.lstep p{font-size:.94rem}
   .stack{width:min(54vw,250px);transform:translateY(18%) rotateX(56deg) rotateZ(-32deg)}
   .stack .lay:nth-child(2){transform:translateZ(30px)}.stack .lay:nth-child(3){transform:translateZ(60px)}.stack .lay:nth-child(4){transform:translateZ(90px)}.stack .lay:nth-child(5){transform:translateZ(120px)}
   .lay.act{box-shadow:0 0 0 2px var(--acc)}
@@ -837,6 +837,6 @@ dialog.panel[open]{animation:pop .3s var(--ease)}
 
 <script>document.documentElement.classList.add('js')</script>
 <script src="/js/lenis.min.js" defer></script>
-<script type="module" src="/js/app.js?v=2"></script>
+<script type="module" src="/js/app.js?v=3"></script>
 </body>
 </html>
