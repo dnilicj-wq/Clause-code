@@ -4,7 +4,7 @@
 // (phone) across the drive and fresh resin pours over it. Raw WebGL, one fragment shader.
 // Strokes go into a 2D mask canvas plus a "wet" canvas that fades: fresh resin is glossy
 // (it reflects the house) and settles to a satin finish.
-import { SCENES, glMat } from './scenes.js';
+import { SCENES, glMat, maskDM } from './scenes.js';
 
 const VS = `attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}`;
 const FS = `
@@ -136,31 +136,14 @@ export async function prepareHero() {
   const mk = (t, src) => { const o = gl.createShader(t); gl.shaderSource(o, src); gl.compileShader(o); return o; };
   const prog = gl.createProgram(); gl.attachShader(prog, mk(gl.VERTEX_SHADER, VS)); gl.attachShader(prog, mk(gl.FRAGMENT_SHADER, FS)); gl.linkProgram(prog);
   // fetch the photo while the shader compiles
-  cv.__img = loadImg(scene.src);
+  cv.__img = Promise.all([loadImg(scene.src), loadImg(scene.mask)]);
   if (ext) await new Promise(res => { const t0 = performance.now(); (function poll() { if (gl.getProgramParameter(prog, ext.COMPLETION_STATUS_KHR) || performance.now() - t0 > 8000) res(); else setTimeout(poll, 50); })(); });
   if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) { console.warn('hero shader', gl.getShaderInfoLog && gl.getProgramInfoLog(prog)); return false; }
   cv.__prog = prog;
-  try { cv.__photo = await cv.__img; } catch { return false; }
+  try { [cv.__photo, cv.__mask] = await cv.__img; } catch { return false; }
   return true;
 }
-const loadImg = src => new Promise((res, rej) => { const i = new Image(); i.decoding = 'async'; i.onload = () => res(i); i.onerror = rej; i.src = src; });
-
-// drive mask in photo space: R = drive (feathered), G = blurred drive (contact shade near edges)
-export function driveMask(sc, w = 1200) {
-  const [pw, ph] = sc.size, k = w / pw, h = Math.round(ph * k), pad = 60;
-  const c = document.createElement('canvas'); c.width = w + pad * 2; c.height = h + pad * 2; const x = c.getContext('2d');
-  x.fillStyle = '#000'; x.fillRect(0, 0, c.width, c.height);
-  const path = () => { x.beginPath(); sc.poly.forEach(([px, py], i) => x[i ? 'lineTo' : 'moveTo'](pad + px * k, pad + py * k)); x.closePath(); };
-  x.globalCompositeOperation = 'lighter';
-  x.filter = 'blur(1px)'; x.fillStyle = '#f00'; path(); x.fill();
-  x.filter = 'blur(14px)'; x.fillStyle = '#0f0'; path(); x.fill();
-  x.filter = 'none'; x.globalCompositeOperation = 'source-over';
-  return { canvas: c, dm: [pad / c.width, pad / c.height, w / c.width, h / c.height] };
-}
-// photo -> POT canvas so it can be mipmapped (blurred reflections)
-export function potPhoto(img, S = 2048) {
-  const c = document.createElement('canvas'); c.width = c.height = S; c.getContext('2d').drawImage(img, 0, 0, S, S); return c;
-}
+const loadImg = src => { const i = new Image(); i.decoding = 'async'; i.src = src; return i.decode().then(() => i); };
 
 export function initHero(opts = {}) {
   const hero = document.getElementById('hero');
@@ -184,9 +167,9 @@ export function initHero(opts = {}) {
   const mkTex = (mip = false) => { const t = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, t); [[gl.TEXTURE_MIN_FILTER, mip ? gl.LINEAR_MIPMAP_LINEAR : gl.LINEAR], [gl.TEXTURE_MAG_FILTER, gl.LINEAR], [gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE], [gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE]].forEach(([k, v]) => gl.texParameteri(gl.TEXTURE_2D, k, v)); return t; };
   // static textures: photo (unit 2) and drive mask (unit 3)
   gl.activeTexture(gl.TEXTURE2); const tPhoto = mkTex(true);
-  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, potPhoto(cv.__photo, 2048)); gl.generateMipmap(gl.TEXTURE_2D);
-  const DM = driveMask(scene);
-  gl.activeTexture(gl.TEXTURE3); const tDrive = mkTex(); gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, DM.canvas);
+  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, cv.__photo); gl.generateMipmap(gl.TEXTURE_2D);
+  const DM = { dm: maskDM(scene) };
+  gl.activeTexture(gl.TEXTURE3); const tDrive = mkTex(); gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, cv.__mask);
   gl.activeTexture(gl.TEXTURE0);
 
   const mask = document.createElement('canvas'), mctx = mask.getContext('2d');

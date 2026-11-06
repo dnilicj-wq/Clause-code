@@ -4,8 +4,18 @@
 import sharp from 'sharp'; import { execFileSync } from 'node:child_process'; import fs from 'node:fs';
 const S = new URL('../stock/', import.meta.url).pathname, O = new URL('../public/img/', import.meta.url).pathname, T = '/tmp/np-scenes/';
 fs.mkdirSync(T, { recursive: true });
-for (const [src, out] of [['pexels-8134845-front.jpg', 'scene-front-a'], ['pexels-7546775-garden.jpg', 'scene-garden-a']]) {
-  await sharp(S + src).resize(2048).webp({ quality: 80 }).toFile(O + out + '.webp');
+// photos are stretched to 2048x2048 (power of two, so the GPU can mipmap them with no work in the browser),
+// and the drive/patio outline is baked into a mask: R = outline (1px feather), G = blurred (contact shade)
+import { SCENES, MASK } from '../public/js/scenes.js';
+for (const [name, sc] of Object.entries(SCENES)) {
+  const src = { front: 'pexels-8134845-front.jpg', garden: 'pexels-7546775-garden.jpg' }[name];
+  await sharp(S + src).resize(2048, 2048, { fit: 'fill' }).webp({ quality: 80 }).toFile(O + sc.src.split('/').pop());
+  const [pw, ph] = sc.size, k = MASK.w / pw, h = Math.round(ph * k), W = MASK.w + MASK.pad * 2, H = h + MASK.pad * 2;
+  const pts = sc.poly.map(([x, y]) => `${(MASK.pad + x * k).toFixed(1)},${(MASK.pad + y * k).toFixed(1)}`).join(' ');
+  const poly = Buffer.from(`<svg width="${W}" height="${H}"><rect width="100%" height="100%" fill="#000"/><polygon points="${pts}" fill="#fff"/></svg>`);
+  const r = await sharp(poly).blur(.8).greyscale().raw().toBuffer(), g = await sharp(poly).blur(7).greyscale().raw().toBuffer();
+  const out = Buffer.alloc(W * H * 3); for (let i = 0; i < W * H; i++) { out[i * 3] = r[i * (r.length / (W * H))]; out[i * 3 + 1] = g[i * (g.length / (W * H))]; }
+  await sharp(out, { raw: { width: W, height: H, channels: 3 } }).png({ compressionLevel: 9 }).toFile(O + sc.mask.split('/').pop());
 }
 // plate: plain UK-style white plate, no characters
 const plate = Buffer.from(`<svg width="2400" height="1600"><defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f4f3ee"/><stop offset="1" stop-color="#d9d8d2"/></linearGradient></defs>

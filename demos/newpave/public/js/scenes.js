@@ -12,6 +12,9 @@ export function homography(src, dst) {
 }
 export const applyH = (H, x, y) => { const w = H[6] * x + H[7] * y + H[8]; return [(H[0] * x + H[1] * y + H[2]) / w, (H[3] * x + H[4] * y + H[5]) / w]; };
 // column-major for uniformMatrix3fv
+// baked outline masks (scripts/prep-scenes.mjs): 1200 px wide with a 60 px pad so the blur never hits an edge
+export const MASK = { w: 1200, pad: 60 };
+export function maskDM(sc) { const [pw, ph] = sc.size, h = Math.round(ph * MASK.w / pw), W = MASK.w + MASK.pad * 2, H = h + MASK.pad * 2; return [MASK.pad / W, MASK.pad / H, MASK.w / W, h / H]; }
 export const glMat = H => new Float32Array([H[0], H[3], H[6], H[1], H[4], H[7], H[2], H[5], H[8]]);
 
 // garden: frontal camera, horizon at y=816, f*h = 2560 px.m, f = 1600 px
@@ -20,7 +23,7 @@ const GX0 = -4.6, GX1 = 4.6, GZ0 = 4.4, GZ1 = 9.5;
 
 export const SCENES = {
   front: {
-    label: 'Front drive', src: '/img/scene-front-a.webp', size: [2400, 1602],
+    label: 'Front drive', src: '/img/scene-front-b.webp', mask: '/img/scene-front-mask-b.png', size: [2400, 1602],
     // the inlaid square on the right of the drive is 1.6 m a side (8 blocks)
     H: homography([[1563, 1213], [1767, 1093], [2142, 1148], [2100, 1350]], [[0, 0], [1.6, 0], [1.6, 1.6], [0, 1.6]]),
     poly: [[-80, 1038], [90, 1027], [330, 987], [622, 963], [1040, 933], [1064, 915], [1298, 915], [1312, 927], [1546, 953], [1592, 963], [2000, 1011], [2480, 1074], [2480, 1700], [-80, 1700]],
@@ -31,7 +34,7 @@ export const SCENES = {
     focus: [.6, .62], sun: [-.35, .8, .5]
   },
   garden: {
-    label: 'Back garden', src: '/img/scene-garden-a.webp', size: [2400, 1631],
+    label: 'Back garden', src: '/img/scene-garden-b.webp', mask: '/img/scene-garden-mask-b.png', size: [2400, 1631],
     H: homography([gpt(GX0, GZ0), gpt(GX1, GZ0), gpt(GX1, GZ1), gpt(GX0, GZ1)], [[GX0, GZ0], [GX1, GZ0], [GX1, GZ1], [GX0, GZ1]]),
     poly: [gpt(GX0, GZ0), gpt(GX1, GZ0), gpt(GX1, GZ1), gpt(GX0, GZ1)],
     edges: [[0, 'kerb'], [1, 'kerb'], [2, 'house'], [3, 'kerb']],

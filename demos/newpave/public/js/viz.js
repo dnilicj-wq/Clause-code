@@ -3,7 +3,7 @@
 // garden) is re-laid. A homography maps each pixel to ground-plane metres, so blocks, slabs and stones
 // are the right size and in true perspective. Lighting comes from the photo's sun: daylight, contact
 // shade where the drive meets walls and beds, a soft shadow under the car. One fragment shader.
-import { SCENES, glMat, applyH } from './scenes.js';
+import { SCENES, glMat, applyH, maskDM } from './scenes.js';
 
 const VS = `attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}`;
 const FS = `
@@ -107,7 +107,7 @@ void main(){
  gl_FragColor=vec4(col,1.);
 }`;
 
-const loadImg = src => new Promise((res, rej) => { const i = new Image(); i.decoding = 'async'; i.onload = () => res(i); i.onerror = rej; i.src = src; });
+const loadImg = src => { const i = new Image(); i.decoding = 'async'; i.src = src; return i.decode().then(() => i); };
 
 export function createScene(host, { tex, BLENDS, BLOCK_COLOURS, PORCELAIN, onReady, onScene } = {}) {
   const cv = document.createElement('canvas');
@@ -138,7 +138,6 @@ export function createScene(host, { tex, BLENDS, BLOCK_COLOURS, PORCELAIN, onRea
     const w = repeat ? gl.REPEAT : gl.CLAMP_TO_EDGE; gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, w); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, w);
     if (mip) { gl.generateMipmap(gl.TEXTURE_2D); if (aniso) gl.texParameterf(gl.TEXTURE_2D, aniso.TEXTURE_MAX_ANISOTROPY_EXT, Math.min(8, maxA)); }
   }
-  const pot = (img, S = 2048) => { const c = document.createElement('canvas'); c.width = c.height = S; c.getContext('2d').drawImage(img, 0, 0, S, S); return c; };
 
   // ---- surfaces from tex.js (tileable, power of two) ----
   const texCache = new Map();
@@ -160,19 +159,10 @@ export function createScene(host, { tex, BLENDS, BLOCK_COLOURS, PORCELAIN, onRea
   const photoCache = {};
   async function loadScene(name) {
     const S = SCENES[name]; scName = name;
-    const img = photoCache[name] || (photoCache[name] = await loadImg(S.src));
-    sc = S;
-    upload('photo', pot(img), { mip: true });
-    // area mask: R feathered polygon, G blurred (contact shade)
-    const [pw, ph] = S.size, w = 1200, k = w / pw, h = Math.round(ph * k), pad = 60;
-    const c = document.createElement('canvas'); c.width = w + pad * 2; c.height = h + pad * 2; const x = c.getContext('2d');
-    x.fillStyle = '#000'; x.fillRect(0, 0, c.width, c.height);
-    const path = () => { x.beginPath(); S.poly.forEach(([px, py], i) => x[i ? 'lineTo' : 'moveTo'](pad + px * k, pad + py * k)); x.closePath(); };
-    x.globalCompositeOperation = 'lighter';
-    x.filter = 'blur(1px)'; x.fillStyle = '#f00'; path(); x.fill();
-    x.filter = 'blur(12px)'; x.fillStyle = '#0f0'; path(); x.fill();
-    x.filter = 'none'; x.globalCompositeOperation = 'source-over';
-    upload('area', c); DM = [pad / c.width, pad / c.height, w / c.width, h / c.height];
+    const [img, mask] = photoCache[name] || (photoCache[name] = await Promise.all([loadImg(S.src), loadImg(S.mask)]));
+    sc = S; const [pw, ph] = S.size;
+    upload('photo', img, { mip: true });
+    upload('area', mask); DM = maskDM(S);
     // kerb and house edges in plane metres
     segs.fill(0); segT.fill(0);
     S.edges.forEach(([i, type], n) => { const a = S.poly[i], b = S.poly[(i + 1) % S.poly.length]; const A = applyH(S.H, ...a), B = applyH(S.H, ...b); segs.set([...A, ...B], n * 4); segT[n] = type === 'house' ? 2 : 1; });
