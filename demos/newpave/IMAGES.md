@@ -59,3 +59,14 @@ Only **real job** photos are used in the gallery and "our work" areas. Before go
 | `newpave-blocks-1.png` | graphic | not used | 1801x801, 14 KB | Faded diamond pattern used as a background | https://newpaveltd.co.uk/wp-content/uploads/2026/08/newpave-blocks-1.png |
 | `facebook.png` | graphic | not used | 60x60, 4 KB | Facebook icon | https://newpaveltd.co.uk/wp-content/themes/landscape-sil/dist/assets/images/facebook.png |
 | `facebook-white.png` | graphic | not used | 60x60, 3 KB | Facebook icon (white) | https://newpaveltd.co.uk/wp-content/themes/landscape-sil/dist/assets/images/facebook-white.png |
+
+
+## Example photos (hero and designer)
+
+Free photos from Pexels (Pexels licence: free to use, no attribution required). Shown on the site as "Example photo". Originals in `stock/`, processed by `scripts/prep-scenes.mjs`.
+
+| File | Used as | Source |
+|---|---|---|
+| `stock/pexels-8134845-front.jpg` | Hero background and designer "Front drive" (the drive is redrawn in the browser) | https://www.pexels.com/photo/8134845/ |
+| `stock/pexels-7546775-garden.jpg` | Designer "Back garden" (the patio is drawn onto the lawn) | https://www.pexels.com/photo/7546775/ |
+| `stock/pexels-15535501-eclass.jpg` | Mercedes E-Class on the designer drive, cut out with Apple Vision; the foreign number plate is blanked | https://www.pexels.com/photo/15535501/ |

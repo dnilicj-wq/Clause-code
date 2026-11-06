@@ -131,7 +131,7 @@ function page({ path, title, desc, h1, lede, hero, heroAlt, crumbs, main, aside,
 <link rel="canonical" href="${SITE}${path}">
 <meta property="og:type" content="website"><meta property="og:locale" content="en_GB"><meta property="og:site_name" content="Newpave Ltd">
 <meta property="og:title" content="${title}"><meta property="og:description" content="${desc}">
-<meta property="og:image" content="${DEMO}/img/og-a.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:image" content="${DEMO}/img/og-b.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/favicon.png" type="image/png"><link rel="icon" href="/brand/mark.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/brand/icon-180.png"><link rel="manifest" href="/site.webmanifest">
 <link rel="preload" href="/fonts/archivo.woff2" as="font" type="font/woff2" crossorigin>
@@ -175,7 +175,7 @@ ${design ? `<a class="btn btn-acc" href="/?design=${design}#design" data-track="
 <a class="btn btn-wa" href="${WA(`Hi Charles, I'd like a free survey for ${label.toLowerCase()}.`)}" data-track="whatsapp" data-loc="sub"><svg aria-hidden="true"><use href="#i-wa"/></svg>WhatsApp Charles</a>
 <ul><li><a href="tel:+447787707154"><svg aria-hidden="true"><use href="#i-phone"/></svg>07787 707154</a></li><li><a href="mailto:newpavelimited1@gmail.com"><svg aria-hidden="true"><use href="#i-mail"/></svg>newpavelimited1@gmail.com</a></li></ul>`;
 const biz = { '@id': SITE + '/#business' };
-const bizFull = { '@type': ['HomeAndConstructionBusiness', 'LocalBusiness'], '@id': SITE + '/#business', name: 'Newpave Ltd', telephone: '+447787707154', url: SITE + '/', image: DEMO + '/img/og-a.jpg', address: { '@type': 'PostalAddress', streetAddress: '39 Barn Close, Donnington', addressLocality: 'Telford', addressRegion: 'Shropshire', postalCode: 'TF2 7QT', addressCountry: 'GB' } };
+const bizFull = { '@type': ['HomeAndConstructionBusiness', 'LocalBusiness'], '@id': SITE + '/#business', name: 'Newpave Ltd', telephone: '+447787707154', url: SITE + '/', image: DEMO + '/img/og-b.jpg', address: { '@type': 'PostalAddress', streetAddress: '39 Barn Close, Donnington', addressLocality: 'Telford', addressRegion: 'Shropshire', postalCode: 'TF2 7QT', addressCountry: 'GB' } };
 const crumbsLd = (items) => ({ '@type': 'BreadcrumbList', itemListElement: items.map(([n, u], i) => ({ '@type': 'ListItem', position: i + 1, name: n, item: SITE + u })) });
 const photosHtml = ps => `<div class="photo-row">${ps.map(([s, c]) => `<figure>${pic(s, c + ', a Newpave job')}<figcaption>${c}</figcaption></figure>`).join('')}</div>`;
 const svcLinks = cur => `<div class="sub-more">${Object.entries(SERVICES).filter(([k]) => k !== cur).map(([k, v]) => `<a href="/services/${k}/">${v.name}</a>`).join('')}</div>`;

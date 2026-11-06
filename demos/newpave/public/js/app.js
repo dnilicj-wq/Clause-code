@@ -169,6 +169,24 @@ const PANELS = {
   draw(0);
 })();
 
+// ---------- why cards: on phones each card eases back as the next one slides over it ----------
+(() => {
+  const cards = $$('#why .card'); if (!cards.length) return;
+  let ticking = false;
+  const run = () => {
+    ticking = false;
+    const phone = innerWidth <= 900;
+    cards.forEach((c, i) => {
+      const n = cards[i + 1];
+      let e = 0;
+      if (n && phone) { const a = c.getBoundingClientRect(), b = n.getBoundingClientRect(); const k = clamp(1 - (b.top - a.top) / Math.max(1, a.height), 0, 1); e = k * k * (3 - 2 * k); }
+      c.style.setProperty('--sc', (1 - .06 * e).toFixed(4)); c.style.setProperty('--dk', (e * .28).toFixed(3));
+    });
+  };
+  addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(run); } }, { passive: true });
+  addEventListener('resize', run); run();
+})();
+
 // ---------- 4 layers ----------
 (() => {
   const sec = $('#layers'), stack = $('#stack'), lays = $$('.lay', stack), steps = $$('.lstep'), bars = $$('.lbar i'), tags = $$('.ltag');
@@ -188,18 +206,22 @@ const PANELS = {
   function frame() {
     const r = sec.getBoundingClientRect(); const total = r.height - innerHeight; const p = clamp(-r.top / total, 0, 1);
     if (Math.abs(p - lastP) < .0005) return; lastP = p;
-    const explode = p < .8 ? Math.min(1, p / .1) : lerp(1, .12, clamp((p - .8) / .15, 0, 1));
-    const gap = mobile() ? 26 : 58;
+    const mob = mobile();
+    const s = p < .1 ? 0 : p < .26 ? 1 : p < .42 ? 2 : p < .58 ? 3 : 4;
+    // phones: the whole stack is there in 3D from the first frame; scrolling lifts the layer being described.
+    // (No opacity on the layers: opacity flattens their 3D sides, which read as "flat, then 3D".)
+    const explode = mob ? 1 : p < .8 ? Math.min(1, p / .1) : lerp(1, .12, clamp((p - .8) / .15, 0, 1));
+    const gap = mob ? 16 : 58;
     lays.forEach((l, i) => {
-      const a = ARR[i]; const k = a < 0 ? 1 : clamp((p - a) / .08, 0, 1); const e = 1 - Math.pow(1 - k, 3);
-      const z = i * 14 + i * gap * explode + (1 - e) * (mobile() ? 120 : 300);
-      l.style.transform = `translateZ(${z}px)`; l.style.opacity = a < 0 ? 1 : e;
-      const show = (a < 0 || e > .6) && explode > .5 && !mobile();
+      const a = ARR[i]; const k = mob || a < 0 ? 1 : clamp((p - a) / .08, 0, 1); const e = 1 - Math.pow(1 - k, 3);
+      const z = i * 14 + i * gap * explode + (1 - e) * 300 + (mob && i === s ? 22 : 0);
+      l.style.transform = `translateZ(${z}px)`; l.style.visibility = e < .02 ? 'hidden' : '';
+      l.classList.toggle('act', mob && i === s);
+      const show = (a < 0 || e > .6) && explode > .5 && !mob;
       tags[i].classList.toggle('on', show);
       if (show) { const lr = l.getBoundingClientRect(), ir = $('.iso').getBoundingClientRect(); tags[i].style.transform = `translate(${lr.right - ir.left + 6}px,${lr.top - ir.top + lr.height * .4}px)`; }
     });
-    stack.style.transform = `rotateX(${58 - p * 6}deg) rotateZ(${-34 + p * 12}deg)`;
-    const s = p < .1 ? 0 : p < .26 ? 1 : p < .42 ? 2 : p < .58 ? 3 : 4;
+    stack.style.transform = mob ? `translateY(18%) rotateX(56deg) rotateZ(${-32 + p * 10}deg)` : `rotateX(${58 - p * 6}deg) rotateZ(${-34 + p * 12}deg)`;
     steps.forEach((x, i) => x.classList.toggle('on', i === s));
     bars.forEach((x, i) => x.style.setProperty('--p', i < s ? 1 : i === s ? 1 : 0));
   }
@@ -210,7 +232,7 @@ const PANELS = {
 })();
 
 // ---------- 5 configurator ----------
-const cfgState = Object.assign({ surface: 'resin', blend: 'silver', pattern: 'herringbone', bcol: 'brindle', tcol: 'black', tedge: true, pcol: 'grey', m2: 32, size: 'two', extras: {} }, store.get('np-cfg') || {});
+const cfgState = Object.assign({ surface: 'resin', blend: 'silver', pattern: 'herringbone', bcol: 'brindle', tcol: 'black', tedge: true, pcol: 'grey', m2: 32, size: 'two', scene: 'front', extras: {} }, store.get('np-cfg') || {});
 let cfg3d = null; let cfgTouched = false;
 const surfName = id => SURFACES.find(s => s.id === id).name;
 function lookName(s = cfgState) {
@@ -229,7 +251,8 @@ function swatchCss(id, kind) {
   const list = kind === 'resin' ? BLENDS : kind === 'block' ? BLOCK_COLOURS : PORCELAIN; const c = list.find(x => x.id === id).c;
   return kind === 'resin' ? `radial-gradient(circle at 30% 30%, ${c[2]} 0 12%, transparent 13%), radial-gradient(circle at 70% 60%, ${c[1]} 0 16%, transparent 17%), radial-gradient(circle at 40% 75%, ${c[2]} 0 10%, transparent 11%), ${c[0]}` : `linear-gradient(135deg, ${c[2]}, ${c[0]} 50%, ${c[1]})`;
 }
-function designSummary() { return `${surfName(cfgState.surface)}, ${lookName()}, about ${cfgState.m2} m²`; }
+const placeName = (s = cfgState) => s.scene === 'garden' ? 'back garden' : 'front drive';
+function designSummary() { return `${surfName(cfgState.surface)}, ${lookName()}, ${placeName()}, about ${cfgState.m2} m²`; }
 function renderCfg() {
   const s = cfgState;
   $('#cfgSurf').innerHTML = SURFACES.map(x => `<button type="button" data-v="${x.id}" aria-pressed="${s.surface === x.id}"><i style="background:${x.id === 'resin' ? swatchCss(s.blend, 'resin') : x.id === 'block' ? swatchCss(s.bcol, 'block') : x.id === 'tarmac' ? (s.tcol === 'red' ? '#5a2722' : '#202022') : swatchCss(s.pcol, 'porcelain')}"></i>${x.short}</button>`).join('');
@@ -243,6 +266,7 @@ function renderCfg() {
   $('#cfgM2').value = s.m2;
   $('#cfgExtras').innerHTML = Object.entries(EXTRAS).map(([k, x]) => `<label><input type="checkbox" data-x="${k}" ${s.extras[k] ? 'checked' : ''}>${x.label}</label>`).join('');
   $('#cfgBadge').textContent = `${surfName(s.surface)}, ${lookName()}`;
+  $$('#cfgScene button').forEach(b => b.setAttribute('aria-pressed', b.dataset.scene === s.scene));
   updatePrice();
 }
 let shown = [0, 0];
@@ -268,10 +292,15 @@ function cfgSet(patch, scroll = false) {
   $('#cfgBook').addEventListener('click', () => { cfgTouched = true; bk.fromDesign = true; syncDesignCard(); track('design_to_booking', { design: designSummary() }); });
   // 3D: load three.js only when the designer is near
   const view = $('#cfgView');
-  if (!hasGL) return;
+  $('#cfgScene').addEventListener('click', e => { const b = e.target.closest('button'); if (b && b.dataset.scene !== cfgState.scene) { cfgSet({ scene: b.dataset.scene }); track('cfg_scene', { scene: b.dataset.scene }); } });
+  $('#cfgCar').addEventListener('click', e => { const b = e.currentTarget, on = b.getAttribute('aria-pressed') !== 'true'; b.setAttribute('aria-pressed', on); b.lastElementChild.textContent = on ? 'Hide car' : 'Show car'; cfg3d && cfg3d.car(on); });
+  if (!hasGL) { $('#cfgScene').hidden = true; $('#cfgCar').hidden = true; return; }
   new IntersectionObserver(([e], o) => {
     if (!e.isIntersecting) return; o.disconnect();
-    import('./config3d.js').then(m => { cfg3d = m.createScene(view, { tex: T, BLENDS, BLOCK_COLOURS, PORCELAIN, onReady() { view.classList.add('live'); } }); cfg3d && cfg3d.set(cfgState); }).catch(err => console.warn('3d', err));
+    import('./viz.js').then(m => {
+      cfg3d = m.createScene(view, { tex: T, BLENDS, BLOCK_COLOURS, PORCELAIN, onReady() { view.classList.add('live'); }, onScene(name, car) { $('#cfgCar').hidden = !car; } });
+      cfg3d && cfg3d.set(cfgState);
+    }).catch(err => console.warn('viz', err));
   }, { rootMargin: '500px' }).observe(view);
 })();
 
@@ -356,7 +385,7 @@ if (SITE.googleReview) $('#reviewLink').href = SITE.googleReview;
   const [bx, by] = px(BASE[1], BASE[2]);
   let towns = TOWNS.map(([n, lo, la]) => { const [x, y] = px(lo, la); return `<g class="town"><line x1="${bx}" y1="${by}" x2="${x}" y2="${y}" stroke="rgba(242,106,27,.4)" stroke-dasharray="3 4"/><circle class="halo" cx="${x}" cy="${y}" r="9"/><circle class="pin" cx="${x}" cy="${y}" r="5"/><text x="${x + 12}" y="${y + 4}">${n}</text></g>`; }).join('');
   const [sx, sy] = px(-2.95, 52.55), [wx, wy] = px(-1.72, 52.42);
-  const svg = `<svg viewBox="0 0 ${W} ${H}" role="presentation">${dots}${towns}<g class="town"><circle cx="${bx}" cy="${by}" r="7" fill="#f3f3f1"/><circle cx="${bx}" cy="${by}" r="3" fill="#131211"/><text x="${bx + 12}" y="${by - 8}">Newpave, Donnington</text></g><text class="rg" x="${sx}" y="${sy}">Shropshire</text><text class="rg" x="${wx}" y="${wy}">West Midlands</text></svg>`;
+  const svg = `<svg viewBox="0 0 ${W} ${H}" role="presentation">${dots}${towns}<g class="town"><circle cx="${bx}" cy="${by}" r="7" fill="#f3f3f1"/><circle cx="${bx}" cy="${by}" r="3" fill="#131211"/><text x="${bx + 10}" y="${by - 16}">Newpave, Donnington</text></g><text class="rg" x="${sx}" y="${sy}">Shropshire</text><text class="rg" x="${W - 4}" y="${wy + 30}" text-anchor="end">West Midlands</text></svg>`;
   $('#map').innerHTML = svg;
 })();
 
