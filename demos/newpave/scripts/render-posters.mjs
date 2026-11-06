@@ -21,7 +21,7 @@ await hero('hero-m-b', 390, 844, 2);
   await p.goto(B + '/?posterRender', { waitUntil: 'load' }); await p.addStyleTag({ content: hide });
   await p.evaluate(() => document.querySelector('#design').scrollIntoView()); await p.waitForTimeout(3500);
   const png = await (await p.$('#cfgView')).screenshot();
-  await sharp(png).resize(1200).webp({ quality: 74 }).toFile(OUT + 'cfg-poster-b.webp'); await p.close(); }
+  await sharp(png).resize(1200).webp({ quality: 74 }).toFile(OUT + 'cfg-poster-c.webp'); await p.close(); }
 // OG image 1200x630
 { const p = await b.newPage({ viewport: { width: 1200, height: 630 } });
   const bg = 'data:image/png;base64,' + (await sharp(d).resize(1200, 630, { fit: 'cover', position: 'top' }).png().toBuffer()).toString('base64');

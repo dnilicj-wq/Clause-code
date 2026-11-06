@@ -16,6 +16,7 @@ uniform float uProg;uniform vec2 uLayV;
 uniform vec4 uSeg[14];uniform float uSegT[14];
 uniform vec3 uX; // edging, drainage, lights
 uniform vec4 uCarR;uniform float uCarOn;uniform vec4 uShC;uniform vec4 uShA;
+uniform vec4 uLit;uniform vec3 uTint; // photo-lit scenes: on, exposure, texture blur (to match the photo's softness)
 float h21(vec2 p){p=fract(p*vec2(123.34,456.21));p+=dot(p,p+45.32);return fract(p.x*p.y);}
 float vn(vec2 p){vec2 i=floor(p),f=fract(p);vec2 u=f*f*(3.-2.*f);
  return mix(mix(h21(i),h21(i+vec2(1,0)),u.x),mix(h21(i+vec2(0,1)),h21(i+vec2(1,1)),u.x),u.y);}
@@ -46,8 +47,8 @@ void main(){
   float t=(puv.y-uLayV.x)/(uLayV.y-uLayV.x);
   float wob=(vn(vec2(g.x*1.3,0.))-.5)*.06;
   float lay=1.-smoothstep(uProg-.012,uProg+.012,t+wob);
-  vec4 a=texture2D(uTexA,rot(g,uMatA.y)/uMatA.x);
-  vec4 b=texture2D(uTexB,rot(g,uMatB.y)/uMatB.x);
+  vec4 a=texture2D(uTexA,rot(g,uMatA.y)/uMatA.x,uLit.z);
+  vec4 b=texture2D(uTexB,rot(g,uMatB.y)/uMatB.x,uLit.z);
   vec3 alb=mix(b.rgb,a.rgb,lay);
   float gloss=mix(uMatB.z,uMatA.z,lay);
   // distance to kerb / house edges (plane metres) for edging, drainage and lights
@@ -74,12 +75,19 @@ void main(){
   if(dr>0.){float s=step(.5,fract(tHs/.03));vec3 dc=mix(vec3(.08,.08,.085),vec3(.55,.56,.58),s*step(abs(dHs-.42),.05));alb=mix(alb,dc,dr);gloss=mix(gloss,.6,dr);}
   // light: sun + sky, contact shade
   vec3 lit=alb*(skyC+sunC*.86)*ao*1.08;
+  // photo-lit: the old drive's own light and shade (mask B, 0.5 = its median brightness), under the photo's sky colour
+  if(uLit.x>.5){
+   float lm=dm.b*2.;
+   vec3 lin=pow(alb,vec3(2.2))*lm*uLit.y*uTint;
+   lin=mix(vec3(dot(lin,vec3(.2126,.7152,.0722))),lin,.8); // overcast: muted colour, like the rest of the photo
+   lit=pow(lin,vec3(1./2.2))*mix(1.,ao,.25);
+  }
   // sheen: sun glint on resin / porcelain, sky reflection at grazing angles
   vec2 rv=vec2(puv.x,clamp(2.*uVb-puv.y,.002,.998));
   vec3 refl=texture2D(uPhoto,rv,mix(4.5,2.,gloss)).rgb;
   float graze=smoothstep(.0,.5,uVb/max(puv.y,.01)-.5);
-  lit=mix(lit,refl*ao,gloss*(.03+.09*graze));
-  float spark=step(.985,h21(floor(rot(g,uMatA.y)/.006)))*gloss*lay*step(uMatA.w,.5);
+  lit=mix(lit,refl*ao,gloss*(.03+.09*graze)*(1.-uLit.x*.4));
+  float spark=step(.985,h21(floor(rot(g,uMatA.y)/.006)))*gloss*lay*step(uMatA.w,.5)*(1.-uLit.x*.75);
   lit+=sunC*spark*.35*(.6+.4*sin(uTime*2.+g.x*40.));
   // lights: small stainless in-ground LEDs along the kerb
   if(uX.z>0.){float ph=fract(tK/1.8);float dl=length(vec2((ph-.5)*1.8,dK-.38));float led=1.-smoothstep(.028,.036,dl);
@@ -123,7 +131,7 @@ export function createScene(host, { tex, BLENDS, BLOCK_COLOURS, PORCELAIN, onRea
   const buf = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, buf);
   gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
   const loc = gl.getAttribLocation(prog, 'p'); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
-  const U = {}; ['uRes', 'uTime', 'uPhoto', 'uArea', 'uCar', 'uTexA', 'uTexB', 'uCover', 'uPS', 'uH', 'uDM', 'uVb', 'uSun', 'uMatA', 'uMatB', 'uProg', 'uLayV', 'uSeg', 'uSegT', 'uX', 'uCarR', 'uCarOn', 'uShC', 'uShA'].forEach(n => U[n] = gl.getUniformLocation(prog, n));
+  const U = {}; ['uRes', 'uTime', 'uPhoto', 'uArea', 'uCar', 'uTexA', 'uTexB', 'uCover', 'uPS', 'uH', 'uDM', 'uVb', 'uSun', 'uMatA', 'uMatB', 'uProg', 'uLayV', 'uSeg', 'uSegT', 'uX', 'uCarR', 'uCarOn', 'uShC', 'uShA', 'uLit', 'uTint'].forEach(n => U[n] = gl.getUniformLocation(prog, n));
   const aniso = gl.getExtension('EXT_texture_filter_anisotropic') || gl.getExtension('WEBKIT_EXT_texture_filter_anisotropic');
   const maxA = aniso ? gl.getParameter(aniso.MAX_TEXTURE_MAX_ANISOTROPY_EXT) : 1;
   const UNIT = { photo: 0, area: 1, car: 2, a: 3, b: 4 };
@@ -211,6 +219,7 @@ export function createScene(host, { tex, BLENDS, BLOCK_COLOURS, PORCELAIN, onRea
     gl.uniform4f(U.uMatA, cur.tile, cur.rot, cur.gloss, cur.kind); gl.uniform4f(U.uMatB, prev.tile, prev.rot, prev.gloss, prev.kind);
     gl.uniform1f(U.uProg, lay ? p * 1.06 : 1.2); gl.uniform2fv(U.uLayV, layV);
     gl.uniform4fv(U.uSeg, segs); gl.uniform1fv(U.uSegT, segT); gl.uniform3fv(U.uX, X);
+    const L = sc.lit; gl.uniform4f(U.uLit, L ? 1 : 0, L ? L.exp : 1, L ? L.bias : 0, 0); gl.uniform3fv(U.uTint, L ? L.tint : [1, 1, 1]);
     gl.uniform4fv(U.uCarR, carR); gl.uniform1f(U.uCarOn, sc.car ? carOn : 0); gl.uniform4fv(U.uShC, shC); gl.uniform4fv(U.uShA, shA);
     gl.drawArrays(gl.TRIANGLES, 0, 3);
     if (!ready) { ready = true; onReady && onReady(); }

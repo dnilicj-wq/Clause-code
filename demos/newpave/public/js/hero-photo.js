@@ -124,7 +124,7 @@ void main(){
  gl_FragColor=vec4(col,1.);
 }`;
 
-const scene = SCENES.front;
+const scene = SCENES.hero;
 
 // Compile the shader without blocking the main thread (KHR_parallel_shader_compile),
 // so the page stays responsive while the GPU builds the hero.
