@@ -78,12 +78,12 @@ let blendIdx = 0;
     hero = initHero({
       blend: BLENDS[0].c, poster: posterMode, posterDpr: 2,
       onFirst() { $('#hintTxt').textContent = coarse ? 'Keep swiping' : 'Keep going'; track('hero_interact'); },
-      onCoverage(c) { $('#heroPct').textContent = Math.round(c * 100) + '%'; if (c > .12 && !shownFinish) { shownFinish = true; $('#heroFinish').classList.add('show'); } },
-      onDone() { $('#doneNote').classList.add('show'); $('#heroFinish').classList.remove('show'); $('#hintTxt').textContent = 'Done. Try another surface'; track('hero_done'); setTimeout(() => $('#doneNote').classList.remove('show'), 4200); }
+      onCoverage(c) { $('#heroPct').textContent = Math.round(c * 100) + '%'; if (c > .12 && !shownFinish) { shownFinish = true; $('#heroFinish').classList.add('show'); if (dockEl.dataset.s === '0') dockEl.dataset.s = '1'; } },
+      onDone() { dockEl.dataset.s = '2'; $('#doneNote').classList.add('show'); $('#heroFinish').classList.remove('show'); $('#hintTxt').textContent = 'Done. Try another surface'; track('hero_done'); setTimeout(() => $('#doneNote').classList.remove('show'), 4200); }
     });
     if (!hero) return;
     if (posterMode) { hero.posterFrame(); setTimeout(() => (window.__posterReady = true), 600); return; }
-    dockEl.hidden = false;
+    dockEl.dataset.s = '0'; dockEl.hidden = false;
     $('#hintTxt').textContent = coarse ? 'Swipe across the drive' : 'Move across the drive';
     $('#heroFinish').addEventListener('click', () => { hero.finish(); track('hero_finish'); });
     if (!reduce) setTimeout(() => hero.demo(coarse ? 2000 : 1700), 450);

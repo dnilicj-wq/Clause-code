@@ -135,7 +135,7 @@ function page({ path, title, desc, h1, lede, hero, heroAlt, crumbs, main, aside,
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/favicon.png" type="image/png"><link rel="icon" href="/brand/mark.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="/brand/icon-180.png"><link rel="manifest" href="/site.webmanifest">
 <link rel="preload" href="/fonts/archivo.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/css/site.css?v=1">
+<link rel="stylesheet" href="/css/site.css?v=2">
 <script type="application/ld+json">${JSON.stringify(schema)}</script>
 ${css}
 </head>

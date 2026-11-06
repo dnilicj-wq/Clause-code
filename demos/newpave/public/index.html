@@ -22,7 +22,7 @@
 <link rel="preload" href="/fonts/archivo.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" as="image" href="/img/hero-m-c.avif" type="image/avif" media="(max-width:760px)" fetchpriority="high">
 <link rel="preload" as="image" href="/img/hero-d-c.avif" type="image/avif" media="(min-width:761px)" fetchpriority="high">
-<link rel="stylesheet" href="/css/site.css?v=1">
+<link rel="stylesheet" href="/css/site.css?v=2">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":["HomeAndConstructionBusiness","LocalBusiness"],"@id":"https://newpaveltd.co.uk/#business","name":"Newpave Ltd","legalName":"New Pave Limited","description":"Family-run driveway, paving and landscaping contractor: resin drives, block paving, tarmac driveways, patios, hard and soft landscaping, and 24-hour emergency call-out.","url":"https://newpaveltd.co.uk/","telephone":"+447787707154","email":"newpavelimited1@gmail.com","image":"https://clientgateway-newpave.vercel.app/img/og-c.jpg","logo":"https://clientgateway-newpave.vercel.app/brand/icon-512.png","founder":{"@type":"Person","name":"Charles Quinn"},"address":{"@type":"PostalAddress","streetAddress":"39 Barn Close, Donnington","addressLocality":"Telford","addressRegion":"Shropshire","postalCode":"TF2 7QT","addressCountry":"GB"},"geo":{"@type":"GeoCoordinates","latitude":52.711,"longitude":-2.428},"areaServed":[{"@type":"City","name":"Telford"},{"@type":"AdministrativeArea","name":"Shropshire"},{"@type":"City","name":"Wolverhampton"},{"@type":"City","name":"Birmingham"},{"@type":"AdministrativeArea","name":"West Midlands"}],"sameAs":["https://www.facebook.com/people/Newpave-LTD/61594755655961/"],"contactPoint":[{"@type":"ContactPoint","telephone":"+447787707154","contactType":"customer service","areaServed":"GB","availableLanguage":"en-GB"},{"@type":"ContactPoint","telephone":"+448009330769","contactType":"emergency","areaServed":"GB","hoursAvailable":{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"opens":"00:00","closes":"23:59"}}],"makesOffer":[{"@type":"Offer","itemOffered":{"@type":"Service","name":"Resin drives"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Block paving"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Tarmac driveways"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Patios and paths"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Hard and soft landscaping"}}],"identifier":{"@type":"PropertyValue","propertyID":"Companies House","value":"16762535"}}
 </script>
@@ -74,10 +74,14 @@
   .hero-cta{gap:8px;width:100%}
   .hero-cta .btn-acc{flex:1 1 100%}
   .hero-cta .btn-line:not(.btn-ico){flex:1}
-  .hero-dock{top:calc(68px + env(safe-area-inset-top));bottom:auto;right:12px;left:12px;justify-content:flex-start;max-width:none;gap:8px}
-  .hpill{min-height:38px;font-size:.78rem;padding:0 12px}
-  .blends{gap:2px;padding:4px}.blends button{min-height:34px;padding:0 10px 0 4px;font-size:.78rem;gap:5px}.blends button i{width:20px;height:20px}
-  .hero-dock>.hpill[aria-live]{display:none}.hero-dock .finish{order:1;min-height:38px;font-size:.8rem;padding:0 14px}.hero-dock .blends{order:2}
+  /* phones: one thing at a time. Hint, then Finish, then the surfaces */
+  .hero-copy .label,.hero-cta .btn-line{display:none}
+  .hero-dock{top:calc(76px + env(safe-area-inset-top));bottom:auto;left:12px;right:12px;justify-content:center;max-width:none}
+  .hero-dock>*{display:none}
+  .hero-dock[data-s="0"]>#heroHint,.hero-dock[data-s="1"]>.finish,.hero-dock[data-s="2"]>.blends{display:flex}
+  .hpill{min-height:38px;font-size:.8rem;padding:0 14px}
+  .hero-dock .finish{min-height:40px;font-size:.84rem;padding:0 18px}
+  .blends{gap:2px;padding:4px}.blends button{min-height:34px;padding:0 10px 0 4px;font-size:.78rem;gap:6px}.blends button i{width:20px;height:20px}
   .done-note{display:none}
 }
 
@@ -118,7 +122,7 @@
 .slabs path{stroke:rgba(255,255,255,.55);stroke-width:1.2;fill:none;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 1.4s var(--ease)}
 .t-patio:hover .slabs path,.t-patio.in .slabs path{stroke-dashoffset:0}
 .chips{display:flex;flex-wrap:wrap;gap:8px;max-width:640px}
-@media (max-width:620px){.t-land .chips{flex-wrap:nowrap;overflow:hidden;mask-image:linear-gradient(90deg,#000 80%,transparent)}}
+@media (max-width:620px){.t-land .chips,.lens{display:none}.work.swipe .work-count{display:none}}
 .chips span{padding:.5em .95em;border-radius:999px;border:1px solid rgba(255,255,255,.3);font-size:.88rem;background:rgba(19,18,17,.45);opacity:0;transform:translateY(8px);transition:.6s var(--ease)}
 .t-land.in .chips span{opacity:1;transform:none}
 .t-land.in .chips span:nth-child(2){transition-delay:.06s}.t-land.in .chips span:nth-child(3){transition-delay:.12s}.t-land.in .chips span:nth-child(4){transition-delay:.18s}.t-land.in .chips span:nth-child(5){transition-delay:.24s}.t-land.in .chips span:nth-child(6){transition-delay:.3s}.t-land.in .chips span:nth-child(7){transition-delay:.36s}.t-land.in .chips span:nth-child(8){transition-delay:.42s}
@@ -265,7 +269,7 @@ dialog.panel[open]{animation:pop .3s var(--ease)}
 .card p{color:var(--m-l);font-size:.98rem}
 .card picture,.card img{width:100%;height:100%;object-fit:cover}
 @media (max-width:900px){.why-grid{grid-template-columns:1fr}.why-head{position:relative;top:0}.card{grid-template-columns:1fr;min-height:0;top:calc(19svh + var(--i) * 14px);transform:scale(var(--sc,1));transition:transform .12s linear}.card::after{content:"";position:absolute;inset:0;background:#131211;opacity:var(--dk,0);pointer-events:none;border-radius:inherit}.card picture{order:-1}.card img{aspect-ratio:16/8}}
-@media (max-width:620px){.why-head .btn{display:none}.card{grid-template-columns:1fr 34%}.card picture{order:0}.card img{aspect-ratio:auto;height:100%}.card .txt{padding:14px;gap:6px}.card h3{font-size:1.25rem}.card{grid-template-columns:1fr 34%}.card p{font-size:.9rem;line-height:1.45}.cards{gap:12px}}
+@media (max-width:620px){.card{position:relative;top:0;transform:none!important}.card::after{display:none}.why-head .btn{display:none}.card{grid-template-columns:1fr 34%}.card picture{order:0}.card img{aspect-ratio:auto;height:100%}.card .txt{padding:14px;gap:6px}.card h3{font-size:1.25rem}.card{grid-template-columns:1fr 34%}.card p{font-size:.9rem;line-height:1.45}.cards{gap:12px}}
 
 /* ===== HOW (timeline) ===== */
 .how{background:var(--ink-2)}
@@ -838,7 +842,7 @@ dialog.panel[open]{animation:pop .3s var(--ease)}
   <a class="d-book" href="#book" data-track="book_click" data-loc="dock">Book survey</a>
 </nav>
 
-<script>document.documentElement.classList.add('js')</script>
+<script>document.documentElement.classList.add('js');if(/[?&]clean\b/.test(location.search))document.documentElement.classList.add('no-confirm')</script>
 <script src="/js/lenis.min.js" defer></script>
 <script type="module" src="/js/app.js?v=3"></script>
 </body>
