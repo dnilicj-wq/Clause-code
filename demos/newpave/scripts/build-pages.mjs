@@ -163,7 +163,7 @@ ${header}
 ${footer}
 ${dock}
 <script>document.documentElement.classList.add('js')</script>
-<script src="/js/sub.js?v=1" defer></script>
+<script src="/js/sub.js?v=2" defer></script>
 </body>
 </html>
 `;
