@@ -168,6 +168,7 @@ export function initHero(opts = {}) {
   function local(e) { const r = hero.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top]; }
   const onDrive = y => y > wallBaseY() - 10;
   hero.addEventListener('pointermove', e => {
+    if (opts.auto) return;
     const [x, y] = local(e);
     if (finished) return;
     if (e.target.closest('a,button,.hero-dock,.hero-copy')) { last = null; return; }
@@ -176,7 +177,7 @@ export function initHero(opts = {}) {
     last = [x, y];
   }, { passive: true });
   hero.addEventListener('pointerleave', () => { last = null; });
-  hero.addEventListener('pointerdown', e => { if (!e.target.closest('a,button,.hero-dock,.hero-copy')) { const [x, y] = local(e); last = onDrive(y) ? [x, y] : null; } });
+  hero.addEventListener('pointerdown', e => { if (!opts.auto && !e.target.closest('a,button,.hero-dock,.hero-copy')) { const [x, y] = local(e); last = onDrive(y) ? [x, y] : null; } });
   hero.addEventListener('pointerup', () => { if (coarse) last = null; });
   hero.addEventListener('pointercancel', () => last = null);
 
@@ -195,7 +196,7 @@ export function initHero(opts = {}) {
     const y0 = wallBaseY(), span = H - y0;
     return t => [W * (-0.05 + t * 1.1), y0 + span * (0.55 - 0.2 * t) + Math.sin(t * Math.PI * 2) * span * 0.08];
   };
-  function demo(dur = 1700) { runGhost(demoPath(), dur); }
+  function demo(dur = 1700, then) { runGhost(demoPath(), dur, then); }
   function finish() {
     if (finished || doneT > 0) return;
     const y0 = wallBaseY(), span = H - y0;
@@ -228,7 +229,7 @@ export function initHero(opts = {}) {
     if (sw <= 1.1) sw = Math.min(2, (now - swT0) / 1100 * 1.1);
     // wet film settles over ~6s
     if (now - lastDecay > 60) { lastDecay = now; wctx.fillStyle = 'rgba(0,0,0,.035)'; wctx.fillRect(0, 0, wet.width, wet.height); dirty = true; }
-    if (doneT > 0) { done = Math.min(1, (now - doneT) / 2400); if (done >= 1 && !finished) { finished = true; opts.onDone && opts.onDone(); } }
+    if (doneT > 0) { done = Math.min(1, (now - doneT) / 500); if (done >= 1 && !finished) { finished = true; opts.onDone && opts.onDone(); } }
     if (dirty) {
       gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, tMask); gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, mask);
       gl.activeTexture(gl.TEXTURE1); gl.bindTexture(gl.TEXTURE_2D, tWet); gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, wet);

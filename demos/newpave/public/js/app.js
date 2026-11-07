@@ -73,9 +73,11 @@ let blendIdx = 0;
   const posterMode = /posterRender/.test(location.search);
   const start = () => import('./hero-photo.js').then(async ({ initHero, prepareHero }) => {
     if (!(await prepareHero())) return;
-    let shownFinish = false;
+    // phones: no swiping (the headline covers the drive); the line is drawn, then the drive is finished by itself
+    const auto = matchMedia('(max-width:760px)').matches;
+    let shownFinish = auto;
     hero = initHero({
-      poster: posterMode, posterDpr: 2,
+      poster: posterMode, posterDpr: 2, auto,
       onFirst() { $('#hintTxt').textContent = coarse ? 'Keep swiping' : 'Keep going'; track('hero_interact'); },
       onCoverage(c) { $('#heroPct').textContent = Math.round(c * 100) + '%'; if (c > .12 && !shownFinish) { shownFinish = true; $('#heroFinish').classList.add('show'); if (dockEl.dataset.s === '0') dockEl.dataset.s = '1'; } },
       onDone() { dockEl.dataset.s = '2'; hero.preload(HS.slice(1).map(s => s.id)); $('#doneNote').classList.add('show'); $('#heroFinish').classList.remove('show'); $('#hintTxt').textContent = 'Done. Try another surface'; track('hero_done'); setTimeout(() => $('#doneNote').classList.remove('show'), 4200); }
@@ -83,10 +85,11 @@ let blendIdx = 0;
     if (!hero) return;
     if (posterMode) { hero.posterFrame(); setTimeout(() => (window.__posterReady = true), 600); return; }
     dockEl.dataset.s = '0'; dockEl.hidden = false;
-    $('#hintTxt').textContent = coarse ? 'Swipe across the drive' : 'Move across the drive';
+    $('#hintTxt').textContent = auto ? 'Laying your new drive' : coarse ? 'Swipe across the drive' : 'Move across the drive';
     $('#heroFinish').addEventListener('click', () => { hero.finish(); track('hero_finish'); });
     // wait for the loader to lift, so the pour is seen
-    if (!reduce) (window.__pl || Promise.resolve()).then(() => setTimeout(() => hero.demo(coarse ? 2000 : 1700), 600));
+    if (auto) (window.__pl || Promise.resolve()).then(() => setTimeout(() => reduce ? hero.finish() : hero.demo(2000, () => setTimeout(() => hero.finish(), 800)), 600));
+    else if (!reduce) (window.__pl || Promise.resolve()).then(() => setTimeout(() => hero.demo(coarse ? 2000 : 1700), 600));
   }).catch(e => console.warn(e));
   // let the poster paint first (LCP), then swap in the live scene
   if (document.readyState === 'complete') idle(start); else addEventListener('load', () => idle(start));
