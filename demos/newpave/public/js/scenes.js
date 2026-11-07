@@ -34,7 +34,9 @@ const GX0 = -4.6, GX1 = 4.6, GZ0 = 4.4, GZ1 = 9.5;
 
 export const SCENES = {
   front: {
-    label: 'Front drive', stock: 'dan-drive.jpg', src: '/img/scene-drive-c.webp', mask: '/img/scene-drive-mask-c.png', size: [1500, 837], mw: 1500, pot: [2048, 1024],
+    label: 'Front drive', stock: 'dan-drive.jpg', src: '/img/surf-before-d.webp',
+    // the finished drives: real photos of the same house, lined up with this one (tools/align-surfaces.py)
+    surf: { resin: '/img/surf-resin-d.webp', block: '/img/surf-block-d.webp', tarmac: '/img/surf-tarmac-d.webp', porcelain: '/img/surf-porcelain-d.webp' }, mask: '/img/scene-drive-mask-c.png', size: [1500, 837], mw: 1500, pot: [2048, 1024],
     H: homography(DQ.map(([u, v]) => dpt(u, v)), DQ),
     poly: [[0, 837], [0, 612], [45, 500], [108, 292], [216, 285], [222, 298], [293, 303], [332, 318], [440, 307], [822, 328], [878, 339], [972, 357], [1100, 379], [1200, 393], [1300, 408], [1318, 412], [1322, 465], [1385, 480], [1382, 837]],
     edges: [[1, 'kerb'], [2, 'kerb'], [3, 'kerb'], [6, 'house'], [7, 'house'], [8, 'house'], [9, 'kerb'], [10, 'kerb'], [11, 'kerb'], [12, 'kerb'], [13, 'kerb'], [14, 'kerb'], [16, 'kerb'], [17, 'kerb']],

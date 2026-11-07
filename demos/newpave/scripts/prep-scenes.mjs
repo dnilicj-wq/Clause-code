@@ -24,7 +24,8 @@ function blurF(src, W, H, r) {
 }
 
 for (const [name, sc] of Object.entries(SCENES)) {
-  await sharp(S + sc.stock).resize(...(sc.pot || [2048, 2048]), { fit: 'fill' }).webp({ quality: sc.pot ? 84 : 80 }).toFile(O + sc.src.split('/').pop());
+  // scenes with finished-drive photos get their photos from tools/align-surfaces.py
+  if (!sc.surf) await sharp(S + sc.stock).resize(...(sc.pot || [2048, 2048]), { fit: 'fill' }).webp({ quality: sc.pot ? 84 : 80 }).toFile(O + sc.src.split('/').pop());
   const mw = sc.mw || MASK.w, pad = MASK.pad, [pw, ph] = sc.size, k = mw / pw, h = Math.round(ph * k), W = mw + pad * 2, H = h + pad * 2, N = W * H;
   const poly = svgPoly(W, H, [sc.poly], k, pad);
   let R = await grey(poly, .8);

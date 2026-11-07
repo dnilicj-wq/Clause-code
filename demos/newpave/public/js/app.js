@@ -52,20 +52,19 @@ let hero = null;
 let blendIdx = 0;
 (function heroInit() {
   const dockEl = $('#heroDock'), wrapB = $('#heroBlends');
-  // surfaces, the same looks the designer opens with: textures are made the first time each is picked
+  // surfaces: each is a real photo of this house with that drive laid (fetched the first time it is picked)
   const HS = [
-    { id: 'resin', name: 'Resin', sw: `radial-gradient(circle at 35% 30%, ${BLENDS[0].c[2]}, ${BLENDS[0].c[0]} 55%, ${BLENDS[0].c[1]})`, m: () => ({ kind: 0 }) },
-    { id: 'block', name: 'Block', sw: 'linear-gradient(135deg,#9a5a42 0 33%,#7a4232 33% 66%,#b06b4e 66%)', m: () => ({ kind: 1, c: T.blocks('herringbone', BLOCK_COLOURS[0].c, 512, 5), tile: 1.2, rot: Math.PI / 4, gloss: .12 }) },
-    { id: 'tarmac', name: 'Tarmac', sw: 'radial-gradient(circle at 35% 30%,#3a3a3c,#19191b)', m: () => ({ kind: 2, c: T.tarmac(false, 512, 9), tile: .9, gloss: .2 }) },
-    { id: 'porcelain', name: 'Porcelain', sw: 'linear-gradient(135deg,#c9c8c4,#a3a29e)', m: () => ({ kind: 3, c: T.porcelain(PORCELAIN[0].c, 512, 11), tile: 1.8, gloss: .5 }) }
+    { id: 'resin', name: 'Resin', sw: 'radial-gradient(circle at 35% 30%,#d9c3a2,#b49c7d 55%,#8a7458)' },
+    { id: 'block', name: 'Block', sw: 'linear-gradient(135deg,#b4573f 0 33%,#4f4f54 33% 66%,#c46a4f 66%)' },
+    { id: 'tarmac', name: 'Tarmac', sw: 'radial-gradient(circle at 35% 30%,#5a5d61,#2e3033)' },
+    { id: 'porcelain', name: 'Porcelain', sw: 'linear-gradient(135deg,#d6d9dc,#aeb2b6)' }
   ];
-  const hsCache = {};
   HS.forEach((s, i) => {
     const btn = document.createElement('button'); btn.type = 'button'; btn.setAttribute('aria-pressed', i === 0);
-    btn.innerHTML = `<i aria-hidden="true"></i>${s.name}`; btn.firstChild.style.setProperty('--sw', s.sw);
+    btn.innerHTML = '<i aria-hidden="true"></i>' + s.name; btn.firstChild.style.setProperty('--sw', s.sw);
     btn.addEventListener('click', () => {
       $$('button', wrapB).forEach((x, k) => x.setAttribute('aria-pressed', k === i));
-      hero && hero.setSurface(hsCache[s.id] || (hsCache[s.id] = s.m()));
+      hero && hero.setSurface(s.id);
       cfgSet({ surface: s.id }, false); track('hero_surface', { surface: s.id });
     });
     wrapB.append(btn);
@@ -76,10 +75,10 @@ let blendIdx = 0;
     if (!(await prepareHero())) return;
     let shownFinish = false;
     hero = initHero({
-      blend: BLENDS[0].c, poster: posterMode, posterDpr: 2,
+      poster: posterMode, posterDpr: 2,
       onFirst() { $('#hintTxt').textContent = coarse ? 'Keep swiping' : 'Keep going'; track('hero_interact'); },
       onCoverage(c) { $('#heroPct').textContent = Math.round(c * 100) + '%'; if (c > .12 && !shownFinish) { shownFinish = true; $('#heroFinish').classList.add('show'); if (dockEl.dataset.s === '0') dockEl.dataset.s = '1'; } },
-      onDone() { dockEl.dataset.s = '2'; $('#doneNote').classList.add('show'); $('#heroFinish').classList.remove('show'); $('#hintTxt').textContent = 'Done. Try another surface'; track('hero_done'); setTimeout(() => $('#doneNote').classList.remove('show'), 4200); }
+      onDone() { dockEl.dataset.s = '2'; hero.preload(HS.slice(1).map(s => s.id)); $('#doneNote').classList.add('show'); $('#heroFinish').classList.remove('show'); $('#hintTxt').textContent = 'Done. Try another surface'; track('hero_done'); setTimeout(() => $('#doneNote').classList.remove('show'), 4200); }
     });
     if (!hero) return;
     if (posterMode) { hero.posterFrame(); setTimeout(() => (window.__posterReady = true), 600); return; }
@@ -272,12 +271,12 @@ const PANELS = {
 })();
 
 // ---------- 5 configurator ----------
-const cfgState = Object.assign({ surface: 'resin', blend: 'silver', pattern: 'herringbone', bcol: 'brindle', tcol: 'black', tedge: true, pcol: 'grey', m2: 32, size: 'two', scene: 'front', extras: {} }, store.get('np-cfg') || {});
+const cfgState = Object.assign({ surface: 'resin', blend: 'barley', pattern: 'herringbone', bcol: 'brindle', tcol: 'black', tedge: true, pcol: 'grey', m2: 32, size: 'two', scene: 'front', extras: {} }, store.get('np-cfg') || {});
 let cfg3d = null; let cfgTouched = false;
 const surfName = id => SURFACES.find(s => s.id === id).name;
 function lookName(s = cfgState) {
   if (s.surface === 'resin') return BLENDS.find(b => b.id === s.blend).name;
-  if (s.surface === 'block') return `${PATTERNS.find(p => p.id === s.pattern).name}, ${BLOCK_COLOURS.find(b => b.id === s.bcol).name.toLowerCase()}`;
+  if (s.surface === 'block') return s.scene === 'garden' ? `${PATTERNS.find(p => p.id === s.pattern).name}, ${BLOCK_COLOURS.find(b => b.id === s.bcol).name.toLowerCase()}` : BLOCK_COLOURS.find(b => b.id === s.bcol).name;
   if (s.surface === 'tarmac') return (s.tcol === 'red' ? 'Red' : 'Black') + (s.tedge ? ', block edging' : '');
   return PORCELAIN.find(p => p.id === s.pcol).name;
 }
@@ -298,7 +297,7 @@ function renderCfg() {
   $('#cfgSurf').innerHTML = SURFACES.map(x => `<button type="button" data-v="${x.id}" aria-pressed="${s.surface === x.id}"><i style="background:${x.id === 'resin' ? swatchCss(s.blend, 'resin') : x.id === 'block' ? swatchCss(s.bcol, 'block') : x.id === 'tarmac' ? (s.tcol === 'red' ? '#5a2722' : '#202022') : swatchCss(s.pcol, 'porcelain')}"></i>${x.short}</button>`).join('');
   let look = '';
   if (s.surface === 'resin') look = `<div class="swatches" role="group" aria-label="Resin blend">${BLENDS.map(b => `<button type="button" data-k="blend" data-v="${b.id}" aria-pressed="${s.blend === b.id}" aria-label="${b.name}" style="background:${swatchCss(b.id, 'resin')}"></button>`).join('')}</div>`;
-  if (s.surface === 'block') look = `<div class="opt2" role="group" aria-label="Pattern" style="margin-bottom:10px">${PATTERNS.map(p => `<button type="button" data-k="pattern" data-v="${p.id}" aria-pressed="${s.pattern === p.id}">${p.name}</button>`).join('')}</div><div class="swatches" role="group" aria-label="Block colour">${BLOCK_COLOURS.map(b => `<button type="button" data-k="bcol" data-v="${b.id}" aria-pressed="${s.bcol === b.id}" aria-label="${b.name}" style="background:${swatchCss(b.id, 'block')}"></button>`).join('')}</div>`;
+  if (s.surface === 'block') look = `<div class="opt2" role="group" aria-label="Pattern" style="margin-bottom:10px"${s.scene === 'garden' ? '' : ' hidden'}>${PATTERNS.map(p => `<button type="button" data-k="pattern" data-v="${p.id}" aria-pressed="${s.pattern === p.id}">${p.name}</button>`).join('')}</div><div class="swatches" role="group" aria-label="Block colour">${BLOCK_COLOURS.map(b => `<button type="button" data-k="bcol" data-v="${b.id}" aria-pressed="${s.bcol === b.id}" aria-label="${b.name}" style="background:${swatchCss(b.id, 'block')}"></button>`).join('')}</div>`;
   if (s.surface === 'tarmac') look = `<div class="opt2" role="group" aria-label="Tarmac colour">${['black', 'red'].map(c => `<button type="button" data-k="tcol" data-v="${c}" aria-pressed="${s.tcol === c}">${c === 'red' ? 'Red' : 'Black'} tarmac</button>`).join('')}</div><div class="opt2" role="group" aria-label="Edging" style="margin-top:6px"><button type="button" data-k="tedge" data-v="1" aria-pressed="${s.tedge}">With block edging</button><button type="button" data-k="tedge" data-v="0" aria-pressed="${!s.tedge}">No edging</button></div>`;
   if (s.surface === 'porcelain') look = `<div class="swatches" role="group" aria-label="Porcelain colour">${PORCELAIN.map(b => `<button type="button" data-k="pcol" data-v="${b.id}" aria-pressed="${s.pcol === b.id}" aria-label="${b.name}" style="background:${swatchCss(b.id, 'porcelain')}"></button>`).join('')}</div>`;
   $('#cfgLook').innerHTML = look + `<p class="look-name">Selected: <b>${lookName()}</b></p>`;
@@ -320,7 +319,6 @@ function updatePrice() {
 function cfgSet(patch, scroll = false) {
   Object.assign(cfgState, patch); store.set('np-cfg', cfgState); cfgTouched = true;
   renderCfg(); cfg3d && cfg3d.set(cfgState); syncDesignCard();
-  if (patch.blend && hero) { const i = BLENDS.findIndex(b => b.id === patch.blend); if (i !== blendIdx) { blendIdx = i; hero.setBlend(BLENDS[i].c); $$('#heroBlends button').forEach((x, k) => x.setAttribute('aria-pressed', k === i)); } }
 }
 (() => {
   renderCfg();

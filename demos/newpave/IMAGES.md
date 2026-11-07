@@ -67,5 +67,6 @@ Free photos from Pexels (Pexels licence: free to use, no attribution required). 
 
 | File | Used as | Source |
 |---|---|---|
-| `stock/dan-drive.jpg` | Hero and designer "Front drive": the block drive is redrawn in the browser, the car and everything else stay as photographed | Supplied by Dan (Clientgateway), [CONFIRM: permission to use] |
+| `stock/dan-drive.jpg` | Hero and designer "Front drive": the "before" (old block drive) | Supplied by Dan (Clientgateway), [CONFIRM: permission to use] |
+| `stock/surfaces/{resin,block,tarmac,porcelain}.jpg` | Hero and designer "Front drive": the finished drives. Same house and car with each surface laid; lined up with the original by `tools/align-surfaces.py` (output `public/img/surf-*-d.webp`) | Supplied by Dan (Clientgateway), [CONFIRM: permission to use] |
 | `stock/pexels-7546775-garden.jpg` | Designer "Back garden" (the patio is drawn onto the lawn) | https://www.pexels.com/photo/7546775/ |

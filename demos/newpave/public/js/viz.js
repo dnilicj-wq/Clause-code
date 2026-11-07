@@ -1,6 +1,7 @@
 // "Design your driveway": a photo visualiser, the way the big paving brands do it (Tobermore Picture It,
-// Marshalls, Nicolock). A real house photo stays untouched; only the drive (or the patio in the back
-// garden) is re-laid. A homography maps each pixel to ground-plane metres, so blocks, slabs and stones
+// Marshalls, Nicolock). Front drive: every surface is a real photo of the same house and car with that
+// drive laid (tools/align-surfaces.py lines them up); a colour choice shifts that photo's colour and
+// keeps its own light, shade and texture. Back garden: a real photo where only the patio is re-laid. A homography maps each pixel to ground-plane metres, so blocks, slabs and stones
 // are the right size and in true perspective. Lighting comes from the photo's sun: daylight, contact
 // shade where the drive meets walls and beds, a soft shadow under the car. One fragment shader.
 import { SCENES, glMat, applyH, maskDM } from './scenes.js';
@@ -17,6 +18,7 @@ uniform vec4 uSeg[14];uniform float uSegT[14];
 uniform vec3 uX; // edging, drainage, lights
 uniform vec4 uCarR;uniform float uCarOn;uniform vec4 uShC;uniform vec4 uShA;
 uniform vec4 uLit;uniform vec3 uTint; // photo-lit scenes: on, exposure, texture blur (to match the photo's softness)
+uniform float uPh;uniform vec4 uRcA;uniform vec4 uRcB; // photo surfaces (front drive): on; recolour: target colour over the photo's own brightness (linear rgb), w<0 = as photographed
 float h21(vec2 p){p=fract(p*vec2(123.34,456.21));p+=dot(p,p+45.32);return fract(p.x*p.y);}
 float vn(vec2 p){vec2 i=floor(p),f=fract(p);vec2 u=f*f*(3.-2.*f);
  return mix(mix(h21(i),h21(i+vec2(1,0)),u.x),mix(h21(i+vec2(0,1)),h21(i+vec2(1,1)),u.x),u.y);}
@@ -24,6 +26,8 @@ vec2 puvAt(vec2 fc){return uCover.xy+vec2(fc.x/uRes.x,1.-fc.y/uRes.y)*uCover.zw;
 vec3 plane3(vec2 puv){return uH*vec3(puv*uPS,1.);}
 vec2 plane(vec2 puv){vec3 q=plane3(puv);return q.xy/q.z;}
 vec2 rot(vec2 g,float a){float c=cos(a),s=sin(a);return vec2(c*g.x-s*g.y,s*g.x+c*g.y);}
+// a colour choice keeps the photo's brightness (light, shade, joints, stones) and takes the new colour, with a little of the photo's own colour variation
+vec3 rc(vec3 c,vec4 k){if(k.w<0.)return c;vec3 l=pow(c,vec3(2.2));float L=dot(l,vec3(.2126,.7152,.0722));vec3 o=k.rgb*L*mix(vec3(1.),l/max(L,.002),k.w);return pow(o,vec3(1./2.2));}
 void main(){
  vec2 fc=gl_FragCoord.xy;vec2 uv=fc/uRes;
  vec2 puv=puvAt(fc);
@@ -41,7 +45,14 @@ void main(){
   vec2 dd=abs(rr)-uShC.zw;float k=length(max(dd,0.))+min(max(dd.x,dd.y),0.);
   carSh=1.-uCarOn*((1.-smoothstep(-.2,.55,k))*.35+(1.-smoothstep(-.45,.08,k))*.4)*smoothstep(.02,.3,dm.g);
  }
- if(area>.003){
+ if(area>.003&&uPh>.5){
+  // photo surfaces: laid from the house outwards over the last one (or over the old drive)
+  float t=(puv.y-uLayV.x)/(uLayV.y-uLayV.x)+(vn(vec2(puv.x*9.,0.))-.5)*.05;
+  float lay=1.-smoothstep(uProg-.012,uProg+.012,t);
+  vec3 a=rc(texture2D(uTexA,puv).rgb,uRcA),b=rc(texture2D(uTexB,puv).rgb,uRcB);
+  vec3 lit=mix(b,a,lay)+vec3(1.,.96,.9)*exp(-pow((t-uProg)*60.,2.))*step(.001,uProg)*step(uProg,.999)*.2;
+  col=mix(photo,lit,area*(uMatB.w<-.5?lay:1.));
+ }else if(area>.003){
   float ao=mix(.6,1.,smoothstep(.3,.97,dm.g));
   // laying sweep: from the house outwards
   float t=(puv.y-uLayV.x)/(uLayV.y-uLayV.x);
@@ -131,14 +142,14 @@ export function createScene(host, { tex, BLENDS, BLOCK_COLOURS, PORCELAIN, onRea
   const buf = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, buf);
   gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
   const loc = gl.getAttribLocation(prog, 'p'); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
-  const U = {}; ['uRes', 'uTime', 'uPhoto', 'uArea', 'uCar', 'uTexA', 'uTexB', 'uCover', 'uPS', 'uH', 'uDM', 'uVb', 'uSun', 'uMatA', 'uMatB', 'uProg', 'uLayV', 'uSeg', 'uSegT', 'uX', 'uCarR', 'uCarOn', 'uShC', 'uShA', 'uLit', 'uTint'].forEach(n => U[n] = gl.getUniformLocation(prog, n));
+  const U = {}; ['uRes', 'uTime', 'uPhoto', 'uArea', 'uCar', 'uTexA', 'uTexB', 'uCover', 'uPS', 'uH', 'uDM', 'uVb', 'uSun', 'uMatA', 'uMatB', 'uProg', 'uLayV', 'uSeg', 'uSegT', 'uX', 'uCarR', 'uCarOn', 'uShC', 'uShA', 'uLit', 'uTint', 'uPh', 'uRcA', 'uRcB'].forEach(n => U[n] = gl.getUniformLocation(prog, n));
   const aniso = gl.getExtension('EXT_texture_filter_anisotropic') || gl.getExtension('WEBKIT_EXT_texture_filter_anisotropic');
   const maxA = aniso ? gl.getParameter(aniso.MAX_TEXTURE_MAX_ANISOTROPY_EXT) : 1;
   const UNIT = { photo: 0, area: 1, car: 2, a: 3, b: 4 };
   const texs = {};
   function upload(name, src, { mip = false, repeat = false } = {}) {
     gl.activeTexture(gl.TEXTURE0 + UNIT[name]);
-    const t = texs[name] || (texs[name] = gl.createTexture()); gl.bindTexture(gl.TEXTURE_2D, t);
+    const own = '_' + name, t = texs[own] || (texs[own] = gl.createTexture()); texs[name] = t; gl.bindTexture(gl.TEXTURE_2D, t);
     gl.pixelStorei(gl.UNPACK_PREMULTIPLY_ALPHA_WEBGL, name === 'car');
     gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, src);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, mip ? gl.LINEAR_MIPMAP_LINEAR : gl.LINEAR);
@@ -149,7 +160,41 @@ export function createScene(host, { tex, BLENDS, BLOCK_COLOURS, PORCELAIN, onRea
 
   // ---- surfaces from tex.js (tileable, power of two) ----
   const texCache = new Map();
+  // photo surfaces: one GL texture per photo, made the first time it is shown. The photo is its own
+  // colour (gain 1) for the swatch that matches it; other colours scale its colour in linear light.
+  const lin = h => { const n = parseInt(h.slice(1), 16); return [n >> 16, (n >> 8) & 255, n & 255].map(v => Math.pow(v / 255, 2.2)); };
+  const NATIVE = { resin: ['blend', BLENDS, 'barley'], block: ['bcol', BLOCK_COLOURS, 'brindle'], tarmac: ['tcol', null, 'black'], porcelain: ['pcol', PORCELAIN, 'grey'] };
+  const TARMAC = { black: '#797d82', red: '#7d4d44' }; // black: the tarmac as photographed (overcast, so it reads mid grey)
+  const photoTex = {}, photoImg = {};
+  function photoMaterial(s) {
+    const key = 'photo|' + [s.surface, s.blend, s.bcol, s.tcol, s.pcol].join('|');
+    let m = texCache.get(key);
+    if (!m) {
+      const [k, list, nat] = NATIVE[s.surface], id = s[k];
+      const col = v => list ? list.find(b => b.id === v).c[0] : TARMAC[v];
+      const a = lin(col(nat)), b = lin(col(id)), La = .2126 * a[0] + .7152 * a[1] + .0722 * a[2];
+      const g = id === nat ? [1, 1, 1, -1] : [b[0] / La, b[1] / La, b[2] / La, s.surface === 'block' ? 0 : .15];
+      m = { photo: s.surface, rc: g, tile: 1, rot: 0, gloss: 0, kind: 9 };
+      texCache.set(key, m);
+    }
+    return m;
+  }
+  async function ensurePhoto(id) {
+    if (photoTex[id]) return;
+    const img = await (photoImg[id] || (photoImg[id] = loadImg(sc.surf[id])));
+    if (photoTex[id]) return;
+    gl.activeTexture(gl.TEXTURE5); const t = photoTex[id] = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, t);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, img);
+    [[gl.TEXTURE_MIN_FILTER, gl.LINEAR], [gl.TEXTURE_MAG_FILTER, gl.LINEAR], [gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE], [gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE]].forEach(([p, v]) => gl.texParameteri(gl.TEXTURE_2D, p, v));
+  }
+  // put a material's texture on unit 3 (a) or 4 (b)
+  function bindMat(slot, m) {
+    gl.activeTexture(gl.TEXTURE0 + UNIT[slot]);
+    if (m.photo) { const t = photoTex[m.photo]; gl.bindTexture(gl.TEXTURE_2D, t); texs[slot] = t; }
+    else upload(slot, m.c, { mip: true, repeat: true });
+  }
   function material(s) {
+    if (sc && sc.surf) return photoMaterial(s);
     const key = [s.surface, s.blend, s.pattern, s.bcol, s.tcol, s.pcol].join('|');
     let m = texCache.get(key);
     if (!m) {
@@ -169,7 +214,7 @@ export function createScene(host, { tex, BLENDS, BLOCK_COLOURS, PORCELAIN, onRea
     const S = SCENES[name]; scName = name;
     const [img, mask] = photoCache[name] || (photoCache[name] = await Promise.all([loadImg(S.src), loadImg(S.mask)]));
     sc = S; const [pw, ph] = S.size;
-    upload('photo', img, { mip: true });
+    upload('photo', img, { mip: !S.surf });
     upload('area', mask); DM = maskDM(S);
     // kerb and house edges in plane metres
     segs.fill(0); segT.fill(0);
@@ -209,7 +254,7 @@ export function createScene(host, { tex, BLENDS, BLOCK_COLOURS, PORCELAIN, onRea
   function loop(t) {
     raf = 0; if (!sc || !cur) return;
     let p = 1;
-    if (lay) { const k = Math.max(0, Math.min(1, (t - lay.t0) / 1300)); p = 1 - Math.pow(1 - k, 3); if (k >= 1) { lay = null; prev = cur; upload('b', prev.c, { mip: true, repeat: true }); } }
+    if (lay) { const k = Math.max(0, Math.min(1, (t - lay.t0) / 1300)); p = 1 - Math.pow(1 - k, 3); if (k >= 1) { lay = null; prev = cur; bindMat('b', prev); } }
     if (lay && t < lay.t0) p = 0;
     carOn += (carT - carOn) * .14;
     gl.uniform2f(U.uRes, cv.width, cv.height); gl.uniform1f(U.uTime, (t - t0) / 1000);
@@ -217,6 +262,8 @@ export function createScene(host, { tex, BLENDS, BLOCK_COLOURS, PORCELAIN, onRea
     gl.uniform4fv(U.uCover, cover); gl.uniform2f(U.uPS, ...sc.size); gl.uniformMatrix3fv(U.uH, false, glMat(sc.H));
     gl.uniform4fv(U.uDM, DM); gl.uniform1f(U.uVb, sc.vb / sc.size[1]); gl.uniform3fv(U.uSun, sc.sun);
     gl.uniform4f(U.uMatA, cur.tile, cur.rot, cur.gloss, cur.kind); gl.uniform4f(U.uMatB, prev.tile, prev.rot, prev.gloss, prev.kind);
+    gl.uniform1f(U.uPh, sc.surf ? 1 : 0); gl.uniform4fv(U.uRcA, cur.rc || [1, 1, 1, -1]); gl.uniform4fv(U.uRcB, prev.rc || cur.rc || [1, 1, 1, -1]);
+    [['a', 3], ['b', 4]].forEach(([n, u]) => { gl.activeTexture(gl.TEXTURE0 + u); gl.bindTexture(gl.TEXTURE_2D, texs[n]); });
     gl.uniform1f(U.uProg, lay ? p * 1.06 : 1.2); gl.uniform2fv(U.uLayV, layV);
     gl.uniform4fv(U.uSeg, segs); gl.uniform1fv(U.uSegT, segT); gl.uniform3fv(U.uX, X);
     const L = sc.lit; gl.uniform4f(U.uLit, L ? 1 : 0, L ? L.exp : 1, L ? L.bias : 0, 0); gl.uniform3fv(U.uTint, L ? L.tint : [1, 1, 1]);
@@ -227,14 +274,16 @@ export function createScene(host, { tex, BLENDS, BLOCK_COLOURS, PORCELAIN, onRea
   }
   const PHOTO = { tile: 1, rot: 0, gloss: 0, kind: -1 };
   // animate: re-lay from the previous surface; fromPhoto: lay over the original photo (first view, scene change)
-  function apply(s, animate, fromPhoto) {
-    const m = material(s);
+  let applying = 0;
+  async function apply(s, animate, fromPhoto) {
+    const m = material(s), job = ++applying;
+    if (m.photo) { await ensurePhoto(m.photo); if (job !== applying) return; }
     const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (fromPhoto && !reduce) { prev = PHOTO; cur = m; upload('a', m.c, { mip: true, repeat: true }); upload('b', m.c, { mip: true, repeat: true }); lay = { t0: performance.now() + 250 }; }
+    if (fromPhoto && !reduce) { prev = PHOTO; cur = m; bindMat('a', m); bindMat('b', m); lay = { t0: performance.now() + 250 }; }
     else if (m !== cur) {
-      if (animate && cur && !reduce) { if (lay) { prev = cur; upload('b', prev.c, { mip: true, repeat: true }); } else { prev = cur; } lay = { t0: performance.now() }; }
-      else { prev = m; upload('b', m.c, { mip: true, repeat: true }); lay = null; }
-      cur = m; upload('a', m.c, { mip: true, repeat: true });
+      if (animate && cur && !reduce) { if (lay) { prev = cur; bindMat('b', prev); } else { prev = cur; } lay = { t0: performance.now() }; }
+      else { prev = m; bindMat('b', m); lay = null; }
+      cur = m; bindMat('a', m);
     }
     const E = s.extras || {}; X = [E.edging || (s.surface === 'tarmac' && s.tedge) ? 1 : 0, E.drainage ? 1 : 0, E.lighting ? 1 : 0];
     kick(lay ? 1900 : 600);
@@ -248,7 +297,7 @@ export function createScene(host, { tex, BLENDS, BLOCK_COLOURS, PORCELAIN, onRea
       if (want !== scName) {
         const job = loading = (async () => { if (!first) { cv.style.opacity = 0; await new Promise(r => setTimeout(r, 220)); } await loadScene(want); })();
         await job; if (job !== loading) return;
-        resize(); apply(state, false, true); cv.style.opacity = 1;
+        resize(); await apply(state, false, true); cv.style.opacity = 1;
         return;
       }
       apply(state, surfChanged && !first);

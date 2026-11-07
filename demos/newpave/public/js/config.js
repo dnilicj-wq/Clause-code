@@ -53,14 +53,14 @@ export const SIZES = [
 // Example aggregate blends (generic descriptive names, not supplier codes)
 export const BLENDS = [
   { id: 'silver', name: 'Silver grey', c: ['#b9b8b2', '#8d8c88', '#e3e1da'] },
-  { id: 'barley', name: 'Barley', c: ['#cdb48a', '#a68b62', '#e8dcc2'] },
+  { id: 'barley', name: 'Barley', c: ['#b49c7d', '#8a7458', '#d9c3a2'] }, // the blend in the front-drive photo
   { id: 'gold', name: 'Autumn gold', c: ['#c8933f', '#9a6a2c', '#e2c084'] },
   { id: 'copper', name: 'Copper', c: ['#a8653e', '#7c4529', '#cf9670'] },
   { id: 'charcoal', name: 'Charcoal', c: ['#4a4a4c', '#2c2c2f', '#7b7a78'] },
   { id: 'flint', name: 'Cream flint', c: ['#e2dccd', '#bdb4a2', '#f4f1ea'] },
 ];
 export const BLOCK_COLOURS = [
-  { id: 'brindle', name: 'Brindle', c: ['#8a4b33', '#6b3a2a', '#a5654a'] },
+  { id: 'brindle', name: 'Brindle', c: ['#a8553f', '#4f4f54', '#c46a4f'] }, // the blocks in the front-drive photo
   { id: 'charcoal', name: 'Charcoal', c: ['#47474a', '#38383b', '#5b5a5c'] },
   { id: 'red', name: 'Red', c: ['#9a3b2a', '#7f2f22', '#b04a36'] },
   { id: 'buff', name: 'Buff', c: ['#c8ab7c', '#b19468', '#d8c19a'] },

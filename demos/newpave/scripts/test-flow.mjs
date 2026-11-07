@@ -7,9 +7,9 @@ const p = await b.newPage({ viewport: { width: 390, height: 844 }, isMobile: tru
 const errs = []; p.on('pageerror', e => errs.push(e.message));
 const ok = (c, m) => { console.log((c ? 'ok   ' : 'FAIL ') + m); if (!c) process.exitCode = 1; };
 await p.goto(B + '/', { waitUntil: 'load' }); await p.waitForTimeout(1200);
-// designer: block, basketweave, 3-4 cars, drainage
+// designer: block, charcoal, 3-4 cars, drainage
 await p.locator('#cfgSurf button[data-v=block]').tap();
-await p.locator('#cfgLook button[data-v=basketweave]').tap();
+await p.locator('#cfgLook button[data-v=charcoal]').tap();
 await p.locator('#cfgSize button[data-v=three]').tap();
 await p.locator('#cfgExtras input[data-x=drainage]').check();
 await p.waitForTimeout(900);
@@ -37,7 +37,7 @@ const t0 = Date.now(); await p.locator('#bkNext').tap(); await p.waitForTimeout(
 ok(await p.isVisible('#bkDone'), 'done screen shown');
 const wa = await p.getAttribute('#bkWa', 'href'); const msg = decodeURIComponent(wa.split('text=')[1]);
 ok(wa.startsWith('https://wa.me/447787707154?text='), 'WhatsApp button pre-filled');
-ok(/Block paving, Basketweave/.test(msg) && /LS1 4AP/.test(msg) && /Test Customer/.test(msg), 'summary includes design, postcode, name');
+ok(/Block paving, Charcoal/.test(msg) && /LS1 4AP/.test(msg) && /Test Customer/.test(msg), 'summary includes design, postcode, name');
 console.log('---\n' + msg + '\n---');
 fs.mkdirSync(new URL('../screenshots/', import.meta.url).pathname, { recursive: true });
 await p.screenshot({ path: new URL('../screenshots/flow-done-390.png', import.meta.url).pathname });
