@@ -40,8 +40,8 @@ export function Work() {
   }, [pan, h, pick]);
 
   const cards = shown.map((p, i) => (
-    <figure key={p.key} className="m-0 shrink-0 snap-start" style={{ width: pan ? `min(calc(${Math.min(1.6, p.w / p.h).toFixed(3)} * min(62vh, 620px)), 900px)` : `min(${p.w > p.h ? 86 : 70}vw, ${p.w > p.h ? 520 : 360}px)` }}>
-      <div className="edge relative overflow-hidden rounded-[18px]" style={{ aspectRatio: `${Math.min(1.6, p.w / p.h)}`, background: '#0F1C23', boxShadow: '0 40px 80px -36px rgba(0,0,0,.9), 0 0 0 1px rgba(214,240,245,.06)' }}>
+    <figure key={p.key} className="m-0 shrink-0 snap-start" style={{ width: pan ? 'calc(.8 * min(64vh, 640px))' : 'min(74vw, 320px)' }}>
+      <div className="edge relative overflow-hidden rounded-[18px]" style={{ aspectRatio: '4 / 5', background: '#0F1C23', boxShadow: '0 40px 80px -36px rgba(0,0,0,.9), 0 0 0 1px rgba(214,240,245,.06)' }}>
         <img src={photoSrc(p, 1280)} srcSet={`${photoSrc(p, 640)} 640w, ${photoSrc(p, 1280)} 1280w`} sizes="(min-width: 900px) 900px, 80vw"
           alt={p.alt} width={p.w} height={p.h} loading="lazy" decoding="async" className="h-full w-full object-cover" />
       </div>
@@ -95,7 +95,7 @@ function End() {
   return (
     <div className="molten-bg relative flex w-[min(80vw,360px)] shrink-0 flex-col justify-end self-stretch overflow-hidden rounded-[18px] p-6 md:p-8" style={{ boxShadow: '0 40px 80px -30px rgba(240,122,62,.55), inset 0 1px 0 rgba(255,255,255,.5)' }}>
       <span aria-hidden className="absolute -right-16 -top-16 h-56 w-56 rounded-full" style={{ background: 'radial-gradient(closest-side, rgba(47,211,217,.55), transparent)' }} />
-      <p className="relative font-display text-[32px] font-[420] italic leading-[1.02] tracking-[-.02em] md:text-[40px]">Yours could be next.</p>
+      <p className="relative font-display text-[44px] font-[800] uppercase leading-[.9] md:text-[56px]">Yours could be next.</p>
       <p className="mut relative mt-3 text-[15px]">Design it and see an example price in under a minute.</p>
       <a href="#price" className="btn btn-ink relative mt-6 self-start">Design &amp; price</a>
     </div>

@@ -72,9 +72,9 @@ export function Hero() {
 
       <div className="pointer-events-none relative mx-auto flex h-full max-w-[1280px] flex-col justify-end px-5 pb-[max(36px,env(safe-area-inset-bottom))] pt-24 md:flex-row md:items-end md:justify-between md:gap-10 md:px-12 md:pb-20">
         <div className="md:max-w-[660px]">
-          <h1 className="font-display text-[clamp(46px,8vw,98px)] font-[380] leading-[.94] tracking-[-.035em]">
+          <h1 className="font-display text-[clamp(54px,7.2vw,108px)] font-[800] uppercase leading-[.88]">
             <span className="block"><CutReveal text="Seamless resin," delay={0.12} /></span>
-            <span className="sr-rise block pb-[.08em] pr-[.1em] gold-text italic">poured for you.</span>
+            <span className="sr-rise block pb-[.04em] pr-[.1em] gold-text slant">poured for you.</span>
           </h1>
           <p className="mt-3 max-w-[38ch] text-[15px] leading-relaxed md:mt-5 md:text-[19px]" style={{ color: 'color-mix(in srgb, var(--ink) 82%, transparent)' }}>
             Resin-bound driveways and epoxy floors across Wrexham, Chester, the Wirral, Cheshire, Shropshire and North Wales.

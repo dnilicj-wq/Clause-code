@@ -24,7 +24,7 @@ export function Practical() {
         <div className="mt-10 grid gap-3 md:mt-14 md:grid-cols-4 md:grid-rows-[minmax(240px,auto)_minmax(240px,auto)] md:gap-4">
           {/* areas: chips + a little map */}
           <div className="tile relative overflow-hidden p-6 md:col-span-2 md:row-span-2 md:p-8">
-            <p className="font-display text-[clamp(26px,2.6vw,36px)] font-[420] leading-[1.08]">Based in North Wales.<br /><span className="gold-text">Working across the border.</span></p>
+            <p className="font-display text-[clamp(32px,3.2vw,46px)] font-[800] uppercase leading-[.95]">Based in North Wales.<br /><span className="gold-text">Working across the border.</span></p>
             <div className="mt-6 flex flex-wrap gap-2" role="group" aria-label="Areas covered">
               {site.areas.map((a) => (
                 <button key={a} onClick={() => setArea(a)} aria-pressed={area === a} className="chip">
@@ -49,9 +49,9 @@ export function Practical() {
           {/* free survey */}
           <div className="molten-bg relative flex flex-col justify-between overflow-hidden rounded-[var(--r)] p-6 md:p-7" style={{ boxShadow: '0 40px 70px -34px rgba(240,122,62,.6), inset 0 1px 0 rgba(255,255,255,.5)' }}>
             <span aria-hidden className="absolute -bottom-20 -right-20 h-56 w-56 rounded-full" style={{ background: 'radial-gradient(closest-side, rgba(47,211,217,.5), transparent)' }} />
-            <p className="relative font-display text-[54px] font-[420] italic leading-none tracking-[-.03em]">Free</p>
+            <p className="relative font-display text-[76px] font-[900] uppercase leading-none slant">Free</p>
             <div className="relative">
-              <p className="font-display text-[22px] font-[460] leading-tight">no-obligation quote</p>
+              <p className="font-display text-[27px] font-[700] uppercase leading-none">no-obligation quote</p>
               <p className="mut mt-1.5 text-[14px] leading-snug">From his website: a free, no-obligation site survey and a tailored quotation.</p>
             </div>
           </div>
@@ -61,14 +61,14 @@ export function Practical() {
             <img src={photoSrc('drive-wall', 640)} alt="" loading="lazy" decoding="async" className="absolute inset-0 h-full w-full object-cover opacity-45" />
             <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(6,10,13,.1), rgba(6,16,20,.94) 75%)' }} />
             <div className="relative">
-              <p className="font-display text-[22px] font-[460] leading-tight">Rain drains through</p>
+              <p className="font-display text-[27px] font-[700] uppercase leading-none">Rain drains through</p>
               <p className="mt-1.5 text-[14px] leading-snug" style={{ color: 'var(--muted)' }}>His FAQ: resin bound is fully permeable and SuDS compliant, usually no planning permission needed.</p>
             </div>
           </div>
 
           {/* services */}
           <div className="tile p-6 md:col-span-2 md:p-7">
-            <p className="font-display text-[22px] font-[460] leading-tight">What {site.company} lays</p>
+            <p className="font-display text-[27px] font-[700] uppercase leading-none">What {site.company} lays</p>
             <ul className="mt-4 flex flex-wrap gap-x-2 gap-y-2">
               {services.map((s) => <li key={s} className="flex items-center gap-2 rounded-full px-3 py-1.5 text-[13.5px]" style={{ background: 'rgba(214,240,245,.05)', boxShadow: 'inset 0 0 0 1px rgba(214,240,245,.10)' }}><i className="dot-aq !h-1.5 !w-1.5" />{s}</li>)}
             </ul>
@@ -81,8 +81,8 @@ export function Practical() {
           <ol className="mt-8 grid gap-3 md:grid-cols-4 md:gap-4">
             {process.map((st, i) => (
               <li key={st.title} className="tile flex flex-col gap-3 p-6 md:min-h-[220px] md:p-7">
-                <span className="grid h-9 w-9 place-items-center rounded-full font-display text-[16px] font-[500]" style={i === 0 ? { background: 'var(--molten)', color: '#1A0C02', boxShadow: '0 8px 20px -8px rgba(240,122,62,.9)' } : { color: 'var(--aq)', boxShadow: 'inset 0 0 0 1px rgba(47,211,217,.45)', background: 'rgba(47,211,217,.08)' }}>{i + 1}</span>
-                <p className="font-display text-[21px] font-[460] leading-tight">{st.title}</p>
+                <span className="grid h-9 w-9 place-items-center rounded-full font-display text-[18px] font-[800]" style={i === 0 ? { background: 'var(--molten)', color: '#1A0C02', boxShadow: '0 8px 20px -8px rgba(240,122,62,.9)' } : { color: 'var(--aq)', boxShadow: 'inset 0 0 0 1px rgba(47,211,217,.45)', background: 'rgba(47,211,217,.08)' }}>{i + 1}</span>
+                <p className="font-display text-[26px] font-[700] uppercase leading-none">{st.title}</p>
                 <p className="text-[14.5px] leading-snug" style={{ color: 'var(--muted)' }}>{st.text}</p>
               </li>
             ))}
@@ -98,7 +98,7 @@ export function Practical() {
           <div className="border-t" style={{ borderColor: 'var(--line)' }}>
             {faq.map((f, i) => (
               <div key={i} className="border-b" style={{ borderColor: 'var(--line)' }}>
-                <button className="flex w-full items-center justify-between gap-4 py-5 text-left font-display text-[19px] font-[460] md:text-[21px]" aria-expanded={open === i} onClick={() => setOpen(open === i ? null : i)}>
+                <button className="flex w-full items-center justify-between gap-4 py-5 text-left font-display text-[22px] font-[700] md:text-[26px]" aria-expanded={open === i} onClick={() => setOpen(open === i ? null : i)}>
                   {f.q}
                   <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full text-[18px] transition-transform duration-300" style={{ background: open === i ? 'var(--molten)' : 'rgba(47,211,217,.10)', color: open === i ? '#1A0C02' : 'var(--aq)', transform: open === i ? 'rotate(45deg)' : 'none' }} aria-hidden>+</span>
                 </button>

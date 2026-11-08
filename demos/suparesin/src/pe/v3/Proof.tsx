@@ -30,13 +30,13 @@ export function Proof() {
         <div>
           <h2 id="revH" className="sr-only">Reviews and credentials</h2>
           <a href={site.socials.google} target="_blank" rel="noreferrer" className="group block">
-            <span className="block font-display text-[clamp(120px,19vw,240px)] font-[360] italic leading-[.8] tracking-[-.04em] gold-text">{site.proof.rating.toFixed(1)}</span>
+            <span className="block font-display text-[clamp(150px,24vw,300px)] font-[800] leading-[.8] gold-text slant">{site.proof.rating.toFixed(1)}</span>
             <span className="mt-5 flex items-center gap-3"><Stars size={20} /><span className="text-[17px] font-medium">from {site.proof.reviewCount} Google reviews</span></span>
             <span className="mt-2 inline-block text-[14px] underline decoration-white/25 underline-offset-4 transition-colors group-hover:decoration-[var(--y)]" style={{ color: 'var(--muted)' }}>Read them on Google</span>
           </a>
         </div>
         <figure className="m-0" aria-live="polite">
-          <blockquote key={i} className="v3-fade font-display text-[clamp(24px,2.8vw,40px)] font-[380] leading-[1.18] tracking-[-.015em]" style={{ textWrap: 'pretty' }}>“{r.text}”</blockquote>
+          <blockquote key={i} className="v3-fade text-[clamp(21px,2.2vw,30px)] font-medium leading-[1.35] tracking-[-.01em]" style={{ textWrap: 'pretty' }}>“{r.text}”</blockquote>
           <figcaption className="mt-5 flex items-center gap-4 text-[15px]">
             <span><b className="font-semibold">{r.name}</b> <span style={{ color: 'var(--muted)' }}>· {r.job} · Google, {r.date}</span></span>
             <span className="ml-auto flex gap-1.5">
@@ -59,7 +59,7 @@ export function Proof() {
                 : <span className="icon-aq" aria-hidden>
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6L9 17l-5-5" /></svg>
                   </span>}
-              <p className="font-display text-[22px] font-[440] leading-tight">{c.t}</p>
+              <p className="font-display text-[26px] font-[700] uppercase leading-none">{c.t}</p>
               <p className="text-[14.5px] leading-snug" style={{ color: 'var(--muted)' }}>{c.d}</p>
             </li>
           ))}

@@ -22,7 +22,7 @@ export default function Capture() {
     if (k === 'swatch') {
       const s = makeSurface(f, 1, false);
       const img = s.map.image as HTMLCanvasElement, c = flat.current!, g = c.getContext('2d')!;
-      const crop = Math.round(img.width * (f.kind === 'metallic' ? 0.45 : f.kind === 'highbuild' ? 0.6 : 0.25));
+      const crop = Math.round(img.width * (f.kind === 'metallic' ? 0.45 : f.kind === 'highbuild' ? 0.6 : f.kind === 'flake' ? 0.06 : 0.25));
       g.drawImage(img, 0, 0, crop, crop, 0, 0, c.width, c.height);
       // a soft sheen so the floors read as gloss even at 96 px
       if (f.kind !== 'resin') { const gr = g.createLinearGradient(0, 0, c.width, c.height); gr.addColorStop(0, 'rgba(255,255,255,.22)'); gr.addColorStop(.45, 'rgba(255,255,255,0)'); g.fillStyle = gr; g.fillRect(0, 0, c.width, c.height); }

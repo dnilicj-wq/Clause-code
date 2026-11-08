@@ -69,7 +69,8 @@ function flake(aniso: number, b: Finish, small: boolean): Maps {
       hg.fillStyle = `rgb(${150 + Math.floor(rnd() * 40)},0,0)`; hg.beginPath(); pts.forEach(([u, v], j) => (j ? hg.lineTo : hg.moveTo).call(hg, x + dx + u, y + dy + v)); hg.closePath(); hg.fill();
     }
   }
-  return { map: tex(c, true, aniso), normal: tex(normalFrom(h, 0.9), false, aniso), tile: M, rough: 0.32, clear: 1, clearRough: 0.06, metal: 0, tint: '#ffffff', nScale: 0.35 };
+  // shown ~6x larger than real chip size so the flakes read clearly on camera and on phones
+  return { map: tex(c, true, aniso), normal: tex(normalFrom(h, 0.9), false, aniso), tile: M * 6, rough: 0.32, clear: 1, clearRough: 0.06, metal: 0, tint: '#ffffff', nScale: 0.35 };
 }
 
 // periodic value noise (period P lattice cells) so the metallic pattern tiles without seams

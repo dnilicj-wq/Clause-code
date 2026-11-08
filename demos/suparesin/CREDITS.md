@@ -108,4 +108,4 @@ Fonts: Clash Display, General Sans (Fontshare ITF Free Font Licence), Instrument
 ## Suparesin demo
 - Photos and logo: suparesin.co.uk (his own website), used for this pitch only. City & Guilds approved logo as shown on his site.
 - Hero ground maps: CC0 Poly Haven concrete (baked in public/tex). Resin, flake, metallic and high-build surfaces are procedural (components/signature/resin-studio/surfaces.ts).
-- Fonts: Fraunces (OFL), Satoshi (Fontshare free licence).
+- Fonts: Big Shoulders Display (Patric King, SIL OFL 1.1, via Google Fonts) for headings, chosen to match his condensed SUPA RESIN wordmark; Satoshi (Fontshare free licence).

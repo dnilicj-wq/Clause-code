@@ -43,7 +43,7 @@ export function Price() {
                 {finishes.filter((x) => own.includes(x.key)).map((x) => (
                   <button type="button" key={x.key} onClick={() => q.setFinish(x.key)} aria-label={`${x.name} (example)`} aria-pressed={f.key === x.key}
                     className="h-12 w-12 rounded-full bg-cover transition-transform duration-150 active:scale-95"
-                    style={{ backgroundImage: `url(/finish/${x.key}-160-v1.webp), linear-gradient(135deg, ${x.c1}, ${x.c2} 55%, ${x.c3})`, boxShadow: f.key === x.key ? '0 0 0 3px #071015, 0 0 0 5px #F3B31E, 0 0 22px 4px rgba(240,122,62,.55)' : 'inset 0 0 0 1px rgba(255,255,255,.15), 0 6px 14px -6px rgba(0,0,0,.8)' }} />
+                    style={{ backgroundImage: `url(/finish/${x.key}-160-v3.webp), linear-gradient(135deg, ${x.c1}, ${x.c2} 55%, ${x.c3})`, boxShadow: f.key === x.key ? '0 0 0 3px #071015, 0 0 0 5px #F3B31E, 0 0 22px 4px rgba(240,122,62,.55)' : 'inset 0 0 0 1px rgba(255,255,255,.15), 0 6px 14px -6px rgba(0,0,0,.8)' }} />
                 ))}
                 <span className="ml-1 text-[15px] font-semibold">{f.name}</span>
                 <span className="basis-full text-[14px]" style={{ color: 'var(--muted)' }}>{f.note}</span>
@@ -56,14 +56,14 @@ export function Price() {
               </div>
               <label className="mt-4 flex items-center gap-4">
                 <input type="range" min={8} max={150} step={1} value={q.m2} onChange={(e) => q.setM2(+e.target.value)} className="yrange flex-1" aria-label="Area in square metres" style={{ ['--p' as string]: `${((q.m2 - 8) / 142) * 100}%` }} />
-                <span className="w-[72px] text-right font-display text-[20px] font-[500] tabular-nums aq">{q.m2} m²</span>
+                <span className="w-[72px] text-right font-display text-[24px] font-[700] tabular-nums aq">{q.m2} m²</span>
               </label>
             </fieldset>
           </div>
 
           <div className="glass edge mt-10 rounded-[18px] p-6 md:p-7">
             <p className="flex items-center gap-2 text-[13px] font-semibold"><i className="dot-aq" />Example range</p>
-            <p className="gold-text mt-2 whitespace-nowrap pb-[.06em] font-display text-[clamp(40px,7vw,82px)] font-[420] leading-none tracking-[-.035em]">
+            <p className="gold-text mt-2 whitespace-nowrap pb-[.06em] font-display text-[clamp(50px,6vw,86px)] font-[800] leading-none tracking-[-.035em]">
               £<Ticker value={q.low} /> <span className="text-[.45em] italic" style={{ WebkitTextFillColor: 'var(--muted)' }}>to</span> £<Ticker value={q.high} />
             </p>
             <p className="mt-3 text-[14px]" style={{ color: 'var(--muted)' }}>{EXAMPLE_LABEL}</p>
@@ -73,7 +73,7 @@ export function Price() {
         <div className="flex flex-col gap-5">
           <div className="edge relative overflow-hidden rounded-[18px]" style={{ aspectRatio: '4 / 3', background: '#071015', boxShadow: '0 50px 90px -40px rgba(0,0,0,.95), 0 0 80px -30px rgba(240,122,62,.45)' }}>
             {finishes.map((x) => (
-              <img key={x.key} src={`/finish/${x.key}-view-640-v3.webp`} srcSet={`/finish/${x.key}-view-640-v3.webp 640w, /finish/${x.key}-view-1200-v3.webp 1200w`} sizes="(min-width: 900px) 600px, 100vw"
+              <img key={x.key} src={`/finish/${x.key}-view-640-v5.webp`} srcSet={`/finish/${x.key}-view-640-v5.webp 640w, /finish/${x.key}-view-1200-v5.webp 1200w`} sizes="(min-width: 900px) 600px, 100vw"
                 alt={view === 'render' && x.key === f.key ? `Illustration of a ${x.name.toLowerCase()} ${x.mode === 'drive' ? 'resin-bound driveway' : 'floor'}` : ''} loading="lazy" decoding="async" width={1200} height={900}
                 className="absolute inset-0 h-full w-full object-cover transition-opacity duration-500" style={{ opacity: view === 'render' && x.key === f.key ? 1 : 0 }} />
             ))}

@@ -14,7 +14,7 @@
 @font-face{font-family:"Satoshi";src:url(/fonts/satoshi-500.woff2) format("woff2");font-weight:500;font-display:swap}
 @font-face{font-family:"Satoshi";src:url(/fonts/satoshi-700.woff2) format("woff2");font-weight:700;font-display:swap}
 @font-face{font-family:"Instrument Serif";src:url(/fonts/instrument-serif-400-italic.woff2) format("woff2");font-style:italic;font-weight:400;font-display:swap}
-@font-face{font-family:"Fraunces";src:url(/fonts/fraunces-300-700.woff2) format("woff2");font-weight:300 700;font-display:swap}
+@font-face{font-family:"Big Shoulders Display";src:url(/fonts/big-shoulders-display-600-900.woff2) format("woff2");font-weight:600 900;font-display:swap}
 @font-face{font-family:"Caveat";src:url(/fonts/caveat-500.woff2) format("woff2");font-weight:500;font-display:swap}
 
 @theme inline {
@@ -147,9 +147,9 @@ html.lenis, html.lenis body{ height:auto; }
 body{ background:radial-gradient(120% 60% at 50% 0%, #0B161C 0%, var(--bg) 60%) fixed, var(--bg); }
 body::after{ content:""; position:fixed; inset:0; z-index:60; pointer-events:none; opacity:.06; mix-blend-mode:overlay;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
-.d-xl{ font-family:var(--font-display); font-weight:420; font-variation-settings:"opsz" 144, "SOFT" 30; letter-spacing:-.035em; line-height:.94; text-wrap:balance; font-size:clamp(46px,8.4vw,96px); }
-.d-l{ font-family:var(--font-display); font-weight:420; font-variation-settings:"opsz" 144, "SOFT" 30; letter-spacing:-.03em; line-height:.98; text-wrap:balance; font-size:clamp(38px,5.6vw,76px); }
-.d-m{ font-family:var(--font-display); font-weight:420; font-variation-settings:"opsz" 144, "SOFT" 30; letter-spacing:-.02em; line-height:1.05; text-wrap:balance; font-size:clamp(24px,2.6vw,34px); }
+.d-xl{ font-family:var(--font-display); font-weight:800; text-transform:uppercase; letter-spacing:-.005em; line-height:.9; text-wrap:balance; font-size:clamp(56px,9.6vw,120px); }
+.d-l{ font-family:var(--font-display); font-weight:800; text-transform:uppercase; letter-spacing:-.005em; line-height:.92; text-wrap:balance; font-size:clamp(46px,6.6vw,92px); }
+.d-m{ font-family:var(--font-display); font-weight:800; text-transform:uppercase; letter-spacing:.005em; line-height:1; text-wrap:balance; font-size:clamp(28px,3vw,40px); }
 .lede3{ color:var(--muted); font-size:clamp(16px,1.35vw,19px); line-height:1.55; max-width:52ch; text-wrap:pretty; }
 .y{ color:var(--y); } .aq{ color:var(--aq); } .cu{ color:var(--cu); }
 .eyebrow2{ display:inline-flex; align-items:center; gap:10px; font-size:12px; font-weight:600; letter-spacing:.18em; text-transform:uppercase; color:var(--aq); }
@@ -216,7 +216,9 @@ body::after{ content:""; position:fixed; inset:0; z-index:60; pointer-events:non
 .acc[data-open="true"]{ grid-template-rows:1fr; }
 .acc > div{ overflow:hidden; }
 
-.font-display{ font-variation-settings:"opsz" 144, "SOFT" 30; }
+/* Big Shoulders Display: heavy condensed sans to match his SUPA RESIN wordmark; italics are a slant, like the logo */
+.font-display{ letter-spacing:0; }
+.font-display i, .font-display em, i.gold-text, .d-xl i, .d-l i, .d-m i, .slant{ font-style:normal; display:inline-block; transform:skewX(-9deg); }
 .gold-text{ background:linear-gradient(100deg,#FFE7A8 0%,#F3B31E 35%,#F07A3E 75%,#E0603A 100%); -webkit-background-clip:text; background-clip:text; color:transparent; }
 .chip{ display:inline-flex; align-items:center; gap:8px; height:40px; padding:0 16px; border-radius:999px; font-size:14.5px; font-weight:500;
   background:rgba(214,240,245,.05); box-shadow:inset 0 0 0 1px rgba(214,240,245,.14); transition:background-color 200ms ease, box-shadow 200ms ease, color 200ms ease; }

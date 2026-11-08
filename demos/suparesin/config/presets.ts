@@ -23,7 +23,7 @@ export const presets: Record<string, Preset> = {
     metal: ['#3A2A10', '#D9B46A', '#FFF4DA'],
     resin: { base: '#0F1C23', metal: '#D9B46A' },
     concrete: '#8E8D8B',
-    display: '"Fraunces", Georgia, serif', body: '"Satoshi", system-ui, sans-serif', serif: '"Instrument Serif", Georgia, serif',
+    display: '"Big Shoulders Display", Impact, "Arial Narrow", sans-serif', body: '"Satoshi", system-ui, sans-serif', serif: '"Instrument Serif", Georgia, serif',
     radius: '18px',
   },
   'obsidian-copper': {
