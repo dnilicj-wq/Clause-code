@@ -37,7 +37,7 @@ export function Hero() {
     let gone = false;
     // the slab scene (three.js + textures) waits until the page has loaded and gone idle, so it never competes with first paint
     const afterLoad = (f: () => void) => {
-      const idle = () => ((window as any).requestIdleCallback ? (window as any).requestIdleCallback(f, { timeout: 700 }) : setTimeout(f, 200));
+      const idle = () => ((window as any).requestIdleCallback ? (window as any).requestIdleCallback(f, { timeout: 150 }) : setTimeout(f, 0));
       if (document.readyState === 'complete') idle(); else addEventListener('load', idle, { once: true });
     };
     const stop = whenReadyForGL(() => (slabs ? afterLoad(start) : start()), { eagerTouch: true });

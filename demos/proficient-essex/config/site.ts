@@ -48,7 +48,7 @@ export const site = {
       text: 'The Proficient Essex team were very polite and answered my questions which put me right at ease, they knew exactly what they were talking about and the results showed that, superb work our garden has been transformed with the new patio!' },
   ] as Review[],
   heroStyle: 'slabs' as 'slabs' | 'gravel',
-  slabPosters: { d: '/posters/slab-d-v1.webp', m: '/posters/slab-m-v1.webp' },
+  slabPosters: { d: '/posters/slab-d-v2.webp', m: '/posters/slab-m-v2.webp' },
   posters: { d: '/posters/drive-d-v1.webp', m: '/posters/drive-m-v1.webp' },
   formEndpoint: '', // empty = no data stored; the lead is handed to WhatsApp
 };

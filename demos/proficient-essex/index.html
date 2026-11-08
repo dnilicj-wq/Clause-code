@@ -11,8 +11,8 @@
   <meta name="theme-color" content="#121212" />
   <link rel="preload" href="/fonts/clash-display-600.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/fonts/general-sans-400.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href="/posters/slab-m-v1.webp" as="image" media="(max-width: 699px)" fetchpriority="high" />
-  <link rel="preload" href="/posters/slab-d-v1.webp" as="image" media="(min-width: 700px)" fetchpriority="high" />
+  <link rel="preload" href="/posters/slab-m-v2.webp" as="image" media="(max-width: 699px)" fetchpriority="high" />
+  <link rel="preload" href="/posters/slab-d-v2.webp" as="image" media="(min-width: 700px)" fetchpriority="high" />
   <style>
     html,body{margin:0;background:#121212;color:#F4F0E7}
     #boot{position:fixed;inset:0;z-index:100;display:grid;place-items:center;background:#121212;
@@ -74,7 +74,7 @@
     h.classList.add('ld-on');window.__ld=false;
     var rm=matchMedia('(prefers-reduced-motion: reduce)').matches,seen=false;
     try{seen=sessionStorage.getItem('pe-ld')==='1';sessionStorage.setItem('pe-ld','1')}catch(e){}
-    var MIN=seen?350:1700,CAP=seen?2200:3600,t0=performance.now(),p=0,fin=false;
+    var MIN=seen?300:1100,CAP=seen?2200:3600,t0=performance.now(),p=0,fin=false;
     var bar=b.querySelector('.bar i'),drv=b.querySelector('.d');
     function poster(){var i=document.querySelector('#top picture img');return !!(i&&i.complete&&i.naturalWidth)}
     function ready(){return poster()&&(window.__heroReady||window.__heroNoGL||performance.now()-t0>2600)}

@@ -16,12 +16,13 @@ export type SlabOpts = {
 };
 
 const SW = 0.9, SD = 0.6, JOINT = 0.007, TH = 0.024;       // 900 x 600 mm porcelain, ~7 mm joints
-const COLS = 9, ROWS = 12;
-const X0 = -3.55, Z0 = 2.6;                                  // near-left corner of the patio
-const FIN_AT = 0.72;
+// the patio runs past every edge of the frame; slabs no camera can see are culled at build time
+const COLS = 25, ROWS = 22;
+const X0 = 0.6 - (COLS * SW) / 2, Z0 = 3.2;                 // near-left corner of the patio
+const FIN_AT = 0.6;
 export const START = 0.12;                                  // far rows already laid (matches the poster)
 
-type Slab = { m: THREE.Mesh; x: number; z: number; state: 0 | 1 | 2; t0: number; dur: number; ry: number; rx: number; rz: number; h: number; hit: boolean };
+type Slab = { m: THREE.Mesh; x: number; z: number; row: number; state: 0 | 1 | 2; t0: number; dur: number; ry: number; rx: number; rz: number; h: number; hit: boolean };
 
 export function initSlabs(host: HTMLElement, cv: HTMLCanvasElement, opts: SlabOpts) {
   let renderer: THREE.WebGLRenderer;
@@ -56,7 +57,7 @@ export function initSlabs(host: HTMLElement, cv: HTMLCanvasElement, opts: SlabOp
   sun.target.position.set(0.4, 0, -0.8);
   sun.castShadow = true;
   sun.shadow.mapSize.set(coarse ? 1024 : 2048, coarse ? 1024 : 2048);
-  Object.assign(sun.shadow.camera, { left: -7, right: 7, top: 7, bottom: -7, near: 1, far: 25 });
+  Object.assign(sun.shadow.camera, { left: -11, right: 11, top: 11, bottom: -11, near: 1, far: 25 });
   sun.shadow.bias = -0.0004;
   sun.shadow.normalBias = 0.02;
   sun.shadow.radius = 5;
@@ -77,11 +78,11 @@ export function initSlabs(host: HTMLElement, cv: HTMLCanvasElement, opts: SlabOp
   // phones get half-size maps (they are viewed smaller and download over mobile data)
   const gMap = tex(coarse ? 'ground-1k-v2.webp' : 'ground-v2.webp', true), gNor = tex(coarse ? 'ground-n-1k-v2.jpg' : 'ground-n-v2.jpg', false);
   const sMap = tex(coarse ? 'slab-512-v1.webp' : 'slab-v1.webp', true), sNor = tex(coarse ? 'slab-n-512-v1.jpg' : 'slab-n-v1.jpg', false);
-  gMap.repeat.set(4.6, 4.6); gNor.repeat.set(4.6, 4.6);
+  gMap.repeat.set(9.8, 9.8); gNor.repeat.set(9.8, 9.8);
   gMap.rotation = gNor.rotation = 0.35;
 
   // old cracked concrete
-  const ground = new THREE.Mesh(new THREE.PlaneGeometry(28, 28), new THREE.MeshStandardMaterial({ map: gMap, normalMap: gNor, normalScale: new THREE.Vector2(1.6, 1.6), roughness: 0.95, color: '#b9b6b0', metalness: 0 }));
+  const ground = new THREE.Mesh(new THREE.PlaneGeometry(60, 60), new THREE.MeshStandardMaterial({ map: gMap, normalMap: gNor, normalScale: new THREE.Vector2(1.6, 1.6), roughness: 0.95, color: '#b9b6b0', metalness: 0 }));
   ground.rotation.x = -Math.PI / 2;
   ground.receiveShadow = true;
   scene.add(ground);
@@ -96,6 +97,17 @@ export function initSlabs(host: HTMLElement, cv: HTMLCanvasElement, opts: SlabOp
   const matFull = variants(SW), matHalf = variants(SW / 2);
   const geoFull = new RoundedBoxGeometry(SW - JOINT, TH, SD - JOINT, 2, 0.004);
   const geoHalf = new RoundedBoxGeometry(SW / 2 - JOINT, TH, SD - JOINT, 2, 0.004);
+
+  // which slabs can ever be on screen: the widest landscape and portrait framings, plus a margin
+  const views = ([[34, 2.5, [0.7, 3.5, 5.7], [0.7, 0, -1.6]], [50, 0.9, [0.5, 4.9, 4.6], [0.5, 0, -1.5]]] as const).map(([fov, asp, p, l]) => {
+    const c = new THREE.PerspectiveCamera(fov + 6, asp, 0.1, 17);
+    c.position.set(p[0], p[1], p[2]); c.lookAt(l[0], l[1], l[2]); c.updateMatrixWorld(); c.updateProjectionMatrix();
+    return new THREE.Frustum().setFromProjectionMatrix(new THREE.Matrix4().multiplyMatrices(c.projectionMatrix, c.matrixWorldInverse));
+  });
+  const box = new THREE.Box3(), seen = (x: number, z: number, w: number) => {
+    box.min.set(x - w / 2, 0, z - SD / 2); box.max.set(x + w / 2, TH, z + SD / 2);
+    return views.some((f) => f.intersectsBox(box));
+  };
 
   // stretcher bond: every other row starts and ends with a half slab
   const slabs: Slab[] = [];
@@ -112,12 +124,13 @@ export function initSlabs(host: HTMLElement, cv: HTMLCanvasElement, opts: SlabOp
       pieces.push({ cx: X0 + COLS * SW - SW / 4, half: true });
     }
     for (const p of pieces) {
+      if (!seen(p.cx, z, p.half ? SW / 2 : SW)) continue;
       const mats = p.half ? matHalf : matFull;
       const m = new THREE.Mesh(p.half ? geoHalf : geoFull, mats[Math.floor(rnd() * mats.length)]);
       m.castShadow = true; m.receiveShadow = true; m.visible = false;
       m.position.set(p.cx, TH / 2, z);
       scene.add(m);
-      slabs.push({ m, x: p.cx, z, state: 0, t0: 0, dur: 0, ry: 0, rx: 0, rz: 0, h: 0, hit: false });
+      slabs.push({ m, x: p.cx, z, row: r, state: 0, t0: 0, dur: 0, ry: 0, rx: 0, rz: 0, h: 0, hit: false });
     }
   }
   const total = slabs.length;
@@ -133,9 +146,9 @@ export function initSlabs(host: HTMLElement, cv: HTMLCanvasElement, opts: SlabOp
   type Puff = { s: THREE.Sprite; t0: number; vx: number; vz: number };
   const puffs: Puff[] = [];
   const puff = (x: number, z: number, now: number) => {
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 2; i++) {
       const s = new THREE.Sprite(new THREE.SpriteMaterial({ map: dustTex, transparent: true, depthWrite: false, opacity: 0 }));
-      const a = (i / 5) * Math.PI * 2 + Math.random();
+      const a = (i / 2) * Math.PI * 2 + Math.random();
       s.position.set(x + Math.cos(a) * 0.4, 0.04, z + Math.sin(a) * 0.28);
       s.scale.setScalar(0.25);
       scene.add(s);
@@ -186,8 +199,8 @@ export function initSlabs(host: HTMLElement, cv: HTMLCanvasElement, opts: SlabOp
   let laid = 0, finished = false, first = false, finishing = false;
   const drop = (s: Slab, at: number) => {
     if (s.state !== 0) return;
-    s.state = 1; s.t0 = at; s.h = 0.75 + rnd() * 0.45; s.dur = Math.sqrt((2 * s.h) / 9.81) * 1.25;
-    s.rx = (rnd() - 0.5) * 0.5; s.rz = (rnd() - 0.5) * 0.5; s.ry = (rnd() - 0.5) * 0.35;
+    s.state = 1; s.t0 = at; s.h = 0.55 + rnd() * 0.08; s.dur = 0.62;
+    s.rx = (rnd() - 0.5) * 0.12; s.rz = (rnd() - 0.5) * 0.12; s.ry = (rnd() - 0.5) * 0.06;
   };
   const coverage = () => laid / total;
   const landed = (s: Slab, now: number) => {
@@ -198,18 +211,25 @@ export function initSlabs(host: HTMLElement, cv: HTMLCanvasElement, opts: SlabOp
     if (laid === total && !finished) { finished = true; api.finished = true; opts.onFinished?.(); }
   };
   const order = () => slabs.filter((s) => s.state === 0).sort((a, b) => a.z - b.z || a.x - b.x); // far rows first
-  function finish(gap = 0.035) {
+  // lay in rows, far to near: each row sweeps left to right, the next row starts before the last one ends,
+  // so the slabs come down as one smooth travelling line
+  const minX = Math.min(...slabs.map((s) => s.x)), spanX = Math.max(...slabs.map((s) => s.x)) - minX || 1;
+  function sweep(list: Slab[], t: number, rowGap: number, across: number) {
+    if (!list.length) return;
+    const r0 = Math.max(...list.map((s) => s.row));        // highest row index = farthest from camera
+    list.forEach((s) => drop(s, t + (r0 - s.row) * rowGap + ((s.x - minX) / spanX) * across));
+  }
+  function finish() {
+    if (finishing) return;
     finishing = true;
-    const t = now();
-    order().forEach((s, i) => drop(s, t + i * gap));
+    sweep(order(), now(), 0.1, 0.3);
   }
   function demo(start = START) {
     const t = now();
     const o = order(), n = Math.round(total * start);
     o.slice(0, n).forEach(place); laid += n;
-    // start slow so the first few read as single slabs, then speed up like a crew getting into rhythm
-    let at = t + 0.2;
-    o.slice(n).forEach((s, i) => { drop(s, at); at += Math.max(0.034, 0.2 * Math.pow(0.95, i)); });
+    finishing = true;
+    sweep(o.slice(n), t + 0.05, 0.16, 0.42);
   }
   function place(s: Slab) { s.state = 2; s.hit = true; s.m.visible = true; s.m.position.set(s.x, TH / 2, s.z); s.m.rotation.set(0, 0, 0); }
   function prefill(f = START) {
@@ -268,7 +288,7 @@ export function initSlabs(host: HTMLElement, cv: HTMLCanvasElement, opts: SlabOp
         s.m.visible = true;
         if (k >= 1) {
           const b = t - s.t0 - s.dur;                     // settle after the landing
-          const y = TH / 2 + Math.max(0, Math.sin(b * 26) * 0.012 * Math.exp(-b * 14));
+          const y = TH / 2 + Math.max(0, Math.sin(b * 22) * 0.004 * Math.exp(-b * 16));
           s.m.position.set(s.x, y, s.z);
           const r = Math.exp(-b * 18);
           s.m.rotation.set(s.rx * 0.04 * r, 0, s.rz * 0.04 * r);
@@ -276,8 +296,8 @@ export function initSlabs(host: HTMLElement, cv: HTMLCanvasElement, opts: SlabOp
           if (b > 0.35) { s.m.rotation.set(0, 0, 0); s.m.position.y = TH / 2; s.state = 2; }
           continue;
         }
-        const e = k * k;                                   // falls under gravity
-        const sw = 1 - k;
+        const e = k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2;   // lowered into place, slows before contact
+        const sw = 1 - e;
         s.m.position.set(s.x, TH / 2 + s.h * (1 - e), s.z);
         s.m.rotation.set(s.rx * sw * sw, s.ry * sw * sw, s.rz * sw * sw);
       }
