@@ -42,6 +42,13 @@ export function Stars({ size = 14, n = 5 }: { size?: number; n?: number }) {
   );
 }
 
-export function Mark({ size = 30 }: { size?: number }) {
-  return <img src="/brand/mark-v2.webp" width={size} height={Math.round(size * 1.04)} alt="" aria-hidden className="block" style={{ width: size, height: 'auto' }} />;
+// Their house-and-drive mark, redrawn as vector strokes from the logo on proficientessex.co.uk.
+export const MARK_PATHS = ['M42 236 V114 L133 52 L226 114 V236 Z', 'M133 236 V162', 'M276 180 C 332 176, 364 210, 356 250 C 349 286, 318 303, 282 303 L 146 306 C 113 308, 96 331, 96 364 L 96 410'];
+export function Mark({ size = 30, id = 'mk' }: { size?: number; id?: string }) {
+  return (
+    <svg width={size} height={Math.round(size * 1.04)} viewBox="0 0 400 416" fill="none" aria-hidden className="block">
+      <defs><linearGradient id={id} x1="0" y1="0" x2=".35" y2="1"><stop offset="0" stopColor="#FFF1C8" /><stop offset=".42" stopColor="#C9A961" /><stop offset=".72" stopColor="#8E6D35" /><stop offset="1" stopColor="#E6D3A2" /></linearGradient></defs>
+      <g stroke={`url(#${id})`} strokeWidth="26" strokeLinejoin="miter">{MARK_PATHS.map((d) => <path key={d} d={d} />)}</g>
+    </svg>
+  );
 }

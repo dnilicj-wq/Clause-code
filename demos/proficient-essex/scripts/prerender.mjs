@@ -21,6 +21,6 @@ await server.close();
 const file = new URL('../dist/index.html', import.meta.url);
 let html = readFileSync(file, 'utf8');
 html = html.replace('<div id="root"></div>', `<div id="root">${shell}</div>
-  <script>if(/[?&](company|town|phone|trade|preset)=/.test(location.search)){document.getElementById('root').innerHTML=''}</script>`);
+  <script>if(/[?&](company|town|phone|trade|preset|hero)=/.test(location.search)){document.getElementById('root').innerHTML=''}</script>`);
 writeFileSync(file, html);
 console.log('prerendered hero shell:', (shell.length / 1024).toFixed(1), 'KB');

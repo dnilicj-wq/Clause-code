@@ -21,4 +21,4 @@ export function Rise({ children, d = 0, className }: { children: ReactNode; d?: 
   );
 }
 
-export { Mark } from './lite';
+export { Mark, MARK_PATHS } from './lite';

@@ -14,7 +14,7 @@ export function Nav() {
       <nav className="flex w-full max-w-[1280px] items-center justify-between rounded-full border py-1.5 pl-3 pr-1.5 transition-[background-color,border-color,box-shadow] duration-500"
         style={scrolled ? { background: 'color-mix(in srgb, var(--bg) 94%, transparent)', borderColor: 'var(--line)', backdropFilter: 'blur(18px) saturate(140%)', WebkitBackdropFilter: 'blur(18px) saturate(140%)', boxShadow: '0 12px 32px -14px rgba(0,0,0,.65)' } : { borderColor: 'transparent' }}>
         <a href="#top" className="flex items-center gap-2.5" aria-label={`${site.company}, back to top`}>
-          <Mark size={30} />
+          <Mark size={30} id="mk-n" />
           <span className="font-display text-[16px] font-semibold uppercase tracking-[.14em]" style={{ color: 'var(--accent2)' }}>Proficient<span className="hidden font-medium sm:inline" style={{ color: 'var(--muted)' }}> Essex</span></span>
         </a>
         <div className="hidden items-center gap-1 md:flex">

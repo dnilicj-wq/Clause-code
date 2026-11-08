@@ -25,12 +25,13 @@ Sources:
 - 5-step resin process (consultation and design, groundwork, installation, curing, inspection) · SITE ?page_id=642, shortened
 - "Design options to suit your taste and budget" · SITE ?page_id=642
 - Job photos (11, dated 2023 and Apr 2025) · SITE media library, file names carry the dates
-- Logo, wordmark, gold #BDA15D on graphite · SITE logo
+- Logo, wordmark, gold #BDA15D on graphite · SITE logo (mark redrawn as vector; wordmark set in live type)
+- Works with porcelain paving · Dan, 2026-11-08, with his patio-by-garden-room photo (2025)
 
 ## Labelled, not their claims
 - Prices (£/m² by current surface) · "Example range — Matt confirms on a free survey"
 - Stone blends and names · "Example blend · illustration"
-- Hero pour and blend previews · "Live illustration" / "Illustration" (rendered from CC0 Poly Haven textures, see CREDITS.md)
+- Hero (porcelain slabs dropping onto cracked concrete; gravel pour kept at ?hero=gravel) and blend previews · "Live illustration" / "Illustration" (rendered from CC0 Poly Haven textures, see CREDITS.md)
 - "Why resin" cards · written as general facts about resin-bound surfaces, not as their claims
 - FAQ answers · general resin facts plus "Matt checks on the free survey"
 

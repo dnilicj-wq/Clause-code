@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { initDrive, type DriveApi } from '@/components/signature/drive-pour/drive';
+import type { SlabApi } from '@/components/signature/slab-drop/slabs';
 import { whenReadyForGL, isCoarse, glMode, softwareRenderer } from '@/src/lib/gl';
 import { useSite } from '@/src/lib/ctx';
 import { CutReveal, Ticker } from './lite';
@@ -9,12 +10,21 @@ import { Stars } from './lite';
 
 // Signature moment: drag to pour resin-bound stone over a cracked, weedy tarmac drive.
 // Poster (a real frame of this shader) paints first; the live pour takes over and auto-demos on phones.
+const heroStyle = (d: 'slabs' | 'gravel') => {
+  if (typeof location === 'undefined') return d;
+  const h = new URLSearchParams(location.search).get('hero');
+  return h === 'gravel' || h === 'slabs' ? h : d;
+};
+
 export function Hero() {
   const { site, preset } = useSite();
   const q = useQuote();
   const host = useRef<HTMLElement>(null);
   const canvas = useRef<HTMLCanvasElement>(null);
-  const api = useRef<DriveApi | null>(null);
+  const api = useRef<DriveApi | SlabApi | null>(null);
+  const style = heroStyle(site.heroStyle);
+  const slabs = style === 'slabs';
+  const posters = slabs ? site.slabPosters : site.posters;
   const [live, setLive] = useState(false);
   const [touched, setTouched] = useState(false);
   const [done, setDone] = useState(false);
@@ -24,18 +34,27 @@ export function Hero() {
   useEffect(() => {
     if (!host.current || !canvas.current) return;
     if (glMode() === 'off' || softwareRenderer()) (window as any).__heroNoGL = true;
-    const stop = whenReadyForGL(() => {
-      const a = initDrive(host.current!, canvas.current!, {
-        blend: q.blend, fog: preset.bg, tex: '/tex/',
-        onFirst: () => setTouched(true), onCoverage: setCov, onFinished: () => setDone(true),
-        onReady: () => setLive(true), onLost: () => setLive(false),
-      });
+    let gone = false;
+    // the slab scene (three.js + textures) waits until the page has loaded and gone idle, so it never competes with first paint
+    const afterLoad = (f: () => void) => {
+      const idle = () => ((window as any).requestIdleCallback ? (window as any).requestIdleCallback(f, { timeout: 700 }) : setTimeout(f, 200));
+      if (document.readyState === 'complete') idle(); else addEventListener('load', idle, { once: true });
+    };
+    const stop = whenReadyForGL(() => (slabs ? afterLoad(start) : start()), { eagerTouch: true });
+    async function start() {
+      if (gone) return;
+      const cb = { fog: preset.bg, tex: '/tex/', onFirst: () => setTouched(true), onCoverage: setCov, onFinished: () => setDone(true), onReady: () => setLive(true), onLost: () => setLive(false) };
+      // three.js only loads for the slab hero, and only once the page is idle
+      const a = slabs
+        ? (await import('@/components/signature/slab-drop/slabs')).initSlabs(host.current!, canvas.current!, cb)
+        : initDrive(host.current!, canvas.current!, { ...cb, blend: q.blend });
       if (!a) return;
+      if (gone) { a.destroy(); return; }
       api.current = a;
       const go = () => { if (a.loaded) (window as any).__heroReady = true; return a.loaded && (window as any).__ld !== false ? a.demo() : setTimeout(go, 60); };
       go();
-    }, { eagerTouch: true });
-    return () => { stop(); api.current?.destroy(); api.current = null; };
+    }
+    return () => { gone = true; stop(); api.current?.destroy(); api.current = null; };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useEffect(() => { api.current?.set(q.blend); }, [q.blend]);
@@ -45,10 +64,10 @@ export function Hero() {
   return (
     <section ref={host} id="top" className="relative isolate overflow-hidden"
       style={{ height: '100svh', minHeight: 640, touchAction: 'pan-y', cursor: live && !done ? 'crosshair' : undefined }}
-      aria-label="Hero: pour a resin driveway">
+      aria-label={slabs ? "Hero: lay a porcelain patio" : "Hero: pour a resin driveway"}>
       <picture className="absolute inset-0 -z-20">
-        <source media="(max-width: 699px)" srcSet={site.posters.m} />
-        <img src={site.posters.d} alt="" className="h-full w-full object-cover" fetchPriority="high" decoding="async" />
+        <source media="(max-width: 699px)" srcSet={posters.m} />
+        <img src={posters.d} alt="" className="h-full w-full object-cover" fetchPriority="high" decoding="async" />
       </picture>
       <canvas ref={canvas} className="absolute inset-0 -z-10 h-full w-full transition-opacity duration-700" style={{ opacity: live ? 1 : 0 }} aria-hidden="true" />
       <div className="pointer-events-none absolute inset-0 -z-[5]" style={{ background: 'linear-gradient(180deg, rgba(10,10,10,.7) 0%, rgba(10,10,10,0) 22%, rgba(10,10,10,0) 40%, rgba(10,10,10,.55) 64%, rgba(10,10,10,.9) 100%)' }} />
@@ -63,7 +82,7 @@ export function Hero() {
             <span style={{ color: 'var(--muted)' }}>{`· ${site.proof.reviewCount} Google reviews`}</span>
           </a>
           <h1 className="font-display text-[clamp(44px,8vw,112px)] font-semibold leading-[.9] tracking-[-.035em]">
-            {['Cracked drive?', 'Pour it new.'].map((l, i) => (
+            {(slabs ? ['Cracked patio?', 'Lay it new.'] : ['Cracked drive?', 'Pour it new.']).map((l, i) => (
               <span key={i} className="block"><CutReveal text={l} delay={0.12 + i * 0.16} className={i === 1 ? 'serif font-normal' : ''} /></span>
             ))}
           </h1>
@@ -73,13 +92,13 @@ export function Hero() {
           {!coarse && live && (
             <div className="pointer-events-auto mt-6 hidden items-center gap-3 md:flex" data-nopour>
               <span className="glass flex items-center gap-3 rounded-full py-2 pl-4 pr-2 text-[13px]">
-                <span style={{ color: 'var(--muted)' }}>{done ? 'Finished' : touched ? 'Pouring' : 'Drag across the drive'}</span>
+                <span style={{ color: 'var(--muted)' }}>{done ? 'Finished' : touched ? (slabs ? 'Laying' : 'Pouring') : (slabs ? 'Drag across the patio' : 'Drag across the drive')}</span>
                 <span className="relative h-1 w-20 overflow-hidden rounded-full bg-white/10">
                   <span className="absolute inset-y-0 left-0 rounded-full transition-[width] duration-300" style={{ width: `${done ? 100 : pct}%`, background: 'var(--accent)' }} />
                 </span>
                 {done
-                  ? <button onClick={() => { api.current?.reset(); setDone(false); setCov(0); }} className="rounded-full bg-white/10 px-3 py-1.5 font-medium hover:bg-white/15">Pour again</button>
-                  : <button onClick={() => api.current?.finish()} className="rounded-full px-3 py-1.5 font-medium" style={{ background: 'var(--accent)', color: 'var(--accent-ink)' }}>Finish the drive</button>}
+                  ? <button onClick={() => { api.current?.reset(); setDone(false); setCov(0); }} className="rounded-full bg-white/10 px-3 py-1.5 font-medium hover:bg-white/15">{slabs ? 'Lay again' : 'Pour again'}</button>
+                  : <button onClick={() => api.current?.finish()} className="rounded-full px-3 py-1.5 font-medium" style={{ background: 'var(--accent)', color: 'var(--accent-ink)' }}>{slabs ? 'Lay the rest' : 'Finish the drive'}</button>}
               </span>
             </div>
           )}
@@ -90,7 +109,7 @@ export function Hero() {
       {live && !touched && !done && (
           <div
             className="pe-hint glass pointer-events-none absolute left-1/2 top-[19%] -translate-x-1/2 whitespace-nowrap rounded-full px-4 py-2 text-[13px] md:left-[38%] md:top-[30%]">
-            {coarse ? 'Swipe the drive to pour' : 'Drag across the drive to pour'} ↔
+            {slabs ? (coarse ? 'Swipe to lay the slabs' : 'Drag across to lay the slabs') : (coarse ? 'Swipe the drive to pour' : 'Drag across the drive to pour')} ↔
           </div>
         )}
       <span className="ex-tag right-4 top-[76px] md:right-6">Live illustration</span>

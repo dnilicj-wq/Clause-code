@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { useSite } from '@/src/lib/ctx';
 import { photos, photoSrc, process, whyResin, faq } from '@/config/content';
 import { Marquee } from '@/components/library/marquee/Marquee';
-import { Head, Rise, Stars, Mark } from './ui';
+import { Head, Rise, Stars, Mark, MARK_PATHS } from './ui';
 import { WaIcon } from './Hero';
 import { useQuote, waLink } from './quote';
 
@@ -201,7 +201,7 @@ export function GuaranteeAreas() {
       <div className="wrap grid gap-3 md:grid-cols-[1fr_1.2fr] md:gap-5">
         <Rise>
           <div className="relative flex h-full flex-col justify-between overflow-hidden rounded-[var(--radius)] border p-6 md:p-9" style={{ borderColor: 'rgba(201,169,97,.35)', background: 'radial-gradient(120% 90% at 0% 0%, rgba(201,169,97,.16), transparent 60%), var(--surface)' }}>
-            <img src="/brand/logo-ring-v1.webp" alt="" aria-hidden width={320} height={320} loading="lazy" className="pointer-events-none absolute -right-16 -top-16 w-[220px] opacity-40 md:w-[280px]" />
+            <div className="pointer-events-none absolute -right-10 -top-8 opacity-[.13] md:-right-6"><Mark size={220} id="mk-g" /></div>
             <p className="eyebrow">Guarantee</p>
             <div className="relative mt-16 md:mt-24">
               <h2 className="font-display text-[clamp(40px,6vw,72px)] font-semibold leading-[.95] tracking-[-.03em]">All work is <span className="serif" style={{ color: 'var(--accent2)' }}>guaranteed.</span></h2>
@@ -276,7 +276,7 @@ export function Footer() {
             <a href={waLink(q)} target="_blank" rel="noreferrer" className="flex h-[52px] items-center gap-2 rounded-full px-6 text-[16px] font-semibold" style={{ background: '#25D366', color: '#062b14' }}><WaIcon /> WhatsApp</a>
           </div>
         </div>
-        <img src="/brand/wordmark-v2.webp" alt={site.company} width={332} height={80} loading="lazy" className="mt-14 w-full max-w-[1100px] opacity-90" />
+        <Wordmark />
         <div className="mt-10 grid gap-6 text-[14px] md:grid-cols-4" style={{ color: 'var(--muted)' }}>
           <div><div className="mb-1.5 font-medium" style={{ color: 'var(--ink)' }}>Call or WhatsApp</div><a href={tel(site.phone)}>{site.phone}</a></div>
           <div><div className="mb-1.5 font-medium" style={{ color: 'var(--ink)' }}>Email</div><a href={`mailto:${site.email}`} className="break-all">{site.email}</a></div>
@@ -321,5 +321,24 @@ export function StickyBar() {
         </motion.nav>
       )}
     </AnimatePresence>
+  );
+}
+
+// Footer wordmark: vector mark + live type, so it stays sharp at any size.
+function Wordmark() {
+  const { site } = useSite();
+  return (
+    <div className="mt-14 flex items-center gap-4 md:gap-8" role="img" aria-label={site.company}>
+      <div className="w-[clamp(64px,13vw,150px)] shrink-0" aria-hidden>
+        <svg viewBox="0 0 400 416" fill="none" className="block h-auto w-full">
+          <defs><linearGradient id="mk-fw" x1="0" y1="0" x2=".35" y2="1"><stop offset="0" stopColor="#FFF1C8" /><stop offset=".42" stopColor="#C9A961" /><stop offset=".72" stopColor="#8E6D35" /><stop offset="1" stopColor="#E6D3A2" /></linearGradient></defs>
+          <g stroke="url(#mk-fw)" strokeWidth="26">{MARK_PATHS.map((d) => <path key={d} d={d} />)}</g>
+        </svg>
+      </div>
+      <div className="min-w-0" aria-hidden>
+        <div className="font-display font-semibold uppercase leading-[.9]" style={{ fontSize: 'clamp(30px, 8.6vw, 124px)', letterSpacing: '.06em', background: 'linear-gradient(180deg, #FFF1C8 0%, #C9A961 48%, #8E6D35 78%, #E6D3A2 100%)', WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent' }}>Proficient</div>
+        <div className="mt-[.5em] font-display font-medium uppercase" style={{ fontSize: 'clamp(12px, 2.4vw, 34px)', letterSpacing: '.62em', color: 'var(--muted)' }}>Essex</div>
+      </div>
+    </div>
   );
 }

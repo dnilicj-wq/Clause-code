@@ -16,9 +16,15 @@ async function grab(q, w, h, dpr = 1) {
   const buf = await p.screenshot({ type: 'png' }); await p.close(); return buf;
 }
 const only = process.argv[2];
+if (only === 'slab-posters') {
+  await sharp(await grab('k=slabs', 1440, 900)).webp({ quality: 70 }).toFile(`public/posters/slab-d-${VER}.webp`);
+  await sharp(await grab('k=slabs', 390, 844, 1.5)).webp({ quality: 64 }).toFile(`public/posters/slab-m-${VER}.webp`);
+}
 if (!only || only === 'posters') {
   await sharp(await grab('k=hero', 1440, 900)).webp({ quality: 68 }).toFile(`public/posters/drive-d-${VER}.webp`);
   await sharp(await grab('k=hero', 390, 844, 1.5)).webp({ quality: 62 }).toFile(`public/posters/drive-m-${VER}.webp`);
+  await sharp(await grab('k=slabs', 1440, 900)).webp({ quality: 70 }).toFile(`public/posters/slab-d-${VER}.webp`);
+  await sharp(await grab('k=slabs', 390, 844, 1.5)).webp({ quality: 64 }).toFile(`public/posters/slab-m-${VER}.webp`);
   console.log('posters');
 }
 if (!only || only === 'blends') {
