@@ -111,8 +111,14 @@ export function initSlabs(host: HTMLElement, cv: HTMLCanvasElement, opts: SlabOp
     box.min.set(x - w / 2, 0, z - SD / 2); box.max.set(x + w / 2, TH, z + SD / 2);
     return views.some((f) => f.intersectsBox(box));
   };
+  // surfaces built later only need the framing in use now (keeps piece counts down on phones)
+  const seenNow = (x: number, z: number, w: number) => {
+    box.min.set(x - w / 2, 0, z - w / 2); box.max.set(x + w / 2, TH, z + w / 2);
+    return views[portrait ? 1 : 0].intersectsBox(box);
+  };
 
   // stretcher bond: every other row starts and ends with a half slab
+  const slabGroup = new THREE.Group(); scene.add(slabGroup);
   const slabs: Slab[] = [];
   let seed = 7;
   const rnd = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
@@ -132,7 +138,7 @@ export function initSlabs(host: HTMLElement, cv: HTMLCanvasElement, opts: SlabOp
       const m = new THREE.Mesh(p.half ? geoHalf : geoFull, mats[Math.floor(rnd() * mats.length)]);
       m.castShadow = true; m.receiveShadow = true; m.visible = false;
       m.position.set(p.cx, TH / 2, z);
-      scene.add(m);
+      slabGroup.add(m);
       slabs.push({ m, x: p.cx, z, row: r, state: 0, t0: 0, dur: 0, ry: 0, rx: 0, rz: 0, h: 0, hit: false });
     }
   }
@@ -211,7 +217,7 @@ export function initSlabs(host: HTMLElement, cv: HTMLCanvasElement, opts: SlabOp
     puff(s.x, s.z, now);
     opts.onCoverage?.(coverage());
     if (!finishing && coverage() >= FIN_AT) finish();
-    if (laid === total && !finished) { finished = true; api.finished = true; opts.onFinished?.(); layers.forEach((L) => (L.mesh.visible = false)); }
+    if (laid === total && !finished) { finished = true; api.finished = true; opts.onFinished?.(); if (top === slabGroup) settle(slabGroup); }
   };
   const order = () => slabs.filter((s) => s.state === 0).sort((a, b) => a.z - b.z || a.x - b.x); // far rows first
   // lay in rows, far to near: each row sweeps left to right, the next row starts before the last one ends,
@@ -248,58 +254,197 @@ export function initSlabs(host: HTMLElement, cv: HTMLCanvasElement, opts: SlabOp
     laid = 0; finished = false; finishing = false; api.finished = false; opts.onCoverage?.(0);
   }
 
-  // type switcher: block paving, resin and natural stone are full-patio surfaces that sweep in over whatever is there
-  // (far to near, behind a moving clip plane). Porcelain re-lays the slabs on top.
-  type Layer = { mesh: THREE.Mesh; clip: THREE.Plane; tex: THREE.Texture[] };
+  // type switcher. Every surface goes down the way it would on site:
+  //   block paving and natural stone: a sand/mortar bed, then each piece laid by hand, far to near (instanced, animated in the shader)
+  //   resin: poured from the back, a wet glossy front with an uneven edge creeping forward
+  //   porcelain: the slabs above
+  // A new surface always goes down on top of what is there (one level up); when it is done the old one is hidden
+  // and the new one eases back down to ground level.
+  const LIFT = 0.035, PT = 0.03;
+  const uTime = { value: 0 };
+  type Layer = { group: THREE.Group; start: number; end: number; dispose: () => void; tick?: (t: number) => void };
   const layers = new Map<SurfaceKind, Layer>();
   const aniso = Math.min(8, renderer.capabilities.getMaxAnisotropy());
-  const PW = 32, PD = 24, PCX = 0.6, PCZ = -4, FAR = PCZ - PD / 2, NEAR = PCZ + PD / 2;
   let kind: SurfaceKind = 'porcelain';
+  let top: THREE.Group = slabGroup;                  // what is on show (or going down)
   let blendC = { c1: '#8C6A3F', c2: '#C49A62', c3: '#E9D3A6' };
-  let reveal: { L: Layer; t0: number } | null = null;
-  const dropLayer = (k: SurfaceKind) => {
-    const L = layers.get(k); if (!L) return;
-    scene.remove(L.mesh); L.mesh.geometry.dispose(); (L.mesh.material as THREE.Material).dispose(); L.tex.forEach((t) => t.dispose());
-    layers.delete(k);
+  let active: Layer | null = null;
+  let lowering: { g: THREE.Group; t0: number; y0: number } | null = null;
+  const KZ = 0.15, ACROSS = 0.34;                     // seconds per metre of depth, and for a left-to-right pass
+
+  // drop animation shared by every instanced piece: aT0 = when it starts falling, aSeed = per-piece variety
+  const dropShader = (dur: number, h: number) => (sh: { uniforms: Record<string, unknown>; vertexShader: string }) => {
+    sh.uniforms.uTime = uTime;
+    sh.vertexShader = sh.vertexShader
+      .replace('#include <common>', `#include <common>
+        uniform float uTime; attribute float aT0; attribute float aSeed;`)
+      .replace('#include <begin_vertex>', `#include <begin_vertex>
+        float kk = clamp((uTime - aT0) / ${dur.toFixed(3)}, 0.0, 1.0);
+        float ee = kk < 0.5 ? 4.0 * kk * kk * kk : 1.0 - pow(-2.0 * kk + 2.0, 3.0) / 2.0;
+        float sw = 1.0 - ee;
+        float ax = (fract(aSeed * 13.7) - 0.5) * 0.14 * sw * sw, az = (fract(aSeed * 7.3) - 0.5) * 0.14 * sw * sw;
+        transformed.yz = mat2(cos(ax), sin(ax), -sin(ax), cos(ax)) * transformed.yz;
+        transformed.xy = mat2(cos(az), sin(az), -sin(az), cos(az)) * transformed.xy;
+        float bt = uTime - aT0 - ${dur.toFixed(3)};
+        transformed.y += ${h.toFixed(3)} * (0.9 + 0.2 * fract(aSeed * 3.1)) * (1.0 - ee) + (bt > 0.0 ? max(0.0, sin(bt * 22.0) * 0.003 * exp(-bt * 16.0)) : 0.0);
+        if (uTime < aT0) transformed *= 0.0;`);
   };
-  const getLayer = (k: Exclude<SurfaceKind, 'porcelain'>) => {
-    let L = layers.get(k); if (L) return L;
-    const sf = makeSurface(k, aniso, blendC);
+  const uvShift = (sh: { vertexShader: string }) => {
+    sh.vertexShader = sh.vertexShader.replace('#include <uv_vertex>', `#include <uv_vertex>
+      #ifdef USE_MAP
+        vMapUv += vec2(fract(aSeed * 5.13), fract(aSeed * 9.71));
+      #endif
+      #ifdef USE_NORMALMAP
+        vNormalMapUv += vec2(fract(aSeed * 5.13), fract(aSeed * 9.71));
+      #endif`);
+  };
+
+  type Piece = { x: number; z: number; w: number; d: number; ry: number; c: THREE.Color };
+  // 45° herringbone, 200 x 100 mm blocks: staircases of H/V pairs repeating every (2W, -2W), turned 45°
+  function blockPieces() {
+    const W = 0.1, out: Piece[] = [], cols = ['#6a4a3c', '#735040', '#5f4337', '#7a5a47', '#55403a', '#6b5547', '#4d3f39', '#704c3d'].map((c) => new THREE.Color(c));
+    const R = 140, ox = 0.6, oz = -3;
+    for (let k = -R; k <= R; k++) for (let i = -R; i <= R; i++) {
+      const bx = i * W + k * 2 * W, by = i * W - k * 2 * W;
+      for (const [cx, cy, ry] of [[bx + W, by + W / 2, -Math.PI / 4], [bx + W / 2, by + 2 * W, -3 * Math.PI / 4]]) {
+        const x = (cx - cy) * Math.SQRT1_2 + ox, z = (cx + cy) * Math.SQRT1_2 + oz;
+        if (x < -14 || x > 15 || z < -15 || z > 5 || !seenNow(x, z, 0.25)) continue;
+        out.push({ x, z, w: 0.2, d: 0.1, ry, c: cols[Math.floor(rnd() * cols.length)] });
+      }
+    }
+    return out;
+  }
+  // random-pattern natural stone on a 300 mm grid: 900x600, 600x900, 600x600, 900x900, 600x300, 300x600, 300x300 flags
+  function stonePieces() {
+    const C = 0.3, out: Piece[] = [], x0 = -14, z0 = -15, GX = 98, GZ = 68;
+    const used = Array.from({ length: GZ }, () => new Uint8Array(GX));
+    const shapes = [[3, 2], [2, 3], [2, 2], [3, 3], [2, 1], [1, 2], [1, 1]];
+    const cols = ['#a08f76', '#ad9a7e', '#94846e', '#8a7f70', '#b3a184', '#9a8670', '#837666'].map((c) => new THREE.Color(c));
+    for (let y = 0; y < GZ; y++) for (let x = 0; x < GX; x++) {
+      if (used[y][x]) continue;
+      const fit = shapes.filter(([w, h]) => { for (let a = 0; a < h; a++) for (let b = 0; b < w; b++) if (x + b >= GX || y + a >= GZ || used[y + a][x + b]) return false; return true; });
+      const [w, h] = fit[Math.min(fit.length - 1, Math.floor(rnd() * Math.min(4, fit.length)))];
+      for (let a = 0; a < h; a++) for (let b = 0; b < w; b++) used[y + a][x + b] = 1;
+      const px = x0 + (x + w / 2) * C, pz = z0 + (y + h / 2) * C;
+      if (!seenNow(px, pz, Math.max(w, h) * C)) continue;
+      out.push({ x: px, z: pz, w: w * C, d: h * C, ry: 0, c: cols[Math.floor(rnd() * cols.length)] });
+    }
+    return out;
+  }
+
+  // bed under the pieces: revealed just ahead of the laying front, so joints never show the old surface
+  function bed(color: string, start: number, zFar: number) {
+    const clip = new THREE.Plane(new THREE.Vector3(0, 0, -1), zFar);
+    const m = new THREE.Mesh(new THREE.PlaneGeometry(30, 22), new THREE.MeshStandardMaterial({ color, roughness: 1, normalMap: gNor, normalScale: new THREE.Vector2(0.5, 0.5), clippingPlanes: [clip] }));
+    m.rotation.x = -Math.PI / 2; m.position.set(0.6, 0.001, -4); m.receiveShadow = true;
+    return { m, tick: (t: number) => { clip.constant = zFar - 0.4 + Math.max(0, t - start + 0.25) / KZ; } };
+  }
+
+  function pieceLayer(k: 'block' | 'stone', start: number): Layer {
+    const g = new THREE.Group();
+    const P = k === 'block' ? blockPieces() : stonePieces();
+    const zFar = Math.min(...P.map((p) => p.z)), xs = P.map((p) => p.x), x0 = Math.min(...xs), sx = Math.max(...xs) - x0 || 1;
+    const t0 = (p: Piece) => start + (p.z - zFar) * KZ + ((p.x - x0) / sx) * ACROSS + rnd() * 0.04;
+    const joint = k === 'block' ? 0.006 : 0.012;
+    const map = sMap.clone(), nor = sNor.clone();
+    for (const t of [map, nor]) { t.repeat.set(k === 'block' ? 0.12 : 0.35, k === 'block' ? 0.12 : 0.35); t.needsUpdate = true; }
+    const mat = new THREE.MeshStandardMaterial({ map, normalMap: nor, normalScale: new THREE.Vector2(k === 'block' ? 0.5 : 1.1, k === 'block' ? 0.5 : 1.1), roughness: k === 'block' ? 0.86 : 0.8, metalness: 0, envMapIntensity: 0.6 });
+    mat.onBeforeCompile = (sh) => { dropShader(0.5, k === 'block' ? 0.4 : 0.5)(sh); uvShift(sh); };
+    const depth = new THREE.MeshDepthMaterial({ depthPacking: THREE.RGBADepthPacking });
+    depth.onBeforeCompile = dropShader(0.5, k === 'block' ? 0.4 : 0.5);
+    // one instanced mesh per piece size (rounded edges stay true to size)
+    const bySize = new Map<string, Piece[]>();
+    for (const p of P) { const key = `${p.w.toFixed(2)}x${p.d.toFixed(2)}`; (bySize.get(key) ?? bySize.set(key, []).get(key)!).push(p); }
+    const geos: THREE.BufferGeometry[] = [];
+    let end = 0;
+    const M = new THREE.Matrix4(), Q = new THREE.Quaternion(), V = new THREE.Vector3(), S = new THREE.Vector3(1, 1, 1), Y = new THREE.Vector3(0, 1, 0);
+    for (const list of bySize.values()) {
+      const { w, d } = list[0];
+      const geo = k === 'block' && coarse ? new THREE.BoxGeometry(w - joint, PT, d - joint) : new RoundedBoxGeometry(w - joint, PT, d - joint, 1, k === 'block' ? 0.007 : 0.01);
+      geo.translate(0, PT / 2, 0);
+      const aT0 = new Float32Array(list.length), aSeed = new Float32Array(list.length);
+      const im = new THREE.InstancedMesh(geo, mat, list.length);
+      list.forEach((p, i) => {
+        M.compose(V.set(p.x, 0, p.z), Q.setFromAxisAngle(Y, p.ry), S); im.setMatrixAt(i, M);
+        im.setColorAt(i, p.c.clone().multiplyScalar((k === 'block' ? 1.85 : 1.7) * (0.9 + rnd() * 0.2)));
+        aT0[i] = t0(p); aSeed[i] = rnd(); end = Math.max(end, aT0[i] + 0.6);
+      });
+      geo.setAttribute('aT0', new THREE.InstancedBufferAttribute(aT0, 1));
+      geo.setAttribute('aSeed', new THREE.InstancedBufferAttribute(aSeed, 1));
+      im.castShadow = true; im.receiveShadow = true; im.customDepthMaterial = depth; im.frustumCulled = false;
+      g.add(im); geos.push(geo);
+    }
+    const b = bed(k === 'block' ? '#6e6456' : '#5f594f', start, zFar);
+    g.add(b.m);
+    scene.add(g);
+    return { group: g, start, end, tick: b.tick, dispose: () => { scene.remove(g); geos.forEach((x) => x.dispose()); mat.dispose(); depth.dispose(); map.dispose(); nor.dispose(); b.m.geometry.dispose(); (b.m.material as THREE.Material).dispose(); } };
+  }
+
+  // resin: poured from the back. The front is uneven and wet (darker, glossy) and dries behind itself.
+  function resinLayer(start: number): Layer {
+    const g = new THREE.Group();
+    const sf = makeSurface('resin', aniso, blendC);
+    const PW = 30, PD = 22;
     for (const t of [sf.map, sf.normal]) t.repeat.set(PW / sf.tile, PD / sf.tile);
-    const clip = new THREE.Plane(new THREE.Vector3(0, 0, -1), FAR);
-    const mat = new THREE.MeshPhysicalMaterial({ map: sf.map, normalMap: sf.normal, normalScale: new THREE.Vector2(1, 1), color: sf.tint, roughness: sf.rough, metalness: 0, clearcoat: sf.clear, clearcoatRoughness: 0.3, envMapIntensity: 0.75, clippingPlanes: [clip] });
-    const mesh = new THREE.Mesh(new THREE.PlaneGeometry(PW, PD), mat);
-    mesh.rotation.x = -Math.PI / 2; mesh.position.set(PCX, 0.003, PCZ); mesh.receiveShadow = true; mesh.visible = false;
-    scene.add(mesh);
-    L = { mesh, clip, tex: [sf.map, sf.normal] }; layers.set(k, L); return L;
-  };
+    const zFar = -15, zNear = 5, dur = (zNear - zFar) * KZ * 0.85;
+    const uFront = { value: zFar - 2 };
+    const mat = new THREE.MeshPhysicalMaterial({ map: sf.map, normalMap: sf.normal, color: sf.tint, roughness: sf.rough, metalness: 0, clearcoat: sf.clear, clearcoatRoughness: 0.3, envMapIntensity: 0.75 });
+    mat.onBeforeCompile = (sh) => {
+      sh.uniforms.uFront = uFront;
+      sh.vertexShader = sh.vertexShader.replace('#include <common>', '#include <common>\n varying vec3 vW;')
+        .replace('#include <worldpos_vertex>', '#include <worldpos_vertex>\n vW = (modelMatrix * vec4(transformed, 1.0)).xyz;');
+      sh.fragmentShader = sh.fragmentShader.replace('#include <common>', `#include <common>
+        uniform float uFront; varying vec3 vW;
+        float hh(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
+        float nn(vec2 p) { vec2 i = floor(p), f = fract(p); f = f * f * (3.0 - 2.0 * f);
+          return mix(mix(hh(i), hh(i + vec2(1, 0)), f.x), mix(hh(i + vec2(0, 1)), hh(i + vec2(1, 1)), f.x), f.y); }`)
+        .replace('#include <clipping_planes_fragment>', `#include <clipping_planes_fragment>
+          float edge = uFront + 0.45 * sin(vW.x * 1.1 + 0.7) + 0.22 * sin(vW.x * 3.7 + 2.1) + 0.35 * nn(vW.xz * 2.2) + 0.12 * nn(vW.xz * 9.0);
+          float ahead = edge - vW.z;
+          if (ahead < 0.0) discard;
+          float wet = 1.0 - smoothstep(0.0, 1.6, ahead);`)
+        .replace('#include <map_fragment>', '#include <map_fragment>\n diffuseColor.rgb *= mix(1.0, 0.62, wet);')
+        .replace('#include <roughnessmap_fragment>', '#include <roughnessmap_fragment>\n roughnessFactor = mix(roughnessFactor, 0.08, wet);');
+    };
+    const m = new THREE.Mesh(new THREE.PlaneGeometry(PW, PD), mat);
+    m.rotation.x = -Math.PI / 2; m.position.set(0.6, 0.006, -4); m.receiveShadow = true;
+    g.add(m); scene.add(g);
+    const tick = (t: number) => { const k = Math.max(0, Math.min(1, (t - start) / dur)); uFront.value = zFar - 1 + (zNear - zFar + 3) * (k < 0.5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2); };
+    return { group: g, start, end: start + dur + 0.2, tick, dispose: () => { scene.remove(g); m.geometry.dispose(); mat.dispose(); sf.map.dispose(); sf.normal.dispose(); } };
+  }
+
+  // hide everything but the finished surface, then ease it down to ground level
+  function settle(g: THREE.Group) {
+    if (g !== slabGroup) slabGroup.visible = false;
+    layers.forEach((L) => { if (L.group !== g) { L.dispose(); } });
+    for (const [k, L] of [...layers]) if (L.group !== g) layers.delete(k);
+    lowering = { g, t0: now(), y0: g.position.y };
+  }
   function surface(k: SurfaceKind, force = false) {
     if (k === kind && !force) return;
     kind = k; frozen = false;
-    layers.forEach((L) => (L.mesh.position.y = 0.003));       // existing surfaces sit under what comes next
+    const y = top.position.y + LIFT, t = now() + 0.05;
+    lowering = null;
+    if (active) { active = null; }
     if (k === 'porcelain') {
-      reveal = null;
+      slabGroup.visible = true; slabGroup.position.y = y; top = slabGroup;
       slabs.forEach((s) => { s.state = 0; s.hit = false; s.m.visible = false; });
       laid = 0; finished = false; finishing = true; api.finished = false;
-      sweep(order(), now() + 0.05, 0.1, 0.3);
+      sweep(order(), t, 0.1, 0.3);
       return;
     }
-    const L = getLayer(k);
-    L.mesh.position.y = TH + 0.004;                            // above the slabs while it sweeps over them
-    L.clip.constant = FAR; L.mesh.visible = true;
-    reveal = { L, t0: now() };
+    const old = layers.get(k); if (old) { layers.delete(k); layers.set(`${k}-old` as SurfaceKind, old); }   // stays under the re-pour
+    const L = k === 'resin' ? resinLayer(t) : pieceLayer(k, t);
+    L.group.position.y = y; layers.set(k, L); top = L.group; active = L;
   }
-  const REVEAL = 1.5;
-  function stepReveal(t: number) {
-    if (!reveal) return;
-    const k = Math.min(1, (t - reveal.t0) / REVEAL), e = k < 0.5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
-    reveal.L.clip.constant = FAR + (NEAR - FAR) * e;
-    if (k >= 1) {
-      const keep = reveal.L; reveal = null;
-      layers.forEach((L) => { if (L !== keep) L.mesh.visible = false; });
-      slabs.forEach((s) => { s.state = 0; s.hit = false; s.m.visible = false; });
-      laid = 0; finished = true; finishing = true;
-      keep.mesh.position.y = 0.003;
+  function stepLayers(t: number) {
+    uTime.value = t;
+    layers.forEach((L) => L.tick?.(t));
+    if (active && t > active.end) { const g = active.group; active = null; settle(g); }
+    if (lowering) {
+      const k = Math.min(1, (t - lowering.t0) / 0.6);
+      lowering.g.position.y = lowering.y0 * (1 - k * k * (3 - 2 * k));
+      if (k >= 1) lowering = null;
     }
   }
 
@@ -339,7 +484,7 @@ export function initSlabs(host: HTMLElement, cv: HTMLCanvasElement, opts: SlabOp
     if (dead || !visible) return;
     const t = now();
     if (!frozen) {
-      stepReveal(t);
+      stepLayers(t);
       for (const s of slabs) {
         if (s.state !== 1) continue;
         const k = (t - s.t0) / s.dur;
@@ -385,8 +530,7 @@ export function initSlabs(host: HTMLElement, cv: HTMLCanvasElement, opts: SlabOp
     set: (b: { c1: string; c2: string; c3: string }) => {
       if (b.c1 === blendC.c1 && b.c2 === blendC.c2 && b.c3 === blendC.c3) return;
       blendC = { c1: b.c1, c2: b.c2, c3: b.c3 };
-      if (kind === 'resin') { const old = layers.get('resin'); if (old) { layers.delete('resin'); layers.set('old-resin' as SurfaceKind, old); } surface('resin', true); setTimeout(() => dropLayer('old-resin' as SurfaceKind), REVEAL * 1000 + 200); }
-      else dropLayer('resin');
+      if (kind === 'resin') surface('resin', true);
     },
     light: (_x: number, _y: number) => {},
     destroy() {

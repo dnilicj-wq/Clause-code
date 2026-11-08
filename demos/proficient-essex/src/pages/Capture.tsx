@@ -21,7 +21,7 @@ export default function Capture() {
         if (!a.loaded) return setTimeout(go, 100);
         if (k === 'slabs') a.prefill(q.get('f') ? +q.get('f')! : undefined); else if (k === 'slabs-done' || k === 'surf-porcelain') a.fillAll();
         else if (k.startsWith('surf-')) { const b = blends.find((x) => x.key === q.get('blend')); if (b) a.set(b); a.surface(k.slice(5) as any); }
-        setTimeout(() => ((window as any).__ready = true), k.startsWith('surf-') && k !== 'surf-porcelain' ? 2600 : 1800);
+        setTimeout(() => ((window as any).__ready = true), k.startsWith('surf-') && k !== 'surf-porcelain' ? 5200 : 1800);
       };
       go();
       return () => a.destroy();

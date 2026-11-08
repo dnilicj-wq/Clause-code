@@ -33,7 +33,7 @@ export function Design() {
           {/* preview */}
           <div className="relative overflow-hidden rounded-[var(--radius)] border md:sticky md:top-24 md:self-start" style={{ borderColor: 'var(--line)', aspectRatio: '4 / 3', background: '#0d0d0d' }}>
             {types.filter((t) => t.key !== 'resin').map((t) => (
-              <img key={t.key} src={`/types/${t.key}-view-640-v1.webp`} srcSet={`/types/${t.key}-view-640-v1.webp 640w, /types/${t.key}-view-1200-v1.webp 1200w`} sizes="(min-width: 900px) 640px, 100vw"
+              <img key={t.key} src={`/types/${t.key}-view-640-v2.webp`} srcSet={`/types/${t.key}-view-640-v2.webp 640w, /types/${t.key}-view-1200-v2.webp 1200w`} sizes="(min-width: 900px) 640px, 100vw"
                 alt={t.key === q.type.key ? `Illustration of ${t.name}` : ''} loading="lazy" decoding="async" width={1200} height={900}
                 className="absolute inset-0 h-full w-full object-cover transition-opacity duration-500" style={{ opacity: t.key === q.type.key ? 1 : 0 }} />
             ))}
@@ -75,7 +75,7 @@ export function Design() {
                   <button key={t.key} type="button" onClick={() => q.setType(t.key)} aria-pressed={q.type.key === t.key}
                     className="flex flex-col items-center gap-1.5 rounded-xl p-1.5 text-[12.5px] font-medium leading-tight"
                     style={q.type.key === t.key ? { background: 'rgba(201,169,97,.14)', border: '1px solid var(--accent)' } : { border: '1px solid var(--line)', background: 'rgba(255,255,255,.03)' }}>
-                    <span className="block aspect-[4/3] w-full rounded-lg bg-cover bg-center" style={{ backgroundImage: `url(/types/${t.key}-160-v1.webp)` }} aria-hidden />{t.label}
+                    <span className="block aspect-[4/3] w-full rounded-lg bg-cover bg-center" style={{ backgroundImage: `url(/types/${t.key}-160-v2.webp)` }} aria-hidden />{t.label}
                   </button>
                 ))}
               </div>
