@@ -12,8 +12,6 @@
     }
   ],
   "git": {
-    "deploymentEnabled": {
-      "claude/master-template-v3": false
-    }
+    "deploymentEnabled": false
   }
 }
