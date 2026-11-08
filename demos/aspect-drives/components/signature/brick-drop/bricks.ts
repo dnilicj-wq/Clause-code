@@ -319,7 +319,7 @@ export function initBricks(host: HTMLElement, cv: HTMLCanvasElement, opts: Brick
     const P = conc ? concretePieces() : patioPieces();
     const zFar = Math.min(...P.map((p) => p.z)), xs = P.map((p) => p.x), x0 = Math.min(...xs), sx = Math.max(...xs) - x0 || 1, a = ACROSS / sx;
     const joint = conc ? 0.008 : 0.012;
-    const cs = conc ? makeSurface('concrete', aniso, blendC, coarse) : null;
+    const cs = conc ? makeSurface('concrete', aniso, blendC, coarse, false) : null; // slabs: no saw-cut lines baked into the texture
     const map = cs ? cs.map : sMap.clone(), nor = cs ? cs.normal : sNor.clone();
     for (const t of [map, nor]) { t.repeat.set(conc ? 0.6 : 0.35, conc ? 0.6 : 0.35); t.needsUpdate = true; }
     const pmat = new THREE.MeshStandardMaterial({ map, normalMap: nor, normalScale: new THREE.Vector2(conc ? 0.7 : 1.1, conc ? 0.7 : 1.1), roughness: conc ? 0.88 : 0.8, metalness: 0, envMapIntensity: 0.6 });

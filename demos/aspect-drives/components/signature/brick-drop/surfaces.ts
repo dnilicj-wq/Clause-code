@@ -50,7 +50,7 @@ function resin(aniso: number, b: { c1: string; c2: string; c3: string }, small: 
 }
 
 // concrete: cement paste with fine sand, a few air holes, a soft broom texture and saw-cut control joints. Tile = 3 m (one bay).
-function concrete(aniso: number, small: boolean): Maps {
+function concrete(aniso: number, small: boolean, joints = true): Maps {
   const N = small ? 512 : 1024;
   const [c, g] = mk(N), [h, hg] = mk(N);
   g.fillStyle = '#9d9c97'; g.fillRect(0, 0, N, N); hg.fillStyle = '#808080'; hg.fillRect(0, 0, N, N);
@@ -84,14 +84,14 @@ function concrete(aniso: number, small: boolean): Maps {
     hg.fillStyle = '#222'; hg.beginPath(); hg.arc(x, y, r, 0, Math.PI * 2); hg.fill();
   }
   // saw-cut control joints on two edges of the bay (so every 3 m both ways)
-  for (const d of [0, N - 3]) {
+  if (joints) for (const d of [0, N - 3]) {
     g.fillStyle = 'rgba(45,45,44,.85)'; g.fillRect(d, 0, 3, N); g.fillRect(0, d, N, 3);
     hg.fillStyle = '#000'; hg.fillRect(d, 0, 3, N); hg.fillRect(0, d, N, 3);
   }
   return { map: tex(c, true, aniso), normal: tex(normalFrom(h, 1.4), false, aniso), tile: 3, rough: 0.66, clear: 0.1, tint: '#dcdbd6' };
 }
 
-export function makeSurface(kind: 'resin' | 'concrete', aniso: number, blend: { c1: string; c2: string; c3: string }, small = false) {
+export function makeSurface(kind: 'resin' | 'concrete', aniso: number, blend: { c1: string; c2: string; c3: string }, small = false, joints = true) {
   seed = kind === 'resin' ? 23 : 41;
-  return kind === 'resin' ? resin(aniso, blend, small) : concrete(aniso, small);
+  return kind === 'resin' ? resin(aniso, blend, small) : concrete(aniso, small, joints);
 }
