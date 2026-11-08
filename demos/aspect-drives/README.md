@@ -2,7 +2,7 @@
 
 Pitch demo for Gerald at Aspect Drives & Patios By Design Ltd (Grays, Thurrock). Built from the Wolverhampton Driveways demo on branch `claude/aspect-drives-demo`.
 
-- Live: https://clientgateway-aspect-drives.<account>.workers.dev (Cloudflare Workers static assets, noindex via public/_headers)
+- Live: https://clientgateway-aspect-drives.dnilicj.workers.dev (Cloudflare Workers static assets, noindex via public/_headers)
 - Facts and sources: content-inventory.md
 - Hero: components/signature/brick-drop (block paving lays in; card switches block / resin / patio / concrete; concrete is new in surfaces.ts)
 - Loader: inline in index.html, ported from 21st.dev Horizon Page Loader (MIT), see CREDITS.md and demos/master/loaders-used.md
