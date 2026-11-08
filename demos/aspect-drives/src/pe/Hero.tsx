@@ -82,12 +82,12 @@ export function Hero() {
               <span key={i} className="block"><CutReveal text={l} delay={0.12 + i * 0.16} className={i === 1 ? 'y' : ''} /></span>
             ))}
           </h1>
-          <p className="mt-5 max-w-[34ch] text-[16px] leading-relaxed md:text-[19px]" style={{ color: 'color-mix(in srgb, var(--ink) 82%, transparent)' }}>
+          <p className="mt-3 max-w-[34ch] text-[15px] md:mt-5 leading-relaxed md:text-[19px]" style={{ color: 'color-mix(in srgb, var(--ink) 82%, transparent)' }}>
             {`Block paving, resin and patios across ${site.region}.`}
           </p>
-          <div className="pointer-events-auto mt-6 flex flex-wrap gap-2.5 md:mt-8" data-nopour>
+          <div className="pointer-events-auto mt-5 flex gap-2.5 md:mt-8 [&>a]:max-md:flex-1 [&>a]:max-md:px-4" data-nopour>
             <a href="#price" className="btn btn-y">Price my drive</a>
-            <a href={`https://wa.me/${site.whatsapp}`} target="_blank" rel="noreferrer" className="btn btn-ghost" style={{ background: 'rgba(16,18,21,.5)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }}><WaIcon />{` WhatsApp ${site.owner.first}`}</a>
+            <a href={`https://wa.me/${site.whatsapp}`} target="_blank" rel="noreferrer" className="btn btn-ghost" style={{ background: 'rgba(16,18,21,.5)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }}><WaIcon /><span className="md:hidden">WhatsApp</span><span className="hidden md:inline">{`WhatsApp ${site.owner.first}`}</span></a>
           </div>
           {!coarse && live && lay && (
             <div className="pointer-events-auto mt-6 hidden items-center gap-3 md:flex" data-nopour>
@@ -142,10 +142,10 @@ function TypePick() {
     </div>
   );
 }
-// Hero card (desktop): the surface picker switches the live background.
+// Hero card: the surface picker switches the live background (phones and desktop).
 function HeroQuote() {
   return (
-    <div data-nopour className="pointer-events-auto mt-6 hidden w-full rounded-[14px] p-4 md:mt-0 md:block md:w-[380px] md:shrink-0 md:p-5"
+    <div data-nopour className="pointer-events-auto mt-4 w-full rounded-[14px] p-3 md:mt-0 md:w-[380px] md:shrink-0 md:p-5"
       style={{ background: 'rgba(16,18,21,.72)', boxShadow: 'inset 0 0 0 1px rgba(236,236,232,.12), 0 30px 60px -30px rgba(0,0,0,.8)', backdropFilter: 'blur(18px) saturate(140%)', WebkitBackdropFilter: 'blur(18px) saturate(140%)' }}>
       <TypePick />
     </div>
