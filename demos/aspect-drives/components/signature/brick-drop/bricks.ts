@@ -206,7 +206,8 @@ export function initBricks(host: HTMLElement, cv: HTMLCanvasElement, opts: Brick
   // type switcher (ported from the Proficient Essex slab-drop engine). Every surface goes down the way it would on site:
   //   block paving: the bricks above, laid course by course
   //   patio: a sand/mortar bed, then each flag laid by hand, far to near (instanced, animated in the shader)
-  //   resin and concrete: poured from the back, a wet glossy front with an uneven edge creeping forward
+  //   concrete: 600x600 paving slabs, each laid separately, far to near (same engine as the patio)
+  //   resin: poured from the back, a wet glossy front with an uneven edge creeping forward
   // A new surface always goes down on top of what is there (one level up); when it is done the old one is hidden
   // and the new one eases back down to ground level.
   const LIFT = 0.035, PT = 0.03;
@@ -282,6 +283,18 @@ export function initBricks(host: HTMLElement, cv: HTMLCanvasElement, opts: Brick
     return out;
   }
 
+  // concrete: 600x600 pressed concrete paving slabs on a square grid, each one laid separately like the patio flags
+  function concretePieces() {
+    const C = 0.6, out: Piece[] = [], x0 = -14, z0 = -15, GX = 49, GZ = 34;
+    const cols = ['#f2f1ec', '#e6e5df', '#dad9d2', '#ecebe4', '#d2d1ca'].map((c) => new THREE.Color(c));
+    for (let y = 0; y < GZ; y++) for (let x = 0; x < GX; x++) {
+      const px = x0 + (x + 0.5) * C, pz = z0 + (y + 0.5) * C;
+      if (!seenNow(px, pz, C)) continue;
+      out.push({ x: px, z: pz, w: C, d: C, ry: 0, c: cols[Math.floor(rnd() * cols.length)] });
+    }
+    return out;
+  }
+
   // bed under the pieces: a dark sand/mortar layer revealed exactly where pieces have just landed (the clip plane is
   // tilted to match the laying order: depth first, then left to right), so joints never show the old surface
   function bed(color: string) {
@@ -300,14 +313,16 @@ export function initBricks(host: HTMLElement, cv: HTMLCanvasElement, opts: Brick
   // laying it again only rewrites the per-piece start times.
   type Built = Layer & { reset: (start: number) => void };
   const built = new Map<SurfaceKind, Built>();
-  function pieceLayer(): Built {
+  function pieceLayer(k: 'patio' | 'concrete'): Built {
     const g = new THREE.Group(); g.visible = false;
-    const P = patioPieces();
+    const conc = k === 'concrete';
+    const P = conc ? concretePieces() : patioPieces();
     const zFar = Math.min(...P.map((p) => p.z)), xs = P.map((p) => p.x), x0 = Math.min(...xs), sx = Math.max(...xs) - x0 || 1, a = ACROSS / sx;
-    const joint = 0.012;
-    const map = sMap.clone(), nor = sNor.clone();
-    for (const t of [map, nor]) { t.repeat.set(0.35, 0.35); t.needsUpdate = true; }
-    const pmat = new THREE.MeshStandardMaterial({ map, normalMap: nor, normalScale: new THREE.Vector2(1.1, 1.1), roughness: 0.8, metalness: 0, envMapIntensity: 0.6 });
+    const joint = conc ? 0.008 : 0.012;
+    const cs = conc ? makeSurface('concrete', aniso, blendC, coarse) : null;
+    const map = cs ? cs.map : sMap.clone(), nor = cs ? cs.normal : sNor.clone();
+    for (const t of [map, nor]) { t.repeat.set(conc ? 0.6 : 0.35, conc ? 0.6 : 0.35); t.needsUpdate = true; }
+    const pmat = new THREE.MeshStandardMaterial({ map, normalMap: nor, normalScale: new THREE.Vector2(conc ? 0.7 : 1.1, conc ? 0.7 : 1.1), roughness: conc ? 0.88 : 0.8, metalness: 0, envMapIntensity: 0.6 });
     pmat.onBeforeCompile = (sh) => { dropShader(0.5, 0.5)(sh); uvShift(sh); };
     const depth = new THREE.MeshDepthMaterial({ depthPacking: THREE.RGBADepthPacking });
     depth.onBeforeCompile = dropShader(0.5, 0.5);
@@ -325,7 +340,7 @@ export function initBricks(host: HTMLElement, cv: HTMLCanvasElement, opts: Brick
       const im = new THREE.InstancedMesh(geo, pmat, list.length);
       list.forEach((p, i) => {
         M.compose(V.set(p.x, 0, p.z), Q.setFromAxisAngle(Y, p.ry), S); im.setMatrixAt(i, M);
-        im.setColorAt(i, p.c.clone().multiplyScalar(1.7 * (0.9 + rnd() * 0.2)));
+        im.setColorAt(i, p.c.clone().multiplyScalar((conc ? 1 : 1.7) * (0.9 + rnd() * 0.2)));
         pz[i] = p.z; px[i] = p.x; jit[i] = rnd() * 0.04; aSeed[i] = rnd();
       });
       const attr = new THREE.InstancedBufferAttribute(aT0, 1); attr.setUsage(THREE.DynamicDrawUsage);
@@ -334,7 +349,7 @@ export function initBricks(host: HTMLElement, cv: HTMLCanvasElement, opts: Brick
       im.castShadow = true; im.receiveShadow = true; im.customDepthMaterial = depth; im.frustumCulled = false;
       g.add(im); geos.push(geo); slots.push({ attr, pz, px, jit });
     }
-    const b = bed('#433e37');
+    const b = bed(conc ? '#3b3a37' : '#433e37');
     g.add(b.m);
     scene.add(g);
     const L: Built = {
@@ -397,7 +412,7 @@ export function initBricks(host: HTMLElement, cv: HTMLCanvasElement, opts: Brick
   }
   const build = (k: Exclude<SurfaceKind, 'block'>) => {
     let L = built.get(k);
-    if (!L) { L = k === 'patio' ? pieceLayer() : pourLayer(k); built.set(k, L); warm.push(L.group); }
+    if (!L) { L = k === 'resin' ? pourLayer(k) : pieceLayer(k); built.set(k, L); warm.push(L.group); }
     return L;
   };
   // first frame of a new material compiles its shaders; do that while nobody is watching (all pieces collapsed)
