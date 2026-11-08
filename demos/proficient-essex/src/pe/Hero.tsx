@@ -143,7 +143,7 @@ function TypePick() {
         {types.map((t) => {
           const on = q.type.key === t.key;
           return (
-            <button key={t.key} role="radio" aria-checked={on} onClick={() => q.setType(t.key)}
+            <button key={t.key} role="radio" aria-checked={on} aria-label={t.label} onClick={() => q.setType(t.key)}
               className="flex flex-col items-center gap-1 rounded-xl px-1 pb-1 pt-1 md:pb-1.5 md:pt-1.5 text-[11.5px] font-medium leading-tight transition-colors md:text-[12px]"
               style={on ? { background: 'rgba(201,169,97,.18)', border: '1px solid var(--accent)' } : { background: 'rgba(255,255,255,.04)', border: '1px solid var(--line)' }}>
               <span className="block h-5 w-full rounded-md bg-cover bg-center md:h-8" style={{ backgroundImage: img ? `url(/types/${t.key}-160-v1.webp)` : undefined, background: img ? undefined : swatchTone[t.key] }} aria-hidden />
