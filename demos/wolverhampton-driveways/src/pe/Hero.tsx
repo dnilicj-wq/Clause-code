@@ -2,10 +2,10 @@ import { useEffect, useRef, useState } from 'react';
 import type { BrickApi } from '@/components/signature/brick-drop/bricks';
 import { whenReadyForGL, isCoarse, glMode, softwareRenderer } from '@/src/lib/gl';
 import { useSite } from '@/src/lib/ctx';
-import { CutReveal, Ticker } from './lite';
-import { blends, sizes, surfaces, types } from '@/config/driveway';
+import { CutReveal } from './lite';
+import { types } from '@/config/driveway';
 import { swatch } from '@/config/swatches';
-import { useQuote, waLink, EXAMPLE_LABEL, gbp } from './quote';
+import { useQuote } from './quote';
 import { Stars } from './lite';
 
 // Signature moment: drag to pour resin-bound stone over a cracked, weedy tarmac drive.
@@ -106,10 +106,7 @@ export function Hero() {
             </div>
           )}
         </div>
-        <div className="pointer-events-none flex w-full flex-col md:w-[410px] md:shrink-0">
-          <SurfaceCard />
-          <HeroQuote />
-        </div>
+        <HeroQuote />
       </div>
 
       {live && lay && !touched && !done && (
@@ -148,84 +145,15 @@ function TypePick() {
     </div>
   );
 }
-function SurfaceCard() {
+// Hero card: the surface picker and one button on to the full quote form (#design). Kept light so the hero breathes on phones.
+function HeroQuote() {
   return (
-    <div data-nopour className="pointer-events-auto mt-5 w-full rounded-[22px] p-3.5 md:mt-0 md:mb-2.5 md:p-4"
+    <div data-nopour className="pointer-events-auto mt-5 w-full rounded-[22px] p-3.5 md:mt-0 md:w-[410px] md:shrink-0 md:p-5"
       style={{ background: 'rgba(16,16,17,.78)', border: '1px solid rgba(255,255,255,.12)', backdropFilter: 'blur(18px) saturate(140%)', WebkitBackdropFilter: 'blur(18px) saturate(140%)', boxShadow: '0 30px 60px -30px rgba(0,0,0,.8)' }}>
       <TypePick />
-    </div>
-  );
-}
-
-// Instant quote, above the fold on every screen: size -> surface -> live example range -> details -> WhatsApp.
-function HeroQuote() {
-  const q = useQuote();
-  const { site } = useSite();
-  const [step, setStep] = useState<'price' | 'details'>('price');
-  const [who, setWho] = useState({ name: '', phone: '', postcode: '' });
-  const ok = who.name.trim().length > 1 && /\d{6,}/.test(who.phone.replace(/\s/g, '')) && who.postcode.trim().length >= 3;
-  const lab = 'text-[10.5px] font-medium uppercase tracking-[.13em]';
-  return (
-    <div data-nopour className="pointer-events-auto mt-2 w-full rounded-[22px] p-3.5 md:mt-0 md:w-[410px] md:shrink-0 md:p-5"
-      style={{ background: 'rgba(16,16,17,.78)', border: '1px solid rgba(255,255,255,.12)', backdropFilter: 'blur(18px) saturate(140%)', WebkitBackdropFilter: 'blur(18px) saturate(140%)', boxShadow: '0 30px 60px -30px rgba(0,0,0,.8)' }}>
-      <div className="flex items-center justify-between">
-        <p className={lab} style={{ color: 'var(--accent2)' }}>Instant price{step === 'details' ? ' · step 2 of 2' : ''}</p>
-        <p className="text-[11px]" style={{ color: 'var(--muted)' }}>{step === 'price' ? 'No number needed to see it' : <button type="button" className="underline" onClick={() => setStep('price')}>Back</button>}</p>
-      </div>
-      {step === 'price' ? (
-        <>
-          <div className="mt-2.5 grid grid-cols-3 gap-1.5" role="radiogroup" aria-label="Driveway size">
-            {sizes.map((s) => (
-              <button key={s.key} role="radio" aria-checked={q.sizeKey === s.key} onClick={() => q.setSize(s.key)}
-                className="h-10 rounded-xl text-[14px] font-medium transition-colors"
-                style={q.sizeKey === s.key ? { background: 'rgba(255,255,255,.92)', color: '#111' } : { background: 'rgba(255,255,255,.06)', border: '1px solid var(--line)' }}>
-                {s.label}
-              </button>
-            ))}
-          </div>
-          <div className="mt-1.5 grid grid-cols-3 gap-1.5" role="radiogroup" aria-label="Surface">
-            {surfaces.map((s) => (
-              <button key={s.key} role="radio" aria-checked={q.surface.key === s.key} onClick={() => q.setSurface(s.key)}
-                className="h-10 rounded-xl px-1 text-[13.5px] font-medium leading-tight transition-colors"
-                style={q.surface.key === s.key ? { background: 'var(--accent)', color: 'var(--accent-ink)' } : { background: 'rgba(255,255,255,.06)', border: '1px solid var(--line)' }}>
-                {s.label}
-              </button>
-            ))}
-          </div>
-          {q.surface.key === 'resin' && (
-            <div className="mt-3 hidden items-center gap-2 md:flex">
-              <span className={lab} style={{ color: 'var(--muted)' }}>Blend</span>
-              {blends.map((b) => (
-                <button key={b.key} onClick={() => q.setBlend(b.key)} aria-label={`${b.name} (example blend)`} title={b.name}
-                  className="h-7 w-7 rounded-full bg-cover transition-transform hover:scale-110"
-                  style={{ backgroundImage: `url(/blends/${b.key}-160-v1.webp)`, outline: q.blend.key === b.key ? '2px solid var(--accent)' : '1px solid rgba(255,255,255,.2)', outlineOffset: 2 }} />
-              ))}
-            </div>
-          )}
-          <div className="mt-3 whitespace-nowrap font-display text-[30px] font-semibold leading-none tracking-tight md:text-[38px]">
-            £<Ticker value={q.low} /><span style={{ color: 'var(--muted)' }}>–</span>£<Ticker value={q.high} />
-          </div>
-          <p className="mt-1.5 text-[11.5px] leading-snug" style={{ color: 'var(--muted)' }}>{EXAMPLE_LABEL}</p>
-          <button onClick={() => setStep('details')} className="mt-3 h-12 w-full rounded-full text-[15px] font-semibold" style={{ background: 'var(--accent)', color: 'var(--accent-ink)' }}>
-            Get my free quote →
-          </button>
-        </>
-      ) : (
-        <form className="mt-2.5 grid gap-2" onSubmit={(e) => { e.preventDefault(); if (ok) window.open(waLink(q, who), '_blank'); }}>
-          <p className="text-[13px] leading-snug" style={{ color: 'var(--muted)' }}>
-            <b style={{ color: 'var(--ink)' }}>{`${q.sizeKey ? sizes.find((x) => x.key === q.sizeKey)!.label : q.m2 + ' m²'} ${q.surface.label.toLowerCase()}`}</b>{` · example ${gbp(q.low)}–${gbp(q.high)}`}
-          </p>
-          <input className="pe-in" placeholder="Your name" autoComplete="name" value={who.name} onChange={(e) => setWho({ ...who, name: e.target.value })} aria-label="Your name" />
-          <div className="grid grid-cols-[1.4fr_1fr] gap-2">
-            <input className="pe-in" placeholder="Phone" type="tel" inputMode="tel" autoComplete="tel" value={who.phone} onChange={(e) => setWho({ ...who, phone: e.target.value })} aria-label="Phone" />
-            <input className="pe-in" placeholder="Postcode" autoComplete="postal-code" value={who.postcode} onChange={(e) => setWho({ ...who, postcode: e.target.value })} aria-label="Postcode" />
-          </div>
-          <button disabled={!ok} className="mt-1 flex h-12 items-center justify-center gap-2 rounded-full text-[15px] font-semibold transition-opacity disabled:opacity-50" style={{ background: '#25D366', color: '#062b14' }}>
-            <WaIcon /> {`Send to ${site.owner.first} on WhatsApp`}
-          </button>
-          <p className="text-[11px]" style={{ color: 'var(--muted)' }}>{`Opens WhatsApp to ${site.mobile} with it typed out. Nothing is stored here.`}</p>
-        </form>
-      )}
+      <a href="#design" className="mt-3.5 flex h-12 items-center justify-center rounded-full text-[15px] font-semibold" style={{ background: 'var(--accent)', color: 'var(--accent-ink)' }}>
+        Get my free quote →
+      </a>
     </div>
   );
 }
