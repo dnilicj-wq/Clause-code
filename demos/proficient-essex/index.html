@@ -15,17 +15,90 @@
   <link rel="preload" href="/posters/drive-d-v1.webp" as="image" media="(min-width: 700px)" fetchpriority="high" />
   <style>
     html,body{margin:0;background:#121212;color:#F4F0E7}
-    #boot{position:fixed;inset:0;z-index:100;display:grid;place-items:center;background:#121212;transition:opacity .5s ease, visibility .5s}
-    #boot.out{opacity:0;visibility:hidden}
-    #boot i{width:120px;height:2px;background:rgba(255,255,255,.12);overflow:hidden;position:relative;border-radius:2px}
-    #boot i:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,#C9A961,transparent);animation:bt .8s linear infinite}
-    @keyframes bt{from{transform:translateX(-100%)}to{transform:translateX(100%)}}
+    #boot{position:fixed;inset:0;z-index:100;display:grid;place-items:center;background:#121212;
+      transition:transform 1s cubic-bezier(.76,0,.24,1);will-change:transform}
+    #boot .gl{position:absolute;inset:0;background:radial-gradient(42% 36% at 50% 46%,rgba(201,169,97,.13),transparent 70%)}
+    #boot .in{position:relative;display:flex;flex-direction:column;align-items:center;transition:opacity .45s ease,transform 1s cubic-bezier(.76,0,.24,1)}
+    #boot svg.mk{width:clamp(96px,24vw,136px);height:auto;overflow:visible}
+    #boot .b path{stroke:rgba(201,169,97,.13)}
+    #boot .c{stroke-dasharray:16 84;animation:ld-c 1.5s linear infinite;filter:drop-shadow(0 0 6px rgba(255,225,150,.55))}
+    #boot .d{stroke-dasharray:100 100;stroke-dashoffset:100}
+    #boot .f{opacity:0;transition:opacity .5s ease}
+    #boot .sh{transform:translateX(-160%);opacity:0}
+    #boot .w{margin-top:30px;font:600 16px/1 "Clash Display",system-ui,sans-serif;letter-spacing:.42em;padding-left:.42em;color:#E6D3A2;white-space:nowrap;overflow:hidden}
+    #boot .w b{display:inline-block;font-weight:600;transform:translateY(110%);transition:transform .7s cubic-bezier(.22,1,.36,1)}
+    #boot .w b.e{color:#8f877b;font-weight:500}
+    #boot .bar{margin-top:18px;width:132px;height:1px;background:rgba(255,255,255,.1);overflow:hidden}
+    #boot .bar i{display:block;height:100%;width:100%;transform-origin:left;transform:scaleX(0);background:linear-gradient(90deg,#8E6D35,#FFF1C8,#C9A961)}
+    #boot .edge{position:absolute;left:-12%;width:124%;top:100%;height:16vh;background:#121212;border-radius:0 0 50% 50%;
+      border-bottom:1px solid rgba(201,169,97,.4);transform-origin:top;transform:scaleY(0);transition:transform 1s cubic-bezier(.76,0,.24,1)}
+    #boot.done .c{opacity:0;transition:opacity .3s}
+    #boot.done .f{opacity:1}
+    #boot.done .sh{opacity:1;transform:translateX(160%);transition:transform .9s cubic-bezier(.5,0,.2,1) .15s}
+    #boot.done .w b{transform:none}
+    #boot.out{transform:translateY(-118%);pointer-events:none}
+    #boot.out .edge{transform:scaleY(1)}
+    #boot.out .in{transform:translateY(30vh);opacity:0}
+    #boot.gone{display:none}
+    @keyframes ld-c{to{stroke-dashoffset:-100}}
+    @media (prefers-reduced-motion:reduce){#boot,#boot *{animation:none!important;transition:opacity .3s!important}#boot.out{transform:none;opacity:0}}
+    html.ld-on .pe-cut{animation-play-state:paused}
   </style>
 </head>
 <body>
-  <div id="boot" aria-hidden="true"><i></i></div>
+  <div id="boot" aria-hidden="true">
+    <div class="gl"></div>
+    <div class="in">
+      <svg class="mk" viewBox="0 0 400 416" fill="none" stroke-width="26" stroke-linejoin="miter">
+        <defs>
+          <linearGradient id="ldg" x1="0" y1="0" x2=".35" y2="1"><stop offset="0" stop-color="#FFF1C8"/><stop offset=".42" stop-color="#C9A961"/><stop offset=".72" stop-color="#8E6D35"/><stop offset="1" stop-color="#E6D3A2"/></linearGradient>
+          <linearGradient id="lds" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".75"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+          <mask id="ldm" maskUnits="userSpaceOnUse" x="-40" y="-40" width="480" height="500"><g stroke="#fff"><path d="M42 236 V114 L133 52 L226 114 V236 Z"/><path d="M133 236 V162"/><path d="M276 180 C 332 176, 364 210, 356 250 C 349 286, 318 303, 282 303 L 146 306 C 113 308, 96 331, 96 364 L 96 410"/></g></mask>
+        </defs>
+        <g class="b"><path d="M42 236 V114 L133 52 L226 114 V236 Z"/><path d="M133 236 V162"/><path d="M276 180 C 332 176, 364 210, 356 250 C 349 286, 318 303, 282 303 L 146 306 C 113 308, 96 331, 96 364 L 96 410"/></g>
+        <g stroke="url(#ldg)"><path class="c" pathLength="100" d="M42 236 V114 L133 52 L226 114 V236 Z"/><path class="d" pathLength="100" d="M276 180 C 332 176, 364 210, 356 250 C 349 286, 318 303, 282 303 L 146 306 C 113 308, 96 331, 96 364 L 96 410"/></g>
+        <g class="f" stroke="url(#ldg)"><path d="M42 236 V114 L133 52 L226 114 V236 Z"/><path d="M133 236 V162"/><path d="M276 180 C 332 176, 364 210, 356 250 C 349 286, 318 303, 282 303 L 146 306 C 113 308, 96 331, 96 364 L 96 410"/></g>
+        <g mask="url(#ldm)"><rect class="sh" x="-40" y="-40" width="200" height="500" fill="url(#lds)" transform="skewX(-18)"/></g>
+      </svg>
+      <div class="w"><b>PROFICIENT</b> <b class="e">ESSEX</b></div>
+      <div class="bar"><i></i></div>
+    </div>
+    <div class="edge"></div>
+  </div>
   <div id="root"></div>
-  <script>setTimeout(function(){var b=document.getElementById('boot');b&&b.classList.add('out')},900)</script>
+  <div id="below"></div>
+  <script>
+  (function(){
+    var b=document.getElementById('boot'),h=document.documentElement;
+    if(/^\/capture/.test(location.pathname)){b.remove();return}
+    h.classList.add('ld-on');window.__ld=false;
+    var rm=matchMedia('(prefers-reduced-motion: reduce)').matches,seen=false;
+    try{seen=sessionStorage.getItem('pe-ld')==='1';sessionStorage.setItem('pe-ld','1')}catch(e){}
+    var MIN=seen?350:1700,CAP=seen?2200:3600,t0=performance.now(),p=0,fin=false;
+    var bar=b.querySelector('.bar i'),drv=b.querySelector('.d');
+    function poster(){var i=document.querySelector('#top picture img');return !!(i&&i.complete&&i.naturalWidth)}
+    function ready(){return poster()&&(window.__heroReady||window.__heroNoGL||performance.now()-t0>2600)}
+    function draw(){bar.style.transform='scaleX('+p+')';drv.style.strokeDashoffset=String(100-100*p)}
+    function tick(){
+      if(fin)return;
+      var el=performance.now()-t0,ok=ready()&&el>=MIN;
+      p+=((ok?1:Math.min(.86,el/MIN*.86))-p)*(ok?.22:.08);
+      if(ok&&p>.985)p=1;
+      draw();
+      if(p>=1||el>CAP){p=1;draw();finish();return}
+      requestAnimationFrame(tick);
+    }
+    function finish(){
+      fin=true;b.classList.add('done');
+      setTimeout(function(){
+        b.classList.add('out');h.classList.remove('ld-on');window.__ld=true;dispatchEvent(new Event('pe:loaded'));
+        setTimeout(function(){b.classList.add('gone')},1100);
+      },seen?250:rm?200:820);
+    }
+    requestAnimationFrame(tick);
+    setTimeout(function(){if(!fin){p=1;draw();finish()}},CAP+150);
+  })();
+  </script>
   <script type="module" src="/src/main.tsx"></script>
 </body>
 </html>

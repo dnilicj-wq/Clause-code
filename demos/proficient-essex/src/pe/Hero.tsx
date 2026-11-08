@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { initDrive, type DriveApi } from '@/components/signature/drive-pour/drive';
-import { whenReadyForGL, isCoarse } from '@/src/lib/gl';
+import { whenReadyForGL, isCoarse, glMode, softwareRenderer } from '@/src/lib/gl';
 import { useSite } from '@/src/lib/ctx';
 import { CutReveal, Ticker } from './lite';
 import { blends, sizes, surfaces } from '@/config/driveway';
@@ -23,6 +23,7 @@ export function Hero() {
 
   useEffect(() => {
     if (!host.current || !canvas.current) return;
+    if (glMode() === 'off' || softwareRenderer()) (window as any).__heroNoGL = true;
     const stop = whenReadyForGL(() => {
       const a = initDrive(host.current!, canvas.current!, {
         blend: q.blend, fog: preset.bg, tex: '/tex/',
@@ -31,7 +32,7 @@ export function Hero() {
       });
       if (!a) return;
       api.current = a;
-      const go = () => (a.loaded ? a.demo() : setTimeout(go, 60));
+      const go = () => { if (a.loaded) (window as any).__heroReady = true; return a.loaded && (window as any).__ld !== false ? a.demo() : setTimeout(go, 60); };
       go();
     }, { eagerTouch: true });
     return () => { stop(); api.current?.destroy(); api.current = null; };
@@ -59,7 +60,7 @@ export function Hero() {
             className="pointer-events-auto mb-4 inline-flex items-center gap-2 rounded-full py-1.5 pl-2.5 pr-3.5 text-[13px] font-medium"
             style={{ background: 'rgba(14,14,14,.62)', border: '1px solid rgba(255,255,255,.1)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }}>
             <Stars size={13} /> <span>{site.proof.rating.toFixed(1)}</span>
-            <span style={{ color: 'var(--muted)' }}>· {site.proof.reviewCount} Google reviews</span>
+            <span style={{ color: 'var(--muted)' }}>{`· ${site.proof.reviewCount} Google reviews`}</span>
           </a>
           <h1 className="font-display text-[clamp(44px,8vw,112px)] font-semibold leading-[.9] tracking-[-.035em]">
             {['Cracked drive?', 'Pour it new.'].map((l, i) => (
@@ -67,7 +68,7 @@ export function Hero() {
             ))}
           </h1>
           <p className="mt-4 max-w-[44ch] text-[15px] leading-relaxed md:mt-5 md:text-[18px]" style={{ color: 'color-mix(in srgb, var(--ink) 84%, transparent)' }}>
-            Resin driveways, driveways and patios from a family-run team in {site.town}, working across {site.areaLine}.
+            {`Resin driveways, driveways and patios from a family-run team in ${site.town}, working across ${site.areaLine}.`}
           </p>
           {!coarse && live && (
             <div className="pointer-events-auto mt-6 hidden items-center gap-3 md:flex" data-nopour>
@@ -165,7 +166,7 @@ function HeroQuote() {
               <input className="pe-in" placeholder="Postcode" autoComplete="postal-code" value={who.postcode} onChange={(e) => setWho({ ...who, postcode: e.target.value })} aria-label="Postcode" />
             </div>
             <button disabled={!ok} className="mt-1 flex h-12 items-center justify-center gap-2 rounded-full text-[15px] font-semibold transition-opacity disabled:opacity-50" style={{ background: '#25D366', color: '#062b14' }}>
-              <WaIcon /> Send to {site.owner.first} on WhatsApp
+              <WaIcon /> {`Send to ${site.owner.first} on WhatsApp`}
             </button>
           </form>
         )}

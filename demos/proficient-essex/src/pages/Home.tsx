@@ -1,4 +1,5 @@
-import { lazy, Suspense, useEffect } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import Lenis from 'lenis';
 import { Hero } from '@/src/pe/Hero';
 import { Nav } from '@/src/pe/Nav';
@@ -19,13 +20,16 @@ function useLenis() {
 
 export default function Home() {
   useLenis();
+  // Sections below the hero mount after hydration, into #below (outside the prerendered markup).
+  const [below, setBelow] = useState<HTMLElement | null>(null);
+  useEffect(() => setBelow(document.getElementById('below')), []);
   return (
     <QuoteProvider>
       <Nav />
       <main className="relative">
         <Hero />
-        <Suspense fallback={<div style={{ height: '100vh' }} />}><Below /></Suspense>
       </main>
+      {below && createPortal(<Suspense fallback={<div style={{ height: '100vh' }} />}><Below /></Suspense>, below)}
     </QuoteProvider>
   );
 }
