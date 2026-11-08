@@ -6,7 +6,6 @@ import { CutReveal } from './lite';
 import { types } from '@/config/driveway';
 import { swatch } from '@/config/swatches';
 import { useQuote } from './quote';
-import { Stars } from './lite';
 
 // Signature moment: drag to lay block paving over a cracked old drive; the card switches the surface (block, resin, patio, concrete).
 // Poster (a real frame of this shader) paints first; the live pour takes over and auto-demos on phones.
@@ -72,27 +71,24 @@ export function Hero() {
         <img src={site.posters.d} alt="" className="h-full w-full object-cover" fetchPriority="high" decoding="async" />
       </picture>
       <canvas ref={canvas} className="absolute inset-0 -z-10 h-full w-full transition-opacity duration-700" style={{ opacity: live ? 1 : 0 }} aria-hidden="true" />
-      <div className="pointer-events-none absolute inset-0 -z-[5] hidden md:block" style={{ background: 'linear-gradient(180deg, rgba(10,18,38,.7) 0%, rgba(10,18,38,0) 22%, rgba(10,18,38,0) 40%, rgba(10,18,38,.55) 64%, rgba(10,18,38,.9) 100%)' }} />
-      <div className="pointer-events-none absolute inset-0 -z-[5] md:hidden" style={{ background: 'linear-gradient(180deg, rgba(10,18,38,.6) 0%, rgba(10,18,38,0) 11%, rgba(10,18,38,0) 32%, rgba(10,18,38,.72) 44%, rgba(10,18,38,.9) 58%, rgba(10,18,38,.96) 100%)' }} />
-      <div className="pointer-events-none absolute inset-0 -z-[5]" style={{ background: 'radial-gradient(45% 40% at 82% 8%, rgba(233,196,128,.22), transparent 70%)' }} />
-      <div className="pointer-events-none absolute inset-0 -z-[5] hidden md:block" style={{ background: 'linear-gradient(90deg, rgba(10,18,38,.78) 0%, rgba(10,18,38,.35) 38%, rgba(10,18,38,0) 55%)' }} />
+      <div className="pointer-events-none absolute inset-0 -z-[5] hidden md:block" style={{ background: 'linear-gradient(180deg, rgba(16,18,21,.7) 0%, rgba(16,18,21,0) 22%, rgba(16,18,21,0) 40%, rgba(16,18,21,.55) 64%, rgba(16,18,21,.9) 100%)' }} />
+      <div className="pointer-events-none absolute inset-0 -z-[5] md:hidden" style={{ background: 'linear-gradient(180deg, rgba(16,18,21,.6) 0%, rgba(16,18,21,0) 11%, rgba(16,18,21,0) 32%, rgba(16,18,21,.72) 44%, rgba(16,18,21,.9) 58%, rgba(16,18,21,.96) 100%)' }} />
+      <div className="pointer-events-none absolute inset-0 -z-[5] hidden md:block" style={{ background: 'linear-gradient(90deg, rgba(16,18,21,.78) 0%, rgba(16,18,21,.35) 38%, rgba(16,18,21,0) 55%)' }} />
 
       <div className="pointer-events-none relative mx-auto flex h-full max-w-[1280px] flex-col justify-end px-5 pb-[max(44px,env(safe-area-inset-bottom))] pt-24 md:flex-row md:items-end md:justify-between md:gap-10 md:px-12 md:pb-24">
         <div className="md:max-w-[640px]">
-          <a href={site.socials.google} target="_blank" rel="noreferrer" data-nopour
-            className="pointer-events-auto mb-4 inline-flex items-center gap-2 rounded-full py-1.5 pl-2.5 pr-3.5 text-[13px] font-medium"
-            style={{ background: 'rgba(10,18,38,.62)', border: '1px solid rgba(255,255,255,.12)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }}>
-            <Stars size={13} /> <span>{site.proof.rating.toFixed(1)}</span>
-            <span style={{ color: 'var(--muted)' }}>{`from ${site.proof.reviewCount} Google reviews · Checkatrade member`}</span>
-          </a>
-          <h1 className="font-display text-[clamp(44px,8vw,112px)] font-semibold leading-[.98] tracking-[-.03em]">
+          <h1 className="font-display text-[clamp(52px,8.6vw,96px)] font-semibold leading-[.95] tracking-[-.035em]">
             {['Your drive,', 'by design.'].map((l, i) => (
-              <span key={i} className="block"><CutReveal text={l} delay={0.12 + i * 0.16} className={i === 1 ? 'serif font-normal' : ''} /></span>
+              <span key={i} className="block"><CutReveal text={l} delay={0.12 + i * 0.16} className={i === 1 ? 'y' : ''} /></span>
             ))}
           </h1>
-          <p className="mt-4 max-w-[44ch] text-[15px] leading-relaxed md:mt-5 md:text-[18px]" style={{ color: 'color-mix(in srgb, var(--ink) 84%, transparent)' }}>
-            {`Block paving, resin driveways and patios from ${site.town}, across ${site.areaLine}. All work guaranteed for many years.`}
+          <p className="mt-5 max-w-[34ch] text-[16px] leading-relaxed md:text-[19px]" style={{ color: 'color-mix(in srgb, var(--ink) 82%, transparent)' }}>
+            {`Block paving, resin and patios across ${site.region}.`}
           </p>
+          <div className="pointer-events-auto mt-6 flex flex-wrap gap-2.5 md:mt-8" data-nopour>
+            <a href="#price" className="btn btn-y">Price my drive</a>
+            <a href={`https://wa.me/${site.whatsapp}`} target="_blank" rel="noreferrer" className="btn btn-ghost" style={{ background: 'rgba(16,18,21,.5)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }}><WaIcon />{` WhatsApp ${site.owner.first}`}</a>
+          </div>
           {!coarse && live && lay && (
             <div className="pointer-events-auto mt-6 hidden items-center gap-3 md:flex" data-nopour>
               <span className="glass flex items-center gap-3 rounded-full py-2 pl-4 pr-2 text-[13px]">
@@ -136,7 +132,7 @@ function TypePick() {
           return (
             <button key={t.key} role="radio" aria-checked={on} aria-label={t.label} onClick={() => q.setType(t.key)}
               className="flex flex-col items-center gap-1 rounded-xl px-1 pb-1 pt-1 md:pb-1.5 md:pt-1.5 text-[11.5px] font-medium leading-tight transition-colors md:text-[12px]"
-              style={on ? { background: 'rgba(201,161,93,.18)', border: '1px solid var(--accent)' } : { background: 'rgba(255,255,255,.04)', border: '1px solid var(--line)' }}>
+              style={on ? { background: 'rgba(244,194,27,.14)', border: '1px solid #F4C21B' } : { background: 'rgba(255,255,255,.04)', border: '1px solid var(--line)' }}>
               <span className="block h-5 w-full rounded-md bg-cover bg-center md:h-8" style={{ backgroundImage: swatch[t.key] ? `url(${swatch[t.key]})` : undefined }} aria-hidden />
               <span className="md:hidden">{t.short}</span><span className="hidden md:inline">{t.label}</span>
             </button>
@@ -146,15 +142,12 @@ function TypePick() {
     </div>
   );
 }
-// Hero card: the surface picker and one button on to the full quote form (#design). Kept light so the hero breathes on phones.
+// Hero card (desktop): the surface picker switches the live background.
 function HeroQuote() {
   return (
-    <div data-nopour className="pointer-events-auto mt-5 w-full rounded-[22px] p-3.5 md:mt-0 md:w-[410px] md:shrink-0 md:p-5"
-      style={{ background: 'linear-gradient(180deg, rgba(27,40,70,.82), rgba(12,20,38,.86))', border: '1px solid rgba(232,220,196,.16)', backdropFilter: 'blur(18px) saturate(140%)', WebkitBackdropFilter: 'blur(18px) saturate(140%)', boxShadow: '0 30px 60px -30px rgba(0,0,0,.8)' }}>
+    <div data-nopour className="pointer-events-auto mt-6 hidden w-full rounded-[14px] p-4 md:mt-0 md:block md:w-[380px] md:shrink-0 md:p-5"
+      style={{ background: 'rgba(16,18,21,.72)', boxShadow: 'inset 0 0 0 1px rgba(236,236,232,.12), 0 30px 60px -30px rgba(0,0,0,.8)', backdropFilter: 'blur(18px) saturate(140%)', WebkitBackdropFilter: 'blur(18px) saturate(140%)' }}>
       <TypePick />
-      <a href="#design" className="btn-brass mt-3.5 flex h-12 items-center justify-center rounded-full text-[15px] font-semibold">
-        Get my free quote →
-      </a>
     </div>
   );
 }

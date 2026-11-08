@@ -55,5 +55,5 @@ export function waLink(q: Q, who: { name?: string; postcode?: string; phone?: st
   return `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(lines.join('\n'))}`;
 }
 
-export const EXAMPLE_LABEL = `Example range — ${site.owner.first} confirms with a free, no-obligation quote`;
+export const EXAMPLE_LABEL = `Example range. ${site.owner.first} confirms it with a free, no-obligation quote.`;
 export { gbp };

@@ -17,14 +17,14 @@ export type Preset = {
 export const presets: Record<string, Preset> = {
   'aspect-navy': {
     key: 'aspect-navy', name: 'Aspect Navy & Chrome', vibe: 'luxury', dark: true,
-    bg: '#0A1222', bg2: '#0D172B', surface: '#16223D', line: 'rgba(232,220,196,.12)',
-    ink: '#F6F3EC', muted: '#A8AFBD',
-    accent: '#C9A15D', accentInk: '#1A1206', accent2: '#E2C38C',
+    bg: '#101215', bg2: '#15181C', surface: '#1B1F24', line: 'rgba(236,236,232,.10)',
+    ink: '#ECECE8', muted: '#959BA4',
+    accent: '#F4C21B', accentInk: '#121315', accent2: '#F4C21B',
     metal: ['#3B4558', '#D8DEE8', '#FFFFFF'],
     resin: { base: '#101828', metal: '#D8DEE8' },
     concrete: '#8E9096',
     display: '"Clash Display", system-ui, sans-serif', body: '"General Sans", system-ui, sans-serif', serif: '"Instrument Serif", Georgia, serif',
-    radius: '22px',
+    radius: '14px',
   },
   'obsidian-copper': {
     key: 'obsidian-copper', name: 'Obsidian Copper', vibe: 'luxury', dark: true,

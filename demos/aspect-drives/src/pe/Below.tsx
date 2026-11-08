@@ -1,22 +1,19 @@
-import { Proof, WhyResin, Services, Process, Reviews, GuaranteeAreas, Faq, Footer, StickyBar } from './sections';
-import { Design } from './Design';
-import { Corridor } from './Corridor';
-import { Compare } from './Compare';
+import { Layers } from './v3/Layers';
+import { Work } from './v3/Work';
+import { Proof } from './v3/Proof';
+import { Price } from './v3/Price';
+import { Practical } from './v3/Practical';
+import { Footer, StickyBar } from './v3/Foot';
 
-// Everything under the hero, lazy-loaded so the first chunk is just nav + hero.
+// Everything under the hero, lazy-loaded. The page runs as acts: build it, see it, trust it, price it, the practical bits.
 export default function Below() {
   return (
     <>
+      <Layers />
+      <Work />
       <Proof />
-      <Design />
-      <Compare />
-      <Services />
-      <Corridor />
-      <GuaranteeAreas />
-      <Reviews />
-      <WhyResin />
-      <Process />
-      <Faq />
+      <Price />
+      <Practical />
       <Footer />
       <StickyBar />
     </>
