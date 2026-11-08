@@ -14,6 +14,19 @@ export default function Capture() {
     const q = new URLSearchParams(location.search);
     const k = q.get('k') || 'hero';
     const p = presets[q.get('preset') || site.preset];
+    if (k.startsWith('type-')) {
+      const a = initBricks(host.current!, cv.current!, { fog: p.bg, tex: '/tex/' });
+      if (!a) return;
+      const kind = k.slice(5) as any;
+      const go = () => {
+        if (!a.loaded) return setTimeout(go, 100);
+        if (kind === 'block') { a.fillAll(); setTimeout(() => ((window as any).__ready = true), 1200); return; }
+        a.surface(kind);
+        setTimeout(() => ((window as any).__ready = true), 6500);
+      };
+      go();
+      return () => a.destroy();
+    }
     if (k.startsWith('bricks')) {
       const a = initBricks(host.current!, cv.current!, { fog: p.bg, tex: '/tex/' });
       if (!a) return;

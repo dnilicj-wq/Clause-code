@@ -3,7 +3,8 @@ import type { BrickApi } from '@/components/signature/brick-drop/bricks';
 import { whenReadyForGL, isCoarse, glMode, softwareRenderer } from '@/src/lib/gl';
 import { useSite } from '@/src/lib/ctx';
 import { CutReveal, Ticker } from './lite';
-import { blends, sizes, surfaces } from '@/config/driveway';
+import { blends, sizes, surfaces, types } from '@/config/driveway';
+import { swatch } from '@/config/swatches';
 import { useQuote, waLink, EXAMPLE_LABEL, gbp } from './quote';
 import { Stars } from './lite';
 
@@ -15,6 +16,7 @@ export function Hero() {
   const host = useRef<HTMLElement>(null);
   const canvas = useRef<HTMLCanvasElement>(null);
   const api = useRef<BrickApi | null>(null);
+  const typeRef = useRef<string>('block');
   const [live, setLive] = useState(false);
   const [touched, setTouched] = useState(false);
   const [done, setDone] = useState(false);
@@ -40,12 +42,24 @@ export function Hero() {
       if (!a) return;
       if (gone) { a.destroy(); return; }
       api.current = a;
-      const go = () => { if (a.loaded) (window as any).__heroReady = true; return a.loaded && (window as any).__ld !== false ? a.demo() : setTimeout(go, 60); };
+      const go = () => { if (a.loaded) (window as any).__heroReady = true; if (!(a.loaded && (window as any).__ld !== false)) return setTimeout(go, 60); if (typeRef.current !== 'block') a.surface(typeRef.current as any); else a.demo(); };
       go();
     }
     return () => { gone = true; stop(); api.current?.destroy(); api.current = null; };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => { api.current?.set(q.blend); }, [q.blend]);
+  // the background follows the chosen surface
+  const typeKey = q.type.key;
+  typeRef.current = typeKey;
+  useEffect(() => {
+    const a = api.current;
+    if (!a) return;
+    setDone(false); setCov(0);
+    a.surface(typeKey);
+  }, [typeKey]);
+  const lay = typeKey === 'block';
 
   const pct = Math.round(Math.min(1, cov / 0.72) * 100);
 
@@ -78,7 +92,7 @@ export function Hero() {
           <p className="mt-4 max-w-[44ch] text-[15px] leading-relaxed md:mt-5 md:text-[18px]" style={{ color: 'color-mix(in srgb, var(--ink) 84%, transparent)' }}>
             {`Resin, block paving and tarmac driveways from ${site.town}, across ${site.areaLine}. Fully insured and licensed.`}
           </p>
-          {!coarse && live && (
+          {!coarse && live && lay && (
             <div className="pointer-events-auto mt-6 hidden items-center gap-3 md:flex" data-nopour>
               <span className="glass flex items-center gap-3 rounded-full py-2 pl-4 pr-2 text-[13px]">
                 <span style={{ color: 'var(--muted)' }}>{done ? 'Finished' : touched ? 'Laying' : 'Drag across the drive'}</span>
@@ -92,10 +106,13 @@ export function Hero() {
             </div>
           )}
         </div>
-        <HeroQuote />
+        <div className="pointer-events-none flex w-full flex-col md:w-[410px] md:shrink-0">
+          <SurfaceCard />
+          <HeroQuote />
+        </div>
       </div>
 
-      {live && !touched && !done && (
+      {live && lay && !touched && !done && (
           <div
             className="pe-hint glass pointer-events-none absolute left-1/2 top-[19%] -translate-x-1/2 whitespace-nowrap rounded-full px-4 py-2 text-[13px] md:left-[38%] md:top-[30%]">
             {coarse ? 'Swipe to lay the bricks' : 'Drag across to lay the bricks'} ↔
@@ -103,6 +120,40 @@ export function Hero() {
         )}
       <span className="ex-tag right-4 top-[76px] md:right-6">Live illustration</span>
     </section>
+  );
+}
+
+// Surface type: what goes down (ported from the Proficient Essex hero). Swatches are stills of the hero's own renders.
+function TypePick() {
+  const q = useQuote();
+  return (
+    <div>
+      <div className="mb-2.5 flex items-baseline justify-between gap-2">
+        <p className="text-[11px] font-medium uppercase tracking-[.14em]" style={{ color: 'var(--accent2)' }}>Choose your surface</p>
+        <p className="text-[12px] font-medium">{q.type.label}</p>
+      </div>
+      <div className="grid grid-cols-4 gap-1.5" role="radiogroup" aria-label="New surface">
+        {types.map((t) => {
+          const on = q.type.key === t.key;
+          return (
+            <button key={t.key} role="radio" aria-checked={on} aria-label={t.label} onClick={() => q.setType(t.key)}
+              className="flex flex-col items-center gap-1 rounded-xl px-1 pb-1 pt-1 md:pb-1.5 md:pt-1.5 text-[11.5px] font-medium leading-tight transition-colors md:text-[12px]"
+              style={on ? { background: 'rgba(227,3,2,.18)', border: '1px solid var(--accent)' } : { background: 'rgba(255,255,255,.04)', border: '1px solid var(--line)' }}>
+              <span className="block h-5 w-full rounded-md bg-cover bg-center md:h-8" style={{ backgroundImage: swatch[t.key] ? `url(${swatch[t.key]})` : undefined }} aria-hidden />
+              <span className="md:hidden">{t.short}</span><span className="hidden md:inline">{t.label}</span>
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+function SurfaceCard() {
+  return (
+    <div data-nopour className="pointer-events-auto mt-5 w-full rounded-[22px] p-3.5 md:mt-0 md:mb-2.5 md:p-4"
+      style={{ background: 'rgba(16,16,17,.78)', border: '1px solid rgba(255,255,255,.12)', backdropFilter: 'blur(18px) saturate(140%)', WebkitBackdropFilter: 'blur(18px) saturate(140%)', boxShadow: '0 30px 60px -30px rgba(0,0,0,.8)' }}>
+      <TypePick />
+    </div>
   );
 }
 
@@ -115,7 +166,7 @@ function HeroQuote() {
   const ok = who.name.trim().length > 1 && /\d{6,}/.test(who.phone.replace(/\s/g, '')) && who.postcode.trim().length >= 3;
   const lab = 'text-[10.5px] font-medium uppercase tracking-[.13em]';
   return (
-    <div data-nopour className="pointer-events-auto mt-5 w-full rounded-[22px] p-3.5 md:mt-0 md:w-[410px] md:shrink-0 md:p-5"
+    <div data-nopour className="pointer-events-auto mt-2 w-full rounded-[22px] p-3.5 md:mt-0 md:w-[410px] md:shrink-0 md:p-5"
       style={{ background: 'rgba(16,16,17,.78)', border: '1px solid rgba(255,255,255,.12)', backdropFilter: 'blur(18px) saturate(140%)', WebkitBackdropFilter: 'blur(18px) saturate(140%)', boxShadow: '0 30px 60px -30px rgba(0,0,0,.8)' }}>
       <div className="flex items-center justify-between">
         <p className={lab} style={{ color: 'var(--accent2)' }}>Instant price{step === 'details' ? ' · step 2 of 2' : ''}</p>

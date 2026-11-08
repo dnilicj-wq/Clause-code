@@ -27,6 +27,15 @@ export const surfaces = [
   { key: 'tarmac', label: 'Tarmac', long: 'Tarmac driveway', low: 50, high: 80, photo: 'tarmac-border', note: 'Clean black finish, often with a block border.' },
 ] as const;
 
+// Hero surface switcher (the 3D background): what Steven lays, per their site. Block paving first: the hero opens on it.
+export const types = [
+  { key: 'block', label: 'Block paving', short: 'Block' },
+  { key: 'resin', label: 'Resin', short: 'Resin' },
+  { key: 'tarmac', label: 'Tarmac', short: 'Tarmac' },
+  { key: 'patio', label: 'Patio', short: 'Patio' },
+] as const;
+export type TypeKey = (typeof types)[number]['key'];
+
 export const rounding = 50;
 export function estimate(m2: number, surface: (typeof surfaces)[number]) {
   const r = (n: number) => Math.round(n / rounding) * rounding;
