@@ -3,7 +3,8 @@ import { useEffect, useRef, useState } from 'react';
 // Motion-free bits for the first chunk (hero), so the animation library loads with the sections below.
 export function CutReveal({ text, delay = 0, className = '' }: { text: string; delay?: number; className?: string }) {
   return (
-    <span className={className} aria-label={text}>
+    <span className={className}>
+      <span className="sr-only">{text}</span>
       {text.split(' ').map((w, wi, arr) => (
         <span key={wi} aria-hidden className="inline-block whitespace-nowrap" style={wi < arr.length - 1 ? { marginRight: '.27em' } : undefined}>
           {[...w].map((c, ci) => {

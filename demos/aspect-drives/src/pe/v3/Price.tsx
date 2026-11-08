@@ -3,7 +3,7 @@ import { useSite } from '@/src/lib/ctx';
 import { blends, sizes, surfaces } from '@/config/driveway';
 import { photoSrc } from '@/config/content';
 import { Ticker } from '../lite';
-import { useQuote, waLink, EXAMPLE_LABEL, sizeLabel } from '../quote';
+import { useQuote, waLink, smsLink, EXAMPLE_LABEL, sizeLabel } from '../quote';
 import { WaIcon } from '../Hero';
 
 const tel = (p: string) => `tel:${p.replace(/\s/g, '')}`;
@@ -85,8 +85,12 @@ export function Price() {
                 <input className="inp" autoComplete="postal-code" value={who.postcode} onChange={(e) => setWho({ ...who, postcode: e.target.value })} /></label>
             </div>
             <button className="btn btn-ink w-full"><WaIcon /> WhatsApp {site.owner.first} your design</button>
+            <div className="grid grid-cols-2 gap-2">
+              <a href={smsLink(q, who)} className="btn !h-12 !text-[15px]" style={{ boxShadow: 'inset 0 0 0 1.5px rgba(18,19,21,.25)' }}>Text it instead</a>
+              <a href={tel(site.phone)} className="btn !h-12 !text-[15px]" style={{ boxShadow: 'inset 0 0 0 1.5px rgba(18,19,21,.25)' }}>{`Call ${site.phone}`}</a>
+            </div>
             <p className="text-[13px] leading-snug" style={{ color: 'var(--muted)' }}>
-              Sends “{sizeLabel(q)}, {q.surface.long.toLowerCase()}{resin ? `, ${q.blend.name}` : ''}” to {site.mobile}. Nothing is stored here. Or call <a href={tel(site.phone)} className="font-semibold underline underline-offset-2">{site.phone}</a>.
+              {`Sends “${sizeLabel(q)}, ${q.surface.long.toLowerCase()}${resin ? `, ${q.blend.name}` : ''}” to ${site.mobile}. Nothing is stored on this website.`}
             </p>
           </form>
         </div>

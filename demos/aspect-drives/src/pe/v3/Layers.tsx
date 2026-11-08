@@ -21,9 +21,10 @@ export function Layers() {
   const [step, setStep] = useState(0);
   const [still, setStill] = useState(false);
   const last = useRef(0);
+  const [done, setDone] = useState(false);
 
   useEffect(() => {
-    const rm = reducedMotion(); setStill(rm);
+    const rm = reducedMotion(); setStill(rm); if (rm) setDone(true);
     let gone = false;
     import('@/components/signature/layers/layers').then(({ initLayers }) => {
       if (gone || !canvas.current || !stage.current) return;
@@ -38,10 +39,11 @@ export function Layers() {
     api.current?.setProgress(p);
     if (bar.current) bar.current.style.transform = `scaleY(${p})`;
     setStep(Math.min(STEPS.length - 1, Math.floor(p * STEPS.length)));
+    setDone(p > 0.9);
   });
 
   return (
-    <section ref={sec} id="layers" aria-labelledby="layH" className="relative" style={{ height: still ? 'auto' : 'max(560vh, 3600px)' }}>
+    <section ref={sec} id="layers" aria-labelledby="layH" className="relative" style={{ height: still ? 'auto' : 'max(420vh, 2800px)' }}>
       <div ref={stage} className={still ? 'relative h-[80svh]' : 'sticky top-0 h-[100svh] overflow-hidden'}>
         <div className="pointer-events-none absolute inset-0" style={{ background: 'radial-gradient(70% 60% at 62% 58%, #1E2228 0%, #101215 70%)' }} aria-hidden />
         <canvas ref={canvas} className="absolute inset-0 h-full w-full" aria-label="Cutaway of a block-paved driveway building up layer by layer" role="img" />
@@ -64,6 +66,8 @@ export function Layers() {
               ))}
             </ol>
             <p key={step} className="v3-fade mt-5 min-h-[3em] text-[16px] leading-snug" style={{ color: 'color-mix(in srgb, var(--ink) 78%, transparent)' }}>{STEPS[step].d}</p>
+            <a href="#price" className="btn btn-y pointer-events-auto mt-4 transition-[opacity,transform] duration-500" tabIndex={done ? 0 : -1} aria-hidden={!done}
+              style={{ opacity: done ? 1 : 0, transform: done ? 'none' : 'translateY(10px)', pointerEvents: done ? 'auto' : 'none' }}>Price a drive like this</a>
           </div>
 
           {/* phones: one step card at the bottom */}
@@ -74,6 +78,7 @@ export function Layers() {
                 <span className="flex gap-1">{STEPS.map((_, i) => <i key={i} className="block h-1 w-4 rounded-full" style={{ background: i <= step ? 'var(--y)' : 'rgba(236,236,232,.16)' }} />)}</span>
               </div>
               <p className="mt-1.5 text-[14.5px] leading-snug" style={{ color: 'var(--muted)' }}>{STEPS[step].d}</p>
+              {done && <a href="#price" className="btn btn-y pointer-events-auto v3-fade mt-3 !h-11 w-full !text-[15px]">Price a drive like this</a>}
             </div>
           </div>
         </div>

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useSite } from '@/src/lib/ctx';
-import { faq, photoSrc } from '@/config/content';
+import { faq, photoSrc, process } from '@/config/content';
 
 const TOWNS: Record<string, [number, number]> = {
   Grays: [0.325, 51.478], Basildon: [0.475, 51.576], 'Stanford-le-Hope': [0.434, 51.515], Thurrock: [0.36, 51.505],
@@ -62,6 +62,20 @@ export function Practical() {
                 </g>); })}
             </svg>
           </div>
+        </div>
+
+        {/* how it works: a real sequence, so it is numbered (from his Checkatrade profile and what reviewers describe) */}
+        <div className="mt-16 md:mt-24">
+          <h3 className="d-m">From first message to finished drive.</h3>
+          <ol className="mt-8 grid gap-px overflow-hidden rounded-[14px] md:grid-cols-4" style={{ background: 'var(--line)' }}>
+            {process.map((st, i) => (
+              <li key={st.title} className="flex flex-col gap-3 p-6 md:min-h-[220px] md:p-7" style={{ background: 'var(--bg)' }}>
+                <span className="grid h-9 w-9 place-items-center rounded-full font-display text-[15px] font-semibold" style={{ background: i === process.length - 1 ? 'var(--y)' : 'rgba(236,236,232,.08)', color: i === process.length - 1 ? '#121315' : 'var(--ink)' }}>{i + 1}</span>
+                <p className="font-display text-[20px] font-semibold leading-tight">{st.title}</p>
+                <p className="text-[14.5px] leading-snug" style={{ color: 'var(--muted)' }}>{st.text}</p>
+              </li>
+            ))}
+          </ol>
         </div>
 
         {/* FAQ */}

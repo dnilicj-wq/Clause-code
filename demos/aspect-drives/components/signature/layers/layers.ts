@@ -168,6 +168,7 @@ export function initLayers(canvas: HTMLCanvasElement, host: HTMLElement): Layers
   const camFrom = new THREE.Vector3(8.6, 7.4, 10.2), camTo = new THREE.Vector3(6.4, 3.6, 7.6);
   const lookFrom = new THREE.Vector3(0, -0.45, 0), lookTo = new THREE.Vector3(0.2, -0.35, 0);
   const look = new THREE.Vector3();
+  const camLow = new THREE.Vector3(6.9, 2.0, 8.6), lookLow = new THREE.Vector3(0.3, -0.45, 0.2);   // finale: down to eye level at the kerb
   const sunCold = new THREE.Color(0xfff1dc), sunWarm = new THREE.Color(0xffd8a8);
 
   function apply(p: number) {
@@ -192,13 +193,15 @@ export function initLayers(canvas: HTMLCanvasElement, host: HTMLElement): Layers
     const c = easeInOut(clamp(p));
     camera.position.lerpVectors(camFrom, camTo, c);
     look.lerpVectors(lookFrom, lookTo, c);
-    const fit = Math.max(1, 1.02 / Math.max(0.45, camera.aspect));         // keep the slab framed on tall phones
+    const lo = easeInOut(clamp((t5 - 0.15) / 0.85));
+    camera.position.lerp(camLow, lo); look.lerp(lookLow, lo);
+    const fit = Math.max(1, 1.3 / Math.max(0.45, camera.aspect));         // keep the slab framed on tall phones
     camera.position.sub(look).multiplyScalar(fit).add(look);
     camera.lookAt(look);
     const f = easeInOut(t5);
     sun.color.copy(sunCold).lerp(sunWarm, f); sun.intensity = 2.6 + f * 0.6;
     sun.position.set(-6 + f * 2, 9 - f * 2.5, 5);
-    slab.rotation.y = -0.06 + c * 0.16;
+    slab.rotation.y = -0.06 + c * 0.16 + lo * 0.12;
   }
   sub.userData.y0 = sub.position.y; sand.userData.y0 = sand.position.y;
 
