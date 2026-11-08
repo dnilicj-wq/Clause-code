@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { initDrive, type DriveApi } from '@/components/signature/drive-pour/drive';
+import type { BrickApi } from '@/components/signature/brick-drop/bricks';
 import { whenReadyForGL, isCoarse, glMode, softwareRenderer } from '@/src/lib/gl';
 import { useSite } from '@/src/lib/ctx';
 import { CutReveal, Ticker } from './lite';
@@ -14,7 +14,7 @@ export function Hero() {
   const q = useQuote();
   const host = useRef<HTMLElement>(null);
   const canvas = useRef<HTMLCanvasElement>(null);
-  const api = useRef<DriveApi | null>(null);
+  const api = useRef<BrickApi | null>(null);
   const [live, setLive] = useState(false);
   const [touched, setTouched] = useState(false);
   const [done, setDone] = useState(false);
@@ -24,35 +24,43 @@ export function Hero() {
   useEffect(() => {
     if (!host.current || !canvas.current) return;
     if (glMode() === 'off' || softwareRenderer()) (window as any).__heroNoGL = true;
-    const stop = whenReadyForGL(() => {
-      const a = initDrive(host.current!, canvas.current!, {
-        blend: q.blend, fog: preset.bg, tex: '/tex/',
-        onFirst: () => setTouched(true), onCoverage: setCov, onFinished: () => setDone(true),
+    let gone = false;
+    // three.js + textures wait until the page has loaded and gone idle, so they never compete with first paint
+    const afterLoad = (f: () => void) => {
+      const idle = () => ((window as any).requestIdleCallback ? (window as any).requestIdleCallback(f, { timeout: 700 }) : setTimeout(f, 200));
+      if (document.readyState === 'complete') idle(); else addEventListener('load', idle, { once: true });
+    };
+    const stop = whenReadyForGL(() => afterLoad(start), { eagerTouch: true });
+    async function start() {
+      if (gone) return;
+      const a = (await import('@/components/signature/brick-drop/bricks')).initBricks(host.current!, canvas.current!, {
+        fog: preset.bg, tex: '/tex/', onFirst: () => setTouched(true), onCoverage: setCov, onFinished: () => setDone(true),
         onReady: () => setLive(true), onLost: () => setLive(false),
       });
       if (!a) return;
+      if (gone) { a.destroy(); return; }
       api.current = a;
       const go = () => { if (a.loaded) (window as any).__heroReady = true; return a.loaded && (window as any).__ld !== false ? a.demo() : setTimeout(go, 60); };
       go();
-    }, { eagerTouch: true });
-    return () => { stop(); api.current?.destroy(); api.current = null; };
+    }
+    return () => { gone = true; stop(); api.current?.destroy(); api.current = null; };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  useEffect(() => { api.current?.set(q.blend); }, [q.blend]);
 
   const pct = Math.round(Math.min(1, cov / 0.72) * 100);
 
   return (
     <section ref={host} id="top" className="relative isolate overflow-hidden"
       style={{ height: '100svh', minHeight: 640, touchAction: 'pan-y', cursor: live && !done ? 'crosshair' : undefined }}
-      aria-label="Hero: pour a resin driveway">
+      aria-label="Hero: lay a block-paved driveway">
       <picture className="absolute inset-0 -z-20">
         <source media="(max-width: 699px)" srcSet={site.posters.m} />
         <img src={site.posters.d} alt="" className="h-full w-full object-cover" fetchPriority="high" decoding="async" />
       </picture>
       <canvas ref={canvas} className="absolute inset-0 -z-10 h-full w-full transition-opacity duration-700" style={{ opacity: live ? 1 : 0 }} aria-hidden="true" />
-      <div className="pointer-events-none absolute inset-0 -z-[5]" style={{ background: 'linear-gradient(180deg, rgba(10,10,10,.7) 0%, rgba(10,10,10,0) 22%, rgba(10,10,10,0) 40%, rgba(10,10,10,.55) 64%, rgba(10,10,10,.9) 100%)' }} />
-      <div className="pointer-events-none absolute inset-0 -z-[5] hidden md:block" style={{ background: 'linear-gradient(90deg, rgba(10,10,10,.6) 0%, rgba(10,10,10,0) 45%)' }} />
+      <div className="pointer-events-none absolute inset-0 -z-[5] hidden md:block" style={{ background: 'linear-gradient(180deg, rgba(10,10,10,.7) 0%, rgba(10,10,10,0) 22%, rgba(10,10,10,0) 40%, rgba(10,10,10,.55) 64%, rgba(10,10,10,.9) 100%)' }} />
+      <div className="pointer-events-none absolute inset-0 -z-[5] md:hidden" style={{ background: 'linear-gradient(180deg, rgba(14,14,15,.75) 0%, rgba(14,14,15,0) 16%, rgba(14,14,15,0) 30%, rgba(14,14,15,.72) 42%, rgba(14,14,15,.9) 58%, rgba(14,14,15,.96) 100%)' }} />
+      <div className="pointer-events-none absolute inset-0 -z-[5] hidden md:block" style={{ background: 'linear-gradient(90deg, rgba(10,10,10,.78) 0%, rgba(10,10,10,.35) 38%, rgba(10,10,10,0) 55%)' }} />
 
       <div className="pointer-events-none relative mx-auto flex h-full max-w-[1280px] flex-col justify-end px-5 pb-[max(20px,env(safe-area-inset-bottom))] pt-24 md:flex-row md:items-end md:justify-between md:gap-10 md:px-12 md:pb-14">
         <div className="md:max-w-[640px]">
@@ -63,7 +71,7 @@ export function Hero() {
             <span style={{ color: 'var(--muted)' }}>{`· ${site.proof.reviewCount} Google reviews`}</span>
           </a>
           <h1 className="font-display text-[clamp(44px,8vw,112px)] font-semibold leading-[.9] tracking-[-.035em]">
-            {['Tired drive?', 'Pour it new.'].map((l, i) => (
+            {['Cracked drive?', 'Lay it new.'].map((l, i) => (
               <span key={i} className="block"><CutReveal text={l} delay={0.12 + i * 0.16} className={i === 1 ? 'serif font-normal' : ''} /></span>
             ))}
           </h1>
@@ -73,13 +81,13 @@ export function Hero() {
           {!coarse && live && (
             <div className="pointer-events-auto mt-6 hidden items-center gap-3 md:flex" data-nopour>
               <span className="glass flex items-center gap-3 rounded-full py-2 pl-4 pr-2 text-[13px]">
-                <span style={{ color: 'var(--muted)' }}>{done ? 'Finished' : touched ? 'Pouring' : 'Drag across the drive'}</span>
+                <span style={{ color: 'var(--muted)' }}>{done ? 'Finished' : touched ? 'Laying' : 'Drag across the drive'}</span>
                 <span className="relative h-1 w-20 overflow-hidden rounded-full bg-white/10">
                   <span className="absolute inset-y-0 left-0 rounded-full transition-[width] duration-300" style={{ width: `${done ? 100 : pct}%`, background: 'var(--accent)' }} />
                 </span>
                 {done
-                  ? <button onClick={() => { api.current?.reset(); setDone(false); setCov(0); }} className="rounded-full bg-white/10 px-3 py-1.5 font-medium hover:bg-white/15">Pour again</button>
-                  : <button onClick={() => api.current?.finish()} className="rounded-full px-3 py-1.5 font-medium" style={{ background: 'var(--accent)', color: 'var(--accent-ink)' }}>Finish the drive</button>}
+                  ? <button onClick={() => { api.current?.reset(); setDone(false); setCov(0); }} className="rounded-full bg-white/10 px-3 py-1.5 font-medium hover:bg-white/15">Lay again</button>
+                  : <button onClick={() => api.current?.finish()} className="rounded-full px-3 py-1.5 font-medium" style={{ background: 'var(--accent)', color: 'var(--accent-ink)' }}>Lay the rest</button>}
               </span>
             </div>
           )}
@@ -90,7 +98,7 @@ export function Hero() {
       {live && !touched && !done && (
           <div
             className="pe-hint glass pointer-events-none absolute left-1/2 top-[19%] -translate-x-1/2 whitespace-nowrap rounded-full px-4 py-2 text-[13px] md:left-[38%] md:top-[30%]">
-            {coarse ? 'Swipe the drive to pour' : 'Drag across the drive to pour'} ↔
+            {coarse ? 'Swipe to lay the bricks' : 'Drag across to lay the bricks'} ↔
           </div>
         )}
       <span className="ex-tag right-4 top-[76px] md:right-6">Live illustration</span>
@@ -143,7 +151,7 @@ function HeroQuote() {
               ))}
             </div>
           )}
-          <div className="mt-3 font-display text-[30px] font-semibold leading-none tracking-tight md:text-[38px]">
+          <div className="mt-3 whitespace-nowrap font-display text-[30px] font-semibold leading-none tracking-tight md:text-[38px]">
             £<Ticker value={q.low} /><span style={{ color: 'var(--muted)' }}>–</span>£<Ticker value={q.high} />
           </div>
           <p className="mt-1.5 text-[11.5px] leading-snug" style={{ color: 'var(--muted)' }}>{EXAMPLE_LABEL}</p>

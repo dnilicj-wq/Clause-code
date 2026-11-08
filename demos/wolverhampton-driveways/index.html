@@ -11,15 +11,87 @@
   <meta name="theme-color" content="#0E0E0F" />
   <link rel="preload" href="/fonts/clash-display-600.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/fonts/general-sans-400.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href="/posters/drive-m-wd1.webp" as="image" media="(max-width: 699px)" fetchpriority="high" />
-  <link rel="preload" href="/posters/drive-d-wd1.webp" as="image" media="(min-width: 700px)" fetchpriority="high" />
+  <link rel="preload" href="/posters/brick-m-wd2.webp" as="image" media="(max-width: 699px)" fetchpriority="high" />
+  <link rel="preload" href="/posters/brick-d-wd2.webp" as="image" media="(min-width: 700px)" fetchpriority="high" />
   <style>
     html,body{margin:0;background:#0E0E0F;color:#F6F4F0}
+    #boot{position:fixed;inset:0;z-index:100;pointer-events:auto}
+    #boot .h{position:absolute;left:0;right:0;height:50.5%;background:#0E0E0F;transition:transform .95s cubic-bezier(.76,0,.24,1)}
+    #boot .h.t{top:0}#boot .h.b{bottom:0}
+    #boot .h.t::after{content:"";position:absolute;inset:0;background:radial-gradient(60% 70% at 50% 100%,rgba(227,3,2,.10),transparent 70%)}
+    #boot .h.b::after{content:"";position:absolute;inset:0;background:radial-gradient(60% 70% at 50% 0%,rgba(227,3,2,.07),transparent 70%)}
+    #boot .seam{position:absolute;left:0;right:0;top:50%;height:2px;margin-top:-1px;background:linear-gradient(90deg,transparent,#E30302 20%,#ff5a4f 50%,#E30302 80%,transparent);transform:scaleX(0);opacity:0;transition:transform .55s cubic-bezier(.65,0,.35,1),opacity .3s;box-shadow:0 0 18px rgba(227,3,2,.8)}
+    #boot .in{position:absolute;left:50%;top:50%;width:236px;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;transition:opacity .35s ease,transform .6s cubic-bezier(.65,0,.35,1)}
+    #boot .mk{width:40px;height:48px;margin-bottom:22px;opacity:0;transform:translateY(8px);transition:opacity .6s ease .1s,transform .8s cubic-bezier(.22,1,.36,1) .1s}
+    #boot.on .mk{opacity:1;transform:none}
+    #boot .wall{position:relative;width:236px;height:182px}
+    #boot .wall i{position:absolute;height:22px;border-radius:3px;box-shadow:inset 0 1px 0 rgba(255,255,255,.14),inset 0 -2px 0 rgba(0,0,0,.25);opacity:0;transform:translateY(-62vh) rotate(var(--r));will-change:transform}
+    #boot .wall i.d{opacity:1;transform:none;animation:bk-land .62s cubic-bezier(.32,0,.18,1) both}
+    @keyframes bk-land{0%{transform:translateY(-62vh) rotate(var(--r))}70%{transform:translateY(2px) rotate(0)}84%{transform:translateY(-4px)}100%{transform:none}}
+    #boot .row{display:flex;justify-content:space-between;width:236px;margin-top:16px;padding-top:12px;border-top:1px solid rgba(255,255,255,.1);font:500 11px/1 "General Sans",system-ui,sans-serif;letter-spacing:.26em;color:#a3a09b}
+    #boot .row b{font:600 13px/1 "Clash Display",system-ui,sans-serif;letter-spacing:.06em;color:#F6F4F0;font-variant-numeric:tabular-nums}
+    #boot.done .seam{transform:scaleX(1);opacity:1}
+    #boot.done .wall i{animation:none;transition:transform .5s ease;transform:scale(.96)}
+    #boot.out .in{opacity:0;transform:translate(-50%,-50%) scale(.94)}
+    #boot.out .h.t{transform:translateY(-101%)}#boot.out .h.b{transform:translateY(101%)}
+    #boot.out .seam{opacity:0;transition:opacity .25s}
+    #boot.out{pointer-events:none}
+    #boot.gone{display:none}
+    @media (prefers-reduced-motion:reduce){#boot *{animation:none!important;transition:opacity .3s!important}#boot .wall i{transform:none}#boot.out .h{transform:none;opacity:0}}
+    html.ld-on .pe-cut{animation-play-state:paused}
   </style>
 </head>
 <body>
+  <div id="boot" aria-hidden="true">
+    <div class="h t"></div><div class="h b"></div><div class="seam"></div>
+    <div class="in">
+      <img class="mk" src="/brand/mark-v2.svg" width="40" height="48" alt="">
+      <div class="wall"></div>
+      <div class="row"><span>LAYING YOUR DRIVE</span><b>000</b></div>
+    </div>
+  </div>
   <div id="root"></div>
   <div id="below"></div>
+  <script>
+  (function(){
+    var b=document.getElementById('boot'),h=document.documentElement;
+    if(/^\/capture/.test(location.pathname)){b.remove();return}
+    h.classList.add('ld-on');window.__ld=false;
+    var rm=matchMedia('(prefers-reduced-motion: reduce)').matches,seen=false;
+    try{seen=sessionStorage.getItem('wd-ld')==='1';sessionStorage.setItem('wd-ld','1')}catch(e){}
+    // stretcher-bond wall, bottom course first (Tetris-style stacking)
+    var wall=b.querySelector('.wall'),cnt=b.querySelector('.row b'),C=['#E30302','#b8211a','#6c6c70','#8a8a8d','#4f4f53','#a33a2b','#5c5c60','#d8d6d2'],bricks=[],R=7,BW=56,BH=22,G=4,seed=5;
+    function rnd(){seed=(seed*16807)%2147483647;return seed/2147483647}
+    for(var r=0;r<R;r++){var y=182-(r+1)*BH-r*4,odd=r%2,x=0,ws=odd?[26,BW,BW,BW,26]:[BW,BW,BW,BW];
+      for(var k=0;k<ws.length;k++){var e=document.createElement('i');e.style.left=x+'px';e.style.top=y+'px';e.style.width=ws[k]+'px';
+        e.style.background=C[Math.floor(rnd()*C.length)];e.style.setProperty('--r',((rnd()-.5)*50).toFixed(0)+'deg');wall.appendChild(e);bricks.push(e);x+=ws[k]+G}}
+    b.classList.add('on');
+    var N=bricks.length,MIN=seen?350:1500,CAP=seen?2000:3200,t0=performance.now(),p=0,fin=false,shown=0;
+    function poster(){var i=document.querySelector('#top picture img');return !!(i&&i.complete&&i.naturalWidth)}
+    function ready(){return poster()&&(window.__heroReady||window.__heroNoGL||performance.now()-t0>2300)}
+    function draw(){var n=Math.round(p*N);while(shown<n){bricks[shown++].className='d'}cnt.textContent=('00'+Math.round(p*100)).slice(-3)}
+    function tick(){
+      if(fin)return;
+      var el=performance.now()-t0,ok=ready()&&el>=MIN;
+      p+=((ok?1:Math.min(.88,el/MIN*.88))-p)*(ok?.2:.09);
+      if(ok&&p>.99)p=1;
+      draw();
+      if(p>=1||el>CAP){p=1;draw();finish();return}
+      requestAnimationFrame(tick);
+    }
+    function finish(){
+      fin=true;
+      setTimeout(function(){b.classList.add('done');
+        setTimeout(function(){
+          b.classList.add('out');h.classList.remove('ld-on');window.__ld=true;dispatchEvent(new Event('wd:loaded'));
+          setTimeout(function(){b.classList.add('gone')},1000);
+        },seen?120:rm?150:520);
+      },seen?60:420);
+    }
+    requestAnimationFrame(tick);
+    setTimeout(function(){if(!fin){p=1;draw();finish()}},CAP+200);
+  })();
+  </script>
   <script type="module" src="/src/main.tsx"></script>
 </body>
 </html>

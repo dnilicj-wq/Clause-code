@@ -47,8 +47,8 @@ export function Corridor() {
         <div className="sticky top-0 h-[100svh] overflow-hidden">
           <div className="pointer-events-none absolute inset-x-0 top-0 z-20 px-5 pb-10 pt-20 md:px-16 md:pt-24" style={{ background: "linear-gradient(180deg, var(--bg2) 55%, transparent)" }}><Title company={site.company} /></div>
           {/* corridor */}
-          <div className="absolute inset-0 z-0 isolate" style={{ perspective: phone ? '520px' : '900px', perspectiveOrigin: '50% 55%' }}>
-            <div className="absolute left-1/2 top-[60%]" style={{ transformStyle: 'preserve-3d', transform: `translateZ(${cam}px)` }}>
+          <div className="absolute inset-0 z-0 isolate" style={{ perspective: phone ? '520px' : '900px', perspectiveOrigin: phone ? '50% 44%' : '50% 55%' }}>
+            <div className="absolute left-1/2 top-[47%] md:top-[60%]" style={{ transformStyle: 'preserve-3d', transform: `translateZ(${cam}px)` }}>
               {/* floor line glow */}
               <div className="absolute -translate-x-1/2" style={{ width: phone ? 220 : 520, height: depth + 800, top: phone ? 150 : 230, transform: `rotateX(90deg) translateZ(0px)`, transformOrigin: 'top', background: 'linear-gradient(180deg, rgba(227,3,2,.16), rgba(227,3,2,0) 60%)', filter: 'blur(1px)' }} />
               {photos.map((ph, i) => {
@@ -72,9 +72,9 @@ export function Corridor() {
             </div>
           </div>
           {/* caption + progress */}
-          <div className="absolute inset-x-0 bottom-0 z-10 flex items-end justify-between gap-4 px-5 pb-8 md:px-16 md:pb-12">
+          <div className="absolute inset-x-0 bottom-0 z-10 flex items-end justify-between gap-4 px-5 pb-[96px] md:px-16 md:pb-12">
             <div className="glass rounded-2xl px-4 py-3">
-              <div className="text-[11px] uppercase tracking-[.14em]" style={{ color: 'var(--accent2)' }}>{site.company} job · {photos[active].kind}</div>
+              <div className="text-[11px] uppercase tracking-[.14em]" style={{ color: 'var(--accent2)' }}>Their job · {photos[active].kind}</div>
               <div className="font-display text-[18px] font-semibold md:text-[22px]">{photos[active].title}</div>
             </div>
             <div className="flex items-center gap-1.5 pb-2" aria-hidden>

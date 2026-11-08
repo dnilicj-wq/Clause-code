@@ -15,7 +15,7 @@ const C = createContext<Q | null>(null);
 export function QuoteProvider({ children }: { children: ReactNode }) {
   const [m2, setM2Raw] = useState<number>(sizes[1].m2);
   const [sizeKey, setSizeKey] = useState<string>(sizes[1].key);
-  const [surfaceKey, setSurfaceKey] = useState<string>(surfaces[0].key);
+  const [surfaceKey, setSurfaceKey] = useState<string>('block');
   const [blendKey, setBlendKey] = useState<string>(blends[0].key);
   const [touched, setTouched] = useState(false);
   const surface = surfaces.find((s) => s.key === surfaceKey)!;

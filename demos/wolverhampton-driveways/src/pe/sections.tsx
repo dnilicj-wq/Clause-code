@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useSite } from '@/src/lib/ctx';
 import { photoSrc, process, whyResin, faq } from '@/config/content';
-import { Marquee } from '@/components/library/marquee/Marquee';
+import { useRef } from 'react';
 import { Head, Rise, Stars } from './ui';
 import { WaIcon } from './Hero';
 import { useQuote, waLink } from './quote';
@@ -30,20 +30,49 @@ export function Proof() {
           </span>
         </a>
       </div>
-      <div className="mt-9 [mask-image:linear-gradient(90deg,transparent,#000_8%,#000_92%,transparent)]">
-        <Marquee pauseOnHover className="[--duration:46s] [--gap:14px]">
-          {site.reviews.map((r, i) => (
-            <figure key={i} className="m-0 w-[300px] rounded-2xl border p-4 md:w-[380px]" style={{ borderColor: 'var(--line)', background: 'var(--surface)' }}>
-              <Stars size={12} />
-              <blockquote className="mt-2 text-[14px] leading-relaxed">“{r.text}”</blockquote>
-              <figcaption className="mt-2 text-[12px]" style={{ color: 'var(--muted)' }}>Google review{r.job ? ` · ${r.job}` : ''}</figcaption>
-            </figure>
-          ))}
-        </Marquee>
-      </div>
+      <ReviewStrip />
     </section>
   );
 }
+// Review strip: drifts on its own, and you can swipe or drag it (it pauses while you do, then carries on).
+function ReviewStrip() {
+  const { site } = useSite();
+  const el = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const s = el.current!; let raf = 0, last = performance.now(), hold = 0, vis = false, acc = 0;
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const io = new IntersectionObserver(([e]) => { vis = e.isIntersecting; }); io.observe(s);
+    const pause = () => { hold = performance.now() + 2500; };
+    let down = false, sx = 0, sl = 0;
+    const pd = (e: PointerEvent) => { pause(); if (e.pointerType !== 'mouse') return; down = true; sx = e.clientX; sl = s.scrollLeft; s.setPointerCapture(e.pointerId); };
+    const pm = (e: PointerEvent) => { if (down) { s.scrollLeft = sl - (e.clientX - sx); pause(); } };
+    const pu = () => { down = false; };
+    s.addEventListener('pointerdown', pd); s.addEventListener('pointermove', pm); s.addEventListener('pointerup', pu); s.addEventListener('pointercancel', pu);
+    s.addEventListener('touchstart', pause, { passive: true }); s.addEventListener('touchmove', pause, { passive: true }); s.addEventListener('wheel', pause, { passive: true });
+    const f = (t: number) => {
+      const dt = Math.min(50, t - last); last = t;
+      const half = s.scrollWidth / 2;
+      if (!reduce && vis && t > hold) { acc += dt * 0.035; const n = Math.floor(acc); if (n) { s.scrollLeft += n; acc -= n; } }
+      if (s.scrollLeft >= half) s.scrollLeft -= half; else if (s.scrollLeft <= 0 && t > hold) s.scrollLeft += half;
+      raf = requestAnimationFrame(f);
+    };
+    s.scrollLeft = 1; raf = requestAnimationFrame(f);
+    return () => { cancelAnimationFrame(raf); io.disconnect(); s.removeEventListener('pointerdown', pd); s.removeEventListener('pointermove', pm); s.removeEventListener('pointerup', pu); s.removeEventListener('pointercancel', pu); };
+  }, []);
+  const items = [...site.reviews, ...site.reviews];
+  return (
+    <div ref={el} className="mt-9 flex cursor-grab gap-3.5 overflow-x-auto px-5 pb-1 [scrollbar-width:none] active:cursor-grabbing md:px-16 [&::-webkit-scrollbar]:hidden" style={{ touchAction: 'pan-x pan-y', WebkitOverflowScrolling: 'touch' }} aria-label="Customer reviews, swipe for more">
+      {items.map((r, i) => (
+        <figure key={i} aria-hidden={i >= site.reviews.length} className="m-0 w-[300px] shrink-0 select-none rounded-2xl border p-4 md:w-[380px]" style={{ borderColor: 'var(--line)', background: 'var(--surface)' }}>
+          <Stars size={12} />
+          <blockquote className="mt-2 text-[14px] leading-relaxed">“{r.text}”</blockquote>
+          <figcaption className="mt-2 text-[12px]" style={{ color: 'var(--muted)' }}>Google review{r.job ? ` · ${r.job}` : ''}</figcaption>
+        </figure>
+      ))}
+    </div>
+  );
+}
+
 function GoogleG() {
   return <svg width="16" height="16" viewBox="0 0 48 48" aria-hidden><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3A12 12 0 1 1 24 12a11.9 11.9 0 0 1 8.4 3.3l5.7-5.7A20 20 0 1 0 44 24c0-1.2-.1-2.3-.4-3.5z" /><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8A12 12 0 0 1 24 12a11.9 11.9 0 0 1 8.4 3.3l5.7-5.7A20 20 0 0 0 6.3 14.7z" /><path fill="#4CAF50" d="M24 44a20 20 0 0 0 13.5-5.2l-6.2-5.3A12 12 0 0 1 12.7 28l-6.5 5A20 20 0 0 0 24 44z" /><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3a12 12 0 0 1-4.1 5.5l6.2 5.3C37 39.2 44 34 44 24c0-1.2-.1-2.3-.4-3.5z" /></svg>;
 }
@@ -217,7 +246,7 @@ export function GuaranteeAreas() {
       <div className="wrap grid gap-3 md:grid-cols-[1fr_1.25fr] md:gap-5">
         <Rise>
           <div className="relative flex h-full flex-col overflow-hidden rounded-[var(--radius)] border p-6 md:p-9" style={{ borderColor: 'rgba(227,3,2,.35)', background: 'radial-gradient(120% 90% at 0% 0%, rgba(227,3,2,.16), transparent 60%), var(--surface)' }}>
-            <img src="/brand/mark-rev-v1.webp" alt="" aria-hidden width={112} height={134} loading="lazy" className="pointer-events-none absolute -right-6 -top-4 w-[150px] opacity-[.12] md:w-[190px]" />
+            <img src="/brand/mark-v2.svg" alt="" aria-hidden width={118} height={142} loading="lazy" className="pointer-events-none absolute -right-6 -top-4 w-[150px] opacity-[.12] md:w-[190px]" />
             <p className="eyebrow">Peace of mind</p>
             <ul className="relative mt-6 grid gap-5 md:mt-10">
               {trust.map(([t, d]) => (
@@ -306,7 +335,7 @@ export function Footer() {
             <a href={waLink(q)} target="_blank" rel="noreferrer" className="flex h-[52px] items-center gap-2 rounded-full px-6 text-[16px] font-semibold" style={{ background: '#25D366', color: '#062b14' }}><WaIcon /> WhatsApp</a>
           </div>
         </div>
-        <img src="/brand/logo-rev-v1.webp" alt={site.company} width={450} height={134} loading="lazy" className="mt-14 w-full max-w-[640px]" />
+        <img src="/brand/logo-v2.svg" alt={site.company} width={458} height={142} loading="lazy" className="mt-14 w-full max-w-[640px]" />
         <div className="mt-10 grid gap-6 text-[14px] md:grid-cols-4" style={{ color: 'var(--muted)' }}>
           <div><div className="mb-1.5 font-medium" style={{ color: 'var(--ink)' }}>Call</div><a href={tel(site.phone)}>{site.phone}</a></div>
           <div><div className="mb-1.5 font-medium" style={{ color: 'var(--ink)' }}>WhatsApp</div><a href={`https://wa.me/${site.whatsapp}`} target="_blank" rel="noreferrer">{site.mobile}</a></div>

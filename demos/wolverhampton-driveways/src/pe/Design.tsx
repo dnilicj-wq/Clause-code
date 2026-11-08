@@ -83,7 +83,7 @@ export function Design() {
             )}
 
             <div className="mt-5 rounded-2xl p-4" style={{ background: 'rgba(227,3,2,.07)', border: '1px solid rgba(227,3,2,.28)' }}>
-              <div className="font-display text-[clamp(34px,10vw,48px)] font-semibold leading-none tracking-tight">
+              <div className="whitespace-nowrap font-display text-[clamp(25px,7.6vw,46px)] font-semibold leading-none tracking-tight">
                 £<Ticker value={q.low} />
                 <span style={{ color: 'var(--muted)' }}> – </span>
                 £<Ticker value={q.high} />

@@ -13,7 +13,7 @@ export function Nav() {
       <nav className="flex w-full max-w-[1280px] items-center justify-between rounded-full border py-1.5 pl-3 pr-1.5 transition-[background-color,border-color,box-shadow] duration-500"
         style={scrolled ? { background: 'color-mix(in srgb, var(--bg) 94%, transparent)', borderColor: 'var(--line)', backdropFilter: 'blur(18px) saturate(140%)', WebkitBackdropFilter: 'blur(18px) saturate(140%)', boxShadow: '0 12px 32px -14px rgba(0,0,0,.65)' } : { borderColor: 'transparent' }}>
         <a href="#top" className="flex items-center gap-2.5" aria-label={`${site.company}, back to top`}>
-          <img src="/brand/logo-rev-v1.webp" alt={site.company} width={450} height={134} className="block h-[34px] w-auto md:h-[40px]" />
+          <img src="/brand/logo-v2.svg" alt={site.company} width={458} height={142} className="block h-[34px] w-auto md:h-[40px]" />
         </a>
         <div className="hidden items-center gap-1 md:flex">
           {links.map(([l, h]) => <a key={h} href={h} className="rounded-full px-3.5 py-2 text-[14px] transition-colors hover:bg-white/10" style={{ color: 'color-mix(in srgb, var(--ink) 80%, transparent)' }}>{l}</a>)}

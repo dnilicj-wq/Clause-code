@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { initDrive } from '@/components/signature/drive-pour/drive';
+import { initBricks } from '@/components/signature/brick-drop/bricks';
 import { blends } from '@/config/driveway';
 import { presets } from '@/config/presets';
 import { site } from '@/config/site';
@@ -13,6 +14,17 @@ export default function Capture() {
     const q = new URLSearchParams(location.search);
     const k = q.get('k') || 'hero';
     const p = presets[q.get('preset') || site.preset];
+    if (k.startsWith('bricks')) {
+      const a = initBricks(host.current!, cv.current!, { fog: p.bg, tex: '/tex/' });
+      if (!a) return;
+      const go = () => {
+        if (!a.loaded) return setTimeout(go, 100);
+        if (k === 'bricks') a.prefill(q.get('f') ? +q.get('f')! : undefined); else a.fillAll();
+        setTimeout(() => ((window as any).__ready = true), 1800);
+      };
+      go();
+      return () => a.destroy();
+    }
     const b = blends.find((x) => x.key === k) || blends[0];
     const a = initDrive(host.current!, cv.current!, { blend: b, fog: p.bg, tex: '/tex/', view: q.get('view') ? +q.get('view')! : undefined });
     if (!a) return;

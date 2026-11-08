@@ -16,6 +16,11 @@ async function grab(q, w, h, dpr = 1) {
   const buf = await p.screenshot({ type: 'png' }); await p.close(); return buf;
 }
 const only = process.argv[2];
+if (only === 'brick-posters') {
+  await sharp(await grab('k=bricks', 1440, 900)).webp({ quality: 70 }).toFile(`public/posters/brick-d-${VER}.webp`);
+  await sharp(await grab('k=bricks', 390, 844, 1.5)).webp({ quality: 64 }).toFile(`public/posters/brick-m-${VER}.webp`);
+  console.log('brick posters');
+}
 if (!only || only === 'posters') {
   await sharp(await grab('k=hero', 1440, 900)).webp({ quality: 68 }).toFile(`public/posters/drive-d-${VER}.webp`);
   await sharp(await grab('k=hero', 390, 844, 1.5)).webp({ quality: 62 }).toFile(`public/posters/drive-m-${VER}.webp`);
