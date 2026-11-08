@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Suparesin · Resin driveways and epoxy floors in Wrexham, Chester and North Wales</title>
+  <meta name="description" content="Resin-bound driveways, flake, metallic and high-build epoxy floors across Wrexham, Chester, the Wirral, Cheshire, Shropshire and North Wales. Design yours and see an example price in seconds. Demo site by Clientgateway." />
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <link rel="apple-touch-icon" href="/brand/icon-180-v1.png" />
+  <meta name="theme-color" content="#0C0B0A" />
+  <link rel="preload" href="/fonts/fraunces-300-700.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/satoshi-400.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/posters/studio-m-sr1.webp" as="image" media="(max-width: 699px)" fetchpriority="high" />
+  <link rel="preload" href="/posters/studio-d-sr1.webp" as="image" media="(min-width: 700px)" fetchpriority="high" />
+  <style>
+    html,body{margin:0;background:#0C0B0A;color:#F4EFE6}
+    /* Loader: "Mercury Rail Loader" by johnmamanao / Nacre UI (MIT), https://21st.dev/@johnmamanao/components/mercury-rail-loader
+       Ported from components/ui/mercury-rail-loader.module.css (rail, traveler, trail, mercury bead, shape wobble), re-skinned for
+       Suparesin: his logo above, the bead is a drop of his gold resin, and the rail fills behind it like a pour levelling out.
+       One run left to right (not ping-pong), then the curtain lifts. */
+    #boot{--mercury-accent:#F3B31E;--mercury-duration:560ms;--mercury-shape-duration:140ms;--mercury-width:min(300px,68vw);
+      position:fixed;z-index:100;inset:0;display:grid;place-items:center;overflow:hidden;color:#F4EFE6;background:#0C0B0A;
+      transition:transform .36s cubic-bezier(.76,0,.24,1),opacity .36s ease}
+    #boot .root{display:inline-grid;width:var(--mercury-width);gap:13px;justify-items:center}
+    #boot .logo{width:min(220px,56vw);height:auto;margin-bottom:14px;opacity:0;transform:translateY(6px);transition:opacity .3s ease,transform .45s cubic-bezier(.22,1,.36,1)}
+    #boot.on .logo{opacity:1;transform:none}
+    #boot .rail{position:relative;display:block;width:100%;height:12px}
+    #boot .rail::before{position:absolute;inset:50% 0 auto;height:1px;background:linear-gradient(90deg,transparent,currentColor 14% 86%,transparent);content:'';opacity:.18;transform:translateY(-50%)}
+    #boot .rail::after{position:absolute;inset:50% 8% auto;height:8px;border-radius:999px;background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--mercury-accent) 8%,transparent),transparent);content:'';filter:blur(5px);transform:translateY(-50%)}
+    /* the poured resin: a glossy gold band that levels out behind the bead */
+    #boot .pour{position:absolute;inset:50% auto auto 0;height:3px;width:100%;border-radius:999px;transform-origin:0 50%;transform:translateY(-50%) scaleX(0);
+      background:linear-gradient(180deg,#FFE7A8,#F3B31E 55%,#B97C0B);box-shadow:0 0 12px color-mix(in srgb,var(--mercury-accent) 30%,transparent)}
+    #boot.on .pour{animation:sr-pour var(--mercury-duration) cubic-bezier(.4,0,.2,1) 80ms both}
+    #boot .traveler{position:absolute;inset:50% auto auto 0;display:block;width:18px;height:8px;transform:translateY(-50%)}
+    #boot.on .traveler{animation:mercury-travel var(--mercury-duration) cubic-bezier(.4,0,.2,1) 80ms both}
+    #boot .trail{position:absolute;inset:50% 6px auto auto;width:32px;height:3px;border-radius:999px;background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--mercury-accent) 48%,transparent));filter:blur(.5px);transform:translateY(-50%)}
+    #boot .mercury{position:absolute;inset:50% 0 auto auto;width:10px;height:8px;border:1px solid color-mix(in srgb,var(--mercury-accent) 64%,white);border-radius:55% 45% 52% 48%;
+      background:radial-gradient(circle at 32% 24%,white 0 10%,transparent 30%),var(--mercury-accent);
+      box-shadow:0 0 0 3px color-mix(in srgb,var(--mercury-accent) 6%,transparent),0 0 12px color-mix(in srgb,var(--mercury-accent) 24%,transparent);
+      transform:translateY(-50%);animation:mercury-shape var(--mercury-shape-duration) ease-in-out infinite alternate}
+    #boot .label{overflow:hidden;color:color-mix(in srgb,currentColor 68%,transparent);font:500 13px/1.2 "Satoshi",system-ui,sans-serif;letter-spacing:-.005em;text-align:center;white-space:nowrap}
+    @keyframes mercury-travel{0%,8%{transform:translateY(-50%) translateX(0)}92%,100%{transform:translateY(-50%) translateX(calc(var(--mercury-width) - 18px))}}
+    @keyframes mercury-shape{from{transform:translateY(-50%) scaleX(.88)}to{transform:translateY(-50%) scaleX(1.12)}}
+    @keyframes sr-pour{0%,8%{transform:translateY(-50%) scaleX(0)}92%,100%{transform:translateY(-50%) scaleX(1)}}
+    #boot.out{transform:translateY(-100%);pointer-events:none}
+    #boot.gone{display:none}
+    @media (prefers-reduced-motion:reduce){#boot.on .traveler,#boot .mercury,#boot.on .pour{animation:none}#boot .pour{transform:translateY(-50%)}#boot .traveler{display:none}
+      #boot{transition:opacity .25s}#boot.out{transform:none;opacity:0}}
+    html.ld-on .pe-cut{animation-play-state:paused}
+  </style>
+</head>
+<body>
+  <output id="boot" aria-hidden="true">
+    <span class="root">
+      <img class="logo" src="/brand/logo-light-480-v1.webp" width="220" height="59" alt="">
+      <span class="rail"><span class="pour"></span><span class="traveler"><span class="trail"></span><span class="mercury"></span></span></span>
+      <span class="label">Pouring your finish</span>
+    </span>
+  </output>
+  <script>
+  (function(){
+    var b=document.getElementById('boot'),h=document.documentElement,seen=false;
+    try{seen=sessionStorage.getItem('sr-ld')==='1';sessionStorage.setItem('sr-ld','1')}catch(e){}
+    // repeat visit or capture route: no loader at all (removed before first paint)
+    if(seen||/^\/capture/.test(location.pathname)){b.remove();window.__ld=true;return}
+    h.classList.add('ld-on');window.__ld=false;
+    var rm=matchMedia('(prefers-reduced-motion: reduce)').matches;
+    b.classList.add('on');
+    // under 1 s in total: the drop runs the rail (~0.64 s), then the curtain lifts (0.36 s)
+    var SHOW=rm?240:620,OUT=rm?250:360;
+    setTimeout(function(){
+      b.classList.add('out');h.classList.remove('ld-on');window.__ld=true;dispatchEvent(new Event('wd:loaded'));
+      setTimeout(function(){b.classList.add('gone');b.remove()},OUT+20);
+    },SHOW);
+  })();
+  </script>
+  <div id="root"></div>
+  <div id="below"></div>
+  <script type="module" src="/src/main.tsx"></script>
+</body>
+</html>
