@@ -48,7 +48,7 @@ export function initBricks(host: HTMLElement, cv: HTMLCanvasElement, opts: Brick
 
   const cam = new THREE.PerspectiveCamera(34, 1, 0.1, 60);
   const look = new THREE.Vector3();
-  scene.add(new THREE.HemisphereLight('#d6dce2', '#2a251e', 0.36));
+  scene.add(new THREE.HemisphereLight('#d6dce2', '#2a251e', 0.55));
   const sun = new THREE.DirectionalLight('#ffe2bd', 4.1);
   sun.position.set(-6.5, 8.5, -3.2); sun.target.position.set(0.4, 0, -0.8);
   sun.castShadow = true;
@@ -86,7 +86,7 @@ export function initBricks(host: HTMLElement, cv: HTMLCanvasElement, opts: Brick
       if (x < X0 + BW / 2 - 0.001 || x > X0 + COLS * BW - BW / 2 + 0.001) continue;
       const edge = r < 2 || x < X0 + BW || x > X0 + (COLS - 1) * BW;
       const pick = edge ? BORDER : (rnd() < 0.14 ? REDS[Math.floor(rnd() * REDS.length)] : GREYS[Math.floor(rnd() * GREYS.length)]);
-      cols.push(new THREE.Color(pick).offsetHSL(0, 0, (rnd() - 0.5) * 0.04));
+      cols.push(new THREE.Color(pick).offsetHSL(0, 0, (rnd() - 0.5) * 0.04).multiplyScalar(edge ? 1.4 : 1.8)); // the slab texture is dark: lift the blocks so they read in daylight
       list.push({ i: list.length, x, z, ux: 0, uy: 1, uz: 0, rot: false, state: 0, t0: 0, dur: 0, h: 0, rx: 0, ry: 0, rz: 0, hit: false });
     }
   }
@@ -283,9 +283,9 @@ export function initBricks(host: HTMLElement, cv: HTMLCanvasElement, opts: Brick
     return out;
   }
 
-  // concrete: 600x600 pressed concrete paving slabs on a square grid, each one laid separately like the patio flags
+  // concrete: 780x780 concrete paving slabs (30% bigger than a 600 flag, so they read apart from the patio) on a square grid, each one laid separately like the patio flags
   function concretePieces() {
-    const C = 0.6, out: Piece[] = [], x0 = -14, z0 = -15, GX = 49, GZ = 34;
+    const C = 0.78, out: Piece[] = [], x0 = -14, z0 = -15, GX = 38, GZ = 27;
     const cols = ['#f2f1ec', '#e6e5df', '#dad9d2', '#ecebe4', '#d2d1ca'].map((c) => new THREE.Color(c));
     for (let y = 0; y < GZ; y++) for (let x = 0; x < GX; x++) {
       const px = x0 + (x + 0.5) * C, pz = z0 + (y + 0.5) * C;
@@ -321,7 +321,7 @@ export function initBricks(host: HTMLElement, cv: HTMLCanvasElement, opts: Brick
     const joint = conc ? 0.008 : 0.012;
     const cs = conc ? makeSurface('concrete', aniso, blendC, coarse, false) : null; // slabs: no saw-cut lines baked into the texture
     const map = cs ? cs.map : sMap.clone(), nor = cs ? cs.normal : sNor.clone();
-    for (const t of [map, nor]) { t.repeat.set(conc ? 0.6 : 0.35, conc ? 0.6 : 0.35); t.needsUpdate = true; }
+    for (const t of [map, nor]) { t.repeat.set(conc ? 0.78 : 0.35, conc ? 0.78 : 0.35); t.needsUpdate = true; }
     const pmat = new THREE.MeshStandardMaterial({ map, normalMap: nor, normalScale: new THREE.Vector2(conc ? 0.7 : 1.1, conc ? 0.7 : 1.1), roughness: conc ? 0.88 : 0.8, metalness: 0, envMapIntensity: 0.6 });
     pmat.onBeforeCompile = (sh) => { dropShader(0.5, 0.5)(sh); uvShift(sh); };
     const depth = new THREE.MeshDepthMaterial({ depthPacking: THREE.RGBADepthPacking });

@@ -71,9 +71,9 @@ export function Hero() {
         <img src={site.posters.d} alt="" className="h-full w-full object-cover" fetchPriority="high" decoding="async" />
       </picture>
       <canvas ref={canvas} className="absolute inset-0 -z-10 h-full w-full transition-opacity duration-700" style={{ opacity: live ? 1 : 0 }} aria-hidden="true" />
-      <div className="pointer-events-none absolute inset-0 -z-[5] hidden md:block" style={{ background: 'linear-gradient(180deg, rgba(16,18,21,.7) 0%, rgba(16,18,21,0) 22%, rgba(16,18,21,0) 40%, rgba(16,18,21,.55) 64%, rgba(16,18,21,.9) 100%)' }} />
-      <div className="pointer-events-none absolute inset-0 -z-[5] md:hidden" style={{ background: 'linear-gradient(180deg, rgba(16,18,21,.6) 0%, rgba(16,18,21,0) 11%, rgba(16,18,21,0) 32%, rgba(16,18,21,.72) 44%, rgba(16,18,21,.9) 58%, rgba(16,18,21,.96) 100%)' }} />
-      <div className="pointer-events-none absolute inset-0 -z-[5] hidden md:block" style={{ background: 'linear-gradient(90deg, rgba(16,18,21,.78) 0%, rgba(16,18,21,.35) 38%, rgba(16,18,21,0) 55%)' }} />
+      <div className="pointer-events-none absolute inset-0 -z-[5] hidden md:block" style={{ background: 'linear-gradient(180deg, rgba(16,18,21,.5) 0%, rgba(16,18,21,0) 18%, rgba(16,18,21,0) 48%, rgba(16,18,21,.4) 70%, rgba(16,18,21,.82) 100%)' }} />
+      <div className="pointer-events-none absolute inset-0 -z-[5] md:hidden" style={{ background: 'linear-gradient(180deg, rgba(16,18,21,.45) 0%, rgba(16,18,21,0) 11%, rgba(16,18,21,0) 34%, rgba(16,18,21,.72) 44%, rgba(16,18,21,.9) 58%, rgba(16,18,21,.96) 100%)' }} />
+      <div className="pointer-events-none absolute inset-0 -z-[5] hidden md:block" style={{ background: 'linear-gradient(90deg, rgba(16,18,21,.62) 0%, rgba(16,18,21,.25) 36%, rgba(16,18,21,0) 52%)' }} />
 
       <div className="pointer-events-none relative mx-auto flex h-full max-w-[1280px] flex-col justify-end px-5 pb-[max(44px,env(safe-area-inset-bottom))] pt-24 md:flex-row md:items-end md:justify-between md:gap-10 md:px-12 md:pb-24">
         <div className="md:max-w-[640px]">
