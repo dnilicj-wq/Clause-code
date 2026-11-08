@@ -204,6 +204,13 @@ export function initSlabs(host: HTMLElement, cv: HTMLCanvasElement, opts: SlabOp
   frame();
   const ro = new ResizeObserver(frame); ro.observe(host);
 
+  // the farthest ground the viewer can actually see (below the header fade): laying starts there, not off-screen
+  const zVis = () => {
+    const rc = new THREE.Raycaster(), hitP = new THREE.Vector3();
+    rc.setFromCamera(new THREE.Vector2(0, portrait ? 0.5 : 0.62), cam);
+    return rc.ray.intersectPlane(new THREE.Plane(new THREE.Vector3(0, 1, 0), 0), hitP) ? hitP.z : -99;
+  };
+
   // dropping
   let laid = 0, finished = false, first = false, finishing = false;
   const drop = (s: Slab, at: number) => {
@@ -217,7 +224,7 @@ export function initSlabs(host: HTMLElement, cv: HTMLCanvasElement, opts: SlabOp
     puff(s.x, s.z, now);
     opts.onCoverage?.(coverage());
     if (!finishing && coverage() >= FIN_AT) finish();
-    if (laid === total && !finished) { finished = true; api.finished = true; opts.onFinished?.(); if (top === slabGroup) settle(slabGroup); }
+    if (laid === total && !finished) { finished = true; api.finished = true; opts.onFinished?.(); if (top === slabGroup) settle(slabGroup); if (!prebuilt) { prebuilt = true; prebuild(); } }
   };
   const order = () => slabs.filter((s) => s.state === 0).sort((a, b) => a.z - b.z || a.x - b.x); // far rows first
   // lay in rows, far to near: each row sweeps left to right, the next row starts before the last one ends,
@@ -225,8 +232,9 @@ export function initSlabs(host: HTMLElement, cv: HTMLCanvasElement, opts: SlabOp
   const minX = Math.min(...slabs.map((s) => s.x)), spanX = Math.max(...slabs.map((s) => s.x)) - minX || 1;
   function sweep(list: Slab[], t: number, rowGap: number, across: number) {
     if (!list.length) return;
-    const r0 = Math.max(...list.map((s) => s.row));        // highest row index = farthest from camera
-    list.forEach((s) => drop(s, t + (r0 - s.row) * rowGap + ((s.x - minX) / spanX) * across));
+    const rv = Math.floor((Z0 - zVis()) / SD);               // rows beyond this are behind the header fade: lay them at once
+    const r0 = Math.min(rv, Math.max(...list.map((s) => s.row)));
+    list.forEach((s) => drop(s, t + Math.max(0, r0 - s.row) * rowGap + ((s.x - minX) / spanX) * across));
   }
   function finish() {
     if (finishing) return;
@@ -263,7 +271,6 @@ export function initSlabs(host: HTMLElement, cv: HTMLCanvasElement, opts: SlabOp
   const LIFT = 0.035, PT = 0.03;
   const uTime = { value: 0 };
   type Layer = { group: THREE.Group; start: number; end: number; dispose: () => void; tick?: (t: number) => void };
-  const layers = new Map<SurfaceKind, Layer>();
   const aniso = Math.min(8, renderer.capabilities.getMaxAnisotropy());
   let kind: SurfaceKind = 'porcelain';
   let top: THREE.Group = slabGroup;                  // what is on show (or going down)
@@ -332,19 +339,28 @@ export function initSlabs(host: HTMLElement, cv: HTMLCanvasElement, opts: SlabOp
     return out;
   }
 
-  // bed under the pieces: revealed just ahead of the laying front, so joints never show the old surface
-  function bed(color: string, start: number, zFar: number) {
-    const clip = new THREE.Plane(new THREE.Vector3(0, 0, -1), zFar);
-    const m = new THREE.Mesh(new THREE.PlaneGeometry(30, 22), new THREE.MeshStandardMaterial({ color, roughness: 1, normalMap: gNor, normalScale: new THREE.Vector2(0.5, 0.5), clippingPlanes: [clip] }));
+  // bed under the pieces: a dark sand/mortar layer revealed exactly where pieces have just landed (the clip plane is
+  // tilted to match the laying order: depth first, then left to right), so joints never show the old surface
+  function bed(color: string) {
+    const clip = new THREE.Plane(new THREE.Vector3(0, 0, -1), -99);
+    const m = new THREE.Mesh(new THREE.PlaneGeometry(30, 22), new THREE.MeshStandardMaterial({ color, roughness: 1, clippingPlanes: [clip] }));
     m.rotation.x = -Math.PI / 2; m.position.set(0.6, 0.001, -4); m.receiveShadow = true;
-    return { m, tick: (t: number) => { clip.constant = zFar - 0.4 + Math.max(0, t - start + 0.25) / KZ; } };
+    const at = (t: number, start: number, zFar: number, x0: number, a: number) => {
+      const L = Math.hypot(a, KZ);
+      clip.normal.set(-a / L, 0, -KZ / L);
+      clip.constant = (t - start - 0.42 + KZ * zFar + a * x0) / L;
+    };
+    return { m, at };
   }
 
-  function pieceLayer(k: 'block' | 'stone', start: number): Layer {
-    const g = new THREE.Group();
+  // Each surface is built once (in idle time after the first lay, or on first tap) and then re-used:
+  // laying it again only rewrites the per-piece start times.
+  type Built = Layer & { reset: (start: number) => void };
+  const built = new Map<SurfaceKind, Built>();
+  function pieceLayer(k: 'block' | 'stone'): Built {
+    const g = new THREE.Group(); g.visible = false;
     const P = k === 'block' ? blockPieces() : stonePieces();
-    const zFar = Math.min(...P.map((p) => p.z)), xs = P.map((p) => p.x), x0 = Math.min(...xs), sx = Math.max(...xs) - x0 || 1;
-    const t0 = (p: Piece) => start + (p.z - zFar) * KZ + ((p.x - x0) / sx) * ACROSS + rnd() * 0.04;
+    const zFar = Math.min(...P.map((p) => p.z)), xs = P.map((p) => p.x), x0 = Math.min(...xs), sx = Math.max(...xs) - x0 || 1, a = ACROSS / sx;
     const joint = k === 'block' ? 0.006 : 0.012;
     const map = sMap.clone(), nor = sNor.clone();
     for (const t of [map, nor]) { t.repeat.set(k === 'block' ? 0.12 : 0.35, k === 'block' ? 0.12 : 0.35); t.needsUpdate = true; }
@@ -352,42 +368,59 @@ export function initSlabs(host: HTMLElement, cv: HTMLCanvasElement, opts: SlabOp
     mat.onBeforeCompile = (sh) => { dropShader(0.5, k === 'block' ? 0.4 : 0.5)(sh); uvShift(sh); };
     const depth = new THREE.MeshDepthMaterial({ depthPacking: THREE.RGBADepthPacking });
     depth.onBeforeCompile = dropShader(0.5, k === 'block' ? 0.4 : 0.5);
-    // one instanced mesh per piece size (rounded edges stay true to size)
     const bySize = new Map<string, Piece[]>();
     for (const p of P) { const key = `${p.w.toFixed(2)}x${p.d.toFixed(2)}`; (bySize.get(key) ?? bySize.set(key, []).get(key)!).push(p); }
     const geos: THREE.BufferGeometry[] = [];
-    let end = 0;
+    const slots: { attr: THREE.InstancedBufferAttribute; pz: Float32Array; px: Float32Array; jit: Float32Array }[] = [];
+    let zStart = zFar;
     const M = new THREE.Matrix4(), Q = new THREE.Quaternion(), V = new THREE.Vector3(), S = new THREE.Vector3(1, 1, 1), Y = new THREE.Vector3(0, 1, 0);
     for (const list of bySize.values()) {
       const { w, d } = list[0];
       const geo = k === 'block' && coarse ? new THREE.BoxGeometry(w - joint, PT, d - joint) : new RoundedBoxGeometry(w - joint, PT, d - joint, 1, k === 'block' ? 0.007 : 0.01);
       geo.translate(0, PT / 2, 0);
-      const aT0 = new Float32Array(list.length), aSeed = new Float32Array(list.length);
+      const pz = new Float32Array(list.length), px = new Float32Array(list.length), jit = new Float32Array(list.length), aT0 = new Float32Array(list.length).fill(1e9), aSeed = new Float32Array(list.length);
       const im = new THREE.InstancedMesh(geo, mat, list.length);
       list.forEach((p, i) => {
         M.compose(V.set(p.x, 0, p.z), Q.setFromAxisAngle(Y, p.ry), S); im.setMatrixAt(i, M);
         im.setColorAt(i, p.c.clone().multiplyScalar((k === 'block' ? 1.85 : 1.7) * (0.9 + rnd() * 0.2)));
-        aT0[i] = t0(p); aSeed[i] = rnd(); end = Math.max(end, aT0[i] + 0.6);
+        pz[i] = p.z; px[i] = p.x; jit[i] = rnd() * 0.04; aSeed[i] = rnd();
       });
-      geo.setAttribute('aT0', new THREE.InstancedBufferAttribute(aT0, 1));
+      const attr = new THREE.InstancedBufferAttribute(aT0, 1); attr.setUsage(THREE.DynamicDrawUsage);
+      geo.setAttribute('aT0', attr);
       geo.setAttribute('aSeed', new THREE.InstancedBufferAttribute(aSeed, 1));
       im.castShadow = true; im.receiveShadow = true; im.customDepthMaterial = depth; im.frustumCulled = false;
-      g.add(im); geos.push(geo);
+      g.add(im); geos.push(geo); slots.push({ attr, pz, px, jit });
     }
-    const b = bed(k === 'block' ? '#6e6456' : '#5f594f', start, zFar);
+    const b = bed(k === 'block' ? '#3f3a33' : '#433e37');
     g.add(b.m);
     scene.add(g);
-    return { group: g, start, end, tick: b.tick, dispose: () => { scene.remove(g); geos.forEach((x) => x.dispose()); mat.dispose(); depth.dispose(); map.dispose(); nor.dispose(); b.m.geometry.dispose(); (b.m.material as THREE.Material).dispose(); } };
+    const L: Built = {
+      group: g, start: 1e9, end: 1e9,
+      reset(start) {
+        zStart = Math.max(zFar, zVis() - 0.6);
+        let span = 0;
+        for (const s of slots) {
+          const arr = s.attr.array as Float32Array;
+          for (let i = 0; i < arr.length; i++) { const d = Math.max(0, s.pz[i] - zStart) * KZ + (s.px[i] - x0) * a + s.jit[i]; arr[i] = start + d; if (d > span) span = d; }
+          s.attr.needsUpdate = true;
+        }
+        L.start = start; L.end = start + span + 0.6;
+      },
+      tick: (t) => b.at(t, L.start, zStart, x0, a),
+      dispose: () => { scene.remove(g); geos.forEach((x) => x.dispose()); mat.dispose(); depth.dispose(); map.dispose(); nor.dispose(); b.m.geometry.dispose(); (b.m.material as THREE.Material).dispose(); },
+    };
+    return L;
   }
 
   // resin: poured from the back. The front is uneven and wet (darker, glossy) and dries behind itself.
-  function resinLayer(start: number): Layer {
-    const g = new THREE.Group();
-    const sf = makeSurface('resin', aniso, blendC);
+  function resinLayer(): Built {
+    const g = new THREE.Group(); g.visible = false;
+    let sf = makeSurface('resin', aniso, blendC, coarse);
     const PW = 30, PD = 22;
-    for (const t of [sf.map, sf.normal]) t.repeat.set(PW / sf.tile, PD / sf.tile);
-    const zFar = -15, zNear = 5, dur = (zNear - zFar) * KZ * 0.85;
-    const uFront = { value: zFar - 2 };
+    const rep = () => { for (const t of [sf.map, sf.normal]) t.repeat.set(PW / sf.tile, PD / sf.tile); };
+    rep();
+    const zNear = 5; let zFar = -15, dur = (zNear - zFar) * KZ * 0.85;
+    const uFront = { value: -99 };
     const mat = new THREE.MeshPhysicalMaterial({ map: sf.map, normalMap: sf.normal, color: sf.tint, roughness: sf.rough, metalness: 0, clearcoat: sf.clear, clearcoatRoughness: 0.3, envMapIntensity: 0.75 });
     mat.onBeforeCompile = (sh) => {
       sh.uniforms.uFront = uFront;
@@ -409,23 +442,44 @@ export function initSlabs(host: HTMLElement, cv: HTMLCanvasElement, opts: SlabOp
     const m = new THREE.Mesh(new THREE.PlaneGeometry(PW, PD), mat);
     m.rotation.x = -Math.PI / 2; m.position.set(0.6, 0.006, -4); m.receiveShadow = true;
     g.add(m); scene.add(g);
-    const tick = (t: number) => { const k = Math.max(0, Math.min(1, (t - start) / dur)); uFront.value = zFar - 1 + (zNear - zFar + 3) * (k < 0.5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2); };
-    return { group: g, start, end: start + dur + 0.2, tick, dispose: () => { scene.remove(g); m.geometry.dispose(); mat.dispose(); sf.map.dispose(); sf.normal.dispose(); } };
+    const L: Built = {
+      group: g, start: 1e9, end: 1e9,
+      reset(start) { zFar = Math.max(-15, zVis() - 1); dur = (zNear - zFar) * KZ * 0.85; L.start = start; L.end = start + dur + 0.2; uFront.value = -99; },
+      tick: (t) => { const k = Math.max(0, Math.min(1, (t - L.start) / dur)); uFront.value = t < L.start ? -99 : zFar - 1.5 + (zNear - zFar + 3.5) * (k < 0.5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2); },
+      dispose: () => { scene.remove(g); m.geometry.dispose(); mat.dispose(); sf.map.dispose(); sf.normal.dispose(); },
+    };
+    // a new blend repaints the stone in place
+    (L as any).recolour = () => { const old = sf; sf = makeSurface('resin', aniso, blendC, coarse); rep(); mat.map = sf.map; mat.normalMap = sf.normal; mat.needsUpdate = true; old.map.dispose(); old.normal.dispose(); };
+    return L;
+  }
+  const build = (k: Exclude<SurfaceKind, 'porcelain'>) => {
+    let L = built.get(k);
+    if (!L) { L = k === 'resin' ? resinLayer() : pieceLayer(k); built.set(k, L); warm.push(L.group); }
+    return L;
+  };
+  // first frame of a new material compiles its shaders; do that while nobody is watching (all pieces collapsed)
+  const warm: THREE.Group[] = [];
+  let warming: THREE.Group[] = [];
+  function prebuild() {
+    const todo: Exclude<SurfaceKind, 'porcelain'>[] = ['block', 'stone', 'resin'];
+    const idle = (f: () => void) => ((window as any).requestIdleCallback ? (window as any).requestIdleCallback(f, { timeout: 1500 }) : setTimeout(f, 120));
+    const next = () => { if (dead) return; const k = todo.shift(); if (!k) return; if (!built.has(k)) build(k); idle(next); };
+    idle(next);
   }
 
   // hide everything but the finished surface, then ease it down to ground level
   function settle(g: THREE.Group) {
     if (g !== slabGroup) slabGroup.visible = false;
-    layers.forEach((L) => { if (L.group !== g) { L.dispose(); } });
-    for (const [k, L] of [...layers]) if (L.group !== g) layers.delete(k);
+    built.forEach((L) => { if (L.group !== g) L.group.visible = false; });
     lowering = { g, t0: now(), y0: g.position.y };
   }
+  let prebuilt = false;
   function surface(k: SurfaceKind, force = false) {
     if (k === kind && !force) return;
+    if (force && k === 'resin') { (built.get('resin') as any)?.recolour?.(); return; }
     kind = k; frozen = false;
-    const y = top.position.y + LIFT, t = now() + 0.05;
-    lowering = null;
-    if (active) { active = null; }
+    const y = top.position.y + LIFT, t = now() + 0.03;
+    lowering = null; active = null;
     if (k === 'porcelain') {
       slabGroup.visible = true; slabGroup.position.y = y; top = slabGroup;
       slabs.forEach((s) => { s.state = 0; s.hit = false; s.m.visible = false; });
@@ -433,19 +487,22 @@ export function initSlabs(host: HTMLElement, cv: HTMLCanvasElement, opts: SlabOp
       sweep(order(), t, 0.1, 0.3);
       return;
     }
-    const old = layers.get(k); if (old) { layers.delete(k); layers.set(`${k}-old` as SurfaceKind, old); }   // stays under the re-pour
-    const L = k === 'resin' ? resinLayer(t) : pieceLayer(k, t);
-    L.group.position.y = y; layers.set(k, L); top = L.group; active = L;
+    const L = build(k);
+    L.reset(t); L.group.position.y = y; L.group.visible = true;
+    top = L.group; active = L;
   }
   function stepLayers(t: number) {
     uTime.value = t;
-    layers.forEach((L) => L.tick?.(t));
+    built.forEach((L) => { if (L.group.visible) L.tick?.(t); });
     if (active && t > active.end) { const g = active.group; active = null; settle(g); }
     if (lowering) {
       const k = Math.min(1, (t - lowering.t0) / 0.6);
       lowering.g.position.y = lowering.y0 * (1 - k * k * (3 - 2 * k));
       if (k >= 1) lowering = null;
     }
+    // shader warm-up: show freshly built (collapsed) surfaces for one frame so their programs compile now, not on tap
+    warming.forEach((g) => { if (g !== top) g.visible = false; }); warming = [];
+    while (warm.length) { const g = warm.pop()!; if (!g.visible) { g.visible = true; warming.push(g); } }
   }
 
   // pointer: drag across the ground to drop the slabs under it
@@ -530,11 +587,12 @@ export function initSlabs(host: HTMLElement, cv: HTMLCanvasElement, opts: SlabOp
     set: (b: { c1: string; c2: string; c3: string }) => {
       if (b.c1 === blendC.c1 && b.c2 === blendC.c2 && b.c3 === blendC.c3) return;
       blendC = { c1: b.c1, c2: b.c2, c3: b.c3 };
-      if (kind === 'resin') surface('resin', true);
+      (built.get('resin') as any)?.recolour?.();
     },
     light: (_x: number, _y: number) => {},
     destroy() {
       dead = true; cancelAnimationFrame(raf); ro.disconnect(); io.disconnect();
+      built.forEach((L) => L.dispose());
       host.removeEventListener('pointermove', onPtr); host.removeEventListener('pointerdown', onPtr);
       cv.removeEventListener('webglcontextlost', lost);
       scene.traverse((o) => { const m = o as THREE.Mesh; m.geometry?.dispose?.(); const mm = m.material as THREE.Material | THREE.Material[] | undefined; (Array.isArray(mm) ? mm : mm ? [mm] : []).forEach((x) => x.dispose()); });

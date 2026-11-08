@@ -27,12 +27,12 @@ const tex = (c: HTMLCanvasElement, srgb: boolean, aniso: number) => {
 };
 
 // resin-bound aggregate: 2–6 mm stones in clear resin, colours from the chosen blend. Tile = 0.5 m.
-function resin(aniso: number, b: { c1: string; c2: string; c3: string }): Maps {
-  const N = 1024, M = 0.5, px = N / M;
+function resin(aniso: number, b: { c1: string; c2: string; c3: string }, small: boolean): Maps {
+  const N = small ? 512 : 1024, M = 0.5, px = N / M;
   const [c, g] = mk(N), [h, hg] = mk(N);
   g.fillStyle = '#2a241d'; g.fillRect(0, 0, N, N); hg.fillStyle = '#000'; hg.fillRect(0, 0, N, N);
   const cols = [b.c1, b.c1, b.c2, b.c2, b.c3];
-  for (let i = 0; i < 26000; i++) {
+  for (let i = 0, n = small ? 6500 : 26000; i < n; i++) {
     const r = (0.0022 + rnd() * 0.0032) * px, x = rnd() * N, y = rnd() * N, rot = rnd() * Math.PI, e = 0.6 + rnd() * 0.4;
     const col = cols[Math.floor(rnd() * cols.length)];
     for (const [dx, dy] of [[0, 0], [N, 0], [-N, 0], [0, N], [0, -N]]) {
@@ -48,7 +48,7 @@ function resin(aniso: number, b: { c1: string; c2: string; c3: string }): Maps {
   return { map: tex(c, true, aniso), normal: tex(normalFrom(h, 2.4), false, aniso), tile: M, rough: 0.5, clear: 0.45, tint: '#a39a8c' };
 }
 
-export function makeSurface(_kind: 'resin', aniso: number, blend: { c1: string; c2: string; c3: string }) {
+export function makeSurface(_kind: 'resin', aniso: number, blend: { c1: string; c2: string; c3: string }, small = false) {
   seed = 23;
-  return resin(aniso, blend);
+  return resin(aniso, blend, small);
 }
