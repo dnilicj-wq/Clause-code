@@ -76,7 +76,7 @@ html.lenis, html.lenis body{ height:auto; }
   padding:6px 8px; border-radius:999px; background:rgba(0,0,0,.55); color:#fff; backdrop-filter:blur(6px); }
 
 /* Magic UI keyframes (from magicui globals.css) */
-@theme {
+@theme inline {
   --animate-marquee: marquee var(--duration) infinite linear;
   --animate-marquee-vertical: marquee-vertical var(--duration) linear infinite;
   @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(calc(-100% - var(--gap))); } }

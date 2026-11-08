@@ -91,8 +91,8 @@ export function Design() {
               <p className="mt-2 text-[12px]" style={{ color: 'var(--muted)' }}>Example blends to show the idea. On the visit, Matt talks you through design options to suit your taste and budget.</p>
             </Step>}
 
-            <div className="mt-5 rounded-2xl p-4" style={{ background: 'rgba(201,169,97,.07)', border: '1px solid rgba(201,169,97,.22)' }}>
-              <div className="font-display text-[clamp(34px,10vw,48px)] font-semibold leading-none tracking-tight">
+            <div className="mt-5 rounded-2xl p-4 [container-type:inline-size]" style={{ background: 'rgba(201,169,97,.07)', border: '1px solid rgba(201,169,97,.22)' }}>
+              <div data-price className="whitespace-nowrap font-display text-[min(48px,11.5cqi)] font-semibold leading-none tracking-tight">
                 £<Ticker value={q.low} />
                 <span style={{ color: 'var(--muted)' }}> – </span>
                 £<Ticker value={q.high} />
