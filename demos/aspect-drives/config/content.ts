@@ -23,7 +23,7 @@ export const process = [
   { title: 'Get in touch', text: 'Call, WhatsApp or send your design from this page.' },
   { title: 'A visit and a free estimate', text: 'Gerald comes out, talks through ideas, colours and what suits your home, and prices it. Free estimates.' },
   { title: 'Kept in the loop', text: 'Reviewers say they were told who would be on site, how long each stage would take and what came next.' },
-  { title: 'Laid and finished', text: 'Fully insured work, with a 10-year guarantee.' },
+  { title: 'Laid and finished', text: 'In his own words: “All our work is guaranteed for many years.”' },
 ];
 
 // General facts about resin-bound surfaces (not claims about this business).
@@ -35,8 +35,7 @@ export const whyResin = [
 
 // From his own Checkatrade profile (description, skills, company info), plus one about this page's prices.
 export const faq = [
-  { q: 'Are you insured?', a: 'Yes. In his words on Checkatrade: “We offer fully insured services with a 10-year guarantee, ensuring peace of mind.”' },
-  { q: 'Is there a guarantee?', a: 'A 10-year guarantee, as stated on his Checkatrade profile. Ask Gerald for the terms for your job.' },
+  { q: 'Is there a guarantee?', a: 'Yes. In his own words: “All our work is guaranteed for many years.” Ask Gerald for the terms for your job.' },
   { q: 'Is the estimate free?', a: 'Yes. Free estimates, for domestic and commercial work.' },
   { q: 'What do you lay?', a: 'Block paving, resin bound and bonded driveways, patios and paving, concrete and polished concrete, gravel and shingle drives and permeable paving. Driveway repairs, cleaning and sealing, and design too.' },
   { q: 'Is the price on this page my quote?', a: 'No. It is an example range to help you plan. Gerald gives you the real price in a free estimate.' },

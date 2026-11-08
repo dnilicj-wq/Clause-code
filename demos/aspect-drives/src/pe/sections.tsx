@@ -9,7 +9,7 @@ import { useQuote, waLink } from './quote';
 
 const tel = (p: string) => `tel:${p.replace(/\s/g, '')}`;
 
-// Big proof band: the Google rating and the Checkatrade score, then his review quotes rolling past.
+// Big proof band: the Google rating and Checkatrade membership, then his review quotes rolling past.
 export function Proof() {
   const { site } = useSite();
   return (
@@ -30,8 +30,7 @@ export function Proof() {
           </span>
         </a>
         <a href={site.socials.checkatrade} target="_blank" rel="noreferrer" className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 border-t pt-5 md:mt-8 md:pt-6" style={{ borderColor: 'var(--line)' }}>
-          <span className="font-display text-[44px] font-semibold leading-none tracking-[-.03em] md:text-[56px]">{site.checkatrade.score}<span className="text-[22px] md:text-[26px]" style={{ color: 'var(--muted)' }}>/10</span></span>
-          <span className="text-[15px] leading-snug md:text-[17px]"><b className="font-semibold">on Checkatrade</b><br /><span style={{ color: 'var(--muted)' }}>{`from ${site.checkatrade.reviews} reviews · member since ${site.checkatrade.since}`}</span></span>
+          <span className="text-[17px] leading-snug md:text-[20px]"><b className="font-semibold">Checkatrade member</b><br /><span className="text-[15px] md:text-[16px]" style={{ color: 'var(--muted)' }}>Read his reviews on Checkatrade</span></span>
           <span className="ml-auto hidden text-[14px] md:inline" style={{ color: 'var(--muted)' }}>See his profile ↗</span>
         </a>
       </div>
@@ -243,8 +242,8 @@ export function GuaranteeAreas() {
   const [town, setTown] = useState(site.areas[0]);
   const home = xy(TOWNS.Grays);
   const trust = [
-    ['10-year guarantee', 'In his words on Checkatrade: fully insured, with a 10-year guarantee. Ask Gerald for the terms.'],
-    ['Checkatrade vetted', `Member since ${site.checkatrade.since}, ${site.checkatrade.score}/10 from ${site.checkatrade.reviews} reviews.`],
+    ['Guaranteed for many years', 'In his own words: “All our work is guaranteed for many years.” Ask Gerald for the terms.'],
+    ['Checkatrade member', 'His profile and reviews are on Checkatrade.'],
     ['Free estimates', 'Domestic and commercial. Ideas and colours talked through on the visit.'],
   ];
   return (

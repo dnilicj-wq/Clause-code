@@ -5,12 +5,11 @@ export function CutReveal({ text, delay = 0, className = '' }: { text: string; d
   return (
     <span className={className} aria-label={text}>
       {text.split(' ').map((w, wi, arr) => (
-        <span key={wi} aria-hidden className="inline-block whitespace-nowrap">
+        <span key={wi} aria-hidden className="inline-block whitespace-nowrap" style={wi < arr.length - 1 ? { marginRight: '.27em' } : undefined}>
           {[...w].map((c, ci) => {
             const n = arr.slice(0, wi).join('').length + ci;
             return <span key={ci} className="inline-block overflow-hidden align-bottom"><span className="pe-cut inline-block" style={{ animationDelay: `${delay + n * 0.018}s` }}>{c}</span></span>;
           })}
-          {wi < arr.length - 1 && ' '}
         </span>
       ))}
     </span>

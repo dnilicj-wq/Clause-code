@@ -40,8 +40,7 @@ export const site = {
   areas: ['Grays', 'Basildon', 'Stanford-le-Hope', 'Thurrock'],
   socials: { facebook: '', instagram: '', google: 'https://www.google.com/maps/place/Aspect+Drives+%26+Patios+By+Design+LTD/data=!4m7!3m6!1s0x47d8b78ff7fe72a5:0x3a1e02d9f1679e1e', checkatrade: 'https://www.checkatrade.com/trades/aspectdrivesandpatiosbydesign' },
   proof: { rating: 4.9, reviewCount: 102, yearsTrading: 0, floorsDone: 0 },
-  checkatrade: { score: 9.88, reviews: 128, since: 'March 2022' },
-  guarantee: { title: '10-year guarantee', text: 'Fully insured, with a 10-year guarantee, in his own words on Checkatrade.' },
+  guarantee: { title: 'Guaranteed for many years', text: 'In his own words: “All our work is guaranteed for many years.”' },
   // Word for word. Google: the 3 reviews shown on his Maps listing; Checkatrade: the 6 newest on his profile (checked 8 Nov 2026).
   reviews: [
     { name: 'Rachel M.', source: 'Google', rating: 5, url: GMAPS, job: 'Block paving', date: 'a month ago',

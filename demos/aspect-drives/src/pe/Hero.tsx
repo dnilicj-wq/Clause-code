@@ -82,15 +82,15 @@ export function Hero() {
             className="pointer-events-auto mb-4 inline-flex items-center gap-2 rounded-full py-1.5 pl-2.5 pr-3.5 text-[13px] font-medium"
             style={{ background: 'rgba(10,18,38,.62)', border: '1px solid rgba(255,255,255,.12)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }}>
             <Stars size={13} /> <span>{site.proof.rating.toFixed(1)}</span>
-            <span style={{ color: 'var(--muted)' }}>{`· ${site.proof.reviewCount} Google · ${site.checkatrade.score}/10 Checkatrade`}</span>
+            <span style={{ color: 'var(--muted)' }}>{`from ${site.proof.reviewCount} Google reviews · Checkatrade member`}</span>
           </a>
-          <h1 className="font-display text-[clamp(44px,8vw,112px)] font-semibold leading-[.9] tracking-[-.035em]">
+          <h1 className="font-display text-[clamp(44px,8vw,112px)] font-semibold leading-[.98] tracking-[-.03em]">
             {['Your drive,', 'by design.'].map((l, i) => (
               <span key={i} className="block"><CutReveal text={l} delay={0.12 + i * 0.16} className={i === 1 ? 'serif font-normal' : ''} /></span>
             ))}
           </h1>
           <p className="mt-4 max-w-[44ch] text-[15px] leading-relaxed md:mt-5 md:text-[18px]" style={{ color: 'color-mix(in srgb, var(--ink) 84%, transparent)' }}>
-            {`Block paving, resin driveways and patios from ${site.town}, across ${site.areaLine}. Fully insured, 10-year guarantee.`}
+            {`Block paving, resin driveways and patios from ${site.town}, across ${site.areaLine}. All work guaranteed for many years.`}
           </p>
           {!coarse && live && lay && (
             <div className="pointer-events-auto mt-6 hidden items-center gap-3 md:flex" data-nopour>

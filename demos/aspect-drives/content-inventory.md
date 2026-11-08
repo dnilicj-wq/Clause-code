@@ -7,7 +7,7 @@ Sources (all checked live 8 Nov 2026):
 - GMAPS = https://www.google.com/maps/place/Aspect+Drives+%26+Patios+By+Design+LTD/data=!4m7!3m6!1s0x47d8b78ff7fe72a5:0x3a1e02d9f1679e1e (listing, rating, 3 reviews shown in the limited view)
 - CH = Companies House, ASPECT DRIVES & PATIOS BY DESIGN LTD, 13338713
 - BRIEF = Dan's /new-lead brief, 8 Nov 2026
-- SITE = https://aspectdrivesandpatios.co.uk did NOT load (curl: no connection; Playwright: timeout). Nothing on the page comes from it.
+- SITE = https://www.aspectdrivesandpatios.co.uk (www only; bad SSL cert) loads. Homepage: "All our work is guaranteed for many years"; no insurance claim on any page (checked 8 Nov 2026), so "Fully insured" removed. Checkatrade score removed (changes); shown as "Checkatrade member".
 
 ## Facts
 - Name "Aspect Drives & Patios By Design Ltd" | CAT, GMAPS, CH
