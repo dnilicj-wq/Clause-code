@@ -40,8 +40,8 @@ export function useQuote() { const c = useContext(C); if (!c) throw new Error('Q
 
 export function sizeLabel(q: Q) { const s = sizes.find((x) => x.key === q.sizeKey); return s ? `${s.label} size (about ${q.m2} m²)` : `${q.m2} m²`; }
 
-export function waLink(q: Q, who: { name?: string; postcode?: string; phone?: string } = {}) {
-  const lines = [
+export function waLink(q: Q, who: { name?: string; postcode?: string; phone?: string } = {}, surfaceOnly = false) {
+  const lines = surfaceOnly ? [`Hi ${site.owner.first}, I'm interested in ${q.type.name} from your website.`] : [
     `Hi ${site.owner.first}, I priced ${q.type.name} on your website:`,
     `• ${sizeLabel(q)}`,
     `• Now: ${q.surface.label.toLowerCase()}`,

@@ -3,9 +3,10 @@ import { initDrive, type DriveApi } from '@/components/signature/drive-pour/driv
 import type { SlabApi } from '@/components/signature/slab-drop/slabs';
 import { whenReadyForGL, isCoarse, glMode, softwareRenderer } from '@/src/lib/gl';
 import { useSite } from '@/src/lib/ctx';
-import { CutReveal, Ticker } from './lite';
-import { sizes, surfaces, types } from '@/config/driveway';
-import { useQuote, waLink, EXAMPLE_LABEL } from './quote';
+import { CutReveal } from './lite';
+import { types } from '@/config/driveway';
+import { swatch } from '@/config/swatches';
+import { useQuote, waLink } from './quote';
 import { Stars } from './lite';
 
 // Signature moment: drag to pour resin-bound stone over a cracked, weedy tarmac drive.
@@ -97,7 +98,7 @@ export function Hero() {
               <span key={i} className="block"><CutReveal text={l} delay={0.12 + i * 0.16} className={i === 1 ? 'serif font-normal' : ''} /></span>
             ))}
           </h1>
-          <p className="mt-4 max-w-[44ch] [@media(max-height:700px)_and_(max-width:699px)]:hidden text-[15px] leading-relaxed md:mt-5 md:text-[18px]" style={{ color: 'color-mix(in srgb, var(--ink) 84%, transparent)' }}>
+          <p className="mt-4 max-w-[44ch] [@media(max-height:600px)]:hidden text-[15px] leading-relaxed md:mt-5 md:text-[18px]" style={{ color: 'color-mix(in srgb, var(--ink) 84%, transparent)' }}>
             {`Resin driveways, driveways and patios from a family-run team in ${site.town}, working across ${site.areaLine}.`}
           </p>
           {!coarse && live && lay && (
@@ -128,17 +129,15 @@ export function Hero() {
   );
 }
 
-const swatchTone: Record<string, string> = { porcelain: '#8a8f94', resin: '#a7803f', block: '#7a4a38', stone: '#a08f72' };
-
 // Surface type: what goes down. Swatches are stills of the hero's own renders.
 function TypePick() {
   const q = useQuote();
-  // swatches load after the page has, so they never compete with the first paint
-  const [img, setImg] = useState(false);
-  useEffect(() => { const f = () => setTimeout(() => setImg(true), 0); if (document.readyState === 'complete') f(); else addEventListener('load', f, { once: true }); }, []);
   return (
-    <div className="mt-3">
-      <div className="mb-1.5 text-[11px] uppercase tracking-[.12em]" style={{ color: 'var(--muted)' }}>{'New surface · '}<span style={{ color: 'var(--ink)' }}>{q.type.label}</span></div>
+    <div>
+      <div className="mb-2.5 flex items-baseline justify-between gap-2">
+        <p className="text-[11px] font-medium uppercase tracking-[.14em]" style={{ color: 'var(--accent2)' }}>Choose your surface</p>
+        <p className="text-[12px] font-medium">{q.type.label}</p>
+      </div>
       <div className="grid grid-cols-4 gap-1.5" role="radiogroup" aria-label="New surface">
         {types.map((t) => {
           const on = q.type.key === t.key;
@@ -146,7 +145,7 @@ function TypePick() {
             <button key={t.key} role="radio" aria-checked={on} aria-label={t.label} onClick={() => q.setType(t.key)}
               className="flex flex-col items-center gap-1 rounded-xl px-1 pb-1 pt-1 md:pb-1.5 md:pt-1.5 text-[11.5px] font-medium leading-tight transition-colors md:text-[12px]"
               style={on ? { background: 'rgba(201,169,97,.18)', border: '1px solid var(--accent)' } : { background: 'rgba(255,255,255,.04)', border: '1px solid var(--line)' }}>
-              <span className="block h-5 w-full rounded-md bg-cover bg-center md:h-8" style={{ backgroundImage: img ? `url(/types/${t.key}-160-v1.webp)` : undefined, background: img ? undefined : swatchTone[t.key] }} aria-hidden />
+              <span className="block h-5 w-full rounded-md bg-cover bg-center md:h-8" style={{ backgroundImage: `url(${swatch[t.key]})` }} aria-hidden />
               <span className="md:hidden">{t.short}</span><span className="hidden md:inline">{t.label}</span>
             </button>
           );
@@ -166,41 +165,10 @@ function HeroQuote() {
   return (
     <div data-nopour className="pointer-events-auto mt-5 w-full rounded-[22px] p-3.5 md:mt-0 md:w-[400px] md:shrink-0 md:p-5"
       style={{ background: 'rgba(16,16,16,.74)', border: '1px solid rgba(240,225,190,.14)', backdropFilter: 'blur(18px) saturate(140%)', WebkitBackdropFilter: 'blur(18px) saturate(140%)', boxShadow: '0 30px 60px -30px rgba(0,0,0,.8)' }}>
-      <div className="flex items-center justify-between">
-        <p className="text-[11px] font-medium uppercase tracking-[.14em]" style={{ color: 'var(--accent2)' }}>Instant price</p>
-        <p className="hidden text-[11px] md:block" style={{ color: 'var(--muted)' }}>No phone number needed to see it</p>
-      </div>
-      <div className="mt-2.5 grid grid-cols-3 gap-1.5" role="radiogroup" aria-label="Driveway size">
-        {sizes.map((s) => (
-          <button key={s.key} role="radio" aria-checked={q.sizeKey === s.key} onClick={() => q.setSize(s.key)}
-            className="h-10 rounded-xl text-[14px] font-medium transition-colors"
-            style={q.sizeKey === s.key ? { background: 'var(--accent)', color: 'var(--accent-ink)' } : { background: 'rgba(255,255,255,.06)', border: '1px solid var(--line)' }}>
-            {s.label}
-          </button>
-        ))}
-      </div>
-      <div className="mt-3 hidden md:block">
-        <div className="mb-1.5 text-[11px] uppercase tracking-[.12em]" style={{ color: 'var(--muted)' }}>What's there now</div>
-        <div className="grid grid-cols-4 gap-1.5">
-          {surfaces.map((s) => (
-            <button key={s.key} onClick={() => q.setSurface(s.key)} className="h-9 rounded-lg px-1 text-[12px] font-medium leading-tight"
-              style={q.surface.key === s.key ? { background: 'rgba(201,169,97,.18)', border: '1px solid var(--accent)' } : { background: 'rgba(255,255,255,.04)', border: '1px solid var(--line)' }}>
-              {s.label.replace(' or soil', '')}
-            </button>
-          ))}
-        </div>
-      </div>
       <TypePick />
-      <div className="mt-3 flex items-end justify-between gap-3">
-        <div className="font-display text-[30px] font-semibold leading-none tracking-tight md:text-[38px]">
-          £<Ticker value={q.low} />
-          <span style={{ color: 'var(--muted)' }}>–</span>£<Ticker value={q.high} />
-        </div>
-      </div>
-      <p className="mt-1.5 text-[11.5px] leading-snug" style={{ color: 'var(--muted)' }}>{EXAMPLE_LABEL}</p>
 
       {/* phones: go on to the full designer */}
-      <a href="#design" className="mt-3 flex h-12 items-center justify-center rounded-full text-[15px] font-semibold md:hidden" style={{ background: 'var(--accent)', color: 'var(--accent-ink)' }}>
+      <a href="#design" className="mt-3.5 flex h-12 items-center justify-center rounded-full text-[15px] font-semibold md:hidden" style={{ background: 'var(--accent)', color: 'var(--accent-ink)' }}>
         Design it &amp; book →
       </a>
       {/* desktop: finish the quote right here */}
@@ -210,7 +178,7 @@ function HeroQuote() {
             Book a free survey →
           </button>
         ) : (
-          <form className="mt-4 grid gap-2" onSubmit={(e) => { e.preventDefault(); if (ok) window.open(waLink(q, who), '_blank'); }}>
+          <form className="mt-4 grid gap-2" onSubmit={(e) => { e.preventDefault(); if (ok) window.open(waLink(q, who, true), '_blank'); }}>
             <input className="pe-in" placeholder="Your name" autoComplete="name" value={who.name} onChange={(e) => setWho({ ...who, name: e.target.value })} aria-label="Your name" />
             <div className="grid grid-cols-[1.4fr_1fr] gap-2">
               <input className="pe-in" placeholder="Phone" type="tel" autoComplete="tel" value={who.phone} onChange={(e) => setWho({ ...who, phone: e.target.value })} aria-label="Phone" />
