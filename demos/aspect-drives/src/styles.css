@@ -64,11 +64,31 @@ html.lenis, html.lenis body{ height:auto; }
   backdrop-filter:blur(14px) saturate(140%); -webkit-backdrop-filter:blur(14px) saturate(140%);
   box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 10px 30px -12px rgba(0,0,0,.5); }
 .label-chip{ font:500 11px/1 var(--font-body); letter-spacing:.08em; text-transform:uppercase; }
-.eyebrow{ font:500 12px/1.2 var(--font-body); letter-spacing:.16em; text-transform:uppercase; color:var(--muted); }
+.eyebrow{ display:inline-flex; align-items:center; gap:10px; font:600 12px/1.2 var(--font-body); letter-spacing:.18em; text-transform:uppercase; color:var(--accent2); }
+.eyebrow::before{ content:""; width:24px; height:1px; background:currentColor; opacity:.75; }
 .section{ position:relative; padding: clamp(52px, 10vw, 140px) clamp(20px, 5vw, 64px); }
 /* Light (stone/ivory) section on any preset: re-points the colour vars inside it */
-.theme-light{ --bg:#F3EEE6; --bg2:#E9E2D6; --surface:#FFFFFF; --ink:#1C1915; --muted:#6B6259; --line:rgba(28,25,21,.12);
-  --accent2: color-mix(in oklab, var(--accent) 72%, #000); background:var(--bg); color:var(--ink); }
+.theme-light{ --bg:#F5F1EA; --bg2:#ECE5D8; --surface:#FFFFFF; --ink:#0E1626; --muted:#596173; --line:rgba(14,22,38,.10);
+  --accent2:#8E6A2C; color-scheme:light; background:var(--bg); color:var(--ink); }
+.theme-dark{ --surface:#16223D; --ink:#F6F3EC; --muted:#A8AFBD; --line:rgba(232,220,196,.12); --accent2:#E2C38C; color-scheme:dark; color:var(--ink); }
+/* Stacked sheets: each colour change slides over the last with rounded shoulders and a shadow */
+.sheet{ position:relative; z-index:2; --r:clamp(28px,3.6vw,52px); border-radius:var(--r) var(--r) 0 0; margin-top:calc(var(--r) * -1);
+  box-shadow:0 -1px 0 rgba(255,255,255,.06), 0 -30px 70px -30px rgba(0,0,0,.45); }
+/* Dark sections: deep ink with warm brass light and a cool counter-light, so they never read as flat navy */
+.ink-glow{ background:
+  radial-gradient(55% 45% at 88% 0%, rgba(201,161,93,.20), transparent 70%),
+  radial-gradient(45% 40% at 0% 100%, rgba(74,104,166,.22), transparent 70%),
+  linear-gradient(180deg, #0D172B, #0A1222); }
+.card{ background:var(--surface); border:1px solid var(--line);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.9), 0 1px 2px rgba(14,22,38,.05), 0 24px 48px -24px rgba(14,22,38,.28); }
+.card-dark{ background:linear-gradient(180deg,#1B2846,#111A31); border:1px solid rgba(232,220,196,.13);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.08), 0 40px 80px -40px rgba(0,0,0,.75); }
+.btn-brass{ background:linear-gradient(180deg,#EED7A6 0%,#CDA563 50%,#A47C3C 100%) !important; color:#1A1206 !important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.6), inset 0 -1px 0 rgba(0,0,0,.18), 0 12px 28px -12px rgba(201,161,93,.8);
+  transition:transform .2s, box-shadow .2s, filter .2s; }
+.btn-brass:hover{ filter:brightness(1.05); transform:translateY(-1px); }
+.text-brass{ background:linear-gradient(180deg,#F1DDB3,#C9A15D 55%,#93703A); -webkit-background-clip:text; background-clip:text; color:transparent; }
+.hairline-brass{ background:linear-gradient(90deg,transparent,rgba(201,161,93,.6),transparent); height:1px; }
 .wrap{ max-width: 1240px; margin-inline:auto; }
 .h2{ font-family:var(--font-display); font-weight:600; letter-spacing:-.025em; line-height:.98; font-size: clamp(38px, 6.4vw, 84px); }
 .lede{ color:var(--muted); font-size: clamp(16px, 1.5vw, 19px); line-height:1.55; max-width: 56ch; }

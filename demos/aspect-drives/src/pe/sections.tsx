@@ -13,11 +13,11 @@ const tel = (p: string) => `tel:${p.replace(/\s/g, '')}`;
 export function Proof() {
   const { site } = useSite();
   return (
-    <section aria-label="Google and Checkatrade reviews" className="relative overflow-hidden border-y py-10 md:py-16" style={{ borderColor: 'var(--line)', background: 'var(--bg2)' }}>
+    <section aria-label="Google and Checkatrade reviews" className="theme-light sheet relative overflow-hidden pb-12 pt-12 md:pb-20 md:pt-20">
       <div className="wrap px-5 md:px-16">
         <a href={site.socials.google} target="_blank" rel="noreferrer" className="group flex flex-col items-start gap-4 md:flex-row md:items-center md:justify-between">
           <div className="flex items-center gap-4 md:gap-6">
-            <span className="font-display text-[68px] font-semibold leading-none tracking-[-.04em] md:text-[132px]" style={{ background: 'linear-gradient(180deg, #FFFFFF, #D8DEE8 45%, #7F8BA3 90%)', WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent' }}>
+            <span className="text-brass font-display text-[76px] font-semibold leading-none tracking-[-.045em] md:text-[148px]">
               {site.proof.rating.toFixed(1)}
             </span>
             <div>
@@ -25,11 +25,12 @@ export function Proof() {
               <p className="mt-2 font-display text-[22px] font-semibold leading-tight md:text-[30px]">from {site.proof.reviewCount} Google reviews</p>
             </div>
           </div>
-          <span className="inline-flex items-center gap-2 rounded-full border px-4 py-2.5 text-[14px] font-medium transition-colors group-hover:bg-white/5" style={{ borderColor: 'var(--line)' }}>
+          <span className="card inline-flex items-center gap-2 rounded-full px-4 py-2.5 text-[14px] font-medium transition-transform group-hover:-translate-y-0.5">
             <GoogleG /> Read them on Google ↗
           </span>
         </a>
-        <a href={site.socials.checkatrade} target="_blank" rel="noreferrer" className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 border-t pt-5 md:mt-8 md:pt-6" style={{ borderColor: 'var(--line)' }}>
+        <a href={site.socials.checkatrade} target="_blank" rel="noreferrer" className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2 border-t pt-5 md:mt-10 md:pt-7" style={{ borderColor: 'var(--line)' }}>
+          <CheckatradeMark />
           <span className="text-[17px] leading-snug md:text-[20px]"><b className="font-semibold">Checkatrade member</b><br /><span className="text-[15px] md:text-[16px]" style={{ color: 'var(--muted)' }}>Read his reviews on Checkatrade</span></span>
           <span className="ml-auto hidden text-[14px] md:inline" style={{ color: 'var(--muted)' }}>See his profile ↗</span>
         </a>
@@ -65,9 +66,9 @@ function ReviewStrip() {
   }, []);
   const items = [...site.reviews, ...site.reviews];
   return (
-    <div ref={el} className="mt-7 flex cursor-grab gap-3.5 overflow-x-auto px-5 pb-1 [scrollbar-width:none] active:cursor-grabbing md:px-16 [&::-webkit-scrollbar]:hidden" style={{ touchAction: 'pan-x pan-y', WebkitOverflowScrolling: 'touch' }} aria-label="Customer reviews, swipe for more">
+    <div ref={el} className="mt-8 flex cursor-grab gap-4 overflow-x-auto px-5 pb-8 pt-1 [scrollbar-width:none] active:cursor-grabbing md:px-16 [&::-webkit-scrollbar]:hidden" style={{ touchAction: 'pan-x pan-y', WebkitOverflowScrolling: 'touch' }} aria-label="Customer reviews, swipe for more">
       {items.map((r, i) => (
-        <figure key={i} aria-hidden={i >= site.reviews.length} className="m-0 w-[300px] shrink-0 select-none rounded-2xl border p-4 md:w-[380px]" style={{ borderColor: 'var(--line)', background: 'var(--surface)' }}>
+        <figure key={i} aria-hidden={i >= site.reviews.length} className="card m-0 w-[300px] shrink-0 select-none rounded-2xl p-5 md:w-[380px]">
           <Stars size={12} />
           <blockquote className="mt-2 line-clamp-6 text-[14px] leading-relaxed">“{r.text}”</blockquote>
           <figcaption className="mt-2 text-[12px]" style={{ color: 'var(--muted)' }}>{[r.name, `${r.source} review`, r.job].filter(Boolean).join(' · ')}</figcaption>
@@ -77,6 +78,9 @@ function ReviewStrip() {
   );
 }
 
+function CheckatradeMark() {
+  return <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl text-[20px] font-bold text-white" style={{ background: 'linear-gradient(180deg,#2B66D9,#1A49A8)', boxShadow: '0 10px 20px -10px rgba(26,73,168,.8)' }} aria-hidden>✓</span>;
+}
 function GoogleG() {
   return <svg width="16" height="16" viewBox="0 0 48 48" aria-hidden><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3A12 12 0 1 1 24 12a11.9 11.9 0 0 1 8.4 3.3l5.7-5.7A20 20 0 1 0 44 24c0-1.2-.1-2.3-.4-3.5z" /><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8A12 12 0 0 1 24 12a11.9 11.9 0 0 1 8.4 3.3l5.7-5.7A20 20 0 0 0 6.3 14.7z" /><path fill="#4CAF50" d="M24 44a20 20 0 0 0 13.5-5.2l-6.2-5.3A12 12 0 0 1 12.7 28l-6.5 5A20 20 0 0 0 24 44z" /><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3a12 12 0 0 1-4.1 5.5l6.2 5.3C37 39.2 44 34 44 24c0-1.2-.1-2.3-.4-3.5z" /></svg>;
 }
@@ -84,14 +88,14 @@ function GoogleG() {
 // Why resin: general facts, each with a small looping diagram (keeps the page alive when idle).
 export function WhyResin() {
   return (
-    <section id="why" aria-labelledby="whyH" className="section">
+    <section id="why" aria-labelledby="whyH" className="section sheet ink-glow">
       <div className="wrap">
         <Head id="whyH" eyebrow="Why resin" title="Smooth, porous," accent="and no weeds." lede="General facts about resin-bound driveways, so you know what you are choosing." />
         <div className="-mx-5 mt-8 flex snap-x snap-mandatory gap-3 overflow-x-auto px-5 pb-2 [scrollbar-width:none] md:mx-0 md:mt-14 md:grid md:grid-cols-3 md:gap-5 md:overflow-visible md:px-0">
           {whyResin.map((w, i) => (
             <Rise key={w.key} d={i * 0.08} className="w-[78vw] max-w-[320px] shrink-0 snap-start md:w-auto md:max-w-none">
-              <div className="h-full rounded-[var(--radius)] border p-5 md:p-6" style={{ borderColor: 'var(--line)', background: 'var(--surface)' }}>
-                <div className="h-[120px] overflow-hidden rounded-2xl md:h-[150px]" style={{ background: '#0B1530' }}><Diagram k={w.key} /></div>
+              <div className="card-dark h-full rounded-[var(--radius)] p-5 md:p-6">
+                <div className="h-[120px] overflow-hidden rounded-2xl md:h-[150px]" style={{ background: 'radial-gradient(90% 80% at 50% 0%, #1E2C4D, #0A1222)' }}><Diagram k={w.key} /></div>
                 <h3 className="mt-4 font-display text-[22px] font-semibold">{w.title}</h3>
                 <p className="mt-1.5 text-[15px] leading-relaxed" style={{ color: 'var(--muted)' }}>{w.text}</p>
               </div>
@@ -148,20 +152,21 @@ export function Services() {
   ];
   const q = useQuote();
   return (
-    <section id="services" aria-labelledby="svcH" className="section !pt-6 md:!pt-10">
+    <section id="services" aria-labelledby="svcH" className="theme-light section !pt-4 md:!pt-6">
       <div className="wrap">
         <Head id="svcH" eyebrow="What we do" title="Driveways and patios," accent="start to finish." />
       </div>
-      <div className="mt-8 flex snap-x snap-mandatory gap-3 overflow-x-auto px-5 pb-2 [scrollbar-width:none] md:mx-auto md:mt-12 md:grid md:max-w-[1280px] md:grid-cols-4 md:gap-4 md:overflow-visible md:px-12">
+      <div className="mt-8 flex snap-x snap-mandatory gap-3 overflow-x-auto px-5 pb-8 [scrollbar-width:none] md:mx-auto md:mt-12 md:grid md:max-w-[1280px] md:grid-cols-4 md:gap-4 md:overflow-visible md:px-12">
         {items.map((s, i) => (
           <Rise key={s.t} d={i * 0.06} className="w-[72vw] max-w-[300px] shrink-0 snap-start md:w-auto md:max-w-none">
-            <a href="#design" onClick={() => s.k && q.setSurface(s.k)} className="group relative block overflow-hidden rounded-[var(--radius)] border" style={{ borderColor: 'var(--line)' }}>
+            <a href="#design" onClick={() => s.k && q.setSurface(s.k)} className="group relative block overflow-hidden rounded-[var(--radius)]" style={{ boxShadow: '0 30px 50px -28px rgba(14,22,38,.55), 0 2px 6px rgba(14,22,38,.08)' }}>
               <img src={photoSrc(s.img, 640)} alt="" loading="lazy" className="aspect-[4/5] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]" />
               <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(0,0,0,0) 35%, rgba(0,0,0,.88))' }} />
               <span className="ex-tag left-3 top-3">His job</span>
-              <div className="absolute inset-x-0 bottom-0 p-4">
+              <div className="absolute inset-x-0 bottom-0 p-4 text-white md:p-5">
                 <h3 className="font-display text-[22px] font-semibold leading-tight">{s.t}</h3>
-                <p className="mt-1 text-[13.5px] leading-snug" style={{ color: 'color-mix(in srgb, var(--ink) 80%, transparent)' }}>{s.d}</p>
+                <p className="mt-1 text-[13.5px] leading-snug" style={{ color: 'rgba(255,255,255,.82)' }}>{s.d}</p>
+                <span className="mt-3 inline-flex items-center gap-1 text-[13px] font-semibold" style={{ color: '#E9CC92' }}>Price it →</span>
               </div>
             </a>
           </Rise>
@@ -174,7 +179,7 @@ export function Services() {
 
 export function Process() {
   return (
-    <section id="how" aria-labelledby="howH" className="section" style={{ background: 'var(--bg2)' }}>
+    <section id="how" aria-labelledby="howH" className="theme-light sheet section" style={{ background: 'var(--bg2)' }}>
       <div className="wrap grid gap-10 md:grid-cols-[.9fr_1.1fr] md:gap-16">
         <div className="md:sticky md:top-28 md:self-start">
           <Head id="howH" eyebrow="How it works" title="Free quote," accent="no pressure." lede="A visit, ideas and a free estimate before anything is agreed." />
@@ -183,7 +188,7 @@ export function Process() {
           <span className="absolute bottom-4 left-[19px] top-4 w-px" style={{ background: 'linear-gradient(180deg, var(--accent), transparent)' }} aria-hidden />
           {process.map((s, i) => (
             <li key={s.title} className="relative pb-7 last:pb-0"><Rise d={i * 0.05} className="flex gap-5">
-                <span className="relative z-[1] grid h-10 w-10 shrink-0 place-items-center rounded-full font-display text-[15px] font-semibold" style={{ background: 'var(--surface)', border: '1px solid var(--accent)', color: 'var(--accent2)' }}>{i + 1}</span>
+                <span className="relative z-[1] grid h-10 w-10 shrink-0 place-items-center rounded-full font-display text-[15px] font-semibold" style={{ background: 'linear-gradient(180deg,#EED7A6,#C9A15D)', color: '#1A1206', boxShadow: '0 0 0 6px var(--bg2), 0 10px 20px -8px rgba(201,161,93,.8)' }}>{i + 1}</span>
                 <div className="pt-1.5">
                   <h3 className="font-display text-[20px] font-semibold">{s.title}</h3>
                   <p className="mt-1 text-[15px] leading-relaxed" style={{ color: 'var(--muted)' }}>{s.text}</p>
@@ -204,16 +209,17 @@ export function Reviews() {
   useEffect(() => setFull(false), [i]);
   const r = site.reviews[i];
   return (
-    <section id="reviews" aria-labelledby="revH" className="section">
+    <section id="reviews" aria-labelledby="revH" className="theme-light section !pt-4 md:!pt-8">
       <div className="wrap">
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <Head id="revH" eyebrow="What customers say" title="Better than" accent="I imagined." />
-          <a href={site.socials.google} target="_blank" rel="noreferrer" className="inline-flex w-fit items-center gap-2 rounded-full border px-4 py-2.5 text-[14px]" style={{ borderColor: 'var(--line)' }}>
+          <a href={site.socials.google} target="_blank" rel="noreferrer" className="card inline-flex w-fit items-center gap-2 rounded-full px-4 py-2.5 text-[14px]">
             <Stars size={13} /> {site.proof.rating.toFixed(1)} · {site.proof.reviewCount} reviews on Google ↗
           </a>
         </div>
-        <div className="relative mt-10 min-h-[260px] rounded-[var(--radius)] border p-6 md:mt-14 md:min-h-[300px] md:p-12" style={{ borderColor: 'var(--line)', background: 'var(--surface)' }}>
-          <span className="pointer-events-none absolute right-6 top-2 font-serif text-[140px] leading-none md:right-12 md:text-[220px]" style={{ color: 'rgba(216,222,232,.16)', fontFamily: 'var(--font-serif)' }} aria-hidden>”</span>
+        <div className="card relative mt-10 min-h-[260px] overflow-hidden rounded-[var(--radius)] p-6 md:mt-14 md:min-h-[300px] md:p-12">
+          <span className="pointer-events-none absolute inset-y-0 left-0 w-1.5" style={{ background: 'linear-gradient(180deg,#EED7A6,#A47C3C)' }} aria-hidden />
+          <span className="pointer-events-none absolute right-6 top-2 font-serif text-[140px] leading-none md:right-12 md:text-[220px]" style={{ color: 'rgba(201,161,93,.28)', fontFamily: 'var(--font-serif)' }} aria-hidden>”</span>
           <AnimatePresence mode="wait">
             <motion.figure key={i} className="relative m-0" initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: .45 }}>
               <div className="flex items-center gap-3"><Stars size={15} />{r.job && <span className="text-[13px] font-medium" style={{ color: 'var(--accent2)' }}>{r.job}</span>}</div>
@@ -223,7 +229,7 @@ export function Reviews() {
             </motion.figure>
           </AnimatePresence>
           <div className="mt-6 flex flex-wrap gap-0.5">
-            {site.reviews.map((_, k) => <button key={k} onClick={() => setI(k)} aria-label={`Review ${k + 1}`} className="grid h-8 min-w-7 place-items-center"><span className="block h-1.5 rounded-full transition-all" style={{ width: k === i ? 22 : 8, background: k === i ? 'var(--accent)' : 'rgba(255,255,255,.18)' }} /></button>)}
+            {site.reviews.map((_, k) => <button key={k} onClick={() => setI(k)} aria-label={`Review ${k + 1}`} className="grid h-8 min-w-7 place-items-center"><span className="block h-1.5 rounded-full transition-all" style={{ width: k === i ? 22 : 8, background: k === i ? 'var(--accent)' : 'rgba(14,22,38,.16)' }} /></button>)}
           </div>
         </div>
       </div>
@@ -247,16 +253,16 @@ export function GuaranteeAreas() {
     ['Free estimates', 'Domestic and commercial. Ideas and colours talked through on the visit.'],
   ];
   return (
-    <section id="areas" aria-labelledby="areaH" className="section !pt-4 md:!pt-6">
+    <section id="areas" aria-labelledby="areaH" className="theme-light sheet section">
       <div className="wrap grid gap-3 md:grid-cols-[1fr_1.25fr] md:gap-5">
         <Rise>
-          <div className="relative flex h-full flex-col overflow-hidden rounded-[var(--radius)] border p-6 md:p-9" style={{ borderColor: 'rgba(216,222,232,.35)', background: 'radial-gradient(120% 90% at 0% 0%, rgba(216,222,232,.16), transparent 60%), var(--surface)' }}>
+          <div className="theme-dark card-dark relative flex h-full flex-col overflow-hidden rounded-[var(--radius)] p-6 md:p-9" style={{ background: 'radial-gradient(120% 90% at 0% 0%, rgba(201,161,93,.22), transparent 55%), linear-gradient(180deg,#1B2846,#0E1629)' }}>
             <img src="/brand/badge-360-v1.webp" alt="" aria-hidden width={360} height={360} loading="lazy" className="pointer-events-none absolute -right-10 -top-10 w-[170px] opacity-[.14] md:w-[220px]" />
             <p className="eyebrow">Peace of mind</p>
             <ul className="relative mt-6 grid gap-5 md:mt-10">
               {trust.map(([t, d]) => (
                 <li key={t} className="flex gap-3.5">
-                  <span className="mt-1 grid h-6 w-6 shrink-0 place-items-center rounded-full text-[13px] font-bold" style={{ background: 'var(--accent)', color: 'var(--accent-ink)' }}>✓</span>
+                  <span className="btn-brass mt-1 grid h-7 w-7 shrink-0 place-items-center rounded-full text-[13px] font-bold">✓</span>
                   <div><h3 className="font-display text-[22px] font-semibold leading-tight md:text-[26px]">{t}</h3><p className="mt-1 text-[14px] leading-snug" style={{ color: 'var(--muted)' }}>{d}</p></div>
                 </li>
               ))}
@@ -264,16 +270,16 @@ export function GuaranteeAreas() {
           </div>
         </Rise>
         <Rise d={0.08}>
-          <div className="relative h-full overflow-hidden rounded-[var(--radius)] border p-6 md:p-9" style={{ borderColor: 'var(--line)', background: 'var(--surface)' }}>
+          <div className="card relative h-full overflow-hidden rounded-[var(--radius)] p-6 md:p-9">
             <p className="eyebrow">Where we work</p>
             <h2 id="areaH" className="mt-3 font-display text-[clamp(30px,4vw,46px)] font-semibold leading-[1] tracking-[-.02em]">Grays, Thurrock <span className="serif" style={{ color: 'var(--accent2)' }}>and south Essex.</span></h2>
             <div className="mt-5 flex flex-wrap gap-2" role="radiogroup" aria-label="Pick your town">
               {site.areas.map((a) => (
                 <button key={a} role="radio" aria-checked={town === a} onClick={() => setTown(a)} className="h-10 rounded-full border px-4 text-[14px] font-medium transition-colors"
-                  style={town === a ? { background: 'var(--accent)', borderColor: 'var(--accent)', color: 'var(--accent-ink)' } : { borderColor: 'var(--line)', background: 'rgba(255,255,255,.03)' }}>{a}</button>
+                  style={town === a ? { background: 'var(--accent)', borderColor: 'var(--accent)', color: 'var(--accent-ink)' } : { borderColor: 'var(--line)', background: 'var(--bg)' }}>{a}</button>
               ))}
             </div>
-            <div className="relative mt-4 h-[210px] overflow-hidden rounded-2xl md:h-[240px]" style={{ background: 'radial-gradient(circle at 40% 55%, rgba(216,222,232,.10), transparent 65%), #141415' }} aria-hidden>
+            <div className="relative mt-4 h-[210px] overflow-hidden rounded-2xl md:h-[240px]" style={{ background: 'radial-gradient(circle at 40% 55%, rgba(201,161,93,.16), transparent 65%), #0D172B', boxShadow: 'inset 0 2px 12px rgba(0,0,0,.4)' }} aria-hidden>
               <svg viewBox="0 0 400 260" className="absolute inset-0 h-full w-full" preserveAspectRatio="xMidYMid meet">
                 <defs><pattern id="dots" width="10" height="10" patternUnits="userSpaceOnUse"><circle cx="5" cy="5" r="1.1" fill="rgba(255,255,255,.10)" /></pattern></defs>
                 <rect width="400" height="260" fill="url(#dots)" />
@@ -300,7 +306,7 @@ export function GuaranteeAreas() {
 export function Faq() {
   const [open, setOpen] = useState<number | null>(0);
   return (
-    <section id="faq" aria-labelledby="faqH" className="section !pt-6" >
+    <section id="faq" aria-labelledby="faqH" className="theme-light section !pt-4 md:!pt-8" style={{ background: 'var(--bg2)' }}>
       <div className="wrap grid gap-8 md:grid-cols-[.8fr_1.2fr] md:gap-16">
         <Head id="faqH" eyebrow="Questions" title="Good to" accent="know." />
         <div className="divide-y border-y" style={{ borderColor: 'var(--line)' }}>
@@ -328,7 +334,7 @@ export function Footer() {
   const { site } = useSite();
   const q = useQuote();
   return (
-    <footer className="relative overflow-hidden border-t px-5 pb-28 pt-16 md:px-16 md:pb-12 md:pt-24" style={{ borderColor: 'var(--line)', background: 'var(--bg2)' }}>
+    <footer className="ink-glow sheet relative overflow-hidden px-5 pb-28 pt-16 md:px-16 md:pb-12 md:pt-24">
       <div className="wrap">
         <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
           <div>
@@ -336,7 +342,7 @@ export function Footer() {
             <h2 className="h2 mt-4 max-w-[13ch]">Ready for a drive <span className="serif" style={{ color: 'var(--accent2)' }}>you're proud of?</span></h2>
           </div>
           <div className="flex flex-wrap gap-2.5">
-            <a href={tel(site.phone)} className="flex h-[52px] items-center rounded-full px-6 text-[16px] font-semibold" style={{ background: 'var(--accent)', color: 'var(--accent-ink)' }}>Call {site.phone}</a>
+            <a href={tel(site.phone)} className="btn-brass flex h-[52px] items-center rounded-full px-6 text-[16px] font-semibold">Call {site.phone}</a>
             <a href={waLink(q)} target="_blank" rel="noreferrer" className="flex h-[52px] items-center gap-2 rounded-full px-6 text-[16px] font-semibold" style={{ background: '#25D366', color: '#062b14' }}><WaIcon /> WhatsApp</a>
           </div>
         </div>
@@ -387,7 +393,7 @@ export function StickyBar() {
           style={{ background: 'rgba(12,21,44,.94)', border: '1px solid var(--line)', backdropFilter: 'blur(14px)', WebkitBackdropFilter: 'blur(14px)', boxShadow: '0 12px 30px rgba(0,0,0,.4)' }}>
           <a href={tel(site.phone)} className="flex h-11 items-center justify-center gap-1.5 rounded-full text-[14px] font-semibold" style={{ background: 'rgba(255,255,255,.07)' }}>📞 Call</a>
           <a href={waLink(q)} target="_blank" rel="noreferrer" className="flex h-11 items-center justify-center gap-1.5 rounded-full text-[14px] font-semibold" style={{ background: '#25D366', color: '#062b14' }}><WaIcon size={16} /> WhatsApp</a>
-          <a href="#design" className="flex h-11 items-center justify-center rounded-full text-[14px] font-semibold" style={{ background: 'var(--accent)', color: 'var(--accent-ink)' }}>£ Quote</a>
+          <a href="#design" className="btn-brass flex h-11 items-center justify-center rounded-full text-[14px] font-semibold">£ Quote</a>
         </motion.nav>
       )}
     </AnimatePresence>

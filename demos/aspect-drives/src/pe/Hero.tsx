@@ -74,9 +74,10 @@ export function Hero() {
       <canvas ref={canvas} className="absolute inset-0 -z-10 h-full w-full transition-opacity duration-700" style={{ opacity: live ? 1 : 0 }} aria-hidden="true" />
       <div className="pointer-events-none absolute inset-0 -z-[5] hidden md:block" style={{ background: 'linear-gradient(180deg, rgba(10,18,38,.7) 0%, rgba(10,18,38,0) 22%, rgba(10,18,38,0) 40%, rgba(10,18,38,.55) 64%, rgba(10,18,38,.9) 100%)' }} />
       <div className="pointer-events-none absolute inset-0 -z-[5] md:hidden" style={{ background: 'linear-gradient(180deg, rgba(10,18,38,.6) 0%, rgba(10,18,38,0) 11%, rgba(10,18,38,0) 32%, rgba(10,18,38,.72) 44%, rgba(10,18,38,.9) 58%, rgba(10,18,38,.96) 100%)' }} />
+      <div className="pointer-events-none absolute inset-0 -z-[5]" style={{ background: 'radial-gradient(45% 40% at 82% 8%, rgba(233,196,128,.22), transparent 70%)' }} />
       <div className="pointer-events-none absolute inset-0 -z-[5] hidden md:block" style={{ background: 'linear-gradient(90deg, rgba(10,18,38,.78) 0%, rgba(10,18,38,.35) 38%, rgba(10,18,38,0) 55%)' }} />
 
-      <div className="pointer-events-none relative mx-auto flex h-full max-w-[1280px] flex-col justify-end px-5 pb-[max(20px,env(safe-area-inset-bottom))] pt-24 md:flex-row md:items-end md:justify-between md:gap-10 md:px-12 md:pb-14">
+      <div className="pointer-events-none relative mx-auto flex h-full max-w-[1280px] flex-col justify-end px-5 pb-[max(44px,env(safe-area-inset-bottom))] pt-24 md:flex-row md:items-end md:justify-between md:gap-10 md:px-12 md:pb-24">
         <div className="md:max-w-[640px]">
           <a href={site.socials.google} target="_blank" rel="noreferrer" data-nopour
             className="pointer-events-auto mb-4 inline-flex items-center gap-2 rounded-full py-1.5 pl-2.5 pr-3.5 text-[13px] font-medium"
@@ -135,7 +136,7 @@ function TypePick() {
           return (
             <button key={t.key} role="radio" aria-checked={on} aria-label={t.label} onClick={() => q.setType(t.key)}
               className="flex flex-col items-center gap-1 rounded-xl px-1 pb-1 pt-1 md:pb-1.5 md:pt-1.5 text-[11.5px] font-medium leading-tight transition-colors md:text-[12px]"
-              style={on ? { background: 'rgba(216,222,232,.18)', border: '1px solid var(--accent)' } : { background: 'rgba(255,255,255,.04)', border: '1px solid var(--line)' }}>
+              style={on ? { background: 'rgba(201,161,93,.18)', border: '1px solid var(--accent)' } : { background: 'rgba(255,255,255,.04)', border: '1px solid var(--line)' }}>
               <span className="block h-5 w-full rounded-md bg-cover bg-center md:h-8" style={{ backgroundImage: swatch[t.key] ? `url(${swatch[t.key]})` : undefined }} aria-hidden />
               <span className="md:hidden">{t.short}</span><span className="hidden md:inline">{t.label}</span>
             </button>
@@ -149,9 +150,9 @@ function TypePick() {
 function HeroQuote() {
   return (
     <div data-nopour className="pointer-events-auto mt-5 w-full rounded-[22px] p-3.5 md:mt-0 md:w-[410px] md:shrink-0 md:p-5"
-      style={{ background: 'rgba(12,21,44,.8)', border: '1px solid rgba(255,255,255,.12)', backdropFilter: 'blur(18px) saturate(140%)', WebkitBackdropFilter: 'blur(18px) saturate(140%)', boxShadow: '0 30px 60px -30px rgba(0,0,0,.8)' }}>
+      style={{ background: 'linear-gradient(180deg, rgba(27,40,70,.82), rgba(12,20,38,.86))', border: '1px solid rgba(232,220,196,.16)', backdropFilter: 'blur(18px) saturate(140%)', WebkitBackdropFilter: 'blur(18px) saturate(140%)', boxShadow: '0 30px 60px -30px rgba(0,0,0,.8)' }}>
       <TypePick />
-      <a href="#design" className="mt-3.5 flex h-12 items-center justify-center rounded-full text-[15px] font-semibold" style={{ background: 'var(--accent)', color: 'var(--accent-ink)' }}>
+      <a href="#design" className="btn-brass mt-3.5 flex h-12 items-center justify-center rounded-full text-[15px] font-semibold">
         Get my free quote →
       </a>
     </div>

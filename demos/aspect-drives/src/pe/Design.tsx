@@ -25,14 +25,14 @@ export function Design() {
   }, []);
 
   return (
-    <section id="design" aria-labelledby="designH" className="section" style={{ background: 'var(--bg)' }}>
+    <section id="design" aria-labelledby="designH" className="section sheet ink-glow">
       <div className="wrap">
         <Head id="designH" eyebrow="Design your driveway" title="Pick it, price it," accent={`send it to ${site.owner.first}.`}
           lede={`Choose a size and a surface. The example price updates as you go. When it looks right, it goes to ${site.owner.first} on WhatsApp with everything filled in.`} />
 
         <div className="mt-10 grid gap-5 md:mt-14 md:grid-cols-[1.15fr_1fr] md:gap-8">
           {/* preview */}
-          <div className="relative overflow-hidden rounded-[var(--radius)] border md:sticky md:top-24 md:self-start" style={{ borderColor: 'var(--line)', aspectRatio: '4 / 3', background: '#0B1530' }}>
+          <div className="relative overflow-hidden rounded-[var(--radius)] border md:sticky md:top-24 md:self-start" style={{ borderColor: 'rgba(232,220,196,.16)', aspectRatio: '4 / 3', background: '#0B1530', boxShadow: '0 50px 90px -40px rgba(0,0,0,.85), 0 0 0 1px rgba(255,255,255,.04)' }}>
             {surfaces.filter((x) => x.key !== 'resin').map((x) => (
               <img key={x.key} src={x.photo ? photoSrc(x.photo, 1280) : `/types/${x.key}-view-v2.webp`} alt={x.key === q.surface.key ? (x.photo ? `${x.long} by ${site.company}` : `Illustration of a ${x.long.toLowerCase()}`) : ''} loading="lazy" decoding="async"
                 className="absolute inset-0 z-[1] h-full w-full object-cover transition-opacity duration-500" style={{ opacity: x.key === q.surface.key ? 1 : 0 }} />
@@ -52,7 +52,7 @@ export function Design() {
           </div>
 
           {/* steps */}
-          <div ref={panel} className="rounded-[var(--radius)] border p-4 md:p-7" style={{ borderColor: 'var(--line)', background: 'var(--surface)' }}>
+          <div ref={panel} className="card-dark rounded-[var(--radius)] p-4 md:p-7">
             <Step n={1} label="Size of drive">
               <div className="grid grid-cols-3 gap-2">
                 {sizes.map((s) => <Chip key={s.key} on={q.sizeKey === s.key} onClick={() => q.setSize(s.key)}>{s.label}</Chip>)}
@@ -82,10 +82,10 @@ export function Design() {
             </Step>
             )}
 
-            <div className="mt-5 rounded-2xl p-4" style={{ background: 'rgba(216,222,232,.07)', border: '1px solid rgba(216,222,232,.28)' }}>
-              <div className="whitespace-nowrap font-display text-[clamp(25px,7.6vw,46px)] font-semibold leading-none tracking-tight">
+            <div className="mt-5 rounded-2xl p-4" style={{ background: 'radial-gradient(120% 120% at 0% 0%, rgba(201,161,93,.16), rgba(201,161,93,.04))', border: '1px solid rgba(201,161,93,.38)' }}>
+              <div className="text-brass whitespace-nowrap font-display text-[clamp(25px,7.6vw,46px)] font-semibold leading-none tracking-tight">
                 £<Ticker value={q.low} />
-                <span style={{ color: 'var(--muted)' }}> – </span>
+                <span style={{ color: '#C9A15D' }}> – </span>
                 £<Ticker value={q.high} />
               </div>
               <p className="mt-2 text-[13px]" style={{ color: 'var(--accent2)' }}>{EXAMPLE_LABEL}</p>

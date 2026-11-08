@@ -17,9 +17,9 @@ export type Preset = {
 export const presets: Record<string, Preset> = {
   'aspect-navy': {
     key: 'aspect-navy', name: 'Aspect Navy & Chrome', vibe: 'luxury', dark: true,
-    bg: '#0A1226', bg2: '#0E1832', surface: '#13203F', line: 'rgba(214,222,236,.12)',
-    ink: '#F2F3F6', muted: '#A3ACBF',
-    accent: '#D8DEE8', accentInk: '#0A1226', accent2: '#B9C4D8',
+    bg: '#0A1222', bg2: '#0D172B', surface: '#16223D', line: 'rgba(232,220,196,.12)',
+    ink: '#F6F3EC', muted: '#A8AFBD',
+    accent: '#C9A15D', accentInk: '#1A1206', accent2: '#E2C38C',
     metal: ['#3B4558', '#D8DEE8', '#FFFFFF'],
     resin: { base: '#101828', metal: '#D8DEE8' },
     concrete: '#8E9096',

@@ -22,7 +22,7 @@ export function Nav() {
         <div className="hidden items-center gap-1 md:flex">
           {links.map(([l, h]) => <a key={h} href={h} className="rounded-full px-3.5 py-2 text-[14px] transition-colors hover:bg-white/10" style={{ color: 'color-mix(in srgb, var(--ink) 80%, transparent)' }}>{l}</a>)}
         </div>
-        <a href={tel(site.phone)} className="rounded-full px-4 py-2.5 text-[14px] font-semibold" style={{ background: 'var(--accent)', color: 'var(--accent-ink)' }}>
+        <a href={tel(site.phone)} className="btn-brass rounded-full px-4 py-2.5 text-[14px] font-semibold">
           <span className="sm:hidden">Call</span><span className="hidden sm:inline">{`Call ${site.phone}`}</span>
         </a>
       </nav>

@@ -42,7 +42,7 @@ export function Corridor() {
   }
 
   return (
-    <section id="work" aria-labelledby="workH" className="relative" style={{ background: 'var(--bg2)' }}>
+    <section id="work" aria-labelledby="workH" className="sheet relative" style={{ background: 'var(--bg2)', overflow: 'clip' }}>
       <div ref={wrap} style={{ height: phone ? '230vh' : '300vh' }}>
         <div className="sticky top-0 h-[100svh] overflow-hidden">
           <div className="pointer-events-none absolute inset-x-0 top-0 z-20 px-5 pb-10 pt-20 md:px-16 md:pt-24" style={{ background: "linear-gradient(180deg, var(--bg2) 55%, transparent)" }}><Title company={site.company} /></div>
