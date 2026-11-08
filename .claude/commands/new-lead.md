@@ -21,6 +21,7 @@ Dan doesn't code. Report in plain English, briefly: what was built, the URL, and
 - **Image caching:** changed image = new filename (`-v2`), never overwrite.
 - **Prices** stay "Example range" unless the prospect publishes their own rates (then cite the URL).
 - **Never use** Fable, paid 21st.dev (API, MCP or registry), Higgsfield or any paid tool.
+- **Every lead gets its own premium loader** (step 4b). Never reuse a loader another client has: check `demos/master/loaders-used.md` first.
 - **Deploying:** deploy only to the new project `clientgateway-<slug>`. Never touch any other Vercel project. Never print, echo or commit tokens or keys.
 - **Git:** commit to the working branch only. Never push to or merge into the default branch without Dan's OK.
 
@@ -94,6 +95,23 @@ Allow max 3 signature interactions per page, including the hero. The default pag
 5. The page must not contain "Demo site, sample content" or any of the master's sample reviews (`config/sample.ts`). If it does, `sample` is still `true`.
 6. Check that no other client's images are referenced: grep `dist/` for other demo slugs and their image names.
 
+### 4b. Premium loader (unique per client)
+
+1. **Find one.** Search the free 21st.dev community pages for loaders, preloaders and intro animations, e.g. https://21st.dev/community/components/s/loader and https://21st.dev/community/components/s/text-animation. Quality bar: the Proficient Essex and Wolverhampton loaders.
+   - Free routes only: web-fetch the page, or open it in a browser tool (the component page shows the code and usually a GitHub "Source" link with a licence; fetch the raw file from there), or the public scrape listed in `demos/master/library-inbox/SOURCES.md`. If a loader's code can't be reached, batch the misses and ask Dan once to paste "Copy prompt".
+   - **Never** the paid 21st.dev API, Magic MCP or registry.
+2. **Never reuse.** Read `demos/master/loaders-used.md`. Skip any loader already listed for another client.
+3. **Port faithfully first, then re-skin.** Copy the component's structure, CSS and timings as published (inline in `index.html`, no extra JS bundle), then tailor it: the client's logo or wordmark, their brand colours, and a trade-relevant motion where it fits (paving blocks laying in, resin pouring, stone settling). Don't rewrite it your own way.
+4. **Rules (check each one):**
+   - Total loader time **under 1 s** on the first visit, measured from navigation to the loader being gone.
+   - **Skipped on repeat visits** (`sessionStorage`; remove the element before first paint).
+   - **Never blocks first paint of the hero poster** (the poster preload and `<picture>` load underneath; the loader is only an overlay).
+   - Respects `prefers-reduced-motion` (no motion, short fade).
+   - Works on phones (check 390x844 frames at ~200/450/700/900 ms).
+   - Keep the `window.__ld` / `wd:loaded` signal the hero waits for.
+5. **Credit it** in `demos/<slug>/CREDITS.md` (name, author, licence, 21st.dev URL, code source).
+6. **Log it** after deploying: add `client slug | loader name | 21st.dev URL | date` to `demos/master/loaders-used.md` and commit.
+
 ### 5. Build, deploy and quality gate
 
 1. Run `npm run typecheck`.
@@ -120,3 +138,4 @@ Allow max 3 signature interactions per page, including the hero. The default pag
 - **Unverified items:** anything still labelled Example (reviews, guarantee, prices, owner photo).
 - **What to ask the prospect for:** reviews, real job photos, prices, guarantee wording, owner photo.
 - Lighthouse numbers and phone screen count, on one line.
+- **Which loader this lead got** (name + 21st.dev URL).

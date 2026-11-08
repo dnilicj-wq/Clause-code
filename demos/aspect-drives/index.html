@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Aspect Drives &amp; Patios · Block paving, resin driveways and patios in Grays</title>
+  <meta name="description" content="Block paving, resin driveways and patios across Grays, Thurrock and south Essex. Price yours in seconds. Demo site by Clientgateway." />
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <link rel="apple-touch-icon" href="/brand/icon-180-v1.png" />
+  <meta name="theme-color" content="#0A1226" />
+  <link rel="preload" href="/fonts/clash-display-600.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/general-sans-400.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/posters/brick-m-ad1.webp" as="image" media="(max-width: 699px)" fetchpriority="high" />
+  <link rel="preload" href="/posters/brick-d-ad1.webp" as="image" media="(min-width: 700px)" fetchpriority="high" />
+  <style>
+    html,body{margin:0;background:#0A1226;color:#F2F3F6}
+    /* Loader: "Horizon Page Loader" by johnmamanao / Nacre UI (MIT), https://21st.dev/@johnmamanao/components/horizon-page-loader
+       Ported from components/ui/horizon-page-loader.module.css (dark variant), re-skinned for Aspect: navy + chrome from his badge,
+       his badge above the eyebrow, and block-paving courses laying in toward the horizon (the drive in his logo). Split on the horizon to exit. */
+    #boot{--horizon-accent:#D8DEE8;--horizon-duration:1100ms;--horizon-ambient-duration:2200ms;--horizon-canvas:#0A1226;--horizon-ink:#F2F3F6;
+      --horizon-muted:rgb(214 222 236 / 68%);--horizon-line:rgb(214 222 236 / 16%);--horizon-sheen:rgb(255 255 255 / 3%);--horizon-glint:#fff;
+      --horizon-pearl-border:rgb(255 255 255 / 60%);--horizon-tone:var(--horizon-accent);
+      position:fixed;z-index:100;inset:0;display:grid;place-items:center;overflow:hidden;isolation:isolate;color:var(--horizon-ink)}
+    #boot .h{position:absolute;left:0;right:0;height:50.2%;background:var(--horizon-canvas);transition:transform .34s cubic-bezier(.76,0,.24,1)}
+    #boot .h.t{top:0}#boot .h.b{bottom:0}
+    #boot .atmosphere{position:absolute;z-index:-1;inset:-18%;pointer-events:none;
+      background:radial-gradient(circle at 50% 48%,color-mix(in srgb,var(--horizon-tone) 8%,transparent),transparent 24%),linear-gradient(105deg,transparent 32%,var(--horizon-sheen) 50%,transparent 68%);
+      animation:horizon-atmosphere var(--horizon-ambient-duration) ease-in-out infinite}
+    #boot .content{position:relative;display:grid;width:min(420px,72vw);place-items:center;transition:opacity .22s ease}
+    #boot .badge{width:54px;height:54px;margin-bottom:16px;border-radius:50%;opacity:0;transform:translateY(6px) scale(.96);transition:opacity .35s ease,transform .5s cubic-bezier(.22,1,.36,1);box-shadow:0 0 0 1px rgb(214 222 236 / 18%),0 10px 30px -8px rgb(0 0 0 / 60%)}
+    #boot.on .badge{opacity:1;transform:none}
+    #boot .eyebrow{margin-bottom:21px;color:color-mix(in srgb,var(--horizon-tone) 76%,transparent);font:600 11px/1 "General Sans",system-ui,sans-serif;letter-spacing:.18em;text-transform:uppercase}
+    #boot .horizon{position:relative;display:block;width:100%;height:1px;background:linear-gradient(90deg,transparent,var(--horizon-line) 24% 76%,transparent)}
+    #boot .horizon::before,#boot .horizon::after{position:absolute;inset:50% auto auto 50%;border-radius:999px;content:'';transform:translate(-50%,-50%)}
+    #boot .horizon::before{width:44%;height:18px;background:radial-gradient(ellipse,color-mix(in srgb,var(--horizon-tone) 12%,transparent),transparent 68%);filter:blur(7px);animation:horizon-bloom var(--horizon-duration) ease-in-out infinite}
+    #boot .horizon::after{width:24%;height:1px;background:linear-gradient(90deg,transparent,var(--horizon-tone),transparent);box-shadow:0 0 12px color-mix(in srgb,var(--horizon-tone) 32%,transparent);animation:horizon-open var(--horizon-duration) cubic-bezier(.4,0,.2,1) infinite}
+    #boot .light{position:absolute;inset:-1px auto auto 0;width:28%;height:3px;border-radius:999px;background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--horizon-tone) 88%,var(--horizon-glint)),transparent);filter:blur(.4px);opacity:0;transform:translateX(-100%);animation:horizon-travel var(--horizon-duration) ease-in-out infinite}
+    #boot .pearl{position:absolute;inset:50% auto auto 50%;width:7px;height:7px;border:1px solid var(--horizon-pearl-border);border-radius:50%;
+      background:radial-gradient(circle at 34% 28%,var(--horizon-glint) 0 12%,transparent 34%),var(--horizon-tone);
+      box-shadow:0 0 0 4px color-mix(in srgb,var(--horizon-tone) 7%,transparent),0 0 17px color-mix(in srgb,var(--horizon-tone) 28%,transparent);transform:translate(-50%,-50%);animation:horizon-pearl var(--horizon-duration) ease-in-out infinite}
+    /* the drive: block courses in perspective, laid from the horizon toward you */
+    #boot .drive{position:relative;width:100%;height:74px;margin-top:2px;perspective:240px;perspective-origin:50% 0;overflow:hidden;
+      -webkit-mask:linear-gradient(180deg,#000 30%,transparent);mask:linear-gradient(180deg,#000 30%,transparent)}
+    #boot .plane{position:absolute;left:8%;right:8%;top:0;height:150px;transform-origin:50% 0;transform:rotateX(64deg)}
+    #boot .plane i{position:absolute;height:13px;border-radius:1.5px;background:linear-gradient(180deg,#9aa4b6,#6c778c);box-shadow:inset 0 1px 0 rgb(255 255 255 / 25%);opacity:0;transform:translateY(-10px) scale(.7)}
+    #boot .plane i.e{background:linear-gradient(180deg,#3d465a,#2a3245)}
+    #boot.on .plane i{animation:blk .32s cubic-bezier(.22,1,.36,1) both}
+    @keyframes blk{to{opacity:1;transform:none}}
+    #boot .label{margin-top:4px;color:var(--horizon-muted);font:500 13px/1.25 "General Sans",system-ui,sans-serif;letter-spacing:-.005em}
+    #boot.out .content{opacity:0}
+    #boot.out .h.t{transform:translateY(-101%)}#boot.out .h.b{transform:translateY(101%)}
+    #boot.out{pointer-events:none}
+    #boot.gone{display:none}
+    @keyframes horizon-travel{0%,12%{opacity:0;transform:translateX(-100%)}32%{opacity:.76}72%{opacity:.76}88%,100%{opacity:0;transform:translateX(357%)}}
+    @keyframes horizon-open{0%,100%{opacity:.28;transform:translate(-50%,-50%) scaleX(.24)}48%{opacity:.92;transform:translate(-50%,-50%) scaleX(1)}}
+    @keyframes horizon-bloom{0%,100%{opacity:.4;transform:translate(-50%,-50%) scaleX(.65)}52%{opacity:1;transform:translate(-50%,-50%) scaleX(1.08)}}
+    @keyframes horizon-pearl{0%,100%{transform:translate(-50%,-50%) scale(.92)}50%{transform:translate(-50%,-50%) scale(1.08)}}
+    @keyframes horizon-atmosphere{0%,100%{opacity:.72;transform:scale(.99) translateX(-1%)}50%{opacity:1;transform:scale(1.01) translateX(1%)}}
+    @media (prefers-reduced-motion:reduce){#boot .atmosphere,#boot .horizon::before,#boot .horizon::after,#boot .light,#boot .pearl,#boot.on .plane i{animation:none}
+      #boot .light{display:none}#boot .plane i{opacity:1;transform:none}#boot .h{transition:none}#boot.out{opacity:0;transition:opacity .25s}}
+    html.ld-on .pe-cut{animation-play-state:paused}
+  </style>
+</head>
+<body>
+  <output id="boot" aria-hidden="true">
+    <span class="h t"></span><span class="h b"></span>
+    <span class="atmosphere"></span>
+    <span class="content">
+      <img class="badge" src="/brand/badge-96-v1.webp" width="54" height="54" alt="">
+      <span class="eyebrow">Aspect · Drives &amp; Patios</span>
+      <span class="horizon"><span class="light"></span><span class="pearl"></span></span>
+      <span class="drive"><span class="plane"></span></span>
+      <span class="label">Laying your drive, by design</span>
+    </span>
+  </output>
+  <script>
+  (function(){
+    var b=document.getElementById('boot'),h=document.documentElement,seen=false;
+    try{seen=sessionStorage.getItem('ad-ld')==='1';sessionStorage.setItem('ad-ld','1')}catch(e){}
+    // repeat visit or capture route: no loader at all (removed before first paint)
+    if(seen||/^\/capture/.test(location.pathname)){b.remove();window.__ld=true;return}
+    h.classList.add('ld-on');window.__ld=false;
+    var rm=matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // stretcher-bond courses, nearest course last: each lays from the horizon toward you, left to right
+    var pl=b.querySelector('.plane'),R=8,BW=36,BH=13,G=3,W=pl.offsetWidth||300,k=0;
+    for(var r=0;r<R;r++){var y=r*(BH+G),x=(r%2?-BW/2:0);
+      for(;x<W;x+=BW+G){var e=document.createElement('i'),w=Math.min(BW,W-x),l=Math.max(0,x);
+        if(w-(l-x)<6){continue}
+        e.style.left=l+'px';e.style.top=y+'px';e.style.width=(w-(l-x))+'px';
+        if(l<2||x+BW>=W-2)e.className='e';
+        e.style.animationDelay=(r*42+(l/W)*90).toFixed(0)+'ms';pl.appendChild(e);k++}}
+    b.classList.add('on');
+    // under 1 s in total: courses lay for ~0.6 s, then the drive splits along the horizon
+    var SHOW=rm?260:620,OUT=rm?250:340;
+    setTimeout(function(){
+      b.classList.add('out');h.classList.remove('ld-on');window.__ld=true;dispatchEvent(new Event('wd:loaded'));
+      setTimeout(function(){b.classList.add('gone');b.remove()},OUT+20);
+    },SHOW);
+  })();
+  </script>
+  <div id="root"></div>
+  <div id="below"></div>
+  <script type="module" src="/src/main.tsx"></script>
+</body>
+</html>
