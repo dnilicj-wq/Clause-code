@@ -59,7 +59,7 @@ export function Hero() {
       </picture>
       <canvas ref={canvas} className="absolute inset-0 -z-10 h-full w-full transition-opacity duration-700" style={{ opacity: live ? 1 : 0 }} aria-hidden="true" />
       <div className="pointer-events-none absolute inset-0 -z-[5] hidden md:block" style={{ background: 'linear-gradient(180deg, rgba(10,10,10,.7) 0%, rgba(10,10,10,0) 22%, rgba(10,10,10,0) 40%, rgba(10,10,10,.55) 64%, rgba(10,10,10,.9) 100%)' }} />
-      <div className="pointer-events-none absolute inset-0 -z-[5] md:hidden" style={{ background: 'linear-gradient(180deg, rgba(14,14,15,.75) 0%, rgba(14,14,15,0) 16%, rgba(14,14,15,0) 30%, rgba(14,14,15,.72) 42%, rgba(14,14,15,.9) 58%, rgba(14,14,15,.96) 100%)' }} />
+      <div className="pointer-events-none absolute inset-0 -z-[5] md:hidden" style={{ background: 'linear-gradient(180deg, rgba(14,14,15,.6) 0%, rgba(14,14,15,0) 11%, rgba(14,14,15,0) 32%, rgba(14,14,15,.72) 44%, rgba(14,14,15,.9) 58%, rgba(14,14,15,.96) 100%)' }} />
       <div className="pointer-events-none absolute inset-0 -z-[5] hidden md:block" style={{ background: 'linear-gradient(90deg, rgba(10,10,10,.78) 0%, rgba(10,10,10,.35) 38%, rgba(10,10,10,0) 55%)' }} />
 
       <div className="pointer-events-none relative mx-auto flex h-full max-w-[1280px] flex-col justify-end px-5 pb-[max(20px,env(safe-area-inset-bottom))] pt-24 md:flex-row md:items-end md:justify-between md:gap-10 md:px-12 md:pb-14">

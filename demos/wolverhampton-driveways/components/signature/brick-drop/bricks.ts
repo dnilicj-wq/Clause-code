@@ -11,10 +11,10 @@ export type BrickOpts = {
 };
 
 const BW = 0.3, BD = 0.15, JOINT = 0.007, TH = 0.07;   // block pavers (drawn a touch larger than 200 x 100 so they read on a phone)
-const COLS = 34, ROWS = 46;                               // field incl. the border
-const X0 = -4.4, Z0 = 2.7;
-const FIN_AT = 0.7;
-export const START = 0.42;
+const COLS = 46, ROWS = 76;                               // big enough to fill the frame to the top on any screen                               // field incl. the border
+const X0 = -6.2, Z0 = 2.7;
+export const START = 0;
+const ROWGAP = 0.075, SWEEP = 0.5, FALL_H = 0.85;          // course after course, each sweeping left to right
 
 // brindle mix: mostly greys with red runs, charcoal border
 const GREYS = ['#5e5e61', '#717070', '#4d4d50', '#7f7e7b', '#585654'];
@@ -37,7 +37,7 @@ export function initBricks(host: HTMLElement, cv: HTMLCanvasElement, opts: Brick
   const scene = new THREE.Scene();
   const fogC = new THREE.Color(opts.fog);
   scene.background = fogC;
-  scene.fog = new THREE.Fog(fogC, 7, 17);
+  scene.fog = new THREE.Fog(fogC, 13, 28);
   const pm = new THREE.PMREMGenerator(renderer);
   const env = pm.fromScene(new RoomEnvironment(), 0.04).texture;
   scene.environment = env;
@@ -50,7 +50,7 @@ export function initBricks(host: HTMLElement, cv: HTMLCanvasElement, opts: Brick
   sun.position.set(-6.5, 8.5, -3.2); sun.target.position.set(0.4, 0, -0.8);
   sun.castShadow = true;
   sun.shadow.mapSize.set(coarse ? 1024 : 2048, coarse ? 1024 : 2048);
-  Object.assign(sun.shadow.camera, { left: -7, right: 7, top: 7, bottom: -7, near: 1, far: 25 });
+  Object.assign(sun.shadow.camera, { left: -10, right: 10, top: 10, bottom: -10, near: 1, far: 30 });
   sun.shadow.bias = -0.0004; sun.shadow.normalBias = 0.02; sun.shadow.radius = 4; sun.shadow.blurSamples = 12;
   scene.add(sun, sun.target);
 
@@ -133,8 +133,9 @@ export function initBricks(host: HTMLElement, cv: HTMLCanvasElement, opts: Brick
   const frame = () => {
     W = Math.max(1, host.clientWidth); H = Math.max(1, host.clientHeight);
     renderer.setSize(W, H, false); cam.aspect = W / H; portrait = W / H < 0.9;
-    if (portrait) { cam.fov = 50; cam.position.set(0.5, 4.9, 4.6); look.set(0.5, 0, -1.5); }
-    else { cam.fov = 34; cam.position.set(0.7, 3.5, 5.7); look.set(0.7, 0, -1.6); }
+    // looking down at the drive steeply enough that the floor fills the frame right up to the top edge
+    if (portrait) { cam.fov = 50; cam.position.set(0.4, 6.2, 2.6); look.set(0.4, 0, -1.2); }
+    else { cam.fov = 34; cam.position.set(0.7, 5.2, 4.6); look.set(0.7, 0, -1.8); }
     cam.updateProjectionMatrix(); cam.lookAt(look);
   };
   frame();
@@ -144,8 +145,8 @@ export function initBricks(host: HTMLElement, cv: HTMLCanvasElement, opts: Brick
   const falling = new Set<B>();
   const drop = (b: B, at: number) => {
     if (b.state !== 0) return;
-    b.state = 1; b.t0 = at; b.h = 1.6 + rnd() * 1.2; b.dur = Math.sqrt((2 * b.h) / 9.81) * 1.1;
-    b.rx = (rnd() - 0.5) * 0.9; b.rz = (rnd() - 0.5) * 0.9; b.ry = (rnd() - 0.5) * 0.8;
+    b.state = 1; b.t0 = at; b.h = FALL_H; b.dur = 0.46;
+    b.rx = -0.18; b.rz = 0; b.ry = 0;                       // every brick tips in the same way: reads as one smooth wave
     falling.add(b);
   };
   const coverage = () => laid / total;
@@ -153,24 +154,45 @@ export function initBricks(host: HTMLElement, cv: HTMLCanvasElement, opts: Brick
     b.hit = true; laid++;
     if (b.i % 9 === 0) puff(b.x, b.z, now);
     if (laid % 12 === 0 || laid === total) opts.onCoverage?.(coverage());
-    if (!finishing && coverage() >= FIN_AT) finish();
     if (laid === total && !finished) { finished = true; api.finished = true; opts.onFinished?.(); }
   };
-  // far courses first, so new bricks land in front of the laid ones (reads as "landing from the top")
-  const order = () => list.filter((b) => b.state === 0).sort((a, b) => a.z - b.z || a.x - b.x);
-  function finish(gap = 0.0035) { finishing = true; const t = now(); order().forEach((b, i) => drop(b, t + i * gap)); }
+  // what the camera can see: bricks off-screen are simply placed; the visible ones are laid course by course
+  // from the top of the screen down, each course sweeping left to right.
+  const V = new THREE.Vector3();
+  const plan = () => {
+    cam.updateMatrixWorld();
+    const vis: { b: B; sx: number }[] = [], rowsSeen = new Map<number, number>();
+    for (const b of list) {
+      if (b.state !== 0) continue;
+      V.set(b.x, 0, b.z).project(cam);
+      if (Math.abs(V.x) > 1.08 || Math.abs(V.y) > 1.08) { place(b); laid++; continue; }
+      vis.push({ b, sx: (V.x + 1) / 2 });
+    }
+    const rowKey = (b: B) => Math.round((Z0 - b.z) / BD);
+    const rows = [...new Set(vis.map((v) => rowKey(v.b)))].sort((p, q) => q - p);   // far (top of screen) first
+    rows.forEach((r, i) => rowsSeen.set(r, i));
+    mesh.instanceMatrix.needsUpdate = true;
+    return vis.map((v) => ({ b: v.b, row: rowsSeen.get(rowKey(v.b))!, sx: v.sx })).sort((p, q) => p.row - q.row || p.sx - q.sx);
+  };
+  function finish(gap = 0.03) {
+    finishing = true; const t = now();
+    plan().forEach((v) => drop(v.b, t + v.row * gap + v.sx * 0.25));
+  }
   function place(b: B) { b.state = 2; b.hit = true; setM(b, TH / 2); }
   function demo(start = START) {
-    const t = now(); const o = order(), n = Math.round(total * start);
-    o.slice(0, n).forEach(place); laid += n; mesh.instanceMatrix.needsUpdate = true;
-    let at = t + 0.15;
-    o.slice(n).forEach((b, i) => { drop(b, at); at += Math.max(0.004, 0.06 * Math.pow(0.97, i)); });
+    const t = now() + 0.25, p = plan();
+    const skip = Math.round(p.length * start);
+    p.slice(0, skip).forEach((v) => { place(v.b); laid++; });
+    p.slice(skip).forEach((v) => drop(v.b, t + v.row * ROWGAP + v.sx * SWEEP));
+    mesh.instanceMatrix.needsUpdate = true;
   }
-  function prefill(f = START) {
-    const o = order(); const n = Math.round(total * f);
-    o.slice(0, n).forEach(place); laid = n;
-    // the next courses caught mid-air, scattered across the width at different heights
-    o.slice(n, n + 90).forEach((b, i) => { if (rnd() > 0.32) return; b.state = 1; const hgt = 0.12 + rnd() * 1.7; setM(b, TH / 2 + hgt, (rnd() - 0.5) * 0.9, (rnd() - 0.5) * 0.8, (rnd() - 0.5) * 0.9); });
+  function prefill(f = 0) {
+    const p = plan();
+    const top = Math.max(3, Math.round(f * 40));
+    for (const v of p) {
+      if (v.row < top) { place(v.b); laid++; }
+      else if (v.row === top && v.sx < 0.62) { v.b.state = 1; const k = Math.max(0, Math.min(1, (0.62 - v.sx) / 0.5)); setM(v.b, TH / 2 + FALL_H * (1 - k * k) * 0.9, -0.18 * (1 - k) * (1 - k), 0, 0); }
+    }
     mesh.instanceMatrix.needsUpdate = true; frozen = true;
   }
   function fillAll() { list.forEach(place); laid = total; mesh.instanceMatrix.needsUpdate = true; frozen = true; }
@@ -234,7 +256,7 @@ export function initBricks(host: HTMLElement, cv: HTMLCanvasElement, opts: Brick
       }
       leaves.position.x = -2.4 + Math.sin(t * 0.45) * 0.12 + Math.sin(t * 1.3) * 0.03;
       leaves.position.z = -1.2 + Math.cos(t * 0.37) * 0.08;
-      cam.position.x += (Math.sin(t * 0.12) * 0.08 + (portrait ? 0.5 : 0.7) - cam.position.x) * 0.02;
+      cam.position.x += (Math.sin(t * 0.12) * 0.06 + (portrait ? 0.4 : 0.7) - cam.position.x) * 0.02;
       cam.lookAt(look);
     }
     renderer.render(scene, cam);

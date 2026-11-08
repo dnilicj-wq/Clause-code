@@ -61,7 +61,7 @@ export const site = {
     { name: '', source: 'Google', url: 'https://wolverhamptondrivewaysltd.co.uk/',
       text: 'Positive experience and efficient workforce!' },
   ] as Review[],
-  posters: { d: '/posters/brick-d-wd2.webp', m: '/posters/brick-m-wd2.webp' },
+  posters: { d: '/posters/brick-d-wd3.webp', m: '/posters/brick-m-wd3.webp' },
   formEndpoint: '', // empty = no data stored; the lead is handed to WhatsApp
 };
 
