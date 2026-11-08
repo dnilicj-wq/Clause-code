@@ -24,7 +24,8 @@ export function Proof() {
   const r = R[i];
   return (
     <section id="reviews" aria-labelledby="revH" className="relative overflow-hidden py-20 md:py-32">
-      <div aria-hidden className="pointer-events-none absolute inset-0" style={{ background: 'radial-gradient(50% 40% at 15% 20%, rgba(243,179,30,.10), transparent 70%)' }} />
+      <div aria-hidden className="aura"><i className="glow-y drift" style={{ width: '56vw', height: '56vw', left: '-16vw', top: '-12vw' }} /><i className="glow-cu" style={{ width: '34vw', height: '34vw', left: '8vw', top: '6vw' }} /><i className="glow-aq drift" style={{ width: '48vw', height: '48vw', right: '-14vw', bottom: '-14vw', animationDelay: '-8s' }} /></div>
+      <hr className="seam absolute inset-x-0 top-0" />
       <div className="relative mx-auto grid max-w-[1320px] gap-12 px-5 md:grid-cols-[1fr_1.25fr] md:items-end md:gap-16 md:px-12">
         <div>
           <h2 id="revH" className="sr-only">Reviews and credentials</h2>
@@ -41,7 +42,7 @@ export function Proof() {
             <span className="ml-auto flex gap-1.5">
               {R.map((_, n) => (
                 <button key={n} onClick={() => setI(n)} aria-label={`Show review ${n + 1}`} className="grid h-8 w-8 place-items-center">
-                  <i className="block h-1.5 rounded-full transition-[width,background-color] duration-300" style={{ width: n === i ? 22 : 8, background: n === i ? 'var(--y)' : 'rgba(244,239,230,.25)' }} />
+                  <i className="block h-1.5 rounded-full transition-[width,background-color] duration-300" style={{ width: n === i ? 22 : 8, background: n === i ? 'var(--molten)' : 'rgba(214,240,245,.25)' }} />
                 </button>
               ))}
             </span>
@@ -50,12 +51,12 @@ export function Proof() {
       </div>
 
       <div className="relative mx-auto mt-16 max-w-[1320px] px-5 md:mt-24 md:px-12">
-        <ul className="grid gap-px overflow-hidden rounded-[18px] sm:grid-cols-2 md:grid-cols-4" style={{ background: 'var(--line)' }}>
+        <ul className="grid gap-3 sm:grid-cols-2 md:grid-cols-4 md:gap-4">
           {CREDS.map((c) => (
-            <li key={c.t} className="flex flex-col gap-3 p-6 md:min-h-[200px] md:p-7" style={{ background: 'var(--bg)' }}>
+            <li key={c.t} className="tile flex flex-col gap-3 p-6 md:min-h-[200px] md:p-7">
               {c.img
-                ? <img src="/client/city-guilds-96-v1.webp" alt="City & Guilds approved" width={96} height={96} loading="lazy" className="h-12 w-12 rounded-md bg-white p-1" />
-                : <span className="grid h-12 w-12 place-items-center rounded-full" style={{ background: 'rgba(243,179,30,.12)', color: 'var(--y)' }} aria-hidden>
+                ? <img src="/client/city-guilds-96-v1.webp" alt="City & Guilds approved" width={96} height={96} loading="lazy" className="h-12 w-12 rounded-[14px] bg-white p-1" style={{ boxShadow: '0 10px 24px -10px rgba(47,211,217,.55), 0 0 0 1px rgba(47,211,217,.35)' }} />
+                : <span className="icon-aq" aria-hidden>
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6L9 17l-5-5" /></svg>
                   </span>}
               <p className="font-display text-[22px] font-[440] leading-tight">{c.t}</p>

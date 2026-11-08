@@ -8,19 +8,19 @@
   <meta name="description" content="Resin-bound driveways, flake, metallic and high-build epoxy floors across Wrexham, Chester, the Wirral, Cheshire, Shropshire and North Wales. Design yours and see an example price in seconds. Demo site by Clientgateway." />
   <link rel="icon" type="image/png" href="/favicon.png" />
   <link rel="apple-touch-icon" href="/brand/icon-180-v1.png" />
-  <meta name="theme-color" content="#0C0B0A" />
+  <meta name="theme-color" content="#060A0D" />
   <link rel="preload" href="/fonts/fraunces-300-700.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/fonts/satoshi-400.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href="/posters/studio-m-sr1.webp" as="image" media="(max-width: 699px)" fetchpriority="high" />
-  <link rel="preload" href="/posters/studio-d-sr1.webp" as="image" media="(min-width: 700px)" fetchpriority="high" />
+  <link rel="preload" href="/posters/studio-m-sr2.webp" as="image" media="(max-width: 699px)" fetchpriority="high" />
+  <link rel="preload" href="/posters/studio-d-sr2.webp" as="image" media="(min-width: 700px)" fetchpriority="high" />
   <style>
-    html,body{margin:0;background:#0C0B0A;color:#F4EFE6}
+    html,body{margin:0;background:#060A0D;color:#F4EFE6}
     /* Loader: "Mercury Rail Loader" by johnmamanao / Nacre UI (MIT), https://21st.dev/@johnmamanao/components/mercury-rail-loader
        Ported from components/ui/mercury-rail-loader.module.css (rail, traveler, trail, mercury bead, shape wobble), re-skinned for
        Suparesin: his logo above, the bead is a drop of his gold resin, and the rail fills behind it like a pour levelling out.
        One run left to right (not ping-pong), then the curtain lifts. */
     #boot{--mercury-accent:#F3B31E;--mercury-duration:560ms;--mercury-shape-duration:140ms;--mercury-width:min(300px,68vw);
-      position:fixed;z-index:100;inset:0;display:grid;place-items:center;overflow:hidden;color:#F4EFE6;background:#0C0B0A;
+      position:fixed;z-index:100;inset:0;display:grid;place-items:center;overflow:hidden;color:#F4EFE6;background:radial-gradient(60% 50% at 50% 55%,#0E1E26,#060A0D 70%);
       transition:transform .36s cubic-bezier(.76,0,.24,1),opacity .36s ease}
     #boot .root{display:inline-grid;width:var(--mercury-width);gap:13px;justify-items:center}
     #boot .logo{width:min(220px,56vw);height:auto;margin-bottom:14px;opacity:0;transform:translateY(6px);transition:opacity .3s ease,transform .45s cubic-bezier(.22,1,.36,1)}
@@ -30,7 +30,7 @@
     #boot .rail::after{position:absolute;inset:50% 8% auto;height:8px;border-radius:999px;background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--mercury-accent) 8%,transparent),transparent);content:'';filter:blur(5px);transform:translateY(-50%)}
     /* the poured resin: a glossy gold band that levels out behind the bead */
     #boot .pour{position:absolute;inset:50% auto auto 0;height:3px;width:100%;border-radius:999px;transform-origin:0 50%;transform:translateY(-50%) scaleX(0);
-      background:linear-gradient(180deg,#FFE7A8,#F3B31E 55%,#B97C0B);box-shadow:0 0 12px color-mix(in srgb,var(--mercury-accent) 30%,transparent)}
+      background:linear-gradient(90deg,#2FD3D9,#F3B31E 45%,#F07A3E);box-shadow:0 0 14px rgba(240,122,62,.45),0 0 22px rgba(47,211,217,.25)}
     #boot.on .pour{animation:sr-pour var(--mercury-duration) cubic-bezier(.4,0,.2,1) 80ms both}
     #boot .traveler{position:absolute;inset:50% auto auto 0;display:block;width:18px;height:8px;transform:translateY(-50%)}
     #boot.on .traveler{animation:mercury-travel var(--mercury-duration) cubic-bezier(.4,0,.2,1) 80ms both}

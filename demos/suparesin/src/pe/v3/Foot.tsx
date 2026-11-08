@@ -9,8 +9,10 @@ export function Footer() {
   const { site } = useSite();
   const q = useQuote();
   return (
-    <footer className="relative overflow-hidden pb-28 pt-20 md:pb-12 md:pt-28" style={{ background: '#080707' }}>
-      <div className="mx-auto max-w-[1320px] px-5 md:px-12">
+    <footer className="relative overflow-hidden pb-28 pt-20 md:pb-12 md:pt-28" style={{ background: 'linear-gradient(180deg,#04080A,#020507)' }}>
+      <hr className="seam absolute inset-x-0 top-0" />
+      <div aria-hidden className="aura"><i className="glow-cu drift" style={{ width: '70vw', height: '70vw', left: '-10vw', top: '-30vw' }} /><i className="glow-aq drift" style={{ width: '50vw', height: '50vw', right: '-14vw', top: '-10vw', animationDelay: '-7s' }} /></div>
+      <div className="relative mx-auto max-w-[1320px] px-5 md:px-12">
         <h2 className="d-xl max-w-[13ch]">Let’s pour <i className="gold-text">yours.</i></h2>
         <div className="mt-8 flex flex-wrap gap-3">
           <a href="#price" className="btn btn-y">Design &amp; price</a>
@@ -51,11 +53,11 @@ export function StickyBar() {
   const show = !hidden.top && !hidden.price && !hidden.foot;
   return (
     <nav aria-label="Quick contact" aria-hidden={!show} className="fixed inset-x-3 bottom-[max(10px,env(safe-area-inset-bottom))] z-40 grid grid-cols-[1fr_1.3fr_1fr] gap-1.5 rounded-full p-1.5 md:hidden"
-      style={{ background: 'rgba(12,11,10,.92)', boxShadow: 'inset 0 0 0 1px rgba(244,239,230,.12), 0 12px 30px rgba(0,0,0,.45)', backdropFilter: 'blur(14px)', WebkitBackdropFilter: 'blur(14px)',
+      style={{ background: 'rgba(6,10,13,.92)', boxShadow: 'inset 0 0 0 1px rgba(47,211,217,.22), 0 12px 30px rgba(0,0,0,.45)', backdropFilter: 'blur(14px)', WebkitBackdropFilter: 'blur(14px)',
         transform: show ? 'none' : 'translateY(120%)', opacity: show ? 1 : 0, pointerEvents: show ? 'auto' : 'none', transition: 'transform 420ms cubic-bezier(.32,.72,0,1), opacity 300ms ease' }}>
       <a tabIndex={show ? 0 : -1} href={tel(site.mobile)} className="flex h-11 items-center justify-center rounded-full text-[14px] font-semibold" style={{ background: 'rgba(244,239,230,.08)' }}>Call</a>
       <a tabIndex={show ? 0 : -1} href={waLink(q)} target="_blank" rel="noreferrer" className="flex h-11 items-center justify-center gap-1.5 rounded-full text-[14px] font-semibold" style={{ background: 'rgba(244,239,230,.08)' }}><WaIcon size={16} /> WhatsApp</a>
-      <a tabIndex={show ? 0 : -1} href="#price" className="flex h-11 items-center justify-center rounded-full text-[14px] font-semibold" style={{ background: '#F3B31E', color: '#140E02' }}>Price it</a>
+      <a tabIndex={show ? 0 : -1} href="#price" className="flex h-11 items-center justify-center rounded-full text-[14px] font-semibold" style={{ background: 'var(--molten)', color: '#1A0C02', boxShadow: 'inset 0 1px 0 rgba(255,255,255,.5)' }}>Price it</a>
     </nav>
   );
 }

@@ -41,7 +41,7 @@ export function Work() {
 
   const cards = shown.map((p, i) => (
     <figure key={p.key} className="m-0 shrink-0 snap-start" style={{ width: pan ? `min(calc(${Math.min(1.6, p.w / p.h).toFixed(3)} * min(62vh, 620px)), 900px)` : `min(${p.w > p.h ? 86 : 70}vw, ${p.w > p.h ? 520 : 360}px)` }}>
-      <div className="overflow-hidden rounded-[18px]" style={{ aspectRatio: pan ? `${Math.min(1.6, p.w / p.h)}` : `${Math.min(1.6, p.w / p.h)}`, background: '#1A1815' }}>
+      <div className="edge relative overflow-hidden rounded-[18px]" style={{ aspectRatio: `${Math.min(1.6, p.w / p.h)}`, background: '#0F1C23', boxShadow: '0 40px 80px -36px rgba(0,0,0,.9), 0 0 0 1px rgba(214,240,245,.06)' }}>
         <img src={photoSrc(p, 1280)} srcSet={`${photoSrc(p, 640)} 640w, ${photoSrc(p, 1280)} 1280w`} sizes="(min-width: 900px) 900px, 80vw"
           alt={p.alt} width={p.w} height={p.h} loading="lazy" decoding="async" className="h-full w-full object-cover" />
       </div>
@@ -54,13 +54,12 @@ export function Work() {
 
   const intro = (
     <div className="flex shrink-0 flex-col justify-end pr-4 md:w-[min(34vw,440px)] md:pr-10">
-      <p className="text-[12px] font-semibold uppercase tracking-[.16em] y">Recent projects</p>
+      <p className="eyebrow2">Recent projects</p>
       <h2 id="workH" className="d-l mt-3">Poured by <span className="gold-text italic">{site.owner.first}’s team.</span></h2>
       <p className="lede3 mt-5">Resin drives, metallic and flake floors, worktops and play areas. Photos from the {site.company} website.</p>
       <div className="mt-6 flex flex-wrap gap-2" role="group" aria-label="Filter projects">
         {(['All', 'Driveways', 'Floors', 'Worktops & more'] as const).map((k) => (
-          <button key={k} onClick={() => { own.current = true; setPick(k); }} aria-pressed={pick === k} className="chip !h-9 !text-[13.5px] transition-colors"
-            style={pick === k ? { background: 'var(--y)', color: '#140E02', boxShadow: 'none' } : undefined}>{k}</button>
+          <button key={k} onClick={() => { own.current = true; setPick(k); }} aria-pressed={pick === k} className="chip !h-9 !text-[13.5px]">{k}</button>
         ))}
       </div>
     </div>
@@ -68,9 +67,10 @@ export function Work() {
 
   if (!pan) {
     return (
-      <section id="work" aria-labelledby="workH" className="py-20 md:py-28">
-        <div className="px-5">{intro}</div>
-        <div className="mt-8 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden" style={{ scrollPaddingLeft: 20 }} aria-label="Photos of his work, swipe for more">
+      <section id="work" aria-labelledby="workH" className="relative py-20 md:py-28">
+        <div aria-hidden className="aura"><i className="glow-cu drift" style={{ width: '60vw', height: '60vw', left: '-18vw', top: '10%' }} /><i className="glow-aq drift" style={{ width: '50vw', height: '50vw', right: '-14vw', bottom: '-10%', animationDelay: '-6s' }} /></div>
+        <div className="relative px-5">{intro}</div>
+        <div className="relative mt-8 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden" style={{ scrollPaddingLeft: 20 }} aria-label="Photos of his work, swipe for more">
           {cards}
           <End />
         </div>
@@ -80,7 +80,8 @@ export function Work() {
   return (
     <section ref={sec} id="work" aria-labelledby="workH" className="relative" style={{ height: h ?? '300vh' }}>
       <div className="sticky top-0 flex h-[100svh] items-center overflow-hidden">
-        <div ref={track} className="flex items-end gap-8 pl-12 pr-[8vw] will-change-transform">
+        <div aria-hidden className="aura"><i className="glow-cu drift" style={{ width: '60vw', height: '60vw', left: '-18vw', top: '10%' }} /><i className="glow-aq drift" style={{ width: '50vw', height: '50vw', right: '-14vw', bottom: '-10%', animationDelay: '-6s' }} /></div>
+        <div ref={track} className="relative flex items-end gap-8 pl-12 pr-[8vw] will-change-transform">
           {intro}
           {cards}
           <End />
@@ -92,10 +93,11 @@ export function Work() {
 
 function End() {
   return (
-    <div className="flex w-[min(80vw,360px)] shrink-0 flex-col justify-end self-stretch rounded-[18px] p-6 md:p-8" style={{ background: 'var(--y)', color: '#140E02' }}>
-      <p className="font-display text-[32px] font-[420] italic leading-[1.02] tracking-[-.02em] md:text-[40px]">Yours could be next.</p>
-      <p className="mt-3 text-[15px]" style={{ color: 'rgba(20,14,2,.75)' }}>Design it and see an example price in under a minute.</p>
-      <a href="#price" className="btn btn-ink mt-6 self-start">Design &amp; price</a>
+    <div className="molten-bg relative flex w-[min(80vw,360px)] shrink-0 flex-col justify-end self-stretch overflow-hidden rounded-[18px] p-6 md:p-8" style={{ boxShadow: '0 40px 80px -30px rgba(240,122,62,.55), inset 0 1px 0 rgba(255,255,255,.5)' }}>
+      <span aria-hidden className="absolute -right-16 -top-16 h-56 w-56 rounded-full" style={{ background: 'radial-gradient(closest-side, rgba(47,211,217,.55), transparent)' }} />
+      <p className="relative font-display text-[32px] font-[420] italic leading-[1.02] tracking-[-.02em] md:text-[40px]">Yours could be next.</p>
+      <p className="mut relative mt-3 text-[15px]">Design it and see an example price in under a minute.</p>
+      <a href="#price" className="btn btn-ink relative mt-6 self-start">Design &amp; price</a>
     </div>
   );
 }

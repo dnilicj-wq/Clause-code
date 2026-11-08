@@ -246,8 +246,11 @@ function stripRoom() {
     const m = new THREE.Mesh(new THREE.BoxGeometry(10, 0.05, 0.13), strip);
     m.position.set(-1.5 + (i % 3) * 1.5, 7.4, -14 + i * 3.4); s.add(m);
   }
-  const win = new THREE.Mesh(new THREE.PlaneGeometry(7, 3.2), new THREE.MeshBasicMaterial({ color: new THREE.Color(3.2, 2.6, 1.9) }));
-  win.position.set(0, 2.8, -14.8); s.add(win);
+  // a soft warm window, framed by two coloured light bars (teal and copper) so the gloss picks up colour
+  const win = new THREE.Mesh(new THREE.PlaneGeometry(3.6, 2), new THREE.MeshBasicMaterial({ color: new THREE.Color(1.2, 0.95, 0.7) }));
+  win.position.set(0, 2.6, -14.8); s.add(win);
+  const bar = (c: THREE.Color, x: number) => { const m = new THREE.Mesh(new THREE.PlaneGeometry(0.5, 5.6), new THREE.MeshBasicMaterial({ color: c })); m.position.set(x, 3.4, -14.75); s.add(m); };
+  bar(new THREE.Color(0.2, 2.6, 2.9), -3.4); bar(new THREE.Color(3.0, 1.1, 0.35), 4.4);
   const fill = new THREE.Mesh(new THREE.PlaneGeometry(30, 8), new THREE.MeshBasicMaterial({ color: new THREE.Color(0.35, 0.33, 0.3) }));
   fill.position.set(0, 3.6, 14.8); fill.rotation.y = Math.PI; s.add(fill);
   return s;

@@ -33,7 +33,7 @@ export default function Capture() {
     if (!a) return;
     const go = () => {
       if (!a.loaded) return setTimeout(go, 100);
-      if (k === 'poster') a.bare('drive'); else a.fill(f, f.mode, k === 'edge' ? a.look.z + 1.4 : 99);
+      if (k === 'poster') a.bare((q.get('m') as 'drive' | 'floor') || 'floor'); else a.fill(f, f.mode, k === 'edge' ? a.look.z + 1.4 : 99);
       setTimeout(() => ((window as any).__ready = true), 1800);
     };
     go();

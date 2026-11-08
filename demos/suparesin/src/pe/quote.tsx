@@ -12,8 +12,8 @@ type Q = {
 const C = createContext<Q | null>(null);
 
 export function QuoteProvider({ children }: { children: ReactNode }) {
-  const [finishKey, setFinishKey] = useState<string>(FIRST.drive);
-  const [m2, setM2Raw] = useState<number>(sizes.drive[1].m2);
+  const [finishKey, setFinishKey] = useState<string>(FIRST.floor);
+  const [m2, setM2Raw] = useState<number>(sizes.floor[1].m2);
   const [sizeKey, setSizeKey] = useState<string>('m');
   const [touched, setTouched] = useState(false);
   const finish = byKey(finishKey);

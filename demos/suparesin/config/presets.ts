@@ -16,12 +16,12 @@ export type Preset = {
 
 export const presets: Record<string, Preset> = {
   'suparesin-gold': {
-    key: 'suparesin-gold', name: 'Suparesin Black & Gold', vibe: 'luxury', dark: true,
-    bg: '#0C0B0A', bg2: '#131210', surface: '#1A1815', line: 'rgba(244,239,230,.10)',
-    ink: '#F4EFE6', muted: '#A39C90',
+    key: 'suparesin-gold', name: 'Suparesin Molten', vibe: 'luxury', dark: true,
+    bg: '#060A0D', bg2: '#0B141A', surface: '#0F1C23', line: 'rgba(214,240,245,.10)',
+    ink: '#F4EFE6', muted: '#9DA9AE',
     accent: '#F3B31E', accentInk: '#140E02', accent2: '#F3B31E',
     metal: ['#3A2A10', '#D9B46A', '#FFF4DA'],
-    resin: { base: '#1A1815', metal: '#D9B46A' },
+    resin: { base: '#0F1C23', metal: '#D9B46A' },
     concrete: '#8E8D8B',
     display: '"Fraunces", Georgia, serif', body: '"Satoshi", system-ui, sans-serif', serif: '"Instrument Serif", Georgia, serif',
     radius: '18px',

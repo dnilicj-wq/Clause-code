@@ -18,7 +18,7 @@ export const finishes: FinishOpt[] = [
 ];
 export const byKey = (k: string) => finishes.find((f) => f.key === k) || finishes[0];
 export const modeFinishes = (m: Mode) => finishes.filter((f) => f.mode === m);
-export const FIRST: Record<Mode, string> = { drive: 'golden', floor: 'pearl' };
+export const FIRST: Record<Mode, string> = { drive: 'golden', floor: 'copper' };
 
 // What he installs (his website's service list). Example rates per m², rounded; "Example range" everywhere they show.
 export const services = [

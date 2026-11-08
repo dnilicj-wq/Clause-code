@@ -47,7 +47,7 @@ export const site = {
     { name: 'Landscaping customer', source: 'Google', rating: 5, url: GMAPS, job: 'Landscaping', date: 'a year ago',
       text: 'We use Darren and his team to do a large landscaping project which other firms are tried away from Daren. We must thank you for an amazing job. You and your team have done quality of work. Price everything we were over the moon with.' },
   ] as Review[],
-  posters: { d: '/posters/studio-d-sr1.webp', m: '/posters/studio-m-sr1.webp' },
+  posters: { d: '/posters/studio-d-sr2.webp', m: '/posters/studio-m-sr2.webp' },
   formEndpoint: '', // empty = nothing stored; the lead is handed to WhatsApp
 };
 
