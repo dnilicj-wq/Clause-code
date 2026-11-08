@@ -27,6 +27,9 @@ Sources:
 - Job photos (11, dated 2023 and Apr 2025) · SITE media library, file names carry the dates
 - Logo, wordmark, gold #BDA15D on graphite · SITE logo (mark redrawn as vector; wordmark set in live type)
 - Works with porcelain paving · Dan, 2026-11-08, with his patio-by-garden-room photo (2025)
+- Surface types in the quote: resin-bound (SITE ?page_id=642), block paving / brick (SITE ?page_id=1226 "the classic appeal of brick", plus their block paving job photos), natural stone (SITE ?page_id=1206 "natural stone"), porcelain (Dan). Epoxy NOT added: not on their site
+- Per-type rates and prep add-ons are EXAMPLES (labelled "Example range")
+- Type backgrounds and swatches are "Illustration" (procedural renders, scripts/capture-pe.mjs types)
 
 ## Labelled, not their claims
 - Prices (£/m² by current surface) · "Example range — Matt confirms on a free survey"

@@ -4,6 +4,8 @@
 import * as THREE from 'three';
 import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry.js';
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
+import { makeSurface, type SurfaceKind } from './surfaces';
+export type { SurfaceKind };
 
 export type SlabOpts = {
   fog: string;
@@ -36,6 +38,7 @@ export function initSlabs(host: HTMLElement, cv: HTMLCanvasElement, opts: SlabOp
   renderer.toneMappingExposure = 0.95;
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.VSMShadowMap;
+  renderer.localClippingEnabled = true;
 
   const scene = new THREE.Scene();
   const fogC = new THREE.Color(opts.fog);
@@ -199,7 +202,7 @@ export function initSlabs(host: HTMLElement, cv: HTMLCanvasElement, opts: SlabOp
   let laid = 0, finished = false, first = false, finishing = false;
   const drop = (s: Slab, at: number) => {
     if (s.state !== 0) return;
-    s.state = 1; s.t0 = at; s.h = 0.55 + rnd() * 0.08; s.dur = 0.62;
+    s.state = 1; s.t0 = at; s.h = 0.55 + rnd() * 0.08; s.dur = 0.54;
     s.rx = (rnd() - 0.5) * 0.12; s.rz = (rnd() - 0.5) * 0.12; s.ry = (rnd() - 0.5) * 0.06;
   };
   const coverage = () => laid / total;
@@ -208,7 +211,7 @@ export function initSlabs(host: HTMLElement, cv: HTMLCanvasElement, opts: SlabOp
     puff(s.x, s.z, now);
     opts.onCoverage?.(coverage());
     if (!finishing && coverage() >= FIN_AT) finish();
-    if (laid === total && !finished) { finished = true; api.finished = true; opts.onFinished?.(); }
+    if (laid === total && !finished) { finished = true; api.finished = true; opts.onFinished?.(); layers.forEach((L) => (L.mesh.visible = false)); }
   };
   const order = () => slabs.filter((s) => s.state === 0).sort((a, b) => a.z - b.z || a.x - b.x); // far rows first
   // lay in rows, far to near: each row sweeps left to right, the next row starts before the last one ends,
@@ -229,7 +232,7 @@ export function initSlabs(host: HTMLElement, cv: HTMLCanvasElement, opts: SlabOp
     const o = order(), n = Math.round(total * start);
     o.slice(0, n).forEach(place); laid += n;
     finishing = true;
-    sweep(o.slice(n), t + 0.05, 0.16, 0.42);
+    sweep(o.slice(n), t + 0.05, 0.135, 0.36);
   }
   function place(s: Slab) { s.state = 2; s.hit = true; s.m.visible = true; s.m.position.set(s.x, TH / 2, s.z); s.m.rotation.set(0, 0, 0); }
   function prefill(f = START) {
@@ -245,11 +248,66 @@ export function initSlabs(host: HTMLElement, cv: HTMLCanvasElement, opts: SlabOp
     laid = 0; finished = false; finishing = false; api.finished = false; opts.onCoverage?.(0);
   }
 
+  // type switcher: block paving, resin and natural stone are full-patio surfaces that sweep in over whatever is there
+  // (far to near, behind a moving clip plane). Porcelain re-lays the slabs on top.
+  type Layer = { mesh: THREE.Mesh; clip: THREE.Plane; tex: THREE.Texture[] };
+  const layers = new Map<SurfaceKind, Layer>();
+  const aniso = Math.min(8, renderer.capabilities.getMaxAnisotropy());
+  const PW = 32, PD = 24, PCX = 0.6, PCZ = -4, FAR = PCZ - PD / 2, NEAR = PCZ + PD / 2;
+  let kind: SurfaceKind = 'porcelain';
+  let blendC = { c1: '#8C6A3F', c2: '#C49A62', c3: '#E9D3A6' };
+  let reveal: { L: Layer; t0: number } | null = null;
+  const dropLayer = (k: SurfaceKind) => {
+    const L = layers.get(k); if (!L) return;
+    scene.remove(L.mesh); L.mesh.geometry.dispose(); (L.mesh.material as THREE.Material).dispose(); L.tex.forEach((t) => t.dispose());
+    layers.delete(k);
+  };
+  const getLayer = (k: Exclude<SurfaceKind, 'porcelain'>) => {
+    let L = layers.get(k); if (L) return L;
+    const sf = makeSurface(k, aniso, blendC);
+    for (const t of [sf.map, sf.normal]) t.repeat.set(PW / sf.tile, PD / sf.tile);
+    const clip = new THREE.Plane(new THREE.Vector3(0, 0, -1), FAR);
+    const mat = new THREE.MeshPhysicalMaterial({ map: sf.map, normalMap: sf.normal, normalScale: new THREE.Vector2(1, 1), color: sf.tint, roughness: sf.rough, metalness: 0, clearcoat: sf.clear, clearcoatRoughness: 0.3, envMapIntensity: 0.75, clippingPlanes: [clip] });
+    const mesh = new THREE.Mesh(new THREE.PlaneGeometry(PW, PD), mat);
+    mesh.rotation.x = -Math.PI / 2; mesh.position.set(PCX, 0.003, PCZ); mesh.receiveShadow = true; mesh.visible = false;
+    scene.add(mesh);
+    L = { mesh, clip, tex: [sf.map, sf.normal] }; layers.set(k, L); return L;
+  };
+  function surface(k: SurfaceKind, force = false) {
+    if (k === kind && !force) return;
+    kind = k; frozen = false;
+    layers.forEach((L) => (L.mesh.position.y = 0.003));       // existing surfaces sit under what comes next
+    if (k === 'porcelain') {
+      reveal = null;
+      slabs.forEach((s) => { s.state = 0; s.hit = false; s.m.visible = false; });
+      laid = 0; finished = false; finishing = true; api.finished = false;
+      sweep(order(), now() + 0.05, 0.1, 0.3);
+      return;
+    }
+    const L = getLayer(k);
+    L.mesh.position.y = TH + 0.004;                            // above the slabs while it sweeps over them
+    L.clip.constant = FAR; L.mesh.visible = true;
+    reveal = { L, t0: now() };
+  }
+  const REVEAL = 1.5;
+  function stepReveal(t: number) {
+    if (!reveal) return;
+    const k = Math.min(1, (t - reveal.t0) / REVEAL), e = k < 0.5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
+    reveal.L.clip.constant = FAR + (NEAR - FAR) * e;
+    if (k >= 1) {
+      const keep = reveal.L; reveal = null;
+      layers.forEach((L) => { if (L !== keep) L.mesh.visible = false; });
+      slabs.forEach((s) => { s.state = 0; s.hit = false; s.m.visible = false; });
+      laid = 0; finished = true; finishing = true;
+      keep.mesh.position.y = 0.003;
+    }
+  }
+
   // pointer: drag across the ground to drop the slabs under it
   const ray = new THREE.Raycaster(), ndc = new THREE.Vector2(), hit = new THREE.Vector3();
   const plane = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0);
   const onPtr = (e: PointerEvent) => {
-    if ((e.target as HTMLElement)?.closest?.('[data-nopour],a,button,input,select,label')) return;
+    if (kind !== 'porcelain' || (e.target as HTMLElement)?.closest?.('[data-nopour],a,button,input,select,label')) return;
     const r = cv.getBoundingClientRect();
     ndc.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
     ray.setFromCamera(ndc, cam);
@@ -281,6 +339,7 @@ export function initSlabs(host: HTMLElement, cv: HTMLCanvasElement, opts: SlabOp
     if (dead || !visible) return;
     const t = now();
     if (!frozen) {
+      stepReveal(t);
       for (const s of slabs) {
         if (s.state !== 1) continue;
         const k = (t - s.t0) / s.dur;
@@ -322,7 +381,13 @@ export function initSlabs(host: HTMLElement, cv: HTMLCanvasElement, opts: SlabOp
   const api = {
     loaded: false, finished: false,
     demo, finish: () => finish(), reset, prefill, fillAll,
-    set: (_b: unknown) => {},
+    surface,
+    set: (b: { c1: string; c2: string; c3: string }) => {
+      if (b.c1 === blendC.c1 && b.c2 === blendC.c2 && b.c3 === blendC.c3) return;
+      blendC = { c1: b.c1, c2: b.c2, c3: b.c3 };
+      if (kind === 'resin') { const old = layers.get('resin'); if (old) { layers.delete('resin'); layers.set('old-resin' as SurfaceKind, old); } surface('resin', true); setTimeout(() => dropLayer('old-resin' as SurfaceKind), REVEAL * 1000 + 200); }
+      else dropLayer('resin');
+    },
     light: (_x: number, _y: number) => {},
     destroy() {
       dead = true; cancelAnimationFrame(raf); ro.disconnect(); io.disconnect();

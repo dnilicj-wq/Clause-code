@@ -20,6 +20,17 @@ if (only === 'slab-posters') {
   await sharp(await grab('k=slabs', 1440, 900)).webp({ quality: 70 }).toFile(`public/posters/slab-d-${VER}.webp`);
   await sharp(await grab('k=slabs', 390, 844, 1.5)).webp({ quality: 64 }).toFile(`public/posters/slab-m-${VER}.webp`);
 }
+if (only === 'types') {
+  fs.mkdirSync('public/types', { recursive: true });
+  for (const k of ['porcelain', 'resin', 'block', 'stone']) {
+    const view = await grab(`k=surf-${k}`, 1200, 900);
+    await sharp(view).webp({ quality: 72 }).toFile(`public/types/${k}-view-1200-${VER}.webp`);
+    await sharp(view).resize(640).webp({ quality: 70 }).toFile(`public/types/${k}-view-640-${VER}.webp`);
+    // swatch: a close patch from the lower middle of the frame
+    await sharp(view).extract({ left: 520, top: 640, width: 240, height: 240 }).resize(160).webp({ quality: 78 }).toFile(`public/types/${k}-160-${VER}.webp`);
+    console.log('type', k);
+  }
+}
 if (!only || only === 'posters') {
   await sharp(await grab('k=hero', 1440, 900)).webp({ quality: 68 }).toFile(`public/posters/drive-d-${VER}.webp`);
   await sharp(await grab('k=hero', 390, 844, 1.5)).webp({ quality: 62 }).toFile(`public/posters/drive-m-${VER}.webp`);

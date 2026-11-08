@@ -4,7 +4,7 @@ import type { SlabApi } from '@/components/signature/slab-drop/slabs';
 import { whenReadyForGL, isCoarse, glMode, softwareRenderer } from '@/src/lib/gl';
 import { useSite } from '@/src/lib/ctx';
 import { CutReveal, Ticker } from './lite';
-import { blends, sizes, surfaces } from '@/config/driveway';
+import { sizes, surfaces, types } from '@/config/driveway';
 import { useQuote, waLink, EXAMPLE_LABEL } from './quote';
 import { Stars } from './lite';
 
@@ -22,6 +22,7 @@ export function Hero() {
   const host = useRef<HTMLElement>(null);
   const canvas = useRef<HTMLCanvasElement>(null);
   const api = useRef<DriveApi | SlabApi | null>(null);
+  const typeRef = useRef<string>('porcelain');
   const style = heroStyle(site.heroStyle);
   const slabs = style === 'slabs';
   const posters = slabs ? site.slabPosters : site.posters;
@@ -51,13 +52,23 @@ export function Hero() {
       if (!a) return;
       if (gone) { a.destroy(); return; }
       api.current = a;
-      const go = () => { if (a.loaded) (window as any).__heroReady = true; return a.loaded && (window as any).__ld !== false ? a.demo() : setTimeout(go, 60); };
+      const go = () => { if (a.loaded) (window as any).__heroReady = true; if (!(a.loaded && (window as any).__ld !== false)) return setTimeout(go, 60); if (slabs && typeRef.current !== 'porcelain') (a as SlabApi).surface(typeRef.current as any); else a.demo(); };
       go();
     }
     return () => { gone = true; stop(); api.current?.destroy(); api.current = null; };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useEffect(() => { api.current?.set(q.blend); }, [q.blend]);
+  // the background follows the chosen surface (slab hero only)
+  const typeKey = q.type.key;
+  typeRef.current = typeKey;
+  useEffect(() => {
+    const a = api.current as SlabApi | null;
+    if (!slabs || !a || !('surface' in a)) return;
+    setDone(false); setCov(0);
+    a.surface(typeKey);
+  }, [typeKey, slabs]);
+  const lay = !slabs || typeKey === 'porcelain';
 
   const pct = Math.round(Math.min(1, cov / 0.72) * 100);
 
@@ -86,10 +97,10 @@ export function Hero() {
               <span key={i} className="block"><CutReveal text={l} delay={0.12 + i * 0.16} className={i === 1 ? 'serif font-normal' : ''} /></span>
             ))}
           </h1>
-          <p className="mt-4 max-w-[44ch] text-[15px] leading-relaxed md:mt-5 md:text-[18px]" style={{ color: 'color-mix(in srgb, var(--ink) 84%, transparent)' }}>
+          <p className="mt-4 max-w-[44ch] [@media(max-height:700px)_and_(max-width:699px)]:hidden text-[15px] leading-relaxed md:mt-5 md:text-[18px]" style={{ color: 'color-mix(in srgb, var(--ink) 84%, transparent)' }}>
             {`Resin driveways, driveways and patios from a family-run team in ${site.town}, working across ${site.areaLine}.`}
           </p>
-          {!coarse && live && (
+          {!coarse && live && lay && (
             <div className="pointer-events-auto mt-6 hidden items-center gap-3 md:flex" data-nopour>
               <span className="glass flex items-center gap-3 rounded-full py-2 pl-4 pr-2 text-[13px]">
                 <span style={{ color: 'var(--muted)' }}>{done ? 'Finished' : touched ? (slabs ? 'Laying' : 'Pouring') : (slabs ? 'Drag across the patio' : 'Drag across the drive')}</span>
@@ -106,7 +117,7 @@ export function Hero() {
         <HeroQuote />
       </div>
 
-      {live && !touched && !done && (
+      {live && lay && !touched && !done && (
           <div
             className="pe-hint glass pointer-events-none absolute left-1/2 top-[19%] -translate-x-1/2 whitespace-nowrap rounded-full px-4 py-2 text-[13px] md:left-[38%] md:top-[30%]">
             {slabs ? (coarse ? 'Swipe to lay the slabs' : 'Drag across to lay the slabs') : (coarse ? 'Swipe the drive to pour' : 'Drag across the drive to pour')} ↔
@@ -114,6 +125,34 @@ export function Hero() {
         )}
       <span className="ex-tag right-4 top-[76px] md:right-6">Live illustration</span>
     </section>
+  );
+}
+
+const swatchTone: Record<string, string> = { porcelain: '#8a8f94', resin: '#a7803f', block: '#7a4a38', stone: '#a08f72' };
+
+// Surface type: what goes down. Swatches are stills of the hero's own renders.
+function TypePick() {
+  const q = useQuote();
+  // swatches load after the page has, so they never compete with the first paint
+  const [img, setImg] = useState(false);
+  useEffect(() => { const f = () => setTimeout(() => setImg(true), 0); if (document.readyState === 'complete') f(); else addEventListener('load', f, { once: true }); }, []);
+  return (
+    <div className="mt-3">
+      <div className="mb-1.5 text-[11px] uppercase tracking-[.12em]" style={{ color: 'var(--muted)' }}>{'New surface · '}<span style={{ color: 'var(--ink)' }}>{q.type.label}</span></div>
+      <div className="grid grid-cols-4 gap-1.5" role="radiogroup" aria-label="New surface">
+        {types.map((t) => {
+          const on = q.type.key === t.key;
+          return (
+            <button key={t.key} role="radio" aria-checked={on} onClick={() => q.setType(t.key)}
+              className="flex flex-col items-center gap-1 rounded-xl px-1 pb-1 pt-1 md:pb-1.5 md:pt-1.5 text-[11.5px] font-medium leading-tight transition-colors md:text-[12px]"
+              style={on ? { background: 'rgba(201,169,97,.18)', border: '1px solid var(--accent)' } : { background: 'rgba(255,255,255,.04)', border: '1px solid var(--line)' }}>
+              <span className="block h-5 w-full rounded-md bg-cover bg-center md:h-8" style={{ backgroundImage: img ? `url(/types/${t.key}-160-v1.webp)` : undefined, background: img ? undefined : swatchTone[t.key] }} aria-hidden />
+              <span className="md:hidden">{t.short}</span><span className="hidden md:inline">{t.label}</span>
+            </button>
+          );
+        })}
+      </div>
+    </div>
   );
 }
 
@@ -150,15 +189,8 @@ function HeroQuote() {
             </button>
           ))}
         </div>
-        <div className="mb-1.5 mt-3 text-[11px] uppercase tracking-[.12em]" style={{ color: 'var(--muted)' }}>Blend · <span style={{ color: 'var(--ink)' }}>{q.blend.name}</span></div>
-        <div className="flex gap-2">
-          {blends.map((b) => (
-            <button key={b.key} onClick={() => q.setBlend(b.key)} aria-label={`${b.name} (example blend)`} title={b.name}
-              className="h-8 w-8 rounded-full bg-cover transition-transform hover:scale-110"
-              style={{ backgroundImage: `url(/blends/${b.key}-160-v1.webp)`, outline: q.blend.key === b.key ? '2px solid var(--accent)' : '1px solid rgba(255,255,255,.2)', outlineOffset: 2 }} />
-          ))}
-        </div>
       </div>
+      <TypePick />
       <div className="mt-3 flex items-end justify-between gap-3">
         <div className="font-display text-[30px] font-semibold leading-none tracking-tight md:text-[38px]">
           £<Ticker value={q.low} />
@@ -169,7 +201,7 @@ function HeroQuote() {
 
       {/* phones: go on to the full designer */}
       <a href="#design" className="mt-3 flex h-12 items-center justify-center rounded-full text-[15px] font-semibold md:hidden" style={{ background: 'var(--accent)', color: 'var(--accent-ink)' }}>
-        Pick surface &amp; colour →
+        Design it &amp; book →
       </a>
       {/* desktop: finish the quote right here */}
       <div className="hidden md:block">

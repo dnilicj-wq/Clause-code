@@ -27,9 +27,23 @@ export const surfaces = [
   { key: 'gravel', label: 'Gravel or soil', low: 95, high: 130, prep: 'Dig out and a new sub-base before the resin goes down.' },
 ] as const;
 
+// What goes down. Sources in content-inventory.md: resin, block paving and natural stone from their site
+// (resin driveways page; driveways page "the classic appeal of brick"; patios page "natural stone"), porcelain from Dan.
+// Rates are EXAMPLES per m² over sound tarmac or concrete; the "what's there now" prep is added on top.
+export const types = [
+  { key: 'porcelain', label: 'Porcelain', short: 'Porcelain', name: 'porcelain paving', low: 85, high: 125 },
+  { key: 'resin', label: 'Resin', short: 'Resin', name: 'resin-bound surface', low: 60, high: 85 },
+  { key: 'block', label: 'Block paving', short: 'Block', name: 'block paving', low: 70, high: 105 },
+  { key: 'stone', label: 'Natural stone', short: 'Stone', name: 'natural stone paving', low: 80, high: 120 },
+] as const;
+export type TypeKey = (typeof types)[number]['key'];
+// extra prep per m² by what's there now (block paving and gravel/soil need digging out and a new base)
+const prep: Record<string, [number, number]> = { tarmac: [0, 0], concrete: [0, 0], block: [25, 30], gravel: [35, 45] };
+
 export const rounding = 50;
-export function estimate(m2: number, surface: (typeof surfaces)[number]) {
+export function estimate(m2: number, surface: (typeof surfaces)[number], type: (typeof types)[number] = types[1]) {
   const r = (n: number) => Math.round(n / rounding) * rounding;
-  return { low: r(m2 * surface.low), high: r(m2 * surface.high) };
+  const [pl, ph] = prep[surface.key] ?? [0, 0];
+  return { low: r(m2 * (type.low + pl)), high: r(m2 * (type.high + ph)) };
 }
 export const gbp = (n: number) => '£' + Math.round(n).toLocaleString('en-GB');

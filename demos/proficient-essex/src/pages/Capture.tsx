@@ -14,13 +14,14 @@ export default function Capture() {
     const q = new URLSearchParams(location.search);
     const k = q.get('k') || 'hero';
     const p = presets[q.get('preset') || site.preset];
-    if (k.startsWith('slabs')) {
+    if (k.startsWith('slabs') || k.startsWith('surf-')) {
       const a = initSlabs(host.current!, cv.current!, { fog: p.bg, tex: '/tex/' });
       if (!a) return;
       const go = () => {
         if (!a.loaded) return setTimeout(go, 100);
-        if (k === 'slabs') a.prefill(q.get('f') ? +q.get('f')! : undefined); else if (k === 'slabs-done') a.fillAll();
-        setTimeout(() => ((window as any).__ready = true), 1800);
+        if (k === 'slabs') a.prefill(q.get('f') ? +q.get('f')! : undefined); else if (k === 'slabs-done' || k === 'surf-porcelain') a.fillAll();
+        else if (k.startsWith('surf-')) { const b = blends.find((x) => x.key === q.get('blend')); if (b) a.set(b); a.surface(k.slice(5) as any); }
+        setTimeout(() => ((window as any).__ready = true), k.startsWith('surf-') && k !== 'surf-porcelain' ? 2600 : 1800);
       };
       go();
       return () => a.destroy();
