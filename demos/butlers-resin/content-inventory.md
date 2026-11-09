@@ -28,6 +28,18 @@ Every fact on the demo, with its source. Checked live 2026-11-09.
 - reviews | 10 Checkatrade reviews, word for word, first names only where Checkatrade shows one (Suzanne, Richard) | https://www.checkatrade.com/trades/butlersresinandconstructionltd/reviews
 - reviews NOT used | Facebook review widget on his site (one is from "Gabriella Qaraqish", same surname as owner) | butlersrc.co.uk
 
+## Exact claim sources (rechecked 2026-11-09, polish pass)
+- "NRSWA qualified" | https://butlersrc.co.uk/ home page badge strip ("Resin Mill Elite Installer · NRSWA qualified · 10+ years in the industry · Cambridgeshire & beyond")
+- "10+ years in the industry" | https://butlersrc.co.uk/ same badge strip
+- "Resin Mill Elite Installer" | https://butlersrc.co.uk/ same strip + "The Resin Mill ... has recognised us as an Elite Installer"
+- "5.0 · 21 Google reviews" | Google Maps listing "Butlers Resin & Construction", Chatteris: https://www.google.com/maps/search/Butlers+Resin+%26+Construction+Chatteris (opens his listing: 5.0 (21))
+- "Porcelain patios" | https://butlersrc.co.uk/ structured data ("laying resin bound driveways, block paving, porcelain patios and paths") + https://butlersrc.co.uk/recent-projects-1 ("Full Garden Transformation with Porcelain Patio, Thorney")
+- Checkatrade 10/10 from 18 | https://www.checkatrade.com/trades/butlersresinandconstructionltd (page text + JSON-LD reviewCount 18)
+- Blend names | https://butlersrc.co.uk/recent-projects-1: "Dove Grey resin bound" (Warboys), "Verona Resin Bound Patio, Huntingdon", "Evening Rose Resin Mix Installation, Yaxley, Peterborough", "The sleek Aspen finish"
+
+## Hero photos (his jobs)
+- resin: raw 01 (night-lit drive) | block: raw 19 (charcoal herringbone; was mislabelled resin-charcoal) | patio: raw 31 desktop, raw 12 phones | concrete: raw 44 (his base dig-out; no finished concrete photo found), captioned as such
+
 ## Copy taken from his site (his words)
 - FAQ answers (7) word for word | butlersrc.co.uk home FAQ
 - "Every surface we lay starts with a properly prepared base" | butlersrc.co.uk "Why Butler's"
@@ -39,7 +51,7 @@ Every fact on the demo, with its source. Checked live 2026-11-09.
 ## Photos (his work only)
 - 29 job photos + 2 before/after posts (split into before/after halves) | butlersrc.co.uk home + recent projects (img1.wsimg.com), Checkatrade job photos | research/raw, scripts/prep-client.mjs
 - logo | traced from his Instagram profile badge (figure with spade on stones); wordmark re-set in type | instagram.com/butlersresinco
-- hero | live 3D illustration (labelled "Live illustration"), not his job
+- hero | his own job photos per surface (scripts/prep-hero.mjs), captioned "His job: ..."
 
 ## Demo choices (not claims)
 - "Book your free survey" wording | Dan's brief (his site says "free quote"; reviews describe him coming round to look) — confirm with Yaz

@@ -33,6 +33,7 @@ export function Survey() {
     const lines = [
       `Hi Butler's, I'd like a free survey please.`, '',
       `Job: ${svc.label}`,
+      ...(q.service.startsWith('resin') ? [`Resin blend I like: ${q.blend.name}`] : []),
       `Rough size: ${sizes.find((s) => s.key === size)?.label ?? '-'}`,
       `Postcode: ${postcode.trim().toUpperCase()}`,
       `Name: ${who.name.trim()}`,
@@ -40,14 +41,14 @@ export function Survey() {
       files.length ? `Photos: I'll attach ${files.length} to this email (${files.map((f) => f.name).join(', ')})` : 'Photos: none yet',
     ];
     return `mailto:${site.email}?subject=${encodeURIComponent(`Free survey request: ${svc.label}, ${postcode.trim().toUpperCase()}`)}&body=${encodeURIComponent(lines.join('\n'))}`;
-  }, [svc, size, postcode, who, files, site.email]);
+  }, [svc, size, postcode, who, files, site.email, q.service, q.blend.name]);
 
   const next = () => { if (!can) return; if (step < 4) setStep(step + 1); else { setSent(true); location.href = mail; } }; // Enter key on the last field
 
   return (
     <section id="survey" aria-labelledby="svH" className="section" style={{ background: 'radial-gradient(90% 60% at 85% 0%, rgba(240,178,78,.10), transparent 60%), radial-gradient(70% 50% at 0% 100%, rgba(169,195,227,.08), transparent 60%), var(--bg)' }}>
       <div className="wrap">
-        <Head id="svH" eyebrow="Book your free survey" title="Five quick taps," accent="then we come and look."
+        <Head id="svH" title="Five quick taps," accent="then we come and look."
           lede="No prices to guess at. Tell us what you want done and where, add a photo if you have one, and we’ll get back to you to book a visit." />
 
         <div className="mt-10 grid gap-4 md:mt-14 md:grid-cols-[1.05fr_1fr] md:gap-6">

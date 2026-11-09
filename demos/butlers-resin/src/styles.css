@@ -13,7 +13,6 @@
 @font-face{font-family:"Satoshi";src:url(/fonts/satoshi-400.woff2) format("woff2");font-weight:400;font-display:swap}
 @font-face{font-family:"Satoshi";src:url(/fonts/satoshi-500.woff2) format("woff2");font-weight:500;font-display:swap}
 @font-face{font-family:"Satoshi";src:url(/fonts/satoshi-700.woff2) format("woff2");font-weight:700;font-display:swap}
-@font-face{font-family:"Instrument Serif";src:url(/fonts/instrument-serif-400-italic.woff2) format("woff2");font-style:italic;font-weight:400;font-display:swap}
 @font-face{font-family:"Caveat";src:url(/fonts/caveat-500.woff2) format("woff2");font-weight:500;font-display:swap}
 
 @theme inline {
@@ -48,7 +47,7 @@ html{ -webkit-text-size-adjust:100%; }
 body{ background:var(--bg); color:var(--ink); font-family:var(--font-body); -webkit-font-smoothing:antialiased; overflow-x:hidden; }
 ::selection{ background:var(--accent); color:var(--accent-ink); }
 .font-display{ font-family:var(--font-display); letter-spacing:-.02em; }
-.serif{ font-family:var(--font-serif); font-style:italic; font-weight:400; letter-spacing:0; }
+.serif{ font-weight:500; }  /* accent words: same family, lighter weight + accent colour (no mixed-family italic) */
 html.lenis, html.lenis body{ height:auto; }
 .lenis.lenis-smooth{ scroll-behavior:auto !important; }
 
@@ -70,7 +69,7 @@ html.lenis, html.lenis body{ height:auto; }
 .theme-light{ --bg:#F3EEE6; --bg2:#E9E2D6; --surface:#FFFFFF; --ink:#1C1915; --muted:#6B6259; --line:rgba(28,25,21,.12);
   --accent2: color-mix(in oklab, var(--accent) 72%, #000); background:var(--bg); color:var(--ink); }
 .wrap{ max-width: 1240px; margin-inline:auto; }
-.h2{ font-family:var(--font-display); font-weight:600; letter-spacing:-.025em; line-height:.98; font-size: clamp(38px, 6.4vw, 84px); }
+.h2{ font-family:var(--font-display); font-weight:700; letter-spacing:-.025em; line-height:1.04; text-wrap:balance; font-size: clamp(38px, 6.4vw, 84px); }
 .lede{ color:var(--muted); font-size: clamp(16px, 1.5vw, 19px); line-height:1.55; max-width: 56ch; }
 .ex-tag{ position:absolute; z-index:5; font:500 10px/1 var(--font-body); letter-spacing:.08em; text-transform:uppercase;
   padding:6px 8px; border-radius:999px; background:rgba(0,0,0,.55); color:#fff; backdrop-filter:blur(6px); }
@@ -128,3 +127,25 @@ html.lenis, html.lenis body{ height:auto; }
 @keyframes br-float{ 0%,100%{ transform:translateY(0) } 50%{ transform:translateY(-6px) } }
 .br-float{ animation:br-float 5s ease-in-out infinite; }
 @media (prefers-reduced-motion: reduce){ .br-float{ animation:none } }
+
+/* ---- polish pass ---- */
+:root{ --ease-out: cubic-bezier(.23,1,.32,1); }
+.press{ transition: transform 140ms var(--ease-out), background-color 200ms ease, border-color 200ms ease; }
+.press:active{ transform: scale(.97); }
+/* hero photos: crossfade between his jobs, with a little blur to bridge the two frames */
+.hero-ph{ opacity:0; filter:blur(6px); transition: opacity 700ms var(--ease-out), filter 700ms var(--ease-out); }
+.hero-ph[data-on="true"]{ opacity:1; filter:none; }
+/* slow Ken Burns drift on the photo stack */
+.hero-kb{ transform-origin: 60% 55%; animation: hero-kb 24s ease-in-out infinite alternate; will-change: transform; }
+@keyframes hero-kb{ from{ transform: scale(1.04) translate3d(0,0,0); } to{ transform: scale(1.12) translate3d(-1.5%,-1%,0); } }
+/* parallax: the photo sinks a little as you scroll past (CSS scroll-driven, no scroll listeners) */
+@supports (animation-timeline: scroll()){
+  .hero-par{ animation: hero-par linear both; animation-timeline: scroll(root); animation-range: 0 100vh; }
+  @keyframes hero-par{ to{ transform: translate3d(0,18vh,0); } }
+}
+@media (prefers-reduced-motion: reduce){
+  .hero-kb, .hero-par{ animation:none; transform:none; }
+  .hero-ph{ transition: opacity 200ms ease; filter:none; }
+  .press:active{ transform:none; }
+}
+section[id]{ scroll-margin-top: 64px; }

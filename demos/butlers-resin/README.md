@@ -4,13 +4,13 @@ Pitch demo for Butler's Resin & Construction Ltd, Chatteris (Cambridgeshire & th
 
 - Live: https://clientgateway-butlers-resin.dnilicj.workers.dev (Cloudflare Workers, noindex)
 - Facts and sources: content-inventory.md (incl. "Unverified / ask Yaz")
-- Hero engine: components/signature/brick-drop/bricks.ts + surfaces.ts (Resin / Block / Concrete / Patio switcher; resin blends Dove Grey, Verona, Evening Rose, Aspen; colours approximate)
+- Hero: his job photos full-bleed per surface (scripts/prep-hero.mjs), crossfade + Ken Burns + CSS scroll-driven parallax; blend chips feed the survey email
 - Sections: src/pe/ (Hero, Survey stepper, sections.tsx: Proof, BeforeAfter, Services, Process, Reviews, Areas, Faq, Footer, StickyBar)
 - Survey form: 5 steps, builds a pre-filled email to info@butlersrc.co.uk (no backend)
 - Loader: inline in index.html (Preloader pattern, @info-mdshakeeb on 21st.dev, rebuilt)
 - No prices, no guarantees, no "fully insured" (not found in his sources)
 - His photos: scripts/prep-client.mjs (research/raw -> public/client)
-- Posters: `BASE=http://localhost:5233 node scripts/capture-pe.mjs resin-posters`
+- Polish screenshots: research/polish/
 
 ## Deploy
 Build with `npm run build`, then `npx wrangler@4 deploy` from a folder whose wrangler.jsonc has

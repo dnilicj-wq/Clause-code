@@ -14,7 +14,7 @@ export function Proof() {
     <section aria-label="Reviews and accreditations" className="relative overflow-hidden border-y py-12 md:py-16" style={{ borderColor: 'var(--line)', background: 'radial-gradient(60% 120% at 10% 0%, rgba(240,178,78,.10), transparent 60%), var(--bg2)' }}>
       <div className="wrap grid gap-8 px-5 lg:grid-cols-[auto_1fr] lg:items-center lg:gap-14 md:px-16">
         <a href={site.socials.checkatrade} target="_blank" rel="noreferrer" className="group flex items-center gap-5">
-          <span className="font-display text-[88px] font-bold leading-none tracking-[-.05em] md:text-[140px]" style={{ background: 'linear-gradient(180deg, #FFF3DA 0%, #F0B24E 55%, #C9782B 100%)', WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent' }}>
+          <span className="font-display text-[88px] font-bold leading-none tracking-[-.04em] md:text-[140px]" style={{ color: 'var(--accent)' }}>
             {`${site.proof.checkatradeScore}/10`}
           </span>
           <span>
@@ -144,7 +144,7 @@ export function Services() {
   return (
     <section id="services" aria-labelledby="svcH" className="section !pt-4 md:!pt-8">
       <div className="wrap">
-        <Head id="svcH" eyebrow="What we do" title="Resin first." accent="Ground up." />
+        <Head id="svcH" title="Resin first." accent="Ground up." />
         <div className="mt-10 grid gap-4 md:mt-14 md:grid-cols-2 md:gap-5">
           {lead.map((s, i) => (
             <Rise key={s.t} d={i * 0.08}>
@@ -180,7 +180,7 @@ export function Process() {
     <section id="how" aria-labelledby="howH" className="section" style={{ background: 'var(--bg2)' }}>
       <div className="wrap grid gap-10 md:grid-cols-[.85fr_1.15fr] md:gap-16">
         <div className="md:sticky md:top-28 md:self-start">
-          <Head id="howH" eyebrow="How it goes down" title="Base first." accent="Then the good bit." lede="The part nobody sees is what makes a drive last. Here’s how a job runs, in his own words." />
+          <Head id="howH" title="Base first." accent="Then the good bit." lede="The part nobody sees is what makes a drive last. Here’s how a job runs, in his own words." />
         </div>
         <ol className="relative m-0 list-none p-0">
           <span className="absolute bottom-6 left-[19px] top-6 w-px" style={{ background: 'linear-gradient(180deg, var(--accent), rgba(169,195,227,.3), transparent)' }} aria-hidden />
@@ -211,13 +211,13 @@ export function Reviews() {
     <section id="reviews" aria-labelledby="revH" className="section">
       <div className="wrap">
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-          <Head id="revH" eyebrow="What customers say" title="Clean, tidy," accent="and back for a third job." />
+          <Head id="revH" title="Clean, tidy," accent="and back for a third job." />
           <a href={site.socials.checkatrade} target="_blank" rel="noreferrer" className="inline-flex w-fit items-center gap-2 rounded-full border px-4 py-2.5 text-[14px]" style={{ borderColor: 'var(--line)' }}>
             {`${site.proof.checkatradeScore}/10 · ${site.proof.checkatradeCount} reviews on Checkatrade ↗`}
           </a>
         </div>
         <div className="relative mt-10 min-h-[300px] overflow-hidden rounded-[var(--radius)] border p-6 md:mt-14 md:min-h-[320px] md:p-12" style={{ borderColor: 'var(--line)', background: 'radial-gradient(80% 100% at 100% 0%, rgba(169,195,227,.10), transparent 60%), var(--surface)' }}>
-          <span className="pointer-events-none absolute right-6 top-0 leading-none md:right-12" style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(140px,18vw,240px)', color: 'rgba(240,178,78,.16)' }} aria-hidden>”</span>
+          <span className="pointer-events-none absolute right-6 top-0 leading-none md:right-12" style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(140px,18vw,240px)', color: 'rgba(240,178,78,.16)' }} aria-hidden>”</span>
           <AnimatePresence mode="wait">
             <motion.figure key={i} className="relative m-0" initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: .45 }}>
               <div className="flex items-center gap-3"><span className="rounded-full px-2.5 py-1 text-[12px] font-bold" style={{ background: 'var(--accent)', color: 'var(--accent-ink)' }}>10/10</span>{r.job && <span className="text-[13px] font-medium" style={{ color: 'var(--accent2)' }}>{r.job}</span>}</div>
@@ -293,7 +293,7 @@ export function Faq() {
     <section id="faq" aria-labelledby="faqH" className="section !pt-6">
       <div className="wrap grid gap-8 md:grid-cols-[.8fr_1.2fr] md:gap-16">
         <div>
-          <Head id="faqH" eyebrow="Questions" title="Good to" accent="know." />
+          <Head id="faqH" title="Good to" accent="know." />
           <p className="mt-5 text-[14px]" style={{ color: 'var(--muted)' }}>Answers from Butler’s own site. Anything else: <a className="underline" href={`mailto:${site.email}`}>{site.email}</a></p>
         </div>
         <div className="divide-y border-y" style={{ borderColor: 'var(--line)' }}>
@@ -324,8 +324,7 @@ export function Footer() {
       <div className="wrap">
         <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
           <div>
-            <p className="eyebrow">Free survey</p>
-            <h2 className="h2 mt-4 max-w-[14ch]">A drive that <span className="serif" style={{ color: 'var(--accent2)' }}>says welcome home.</span></h2>
+            <h2 className="h2 max-w-[14ch]">A drive that <span className="serif" style={{ color: 'var(--accent2)' }}>says welcome home.</span></h2>
           </div>
           <div className="flex flex-wrap gap-2.5">
             <a href="#survey" className="btn-gold flex h-[52px] items-center rounded-full px-6 text-[16px] font-semibold">Book your free survey</a>

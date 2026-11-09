@@ -12,6 +12,8 @@ await p.goto('http://localhost:5199/?gl=off', { waitUntil: 'networkidle' });
 await p.waitForTimeout(2500);
 const shell = await p.evaluate(() => {
   const top = document.getElementById('top').cloneNode(true);
+  // the other surfaces' photos mount after load on the client; keep the shell identical to the first client render
+  top.querySelectorAll('.hero-ph[data-on="false"]').forEach((n) => n.remove());
   const nav = document.querySelector('#root > header, #root > nav')?.outerHTML || '';
   return nav + '<main class="relative">' + top.outerHTML + '</main>';
 });
