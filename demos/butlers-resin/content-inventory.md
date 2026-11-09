@@ -37,8 +37,11 @@ Every fact on the demo, with its source. Checked live 2026-11-09.
 - Checkatrade 10/10 from 18 | https://www.checkatrade.com/trades/butlersresinandconstructionltd (page text + JSON-LD reviewCount 18)
 - Blend names | https://butlersrc.co.uk/recent-projects-1: "Dove Grey resin bound" (Warboys), "Verona Resin Bound Patio, Huntingdon", "Evening Rose Resin Mix Installation, Yaxley, Peterborough", "The sleek Aspen finish"
 
-## Hero photos (his jobs)
-- resin: raw 01 (night-lit drive) | block: raw 19 (charcoal herringbone; was mislabelled resin-charcoal) | patio: raw 31 desktop, raw 12 phones | concrete: raw 44 (his base dig-out; no finished concrete photo found), captioned as such
+## Photo notes
+- Hero is the live 3D illustration again (labelled "Live illustration"); his photos are not used as hero backgrounds (Dan's call, 2026-11-09)
+- raw 19 is charcoal herringbone block paving (was mislabelled resin-charcoal) -> block-herringbone, used in the survey preview and Our work
+- raw 39 (old block-drive) dropped: the image content is sideways
+- Concrete: no finished concrete driveway photo of his exists, so the survey preview shows a plain text panel, no image
 
 ## Copy taken from his site (his words)
 - FAQ answers (7) word for word | butlersrc.co.uk home FAQ
@@ -51,7 +54,7 @@ Every fact on the demo, with its source. Checked live 2026-11-09.
 ## Photos (his work only)
 - 29 job photos + 2 before/after posts (split into before/after halves) | butlersrc.co.uk home + recent projects (img1.wsimg.com), Checkatrade job photos | research/raw, scripts/prep-client.mjs
 - logo | traced from his Instagram profile badge (figure with spade on stones); wordmark re-set in type | instagram.com/butlersresinco
-- hero | his own job photos per surface (scripts/prep-hero.mjs), captioned "His job: ..."
+- hero | live 3D illustration (labelled "Live illustration"), not his job
 
 ## Demo choices (not claims)
 - "Book your free survey" wording | Dan's brief (his site says "free quote"; reviews describe him coming round to look) — confirm with Yaz

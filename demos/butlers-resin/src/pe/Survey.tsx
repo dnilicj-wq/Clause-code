@@ -7,9 +7,10 @@ import { useQuote } from './quote';
 import { Head } from './ui';
 
 // "Book your free survey": service -> rough size -> postcode -> optional photos -> name/phone -> send.
+// No prices anywhere. Concrete has no photo: he has no finished concrete driveway photo, so it gets a plain panel.
 // No prices anywhere. Demo: sending opens an email to his inbox with everything typed out (formEndpoint can replace it).
 const PREVIEW: Record<string, string> = {
-  'resin-drive': 'resin-dusk', 'resin-patio': 'resin-circle-patio', block: 'block-drive', concrete: 'base-dig',
+  'resin-drive': 'resin-dusk', 'resin-patio': 'resin-circle-patio', block: 'block-herringbone', concrete: '',
   patio: 'patio-porcelain', kerb: 'kerb-1', other: 'resin-circles',
 };
 const STEPS = ['What', 'Size', 'Where', 'Photos', 'You'] as const;
@@ -55,12 +56,23 @@ export function Survey() {
           {/* his job for the chosen service */}
           <div className="relative hidden overflow-hidden rounded-[var(--radius)] border md:block" style={{ borderColor: 'var(--line)', minHeight: 520 }}>
             <AnimatePresence mode="popLayout">
-              <motion.img key={q.service} src={photoSrc(PREVIEW[q.service] ?? 'resin-dusk', 1280)} alt="" loading="lazy"
-                initial={{ opacity: 0, scale: 1.06 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }} transition={{ duration: .7, ease: [0.22, 1, 0.36, 1] }}
-                className="absolute inset-0 h-full w-full object-cover" />
+              {PREVIEW[q.service] !== '' ? (
+                <motion.img key={q.service} src={photoSrc(PREVIEW[q.service] ?? 'resin-dusk', 1280)} alt="" loading="lazy"
+                  initial={{ opacity: 0, scale: 1.06 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }} transition={{ duration: .7, ease: [0.22, 1, 0.36, 1] }}
+                  className="absolute inset-0 h-full w-full object-cover" />
+              ) : (
+                <motion.div key={q.service} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: .5 }}
+                  className="absolute inset-0 flex items-start p-8"
+                  style={{ background: 'radial-gradient(80% 60% at 20% 15%, rgba(169,195,227,.16), transparent 60%), radial-gradient(70% 60% at 90% 80%, rgba(240,178,78,.14), transparent 60%), linear-gradient(160deg, #1A222D, #10161E)' }}>
+                  <div className="max-w-[24ch]">
+                    <p className="font-display text-[44px] font-bold leading-[1.04] tracking-[-.03em]">Concrete <span style={{ color: 'var(--accent)', fontWeight: 500 }}>driveways.</span></p>
+                    <p className="mt-4 text-[15px] leading-relaxed" style={{ color: 'var(--muted)' }}>We’ll talk you through the finish options when we come out to survey.</p>
+                  </div>
+                </motion.div>
+              )}
             </AnimatePresence>
             <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(11,15,21,0) 45%, rgba(11,15,21,.92))' }} />
-            <span className="ex-tag left-4 top-4">His job</span>
+            {PREVIEW[q.service] !== '' && <span className="ex-tag left-4 top-4">His job</span>}
             <div className="absolute inset-x-0 bottom-0 p-6">
               <p className="eyebrow" style={{ color: 'var(--accent2)' }}>{svc.label}</p>
               <ul className="mt-3 space-y-1.5 text-[14px]" style={{ color: 'color-mix(in srgb, var(--ink) 82%, transparent)' }}>

@@ -10,7 +10,7 @@ export const photos: Photo[] = [
   { key: 'patio-porcelain', title: 'Porcelain patio', alt: 'Large-format porcelain patio slabs along the back of a house', w: 1200, h: 1600, big: true, kind: 'Patio' },
   { key: 'resin-circle-patio', title: 'Round resin patio', alt: 'Circular light grey resin patio with a dark border set into a lawn behind a bungalow', w: 1600, h: 1200, big: true, kind: 'Resin patio' },
   { key: 'resin-palms', title: 'Silver resin frontage', alt: 'Silver resin driveway with a charcoal block border beside palms', w: 1600, h: 1200, big: true, kind: 'Resin driveway' },
-  { key: 'block-drive', title: 'Block-paved frontage', alt: 'Block-paved driveway in front of a red-brick house', w: 4032, h: 3024, big: true, kind: 'Block paving' },
+  { key: 'block-herringbone', title: 'Herringbone block paving', alt: 'Charcoal herringbone block-paved driveway with a contrast border in front of a black-clad porch', w: 1600, h: 1200, big: true, kind: 'Block paving' },
   { key: 'resin-farm', title: 'Big golden resin drive', alt: 'Long golden resin driveway in front of a detached house in open fenland', w: 1600, h: 1200, big: true, kind: 'Resin driveway' },
   { key: 'resin-bay', title: 'Resin path to the door', alt: 'Light resin path and frontage in front of a bay window', w: 1600, h: 1200, big: true, kind: 'Resin path' },
 ];

@@ -4,7 +4,7 @@ Pitch demo for Butler's Resin & Construction Ltd, Chatteris (Cambridgeshire & th
 
 - Live: https://clientgateway-butlers-resin.dnilicj.workers.dev (Cloudflare Workers, noindex)
 - Facts and sources: content-inventory.md (incl. "Unverified / ask Yaz")
-- Hero: his job photos full-bleed per surface (scripts/prep-hero.mjs), crossfade + Ken Burns + CSS scroll-driven parallax; blend chips feed the survey email
+- Hero engine: components/signature/brick-drop/bricks.ts + surfaces.ts (Resin / Block / Concrete / Patio switcher); blend chips repaint the resin and feed the survey email
 - Sections: src/pe/ (Hero, Survey stepper, sections.tsx: Proof, BeforeAfter, Services, Process, Reviews, Areas, Faq, Footer, StickyBar)
 - Survey form: 5 steps, builds a pre-filled email to info@butlersrc.co.uk (no backend)
 - Loader: inline in index.html (Preloader pattern, @info-mdshakeeb on 21st.dev, rebuilt)

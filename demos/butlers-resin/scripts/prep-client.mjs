@@ -6,10 +6,10 @@ const R = 'research/raw/', O = 'public/client/', V = 'v1';
 fs.mkdirSync(O, { recursive: true }); fs.mkdirSync('public/brand', { recursive: true });
 export const pics = {
   'resin-dusk': '00', 'resin-dusk-2': '01', 'resin-steps': '04', 'resin-circles': '05', 'resin-fence': '08',
-  'resin-porch': '11', 'patio-porcelain': '12', 'resin-long': '13', 'resin-corner': '16', 'resin-charcoal': '19',
+  'resin-porch': '11', 'patio-porcelain': '12', 'resin-long': '13', 'resin-corner': '16', 'block-herringbone': '19',
   'resin-border': '20', 'resin-circle-patio': '21', 'resin-garage': '23', 'resin-farm': '25', 'resin-palms': '27',
   'resin-grey-path': '29', 'resin-bed': '30', 'patio-porcelain-2': '31', 'resin-side': '34', 'resin-bay': '35',
-  'resin-compass': '36', 'block-drive': '39', 'kerb-1': '40', 'kerb-2': '42', 'base-dig': '44', 'base-membrane': '43',
+  'resin-compass': '36', 'kerb-1': '40', 'kerb-2': '42', 'base-dig': '44', 'base-membrane': '43',
   'concrete-old': '37',
 };
 for (const [k, f] of Object.entries(pics)) {
