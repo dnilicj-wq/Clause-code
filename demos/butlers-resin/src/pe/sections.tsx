@@ -264,16 +264,11 @@ export function Areas() {
           <div className="relative min-h-[260px]" aria-hidden>
             <svg viewBox="0 0 400 260" className="absolute inset-0 h-full w-full" preserveAspectRatio="xMidYMid meet">
               <defs>
-                <pattern id="fen" width="12" height="12" patternUnits="userSpaceOnUse"><path d="M0 12 L12 0" stroke="rgba(169,195,227,.07)" strokeWidth="1" /></pattern>
                 <radialGradient id="glow"><stop offset="0" stopColor="#F0B24E" stopOpacity=".35" /><stop offset="1" stopColor="#F0B24E" stopOpacity="0" /></radialGradient>
               </defs>
-              <rect width="400" height="260" fill="url(#fen)" />
-              {/* the Fen drains: long straight lines */}
-              <path d="M10 70 L390 150 M30 220 L380 40 M120 250 L260 10" stroke="rgba(169,195,227,.10)" strokeWidth="1.2" />
               <circle cx={home[0]} cy={home[1]} r="60" fill="url(#glow)" />
               {Object.entries(TOWNS).map(([n, c]) => { const [x, y] = xy(c); const on = n === town; return (
                 <g key={n}>
-                  {n !== 'Chatteris' && <line x1={home[0]} y1={home[1]} x2={x} y2={y} stroke={on ? '#F0B24E' : 'rgba(255,255,255,.10)'} strokeWidth={on ? 1.6 : 1} strokeDasharray="3 4" className={on ? 'pe-dash' : ''} />}
                   {on && <circle cx={x} cy={y} r="8" fill="none" stroke="#F0B24E" strokeWidth="1.5" className="pe-ping" />}
                   <circle cx={x} cy={y} r={on || n === 'Chatteris' ? 5.5 : 3.6} fill={on ? '#F0B24E' : n === 'Chatteris' ? '#A9C3E3' : 'rgba(255,255,255,.5)'} />
                   <text x={x} y={y - 10} textAnchor="middle" fontSize="11" fill={on ? '#fff' : 'rgba(255,255,255,.55)'} fontFamily="var(--font-body)">{n}</text>
