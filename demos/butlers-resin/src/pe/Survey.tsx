@@ -37,12 +37,12 @@ export function Survey() {
       `Postcode: ${postcode.trim().toUpperCase()}`,
       `Name: ${who.name.trim()}`,
       `Phone: ${who.phone.trim()}`,
-      files.length ? `Photos: ${files.length} attached (${files.map((f) => f.name).join(', ')})` : 'Photos: none yet',
+      files.length ? `Photos: I'll attach ${files.length} to this email (${files.map((f) => f.name).join(', ')})` : 'Photos: none yet',
     ];
     return `mailto:${site.email}?subject=${encodeURIComponent(`Free survey request: ${svc.label}, ${postcode.trim().toUpperCase()}`)}&body=${encodeURIComponent(lines.join('\n'))}`;
   }, [svc, size, postcode, who, files, site.email]);
 
-  const next = () => { if (!can) return; if (step < 4) setStep(step + 1); else { setSent(true); location.href = mail; } };
+  const next = () => { if (!can) return; if (step < 4) setStep(step + 1); else { setSent(true); location.href = mail; } }; // Enter key on the last field
 
   return (
     <section id="survey" aria-labelledby="svH" className="section" style={{ background: 'radial-gradient(90% 60% at 85% 0%, rgba(240,178,78,.10), transparent 60%), radial-gradient(70% 50% at 0% 100%, rgba(169,195,227,.08), transparent 60%), var(--bg)' }}>
@@ -119,7 +119,7 @@ export function Survey() {
                       </Field>
                     )}
                     {step === 3 && (
-                      <Field n={4} t="Got a photo of it now?" hint="Optional, but it helps us plan the visit.">
+                      <Field n={4} t="Got a photo of it now?" hint="Optional, but it helps us plan the visit. You’ll attach them to the email at the end.">
                         <input ref={fileRef} type="file" accept="image/*" multiple className="hidden" aria-label="Add photos"
                           onChange={(e) => { const fs = [...(e.target.files || [])].slice(0, 6); setFiles(fs.map((f) => ({ name: f.name, url: URL.createObjectURL(f) }))); }} />
                         <button onClick={() => fileRef.current?.click()} className="flex h-[120px] w-full flex-col items-center justify-center gap-1.5 rounded-2xl border border-dashed text-[15px] font-medium transition-colors hover:bg-white/5" style={{ borderColor: 'rgba(240,178,78,.45)' }}>
@@ -150,9 +150,13 @@ export function Survey() {
             {!sent && (
               <div className="mt-4 flex items-center gap-2">
                 {step > 0 && <button onClick={() => setStep(step - 1)} className="h-12 rounded-full border px-5 text-[15px] font-medium" style={{ borderColor: 'var(--line)' }}>Back</button>}
-                <button onClick={next} disabled={!can} className="btn-gold flex h-12 flex-1 items-center justify-center rounded-full text-[15px] font-semibold disabled:opacity-40">
-                  {step === 3 ? (files.length ? 'Next →' : 'Skip →') : step === 4 ? 'Send my survey request →' : 'Next →'}
-                </button>
+                {step === 4 && can ? (
+                  <a href={mail} onClick={() => setSent(true)} className="btn-gold flex h-12 flex-1 items-center justify-center rounded-full text-[15px] font-semibold">Send my survey request →</a>
+                ) : (
+                  <button onClick={next} disabled={!can} className="btn-gold flex h-12 flex-1 items-center justify-center rounded-full text-[15px] font-semibold disabled:opacity-40">
+                    {step === 3 ? (files.length ? 'Next →' : 'Skip →') : step === 4 ? 'Send my survey request →' : 'Next →'}
+                  </button>
+                )}
               </div>
             )}
             <p className="mt-3 text-[12px]" style={{ color: 'var(--muted)' }}>{`Goes to ${site.email}. Nothing is stored on this website. Rather talk? `}<a href={`tel:${site.phone.replace(/\s/g, '')}`} className="underline">{site.phone}</a></p>

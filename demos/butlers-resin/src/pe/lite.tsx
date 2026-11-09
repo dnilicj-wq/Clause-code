@@ -8,7 +8,7 @@ export function CutReveal({ text, delay = 0, className = '' }: { text: string; d
         <span key={wi} aria-hidden className="inline-block whitespace-nowrap">
           {[...w].map((c, ci) => {
             const n = arr.slice(0, wi).join('').length + ci;
-            return <span key={ci} className="inline-block overflow-hidden align-bottom"><span className="pe-cut inline-block" style={{ animationDelay: `${delay + n * 0.018}s` }}>{c}</span></span>;
+            return <span key={ci} className="inline-block overflow-hidden align-bottom pb-[.16em] -mb-[.16em]"><span className="pe-cut inline-block" style={{ animationDelay: `${delay + n * 0.018}s` }}>{c}</span></span>;
           })}
           {wi < arr.length - 1 && ' '}
         </span>

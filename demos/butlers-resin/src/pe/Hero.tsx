@@ -79,16 +79,16 @@ export function Hero() {
       <div className="pointer-events-none absolute inset-0 -z-[5] hidden md:block" style={{ background: 'linear-gradient(90deg, rgba(10,10,10,.78) 0%, rgba(10,10,10,.35) 38%, rgba(10,10,10,0) 55%)' }} />
 
       <div className="pointer-events-none relative mx-auto flex h-full max-w-[1280px] flex-col justify-end px-5 pb-[max(20px,env(safe-area-inset-bottom))] pt-24 md:flex-row md:items-end md:justify-between md:gap-10 md:px-12 md:pb-14">
-        <div className="md:max-w-[640px]">
+        <div className="md:max-w-[720px]">
           <a href={site.socials.checkatrade} target="_blank" rel="noreferrer" data-nopour
             className="pointer-events-auto mb-4 inline-flex items-center gap-2 rounded-full py-1.5 pl-1.5 pr-3.5 text-[13px] font-medium"
             style={{ background: 'rgba(11,15,21,.62)', border: '1px solid rgba(169,195,227,.18)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }}>
             <span className="grid h-6 place-items-center rounded-full px-2 text-[12px] font-bold" style={{ background: 'var(--accent)', color: 'var(--accent-ink)' }}>{`${site.proof.checkatradeScore}/10`}</span>
             <span>{`Checkatrade · ${site.proof.checkatradeCount} reviews`}</span>
           </a>
-          <h1 className="font-display text-[clamp(40px,8vw,112px)] font-semibold leading-[.9] tracking-[-.035em]">
+          <h1 className="font-display text-[clamp(40px,min(8vw,6.4vw+12px),96px)] font-semibold leading-[1.02] tracking-[-.03em]">
             {['Resin driveways,', 'laid properly.'].map((l, i) => (
-              <span key={i} className="block"><CutReveal text={l} delay={0.12 + i * 0.16} className={i === 1 ? 'serif font-normal' : ''} /></span>
+              <span key={i} className={`block md:whitespace-nowrap ${i === 1 ? 'mt-[.04em]' : ''}`}><CutReveal text={l} delay={0.12 + i * 0.16} className={i === 1 ? 'serif font-normal' : ''} /></span>
             ))}
           </h1>
           <p className="mt-4 max-w-[44ch] text-[15px] leading-relaxed md:mt-5 md:text-[18px]" style={{ color: 'color-mix(in srgb, var(--ink) 84%, transparent)' }}>
