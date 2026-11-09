@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Butler's Resin &amp; Construction · Resin driveways, Chatteris &amp; the Fens</title>
+  <meta name="description" content="Resin bound driveways, patios and paths from Chatteris, across Cambridgeshire and the Fens. Checkatrade 10/10. Book a free survey. Demo site by Clientgateway." />
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <link rel="apple-touch-icon" href="/brand/icon-180-v1.png" />
+  <meta name="theme-color" content="#0B0F15" />
+  <link rel="preload" href="/fonts/satoshi-700.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/satoshi-400.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/posters/br-m-v1.webp" as="image" media="(max-width: 699px)" fetchpriority="high" />
+  <link rel="preload" href="/posters/br-d-v1.webp" as="image" media="(min-width: 700px)" fetchpriority="high" />
+  <style>
+    html,body{margin:0;background:#0B0F15;color:#F3F1EC}
+    /* Loader: rebuilt from the 21st.dev "Preloader" (@info-mdshakeeb) pattern — words cycle in, then a curved sheet lifts away.
+       Re-skinned for Butler's: his badge, the four surfaces he lays, and a honey resin edge on the lifting curve. */
+    #boot{position:fixed;inset:0;z-index:100;pointer-events:auto;color:#F3F1EC}
+    #boot .sh{position:absolute;inset:0;background:#0B0F15;transition:transform 1s cubic-bezier(.76,0,.24,1) .05s}
+    #boot .sh::before{content:"";position:absolute;inset:0;background:radial-gradient(55% 45% at 50% 55%,rgba(240,178,78,.12),transparent 70%),radial-gradient(60% 50% at 50% 100%,rgba(169,195,227,.08),transparent 70%)}
+    #boot svg.cv{position:absolute;left:0;top:100%;width:100%;height:22vh;display:block;overflow:visible}
+    #boot .in{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .35s ease,transform .8s cubic-bezier(.76,0,.24,1)}
+    #boot .mk{width:96px;height:52px;opacity:0;transform:translateY(10px);transition:opacity .6s ease .05s,transform .8s cubic-bezier(.22,1,.36,1) .05s}
+    #boot.on .mk{opacity:1;transform:none}
+    #boot .w{position:relative;height:1.25em;margin-top:22px;font:700 clamp(34px,7vw,64px)/1.2 Satoshi,system-ui,sans-serif;letter-spacing:-.03em;display:flex;align-items:center;gap:.28em}
+    #boot .w i{width:.2em;height:.2em;border-radius:50%;background:linear-gradient(135deg,#FFD58A,#F0B24E 50%,#E08A3A);box-shadow:0 0 18px rgba(240,178,78,.7);flex:none}
+    #boot .w span{display:inline-block;animation:br-word .42s cubic-bezier(.22,1,.36,1) both}
+    @keyframes br-word{from{opacity:0;transform:translateY(40%)}to{opacity:1;transform:none}}
+    #boot .ft{position:absolute;bottom:clamp(28px,6vh,56px);left:0;right:0;text-align:center;font:500 11px/1 Satoshi,system-ui,sans-serif;letter-spacing:.3em;color:#9AA6B4}
+    #boot .ft b{color:#F0B24E;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:.12em}
+    #boot.out .in{opacity:0;transform:translateY(-14vh)}
+    #boot.out .sh{transform:translateY(-122vh)}
+    #boot.out{pointer-events:none}
+    #boot.gone{display:none}
+    @media (prefers-reduced-motion:reduce){#boot *{animation:none!important;transition:opacity .3s!important}#boot.out .sh{transform:none;opacity:0}}
+    html.ld-on .pe-cut{animation-play-state:paused}
+  </style>
+</head>
+<body>
+  <div id="boot" aria-hidden="true">
+    <div class="sh"><svg class="cv" viewBox="0 0 100 22" preserveAspectRatio="none"><defs><linearGradient id="bre" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0B0F15"/><stop offset=".86" stop-color="#0B0F15"/><stop offset=".93" stop-color="#F0B24E"/><stop offset="1" stop-color="#E08A3A" stop-opacity="0"/></linearGradient></defs><path d="M0 0 L100 0 L100 0 Q50 22 0 0 Z" fill="url(#bre)"/></svg></div>
+    <div class="in">
+      <img class="mk" src="/brand/mark-v1.svg" width="96" height="52" alt="">
+      <div class="w"><i></i><span>Resin</span></div>
+    </div>
+    <div class="ft">BUTLER’S · CHATTERIS · <b>000</b></div>
+  </div>
+  <div id="root"></div>
+  <div id="below"></div>
+  <script>
+  (function(){
+    var b=document.getElementById('boot'),h=document.documentElement;
+    if(/^\/capture/.test(location.pathname)){b.remove();return}
+    h.classList.add('ld-on');window.__ld=false;
+    var rm=matchMedia('(prefers-reduced-motion: reduce)').matches,seen=false;
+    try{seen=sessionStorage.getItem('br-ld')==='1';sessionStorage.setItem('br-ld','1')}catch(e){}
+    var W=['Resin','Block paving','Concrete','Patios','Laid properly.'],wi=0,sp=b.querySelector('.w span'),cnt=b.querySelector('.ft b');
+    b.classList.add('on');
+    var MIN=seen?350:2000,CAP=seen?2000:3400,t0=performance.now(),p=0,fin=false,nextW=t0+(seen?9e9:420);
+    function poster(){var i=document.querySelector('#top picture img');return !!(i&&i.complete&&i.naturalWidth)}
+    function ready(){return poster()&&(window.__heroReady||window.__heroNoGL||performance.now()-t0>2300)}
+    function word(){if(wi>=W.length-1)return;wi++;var n=document.createElement('span');n.textContent=W[wi];sp.replaceWith(n);sp=n}
+    function tick(now){
+      if(fin)return;
+      var el=performance.now()-t0,ok=ready()&&el>=MIN;
+      if(!rm&&performance.now()>nextW&&wi<W.length-2){word();nextW=performance.now()+400}
+      p+=((ok?1:Math.min(.9,el/MIN*.9))-p)*(ok?.18:.08);
+      if(ok&&p>.99)p=1;
+      cnt.textContent=('00'+Math.round(p*100)).slice(-3);
+      if(p>=1||el>CAP){p=1;cnt.textContent='100';finish();return}
+      requestAnimationFrame(tick);
+    }
+    function finish(){
+      fin=true;
+      if(!seen&&!rm){while(wi<W.length-1)word()}
+      setTimeout(function(){
+        b.classList.add('out');h.classList.remove('ld-on');window.__ld=true;dispatchEvent(new Event('wd:loaded'));
+        setTimeout(function(){b.classList.add('gone')},1200);
+      },seen?80:rm?150:620);
+    }
+    requestAnimationFrame(tick);
+    setTimeout(function(){if(!fin){p=1;finish()}},CAP+200);
+  })();
+  </script>
+  <script type="module" src="/src/main.tsx"></script>
+</body>
+</html>

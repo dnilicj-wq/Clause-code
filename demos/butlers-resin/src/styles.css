@@ -1,0 +1,130 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@source "../config";
+@source "../components/library/marquee";
+@source "../components/library/number-ticker";
+@source "../components/signature/drive-pour";
+
+@font-face{font-family:"Clash Display";src:url(/fonts/clash-display-500.woff2) format("woff2");font-weight:500;font-display:swap}
+@font-face{font-family:"Clash Display";src:url(/fonts/clash-display-600.woff2) format("woff2");font-weight:600;font-display:swap}
+@font-face{font-family:"General Sans";src:url(/fonts/general-sans-400.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"General Sans";src:url(/fonts/general-sans-500.woff2) format("woff2");font-weight:500;font-display:swap}
+@font-face{font-family:"General Sans";src:url(/fonts/general-sans-600.woff2) format("woff2");font-weight:600;font-display:swap}
+@font-face{font-family:"Satoshi";src:url(/fonts/satoshi-400.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Satoshi";src:url(/fonts/satoshi-500.woff2) format("woff2");font-weight:500;font-display:swap}
+@font-face{font-family:"Satoshi";src:url(/fonts/satoshi-700.woff2) format("woff2");font-weight:700;font-display:swap}
+@font-face{font-family:"Instrument Serif";src:url(/fonts/instrument-serif-400-italic.woff2) format("woff2");font-style:italic;font-weight:400;font-display:swap}
+@font-face{font-family:"Caveat";src:url(/fonts/caveat-500.woff2) format("woff2");font-weight:500;font-display:swap}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg2: var(--bg2);
+  --color-surface: var(--surface);
+  --color-line: var(--line);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent2: var(--accent2);
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+  --font-serif: var(--font-serif);
+  --radius-pre: var(--radius);
+  /* shadcn-style aliases so ported 21st.dev / Magic UI code picks up the preset */
+  --color-background: var(--bg);
+  --color-foreground: var(--ink);
+  --color-primary: var(--accent);
+  --color-primary-foreground: var(--accent-ink);
+  --color-muted-foreground: var(--muted);
+  --color-border: var(--line);
+  --color-card: var(--surface);
+  --color-card-foreground: var(--ink);
+  --color-secondary: var(--bg2);
+  --color-secondary-foreground: var(--ink);
+}
+
+:root{ color-scheme: dark; }
+html{ -webkit-text-size-adjust:100%; }
+body{ background:var(--bg); color:var(--ink); font-family:var(--font-body); -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+::selection{ background:var(--accent); color:var(--accent-ink); }
+.font-display{ font-family:var(--font-display); letter-spacing:-.02em; }
+.serif{ font-family:var(--font-serif); font-style:italic; font-weight:400; letter-spacing:0; }
+html.lenis, html.lenis body{ height:auto; }
+.lenis.lenis-smooth{ scroll-behavior:auto !important; }
+
+/* grain */
+.grain:after{content:"";position:fixed;inset:-50%;pointer-events:none;z-index:60;opacity:.06;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='.9'/></svg>");
+  animation:grain 1.2s steps(6) infinite}
+@keyframes grain{0%{transform:translate(0,0)}20%{transform:translate(-3%,2%)}40%{transform:translate(2%,-3%)}60%{transform:translate(-2%,-1%)}80%{transform:translate(3%,3%)}100%{transform:translate(0,0)}}
+@media (prefers-reduced-motion: reduce){ .grain:after{animation:none} }
+
+/* liquid glass */
+.glass{ background:color-mix(in oklab, var(--surface) 42%, transparent); border:1px solid var(--line);
+  backdrop-filter:blur(14px) saturate(140%); -webkit-backdrop-filter:blur(14px) saturate(140%);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 10px 30px -12px rgba(0,0,0,.5); }
+.label-chip{ font:500 11px/1 var(--font-body); letter-spacing:.08em; text-transform:uppercase; }
+.eyebrow{ font:500 12px/1.2 var(--font-body); letter-spacing:.16em; text-transform:uppercase; color:var(--muted); }
+.section{ position:relative; padding: clamp(52px, 10vw, 140px) clamp(20px, 5vw, 64px); }
+/* Light (stone/ivory) section on any preset: re-points the colour vars inside it */
+.theme-light{ --bg:#F3EEE6; --bg2:#E9E2D6; --surface:#FFFFFF; --ink:#1C1915; --muted:#6B6259; --line:rgba(28,25,21,.12);
+  --accent2: color-mix(in oklab, var(--accent) 72%, #000); background:var(--bg); color:var(--ink); }
+.wrap{ max-width: 1240px; margin-inline:auto; }
+.h2{ font-family:var(--font-display); font-weight:600; letter-spacing:-.025em; line-height:.98; font-size: clamp(38px, 6.4vw, 84px); }
+.lede{ color:var(--muted); font-size: clamp(16px, 1.5vw, 19px); line-height:1.55; max-width: 56ch; }
+.ex-tag{ position:absolute; z-index:5; font:500 10px/1 var(--font-body); letter-spacing:.08em; text-transform:uppercase;
+  padding:6px 8px; border-radius:999px; background:rgba(0,0,0,.55); color:#fff; backdrop-filter:blur(6px); }
+
+/* Magic UI keyframes (from magicui globals.css) */
+@theme {
+  --animate-marquee: marquee var(--duration) infinite linear;
+  --animate-marquee-vertical: marquee-vertical var(--duration) linear infinite;
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(calc(-100% - var(--gap))); } }
+  @keyframes marquee-vertical { from { transform: translateY(0); } to { transform: translateY(calc(-100% - var(--gap))); } }
+}
+
+/* Aceternity tailwind config utilities */
+@utility bg-gradient-conic { background-image: conic-gradient(var(--conic-position), var(--tw-gradient-stops)); }
+
+/* driveway demo utilities */
+.pe-in{ height:50px; width:100%; border-radius:14px; border:1px solid var(--line); background:rgba(255,255,255,.04); color:var(--ink);
+  padding:0 16px; font:400 16px/1 var(--font-body); outline:none; transition:border-color .2s, background .2s; }
+.pe-in::placeholder{ color:color-mix(in srgb, var(--muted) 85%, transparent); }
+.pe-in:focus{ border-color:var(--accent); background:rgba(240,178,78,.06); }
+.pe-range{ -webkit-appearance:none; appearance:none; height:4px; border-radius:4px; background:linear-gradient(90deg,var(--accent),rgba(255,255,255,.14)); outline:none; }
+.pe-range::-webkit-slider-thumb{ -webkit-appearance:none; width:24px; height:24px; border-radius:50%; background:var(--accent2); border:3px solid #121212; box-shadow:0 0 0 1px var(--accent); cursor:grab; }
+.pe-range::-moz-range-thumb{ width:20px; height:20px; border-radius:50%; background:var(--accent2); border:3px solid #121212; cursor:grab; }
+@keyframes pe-drop{ 0%{ transform:translateY(0); opacity:0 } 15%{ opacity:1 } 55%{ transform:translateY(96px); opacity:1 } 100%{ transform:translateY(142px); opacity:0 } }
+.pe-drop{ animation:pe-drop 2s cubic-bezier(.5,0,.8,.6) infinite; }
+@keyframes pe-weed{ 0%,100%{ transform:rotate(-4deg) } 50%{ transform:rotate(5deg) } }
+.pe-weed{ transform-origin:62px 72px; animation:pe-weed 2.6s ease-in-out infinite; }
+@keyframes pe-shine{ 0%{ transform:translateX(-40px) } 100%{ transform:translateX(160px) } }
+.pe-shine{ animation:pe-shine 3.2s ease-in-out infinite; }
+@keyframes pe-broom{ 0%,100%{ transform:translateX(-50px) } 50%{ transform:translateX(70px) } }
+.pe-broom{ animation:pe-broom 3s ease-in-out infinite; }
+@keyframes pe-dust{ 0%{ transform:translate(0,0); opacity:0 } 30%{ opacity:.9 } 100%{ transform:translate(26px,-22px); opacity:0 } }
+.pe-dust{ animation:pe-dust 1.5s ease-out infinite; }
+@media (prefers-reduced-motion: reduce){ .pe-drop,.pe-weed,.pe-shine,.pe-broom,.pe-dust{ animation:none } }
+@keyframes pe-ping{ 0%{ transform:scale(.15); opacity:.9 } 100%{ transform:scale(4); opacity:0 } }
+.pe-ping{ transform-box:fill-box; transform-origin:center; animation:pe-ping 2.6s ease-out infinite; }
+@media (prefers-reduced-motion: reduce){ .pe-ping{ animation:none; opacity:0 } }
+@keyframes pe-cut{ from{ transform:translateY(105%) } to{ transform:none } }
+.pe-cut{ animation:pe-cut .7s cubic-bezier(.22,1,.36,1) both; }
+@keyframes pe-hint{ from{ opacity:0; transform:translateY(8px) } to{ opacity:1; transform:none } }
+.pe-hint{ animation:pe-hint .5s ease 1.4s both; }
+@media (prefers-reduced-motion: reduce){ .pe-cut,.pe-hint{ animation:none } }
+@keyframes pe-dash{ to{ stroke-dashoffset:-14 } }
+.pe-dash{ animation:pe-dash .9s linear infinite; }
+@keyframes pe-nudge{ 0%,100%{ transform:translateX(-50%) } 50%{ transform:translateX(calc(-50% + 10px)) } }
+@media (prefers-reduced-motion: reduce){ .pe-dash{ animation:none } }
+
+/* Butler's: honey-resin gradient button with a slow light sweep */
+.btn-gold{ position:relative; overflow:hidden; color:var(--accent-ink); background:linear-gradient(135deg,#FFD58A 0%,#F0B24E 42%,#E08A3A 100%);
+  box-shadow:0 10px 30px -10px rgba(240,178,78,.55), inset 0 1px 0 rgba(255,255,255,.45); transition:transform .25s cubic-bezier(.22,1,.36,1), box-shadow .25s; }
+.btn-gold:hover{ transform:translateY(-1px); box-shadow:0 16px 36px -12px rgba(240,178,78,.7), inset 0 1px 0 rgba(255,255,255,.5); }
+.btn-gold:after{ content:""; position:absolute; inset:0; background:linear-gradient(100deg,transparent 30%,rgba(255,255,255,.45) 50%,transparent 70%); transform:translateX(-120%); animation:br-sweep 4.5s ease-in-out infinite; }
+@keyframes br-sweep{ 0%,62%{ transform:translateX(-120%) } 100%{ transform:translateX(120%) } }
+@media (prefers-reduced-motion: reduce){ .btn-gold:after{ animation:none; opacity:0 } }
+@keyframes br-float{ 0%,100%{ transform:translateY(0) } 50%{ transform:translateY(-6px) } }
+.br-float{ animation:br-float 5s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce){ .br-float{ animation:none } }
