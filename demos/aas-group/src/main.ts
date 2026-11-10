@@ -149,12 +149,6 @@ new IntersectionObserver((es, o) => { if (es[0].isIntersecting) { startStudio();
   addEventListener('pointerup', () => (down = false));
   addEventListener('pointermove', (e) => { if (!down) return; studio?.orbit(e.clientX - x0); x0 = e.clientX; }); }
 
-// ---------- services: stacking cards scale back as the next one arrives
-$$('.card-svc').forEach((c, i, all) => {
-  c.style.setProperty('--i', String(i));
-  if (reduced || i === all.length - 1) return;
-  gsap.to(c, { scale: 0.94, filter: 'brightness(.88)', ease: 'none', scrollTrigger: { trigger: all[i + 1], start: 'top bottom', end: 'top 20%', scrub: true } });
-});
 
 // ---------- layers: pinned explode
 const layersPin = $('#layersPin'), layersList = $$('#layersList li'), fallTag = $('.layers__fall');
@@ -165,7 +159,7 @@ new IntersectionObserver(async (es, o) => {
   layersApi = m.initLayers($<HTMLCanvasElement>('#layersCanvas'), layersPin);
 }, { rootMargin: '800px' }).observe(layersPin);
 ScrollTrigger.create({
-  trigger: layersPin, start: 'top top', end: () => '+=' + innerHeight * (reduced ? 0.01 : 2.6), pin: !reduced, pinSpacing: true, anticipatePin: 1,
+  trigger: layersPin, start: 'top top', end: () => '+=' + innerHeight * (reduced ? 0.01 : 1.15), pin: !reduced, pinSpacing: true, anticipatePin: 1,
   onUpdate: (s) => {
     const p = reduced ? 0.5 : s.progress; layersApi?.setProgress(p);
     const at = layerAt ? layerAt(p) : -1;
@@ -179,18 +173,11 @@ const rev = $('#reveal'), range = $<HTMLInputElement>('.reveal-drag__range', rev
 range.addEventListener('input', () => rev.style.setProperty('--x', range.value + '%'));
 if (!reduced) gsap.fromTo(range, { value: 78 }, { value: 50, duration: 1.6, ease: 'power3.out', onUpdate: () => rev.style.setProperty('--x', range.value + '%'), scrollTrigger: { trigger: rev, start: 'top 75%' } });
 
-// ---------- work rail: horizontal scroll pinned on desktop, native swipe on phones
-const rail = $('#workRail'), workPin = $('#workPin');
-if (!coarse && !reduced && innerWidth > 900) {
-  gsap.to(rail, { x: () => -(rail.scrollWidth - innerWidth + 40), ease: 'none', scrollTrigger: { trigger: workPin, start: 'top top', end: () => '+=' + (rail.scrollWidth - innerWidth + 40), pin: true, scrub: 0.6, invalidateOnRefresh: true, anticipatePin: 1 } });
-} else $('#work').classList.add('no-pin');
 
-// ---------- reviews
-const quotes = $$('.quote'); let qi = 0, qTimer = 0;
-const showQ = (i: number) => { qi = (i + quotes.length) % quotes.length; quotes.forEach((q, k) => q.classList.toggle('is-on', k === qi)); $('#qCount').textContent = `${qi + 1} / ${quotes.length}`; };
-const autoQ = () => { clearInterval(qTimer); if (!reduced) qTimer = window.setInterval(() => showQ(qi + 1), 7000); };
-$('#qPrev').addEventListener('click', () => { showQ(qi - 1); autoQ(); }); $('#qNext').addEventListener('click', () => { showQ(qi + 1); autoQ(); });
-autoQ();
+// ---------- reviews: a swipe row; arrows scroll it a card at a time
+const qRow = $('#quotes');
+const qStep = (d: number) => { const c = qRow.querySelector('.quote') as HTMLElement; qRow.scrollBy({ left: d * (c.offsetWidth + 16), behavior: reduced ? 'auto' : 'smooth' }); };
+$('#qPrev').addEventListener('click', () => qStep(-1)); $('#qNext').addEventListener('click', () => qStep(1));
 
 // ---------- process line
 const stepsLis = $$('#steps li');

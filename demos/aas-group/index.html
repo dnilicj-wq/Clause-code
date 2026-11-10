@@ -22,7 +22,7 @@
 @font-face{font-family:'Instrument Serif';src:url(/fonts/instrument-serif-400-italic.woff2) format('woff2');font-style:italic;font-weight:400;font-display:swap}
 html{background:#F3EFE7}
 body{margin:0;background:#F3EFE7;color:#1C1D1B;font-family:Geist,system-ui,sans-serif}
-.hero{position:relative;height:330svh}
+.hero{position:relative;height:200svh}
 .hero__stage{position:sticky;top:0;height:100svh;overflow:hidden;background:#cfd6d4 url(/poster/hero-d.avif) center/cover no-repeat}
 @media (max-width:700px){.hero__stage{background-image:url(/poster/hero-m.avif)}}
 #loader{position:fixed;inset:0;z-index:100;background:#F3EFE7;display:grid;place-items:center;transition:opacity .5s cubic-bezier(.16,1,.3,1),visibility .5s}
@@ -61,7 +61,7 @@ document.documentElement.classList.add('js');
   </a>
   <nav class="nav__links" aria-label="Sections">
     <a href="#design">Design yours</a>
-    <a href="#work">Our work</a>
+    <a href="#services">Our work</a>
     <a href="#process">How it works</a>
     <a href="#reviews">Reviews</a>
   </nav>
@@ -111,36 +111,6 @@ document.documentElement.classList.add('js');
 
     <div class="hero__scroll" aria-hidden="true"><span>Scroll to watch it built</span><i></i></div>
     <span class="vis-chip" title="A live 3D illustration, not a photo of a finished job">Visualisation</span>
-  </div>
-</section>
-
-<!-- 2 PROOF BAR -->
-<section class="proof" aria-label="Where we work">
-  <div class="proof__badge">
-    <a class="gbadge" href="https://www.google.com/maps/search/?api=1&amp;query=AAS+Group+Construction+Ltd+Northampton" target="_blank" rel="noopener">
-      <span class="gbadge__g" aria-hidden="true">G</span>
-      <span class="gbadge__score">5.0</span>
-      <span class="gbadge__stars" aria-hidden="true">★★★★★</span>
-      <span class="gbadge__n">25 Google reviews</span>
-    </a>
-  </div>
-  <div class="marquee" aria-label="Recent project locations">
-    <div class="marquee__track">
-      <span>Wellingborough <small>50m Rootlok living wall</small></span>
-      <span>Milton Keynes <small>40m² porcelain patio</small></span>
-      <span>Market Harborough <small>12m sandstone path</small></span>
-      <span>Southam <small>35m² porcelain</small></span>
-      <span>Rothwell <small>Marshalls block paving</small></span>
-      <span>Abington Park <small>18 featheredge panels</small></span>
-      <span>Northampton <small>65m² charcoal driveway</small></span>
-      <span aria-hidden="true">Wellingborough <small>50m Rootlok living wall</small></span>
-      <span aria-hidden="true">Milton Keynes <small>40m² porcelain patio</small></span>
-      <span aria-hidden="true">Market Harborough <small>12m sandstone path</small></span>
-      <span aria-hidden="true">Southam <small>35m² porcelain</small></span>
-      <span aria-hidden="true">Rothwell <small>Marshalls block paving</small></span>
-      <span aria-hidden="true">Abington Park <small>18 featheredge panels</small></span>
-      <span aria-hidden="true">Northampton <small>65m² charcoal driveway</small></span>
-    </div>
   </div>
 </section>
 
@@ -228,10 +198,11 @@ document.documentElement.classList.add('js');
   <div class="wrap services__head">
     <p class="kicker"><span class="lvl-tag">−0.15</span> What we build</p>
     <h2 id="svc-h" class="h2">Five things we build, <em>properly underneath.</em></h2>
+    <p class="services__hint" aria-hidden="true">Swipe for all five →</p>
   </div>
   <div class="stack wrap">
     <article class="card-svc">
-      <x-img name="southam-after" alt="Light porcelain patio with a charcoal border at a new-build home in Southam" sizes="(max-width: 800px) 100vw, 60vw" class="card-svc__img"></x-img>
+      <x-img name="southam-after" alt="Light porcelain patio with a charcoal border at a new-build home in Southam" sizes="(max-width: 800px) 82vw, 34vw" class="card-svc__img"></x-img>
       <div class="card-svc__body">
         <h3>Patios &amp; paving</h3>
         <p>Porcelain, natural stone and block paving, laid on a proper sub-base with a fall that sends rain where it should go.</p>
@@ -240,7 +211,7 @@ document.documentElement.classList.add('js');
       </div>
     </article>
     <article class="card-svc">
-      <x-img name="windbrush-after" alt="Charcoal block paving driveway with a light border on Windbrush Way, Northampton" sizes="(max-width: 800px) 100vw, 60vw" class="card-svc__img"></x-img>
+      <x-img name="windbrush-after" alt="Charcoal block paving driveway with a light border on Windbrush Way, Northampton" sizes="(max-width: 800px) 82vw, 34vw" class="card-svc__img"></x-img>
       <div class="card-svc__body">
         <h3>Driveways</h3>
         <p>Block paving, resin bound and concrete, dug to the right depth and edged so nothing creeps or sinks.</p>
@@ -249,7 +220,7 @@ document.documentElement.classList.add('js');
       </div>
     </article>
     <article class="card-svc">
-      <x-img name="holm-after" alt="Garden in Great Holm with grey porcelain patio, artificial lawn and dark fencing" sizes="(max-width: 800px) 100vw, 60vw" class="card-svc__img"></x-img>
+      <x-img name="holm-after" alt="Garden in Great Holm with grey porcelain patio, artificial lawn and dark fencing" sizes="(max-width: 800px) 82vw, 34vw" class="card-svc__img"></x-img>
       <div class="card-svc__body">
         <h3>Garden transformations</h3>
         <p>The whole garden as one job: patio, lawn, paths, planting and fencing, planned together so it all lines up.</p>
@@ -258,7 +229,7 @@ document.documentElement.classList.add('js');
       </div>
     </article>
     <article class="card-svc">
-      <x-img name="abington-after" alt="New featheredge fence on concrete posts and gravel boards at Abington Park" sizes="(max-width: 800px) 100vw, 60vw" class="card-svc__img"></x-img>
+      <x-img name="abington-after" alt="New featheredge fence on concrete posts and gravel boards at Abington Park" sizes="(max-width: 800px) 82vw, 34vw" class="card-svc__img"></x-img>
       <div class="card-svc__body">
         <h3>Fencing &amp; decking</h3>
         <p>Featheredge, composite and timber, set on concrete posts with gravel boards so the wood stays off wet ground.</p>
@@ -267,7 +238,7 @@ document.documentElement.classList.add('js');
       </div>
     </article>
     <article class="card-svc">
-      <x-img name="rootlok-done" alt="Finished green Rootlok vegetated retaining wall running along a boundary in Wellingborough" sizes="(max-width: 800px) 100vw, 60vw" class="card-svc__img"></x-img>
+      <x-img name="rootlok-done" alt="Finished green Rootlok vegetated retaining wall running along a boundary in Wellingborough" sizes="(max-width: 800px) 82vw, 34vw" class="card-svc__img"></x-img>
       <div class="card-svc__body">
         <h3>Slopes &amp; retaining walls</h3>
         <p>Terraces, steps and Rootlok living walls for ground that slips, slopes or holds water.</p>
@@ -304,8 +275,8 @@ document.documentElement.classList.add('js');
       <p class="lede lede--light">On Talbot Road North in Wellingborough the garden fell away from the house. We built a 10-metre retaining wall, 900mm high, split the garden into two levels joined by central steps, and laid 40m² of natural turf.</p>
     </div>
     <div class="reveal-drag" id="reveal" style="--x:50%">
-      <x-img name="talbot-after" alt="After: two-level garden with a block retaining wall, central steps and new turf" sizes="(max-width: 800px) 100vw, 60vw" class="reveal-drag__after"></x-img>
-      <div class="reveal-drag__before"><x-img name="talbot-before" alt="Before: a sloped, patchy lawn with old fencing" sizes="(max-width: 800px) 100vw, 60vw"></x-img></div>
+      <x-img name="talbot-after" alt="After: two-level garden with a block retaining wall, central steps and new turf" sizes="(max-width: 800px) 82vw, 34vw" class="reveal-drag__after"></x-img>
+      <div class="reveal-drag__before"><x-img name="talbot-before" alt="Before: a sloped, patchy lawn with old fencing" sizes="(max-width: 800px) 82vw, 34vw"></x-img></div>
       <span class="reveal-drag__tag reveal-drag__tag--b">Before</span><span class="reveal-drag__tag reveal-drag__tag--a">After</span>
       <input class="reveal-drag__range" type="range" min="0" max="100" value="50" aria-label="Drag to compare before and after">
       <span class="reveal-drag__handle" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 6 3 12l6 6M15 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></span>
@@ -315,29 +286,6 @@ document.documentElement.classList.add('js');
       <x-img name="rootlok-run" alt="The 50 metre Rootlok wall of green geotextile bags along a wooded boundary" sizes="(max-width: 800px) 100vw, 30vw"></x-img>
       <figcaption><b>50m Rootlok living wall, Wellingborough.</b> Tough geotextile bags, filled on site and locked together with interlocking plates, then seeded so grass and wildflowers grow through. It holds the slope like a hard wall, and it looks green.</figcaption>
     </figure>
-  </div>
-</section>
-
-<!-- 6 PROJECTS -->
-<section class="work" id="work" aria-labelledby="work-h">
-  <div class="work__pin" id="workPin">
-    <div class="wrap work__head">
-      <p class="kicker"><span class="lvl-tag">+0.00</span> Recent work</p>
-      <h2 id="work-h" class="h2">Real jobs, <em>with the real numbers.</em></h2>
-      <p class="work__hint" aria-hidden="true">Drag or scroll →</p>
-    </div>
-    <div class="work__rail" id="workRail" tabindex="0" aria-label="Projects, scroll sideways">
-      <article class="proj"><x-img name="rootlok-done" alt="Rootlok vegetated retaining wall, Wellingborough" sizes="(max-width: 800px) 80vw, 34vw"></x-img><h3>Wellingborough</h3><p>50m Rootlok vegetated retaining wall and erosion control</p></article>
-      <article class="proj"><x-img name="talbot-after" alt="Multi-level garden, Talbot Road North" sizes="(max-width: 800px) 80vw, 34vw"></x-img><h3>Talbot Road North, Wellingborough</h3><p>Sloped plot turned into two levels: 10m retaining wall, 900mm high, central steps, 40m² turf</p></article>
-      <article class="proj"><x-img name="shelley-after" alt="Raised porcelain patio with outdoor dining set, Shelley Rd" sizes="(max-width: 800px) 80vw, 34vw"></x-img><h3>Shelley Rd, Wellingborough</h3><p>Complete garden: foundations, blockwork, concrete base, porcelain tiles</p></article>
-      <article class="proj"><x-img name="windbrush-after" alt="Charcoal block paving driveway, Windbrush Way" sizes="(max-width: 800px) 80vw, 34vw"></x-img><h3>Windbrush Way, Northampton</h3><p>65m² charcoal block paving driveway, herringbone</p></article>
-      <article class="proj"><x-img name="rothwell-charcoal" alt="Charcoal block paving at a house in Rothwell" sizes="(max-width: 800px) 80vw, 34vw"></x-img><h3>Rothwell, Kettering</h3><p>Front and back block paving in Marshalls blocks</p></article>
-      <article class="proj"><x-img name="welly-herring" alt="Herringbone block paving driveway with slatted fence, Wellingborough" sizes="(max-width: 800px) 80vw, 34vw"></x-img><h3>Wellingborough driveways</h3><p>Block paving, resin bound and concrete</p></article>
-      <article class="proj"><x-img name="southam-after" alt="Light porcelain patio, Southam" sizes="(max-width: 800px) 80vw, 34vw"></x-img><h3>Southam, Coventry</h3><p>35m² porcelain patio with charcoal block border</p></article>
-      <article class="proj"><x-img name="holm-after" alt="Porcelain patio and artificial lawn, Great Holm" sizes="(max-width: 800px) 80vw, 34vw"></x-img><h3>Great Holm, Milton Keynes</h3><p>40m² porcelain patio, 25m² artificial turf, curved beds, 10 featheredge panels</p></article>
-      <article class="proj"><x-img name="harborough-path" alt="Sandstone path between two lawns, Market Harborough" sizes="(max-width: 800px) 80vw, 34vw"></x-img><h3>Market Harborough</h3><p>12m sandstone path, 15 fence panels, Victorian edging, 45m² turf, return wall repair</p></article>
-      <article class="proj"><x-img name="abington-after" alt="Featheredge fence, Abington Park" sizes="(max-width: 800px) 80vw, 34vw"></x-img><h3>Abington Park, Northampton</h3><p>18 featheredge panels on concrete posts with gravel boards</p></article>
-    </div>
   </div>
 </section>
 
@@ -359,7 +307,7 @@ document.documentElement.classList.add('js');
     </div>
     <div class="quotes__nav">
       <button class="qbtn" id="qPrev" aria-label="Previous review"><svg viewBox="0 0 20 20"><path d="M16 10H5m4-4-4 4 4 4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button>
-      <span class="quotes__count" id="qCount">1 / 6</span>
+      <span class="quotes__count" id="qCount">6 real reviews</span>
       <button class="qbtn" id="qNext" aria-label="Next review"><svg viewBox="0 0 20 20"><path d="M4 10h11m-4-4 4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button>
     </div>
   </div>
@@ -376,11 +324,11 @@ document.documentElement.classList.add('js');
     </div>
     <ol class="steps" id="steps">
       <i class="steps__line" aria-hidden="true"><b id="stepsFill"></b></i>
-      <li><span class="steps__n">Free site visit</span><p>Ardian walks the garden with you, checks the levels, the drainage and what's under the ground.</p></li>
-      <li><span class="steps__n">Design &amp; written quote</span><p>A plan and a written quote for your job, so you know exactly what's included.</p></li>
-      <li><span class="steps__n">Groundworks</span><p>Dig out, levels, drainage and a compacted sub-base. The part that decides how long it lasts.</p></li>
-      <li><span class="steps__n">Build</span><p>Walls, steps, paving, turf, fencing and planting, laid to the plan.</p></li>
-      <li><span class="steps__n">Clean handover</span><p>Site cleared, everything swept and checked with you before we leave.</p></li>
+      <li><span class="steps__n">Free site visit</span><p>Ardian checks the levels, drainage and what's under the ground.</p></li>
+      <li><span class="steps__n">Design &amp; written quote</span><p>A plan and a written quote, so you know what's included.</p></li>
+      <li><span class="steps__n">Groundworks</span><p>Dig-out, levels, drainage and a compacted sub-base.</p></li>
+      <li><span class="steps__n">Build</span><p>Walls, steps, paving, turf, fencing and planting.</p></li>
+      <li><span class="steps__n">Clean handover</span><p>Site cleared and checked with you before we leave.</p></li>
     </ol>
   </div>
 </section>
@@ -442,7 +390,7 @@ document.documentElement.classList.add('js');
 
       <fieldset class="wiz__step" data-step="4" hidden>
         <legend><label for="pc">What's your postcode?</label></legend>
-        <input class="field" id="pc" name="postcode" autocomplete="postal-code" inputmode="text" placeholder="e.g. NN8 4AB" maxlength="9" aria-describedby="pcNote">
+        <input class="field" id="pc" name="postcode" autocomplete="postal-code" inputmode="text" placeholder="e.g. NN8 4AB" maxlength="9" required aria-required="true" pattern="[A-Za-z]{1,2}[0-9][A-Za-z0-9]? ?[0-9][A-Za-z]{2}" aria-describedby="pcNote">
         <p class="field__note" id="pcNote" aria-live="polite"></p>
         <button type="button" class="btn btn--ink wiz__next" data-next>Continue</button>
       </fieldset>

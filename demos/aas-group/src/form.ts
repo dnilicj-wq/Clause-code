@@ -8,8 +8,9 @@ const $ = <T extends Element = HTMLElement>(s: string, r: ParentNode = document)
 const $$ = <T extends Element = HTMLElement>(s: string, r: ParentNode = document) => Array.from(r.querySelectorAll(s)) as T[];
 
 const data: Record<string, string> = {};
-let spec: [string, string][] = [], specSize = 'Small', fromDesign = false;
-export function setSpecForForm(rows: [string, string][], size: string) { spec = rows; specSize = size; if (fromDesign) paintMini(); }
+let spec: [string, string][] = [], specSize = 'Small', fromDesign = false, designed = false, specCalls = 0;
+// first call is the default spec on page load; any later call means the visitor used the configurator
+export function setSpecForForm(rows: [string, string][], size: string) { spec = rows; specSize = size; if (specCalls++ > 0) designed = true; if (fromDesign) paintMini(); }
 
 function paintMini() {
   const box = $('#specMini'); box.hidden = false;
@@ -62,6 +63,7 @@ export function initForm() {
   const checkPc = () => {
     const v = pc.value.trim(); pc.classList.remove('is-bad'); pcNote.classList.remove('is-warn');
     if (!v) { pcNote.textContent = ''; return; }
+    pc.removeAttribute('aria-invalid');
     const c = coverage(v);
     if (c.ok) pcNote.textContent = `✓ We cover ${c.town}`;
     else if (validPc(v)) { pcNote.textContent = "Thanks. We'll check your area and confirm."; }
@@ -69,7 +71,8 @@ export function initForm() {
   };
   pc.addEventListener('input', () => { pc.value = pc.value.toUpperCase(); checkPc(); });
   const pcNext = () => {
-    if (!validPc(pc.value)) { pc.classList.add('is-bad'); pcNote.classList.add('is-warn'); pcNote.textContent = 'That doesn’t look like a full UK postcode yet, e.g. NN8 4AB.'; pc.focus(); return; }
+    if (!validPc(pc.value)) { pc.setAttribute('aria-invalid', 'true'); pc.classList.add('is-bad'); pcNote.classList.add('is-warn'); pcNote.textContent = pc.value.trim() ? 'That doesn’t look like a full UK postcode yet, e.g. NN8 4AB.' : 'Please add your postcode so we can check we cover your area.'; pc.focus(); return; }
+    pc.removeAttribute('aria-invalid');
     data.postcode = pc.value.trim().toUpperCase().replace(/^(.+?)(\d[A-Z]{2})$/, (_m, a, b) => `${a.trim()} ${b}`);
     go(5);
   };
@@ -93,6 +96,7 @@ export function initForm() {
     nm.classList.remove('is-bad'); mb.classList.remove('is-bad'); note.classList.remove('is-warn'); note.textContent = '';
     if (!nm.value.trim()) { nm.classList.add('is-bad'); note.classList.add('is-warn'); note.textContent = 'Just your first name is fine.'; nm.focus(); return; }
     if (!validTel(mb.value)) { mb.classList.add('is-bad'); note.classList.add('is-warn'); note.textContent = 'Could you check the number? A UK mobile like 07700 900123.'; mb.focus(); return; }
+    if (!data.postcode || !validPc(data.postcode)) { go(4, -1); pc.classList.add('is-bad'); pc.setAttribute('aria-invalid', 'true'); pcNote.classList.add('is-warn'); pcNote.textContent = 'We need your postcode to check we cover your area, e.g. NN8 4AB.'; pc.focus(); return; }
     data.name = nm.value.trim(); data.mobile = mb.value.trim();
     const lines = [
       "Hi Ardian, I'd like to book a free site visit.",
@@ -103,11 +107,11 @@ export function initForm() {
       `Postcode: ${data.postcode ?? ''}`,
       `Photos: ${data.photos ?? 'No photos yet'}`,
     ];
-    if (fromDesign) { lines.push('', 'My design (from your website):'); spec.forEach(([k, v]) => lines.push(`• ${k}: ${v}`)); }
+    if (fromDesign || designed) { lines.push('', 'My design (from your website):'); spec.forEach(([k, v]) => lines.push(`• ${k}: ${v}`)); }
     lines.push('', `Name: ${data.name}`, `Mobile: ${data.mobile}`);
     const msg = lines.join('\n');
     const url = `https://wa.me/${WA}?text=${encodeURIComponent(msg)}`;
-    if (FORM_ENDPOINT) { try { await fetch(FORM_ENDPOINT, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ ...data, spec: fromDesign ? spec : null, message: msg }) }); } catch { /* WhatsApp still opens */ } }
+    if (FORM_ENDPOINT) { try { await fetch(FORM_ENDPOINT, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ ...data, spec: fromDesign || designed ? spec : null, message: msg }) }); } catch { /* WhatsApp still opens */ } }
     window.open(url, '_blank', 'noopener');
     $<HTMLAnchorElement>('#waAgain').href = url;
     steps.forEach((s) => (s.hidden = true)); $('.wiz__top', form).hidden = true; back.hidden = true;

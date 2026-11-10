@@ -7,6 +7,8 @@ function pictures(): Plugin {
     name: 'aas-pictures',
     transformIndexHtml(html) {
       const meta: Record<string, [number, number]> = JSON.parse(fs.readFileSync('public/work/meta.json', 'utf8'));
+      // tiny blurred previews, painted as the img background so a card never shows an empty box while the photo loads
+      const lqip: Record<string, string> = JSON.parse(fs.readFileSync('lqip.json', 'utf8'));
       return html.replace(/<x-img\s+([^>]*?)\/?>(<\/x-img>)?/g, (_m, attrs: string) => {
         const a: Record<string, string> = {};
         attrs.replace(/([\w-]+)(?:="([^"]*)")?/g, (_x, k, v) => ((a[k] = v ?? ''), ''));
@@ -15,7 +17,7 @@ function pictures(): Plugin {
         const eager = 'eager' in a;
         const set = (ext: string) => `/work/${n}-800.${ext} 800w, /work/${n}-1600.${ext} 1600w`;
         const extra = Object.entries(a).filter(([k]) => !['name', 'alt', 'sizes', 'eager', 'class', 'style'].includes(k)).map(([k, v]) => ` ${k}="${v}"`).join('');
-        return `<picture${a.class ? ` class="${a.class}"` : ''}${a.style ? ` style="${a.style}"` : ''}><source type="image/avif" srcset="${set('avif')}" sizes="${sizes}"><img src="/work/${n}-800.webp" srcset="${set('webp')}" sizes="${sizes}" width="${w}" height="${h}" alt="${a.alt ?? ''}" ${eager ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async"${extra}></picture>`;
+        return `<picture${a.class ? ` class="${a.class}"` : ''}${a.style ? ` style="${a.style}"` : ''}><source type="image/avif" srcset="${set('avif')}" sizes="${sizes}"><img src="/work/${n}-800.webp" srcset="${set('webp')}" sizes="${sizes}" width="${w}" height="${h}" alt="${a.alt ?? ''}"${lqip[n] ? ` style="background:#d8d3c8 url(${lqip[n]}) center/cover no-repeat"` : ''} ${eager ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async"${extra}></picture>`;
       });
     },
   };
