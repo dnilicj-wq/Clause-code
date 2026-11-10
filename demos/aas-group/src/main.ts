@@ -4,6 +4,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import type { GardenApi, Patio, Lawn, Boundary } from './garden';
 import { initForm, setSpecForForm } from './form';
+import type { Film } from './film';
 
 gsap.registerPlugin(ScrollTrigger);
 const $ = <T extends Element = HTMLElement>(s: string, r: ParentNode = document) => r.querySelector(s) as T;
@@ -11,6 +12,7 @@ const $$ = <T extends Element = HTMLElement>(s: string, r: ParentNode = document
 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const coarse = matchMedia('(pointer:coarse)').matches || innerWidth < 760;
 const clamp = (v: number, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+const eio = (t: number) => (t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2);
 const html = document.documentElement;
 
 // ---------- loader (first visit only, < 1s, never blocks content underneath)
@@ -44,15 +46,17 @@ const onScroll = () => {
 };
 addEventListener('scroll', onScroll, { passive: true }); onScroll();
 
-// ---------- HERO: live 3D garden, scrubbed by scroll
+// ---------- HERO: photoreal film (AI visualisation), scrubbed by scroll
 const heroCanvas = $<HTMLCanvasElement>('#heroCanvas'), heroStage = $('.hero__stage'), heroCopy = $('#heroCopy');
 const planSteps = $$('#planSteps li'), planBar = $('#planBar'), planLvl = $('#planLvl');
-let hero: GardenApi | null = null;
-const LV = ['+0.00', '+1.05 → 0.00', '−0.20 dig', '+0.90 wall', '−0.20 → −0.07', '±0.00 fall 1:60', '+0.90 lawn', '+0.00'];
+let hero: Film | null = null;
+const FILM_COUNT = 72;
+const LV = ['+0.00', '+1.05 → 0.00', '−0.20 dig', '+0.90 wall', '±0.00 fall 1:60', '+0.90 lawn', '+0.90 planting', '+0.00'];
 const heroProgress = () => clamp(-heroEl.getBoundingClientRect().top / (heroEl.offsetHeight - innerHeight));
 function heroUpdate() {
   const q = heroProgress();
-  hero?.setBuild(q);
+  // top of page shows the finished garden; a short rewind to the muddy plot, then the build plays out with the scroll
+  hero?.setProgress(q < 0.1 ? 1 - eio(q / 0.1) : clamp((q - 0.1) / 0.84));
   // copy: visible at the top, fades for the build, returns as the bookend
   const a = 1 - clamp(q / 0.07), b = clamp((q - 0.93) / 0.05);
   heroCopy.style.opacity = String(Math.max(a, b));
@@ -67,14 +71,14 @@ function heroUpdate() {
 addEventListener('scroll', heroUpdate, { passive: true }); heroUpdate();
 const startHero = async () => {
   if (hero || reduced) return;
-  const { initGarden } = await import('./garden');
-  hero = initGarden(heroCanvas, heroStage, { mode: 'hero', onReady: () => heroCanvas.classList.add('is-live') });
+  const { initFilm } = await import('./film');
+  const portrait = heroStage.clientWidth / heroStage.clientHeight < 0.9;
+  hero = initFilm(heroCanvas, heroStage, { base: portrait ? '/film/m' : '/film/d', count: FILM_COUNT, onReady: () => heroCanvas.classList.add('is-live') });
   heroUpdate();
 };
 // desktop: as soon as the page has loaded; phones: on first touch or scroll (keeps first paint and Lighthouse lean)
 if (coarse) { const go = () => { startHero(); removeEventListener('touchstart', go); removeEventListener('scroll', go); }; addEventListener('touchstart', go, { passive: true, once: true }); addEventListener('scroll', go, { passive: true, once: true }); }
 else { const idle = () => ('requestIdleCallback' in window ? (window as any).requestIdleCallback(startHero, { timeout: 1200 }) : setTimeout(startHero, 300)); document.readyState === 'complete' ? idle() : addEventListener('load', idle); }
-if (!coarse) heroStage.addEventListener('pointermove', (e) => { const r = heroStage.getBoundingClientRect(); hero?.setPointer((e.clientX - r.left) / r.width - 0.5, (e.clientY - r.top) / r.height - 0.5); });
 
 // ---------- CONFIGURATOR
 type State = { patio: Patio; tone: number; lawn: Lawn; boundary: Boundary; extras: Record<string, boolean>; size: string };
