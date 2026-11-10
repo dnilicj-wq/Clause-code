@@ -1,0 +1,556 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AAS Group Construction · Gardens, patios & driveways in Northamptonshire</title>
+<meta name="description" content="Patios, driveways and full garden transformations across Northamptonshire and Milton Keynes, by a groundworks team that gets the base, levels and drainage right first. Free site visit and written quote.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#F3EFE7">
+<meta property="og:title" content="AAS Group Construction · Built from the ground up">
+<meta property="og:description" content="Patios, driveways and garden transformations across Northamptonshire and Milton Keynes. Free site visit and written quote.">
+<meta property="og:image" content="https://clientgateway-aas-group.dnilicj.workers.dev/og.jpg">
+<link rel="icon" href="/brand/mark.svg" type="image/svg+xml">
+<link rel="preload" href="/fonts/fraunces-300-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/geist-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" as="image" href="/poster/hero-d.avif" type="image/avif" media="(min-width: 701px)" fetchpriority="high">
+<link rel="preload" as="image" href="/poster/hero-m.avif" type="image/avif" media="(max-width: 700px)" fetchpriority="high">
+<style>
+/* critical: first screen paints before the main stylesheet */
+@font-face{font-family:Fraunces;src:url(/fonts/fraunces-300-700.woff2) format('woff2');font-weight:300 700;font-display:swap}
+@font-face{font-family:Geist;src:url(/fonts/geist-var.woff2) format('woff2');font-weight:100 900;font-display:swap}
+@font-face{font-family:'Instrument Serif';src:url(/fonts/instrument-serif-400-italic.woff2) format('woff2');font-style:italic;font-weight:400;font-display:swap}
+html{background:#F3EFE7}
+body{margin:0;background:#F3EFE7;color:#1C1D1B;font-family:Geist,system-ui,sans-serif}
+.hero{position:relative;height:330svh}
+.hero__stage{position:sticky;top:0;height:100svh;overflow:hidden;background:#cfd6d4 url(/poster/hero-d.avif) center/cover no-repeat}
+@media (max-width:700px){.hero__stage{background-image:url(/poster/hero-m.avif)}}
+#loader{position:fixed;inset:0;z-index:100;background:#F3EFE7;display:grid;place-items:center;transition:opacity .5s cubic-bezier(.16,1,.3,1),visibility .5s}
+.seen #loader,.no-loader #loader{display:none}
+</style>
+<script>
+try{if(sessionStorage.getItem('aas-seen')||matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('seen');sessionStorage.setItem('aas-seen','1')}catch(e){}
+document.documentElement.classList.add('js');
+</script>
+<script type="module" src="/src/main.ts"></script>
+</head>
+<body>
+<a class="skip" href="#visit">Skip to the free site visit form</a>
+
+<!-- loader: contour lines draw in and settle into the mark (skipped on repeat visits / reduced motion) -->
+<div id="loader" aria-hidden="true">
+  <svg class="loader__svg" viewBox="0 0 400 300">
+    <g class="loader__contours" fill="none" stroke="#2E3A2C" stroke-width="1">
+      <path d="M-10 230 C 80 200, 140 250, 220 220 S 360 190, 410 210"/>
+      <path d="M-10 200 C 70 170, 150 220, 230 190 S 350 160, 410 175"/>
+      <path d="M-10 170 C 90 140, 150 185, 225 160 S 340 130, 410 140"/>
+      <path d="M-10 140 C 80 115, 160 150, 230 128 S 330 100, 410 105"/>
+    </g>
+    <g class="loader__mark" transform="translate(140 60) scale(.11)">
+      <defs><clipPath id="lc"><path d="M120 880 Q660 676 1220 868 L1220 0 L120 0Z"/></clipPath></defs>
+      <g fill="#F33333"><g clip-path="url(#lc)"><path d="M370 338 548 230V900H370Z"/><path d="M569 230 748 123V900H569Z"/><path d="M771 122 950 15V900H771Z"/></g><path d="M130 905Q660 700 1210 893Q660 772 130 905Z"/></g>
+    </g>
+    <text class="loader__lvl" x="200" y="270" text-anchor="middle">+0.00</text>
+  </svg>
+</div>
+
+<header class="nav" id="nav">
+  <a class="brand" href="#top" aria-label="AAS Group Construction, back to top">
+    <img class="brand__img" src="/brand/mark.svg" width="34" height="28" alt="">
+    <span class="brand__word">AAS Group<small>Construction</small></span>
+  </a>
+  <nav class="nav__links" aria-label="Sections">
+    <a href="#design">Design yours</a>
+    <a href="#work">Our work</a>
+    <a href="#process">How it works</a>
+    <a href="#reviews">Reviews</a>
+  </nav>
+  <div class="nav__cta">
+    <a class="nav__phone" href="tel:+447777792227"><span class="dot-live" aria-hidden="true"></span>07777 792227</a>
+    <a class="btn btn--ink btn--sm" href="#visit">Free site visit</a>
+  </div>
+</header>
+
+<main id="top">
+<!-- 1 HERO: live 3D garden, rewound then rebuilt as you scroll -->
+<section class="hero" id="hero" aria-label="Introduction">
+  <div class="hero__stage">
+    <canvas class="hero__canvas" id="heroCanvas" aria-hidden="true"></canvas>
+    <div class="hero__shade" aria-hidden="true"></div>
+    <div class="hero__grid" aria-hidden="true"></div>
+
+    <div class="hero__copy" id="heroCopy">
+      <ul class="chips" aria-label="At a glance">
+        <li class="chip chip--glass"><a href="https://www.google.com/maps/search/?api=1&amp;query=AAS+Group+Construction+Ltd+Northampton" target="_blank" rel="noopener"><span class="star" aria-hidden="true">★</span> 5.0 · 25 Google reviews</a></li>
+        <li class="chip chip--glass">Groundworks-led</li>
+        <li class="chip chip--glass">Northants · MK · Leics</li>
+      </ul>
+      <h1 class="hero__title">Gardens and driveways, built <em>from the ground&nbsp;up.</em></h1>
+      <p class="hero__sub">Patios, driveways and full garden transformations across Northamptonshire and Milton Keynes, by a groundworks team that gets the base, levels and drainage right first.</p>
+      <div class="hero__ctas">
+        <a class="btn btn--primary magnetic" href="#visit"><span>Book a free site visit</span><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-4 4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></a>
+        <a class="btn btn--glass" href="https://wa.me/447777792227?text=Hi%20Ardian%2C%20I%27d%20like%20a%20free%20site%20visit." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.4.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.4.8 3.2.6a2.8 2.8 0 0 0 1.8-1.3 2.3 2.3 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3Z"/></svg><span>WhatsApp 07777 792227</span></a>
+      </div>
+    </div>
+
+    <!-- site-plan strip: the build stage you are scrolling through -->
+    <aside class="plan" id="plan" aria-label="Build stages">
+      <div class="plan__lvl"><span class="plan__dot" aria-hidden="true"></span><span id="planLvl">+0.00</span></div>
+      <ol class="plan__steps" id="planSteps">
+        <li data-at="0">The finished garden</li>
+        <li data-at="0.06">Before: a sloped, boggy plot</li>
+        <li data-at="0.16">Dig out and set the levels</li>
+        <li data-at="0.3">Retaining wall and steps</li>
+        <li data-at="0.44">Sub-base, compacted</li>
+        <li data-at="0.56">Porcelain, slab by slab</li>
+        <li data-at="0.72">Turf on the upper level</li>
+        <li data-at="0.84">Fencing, planting, light</li>
+      </ol>
+      <div class="plan__bar" aria-hidden="true"><i id="planBar"></i></div>
+    </aside>
+
+    <div class="hero__scroll" aria-hidden="true"><span>Scroll to watch it built</span><i></i></div>
+    <span class="vis-chip" title="A live 3D illustration, not a photo of a finished job">Visualisation</span>
+  </div>
+</section>
+
+<!-- 2 PROOF BAR -->
+<section class="proof" aria-label="Where we work">
+  <div class="proof__badge">
+    <a class="gbadge" href="https://www.google.com/maps/search/?api=1&amp;query=AAS+Group+Construction+Ltd+Northampton" target="_blank" rel="noopener">
+      <span class="gbadge__g" aria-hidden="true">G</span>
+      <span class="gbadge__score">5.0</span>
+      <span class="gbadge__stars" aria-hidden="true">★★★★★</span>
+      <span class="gbadge__n">25 Google reviews</span>
+    </a>
+  </div>
+  <div class="marquee" aria-label="Recent project locations">
+    <div class="marquee__track">
+      <span>Wellingborough <small>50m Rootlok living wall</small></span>
+      <span>Milton Keynes <small>40m² porcelain patio</small></span>
+      <span>Market Harborough <small>12m sandstone path</small></span>
+      <span>Southam <small>35m² porcelain</small></span>
+      <span>Rothwell <small>Marshalls block paving</small></span>
+      <span>Abington Park <small>18 featheredge panels</small></span>
+      <span>Northampton <small>65m² charcoal driveway</small></span>
+      <span aria-hidden="true">Wellingborough <small>50m Rootlok living wall</small></span>
+      <span aria-hidden="true">Milton Keynes <small>40m² porcelain patio</small></span>
+      <span aria-hidden="true">Market Harborough <small>12m sandstone path</small></span>
+      <span aria-hidden="true">Southam <small>35m² porcelain</small></span>
+      <span aria-hidden="true">Rothwell <small>Marshalls block paving</small></span>
+      <span aria-hidden="true">Abington Park <small>18 featheredge panels</small></span>
+      <span aria-hidden="true">Northampton <small>65m² charcoal driveway</small></span>
+    </div>
+  </div>
+</section>
+
+<!-- 3 CONFIGURATOR -->
+<section class="design" id="design" aria-labelledby="design-h">
+  <div class="design__head wrap">
+    <p class="kicker"><span class="lvl-tag">+0.00</span> Design your outdoor space</p>
+    <h2 id="design-h" class="h2">Plan the garden <em>before we dig.</em></h2>
+    <p class="lede">Pick a surface, a lawn and a boundary. Your choices build a spec card you can send to Ardian with one tap, and he'll bring it to your free site visit.</p>
+  </div>
+
+  <div class="studio wrap">
+    <div class="studio__stage" id="studioStage">
+      <canvas id="studioCanvas" aria-label="3D visualisation of a garden that changes as you choose materials" role="img"></canvas>
+      <img class="studio__poster" id="studioPoster" src="/poster/studio.webp" alt="" width="1600" height="1000" loading="lazy" decoding="async">
+      <span class="vis-chip vis-chip--dark">Visualisation · drag to look around</span>
+      <div class="studio__dims" aria-hidden="true">
+        <span class="dim dim--w"><i></i><b id="dimW">9.0 m</b><i></i></span>
+        <span class="dim dim--fall">fall 1:60 →</span>
+      </div>
+    </div>
+
+    <div class="studio__panel">
+      <div class="zones" role="tablist" aria-label="Garden zones">
+        <button role="tab" aria-selected="true" data-zone="patio">Patio</button>
+        <button role="tab" aria-selected="false" data-zone="lawn">Lawn</button>
+        <button role="tab" aria-selected="false" data-zone="boundary">Boundary</button>
+        <button role="tab" aria-selected="false" data-zone="extras">Extras</button>
+      </div>
+      <div class="zone-panes">
+        <div class="pane" data-pane="patio" role="tabpanel">
+          <div class="opts" data-group="patio">
+            <button class="opt is-on" data-v="porcelain"><span class="sw sw--porcelain"></span>Porcelain</button>
+            <button class="opt" data-v="stone"><span class="sw sw--stone"></span>Natural stone</button>
+            <button class="opt" data-v="block"><span class="sw sw--block"></span>Block paving</button>
+            <button class="opt" data-v="resin"><span class="sw sw--resin"></span>Resin bound</button>
+          </div>
+          <div class="tones" id="tones" aria-label="Tone"></div>
+        </div>
+        <div class="pane" data-pane="lawn" role="tabpanel" hidden>
+          <div class="opts" data-group="lawn">
+            <button class="opt is-on" data-v="turf"><span class="sw sw--turf"></span>Real turf</button>
+            <button class="opt" data-v="artificial"><span class="sw sw--art"></span>Artificial grass</button>
+          </div>
+          <p class="pane__note">Real turf is mown in stripes; artificial stays green all year with no mowing.</p>
+        </div>
+        <div class="pane" data-pane="boundary" role="tabpanel" hidden>
+          <div class="opts" data-group="boundary">
+            <button class="opt is-on" data-v="featheredge"><span class="sw sw--fe"></span>Featheredge</button>
+            <button class="opt" data-v="composite"><span class="sw sw--comp"></span>Composite</button>
+            <button class="opt" data-v="living"><span class="sw sw--living"></span>Living wall</button>
+          </div>
+          <p class="pane__note">Featheredge goes on concrete posts with gravel boards, so the timber stays off wet ground.</p>
+        </div>
+        <div class="pane" data-pane="extras" role="tabpanel" hidden>
+          <div class="opts opts--multi" data-group="extras">
+            <button class="opt" data-v="lighting" aria-pressed="false"><span class="sw sw--light"></span>Lighting</button>
+            <button class="opt is-on" data-v="steps" aria-pressed="true"><span class="sw sw--steps"></span>Steps</button>
+            <button class="opt" data-v="beds" aria-pressed="false"><span class="sw sw--beds"></span>Raised beds</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="size">
+        <p class="size__label">Roughly how big is the space?</p>
+        <div class="seg" data-group="size">
+          <button class="is-on" data-v="Small">Small</button>
+          <button data-v="Medium">Medium</button>
+          <button data-v="Large">Large</button>
+        </div>
+      </div>
+
+      <article class="spec" id="spec" aria-live="polite">
+        <header class="spec__head"><span>Your garden spec</span><span class="spec__ref">Sheet 01 · not to scale</span></header>
+        <dl class="spec__list" id="specList"></dl>
+        <div class="spec__rule" aria-hidden="true"><i></i><span>+0.00</span><i></i><span>+0.90</span></div>
+      </article>
+      <a class="btn btn--primary btn--block magnetic" id="specGo" href="#visit"><span>Get this designed for my home</span><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-4 4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<!-- 4 SERVICES -->
+<section class="services" id="services" aria-labelledby="svc-h">
+  <div class="wrap services__head">
+    <p class="kicker"><span class="lvl-tag">−0.15</span> What we build</p>
+    <h2 id="svc-h" class="h2">Five things we build, <em>properly underneath.</em></h2>
+  </div>
+  <div class="stack wrap">
+    <article class="card-svc">
+      <x-img name="southam-after" alt="Light porcelain patio with a charcoal border at a new-build home in Southam" sizes="(max-width: 800px) 100vw, 60vw" class="card-svc__img"></x-img>
+      <div class="card-svc__body">
+        <h3>Patios &amp; paving</h3>
+        <p>Porcelain, natural stone and block paving, laid on a proper sub-base with a fall that sends rain where it should go.</p>
+        <p class="card-svc__meta">Porcelain · Natural stone · Block paving</p>
+        <p class="card-svc__cap">Real job: 35m² porcelain patio, Southam</p>
+      </div>
+    </article>
+    <article class="card-svc">
+      <x-img name="windbrush-after" alt="Charcoal block paving driveway with a light border on Windbrush Way, Northampton" sizes="(max-width: 800px) 100vw, 60vw" class="card-svc__img"></x-img>
+      <div class="card-svc__body">
+        <h3>Driveways</h3>
+        <p>Block paving, resin bound and concrete, dug to the right depth and edged so nothing creeps or sinks.</p>
+        <p class="card-svc__meta">Block paving · Resin bound · Concrete</p>
+        <p class="card-svc__cap">Real job: 65m² charcoal block paving, Windbrush Way, Northampton</p>
+      </div>
+    </article>
+    <article class="card-svc">
+      <x-img name="holm-after" alt="Garden in Great Holm with grey porcelain patio, artificial lawn and dark fencing" sizes="(max-width: 800px) 100vw, 60vw" class="card-svc__img"></x-img>
+      <div class="card-svc__body">
+        <h3>Garden transformations</h3>
+        <p>The whole garden as one job: patio, lawn, paths, planting and fencing, planned together so it all lines up.</p>
+        <p class="card-svc__meta">Turf &amp; artificial grass · Paths · Planting</p>
+        <p class="card-svc__cap">Real job: Great Holm, Milton Keynes</p>
+      </div>
+    </article>
+    <article class="card-svc">
+      <x-img name="abington-after" alt="New featheredge fence on concrete posts and gravel boards at Abington Park" sizes="(max-width: 800px) 100vw, 60vw" class="card-svc__img"></x-img>
+      <div class="card-svc__body">
+        <h3>Fencing &amp; decking</h3>
+        <p>Featheredge, composite and timber, set on concrete posts with gravel boards so the wood stays off wet ground.</p>
+        <p class="card-svc__meta">Timber · Composite · Featheredge</p>
+        <p class="card-svc__cap">Real job: 18 featheredge panels, Abington Park, Northampton</p>
+      </div>
+    </article>
+    <article class="card-svc">
+      <x-img name="rootlok-done" alt="Finished green Rootlok vegetated retaining wall running along a boundary in Wellingborough" sizes="(max-width: 800px) 100vw, 60vw" class="card-svc__img"></x-img>
+      <div class="card-svc__body">
+        <h3>Slopes &amp; retaining walls</h3>
+        <p>Terraces, steps and Rootlok living walls for ground that slips, slopes or holds water.</p>
+        <p class="card-svc__meta">Retaining walls · Rootlok · Groundworks &amp; drainage</p>
+        <p class="card-svc__cap">Real job: 50m Rootlok wall, Wellingborough</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- 5 LAYERS + SLOPE -->
+<section class="layers" id="layers" aria-labelledby="layers-h">
+  <div class="layers__pin" id="layersPin">
+    <canvas id="layersCanvas" aria-hidden="true"></canvas>
+    <div class="layers__copy">
+      <p class="kicker kicker--light"><span class="lvl-tag">−0.30</span> How a patio is built</p>
+      <h2 id="layers-h" class="h2 h2--light">The bit you'll never see <em>is the bit we're best at.</em></h2>
+    </div>
+    <ol class="layers__list" id="layersList">
+      <li data-i="4"><b>Porcelain slab</b><span>The part you see, set to a gentle fall so rain runs off, not in.</span></li>
+      <li data-i="3"><b>Mortar bed</b><span>Holds every slab level and solid, with no hollow corners to crack.</span></li>
+      <li data-i="2"><b>MOT Type 1 sub-base</b><span>Crushed stone, compacted. This is what carries the weight.</span></li>
+      <li data-i="1"><b>Geotextile membrane</b><span>Keeps the sub-base clean and stops weeds pushing up.</span></li>
+      <li data-i="0"><b>Compacted subsoil</b><span>Dug down to firm ground, so nothing sinks later.</span></li>
+    </ol>
+    <p class="layers__fall" aria-hidden="true">fall → drain</p>
+    <span class="vis-chip vis-chip--dark">Visualisation</span>
+  </div>
+
+  <div class="slope wrap">
+    <div class="slope__copy">
+      <p class="kicker kicker--light"><span class="lvl-tag">+0.90</span> Slopes</p>
+      <h2 class="h2 h2--light">Got a slope? <em>We build gardens on ground other landscapers walk away from.</em></h2>
+      <p class="lede lede--light">On Talbot Road North in Wellingborough the garden fell away from the house. We built a 10-metre retaining wall, 900mm high, split the garden into two levels joined by central steps, and laid 40m² of natural turf.</p>
+    </div>
+    <div class="reveal-drag" id="reveal" style="--x:50%">
+      <x-img name="talbot-after" alt="After: two-level garden with a block retaining wall, central steps and new turf" sizes="(max-width: 800px) 100vw, 60vw" class="reveal-drag__after"></x-img>
+      <div class="reveal-drag__before"><x-img name="talbot-before" alt="Before: a sloped, patchy lawn with old fencing" sizes="(max-width: 800px) 100vw, 60vw"></x-img></div>
+      <span class="reveal-drag__tag reveal-drag__tag--b">Before</span><span class="reveal-drag__tag reveal-drag__tag--a">After</span>
+      <input class="reveal-drag__range" type="range" min="0" max="100" value="50" aria-label="Drag to compare before and after">
+      <span class="reveal-drag__handle" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 6 3 12l6 6M15 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></span>
+      <p class="reveal-drag__cap">Real job · Talbot Road North, Wellingborough</p>
+    </div>
+    <figure class="rootlok">
+      <x-img name="rootlok-run" alt="The 50 metre Rootlok wall of green geotextile bags along a wooded boundary" sizes="(max-width: 800px) 100vw, 30vw"></x-img>
+      <figcaption><b>50m Rootlok living wall, Wellingborough.</b> Tough geotextile bags, filled on site and locked together with interlocking plates, then seeded so grass and wildflowers grow through. It holds the slope like a hard wall, and it looks green.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 6 PROJECTS -->
+<section class="work" id="work" aria-labelledby="work-h">
+  <div class="work__pin" id="workPin">
+    <div class="wrap work__head">
+      <p class="kicker"><span class="lvl-tag">+0.00</span> Recent work</p>
+      <h2 id="work-h" class="h2">Real jobs, <em>with the real numbers.</em></h2>
+      <p class="work__hint" aria-hidden="true">Drag or scroll →</p>
+    </div>
+    <div class="work__rail" id="workRail" tabindex="0" aria-label="Projects, scroll sideways">
+      <article class="proj"><x-img name="rootlok-done" alt="Rootlok vegetated retaining wall, Wellingborough" sizes="(max-width: 800px) 80vw, 34vw"></x-img><h3>Wellingborough</h3><p>50m Rootlok vegetated retaining wall and erosion control</p></article>
+      <article class="proj"><x-img name="talbot-after" alt="Multi-level garden, Talbot Road North" sizes="(max-width: 800px) 80vw, 34vw"></x-img><h3>Talbot Road North, Wellingborough</h3><p>Sloped plot turned into two levels: 10m retaining wall, 900mm high, central steps, 40m² turf</p></article>
+      <article class="proj"><x-img name="shelley-after" alt="Raised porcelain patio with outdoor dining set, Shelley Rd" sizes="(max-width: 800px) 80vw, 34vw"></x-img><h3>Shelley Rd, Wellingborough</h3><p>Complete garden: foundations, blockwork, concrete base, porcelain tiles</p></article>
+      <article class="proj"><x-img name="windbrush-after" alt="Charcoal block paving driveway, Windbrush Way" sizes="(max-width: 800px) 80vw, 34vw"></x-img><h3>Windbrush Way, Northampton</h3><p>65m² charcoal block paving driveway, herringbone</p></article>
+      <article class="proj"><x-img name="rothwell-charcoal" alt="Charcoal block paving at a house in Rothwell" sizes="(max-width: 800px) 80vw, 34vw"></x-img><h3>Rothwell, Kettering</h3><p>Front and back block paving in Marshalls blocks</p></article>
+      <article class="proj"><x-img name="welly-herring" alt="Herringbone block paving driveway with slatted fence, Wellingborough" sizes="(max-width: 800px) 80vw, 34vw"></x-img><h3>Wellingborough driveways</h3><p>Block paving, resin bound and concrete</p></article>
+      <article class="proj"><x-img name="southam-after" alt="Light porcelain patio, Southam" sizes="(max-width: 800px) 80vw, 34vw"></x-img><h3>Southam, Coventry</h3><p>35m² porcelain patio with charcoal block border</p></article>
+      <article class="proj"><x-img name="holm-after" alt="Porcelain patio and artificial lawn, Great Holm" sizes="(max-width: 800px) 80vw, 34vw"></x-img><h3>Great Holm, Milton Keynes</h3><p>40m² porcelain patio, 25m² artificial turf, curved beds, 10 featheredge panels</p></article>
+      <article class="proj"><x-img name="harborough-path" alt="Sandstone path between two lawns, Market Harborough" sizes="(max-width: 800px) 80vw, 34vw"></x-img><h3>Market Harborough</h3><p>12m sandstone path, 15 fence panels, Victorian edging, 45m² turf, return wall repair</p></article>
+      <article class="proj"><x-img name="abington-after" alt="Featheredge fence, Abington Park" sizes="(max-width: 800px) 80vw, 34vw"></x-img><h3>Abington Park, Northampton</h3><p>18 featheredge panels on concrete posts with gravel boards</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- 7 REVIEWS -->
+<section class="reviews" id="reviews" aria-labelledby="rev-h">
+  <div class="wrap">
+    <div class="reviews__head">
+      <p class="kicker"><span class="lvl-tag">+0.00</span> Reviews</p>
+      <h2 id="rev-h" class="h2">What the neighbours <em>say on Google.</em></h2>
+      <a class="gbadge gbadge--lg" href="https://www.google.com/maps/search/?api=1&amp;query=AAS+Group+Construction+Ltd+Northampton" target="_blank" rel="noopener"><span class="gbadge__g" aria-hidden="true">G</span><span class="gbadge__score">5.0</span><span class="gbadge__stars" aria-hidden="true">★★★★★</span><span class="gbadge__n">from 25 Google reviews</span></a>
+    </div>
+    <div class="quotes" id="quotes">
+      <figure class="quote is-on"><blockquote>“AAS have done an amazing job on my drive and front garden. Adrian has kept me informed of what was happening. I am extremely pleased with the finished results, and would highly recommend AAS.”</blockquote><figcaption>Hugh F. · Google review</figcaption></figure>
+      <figure class="quote"><blockquote>“I've used AAS Group Construction for my front garage driveway in New Duston, Northamptonshire. I’m really happy with their professional service and will definitely choose them again next summer for my garage project.”</blockquote><figcaption>Jurgen M. · Google review</figcaption></figure>
+      <figure class="quote"><blockquote>“Very pleased with the landscaping work. They transformed the outdoor space beautifully and paid attention to every detail.”</blockquote><figcaption>Hannah W. · Google review</figcaption></figure>
+      <figure class="quote"><blockquote>“Great service and a high-quality finish. The team was punctual, professional, and easy to deal with.”</blockquote><figcaption>Nathan H. · Google review</figcaption></figure>
+      <figure class="quote"><blockquote>“I have installed new driveway form Aas group in Kingsley road Northampton happy with the results I recommend them to all my friends and family”</blockquote><figcaption>Fabio P. · Google review</figcaption></figure>
+      <figure class="quote"><blockquote>“Excellent workmanship and great communication. AAS Group Construction Ltd made the whole process straightforward. Highly recommended.”</blockquote><figcaption>Walter O. · Google review</figcaption></figure>
+    </div>
+    <div class="quotes__nav">
+      <button class="qbtn" id="qPrev" aria-label="Previous review"><svg viewBox="0 0 20 20"><path d="M16 10H5m4-4-4 4 4 4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button>
+      <span class="quotes__count" id="qCount">1 / 6</span>
+      <button class="qbtn" id="qNext" aria-label="Next review"><svg viewBox="0 0 20 20"><path d="M4 10h11m-4-4 4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button>
+    </div>
+  </div>
+</section>
+
+<!-- 8 PROCESS -->
+<section class="process" id="process" aria-labelledby="proc-h">
+  <div class="wrap process__grid">
+    <div class="process__head">
+      <p class="kicker kicker--light"><span class="lvl-tag">+0.00</span> How it works</p>
+      <h2 id="proc-h" class="h2 h2--light">Five steps, <em>no surprises.</em></h2>
+      <p class="lede lede--light">Every job starts with a site visit, not a one-size quote.</p>
+      <a class="btn btn--light" href="#visit">Book the first step</a>
+    </div>
+    <ol class="steps" id="steps">
+      <i class="steps__line" aria-hidden="true"><b id="stepsFill"></b></i>
+      <li><span class="steps__n">Free site visit</span><p>Ardian walks the garden with you, checks the levels, the drainage and what's under the ground.</p></li>
+      <li><span class="steps__n">Design &amp; written quote</span><p>A plan and a written quote for your job, so you know exactly what's included.</p></li>
+      <li><span class="steps__n">Groundworks</span><p>Dig out, levels, drainage and a compacted sub-base. The part that decides how long it lasts.</p></li>
+      <li><span class="steps__n">Build</span><p>Walls, steps, paving, turf, fencing and planting, laid to the plan.</p></li>
+      <li><span class="steps__n">Clean handover</span><p>Site cleared, everything swept and checked with you before we leave.</p></li>
+    </ol>
+  </div>
+</section>
+
+<!-- 9 OPT-IN -->
+<section class="visit" id="visit" aria-labelledby="visit-h">
+  <div class="wrap visit__grid">
+    <div class="visit__side">
+      <p class="kicker"><span class="lvl-tag">+0.00</span> Free site visit</p>
+      <h2 id="visit-h" class="h2">Book your <em>free site visit.</em></h2>
+      <p class="lede">Six quick taps. Ardian gets your brief on WhatsApp and arranges a time to come and look.</p>
+      <article class="spec spec--mini" id="specMini" hidden>
+        <header class="spec__head"><span>Your garden spec</span><a href="#design" class="spec__edit">Edit</a></header>
+        <dl class="spec__list" id="specMiniList"></dl>
+      </article>
+      <div class="trust">
+        <a class="gbadge" href="https://www.google.com/maps/search/?api=1&amp;query=AAS+Group+Construction+Ltd+Northampton" target="_blank" rel="noopener"><span class="gbadge__g" aria-hidden="true">G</span><span class="gbadge__score">5.0</span><span class="gbadge__stars" aria-hidden="true">★★★★★</span><span class="gbadge__n">25 Google reviews</span></a>
+        <p class="trust__line">No obligation · written quote</p>
+      </div>
+    </div>
+
+    <form class="wiz" id="wiz" novalidate aria-labelledby="visit-h">
+      <div class="wiz__top">
+        <div class="wiz__pill" aria-hidden="true"><i id="wizPill"></i></div>
+        <span class="wiz__count" id="wizCount">Step 1 of 6</span>
+      </div>
+
+      <fieldset class="wiz__step is-on" data-step="1">
+        <legend>What's the project?</legend>
+        <div class="choice" data-name="project">
+          <button type="button" data-v="Patio">Patio</button>
+          <button type="button" data-v="Driveway">Driveway</button>
+          <button type="button" data-v="Full garden">Full garden</button>
+          <button type="button" data-v="Fencing / decking">Fencing / decking</button>
+          <button type="button" data-v="Slope / retaining wall">Slope / retaining wall</button>
+          <button type="button" data-v="Not sure yet">Not sure yet</button>
+        </div>
+      </fieldset>
+
+      <fieldset class="wiz__step" data-step="2" hidden>
+        <legend>Roughly how big?</legend>
+        <div class="choice choice--size" data-name="size">
+          <button type="button" data-v="Small"><svg viewBox="0 0 48 32" aria-hidden="true"><rect x="16" y="10" width="16" height="12"/></svg>Small<small>a patio corner</small></button>
+          <button type="button" data-v="Medium"><svg viewBox="0 0 48 32" aria-hidden="true"><rect x="10" y="6" width="28" height="20"/></svg>Medium<small>most back gardens</small></button>
+          <button type="button" data-v="Large"><svg viewBox="0 0 48 32" aria-hidden="true"><rect x="3" y="3" width="42" height="26"/></svg>Large<small>front and back, or big plots</small></button>
+          <button type="button" data-v="Not sure"><svg viewBox="0 0 48 32" aria-hidden="true"><rect x="10" y="6" width="28" height="20" stroke-dasharray="3 3"/></svg>Not sure<small>we'll measure</small></button>
+        </div>
+      </fieldset>
+
+      <fieldset class="wiz__step" data-step="3" hidden>
+        <legend>When are you hoping to start?</legend>
+        <div class="choice" data-name="timing">
+          <button type="button" data-v="As soon as possible">As soon as possible</button>
+          <button type="button" data-v="In 1–3 months">In 1–3 months</button>
+          <button type="button" data-v="In 3–6 months">In 3–6 months</button>
+          <button type="button" data-v="Just planning">Just planning</button>
+        </div>
+      </fieldset>
+
+      <fieldset class="wiz__step" data-step="4" hidden>
+        <legend><label for="pc">What's your postcode?</label></legend>
+        <input class="field" id="pc" name="postcode" autocomplete="postal-code" inputmode="text" placeholder="e.g. NN8 4AB" maxlength="9" aria-describedby="pcNote">
+        <p class="field__note" id="pcNote" aria-live="polite"></p>
+        <button type="button" class="btn btn--ink wiz__next" data-next>Continue</button>
+      </fieldset>
+
+      <fieldset class="wiz__step" data-step="5" hidden>
+        <legend>Got photos of the space?</legend>
+        <p class="wiz__help">Optional, but it helps. You can send them straight into the WhatsApp chat after you press send.</p>
+        <div class="choice" data-name="photos">
+          <button type="button" data-v="Yes, I'll send photos on WhatsApp">Yes, I'll send them on WhatsApp</button>
+          <button type="button" data-v="No photos yet">No photos yet</button>
+        </div>
+      </fieldset>
+
+      <fieldset class="wiz__step" data-step="6" hidden>
+        <legend>Where should Ardian call you?</legend>
+        <label class="lbl" for="nm">Your name</label>
+        <input class="field" id="nm" name="name" autocomplete="name" placeholder="First name is fine">
+        <label class="lbl" for="mb">Mobile number</label>
+        <input class="field" id="mb" name="mobile" autocomplete="tel" inputmode="tel" placeholder="07…">
+        <p class="field__note" id="contactNote" aria-live="polite"></p>
+        <div class="wiz__trust">
+          <span class="wiz__face"><img src="/brand/mark.svg" width="22" height="19" alt=""></span>
+          <span><b>★ 5.0 on Google</b> · No obligation · written quote</span>
+        </div>
+        <button type="submit" class="btn btn--primary btn--block magnetic" id="wizSend"><span>Book my free site visit</span><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-4 4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button>
+      </fieldset>
+
+      <div class="wiz__done" id="wizDone" hidden tabindex="-1">
+        <svg class="wiz__tick" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="22"/><path d="M14 25l7 7 13-15"/></svg>
+        <h3>Your brief is ready to send.</h3>
+        <p>WhatsApp should have opened with everything filled in. Press send and we'll be in touch shortly to arrange your visit.</p>
+        <div class="wiz__fallback">
+          <a class="btn btn--primary" id="waAgain" href="#" target="_blank" rel="noopener">Open WhatsApp again</a>
+          <a class="btn btn--ghost" href="tel:+447777792227">Call 07777 792227</a>
+        </div>
+      </div>
+
+      <div class="wiz__foot">
+        <button type="button" class="wiz__back" id="wizBack" hidden>← Back</button>
+        <span class="wiz__or">Rather talk? <a href="tel:+447777792227">07777 792227</a></span>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- 10 FAQ -->
+<section class="faq" id="faq" aria-labelledby="faq-h">
+  <div class="wrap faq__grid">
+    <div>
+      <p class="kicker"><span class="lvl-tag">+0.00</span> Questions</p>
+      <h2 id="faq-h" class="h2">Good questions <em>to ask a landscaper.</em></h2>
+    </div>
+    <div class="faq__list">
+      <details><summary>Why do you start with a site visit?</summary><p>Because every garden is different underneath. Ardian looks at the levels, the drainage and the ground before pricing anything, so your written quote matches the real job rather than a one-size estimate.</p></details>
+      <details><summary>What do you do about drainage and levels?</summary><p>We plan each project around the site's drainage, ground conditions and daily use, not just the finish on top: the right excavation depth, a properly compacted sub-base, a fall that takes water away, and edge restraints that stop paving creeping or cracking.</p></details>
+      <details><summary>Which materials can I choose from?</summary><p>Porcelain, natural stone, block paving, resin bound and concrete for hard surfaces; real turf or artificial grass; timber, composite or featheredge fencing on concrete posts; plus steps, edging, planting and lighting.</p></details>
+      <details><summary>Which areas do you cover?</summary><p>Northamptonshire (Northampton, Wellingborough, Kettering and Rothwell), Milton Keynes, Leicestershire (Market Harborough) and Southam and Coventry. Not sure if you're in? Put your postcode in the form and we'll confirm.</p></details>
+      <details><summary>What is a Rootlok wall?</summary><p>A living retaining wall. Tough geotextile bags are filled on site and locked together with interlocking plates, then seeded with grass and wildflowers that grow through. It holds a slope like a hard wall, without the concrete look, and needs no heavy machinery to install.</p></details>
+      <details><summary>Is the work guaranteed?</summary><p>Ask Ardian at your free site visit. He'll talk you through what's covered for your job before any work starts.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- 11 FINAL CTA -->
+<section class="final" aria-labelledby="final-h">
+  <x-img name="shelley-after" alt="" sizes="100vw" class="final__img"></x-img>
+  <div class="final__shade" aria-hidden="true"></div>
+  <div class="wrap final__copy">
+    <h2 id="final-h" class="final__title">Start with the ground. <em>We'll do the rest.</em></h2>
+    <div class="hero__ctas">
+      <a class="btn btn--primary magnetic" href="#visit"><span>Book a free site visit</span><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11m-4-4 4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></a>
+      <a class="btn btn--glass" href="tel:+447777792227">Call 07777 792227</a>
+    </div>
+    <p class="final__cap">Real job · Shelley Rd, Wellingborough</p>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot__grid">
+    <div>
+      <p class="foot__h">Visit</p>
+      <p>Abington St<br>Northampton NN1 2AJ</p>
+    </div>
+    <div>
+      <p class="foot__h">Talk</p>
+      <p><a href="tel:+447777792227">07777 792227</a> <small>mobile &amp; WhatsApp</small><br><a href="tel:+441604385166">01604 385166</a> <small>office</small><br><a href="mailto:info@aasgroup.co.uk">info@aasgroup.co.uk</a></p>
+    </div>
+    <div>
+      <p class="foot__h">Follow</p>
+      <p><a href="https://www.facebook.com/Graundworker" target="_blank" rel="noopener">Facebook</a><br><a href="https://www.instagram.com/_aas_group_construction" target="_blank" rel="noopener">Instagram</a><br><a href="https://www.linkedin.com/company/aas-group-construction-ltd" target="_blank" rel="noopener">LinkedIn</a><br><a href="https://www.youtube.com/@aasgroupconstruction" target="_blank" rel="noopener">YouTube</a></p>
+    </div>
+    <div>
+      <p class="foot__h">Areas</p>
+      <p>Northampton · Wellingborough · Kettering · Rothwell · Milton Keynes · Market Harborough · Southam · Coventry</p>
+    </div>
+  </div>
+  <p class="foot__name" aria-hidden="true"><span>AAS</span> Group</p>
+  <div class="wrap foot__legal">
+    <span>AAS Group Construction Ltd · Company no. 16288736</span>
+    <span>Demo by <a href="https://clientgateway.io" target="_blank" rel="noopener">Clientgateway</a></span>
+  </div>
+</footer>
+
+<nav class="dock" id="dock" aria-label="Quick contact">
+  <a href="tel:+447777792227"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>Call</a>
+  <a href="https://wa.me/447777792227?text=Hi%20Ardian%2C%20I%27d%20like%20a%20free%20site%20visit." target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Z"/></svg>WhatsApp</a>
+  <a class="dock__main" href="#visit">Free visit</a>
+</nav>
+</body>
+</html>
