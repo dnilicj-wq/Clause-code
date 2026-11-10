@@ -6,9 +6,11 @@ import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeom
 export type LayersApi = { setProgress: (p: number) => void; destroy: () => void };
 const clamp = (v: number, a = 0, b = 1) => Math.min(b, Math.max(a, v));
 const eInOut = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
-const eBack = (t: number) => { const c = 1.5; return 1 + (c + 1) * Math.pow(t - 1, 3) + c * Math.pow(t - 1, 2); };
+const smooth = (t: number) => t * t * (3 - 2 * t);
+// how strongly layer i is 'the one being described' at progress p: a soft bump, so focus glides from layer to layer
+const focus = (p: number, i: number) => { const c = 0.18 + i * 0.12; return smooth(clamp(1 - Math.abs(p - c) / 0.11)); };
 
-export function layerAt(p: number) { return p < 0.12 ? -1 : p > 0.84 ? 5 : Math.min(4, Math.floor((p - 0.12) / 0.12)); }
+export function layerAt(p: number) { return p < 0.1 ? -1 : p > 0.8 ? 5 : clamp(Math.round((p - 0.18) / 0.12), 0, 4); }
 
 export function initLayers(canvas: HTMLCanvasElement, host: HTMLElement): LayersApi | null {
   let r: THREE.WebGLRenderer;
@@ -63,11 +65,11 @@ export function initLayers(canvas: HTMLCanvasElement, host: HTMLElement): Layers
   const chevs: THREE.Mesh[] = [];
   for (let k = 0; k < 3; k++) for (let i = 0; i < 5; i++) { const c = new THREE.Mesh(chevGeo, chevMat); c.userData = { i, k }; slabs.add(c); chevs.push(c); }
 
-  let target = 0, shown = -1, vis = false, raf = 0;
+  let target = 0, shown = -1, vis = false, raf = 0, last = -1;
   const resize = () => {
     const w = host.clientWidth, h = host.clientHeight; if (!w || !h) return;
     r.setSize(w, h, false); cam.aspect = w / h;
-    if (w >= 900) cam.setViewOffset(w, h, w * 0.02, h * 0.04, w, h); else cam.setViewOffset(w, h, 0, h * 0.02, w, h);
+    if (w >= 900) cam.setViewOffset(w, h, -w * 0.01, -h * 0.08, w, h); else cam.setViewOffset(w, h, 0, h * 0.02, w, h);
     cam.updateProjectionMatrix(); need = true;
   };
   const ro = new ResizeObserver(resize); ro.observe(host); resize();
@@ -75,33 +77,33 @@ export function initLayers(canvas: HTMLCanvasElement, host: HTMLElement): Layers
 
   const look = new THREE.Vector3(0, 0, 0);
   function apply(p: number, t: number) {
-    const open = eInOut(clamp((p - 0.06) / 0.5));               // explode
-    const close = eBack(clamp((p - 0.86) / 0.12));              // snap back
+    const open = eInOut(clamp((p - 0.04) / 0.5));               // explode
+    const close = eInOut(clamp((p - 0.84) / 0.14));             // settle back, no overshoot
     const gap = open * (1 - close);
-    parts.forEach((m, i) => { m.position.y = (m.userData.y as number) + gap * i * 0.42; });
-    // the layer being described lifts a touch further and stays bright, the rest dim
-    const at = layerAt(p);
+    // the layer being described lifts a touch further and warms up; weights blend so nothing ever snaps
     parts.forEach((m, i) => {
-      const mats = m instanceof THREE.Mesh ? [m.material as THREE.MeshStandardMaterial] : [sMat];
-      mats.forEach((mm) => { mm.emissive?.set(i === at ? '#3a3020' : '#000000'); });
-      if (i === at) m.position.y += 0.06 * gap;
+      const f = focus(p, i) * gap;
+      m.position.y = (m.userData.y as number) + gap * i * 0.42 + 0.07 * f;
+      const mm = m instanceof THREE.Mesh ? (m.material as THREE.MeshStandardMaterial) : sMat;
+      mm.emissive.setRGB(0.23 * f, 0.19 * f, 0.125 * f);
     });
-    const fall = clamp((p - 0.66) / 0.1) * (1 - clamp((p - 0.84) / 0.06));
+    const fall = smooth(clamp((p - 0.64) / 0.1)) * (1 - smooth(clamp((p - 0.82) / 0.08)));
     chevMat.opacity = fall * 0.95;
     slabs.rotation.z = -fall * 0.035;
     chevs.forEach((c) => { const u = ((t * 0.00035 + c.userData.i / 5) % 1); c.position.set(-W / 2 + 0.2 + u * (W - 0.4), 0, -D / 2 + 0.35 + c.userData.k * 0.75); c.scale.setScalar(Math.sin(u * Math.PI)); });
-    block.rotation.y = -0.6 + p * 0.5 + Math.sin(t * 0.0003) * 0.02;
-    const fit = w() < 900 ? 1.45 : 1;
-    cam.position.set(5.6 * fit, (3.2 + gap * 0.8) * fit, 6.8 * fit); look.set(0, 0.25 + gap * 0.75, 0); cam.lookAt(look);
+    block.rotation.y = -0.6 + smooth(p) * 0.5 + Math.sin(t * 0.0003) * 0.02;
+    const fit = (w() < 900 ? 1.45 : 1) * (1 + gap * 0.2);   // ease the camera back as the stack opens, so it never crowds the heading
+    cam.position.set(5.6 * fit, (3.2 + gap * 0.8) * fit, 6.8 * fit); look.set(0, 0.3 + gap * 0.95, 0); cam.lookAt(look);
   }
   const w = () => host.clientWidth;
   function loop() {
     cancelAnimationFrame(raf);
     const tick = (now: number) => {
-      if (!vis) return;
-      const next = shown < 0 ? target : shown + (target - shown) * 0.12;
-      const fallOn = target > 0.64 && target < 0.92;
-      if (Math.abs(next - shown) > 0.00005 || need || fallOn) { shown = Math.abs(target - next) < 0.0003 ? target : next; apply(shown, now); r.render(scene, cam); need = false; }
+      if (!vis) { last = -1; return; }
+      const dt = last < 0 ? 16 : Math.min(64, now - last); last = now;
+      const next = shown < 0 ? target : shown + (target - shown) * (1 - Math.exp(-dt / 140));
+      const fallOn = shown > 0.62 && shown < 0.92;
+      if (Math.abs(next - shown) > 0.00002 || need || fallOn) { shown = Math.abs(target - next) < 0.0001 ? target : next; apply(shown, now); r.render(scene, cam); need = false; }
       raf = requestAnimationFrame(tick);
     };
     raf = requestAnimationFrame(tick);

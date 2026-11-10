@@ -15,9 +15,8 @@ const clamp = (v: number, a = 0, b = 1) => Math.min(b, Math.max(a, v));
 const eio = (t: number) => (t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2);
 const html = document.documentElement;
 
-// ---------- loader (first visit only, < 1s, never blocks content underneath)
-const loader = $('#loader');
-if (loader && !html.classList.contains('seen')) setTimeout(() => loader.classList.add('is-done'), 950);
+// ---------- loader (first visit only, ~1.8s, content is painted underneath)
+// (the loader is self-contained in index.html: CSS animation + inline counter, removes itself at 2s)
 
 // ---------- smooth scroll
 let lenis: Lenis | null = null;
@@ -163,12 +162,12 @@ new IntersectionObserver(async (es, o) => {
   layersApi = m.initLayers($<HTMLCanvasElement>('#layersCanvas'), layersPin);
 }, { rootMargin: '800px' }).observe(layersPin);
 ScrollTrigger.create({
-  trigger: layersPin, start: 'top top', end: () => '+=' + innerHeight * (reduced ? 0.01 : 1.15), pin: !reduced, pinSpacing: true, anticipatePin: 1,
+  trigger: layersPin, start: 'top top', end: () => '+=' + innerHeight * (reduced ? 0.01 : 2.1), pin: !reduced, pinSpacing: true, anticipatePin: 1,
   onUpdate: (s) => {
     const p = reduced ? 0.5 : s.progress; layersApi?.setProgress(p);
     const at = layerAt ? layerAt(p) : -1;
     layersList.forEach((li) => li.classList.toggle('is-on', +li.dataset.i! === at || (at === 5 && li.dataset.i === '4')));
-    fallTag.classList.toggle('is-on', p > 0.66 && p < 0.86);
+    fallTag.classList.toggle('is-on', p > 0.66 && p < 0.84);
   },
 });
 

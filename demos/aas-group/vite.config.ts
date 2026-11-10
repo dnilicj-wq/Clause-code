@@ -23,7 +23,23 @@ function pictures(): Plugin {
   };
 }
 
+// build only: inline the (small) main stylesheet into the page so first paint needs no extra request
+function inlineCss() {
+  return {
+    name: 'inline-css', apply: 'build' as const, enforce: 'post' as const,
+    generateBundle(_: unknown, bundle: Record<string, any>) {
+      const page = bundle['index.html']; if (!page) return;
+      for (const [k, f] of Object.entries(bundle)) {
+        if (!k.endsWith('.css')) continue;
+        const tag = new RegExp(`<link rel="stylesheet"[^>]*href="/${k.replace(/[.]/g, '\\.')}"[^>]*>`);
+        if (!tag.test(page.source)) continue;
+        page.source = page.source.replace(tag, () => `<style>${f.source}</style>`); delete bundle[k];
+      }
+    },
+  };
+}
+
 export default defineConfig({
-  plugins: [pictures()],
+  plugins: [pictures(), inlineCss()],
   build: { target: 'es2020', modulePreload: { polyfill: false }, assetsInlineLimit: 0 },
 });
