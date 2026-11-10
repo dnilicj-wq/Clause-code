@@ -12,9 +12,9 @@ const C = createContext<Q | null>(null);
 const serviceFor: Record<TypeKey, string> = { resin: 'resin-drive', block: 'block', concrete: 'concrete', patio: 'patio' };
 
 export function QuoteProvider({ children }: { children: ReactNode }) {
-  const [typeKey, setTypeKey] = useState<TypeKey>('resin');
+  const [typeKey, setTypeKey] = useState<TypeKey>('patio');
   const [blendKey, setBlendKey] = useState<string>(blends[0].key);
-  const [service, setServiceRaw] = useState<string>('resin-drive');
+  const [service, setServiceRaw] = useState<string>('patio');
   const type = types.find((t) => t.key === typeKey)!;
   const blend = blends.find((b) => b.key === blendKey)!;
   const v = useMemo<Q>(() => ({

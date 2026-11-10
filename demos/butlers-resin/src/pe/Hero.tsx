@@ -16,7 +16,7 @@ export function Hero() {
   const host = useRef<HTMLElement>(null);
   const canvas = useRef<HTMLCanvasElement>(null);
   const api = useRef<BrickApi | null>(null);
-  const typeRef = useRef<string>('resin');
+  const typeRef = useRef<string>('patio');
   const blendRef = useRef(q.blend);
   blendRef.current = q.blend;
   const [live, setLive] = useState(false);
