@@ -1,0 +1,269 @@
+<script>window.onmessage = function(event) {event.source.postMessage({iframeId: event.data, scrollHeight: document.body.getBoundingClientRect().height || document.body.scrollHeight}, event.origin);};</script><body style='margin: 0'><!doctype html>
+<html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Butlers | Project Showcase</title>
+<script>document.documentElement.className='brc-js brc-boot';setTimeout(function(){var c=document.documentElement.classList;c.remove('brc-boot');if(!window.brcHeroReady)c.remove('brc-js');},3000);</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link id="brc-fonts" href="https://fonts.googleapis.com/css2?family=Fjalla+One&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<style>
+*{box-sizing:border-box}html,body{margin:0;background:#111;color:#fff}/* The frame never scrolls itself: a scrollbar here would squeeze and re-wrap the text while GoDaddy is still sizing it. */html{overflow:hidden}
+.brc-hero{position:relative;isolation:isolate;overflow:hidden;min-height:clamp(490px,39vw,630px);background:#111;font-family:Roboto,Arial,sans-serif;display:flex;align-items:center}
+.brc-media{position:absolute;inset:0 0 0 34%;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent 0%,transparent 1%,#000 30%);mask-image:linear-gradient(90deg,transparent 0%,transparent 1%,#000 30%);transition:opacity .7s ease}
+.brc-js .brc-media:not(.is-loaded){opacity:0}
+.brc-media::after{content:'';position:absolute;inset:auto 0 0;height:34%;background:linear-gradient(to top,rgba(0,0,0,.42),transparent);z-index:3;pointer-events:none}
+.brc-scene{position:absolute;inset:0;margin:0;opacity:0;z-index:0;overflow:hidden;pointer-events:none;transition:opacity 1s cubic-bezier(.4,0,.2,1)}
+.brc-scene.is-active{opacity:1;z-index:1}.brc-scene.is-entering{opacity:1;z-index:2}
+.brc-scene img,.brc-scene video{width:100%;height:100%;position:absolute;inset:0;display:block;object-fit:cover;object-position:var(--position,50% 50%)}
+.brc-scene video{background:transparent;z-index:0}.brc-scene.photo img{transform:scale(1.065)}
+.brc-scene .brc-poster{z-index:1;transition:opacity .45s ease}.brc-scene.is-live .brc-poster{opacity:0}
+.brc-scene.photo.is-active img,.brc-scene.photo.is-entering img{animation:brc-drift var(--brc-drift,6.4s) linear both}
+.brc-scene.photo:nth-child(even) img{transform-origin:65% 45%}.brc-scene.photo:nth-child(odd) img{transform-origin:35% 55%}
+.brc-content{position:relative;z-index:3;width:46%;padding:56px 22px 60px clamp(28px,5vw,90px)}
+.brc-rule{width:48px;height:3px;background:#c8ab76;margin:0 0 27px;transform-origin:left;animation:brc-rule-in .7s .08s both}
+.brc-hero h1{font-family:'Fjalla One','Arial Narrow',Impact,sans-serif;font-size:clamp(31px,3.3vw,54px);font-weight:400;line-height:1.15;letter-spacing:-.018em;text-transform:uppercase;margin:0 0 28px;animation:brc-rise .85s .08s both}
+.brc-line{display:block}.brc-hero p{font-size:clamp(15px,1.3vw,18px);line-height:1.72;color:#d0d0cc;max-width:410px;margin:0 0 33px;animation:brc-rise .85s .22s both}
+.brc-cta{display:inline-flex;align-items:center;gap:25px;text-decoration:none;color:#171818;background:#fff;padding:19px 24px;font-size:12px;line-height:1.4;font-weight:700;letter-spacing:.065em;text-transform:uppercase;min-height:54px;animation:brc-rise .85s .36s both;transition:background .25s,transform .25s}
+.brc-cta svg{width:19px;height:19px;transition:transform .25s}.brc-cta:hover{background:#eadcc2;transform:translateY(-2px)}.brc-cta:hover svg{transform:translateX(4px)}.brc-cta:focus-visible{outline:3px solid #c8ab76;outline-offset:5px}
+.brc-progress{position:absolute;z-index:4;left:56%;right:clamp(28px,5vw,90px);bottom:clamp(18px,2.4vw,34px);display:flex;gap:8px;filter:drop-shadow(0 1px 2px rgba(0,0,0,.5));animation:brc-fade .85s .5s both}
+.brc-seg{flex:1;position:relative;height:26px;margin:0;padding:0;border:0;background:none;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.brc-seg::before,.brc-seg span{content:'';position:absolute;left:0;right:0;top:50%;height:3px;margin-top:-1.5px;border-radius:2px}
+.brc-seg::before{background:rgba(255,255,255,.32);transition:background .2s}.brc-seg:hover::before{background:rgba(255,255,255,.55)}
+.brc-seg span{background:#fff;transform:scaleX(0);transform-origin:left}
+.brc-seg:focus-visible{outline:2px solid #c8ab76;outline-offset:2px}
+@keyframes brc-drift{from{transform:scale(1.065)}to{transform:scale(1)}}
+@keyframes brc-rise{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
+@keyframes brc-rule-in{from{transform:scaleX(0);opacity:0}to{transform:scaleX(1);opacity:1}}
+@keyframes brc-fade{from{opacity:0}to{opacity:1}}
+.brc-boot .brc-content>*,.brc-boot .brc-progress{animation-play-state:paused}
+.brc-boot .brc-line{white-space:nowrap}
+.brc-hero.is-suspended *{animation-play-state:paused!important}
+@media(max-width:980px){.brc-hero{display:flex;flex-direction:column;align-items:stretch;min-height:0}.brc-media{position:relative;inset:auto;width:100%;height:clamp(280px,56vw,440px);-webkit-mask-image:linear-gradient(0deg,transparent 0%,#000 30%);mask-image:linear-gradient(0deg,transparent 0%,#000 30%)}.brc-media::after{display:none}.brc-content{width:100%;padding:0 28px 42px;margin-top:-5px}.brc-rule{margin-bottom:22px}.brc-hero h1{font-size:clamp(32px,7.8vw,49px);max-width:640px;margin-bottom:23px}.brc-hero p{font-size:15px;max-width:480px;margin-bottom:27px}.brc-cta{font-size:11px;padding:17px 21px}.brc-progress{left:28px;right:28px;top:10px;bottom:auto;gap:6px}.brc-seg::before,.brc-seg span{height:2px;margin-top:-1px}}
+@media(max-width:360px){.brc-content{padding-inline:22px}.brc-hero h1{font-size:29px}.brc-cta{gap:18px}.brc-progress{left:22px;right:22px}}
+@media(max-width:300px){.brc-content{padding-inline:19px}.brc-hero h1{font-size:24px}.brc-cta{font-size:10px;gap:12px;padding:16px}.brc-progress{left:19px;right:19px}}
+@media(prefers-reduced-motion:reduce){.brc-hero *{animation:none!important;transition:none!important}.brc-scene.photo img{transform:none}.brc-scene video{display:none}}
+</style></head><body>
+<section class="brc-hero" aria-label="Welcome to Butlers Resin and Construction">
+<div class="brc-media" aria-label="Completed projects by Butlers">
+<figure class="brc-scene is-active" data-scene="compass" style="--position:48% 50%">
+<video muted playsinline preload="auto" aria-hidden="true" tabindex="-1" disablepictureinpicture disableremoteplayback><source src="https://res.cloudinary.com/io1okprf/video/upload/v1790544539/hero-compass-1280.mp4" type="video/mp4"></video>
+<img class="brc-poster" src="https://res.cloudinary.com/io1okprf/video/upload/so_0,w_1280,q_auto:good,f_jpg/v1790544539/hero-compass-1280.jpg" alt="Overhead view of the compass design in a golden resin driveway" fetchpriority="high">
+</figure>
+<figure class="brc-scene photo" data-scene="photo-1" style="--position:50% 55%"><img data-src="https://img1.wsimg.com/isteam/ip/d6f7097c-df09-4852-91f1-f47cd49f9303/558901806_122180026970489846_13156635436352577.jpg/:/rs=w:1600" alt="Resin patio with circular planted borders and landscaped garden" decoding="async"></figure>
+<figure class="brc-scene photo" data-scene="photo-2" style="--position:47% 20%"><img data-src="https://img1.wsimg.com/isteam/ip/d6f7097c-df09-4852-91f1-f47cd49f9303/WhatsApp%20Image%202025-09-10%20at%2012.18.59%20AM.jpeg/:/rs=w:1600" alt="Golden resin driveway surrounding a brick house" decoding="async"></figure>
+<figure class="brc-scene photo" data-scene="photo-3" style="--position:50% 58%"><img data-src="https://img1.wsimg.com/isteam/ip/d6f7097c-df09-4852-91f1-f47cd49f9303/IMG_20241103_135536.jpg/:/rs=w:1600" alt="Golden resin courtyard with dark edging and garden buildings" decoding="async"></figure>
+</div>
+<div class="brc-content"><div class="brc-rule" aria-hidden="true"></div>
+<h1><span class="brc-line">Welcome to Butlers</span><span class="brc-line">Resin &amp; Construction</span></h1>
+<p>We are specialists in resin bound driveways and flooring in Cambridgeshire. From design to installation, we do it all.</p>
+<a class="brc-cta" href="https://butlersrc.co.uk/#d35b373f-cff2-4f3f-942e-7a2d08ab68d3" target="_top">Get a free quote today <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6"/></svg></a>
+</div></section>
+<script>
+(function(){
+'use strict';
+const root=document.documentElement, hero=document.querySelector('.brc-hero'), media=hero.querySelector('.brc-media'), scenes=Array.from(hero.querySelectorAll('.brc-scene')), imgs=scenes.map(s=>s.querySelector('img')), video=hero.querySelector('video'), poster=imgs[0], reduced=matchMedia('(prefers-reduced-motion: reduce)');
+// Timings: crossfade and time on each photo (ms). The zoom-out on each photo is timed to match.
+const fade=1000, dwell=5000, failed=new Set();
+hero.style.setProperty('--brc-drift',(dwell+fade+400)/1000+'s');
+let current=0,timer=0,finishTimer=0,deadline=0,remaining=dwell,span=dwell,busy=false,started=false,videoFailed=false,queued=-1,photosRequested=false,raf=0,shown=-1;
+
+// GoDaddy runs this code in an iframe that starts 150px tall and is only resized once every
+// image and font has loaded, so About Us showed first and then jumped down. Size the frame to
+// the hero ourselves, straight away, and keep it in step (fonts, rotation, window resizes).
+let frame=null,fitStyle=null,fitHeight=0;
+const BUSINESS={"@context":"https://schema.org","@type":"HomeAndConstructionBusiness","@id":"https://butlersrc.co.uk/#business","name":"Butler's Resin & Construction","alternateName":"Butlers Resin & Construction","legalName":"Butler's Resin & Construction Ltd","url":"https://butlersrc.co.uk/","logo":"https://img1.wsimg.com/isteam/ip/d6f7097c-df09-4852-91f1-f47cd49f9303/favicon/23f030e6-f8e6-4859-8b78-552c6a8500ba/3ae8fcee-e1b5-4a81-bcd0-3fb00b5a743b.jpg/:/rs=w:800,h:800,m","image":["https://img1.wsimg.com/isteam/ip/d6f7097c-df09-4852-91f1-f47cd49f9303/558901806_122180026970489846_13156635436352577.jpg/:/rs=w:1600","https://img1.wsimg.com/isteam/ip/d6f7097c-df09-4852-91f1-f47cd49f9303/WhatsApp%20Image%202025-09-10%20at%2012.18.59%20AM.jpeg/:/rs=w:1600"],"description":"Resin Mill Elite Installer based in Chatteris, laying resin bound driveways, block paving, porcelain patios and paths across Cambridgeshire.","telephone":"+443333399898","email":"info@butlersrc.co.uk","address":{"@type":"PostalAddress","streetAddress":"78 The Elms","addressLocality":"Chatteris","addressRegion":"Cambridgeshire","postalCode":"PE16 6JP","addressCountry":"GB"},"areaServed":[{"@type":"City","name":"Chatteris"},{"@type":"City","name":"March"},{"@type":"City","name":"Ely"},{"@type":"City","name":"Huntingdon"},{"@type":"City","name":"Warboys"},{"@type":"City","name":"Littleport"},{"@type":"City","name":"Sawtry"},{"@type":"City","name":"Mepal"},{"@type":"City","name":"Thorney"},{"@type":"AdministrativeArea","name":"Cambridgeshire"}],"knowsAbout":["Resin bound driveways","Block paving","Porcelain patios","Paths","Drop kerbs","Fencing"],"sameAs":["https://www.facebook.com/61564695405415","https://www.instagram.com/butlersresinco/","https://x.com/ButlersrcUK","https://www.checkatrade.com/trades/butlersresinandconstructionltd","https://www.mybuilder.com/profile/butler-s-resin-construction-ltd","https://ratedpeople.com/profile/butlers-resin-and-construction"]};
+try{frame=window.frameElement;}catch(error){}
+if(frame){try{
+ const section=frame.closest('[data-ux="Section"]');
+ if(section&&section.getAttribute('data-aid')==='HTML_SECTION_RENDERED'){section.style.setProperty('padding','0','important');let wrap=frame.parentElement;while(wrap&&wrap!==section){for(const [key,value] of Object.entries({width:'100%','max-width':'none',padding:'0',margin:'0'})){wrap.style.setProperty(key,value,'important');}wrap=wrap.parentElement;}frame.style.setProperty('border','0');}
+ const doc=frame.ownerDocument;
+ fitStyle=doc.getElementById('brc-hero-fit');
+ // Name every custom-code frame for screen readers (GoDaddy leaves them untitled).
+ frame.title='Project photos and video';
+ for(const other of doc.querySelectorAll('iframe[srcdoc]'))if(!other.title){const code=other.getAttribute('srcdoc');if(code.includes('brcGallery'))other.title='Before and after gallery';else if(code.includes('REVIEWS WIDGET'))other.title='Customer reviews';}
+ // Business details for Google (structured data). They go on the page itself: Google ignores them inside frames.
+ if(!doc.getElementById('brc-schema')){const data=doc.createElement('script');data.type='application/ld+json';data.id='brc-schema';data.textContent=JSON.stringify(BUSINESS);doc.head.appendChild(data);}
+ if(!fitStyle){fitStyle=doc.createElement('style');fitStyle.id='brc-hero-fit';doc.head.appendChild(fitStyle);}
+}catch(error){fitStyle=null;}}
+function fit(){
+ if(!frame)return;
+ const h=Math.ceil(hero.getBoundingClientRect().height);
+ if(!h||h===fitHeight)return;
+ fitHeight=h;
+ try{
+  frame.style.setProperty('height',h+'px','important');
+  // A page-level rule also covers GoDaddy re-creating or re-sizing the frame later.
+  const own='iframe[srcdoc*="brc-hero"]', section='[data-aid="HTML_SECTION_RENDERED"]:has('+own+')';
+  if(fitStyle)fitStyle.textContent=own+'{height:'+h+'px!important;border:0!important;transition:none!important}'+section+'{padding:0!important}'+section+' :has('+own+'){width:100%!important;max-width:none!important;padding:0!important;margin:0!important}';
+ }catch(error){}
+}
+fit();
+if(window.ResizeObserver)new ResizeObserver(fit).observe(hero);
+addEventListener('resize',fit);addEventListener('load',fit);
+
+// "Get a free quote today" glides down to the contact form on this page instead of loading the link
+// (which opens the live site from GoDaddy's preview, and reloads the page for visitors from Facebook).
+hero.querySelector('.brc-cta').addEventListener('click',event=>{
+ try{
+  const doc=frame&&frame.ownerDocument;
+  if(!doc)return;
+  const target=doc.getElementById(new URL(event.currentTarget.href).hash.slice(1))||doc.querySelector('.widget-contact');
+  if(!target)return;
+  event.preventDefault();
+  const win=doc.defaultView, nav=doc.querySelector('[data-stickynav="true"]');
+  const cover=nav&&/fixed|sticky/.test(win.getComputedStyle(nav).position)?nav.getBoundingClientRect().height:0;
+  target.style.scrollMarginTop=cover+'px';
+  target.scrollIntoView({behavior:reduced.matches?'auto':'smooth',block:'start'});
+ }catch(error){}
+});
+
+// Hold the entrance animation until the fonts themselves are in (or 1.2s), so it plays once, in place.
+// Inside GoDaddy's frame the font stylesheet reports "loaded" before its fonts are registered, so wait for them.
+const fontsReady=new Promise(resolve=>{
+ if(!document.fonts)return resolve();
+ const since=performance.now();
+ (function wait(){
+  if(![...document.fonts].some(face=>/Fjalla One/.test(face.family)))return performance.now()-since>5000?resolve():setTimeout(wait,50);
+  Promise.all(['1em "Fjalla One"','1em Roboto','700 1em Roboto'].map(font=>document.fonts.load(font))).then(resolve,resolve);
+ })();
+});
+Promise.race([fontsReady,new Promise(resolve=>setTimeout(resolve,1200))]).then(()=>{fit();root.classList.remove('brc-boot');});
+
+// Fade the picture in once the first frame has downloaded instead of letting it draw in strips.
+const posterReady=new Promise(resolve=>{if(poster.complete)resolve();else{poster.addEventListener('load',resolve);poster.addEventListener('error',resolve);setTimeout(resolve,4000);}})
+ .then(()=>media.classList.add('is-loaded'));
+
+// The still sits on top of the video until the video has really drawn a frame; phones flash black while a video starts.
+function whenVideoDraws(){
+ const reveal=()=>scenes[0].classList.add('is-live');
+ if('requestVideoFrameCallback' in video){const onFrame=(now,info)=>{if(info.mediaTime>0&&!video.paused)requestAnimationFrame(reveal);else video.requestVideoFrameCallback(onFrame);};video.requestVideoFrameCallback(onFrame);return;}
+ const check=()=>{if(video.currentTime>0.15){video.removeEventListener('timeupdate',check);reveal();}};
+ video.addEventListener('timeupdate',check);
+}
+// Other photographs wait until the opening clip has what it needs.
+// Ask GoDaddy's image server for photos sized to this screen: phones don't need 1600px-wide pictures.
+const photoWidth=(()=>{const px=innerWidth*(matchMedia('(min-width:981px)').matches?.66:1)*Math.min(devicePixelRatio||1,2);return [600,800,1000,1200,1600].find(w=>w>=px)||1600;})();
+function loadPhotos(){
+ if(photosRequested)return;photosRequested=true;
+ imgs.forEach((img,i)=>{if(i&&img.dataset.src&&!img.getAttribute('src')){img.addEventListener('error',()=>markFailed(i));img.src=img.dataset.src.replace(/rs=w:\d+/,'rs=w:'+photoWidth);}});
+}
+function decodePhoto(i){
+ loadPhotos();
+ const img=imgs[i];
+ const loaded=img.decode?img.decode():new Promise((resolve,reject)=>{if(img.complete)return img.naturalWidth?resolve():reject();img.addEventListener('load',resolve);img.addEventListener('error',reject);});
+ return loaded.catch(()=>{if(!(img.complete&&img.naturalWidth)){markFailed(i);throw new Error('photo');}});
+}
+function markFailed(i){failed.add(i);if(segments[i])segments[i].hidden=true;}
+function within(promise,ms){return Promise.race([promise,new Promise((resolve,reject)=>setTimeout(reject,ms))]);}
+
+function stopTimer(){clearTimeout(timer);timer=0;}
+function schedule(ms,total){stopTimer();remaining=ms;span=total||ms;deadline=performance.now()+ms;if(!document.hidden&&!reduced.matches)timer=setTimeout(()=>{timer=0;next();},ms);}
+function next(){
+ if(busy||reduced.matches||document.hidden)return;
+ let i=current;
+ for(let n=0;n<scenes.length;n++){i=(i+1)%scenes.length;if(i===0||!failed.has(i))break;}
+ if(i===current){if(i===0&&!videoFailed){try{video.currentTime=0;}catch(error){}video.play().catch(()=>schedule(dwell));}else schedule(dwell);return;}
+ show(i);
+}
+function show(i){
+ if(busy){queued=i;return;}
+ if(i===current)return;
+ const resumeIn=timer?Math.max(300,deadline-performance.now()):800, resumeSpan=timer?span:0;
+ busy=true;stopTimer();
+ let ready;
+ if(i===0){
+  if(videoFailed||reduced.matches)ready=Promise.resolve();
+  else{
+   scenes[0].classList.remove('is-live');
+   try{video.currentTime=0;}catch(error){}
+   whenVideoDraws();
+   const playing=video.play();
+   playing.catch(()=>{videoFailed=true;});
+   ready=within(playing,1500).catch(()=>{});
+  }
+ }else ready=within(decodePhoto(i),10000);
+ ready.then(()=>enter(i),()=>{
+  busy=false;
+  if(runQueued()||(current===0&&!videoFailed&&!video.paused&&!video.ended))return;
+  schedule(resumeIn,resumeSpan);
+ });
+}
+function runQueued(){if(queued<0)return false;const q=queued;queued=-1;show(q);return true;}
+function enter(i){
+ const old=scenes[current], incoming=scenes[i];
+ incoming.classList.add('is-entering');incoming.setAttribute('aria-hidden','false');
+ current=i;
+ if(i!==0||videoFailed||video.paused||video.readyState<3)schedule(dwell);
+ paint();
+ clearTimeout(finishTimer);finishTimer=setTimeout(()=>{
+  old.classList.remove('is-active');old.setAttribute('aria-hidden','true');
+  if(old===scenes[0]){video.pause();old.classList.remove('is-live');}
+  incoming.classList.add('is-active');incoming.classList.remove('is-entering');
+  busy=false;runQueued();
+ },reduced.matches?0:fade);
+}
+
+// Progress line: one segment per picture; the current one fills as it plays and you can tap any of them.
+const bar=document.createElement('div');
+bar.className='brc-progress';bar.setAttribute('role','group');bar.setAttribute('aria-label','Project pictures');
+const segments=scenes.map((scene,i)=>{
+ const button=document.createElement('button');
+ button.type='button';button.className='brc-seg';
+ button.setAttribute('aria-label','Show picture '+(i+1)+' of '+scenes.length+': '+imgs[i].alt);
+ button.appendChild(document.createElement('span'));
+ button.addEventListener('click',()=>show(i));
+ bar.appendChild(button);
+ return button;
+});
+hero.appendChild(bar);
+function paint(){
+ raf=0;
+ let progress=1;
+ if(current===0&&!videoFailed){const d=video.duration;progress=Number.isFinite(d)&&d>fade/1000?video.currentTime/(d-fade/1000):0;}
+ else if(timer)progress=1-(deadline-performance.now())/span;
+ progress=Math.min(1,Math.max(0,progress));
+ segments.forEach((button,k)=>{
+  const value=(reduced.matches?(k===current?1:0):k<current?1:k>current?0:progress).toFixed(4);
+  if(button.dataset.fill!==value){button.dataset.fill=value;button.firstChild.style.transform='scaleX('+value+')';}
+ });
+ if(shown!==current){shown=current;segments.forEach((button,k)=>button.setAttribute('aria-current',String(k===current)));}
+ if(!reduced.matches&&!document.hidden)raf=requestAnimationFrame(paint);
+}
+
+scenes.forEach((s,i)=>s.setAttribute('aria-hidden',String(i!==0)));
+video.muted=true;video.defaultMuted=true;
+video.addEventListener('timeupdate',()=>{if(current===0&&!busy&&!videoFailed&&Number.isFinite(video.duration)&&video.currentTime>=video.duration-fade/1000)next();});
+video.addEventListener('ended',()=>{if(current===0&&!busy)next();});
+video.addEventListener('error',()=>{videoFailed=true;loadPhotos();if(current===0)schedule(3500);},true);
+video.addEventListener('canplaythrough',loadPhotos);
+// If a network stall holds up the opening clip, carry on with the photographs.
+video.addEventListener('waiting',()=>{if(current===0&&!busy)schedule(7000);});
+video.addEventListener('playing',()=>{if(current===0)stopTimer();});
+function start(){
+ if(started||reduced.matches||document.hidden)return;
+ started=true;
+ schedule(8000);
+ setTimeout(loadPhotos,4000);
+ posterReady.then(()=>{
+  if(current!==0||reduced.matches)return;
+  whenVideoDraws();
+  video.play().catch(()=>{videoFailed=true;loadPhotos();if(current===0)schedule(3500);});
+ });
+ paint();
+}
+hero.classList.toggle('is-suspended',document.hidden);
+document.addEventListener('visibilitychange',()=>{
+ hero.classList.toggle('is-suspended',document.hidden);
+ if(document.hidden){if(timer){remaining=Math.max(100,deadline-performance.now());stopTimer();}video.pause();}
+ else if(!reduced.matches){if(!started)start();else{if(current===0&&!videoFailed)video.play().catch(()=>schedule(1000));else schedule(remaining,span);if(!raf)paint();}}
+});
+reduced.addEventListener('change',()=>{
+ stopTimer();clearTimeout(finishTimer);video.pause();busy=false;queued=-1;
+ scenes.forEach((s,i)=>{s.classList.remove('is-entering','is-live');s.classList.toggle('is-active',i===0);s.setAttribute('aria-hidden',String(i!==0));});
+ current=0;try{video.currentTime=0;}catch(error){}started=false;
+ if(reduced.matches)paint();else start();
+});
+if(reduced.matches)paint();else start();
+window.brcHeroReady=true;
+})();
+</script>
+</body></html>
+</body>

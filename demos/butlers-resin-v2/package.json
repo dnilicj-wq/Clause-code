@@ -1,0 +1,1 @@
+{"name":"butlers-resin-v2","private":true,"type":"module","scripts":{"img":"node build/images.mjs","build":"node build/build.mjs"},"devDependencies":{"sharp":"^0.33.5"}}

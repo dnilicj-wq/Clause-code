@@ -1,0 +1,8 @@
+{
+  "name": "clientgateway-butlers-resin-v2",
+  "main": "/Users/daniilsgoloveckis/dev/br-wt/demos/butlers-resin-v2/worker/index.js",
+  "compatibility_date": "2026-11-01",
+  "assets": { "directory": "/Users/daniilsgoloveckis/dev/br-wt/demos/butlers-resin-v2/dist", "binding": "ASSETS", "not_found_handling": "404-page", "html_handling": "auto-trailing-slash" },
+  "kv_namespaces": [{ "binding": "QUOTES", "id": "50d70ed97613483ea4555966809dbf97" }],
+  "observability": { "enabled": true }
+}

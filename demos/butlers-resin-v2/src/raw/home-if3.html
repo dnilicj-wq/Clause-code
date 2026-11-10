@@ -1,0 +1,55 @@
+<script>window.onmessage = function(event) {event.source.postMessage({iframeId: event.data, scrollHeight: document.body.getBoundingClientRect().height || document.body.scrollHeight}, event.origin);};</script><body style='margin: 0'><!-- BUTLER'S REVIEWS WIDGET -->
+<style>
+.brc-s{font-family:Helvetica Neue,Helvetica,Arial,sans-serif;max-width:100%;padding:30px 0;position:relative;overflow:hidden}
+.brc-s::before{content:'';position:absolute;inset:0;background:url('https://img1.wsimg.com/isteam/ip/d6f7097c-df09-4852-91f1-f47cd49f9303/IMG-20241103-WA0019.jpg/:/rs=w:1440,h:1440') center/cover no-repeat}
+.brc-s::after{content:'';position:absolute;inset:0;background:rgba(0,0,0,.4)}
+.brc-s *{box-sizing:border-box;margin:0;padding:0}
+.brc-i{max-width:1200px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
+.brc-w{position:relative}
+.brc-t{display:flex;gap:16px;overflow-x:auto;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:6px 2px 12px}
+.brc-t::-webkit-scrollbar{display:none}
+.brc-c{flex:0 0 calc(25% - 12px);min-width:220px;background:#fff;border-radius:8px;box-shadow:0 1px 4px rgba(0,0,0,.1);padding:22px 20px 18px;display:flex;flex-direction:column}
+.brc-h{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.brc-a{width:42px;height:42px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:15px;color:#fff}
+.brc-n{font-weight:700;font-size:14px;color:#000;line-height:1.3}
+.brc-d{font-size:11px;color:#999;margin-top:1px;font-weight:400}
+.brc-st{display:flex;gap:2px;margin-bottom:10px}
+.brc-sr{color:#e8912d;font-size:20px;line-height:1}
+.brc-tx{font-size:14px;color:#1a1a1a;line-height:1.5;flex:1}
+.brc-f{display:none}
+.brc-c.ex .brc-sh{display:none}
+.brc-c.ex .brc-f{display:inline}
+.brc-m{color:#3b6daa;font-size:13px;margin-top:8px;font-weight:400;cursor:pointer;background:none;border:none;padding:0;font-family:inherit;text-align:left}
+.brc-m:hover{text-decoration:underline}
+.brc-fb{margin-top:auto;padding-top:14px;margin-top:14px}
+.brc-fl{font-weight:700;font-size:16px;color:#1877f2;text-decoration:none;letter-spacing:-.2px}
+.brc-fl:hover{text-decoration:underline}
+.brc-nv{position:absolute;top:50%;transform:translateY(-50%);width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.8);border:none;box-shadow:0 1px 4px rgba(0,0,0,.15);cursor:pointer;z-index:2;display:flex;align-items:center;justify-content:center;font-size:16px;color:#666;transition:all .15s}
+.brc-nv:hover{background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+.brc-nv.l{left:6px}
+.brc-nv.r{right:6px}
+@media(max-width:640px){.brc-c{flex:0 0 85vw;min-width:0}.brc-nv{display:none}.brc-i{padding:0 14px}}
+</style>
+<div class="brc-s">
+<div class="brc-i"><div class="brc-w">
+<button class="brc-nv l" onclick="document.getElementById('bT').scrollBy({left:-300,behavior:'smooth'})" aria-label="Previous">&#8249;</button>
+<div class="brc-t" id="bT"></div>
+<button class="brc-nv r" onclick="document.getElementById('bT').scrollBy({left:300,behavior:'smooth'})" aria-label="Next">&#8250;</button>
+</div></div>
+</div>
+<script>
+(function(){var r=[
+{n:"Ben Levitt",d:"24 January 2025",s:5,t:"Bill and his team installed a resin driveway at our property this week, and we are absolutely thrilled with the results. From our initial inquiries to the final reveal, Bill consistently demonstrated professionalism and expertise.\n\nHis comprehensive explanations left no room for doubt, instilling us with complete confidence in his team\u2019s ability to deliver an exceptional outcome. Bill\u2019s keen eye for detail was evident throughout the project, as he suggested innovative solutions we hadn\u2019t even considered.\n\nThe entire team worked tirelessly to transform the front of our property, and their dedication was truly commendable. We wholeheartedly recommend Butlers Resin & Construction to anyone seeking high-quality driveway installations. Top-notch work, lads!",c:"#4a7fb5"},
+{n:"Tracy Scott",d:"17 January 2025",s:5,t:"Bill and his team have just renovated my driveway and I am over the moon with it. It has totally transformed the front of the property. 100% recommended.",c:"#7a9a5e"},
+{n:"Gabriella Qaraqish",d:"3 January 2025",s:5,t:"The Butler\u2019s team modernised our driveway with a unique pattern. They are very professional and prompt. We communicated very well throughout the process and our needs have been accommodated at a fair price. I highly recommend the Butler\u2019s team!",c:"#8b6db5"},
+{n:"Antonia Artemi",d:"17 December 2024",s:5,t:"I\u2019m so pleased with the recent front resin driveway! Firstly Billy\u2019s communication was outstanding professional and answered all my questions. No question was silly and he provided good options and advice. He gave realistic timelines and the job was done within the time agreed. The team worked hard and fast to clear our front garden, lay the foundations and resin driveway. The job was priced fairly and the finish professional. I would recommend Billy and the team. A pleasure to have done business and I\u2019ll be using them for the drop kerb too. Thanks guys \u2014 Antonia and Robert, Enfield",c:"#c0763e"},
+{n:"Massimo Battistini",d:"20 April 2026",s:5,t:"I had my fence done and they did an excellent job they were very clean and professional, The communication and attention to detail was fantastic very happy thanks again boys, will be using them again.",c:"#3b7dd8"},
+{n:"Erik As",d:"8 December 2025",s:5,t:"Butler\u2019s company installed a new resin drive at our property, and the entire experience was outstanding from start to finish. The team demonstrated exceptional professionalism, attention to detail, and a genuine commitment to delivering high-quality work. From the moment Billy arrived to provide the quote, it was clear we were dealing with a company that takes pride in its service and customer care.\n\nThe project was completed right on schedule, and the whole process ran smoothly and efficiently. The workmanship is excellent, and the final result has completely transformed the look of our property. The team was courteous, hardworking, and clearly very skilled at what they do.\n\nI am extremely happy with the finished driveway and truly impressed by the high standards Butler\u2019s company maintains. I will absolutely be using their services again in the future and would confidently recommend them to anyone looking for a reliable, professional, and top-quality resin driveway installer.",c:"#5a8f4a"},
+{n:"Suzanne Diston",d:"5 October 2025",s:5,t:"A first-class experience from a hardworking, trustworthy team. I wouldn\u2019t hesitate to recommend them to anyone considering a resin driveway. It\u2019s rare to find tradesmen who combine skill, reliability, and genuine customer care\u2014these guys nailed it.",c:"#c75a8a"},
+{n:"Helen Mace",d:"28 September 2025",s:5,t:"Bill and his team have just completed a resin bound pathway for me, the job was completed exactly on schedule and their attention to the smallest details was fantastic!",c:"#d4813e"},
+{n:"Sally Chapman",d:"19 September 2025",s:5,t:"I had an issue with my old driveway & after many months of trying to get someone to sort it out, I was just about to give up until then I heard about Bill & his team. When I spoke to him he didn\u2019t hesitate in coming round & having a look. He was so lovely & I was so happy that I finally found someone that could do the job as well as wanted the job. Bill totally knew what was needed to be done to sort the problem out from previous company that hadn\u2019t done it right. Excellent Service from start to finish, very conscientious with great attention to detail. Very thorough, clean & tidy as they go, I can\u2019t praise them enough. I will most definitely be using in the future if needed as well as recommending them to all my friends & family.",c:"#6b8e5a"},
+{n:"Rachel Courten",d:"16 April 2025",s:5,t:"Excellent service from start to finish. Bill and his brother have laid a new resin bound patio for us this week and the results are exceptional. Both are very professional, polite and courteous. Kept us informed with progress and explained every step. Would not hesitate to recommend them. Many thanks",c:"#8b6fc0"},
+{n:"Lu Cupr",d:"17 February 2025",s:5,t:"We were lucky enough to find Bill and his team completing a driveway nearby and after a quick convo he popped round for a quote. Bill is clearly very knowledgeable and passionate about his work and was able to answers all of our questions and concerns. Bill stayed in communication until the start of our job where his team arrived on time and got to work straight away, what followed was a week of hard work (for them, not us) and the end result is truly stunning. We are happy to recommend Butler\u2019s Resin & Construction and they will be our go to company for any work in the future.\n\nThanks a lot!",c:"#4a90d9"},
+{n:"Carole Riches",d:"4 December 2024",s:5,t:"Bill and his mate did a fantastic job on my front garden which was getting overgrown and to much for me to do. So it\u2019s been transformed to a great space where the car can go, and I just have to brush it down every now and again. Good workmanship helpful and polite workers.",c:"#5a9e8f"}
+];var T=100,tk=document.getElementById('bT');r.forEach(function(v){var ini=v.n.split(' ').map(function(w){return w[0]}).join(''),st='';for(var i=0;i<v.s;i++)st+='<span class="brc-sr">\u2605</span>';var p=v.t.replace(/\n/g,' '),nt=p.length>T,sh=nt?p.substring(0,T).replace(/[\s,]+$/,'')+'\u2026':p,fl=v.t.replace(/\n/g,'<br>');var c=document.createElement('div');c.className='brc-c';c.innerHTML='<div class="brc-h"><div class="brc-a" style="background:'+v.c+'">'+ini+'</div><div><div class="brc-n">'+v.n+'</div><div class="brc-d">'+v.d+'</div></div></div><div class="brc-st">'+st+'</div><div class="brc-tx"><span class="brc-sh">'+sh+'</span><span class="brc-f">'+fl+'</span></div>'+(nt?'<button class="brc-m" onclick="var c=this.parentElement;c.classList.toggle(\'ex\');this.textContent=c.classList.contains(\'ex\')?\'Show less\':\'Read more\'">Read more</button>':'')+'<div class="brc-fb"><a class="brc-fl" href="https://www.facebook.com/profile.php?id=61564695405415" target="_blank">facebook</a></div>';tk.appendChild(c)})})();
+</script></body>

@@ -1,0 +1,295 @@
+<script>window.onmessage = function(event) {event.source.postMessage({iframeId: event.data, scrollHeight: document.body.getBoundingClientRect().height || document.body.scrollHeight}, event.origin);};</script><body style='margin: 0'><!-- ============================================================
+     BUTLER'S BEFORE/AFTER GALLERY
+     To add or edit a project: change the BRC_PROJECTS list below.
+     Each entry needs a "label" (the tab text) and two image URLs.
+     Add as many as you like — tabs wrap automatically.
+     ============================================================ -->
+
+<div class="brc-gallery" id="brcGallery"></div>
+
+<script>
+  var BRC_PROJECTS = [
+    {
+      before: "https://img1.wsimg.com/isteam/ip/d6f7097c-df09-4852-91f1-f47cd49f9303/483104742_122149989704489846_27989574506441670.jpg/:/cr=t:1.05%25,l:5.98%25,w:89.05%25,h:89.05%25/rs=w:1200,cg:true",
+      after:  "https://img1.wsimg.com/isteam/ip/d6f7097c-df09-4852-91f1-f47cd49f9303/484069291_122149990076489846_44392655556235403.jpg/:/rs=w:1200,h:902,cg:true,m/cr=w:1200,h:902"
+    },
+    {
+      before: "https://img1.wsimg.com/isteam/ip/d6f7097c-df09-4852-91f1-f47cd49f9303/WhatsApp%20Image%202026-05-10%20at%2012.32.33%20PM.jpeg/:/rs=w:1440,h:1440",
+      after:  "https://img1.wsimg.com/isteam/ip/d6f7097c-df09-4852-91f1-f47cd49f9303/WhatsApp%20Image%202026-05-10%20at%2012.32.51%20PM.jpeg/:/rs=w:1440,h:1440"
+    },
+    {
+      before: "https://img1.wsimg.com/isteam/ip/d6f7097c-df09-4852-91f1-f47cd49f9303/fda4100b-b67f-4afe-82da-f0dfcc3597e2.jpeg/:/rs=w:1440,h:1440",
+      after:  "https://img1.wsimg.com/isteam/ip/d6f7097c-df09-4852-91f1-f47cd49f9303/WhatsApp%20Image%202026-04-03%20at%209.28.41%20AM%20(3).jpeg/:/rs=w:1440,h:1440"
+    },
+    {
+      before: "https://img1.wsimg.com/isteam/ip/d6f7097c-df09-4852-91f1-f47cd49f9303/WhatsApp%20Image%202026-03-21%20at%206.22.41%20PM%20(4).jpeg/:/rs=w:1440,h:1440",
+      after:  "https://img1.wsimg.com/isteam/ip/d6f7097c-df09-4852-91f1-f47cd49f9303/WhatsApp%20Image%202026-03-21%20at%206.22.41%20PM.jpeg/:/rs=w:1440,h:1440"
+    }
+    // ,{ before: "BEFORE_URL_5", after: "AFTER_URL_5" }
+    // ,{ before: "BEFORE_URL_6", after: "AFTER_URL_6" }
+  ];
+</script>
+
+<style>
+  .brc-gallery, .brc-gallery * { box-sizing: border-box; }
+  .brc-gallery {
+    --pos: 50%;
+    --accent: #F26522;
+    max-width: 100%;
+    margin: 0 auto;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* ---- Tabs ---- */
+  .brc-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin: 0 0 18px;
+    padding: 4px 0 8px;
+  }
+  .brc-tab {
+    appearance: none;
+    border: 0;
+    background: #fff;
+    color: #6b7280;
+    font: inherit;
+    font-size: 15px;
+    font-weight: 700;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 1px 2px rgba(16,24,40,.10), 0 3px 8px rgba(16,24,40,.10);
+    transition: transform .15s ease, box-shadow .15s ease,
+                background .15s ease, color .15s ease;
+  }
+  .brc-tab:hover {
+    color: #1f2937;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(16,24,40,.10), 0 8px 18px rgba(16,24,40,.14);
+  }
+  .brc-tab:active { transform: translateY(0); }
+  .brc-tab[aria-selected="true"] {
+    background: var(--accent);
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(242,101,34,.25), 0 8px 20px rgba(242,101,34,.35);
+  }
+  .brc-tab:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 3px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .brc-tab, .brc-tab:hover, .brc-tab[aria-selected="true"] {
+      transition: none;
+      transform: none;
+    }
+  }
+
+  /* ---- Slider ---- */
+  .brc-stage {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4/3;
+    overflow: hidden;
+    border-radius: 10px;
+    background: #e5e7eb;
+    box-shadow: 0 1px 3px rgba(16,24,40,.12), 0 12px 28px rgba(16,24,40,.16);
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  .brc-gallery .brc-img {
+    position: absolute; top: 0; left: 0;
+    width: 100%; height: 100%;
+    max-width: none; min-width: 0; max-height: none;
+    display: block; object-fit: cover; object-position: center;
+    pointer-events: none; -webkit-user-drag: none; user-select: none;
+    margin: 0; padding: 0; border: 0;
+  }
+  .brc-gallery .brc-img--before {
+    z-index: 1;
+    -webkit-clip-path: inset(0 calc(100% - var(--pos)) 0 0);
+            clip-path: inset(0 calc(100% - var(--pos)) 0 0);
+  }
+  .brc-label {
+    position: absolute; top: 14px; z-index: 3;
+    padding: 6px 12px; border-radius: 999px;
+    background: #fff; color: #1f2937;
+    font-size: 12px; font-weight: 600; line-height: 1.2;
+    letter-spacing: .06em; text-transform: uppercase;
+    box-shadow: 0 2px 10px rgba(0,0,0,.20);
+    pointer-events: none; white-space: nowrap;
+  }
+  .brc-label--before { left: 14px; }
+  .brc-label--after  { right: 14px; }
+  .brc-gallery .brc-range {
+    -webkit-appearance: none; appearance: none;
+    position: absolute; inset: 0; z-index: 4;
+    width: 100%; height: 100%; margin: 0; padding: 0;
+    background: transparent; border: 0; outline: none; box-shadow: none;
+    cursor: ew-resize; touch-action: pan-y;
+  }
+  .brc-gallery .brc-range::-webkit-slider-runnable-track { background: transparent; border: none; }
+  .brc-gallery .brc-range::-moz-range-track { background: transparent; border: none; }
+  .brc-gallery .brc-range::-webkit-slider-thumb {
+    -webkit-appearance: none; appearance: none;
+    width: 44px; height: 1000px;
+    background: transparent; border: none; box-shadow: none; cursor: ew-resize;
+  }
+  .brc-gallery .brc-range::-moz-range-thumb {
+    width: 44px; height: 1000px;
+    background: transparent; border: none; box-shadow: none;
+  }
+  .brc-divider {
+    position: absolute; top: 0; bottom: 0;
+    left: var(--pos); margin-left: -1px;
+    z-index: 5; width: 2px;
+    background: #fff; box-shadow: none;
+    pointer-events: none;
+  }
+  .brc-handle {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    width: 44px; height: 44px; border-radius: 50%;
+    background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,.30);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .brc-gallery .brc-range:focus-visible ~ .brc-divider .brc-handle {
+    box-shadow: 0 2px 10px rgba(0,0,0,.30), 0 0 0 3px var(--accent);
+  }
+  .brc-caption {
+    margin: 14px 0 0; text-align: center;
+    color: #6b7280; font-size: 14px; font-weight: 500;
+  }
+
+  @media (min-width: 768px) {
+    .brc-gallery { max-width: 980px; }
+    .brc-stage { aspect-ratio: 16/10; border-radius: 12px; }
+  }
+</style>
+
+<script>
+(function(){
+  var CHEVRON =
+    '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">' +
+    '<path d="M10 7.5 5.5 12 10 16.5" stroke="#334155" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>' +
+    '<path d="M14 7.5 18.5 12 14 16.5" stroke="#334155" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>' +
+    '</svg>';
+
+  function isRealUrl(u){
+    return typeof u === 'string' && /^https?:\/\//i.test(u);
+  }
+
+  function build(root, projects){
+    if(root.__brc || !projects) return;
+    // Skip any project whose URLs haven't been filled in yet
+    projects = projects.filter(function(p){
+      return p && isRealUrl(p.before) && isRealUrl(p.after);
+    });
+    if(!projects.length) return;
+    root.__brc = true;
+
+    // Tab bar
+    var tabs = document.createElement('div');
+    tabs.className = 'brc-tabs';
+    tabs.setAttribute('role', 'tablist');
+
+    // Stage (one slider, reused)
+    var stage = document.createElement('div');
+    stage.className = 'brc-stage';
+    stage.innerHTML =
+      '<img class="brc-img brc-img--after" alt="After — completed work by Butler\'s Resin &amp; Construction">' +
+      '<img class="brc-img brc-img--before" alt="Before — the site prior to work">' +
+      '<span class="brc-label brc-label--before">Before</span>' +
+      '<span class="brc-label brc-label--after">After</span>' +
+      '<input class="brc-range" type="range" min="0" max="100" value="50" step="0.1" ' +
+        'aria-label="Drag to compare before and after" ' +
+        'aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">' +
+      '<div class="brc-divider" aria-hidden="true"><div class="brc-handle">' + CHEVRON + '</div></div>';
+
+    var caption = document.createElement('p');
+    caption.className = 'brc-caption';
+    caption.textContent = 'Drag the slider to see the difference';
+
+    var imgAfter  = stage.querySelector('.brc-img--after');
+    var imgBefore = stage.querySelector('.brc-img--before');
+    var range     = stage.querySelector('.brc-range');
+
+    function setPos(v){
+      v = Math.max(0, Math.min(100, v));
+      range.value = v;
+      root.style.setProperty('--pos', v + '%');
+      range.setAttribute('aria-valuenow', Math.round(v));
+    }
+
+    function show(i){
+      var p = projects[i];
+      // Swap images. The browser only fetches a URL the first time it's set.
+      imgBefore.src = p.before;
+      imgAfter.src  = p.after;
+      setPos(50);
+      var btns = tabs.querySelectorAll('.brc-tab');
+      for(var j = 0; j < btns.length; j++){
+        btns[j].setAttribute('aria-selected', j === i ? 'true' : 'false');
+        btns[j].tabIndex = j === i ? 0 : -1;
+      }
+    }
+
+    projects.forEach(function(p, i){
+      var b = document.createElement('button');
+      b.className = 'brc-tab';
+      b.type = 'button';
+      b.setAttribute('role', 'tab');
+      b.textContent = (i + 1);
+      b.setAttribute('aria-label', 'Before and after ' + (i + 1) + ' of ' + projects.length);
+      b.addEventListener('click', function(){ show(i); });
+      b.addEventListener('keydown', function(e){
+        var btns = tabs.querySelectorAll('.brc-tab'), idx = i;
+        if(e.key === 'ArrowRight'){ idx = (i + 1) % btns.length; }
+        else if(e.key === 'ArrowLeft'){ idx = (i - 1 + btns.length) % btns.length; }
+        else { return; }
+        e.preventDefault();
+        btns[idx].focus();
+        show(idx);
+      });
+      tabs.appendChild(b);
+    });
+
+    range.addEventListener('input', function(){ setPos(parseFloat(range.value)); });
+    range.addEventListener('keydown', function(e){
+      var v = parseFloat(range.value), s = 3, big = 10;
+      switch(e.key){
+        case 'ArrowLeft':  case 'ArrowDown': v -= s; break;
+        case 'ArrowRight': case 'ArrowUp':   v += s; break;
+        case 'PageDown': v -= big; break;
+        case 'PageUp':   v += big; break;
+        case 'Home': v = 0;   break;
+        case 'End':  v = 100; break;
+        default: return;
+      }
+      e.preventDefault();
+      setPos(v);
+    });
+
+    root.appendChild(tabs);
+    root.appendChild(stage);
+    root.appendChild(caption);
+
+    show(0); // first project loads on render; the rest wait for a tab click
+  }
+
+  function init(){
+    build(document.getElementById('brcGallery'), window.BRC_PROJECTS);
+  }
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', init);
+  } else { init(); }
+})();
+</script></body>

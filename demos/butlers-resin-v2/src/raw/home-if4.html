@@ -1,0 +1,217 @@
+<script>window.onmessage = function(event) {event.source.postMessage({iframeId: event.data, scrollHeight: document.body.getBoundingClientRect().height || document.body.scrollHeight}, event.origin);};</script><body style='margin: 0'><!doctype html>
+<html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Butlers | Free Quote</title>
+<script>
+/* VIDEO LINK: butler-loop.mp4 on Cloudinary. To swap the clip, paste a new link between the quotes. */
+var BRC_QUOTE_VIDEO = "https://res.cloudinary.com/io1okprf/video/upload/v1790517237/butler-loop.mp4";
+document.documentElement.className='q-js';
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fjalla+One&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<style>
+/* Colours: --band matches the clip's own background, so the video has no visible edge. */
+:root{--band:#e8e8e8;--ink:#1b1b1d;--muted:#4b4b50;--accent:#f26522;--accent-text:#a3410c;--accent-head:#c14e12;--button:#c14e12;--button-hover:#a3410c;--track:rgba(27,27,29,.13)}
+*{box-sizing:border-box}html,body{margin:0;background:var(--band)}/* The frame never scrolls itself: a scrollbar here would squeeze and re-wrap the text while GoDaddy is still sizing it. */html{overflow:hidden}
+.q{font-family:Roboto,Arial,sans-serif;color:var(--ink);background:var(--band);padding:clamp(44px,5.5vw,80px) 0;overflow:hidden}
+.q-wrap{max-width:1200px;margin:0 auto;padding:0 clamp(20px,5vw,48px);display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:clamp(28px,5vw,72px);align-items:center}
+
+/* The clip: its edges fade into the band so it looks painted onto the page. */
+.q-clip{position:relative;margin:0;aspect-ratio:4/3;cursor:pointer;-webkit-tap-highlight-color:transparent;
+ -webkit-mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent),linear-gradient(transparent,#000 10%,#000 90%,transparent);-webkit-mask-composite:source-in;
+ mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent),linear-gradient(transparent,#000 10%,#000 90%,transparent);mask-composite:intersect}
+.q-media.no-video .q-clip{cursor:default}
+.q-clip video,.q-clip img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.q-clip video{background:var(--band)}
+.q-poster{z-index:1;transition:opacity .4s ease}
+.q-clip.is-live .q-poster{opacity:0}
+
+/* Pause button and a progress line that fills once per round (big logo to big logo), then resets. */
+.q-bar{display:flex;align-items:center;gap:14px;width:min(100%,440px);margin:clamp(4px,1vw,10px) auto 0}
+.q-bar[hidden]{display:none}
+.q-toggle{flex:none;display:grid;place-items:center;width:36px;height:36px;padding:0;border:1px solid rgba(27,27,29,.18);border-radius:50%;background:#fff;color:var(--ink);cursor:pointer;transition:border-color .2s,box-shadow .2s}
+.q-toggle:hover{border-color:var(--accent);box-shadow:0 6px 14px -8px rgba(0,0,0,.4)}
+.q-toggle:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.q-toggle svg{width:14px;height:14px}
+.q-play,.q-media.is-paused .q-pause{display:none}.q-media.is-paused .q-play{display:block}
+.q-track{flex:1;height:4px;border-radius:4px;background:var(--track);overflow:hidden}
+.q-track span{display:block;height:100%;background:var(--accent);transform:scaleX(0);transform-origin:left}
+
+/* Words and buttons */
+.q h2{font-family:'Fjalla One','Arial Narrow',Impact,sans-serif;font-weight:400;text-transform:uppercase;letter-spacing:-.01em;line-height:1.05;font-size:clamp(38px,4.2vw,60px);margin:0;text-wrap:balance}
+.q h2 em{font-style:normal;color:var(--accent-head)}
+.q-nb{white-space:nowrap}
+.q-lead{font-size:clamp(17px,1.45vw,20px);line-height:1.65;color:var(--muted);margin:18px 0 0;max-width:470px;text-wrap:pretty}
+.q-actions{display:flex;flex-wrap:wrap;align-items:center;gap:16px 26px;margin-top:30px}
+.q-btn{display:inline-flex;align-items:center;gap:18px;min-height:56px;padding:17px 26px;background:var(--button);color:#fff;text-decoration:none;font-size:13px;font-weight:700;letter-spacing:.08em;line-height:1.3;text-transform:uppercase;box-shadow:0 14px 28px -16px rgba(193,78,18,.85);transition:background .25s,transform .25s}
+.q-btn svg{width:19px;height:19px;transition:transform .25s}
+.q-btn:hover{background:var(--button-hover);transform:translateY(-2px)}.q-btn:hover svg{transform:translateX(4px)}
+.q-btn:focus-visible,.q-call:focus-visible{outline:3px solid var(--accent);outline-offset:4px}
+.q-call{display:inline-flex;align-items:center;gap:11px;color:var(--ink);text-decoration:none;font-size:16px;line-height:1.3}
+.q-call svg{flex:none;width:38px;height:38px;padding:10px;border-radius:50%;background:#fff;color:var(--accent-head);border:1px solid rgba(27,27,29,.12);transition:border-color .2s}
+.q-call strong{font-weight:700;white-space:nowrap;transition:color .2s}
+.q-call:hover strong{color:var(--accent-head)}.q-call:hover svg{border-color:var(--accent)}
+
+/* Fade up on scroll (anything already on screen before any scrolling shows straight away) */
+.q-js .q-r{opacity:0;transform:translateY(18px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1);transition-delay:var(--d,0s)}
+.q-js .q-r.is-in{opacity:1;transform:none}
+.q-js .q-r.q-now{transition:none}
+
+@media(max-width:900px){
+ .q-wrap{grid-template-columns:minmax(0,1fr);gap:clamp(14px,3vw,26px)}
+ .q-media{width:100%;max-width:440px;margin:0 auto}
+ .q-text{text-align:center}.q-lead{margin-left:auto;margin-right:auto}.q-actions{justify-content:center}
+}
+@media(max-width:600px){
+ .q-media{max-width:none}
+ .q-clip{aspect-ratio:5/4;-webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent),linear-gradient(transparent,#000 7%,#000 93%,transparent);mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent),linear-gradient(transparent,#000 7%,#000 93%,transparent)}
+ .q-bar{gap:10px;margin-top:2px;width:min(100%,360px)}
+ .q-toggle{width:30px;height:30px}.q-toggle svg{width:12px;height:12px}
+ .q-track{height:3px}
+ .q-actions{flex-direction:column;gap:18px}.q-btn{width:100%;justify-content:center}
+}
+@media(prefers-reduced-motion:reduce){.q *{transition:none!important}.q-js .q-r{opacity:1;transform:none}}
+</style></head><body>
+<section class="q" id="brc-quote" aria-labelledby="q-title">
+<div class="q-wrap">
+ <div class="q-media q-r">
+  <figure class="q-clip" role="img" aria-label="The Butler's Resin &amp; Construction logo comes to life, digs a shovel of soil and turns back into the logo">
+   <video muted playsinline loop preload="none" aria-hidden="true" tabindex="-1" disablepictureinpicture disableremoteplayback></video>
+   <img class="q-poster" src="data:image/webp;base64,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" alt="" width="960" height="720" decoding="async">
+  </figure>
+  <div class="q-bar" hidden>
+   <button type="button" class="q-toggle" aria-label="Pause the animation"><svg class="q-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg><svg class="q-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.6v12.8a1 1 0 0 0 1.5.86l10.1-6.4a1 1 0 0 0 0-1.72L9.5 4.74A1 1 0 0 0 8 5.6z"/></svg></button>
+   <div class="q-track" aria-hidden="true"><span></span></div>
+  </div>
+ </div>
+ <div class="q-text">
+  <h2 class="q-r" id="q-title">Ready to <em>dig in?</em></h2>
+  <p class="q-lead q-r" style="--d:.08s">Tell us about your project using the form below and we'll send you a free, <span class="q-nb">no-obligation</span> quote. Most projects are done in <span class="q-nb">4 to 6 days</span>.</p>
+  <div class="q-actions q-r" style="--d:.16s">
+   <a class="q-btn" href="https://butlersrc.co.uk/#d35b373f-cff2-4f3f-942e-7a2d08ab68d3" target="_top">Get a free quote <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6"/></svg></a>
+   <a class="q-call" href="tel:+443333399898" target="_top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span>or call <strong>0333 339 98 98</strong></span></a>
+  </div>
+ </div>
+</div>
+</section>
+<script>
+(function(){
+'use strict';
+const FORM_ID='d35b373f-cff2-4f3f-942e-7a2d08ab68d3';
+const section=document.getElementById('brc-quote'), media=section.querySelector('.q-media'), clip=section.querySelector('.q-clip'), video=clip.querySelector('video'), bar=section.querySelector('.q-bar'), toggle=bar.querySelector('.q-toggle'), fill=bar.querySelector('.q-track span'), reduced=matchMedia('(prefers-reduced-motion: reduce)');
+
+// GoDaddy puts custom code in a frame that starts 150px tall and only grows once everything has
+// loaded, which makes the sections below jump. Size the frame to this section straight away.
+let frame=null,fitStyle=null,fitHeight=0;
+try{frame=window.frameElement;}catch(error){}
+if(frame){try{
+ const host=frame.closest('[data-ux="Section"]');
+ if(host&&host.getAttribute('data-aid')==='HTML_SECTION_RENDERED'){host.style.setProperty('padding','0','important');let wrap=frame.parentElement;while(wrap&&wrap!==host){for(const [key,value] of Object.entries({width:'100%','max-width':'none',padding:'0',margin:'0'})){wrap.style.setProperty(key,value,'important');}wrap=wrap.parentElement;}frame.style.setProperty('border','0');}
+ const doc=frame.ownerDocument;
+ fitStyle=doc.getElementById('brc-quote-fit');
+ frame.title='Get a free quote'; // names the frame for screen readers
+ if(!fitStyle){fitStyle=doc.createElement('style');fitStyle.id='brc-quote-fit';doc.head.appendChild(fitStyle);}
+}catch(error){fitStyle=null;}}
+function fit(){
+ if(!frame)return;
+ const h=Math.ceil(section.getBoundingClientRect().height);
+ if(!h||h===fitHeight)return;
+ fitHeight=h;
+ try{
+  frame.style.setProperty('height',h+'px','important');
+  const own='iframe[srcdoc*="brc-quote"]', host='[data-aid="HTML_SECTION_RENDERED"]:has('+own+')';
+  if(fitStyle)fitStyle.textContent=own+'{height:'+h+'px!important;border:0!important;transition:none!important}'+host+'{padding:0!important}'+host+' :has('+own+'){width:100%!important;max-width:none!important;padding:0!important;margin:0!important}';
+ }catch(error){}
+}
+fit();
+if(window.ResizeObserver)new ResizeObserver(fit).observe(section);
+addEventListener('resize',fit);addEventListener('load',fit);
+if(document.fonts)document.fonts.ready.then(fit);
+
+// "Get a free quote" glides down to the form (clear of GoDaddy's sticky header) instead of jumping.
+// scrollIntoView also works where the page scrolls inside a box (as in GoDaddy's editor preview).
+section.querySelector('.q-btn').addEventListener('click',event=>{
+ try{
+  const doc=frame&&frame.ownerDocument;
+  if(!doc)return;
+  const widget=frame.closest('.widget'), target=doc.getElementById(FORM_ID)||doc.querySelector('.widget-contact')||(widget&&widget.nextElementSibling);
+  if(!target)return;
+  event.preventDefault();
+  const win=doc.defaultView, nav=doc.querySelector('[data-stickynav="true"]');
+  const cover=nav&&/fixed|sticky/.test(win.getComputedStyle(nav).position)?nav.getBoundingClientRect().height:0;
+  target.style.scrollMarginTop=cover+'px';
+  target.scrollIntoView({behavior:reduced.matches?'auto':'smooth',block:'start'});
+ }catch(error){}
+});
+
+// The clip: loads when the section is close and runs only while it is on screen, looping without a break.
+// It starts on the big logo; the slow settle after it is sped up. Times are in seconds of the video file.
+const START=4.8, TAIL=5.4, SPEED=.9, FAST=1.8; // big-logo frame, start of the slow settle, playback speeds
+const src=String(window.BRC_QUOTE_VIDEO||'').trim(), hasVideo=/^https?:\/\//i.test(src);
+const saveData=!!(navigator.connection&&navigator.connection.saveData);
+let paused=reduced.matches||saveData, inView=false, loaded=false, failed=!hasVideo, raf=0;
+function showState(){media.classList.toggle('is-paused',paused);toggle.setAttribute('aria-label',paused?'Play the animation':'Pause the animation');}
+function load(){
+ if(loaded||failed)return;
+ loaded=true;video.preload='auto';video.src=src;video.defaultPlaybackRate=SPEED;
+ video.addEventListener('loadedmetadata',()=>{video.currentTime=START;},{once:true}); // first round starts on the big logo
+ // The still (the same big-logo frame) stays on top until the video has really drawn a frame.
+ const live=()=>clip.classList.add('is-live');
+ if('requestVideoFrameCallback' in video)video.requestVideoFrameCallback(()=>requestAnimationFrame(live));
+ else video.addEventListener('playing',()=>setTimeout(live,150),{once:true});
+}
+function play(){
+ load();
+ const started=video.play();
+ // Some phones block autoplay (e.g. battery saver): show the play button and wait for a tap.
+ if(started)started.catch(error=>{if(error&&error.name==='NotAllowedError'&&video.paused){paused=true;showState();}});
+ tick();
+}
+function sync(){
+ if(failed)return;
+ if(!paused&&inView&&!document.hidden)play();else if(!video.paused)video.pause();
+}
+function flip(){
+ if(failed)return;
+ paused=!paused;showState();
+ if(paused)video.pause();else play(); // play() inside the tap: phones that block autoplay allow it then
+}
+// One round runs from the big logo to the end of the file, then from the start back to the big logo.
+function paint(){
+ raf=0;
+ const t=video.currentTime, end=video.duration>0&&isFinite(video.duration)?video.duration:6.27;
+ const a=(TAIL-START)/SPEED, b=(end-TAIL)/FAST, c=START/SPEED;
+ const at=t>=TAIL?a+(t-TAIL)/FAST:t>=START?(t-START)/SPEED:a+b+t/SPEED;
+ fill.style.transform='scaleX('+Math.min(1,at/(a+b+c)).toFixed(4)+')';
+ const rate=t>=TAIL?FAST:SPEED;
+ if(video.playbackRate!==rate)video.playbackRate=rate;
+ if(!video.paused)raf=requestAnimationFrame(paint);
+}
+function tick(){if(!raf)raf=requestAnimationFrame(paint);}
+if(failed)media.classList.add('no-video');
+else{
+ bar.hidden=false;showState();
+ toggle.addEventListener('click',flip);
+ clip.addEventListener('click',flip);
+ video.addEventListener('playing',tick);
+ video.addEventListener('pause',()=>{cancelAnimationFrame(raf);raf=0;paint();});
+ video.addEventListener('error',()=>{failed=true;bar.hidden=true;media.classList.add('no-video');clip.classList.remove('is-live');});
+ document.addEventListener('visibilitychange',sync);
+ reduced.addEventListener('change',()=>{paused=reduced.matches;showState();sync();});
+ if('IntersectionObserver' in window){
+  new IntersectionObserver(entries=>{if(entries.some(entry=>entry.isIntersecting)&&!paused)load();},{rootMargin:'600px 0px'}).observe(section);
+  new IntersectionObserver(entries=>entries.forEach(entry=>{inView=entry.intersectionRatio>=.35;sync();}),{threshold:[0,.35,.6]}).observe(clip);
+ }else{inView=true;sync();}
+}
+
+// Fade each block up as it scrolls into view. Blocks already on screen before any scrolling (a page
+// opened part-way down, or Google's renderer, which never scrolls) are shown straight away instead.
+const items=section.querySelectorAll('.q-r');
+if(!('IntersectionObserver' in window)){items.forEach(el=>el.classList.add('is-in'));return;}
+let scrolled=false;
+try{(frame?frame.ownerDocument:document).addEventListener('scroll',()=>{scrolled=true;},{capture:true,passive:true,once:true});}catch(error){scrolled=true;}
+const seen=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){if(!scrolled)entry.target.classList.add('q-now');entry.target.classList.add('is-in');seen.unobserve(entry.target);}}),{threshold:.15,rootMargin:'0px 0px -6% 0px'});
+items.forEach(el=>seen.observe(el));
+})();
+</script>
+</body></html>
+</body>

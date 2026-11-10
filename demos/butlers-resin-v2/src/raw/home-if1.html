@@ -1,0 +1,154 @@
+<script>window.onmessage = function(event) {event.source.postMessage({iframeId: event.data, scrollHeight: document.body.getBoundingClientRect().height || document.body.scrollHeight}, event.origin);};</script><body style='margin: 0'><!doctype html>
+<html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Butlers | About Us</title>
+<script>document.documentElement.className='au-js';</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fjalla+One&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<style>
+/* Colours: change these to restyle the whole section. */
+:root{--paper:#dcdcdc;--card:#fff;--ink:#1b1b1d;--muted:#4b4b50;--line:#c8c8c8;--accent:#f26522;--accent-text:#a3410c;--accent-head:#c14e12;--tint:#fdede3;--icon:#d95a16}
+*{box-sizing:border-box}html,body{margin:0;background:var(--paper)}/* The frame never scrolls itself: a scrollbar here would squeeze and re-wrap the text while GoDaddy is still sizing it. */html{overflow:hidden}
+.au{font-family:Roboto,Arial,sans-serif;color:var(--ink);background:var(--paper);overflow:hidden}
+.au-wrap{max-width:1200px;margin:0 auto;padding:0 clamp(20px,5vw,48px)}
+.au-eyebrow{display:flex;align-items:center;gap:14px;margin:0 0 16px;font-size:14px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent-text)}
+.au-eyebrow::before{content:'';width:40px;height:3px;background:var(--accent)}
+.au h2,.au h3{font-family:'Fjalla One','Arial Narrow',Impact,sans-serif;font-weight:400;text-transform:uppercase;letter-spacing:-.01em;line-height:1.1;margin:0}
+.au h2 em,.au h3 em{font-style:normal;color:var(--accent-head)}
+.au h3{font-size:clamp(28px,2.8vw,40px)}
+.au-title{text-align:center;font-size:clamp(34px,3.5vw,50px)!important;margin:0 0 clamp(36px,4.5vw,60px)!important}
+.au-title::after{content:'';display:block;width:48px;height:3px;margin:16px auto 0;background:var(--accent)}
+.au p{margin:0}
+
+/* Intro: photo and story */
+.au-intro{padding:clamp(44px,5.5vw,76px) 0 clamp(48px,5.5vw,80px)}
+.au-split{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(48px,7vw,96px);align-items:center}
+.au-photo{position:relative;margin:0 22px 22px 0}
+.au-photo::before{content:'';position:absolute;inset:22px -22px -22px 22px;border:2px solid var(--accent)}
+.au-photo img{position:relative;display:block;width:100%;height:auto;aspect-ratio:4/3.3;object-fit:cover;object-position:50% 45%}
+.au-badge{position:absolute;left:-18px;bottom:-30px;display:flex;flex-direction:column;align-items:center;gap:6px;width:clamp(170px,17vw,220px);padding:14px 16px 16px;background:#fff;box-shadow:0 18px 40px -14px rgba(23,24,24,.35)}
+.au-badge img{width:100%;height:auto;aspect-ratio:2/1;object-fit:contain}
+.au-badge span{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-align:center}
+.au-lead{font-size:clamp(18px,1.5vw,21px);line-height:1.65;margin:24px 0 16px!important}
+.au-body{font-size:clamp(16px,1.3vw,19px);line-height:1.7;color:var(--muted)}
+.au-creds{list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,max(215px,calc(50% - 10px))),1fr));gap:14px 20px;margin:30px 0 0;padding:28px 0 0;border-top:1px solid var(--line)}
+.au-creds li{display:flex;align-items:center;gap:11px;font-size:16px;font-weight:500;line-height:1.35}
+.au-creds svg{flex:none;width:30px;height:30px;padding:6px;border-radius:50%;background:var(--accent);color:#fff}
+
+/* Why choose us */
+.au-why{padding:0 0 clamp(48px,6vw,84px)}
+.au-why-head{display:flex;align-items:flex-end;justify-content:space-between;gap:32px;margin-bottom:clamp(30px,4vw,48px)}
+.au-why-head h3{max-width:620px}
+.au-why-head p{max-width:380px;font-size:clamp(16px,1.3vw,18px);line-height:1.65;color:var(--muted)}
+.au-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.au-card{position:relative;padding:30px 28px 32px;background:var(--card);border:1px solid var(--line);transition:transform .35s ease,box-shadow .35s ease,border-color .35s ease}
+.au-card::after{content:'';position:absolute;left:0;top:0;height:3px;width:0;background:var(--accent);transition:width .45s ease}
+.au-card:hover{transform:translateY(-4px);box-shadow:0 22px 40px -24px rgba(23,24,24,.45);border-color:transparent}.au-card:hover::after{width:100%}
+.au-icon{display:grid;place-items:center;width:66px;height:66px;margin-bottom:22px;background:var(--tint);color:var(--icon)}
+.au-icon svg{width:34px;height:34px}
+.au-card h4{font-family:'Fjalla One','Arial Narrow',Impact,sans-serif;font-weight:400;color:var(--ink);font-size:24px;letter-spacing:.005em;text-transform:uppercase;line-height:1.15;margin:0 0 10px}
+.au-card p{font-size:17px;line-height:1.6;color:var(--muted)}
+
+/* Reveal on scroll */
+.au-js .au-r{opacity:0;transform:translateY(22px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1);transition-delay:var(--d,0s)}
+.au-js .au-r.is-in{opacity:1;transform:none}
+.au-js .au-r.au-now{transition:none}
+
+@media(max-width:980px){
+ .au-split{grid-template-columns:1fr}
+ .au-photo{max-width:640px}
+ .au-why-head{flex-direction:column;align-items:flex-start;gap:16px}
+ .au-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:600px){
+ .au-photo{margin:0 14px 14px 0}.au-photo::before{inset:14px -14px -14px 14px}
+ .au-badge{left:12px;bottom:-26px;width:156px;padding:10px 12px 12px}.au-badge span{font-size:10px}
+ .au-grid{grid-template-columns:1fr}
+ .au-grid{gap:12px}
+ .au-card{display:grid;grid-template-columns:44px 1fr;column-gap:16px;padding:20px 20px 22px}
+ .au-card{grid-template-columns:54px 1fr}
+ .au-icon{grid-row:span 2;width:54px;height:54px;margin:0}.au-icon svg{width:28px;height:28px}
+ .au-card h4{font-size:21px;margin:2px 0 6px}.au-card p{font-size:16px;line-height:1.55}
+}
+@media(prefers-reduced-motion:reduce){.au *{transition:none!important}.au-js .au-r{opacity:1;transform:none}}
+</style></head><body>
+<section class="au" id="brc-about" aria-labelledby="au-title">
+
+<div class="au-intro"><div class="au-wrap"><h2 class="au-title au-r" id="au-title">About us</h2></div><div class="au-wrap au-split">
+ <figure class="au-photo au-r">
+  <img src="https://img1.wsimg.com/isteam/ip/d6f7097c-df09-4852-91f1-f47cd49f9303/dji_fly_20241223_143928_0027_1734965263233_ph.webp/:/rs=w:1400" alt="A Butler's team member looks over a finished golden resin driveway with a compass design" loading="lazy" decoding="async" width="1400" height="1050">
+  <figcaption class="au-badge"><img src="https://img1.wsimg.com/isteam/ip/d6f7097c-df09-4852-91f1-f47cd49f9303/Back%20Middle.png/:/cr=t:25%25,l:0%25,w:100%25,h:50%25/rs=w:600,h:300,cg:true" alt="The Resin Mill Elite Installer" loading="lazy" decoding="async" width="600" height="300"><span>Approved installer</span></figcaption>
+ </figure>
+ <div>
+  <h3 class="au-r">You can always<br>trust <em>the butler</em></h3>
+  <p class="au-lead au-r" style="--d:.16s">Butler's Resin &amp; Construction is a Chatteris-based team laying resin bound driveways, patios and paths across Cambridgeshire.</p>
+  <p class="au-body au-r" style="--d:.22s">Our vision is to become the leading installer of high-quality resin surfaces by giving every customer exceptional products and service. That standard is why The Resin Mill, the UK's largest resin bound products manufacturer, has recognised us as an Elite Installer.</p>
+  <ul class="au-creds au-r" style="--d:.3s">
+   <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Resin Mill Elite Installer</li>
+   <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>NRSWA qualified</li>
+   <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>10+ years in the industry</li>
+   <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Cambridgeshire &amp; beyond</li>
+  </ul>
+ </div>
+</div></div>
+
+<div class="au-why"><div class="au-wrap">
+ <div class="au-why-head">
+  <div><p class="au-eyebrow au-r">Why Butler's</p><h3 class="au-r" style="--d:.08s">Resin driveways engineered for <em>strength &amp; style</em></h3></div>
+  <p class="au-r" style="--d:.16s">Every surface we lay starts with a properly prepared base, so it looks right on day one and for years after.</p>
+ </div>
+ <div class="au-grid">
+  <article class="au-card au-r"><div class="au-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8z"/></svg></div><h4>Fast installation</h4><p>Most projects are completed in 4–6 days, and we confirm your timeline before we start.</p></article>
+  <article class="au-card au-r" style="--d:.08s"><div class="au-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18c1.1 0 1.7-.9 1.3-1.8l-.4-.9a1.6 1.6 0 0 1 1.5-2.3H17a4 4 0 0 0 4-4c0-4.9-4-9-9-9z"/><circle cx="7.5" cy="11.5" r="1.1"/><circle cx="10.5" cy="7.5" r="1.1"/><circle cx="15.5" cy="8.5" r="1.1"/></svg></div><h4>Custom colours &amp; designs</h4><p>Pick your blend, then add borders, steps or patterns, right up to one-off inlays like our compass designs.</p></article>
+  <article class="au-card au-r" style="--d:.16s"><div class="au-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 5 6v5c0 4.5 3 8.3 7 10 4-1.7 7-5.5 7-10V6l-7-3z"/><path d="m9 12 2 2 4-4"/></svg></div><h4>Durable &amp; long-lasting</h4><p>A properly installed resin bound surface can last 10–15 years or more with basic care.</p></article>
+  <article class="au-card au-r"><div class="au-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3s6 6.4 6 11a6 6 0 0 1-12 0c0-4.6 6-11 6-11z"/><path d="M9.5 14.5a2.5 2.5 0 0 0 2.5 2.5"/></svg></div><h4>No planning consent</h4><p>Laid on an open-graded base, resin bound is fully permeable and SUDS compliant, which can avoid the need for planning permission.</p></article>
+  <article class="au-card au-r" style="--d:.08s"><div class="au-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M3 20h18"/><circle cx="6" cy="8" r="1"/><circle cx="12" cy="8" r="1"/><circle cx="18" cy="8" r="1"/><circle cx="9" cy="12" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="6" cy="16" r="1"/><circle cx="12" cy="16" r="1"/><circle cx="18" cy="16" r="1"/></svg></div><h4>Slip-resistant finish</h4><p>A textured finish that's comfortable underfoot and keeps its grip, even in the wet.</p></article>
+  <article class="au-card au-r" style="--d:.16s"><div class="au-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="9" r="6"/><path d="m9.6 9 1.7 1.7 3.2-3.2"/><path d="m8.5 14 -1.5 7 5-2.8 5 2.8-1.5-7"/></svg></div><h4>Guaranteed workmanship</h4><p>We assess every site first. If the base is weak, we dig out and rebuild rather than cover it up.</p></article>
+ </div>
+</div></div>
+
+</section>
+<script>
+(function(){
+'use strict';
+const section=document.getElementById('brc-about');
+
+// GoDaddy puts custom code in a frame that starts 150px tall and only grows once everything has
+// loaded, which makes the sections below jump. Size the frame to this section straight away.
+let frame=null,fitStyle=null,fitHeight=0;
+try{frame=window.frameElement;}catch(error){}
+if(frame){try{
+ const host=frame.closest('[data-ux="Section"]');
+ if(host&&host.getAttribute('data-aid')==='HTML_SECTION_RENDERED'){host.style.setProperty('padding','0','important');let wrap=frame.parentElement;while(wrap&&wrap!==host){for(const [key,value] of Object.entries({width:'100%','max-width':'none',padding:'0',margin:'0'})){wrap.style.setProperty(key,value,'important');}wrap=wrap.parentElement;}frame.style.setProperty('border','0');}
+ const doc=frame.ownerDocument;
+ fitStyle=doc.getElementById('brc-about-fit');
+ frame.title='About Butler\'s Resin & Construction'; // names the frame for screen readers
+ if(!fitStyle){fitStyle=doc.createElement('style');fitStyle.id='brc-about-fit';doc.head.appendChild(fitStyle);}
+}catch(error){fitStyle=null;}}
+function fit(){
+ if(!frame)return;
+ const h=Math.ceil(section.getBoundingClientRect().height);
+ if(!h||h===fitHeight)return;
+ fitHeight=h;
+ try{
+  frame.style.setProperty('height',h+'px','important');
+  const own='iframe[srcdoc*="brc-about"]', host='[data-aid="HTML_SECTION_RENDERED"]:has('+own+')';
+  if(fitStyle)fitStyle.textContent=own+'{height:'+h+'px!important;border:0!important;transition:none!important}'+host+'{padding:0!important}'+host+' :has('+own+'){width:100%!important;max-width:none!important;padding:0!important;margin:0!important}';
+ }catch(error){}
+}
+fit();
+if(window.ResizeObserver)new ResizeObserver(fit).observe(section);
+addEventListener('resize',fit);addEventListener('load',fit);
+if(document.fonts)document.fonts.ready.then(fit);
+
+// Fade each block up as it scrolls into view. Blocks already on screen before any scrolling (a page
+// opened part-way down, or Google's renderer, which never scrolls) are shown straight away instead.
+const items=section.querySelectorAll('.au-r');
+if(!('IntersectionObserver' in window)){items.forEach(el=>el.classList.add('is-in'));return;}
+let scrolled=false;
+try{(frame?frame.ownerDocument:document).addEventListener('scroll',()=>{scrolled=true;},{capture:true,passive:true,once:true});}catch(error){scrolled=true;}
+const seen=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){if(!scrolled)entry.target.classList.add('au-now');entry.target.classList.add('is-in');seen.unobserve(entry.target);}}),{threshold:.15,rootMargin:'0px 0px -6% 0px'});
+items.forEach(el=>seen.observe(el));
+})();
+</script>
+</body></html>
+</body>

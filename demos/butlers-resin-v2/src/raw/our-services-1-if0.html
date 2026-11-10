@@ -1,0 +1,357 @@
+<script>window.onmessage = function(event) {event.source.postMessage({iframeId: event.data, scrollHeight: document.body.getBoundingClientRect().height || document.body.scrollHeight}, event.origin);};</script><body style='margin: 0'><!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Our Services | Butler's Resin &amp; Construction</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#111111;
+    --paper:transparent;
+    --card:#ffffff;
+    --mid:#5a5a5a;
+    --line:#e2e2e0;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  /* Never show a scrollbar on the embed frame */
+  html,body{
+    overflow:hidden !important;
+    height:auto !important;
+    scrollbar-width:none !important;     /* Firefox + modern Chrome */
+    -ms-overflow-style:none !important;  /* old Edge */
+  }
+  html::-webkit-scrollbar,
+  body::-webkit-scrollbar{
+    display:none !important;             /* older Chrome / Safari */
+    width:0 !important;height:0 !important;
+  }
+
+  .bsvc{background:var(--paper);color:var(--ink);font-family:'Inter',Arial,sans-serif;padding:64px 0 80px;}
+  .bsvc-wrap{max-width:1180px;margin:0 auto;padding:0 24px;}
+
+  /* Header */
+  .bsvc-head{text-align:center;margin-bottom:64px;}
+  .bsvc-head h1{font-family:'Oswald',sans-serif;font-weight:600;font-size:clamp(44px,7vw,84px);letter-spacing:.5px;text-transform:uppercase;line-height:1;}
+  .bsvc-head p{color:var(--mid);margin-top:14px;font-size:17px;}
+  .bsvc-head .rule{width:64px;height:3px;background:var(--ink);margin:22px auto 0;}
+
+  /* Service row */
+  .svc{display:grid;grid-template-columns:1.05fr 1fr;gap:56px;align-items:center;padding:56px 0;border-top:1px solid var(--line);}
+  .svc:nth-child(even) .svc-media{order:2;}
+  .svc:nth-child(even) .svc-body{order:1;}
+
+  /* Title + counter */
+  .svc-top{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:16px;}
+  .svc-top h2{font-family:'Oswald',sans-serif;font-weight:600;font-size:clamp(26px,3.2vw,38px);text-transform:uppercase;letter-spacing:.5px;}
+
+  .svc-body p{color:#333;font-size:16px;line-height:1.65;margin-bottom:18px;}
+  .svc-points{list-style:none;margin-bottom:26px;}
+  .svc-points li{position:relative;padding-left:22px;margin-bottom:8px;font-size:15px;font-weight:500;}
+  .svc-points li::before{content:"";position:absolute;left:0;top:8px;width:10px;height:2px;background:var(--ink);}
+  /* Gallery */
+  .gal{position:relative;background:var(--card);padding:10px;border:1px solid var(--line);box-shadow:0 6px 20px rgba(0,0,0,.07);}
+  .gal-frame{position:relative;overflow:hidden;aspect-ratio:4/3;background:#1a1a1a;}
+  .gal-slide{position:absolute;inset:0;opacity:0;transition:opacity .35s ease;}
+  .gal-slide.on{opacity:1;}
+  /* photos always fill the frame edge to edge, no bars. focal point set per image via "pos". */
+  .gal-slide img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;}
+  .gal-btn{position:absolute;top:50%;transform:translateY(-50%);width:42px;height:42px;border:none;background:rgba(17,17,17,.82);color:#fff;font-size:20px;line-height:1;cursor:pointer;z-index:2;transition:background .15s;}
+  .gal-btn:hover{background:#111;}
+  .gal-btn:focus-visible{outline:2px solid #fff;outline-offset:-4px;}
+  .gal-prev{left:10px;}
+  .gal-next{right:10px;}
+  .gal-dots{display:flex;justify-content:center;gap:8px;padding:12px 0 4px;}
+  .gal-dots button{width:8px;height:8px;border-radius:50%;border:none;background:#cfcfcc;cursor:pointer;padding:0;transition:background .15s,transform .15s;}
+  .gal-dots button.on{background:var(--ink);transform:scale(1.25);}
+
+  @media (max-width:860px){
+    .svc{grid-template-columns:1fr;gap:28px;padding:44px 0;}
+    .svc:nth-child(even) .svc-media{order:0;}
+    .svc:nth-child(even) .svc-body{order:0;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .gal-slide{transition:none;}
+  }
+</style>
+</head>
+<body>
+<div class="bsvc">
+  <div class="bsvc-wrap">
+    <header class="bsvc-head">
+      <h1>Butler Services</h1>
+      <p>Driveways, groundwork and finishing. Done properly, first time.</p>
+      <div class="rule"></div>
+    </header>
+    <div id="svc-list"></div>
+  </div>
+
+</div>
+
+<script>
+/* ============================================================
+   EDIT YOUR SERVICES HERE.
+   Each service: title, copy, bullet points, and an images array.
+   Images fill the frame automatically (cropped to 4:3).
+   To control WHICH part of a photo is kept, replace the plain
+   URL string with an object and set "pos":
+       { src: "https://...", pos: "center 30%" }
+   pos accepts any CSS object-position value, e.g. "center top",
+   "center 25%", "left center". Default is "center".
+   ============================================================ */
+var SERVICES = [
+  {
+    title: "Resin-bound Driveways",
+    copy: "We're passionate about delivering high-quality resin bound driveways that transform your property. Our team, with over a decade in the industry, crafts custom designs using Resin Mill products, ensuring durability and style. Kerb appeal comes as standard.",
+    points: ["Resin Mill Elite Approved Installers", "Custom colours & border designs", "Permeable, low-maintenance finish"],
+    images: [
+      "https://img1.wsimg.com/isteam/ip/d6f7097c-df09-4852-91f1-f47cd49f9303/223.jpg/:/rs=w:1440,h:1440",
+      "https://img1.wsimg.com/isteam/ip/d6f7097c-df09-4852-91f1-f47cd49f9303/484808449_122149990130489846_85722087907043665.jpg/:/rs=w:1440,h:1440",
+      "https://img1.wsimg.com/isteam/ip/d6f7097c-df09-4852-91f1-f47cd49f9303/WhatsApp%20Image%202025-09-10%20at%2012.18.59%20AM.jpeg/:/rs=w:1440,h:1440",
+      "https://img1.wsimg.com/isteam/ip/d6f7097c-df09-4852-91f1-f47cd49f9303/dji_fly_20241223_143928_0027_1734965263233_pho.jpg/:/rs=w:1440,h:1440",
+      "https://img1.wsimg.com/isteam/ip/d6f7097c-df09-4852-91f1-f47cd49f9303/IMG-20241106-WA0008.jpg/:/rs=w:1440,h:1440",
+      "https://img1.wsimg.com/isteam/ip/d6f7097c-df09-4852-91f1-f47cd49f9303/IMG-20241103-WA0024.jpg/:/rs=w:1440,h:1440",
+      "https://img1.wsimg.com/isteam/ip/d6f7097c-df09-4852-91f1-f47cd49f9303/IMG-20241026-WA0010.jpg/:/rs=w:1440,h:1440",
+      "https://img1.wsimg.com/isteam/ip/d6f7097c-df09-4852-91f1-f47cd49f9303/IMG-20240829-WA0002-5867964.jpg/:/rs=w:1440,h:1440",
+      "https://img1.wsimg.com/isteam/ip/d6f7097c-df09-4852-91f1-f47cd49f9303/WhatsApp%20Image%202025-07-19%20at%202.08.01%20PM%20(3).jpeg/:/rs=w:1440,h:1440",
+      "https://img1.wsimg.com/isteam/ip/d6f7097c-df09-4852-91f1-f47cd49f9303/474112068_122141477042489846_51661432191794287.jpg/:/rs=w:1440,h:1440",
+      "https://img1.wsimg.com/isteam/ip/d6f7097c-df09-4852-91f1-f47cd49f9303/WhatsApp%20Image%202025-10-05%20at%203.40.14%20PM.jpeg/:/rs=w:1440,h:1440"
+    ]
+  },
+  {
+    title: "Resin Surfaces",
+    copy: "Resin isn't just for driveways. Yards, pathways, patios and surrounds get the same durable, permeable finish, laid wherever you need it. Smooth underfoot, easy to maintain, and built to handle British weather.",
+    points: ["Yards, paths, patios & surrounds", "Same Resin Mill quality throughout", "Smooth, permeable, weed-free finish"],
+    images: [
+      "https://img1.wsimg.com/isteam/ip/d6f7097c-df09-4852-91f1-f47cd49f9303/558901806_122180026970489846_13156635436352577.jpg/:/rs=w:1440,h:1440",
+      "https://img1.wsimg.com/isteam/ip/d6f7097c-df09-4852-91f1-f47cd49f9303/WhatsApp%20Image%202025-08-11%20at%208.39.46%20AM%20(1).jpeg/:/rs=w:1440,h:1440",
+      "https://img1.wsimg.com/isteam/ip/d6f7097c-df09-4852-91f1-f47cd49f9303/WhatsApp%20Image%202025-08-01%20at%2010.24.08%20AM%20(4).jpeg/:/rs=w:1440,h:1440",
+      "https://img1.wsimg.com/isteam/ip/d6f7097c-df09-4852-91f1-f47cd49f9303/WhatsApp%20Image%202025-07-05%20at%2012.35.33%20PM.jpeg/:/rs=w:1440,h:1440",
+      "https://img1.wsimg.com/isteam/ip/d6f7097c-df09-4852-91f1-f47cd49f9303/rest.jpg/:/rs=w:1440,h:1440"
+    ]
+  },
+  {
+    title: "Block Paving",
+    copy: "Discover the charm of block paving with Butler's. We craft beautiful driveways, patios and outdoor spaces using top-quality materials, tailored to your preferences. Every project is completed to a high standard, adding value to your property.",
+    points: ["Herringbone, basketweave & custom patterns", "Proper sub-base preparation", "Adds real value to your property"],
+    images: [
+      "https://img1.wsimg.com/isteam/ip/d6f7097c-df09-4852-91f1-f47cd49f9303/WhatsApp%20Image%202026-05-10%20at%2012.32.51%20PM.jpeg/:/rs=w:1440,h:1440",
+      "https://img1.wsimg.com/isteam/ip/d6f7097c-df09-4852-91f1-f47cd49f9303/WhatsApp%20Image%202026-06-03%20at%208.05.12%20PM.jpeg/:/rs=w:1440,h:1440",
+      "https://img1.wsimg.com/isteam/ip/d6f7097c-df09-4852-91f1-f47cd49f9303/WhatsApp%20Image%202025-07-11%20at%207.22.32%20PM.jpeg/:/rs=w:1440,h:1440",
+      "https://img1.wsimg.com/isteam/ip/d6f7097c-df09-4852-91f1-f47cd49f9303/butlersrscn.jfif/:/rs=w:1440,h:1440"
+    ]
+  },
+  {
+    title: "Fencing",
+    copy: "Enhance your property's privacy and style with Butler's fencing. Our team crafts sturdy, attractive fences tailored to your needs, blending seamlessly with your outdoor space to create a secure and welcoming environment.",
+    points: ["Closeboard, panel & sleeper options", "Concrete or timber posts", "Straight lines, solid footings"],
+    images: [
+      "https://img1.wsimg.com/isteam/ip/d6f7097c-df09-4852-91f1-f47cd49f9303/WhatsApp%20Image%202026-04-12%20at%2010.13.25%20PM%20(1).jpeg/:/rs=w:1440,h:1440",
+      "https://img1.wsimg.com/isteam/ip/d6f7097c-df09-4852-91f1-f47cd49f9303/686937751_122202943262489846_36299747764834677.jpg/:/rs=w:1440,h:1440",
+      "https://img1.wsimg.com/isteam/ip/d6f7097c-df09-4852-91f1-f47cd49f9303/WhatsApp%20Image%202026-07-14%20at%204.25.04%20AM.jpeg/:/rs=w:1440,h:1440",
+      "https://img1.wsimg.com/isteam/ip/d6f7097c-df09-4852-91f1-f47cd49f9303/WhatsApp%20Image%202025-06-27%20at%2011.33.46%20PM.jpeg/:/rs=w:1440,h:1440"
+    ]
+  },
+  {
+    title: "Tiling",
+    copy: "Whether it's a kitchen splashback, bathroom walls or a full wet room, Butler's delivers tiling that's built to last and finished to perfection. We work with porcelain, ceramic and natural stone, handling everything from surface prep to grouting.",
+    points: ["Precise cuts, straight lines", "Full surface preparation", "Kitchens, bathrooms & wet rooms"],
+    images: [
+      { src: "https://img1.wsimg.com/isteam/ip/d6f7097c-df09-4852-91f1-f47cd49f9303/WhatsApp%20Image%202026-06-18%20at%203.49.50%20PM%20(1).jpeg/:/rs=w:1440,h:1440", pos: "75% center" },
+      "https://img1.wsimg.com/isteam/ip/d6f7097c-df09-4852-91f1-f47cd49f9303/WhatsApp%20Image%202026-04-03%20at%209.28.41%20AM%20(3).jpeg/:/rs=w:1440,h:1440",
+      "https://img1.wsimg.com/isteam/ip/d6f7097c-df09-4852-91f1-f47cd49f9303/WhatsApp%20Image%202026-04-03%20at%209.28.41%20AM.jpeg/:/rs=w:1440,h:1440",
+      "https://img1.wsimg.com/isteam/ip/d6f7097c-df09-4852-91f1-f47cd49f9303/WhatsApp%20Image%202025-12-01%20at%2010.29.25%20PM.jpeg/:/rs=w:1440,h:1440",
+      "https://img1.wsimg.com/isteam/ip/d6f7097c-df09-4852-91f1-f47cd49f9303/WhatsApp%20Image%202026-03-21%20at%206.22.41%20PM.jpeg/:/rs=w:1440,h:1440"
+    ]
+  },
+  {
+    title: "Flooring (Indoors)",
+    copy: "From luxury vinyl and laminate to engineered hardwood, Butler's can transform any room from the ground up. We handle full floor preparation, underlay and fitting, making sure every plank sits flush and every transition is clean.",
+    points: ["LVT, laminate & engineered wood", "Full prep & underlay included", "Clean transitions, flush finish"],
+    images: [
+      "https://img1.wsimg.com/isteam/ip/d6f7097c-df09-4852-91f1-f47cd49f9303/469893793_122135631308489846_56260155980723971.jpg/:/rs=w:1440,h:1440",
+      "https://img1.wsimg.com/isteam/ip/d6f7097c-df09-4852-91f1-f47cd49f9303/WhatsApp%20Image%202026-06-18%20at%203.49.49%20PM.jpeg/:/rs=w:1440,h:1440"
+    ]
+  },
+  {
+    title: "Pressure Washing",
+    copy: "Refresh your outdoor areas with Butler's pressure washing. We expertly clean driveways, patios and more, restoring them to their original shine and preparing them for their next transformation.",
+    points: ["Driveways, patios & paths", "Restores colour & finish", "Ideal prep before resealing"],
+    images: [
+      "https://img1.wsimg.com/isteam/ip/d6f7097c-df09-4852-91f1-f47cd49f9303/IMG-20241005-WA0021.jpg/:/rs=w:1440,h:1440",
+      "https://img1.wsimg.com/isteam/ip/d6f7097c-df09-4852-91f1-f47cd49f9303/IMG-20241005-WA0017.jpg/:/rs=w:1440,h:1440",
+      "https://img1.wsimg.com/isteam/ip/d6f7097c-df09-4852-91f1-f47cd49f9303/WhatsApp%20Image%202026-04-26%20at%2012.10.56%20AM%20(1).jpeg/:/rs=w:1440,h:1440"
+    ]
+  },
+  {
+    title: "Drop Kerbs",
+    copy: "Need vehicle access to your new driveway? As NRSWA Qualified professionals, we handle drop kerb installations properly, from council approval to final finish, so your driveway is legal, accessible and done right.",
+    points: ["NRSWA Qualified for highway work", "Guidance through council approval", "Tied in cleanly with your driveway"],
+    images: [
+      "https://img1.wsimg.com/isteam/ip/d6f7097c-df09-4852-91f1-f47cd49f9303/533237719_122173023290489846_63775818444234112.jpg/:/rs=w:1440,h:1440"
+    ]
+  }
+];
+
+var PHONE = "tel:+443333399898";
+
+(function(){
+  var list = document.getElementById("svc-list");
+
+  SERVICES.forEach(function(s){
+    var row = document.createElement("section");
+    row.className = "svc";
+
+    /* media */
+    var media = document.createElement("div");
+    media.className = "svc-media";
+    var gal = document.createElement("div");
+    gal.className = "gal";
+    var frame = document.createElement("div");
+    frame.className = "gal-frame";
+    var multi = s.images.length > 1;
+
+    s.images.forEach(function(item, i){
+      var src = (typeof item === "string") ? item : item.src;
+      var pos = (typeof item === "string") ? null : item.pos;
+      var slide = document.createElement("div");
+      slide.className = "gal-slide" + (i === 0 ? " on" : "");
+      var img = document.createElement("img");
+      img.src = src;
+      if(pos) img.style.objectPosition = pos;
+      img.alt = s.title + " by Butler's Resin & Construction, photo " + (i+1);
+      img.loading = "lazy";
+      slide.appendChild(img);
+      frame.appendChild(slide);
+    });
+
+    var prev, next, dots, dotEls = [];
+    if(multi){
+      prev = document.createElement("button");
+      prev.className = "gal-btn gal-prev";
+      prev.innerHTML = "&#10094;";
+      prev.setAttribute("aria-label", "Previous photo");
+      next = document.createElement("button");
+      next.className = "gal-btn gal-next";
+      next.innerHTML = "&#10095;";
+      next.setAttribute("aria-label", "Next photo");
+      frame.appendChild(prev);
+      frame.appendChild(next);
+
+      dots = document.createElement("div");
+      dots.className = "gal-dots";
+      s.images.forEach(function(_, i){
+        var d = document.createElement("button");
+        d.setAttribute("aria-label", "Go to photo " + (i+1));
+        if(i === 0) d.className = "on";
+        d.addEventListener("click", function(){ go(i); });
+        dots.appendChild(d);
+        dotEls.push(d);
+      });
+    }
+
+    gal.appendChild(frame);
+    if(multi) gal.appendChild(dots);
+    media.appendChild(gal);
+
+    /* body */
+    var body = document.createElement("div");
+    body.className = "svc-body";
+    var top = document.createElement("div");
+    top.className = "svc-top";
+    var h2 = document.createElement("h2");
+    h2.textContent = s.title;
+    top.appendChild(h2);
+
+
+    var p = document.createElement("p");
+    p.textContent = s.copy;
+
+    var ul = document.createElement("ul");
+    ul.className = "svc-points";
+    s.points.forEach(function(pt){
+      var li = document.createElement("li");
+      li.textContent = pt;
+      ul.appendChild(li);
+    });
+
+    body.appendChild(top);
+    body.appendChild(p);
+    body.appendChild(ul);
+
+    row.appendChild(media);
+    row.appendChild(body);
+    list.appendChild(row);
+
+    /* gallery logic */
+    var idx = 0;
+    var slides = frame.querySelectorAll(".gal-slide");
+
+    function go(n){
+      slides[idx].classList.remove("on");
+      if(dotEls[idx]) dotEls[idx].classList.remove("on");
+      idx = (n + slides.length) % slides.length;
+      slides[idx].classList.add("on");
+      if(dotEls[idx]) dotEls[idx].classList.add("on");
+    }
+
+    if(multi){
+      prev.addEventListener("click", function(){ go(idx - 1); });
+      next.addEventListener("click", function(){ go(idx + 1); });
+
+      /* swipe */
+      var startX = null;
+      frame.addEventListener("touchstart", function(e){ startX = e.touches[0].clientX; }, {passive:true});
+      frame.addEventListener("touchend", function(e){
+        if(startX === null) return;
+        var dx = e.changedTouches[0].clientX - startX;
+        if(Math.abs(dx) > 40) go(dx < 0 ? idx + 1 : idx - 1);
+        startX = null;
+      }, {passive:true});
+    }
+  });
+})();
+
+/* ============================================================
+   NO-SCROLLBAR FIX
+   Sizes the site builder's embed frame to fit this content and
+   switches off scrolling on it (and on any scrolling box around
+   it), so no grey scrollbar appears and nothing gets cut off.
+   If the browser blocks access, this silently does nothing.
+   ============================================================ */
+(function(){
+  var fe;
+  try { fe = window.frameElement; } catch(e) { return; }
+  if(!fe) return;
+
+  function fit(){
+    try{
+      var h = document.querySelector(".bsvc").getBoundingClientRect().height;
+      fe.setAttribute("scrolling", "no");
+      fe.style.overflow = "hidden";
+      fe.style.height = Math.ceil(h) + "px";
+
+      /* un-scroll up to 3 wrapper boxes the builder puts around the frame */
+      var el = fe.parentElement;
+      for(var i = 0; i < 3 && el; i++){
+        var cs = el.ownerDocument.defaultView.getComputedStyle(el);
+        if(/(auto|scroll)/.test(cs.overflowY)){
+          el.style.overflowY = "visible";
+          el.style.height = "auto";
+          el.style.maxHeight = "none";
+        }
+        el = el.parentElement;
+      }
+    }catch(e){}
+  }
+
+  fit();
+  window.addEventListener("load", fit);
+  window.addEventListener("resize", fit);
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+  if(window.ResizeObserver) new ResizeObserver(fit).observe(document.querySelector(".bsvc"));
+})();
+</script>
+</body>
+</html></body>
