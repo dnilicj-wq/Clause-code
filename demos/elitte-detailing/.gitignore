@@ -1,2 +1,4 @@
 shots/
 .vercel/
+.vercel
+.env*
