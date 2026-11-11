@@ -4,8 +4,7 @@ import { useSite } from '@/src/lib/ctx';
 import { CircularGallery, type GalleryItem } from '@/components/library/circular-gallery/CircularGallery';
 import { AnimatedTestimonials } from '@/components/library/animated-testimonials/AnimatedTestimonials';
 import { BorderBeam } from '@/components/library/border-beam/BorderBeam';
-import { LampContainer } from '@/components/library/lamp/Lamp';
-import { MetalCTA } from '@/components/library/liquid-metal-button/MetalCTA';
+import { LampCta } from '@/components/library/lamp-cta/LampCta';
 import { Mark } from './Chrome';
 import { finishBg, finishImg } from '@/config/trades/epoxy';
 
@@ -171,21 +170,20 @@ export function Faq() {
 }
 
 export function Finale() {
-  const { site, trade } = useSite();
+  const { site, trade, preset } = useSite();
+  // WhatsApp only for a UK mobile (447…); landlines get Call instead.
+  const mobile = /^447\d{9}$/.test(site.whatsapp || '');
+  const wa = mobile ? `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(`Hi${site.owner?.first ? ' ' + site.owner.first : ''}, I'd like to book a free survey please.`)}` : undefined;
   return (
-    <section aria-label="Book a survey" className="relative">
-      <LampContainer className="min-h-[540px] md:min-h-[780px] [&>div:last-child]:-translate-y-56 md:[&>div:last-child]:-translate-y-72">
-        <motion.h2 initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: 0.15, duration: 0.7, ease: 'easeInOut' }}
-          className="mt-8 max-w-[16ch] text-center font-display text-[clamp(38px,6vw,76px)] font-semibold leading-[1] tracking-tight">
-          {trade.copy.finale}
-        </motion.h2>
-        <p className="mt-5 max-w-[42ch] text-center text-[16px]" style={{ color: 'var(--muted)' }}>{trade.copy.finaleSub}</p>
-        <div className="mt-8 flex flex-wrap justify-center gap-3">
-          <MetalCTA label="Book a free survey" href="#price" width={230} height={56} />
-          <a href={`https://wa.me/${site.whatsapp}`} className="glass inline-flex h-14 items-center rounded-full px-6 font-medium" target="_blank" rel="noreferrer">WhatsApp</a>
-        </div>
-      </LampContainer>
-    </section>
+    <LampCta
+      heading={trade.copy.finale}
+      subline={trade.copy.finaleSub}
+      primaryLabel={trade.copy.finaleCta || 'Book a free survey'}
+      primaryHref="#price"
+      whatsappHref={wa}
+      phoneHref={`tel:${site.phone.replace(/\s/g, '')}`}
+      tone={preset.dark ? 'dark' : 'light'}
+    />
   );
 }
 

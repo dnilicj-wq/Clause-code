@@ -49,13 +49,13 @@ function Configurator() {
   return (
     <div className="grid h-full grid-cols-1 text-[var(--ink)] md:grid-cols-[1.05fr_1fr]" style={{ background: 'var(--surface)' }}>
       <div className="flex flex-col gap-5 p-5 md:p-8">
-        <Field label="Space">
+        <div data-q1 className="scroll-mt-28"><Field label="Space">
           <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
             {Object.entries(P.spaces).map(([k, s]) => (
               <Chip key={k} on={space === k} onClick={() => { setSpace(k); setM2(s.m2); }}>{s.label}</Chip>
             ))}
           </div>
-        </Field>
+        </Field></div>
         <Field label={`Floor size · ${m2} m²`}>
           <input type="range" min={10} max={200} value={m2} onChange={(e) => setM2(+e.target.value)} className="w-full accent-[var(--accent)]" aria-label="Floor size in square metres" />
         </Field>
