@@ -83,8 +83,9 @@ export const microcement: TradePack = {
     quote: { conditionLabel: 'Surface now', conditions: [['sound', 'Sound'], ['tiled', 'Old tiles'], ['uneven', 'Uneven']] },
     chat: { space: 'shower', finish: 'smooth', finishWord: 'a smooth finish', ask: (town: string, m2: number) => `Hi, walk-in shower in ${town}, about ${m2}m² of walls. Can you go over the tiles? Rough price?`, img: null, photoTip: 'Any phone photo of the room is fine.' },
     gallery: { h1: 'Pick a tone.', h2: 'Every wall is hand-made.', kind: 'microcement', extra: [], beforeAfter: null },
-    finale: "Let's see your room.",
+    finale: "Let's see your space.",
     finaleSub: 'A free survey: we measure, check the surface and give you a fixed written price.',
+    finaleCta: 'Book a free survey',
   },
   offersUvStable: false,
 };

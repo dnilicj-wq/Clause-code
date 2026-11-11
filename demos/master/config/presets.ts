@@ -59,6 +59,18 @@ export const presets: Record<string, Preset> = {
     display: '"Clash Display", system-ui, sans-serif', body: '"General Sans", system-ui, sans-serif', serif: '"Instrument Serif", Georgia, serif',
     radius: '20px',
   },
+  // Light test preset: Pantone 11-4201 Cloud Dancer (#F0EEE9) stage, ink-graphite type, terracotta accent.
+  'cloud-dancer': {
+    key: 'cloud-dancer', name: 'Cloud Dancer', vibe: 'clean', dark: false,
+    bg: '#F0EEE9', bg2: '#E7E3DC', surface: '#FAF9F6', line: 'rgba(35,32,28,.11)',
+    ink: '#23201C', muted: '#6F6A62',
+    accent: '#C0643C', accentInk: '#FFFFFF', accent2: '#D98A5F',
+    metal: ['#3B342E', '#B39C8A', '#FFF6EE'],
+    resin: { base: '#DDD8CF', metal: '#B8917A' },
+    concrete: '#A29D95',
+    display: '"Clash Display", system-ui, sans-serif', body: '"General Sans", system-ui, sans-serif', serif: '"Instrument Serif", Georgia, serif',
+    radius: '18px',
+  },
   'microcement-stone': {
     key: 'microcement-stone', name: 'Microcement Stone', vibe: 'clean', dark: false,
     bg: '#EFEAE2', bg2: '#E4DDD2', surface: '#F8F5F0', line: 'rgba(40,32,24,.12)',

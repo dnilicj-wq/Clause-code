@@ -21,6 +21,9 @@ Dan doesn't code. Report in plain English, briefly: what was built, the URL, and
 - **Image caching:** changed image = new filename (`-v2`), never overwrite.
 - **Prices** stay "Example range" unless the prospect publishes their own rates (then cite the URL).
 - **Never use** Fable, paid 21st.dev (API, MCP or registry), Higgsfield or any paid tool.
+- **Never flat, never plain** (step 4c). Every demo gets a palette with at least three accents and visible depth. Dan rejected Suparesin's first version (flat black + yellow) as "boring, plain, flat".
+- **Every site ends with the Lamp CTA** (step 3b), directly before the footer. No other finale or CTA section in that spot.
+- **Every lead gets its own premium loader** (step 4b). Never reuse a loader another client has: check `demos/master/loaders-used.md` first.
 - **Deploying:** deploy only to the new project `clientgateway-<slug>`. Never touch any other Vercel project. Never print, echo or commit tokens or keys.
 - **Git:** commit to the working branch only. Never push to or merge into the default branch without Dan's OK.
 
@@ -55,7 +58,7 @@ Dan doesn't code. Report in plain English, briefly: what was built, the URL, and
    - `luxury-metallic`
    - `clean-domestic`: bright domestic.
    - `microcement-stone`: microcement.
-   - If their brand colour is distinctive, add a `<slug>` preset (copy the nearest one, change only accent, accent2 and metal) and register it.
+   - If their brand colour is distinctive, add a `<slug>` preset (copy the nearest one) and register it. Then build the full palette in step 4c: a preset that is only "dark background + their one brand colour" is not finished.
 5. **Page shell for the chosen preset:**
    - In `index.html`, set the `<title>`, the `theme-color`, the html/body background and text colours, and the `#boot` loader colours to the preset's `bg`, `ink` and `accent`.
    - If the preset is not `obsidian-copper`, render new hero posters in that preset (never overwrite):
@@ -85,6 +88,24 @@ Read `components/library/registry.ts`. For each slot, choose entries where:
 
 Allow max 3 signature interactions per page, including the hero. The default page in `src/sections/Below.tsx` already follows these rules; only swap a section's component when a better-fitting entry exists.
 
+### 3b. Lamp CTA finale (every build, no exceptions)
+
+Dan's favourite section from master V3: a thin light bar in the client's accent switches on and spreads as it scrolls into view, a cone of light falls onto the heading, then a glinting primary button and a quieter secondary pill. Component: `components/library/lamp-cta` (registry `lamp-cta`), primary button `components/library/glint-button` (registry `glint-button`; use it for the hero and quote-form primary too).
+
+1. **Position.** The last section before the footer is always `lamp-cta`. Remove or replace any other finale, CTA band or CTA section in that position. In this template it is `Finale` in `src/sections/Social.tsx`.
+2. **Heading.** Short, per trade and per client, in the same voice as "Let's see your floor.":
+   - Epoxy / resin floors: "Let's see your floor."
+   - Driveways: "Let's see your driveway." (patio-led firm: "Let's see your patio.")
+   - Roofing: "Let's look at your roof."
+   - Microcement / polished concrete: "Let's see your space."
+   - Solar: "Let's look at your roof." with a survey subline.
+   Set it in the trade pack copy (`copy.finale`).
+3. **Subline** (`copy.finaleSub`) states **only what the client really offers, from their own site**, with a source line in `content-inventory.md`. Say "free survey", "fixed written price", "no-obligation" or "free quote" only if they say it. If they offer none of these, use a plain line built from a sourced claim (e.g. "Tell Patrick about your drive or patio. No job is too big or too small.") and a neutral button ("Get a quote").
+4. **Primary button** (`copy.finaleCta`, e.g. "Book a free survey" only when sourced) goes to the **on-page quote form** and lands on its first question (`#price`; the first question carries `data-q1`). Never a pop-up or modal.
+5. **Secondary button:** WhatsApp with a pre-filled message when the client has a UK mobile (`447…`); `tel:` "Call" when they don't. The component decides from `site.whatsapp`.
+6. **Colours** come only from the preset tokens (`--accent` bar/cone, `--accent2` glow, `--metal0/--metal2` button). Never hard-code. Light presets pass `tone="light"` (automatic from `preset.dark`); it is tuned on the Cloud Dancer preset.
+7. **Bright static demos** (`~/dev/trade-demos` generator): the generator adds the same section to every page automatically from `site.json` `lamp: { heading, sub, cta, waText, accent? }` and fails the build without it. Its CSS is a copy (`template/lamp.css`); after changing the component here, run `template/sync-lamp.sh`.
+
 ### 4. Honesty scan (must pass before deploy)
 
 1. Build and run locally (`npx vite --port 5210`).
@@ -93,6 +114,45 @@ Allow max 3 signature interactions per page, including the hero. The default pag
 4. Every hit must either match a line in `content-inventory.md` or sit next to an "Example" or "Illustration" label. Fix anything else.
 5. The page must not contain "Demo site, sample content" or any of the master's sample reviews (`config/sample.ts`). If it does, `sample` is still `true`.
 6. Check that no other client's images are referenced: grep `dist/` for other demo slugs and their image names.
+
+### 4b. Premium loader (unique per client)
+
+1. **Find one.** Search the free 21st.dev community pages for loaders, preloaders and intro animations, e.g. https://21st.dev/community/components/s/loader and https://21st.dev/community/components/s/text-animation. Quality bar: the Proficient Essex and Wolverhampton loaders.
+   - Free routes only: web-fetch the page, or open it in a browser tool (the component page shows the code and usually a GitHub "Source" link with a licence; fetch the raw file from there), or the public scrape listed in `demos/master/library-inbox/SOURCES.md`. If a loader's code can't be reached, batch the misses and ask Dan once to paste "Copy prompt".
+   - **Never** the paid 21st.dev API, Magic MCP or registry.
+2. **Never reuse.** Read `demos/master/loaders-used.md`. Skip any loader already listed for another client.
+3. **Port faithfully first, then re-skin.** Copy the component's structure, CSS and timings as published (inline in `index.html`, no extra JS bundle), then tailor it: the client's logo or wordmark, their brand colours, and a trade-relevant motion where it fits (paving blocks laying in, resin pouring, stone settling). Don't rewrite it your own way.
+4. **Rules (check each one):**
+   - Total loader time **under 1 s** on the first visit, measured from navigation to the loader being gone.
+   - **Skipped on repeat visits** (`sessionStorage`; remove the element before first paint).
+   - **Never blocks first paint of the hero poster** (the poster preload and `<picture>` load underneath; the loader is only an overlay).
+   - Respects `prefers-reduced-motion` (no motion, short fade).
+   - Works on phones (check 390x844 frames at ~200/450/700/900 ms).
+   - Keep the `window.__ld` / `wd:loaded` signal the hero waits for.
+5. **Credit it** in `demos/<slug>/CREDITS.md` (name, author, licence, 21st.dev URL, code source).
+6. **Log it** after deploying: add `client slug | loader name | 21st.dev URL | date` to `demos/master/loaders-used.md` and commit.
+
+### 4c. Colour and depth (no flat looks)
+
+Dan's rule: interesting colours, unique, stands out, with depth. A dark page with one accent colour reads as cheap and boring, even if it's tidy.
+
+1. **Palette = base + 3 accents, not 1.**
+   - **Base:** a tinted dark, not pure or warm-neutral black (e.g. midnight petrol `#060A0D`, deep navy, aubergine). Give the body a subtle radial lift at the top, not a single flat fill.
+   - **Accent 1 (brand):** their logo or brand colour, kept recognisable.
+   - **Accent 2 (warm partner):** a colour that blends with the brand into a rich gradient (gold → copper, red → magenta, blue → violet). Use this gradient on primary buttons, key headline words, big numbers (rating, prices) and active states.
+   - **Accent 3 (contrast pop):** a complementary colour used sparingly for labels/eyebrows, icons, focus rings, map lines, slider fills, status dots and glow edges (e.g. electric teal against gold/copper).
+   - Look at professional references before choosing: the presets in `demos/master/config/presets.ts`, the coating template palette (midnight `#02070A`, electric blue `#0297DE`, cantaloupe `#FC734D`) and the solar palette. Reference build: Suparesin "Molten" (`demos/suparesin`: `#060A0D`, gold `#F3B31E`, copper `#F07A3E`, teal `#2FD3D9`).
+   - Put the palette in CSS variables (accents plus one gradient token, e.g. `--molten`). Don't hard-code hexes in components.
+2. **Depth: every section needs at least 2 of these:**
+   - Soft coloured glows behind the content: large radial gradients in accents 2 and 3, slowly drifting (paused under reduced motion). Use gradients, not `filter: blur`, so it stays cheap on phones.
+   - Glass cards: a translucent gradient fill, an inner top highlight, a big soft shadow and a 1px gradient edge (mask trick) running from accent 1 to accent 3.
+   - A fine grain overlay on the page (SVG noise, ~5% opacity, `pointer-events: none`).
+   - Gradient seams between sections (a 1px line that fades out at both ends, accent 3 → 1 → 2).
+   - Buttons with depth: a gradient fill, an inner highlight, an inner bottom shade and a coloured glow shadow, not a flat fill.
+   - Photos in framed cards with a gradient edge and a deep shadow, never just pasted on the background.
+3. **No flat full-bleed blocks.** Don't paint a whole section in one flat brand colour (Suparesin's yellow designer block was rejected). Use a dark section lit by accent glows, or a gradient panel with a contrasting glow in one corner.
+4. **The 3D/hero scene gets colour too.** Light it with coloured light bars or softboxes in the accent colours, so gloss, metallic and resin surfaces reflect colour instead of one white blur. Open the hero on the client's most striking finish, not the safest one.
+5. **Check before deploy.** At 1440x900 and 390x844, every screen must show at least two accent colours and a visible depth cue. If any screen looks like "black + one colour", it fails: fix it.
 
 ### 5. Build, deploy and quality gate
 
@@ -108,7 +168,8 @@ Allow max 3 signature interactions per page, including the hero. The default pag
    `vercel.json` already sends `X-Robots-Tag: noindex` on everything.
 3. Run the quality gate (tools are in `demos/<slug>/tools/`):
    - **Screens:** `node tools/walk.mjs <url> /tmp/<slug>-walk 390 844` must give 15 phone screens or fewer.
-   - **Screenshots:** take them at 390x844 and 1440x900 with `tools/shot.mjs`, look at them, and fix anything broken or flat.
+   - **Screenshots:** take them at 390x844 and 1440x900 with `tools/shot.mjs`, look at them, and fix anything broken or flat. Run the step 4c check on every screen: 3-accent palette visible, depth on every section, no flat single-colour blocks.
+   - **Lamp CTA:** screenshot the finale at 390x844 and 1440x900 (`node demos/master/tools/lamp-check.mjs <url> /tmp/<slug>-lamp` does both and prints the checks). It fails unless: the bar and glow are visible and in the client's accent colour; the button glint moves (the `--gb-a` angle changes between two reads); the primary scrolls to the quote form's first question; the WhatsApp/Call link is right; on the phone nothing overlaps the sticky bar (button bottoms above the bar's top); with reduced motion the lit state shows and nothing moves.
    - **Idle:** with no input for 5 seconds, at least 2 things still move.
    - **Lighthouse mobile** (3 runs, `npx lighthouse@12`): performance 85+, LCP under 2.5s, CLS under 0.05. Report the real numbers either way.
 4. Commit `demos/<slug>` to the working branch and push.
@@ -120,3 +181,5 @@ Allow max 3 signature interactions per page, including the hero. The default pag
 - **Unverified items:** anything still labelled Example (reviews, guarantee, prices, owner photo).
 - **What to ask the prospect for:** reviews, real job photos, prices, guarantee wording, owner photo.
 - Lighthouse numbers and phone screen count, on one line.
+- **Which loader this lead got** (name + 21st.dev URL).
+- **Lamp CTA:** the heading and subline used, and a phone screenshot of the finale.

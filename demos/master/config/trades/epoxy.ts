@@ -115,6 +115,7 @@ export const epoxy = {
     },
     finale: "Let's see your floor.",
     finaleSub: 'A free survey: we measure, test the slab and give you a fixed written price.',
+    finaleCta: 'Book a free survey' as string,
   },
   offersUvStable: false, // true only if the business sells UV-stable topcoats (enables the UV slider)
 };
