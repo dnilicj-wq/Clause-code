@@ -30,7 +30,7 @@ const SERVICES = {
 <h2>What goes into a resin drive</h2>
 <ul><li>A sound, well-drained base. If your old surface is not up to it, we dig it out and build a new one.</li><li>Your choice of aggregate blend and colour.</li><li>Borders, edging and inlays, such as the diamond and contrasting block borders in our photos.</li><li>Clean edges where the drive meets the house, the lawn and the pavement.</li></ul>
 <h2>Why people choose it</h2>
-<p>Resin is low maintenance, it looks smart all year and the permeable finish helps with surface water. <span class="confirm">[CONFIRM: resin aftercare and any guarantee offered]</span></p>`,
+<p>Resin is low maintenance, it looks smart all year and the permeable finish helps with surface water.</p>`,
     photos: [['resin-diamond', 'Resin drive with a diamond inlay'], ['resin-silver', 'Silver resin with a black block border'], ['resin-bungalow', 'Resin drive to a bungalow']],
     faq: [['Can resin go over my old concrete or tarmac?', 'Sometimes, if the old surface is sound and drains properly. Charles will check this on the free survey and tell you straight if it needs digging out.'], ['Do I need planning permission?', 'Resin bound is permeable, so in most cases a front drive does not need planning permission. If anything about your drive needs it, we will tell you at the survey.']],
   },
@@ -60,7 +60,7 @@ const SERVICES = {
 <h2>Homes and commercial sites</h2>
 <p>We lay tarmac on house drives, shared drives and lanes, and car parks for commercial customers.</p>`,
     photos: [['tarmac-red-edge', 'Tarmac drive with red block edging'], ['tarmac-lane', 'Shared drive laid in tarmac'], ['tarmac-curve', 'Curved tarmac driveway']],
-    faq: [['How soon can I drive on it?', 'Usually soon after it has cooled and set. We will give you the exact advice for your drive on the day. <span class="confirm">[CONFIRM: wait time after laying]</span>'], ['Do you do car parks?', 'Yes. We work for commercial customers as well as homeowners.']],
+    faq: [['How soon can I drive on it?', 'Usually soon after it has cooled and set. We will give you the exact advice for your drive on the day.'], ['Do you do car parks?', 'Yes. We work for commercial customers as well as homeowners.']],
   },
   'patios': {
     name: 'Patios and paths', svc: 'porcelain', title: 'Patios & Garden Paths in Telford | Newpave Ltd',
@@ -170,7 +170,7 @@ ${dock}
 }
 
 const asideFor = (label, design) => `<h3>Free survey, no obligation</h3>
-<p>Charles replies the same day. <span class="confirm">[CONFIRM: same-day reply promise]</span></p>
+<p>Call or WhatsApp Charles to book.</p>
 ${design ? `<a class="btn btn-acc" href="/?design=${design}#design" data-track="design_click" data-loc="sub">Design your ${label.toLowerCase()} <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>` : `<a class="btn btn-acc" href="/?service=landscaping#book" data-track="book_click" data-loc="sub">Book free survey <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>`}
 <a class="btn btn-wa" href="${WA(`Hi Charles, I'd like a free survey for ${label.toLowerCase()}.`)}" data-track="whatsapp" data-loc="sub"><svg aria-hidden="true"><use href="#i-wa"/></svg>WhatsApp Charles</a>
 <ul><li><a href="tel:+447787707154"><svg aria-hidden="true"><use href="#i-phone"/></svg>07787 707154</a></li><li><a href="mailto:newpavelimited1@gmail.com"><svg aria-hidden="true"><use href="#i-mail"/></svg>newpavelimited1@gmail.com</a></li></ul>`;
@@ -197,7 +197,7 @@ for (const [slug, a] of Object.entries(AREAS)) {
   const main = `<h2>Covering ${a.name}</h2>${a.body}
 <h2>What we do in ${a.name}</h2><ul>${Object.entries(SERVICES).map(([k, v]) => `<li><a href="/services/${k}/">${v.name}</a></li>`).join('')}<li><a href="/#emergency">24-hour emergency call-out</a></li></ul>
 <h2>Recent work</h2>${photosHtml([['resin-diamond', 'Resin drive with a diamond inlay'], ['block-grey-step', 'Grey herringbone block paving'], ['tarmac-red-edge', 'Tarmac with red block edging']])}
-<p style="font-size:.9rem;color:var(--m-l)">Photos are recent Newpave jobs. <span class="confirm">[CONFIRM: which towns these jobs were in]</span></p>
+<p style="font-size:.9rem;color:var(--m-l)">Photos are recent Newpave jobs.</p>
 <h2>Other areas</h2><div class="sub-more">${Object.entries(AREAS).filter(([k]) => k !== slug).map(([k, v]) => `<a href="/areas-covered/${k}/">${v.name}</a>`).join('')}<a href="/#areas">Check your postcode</a></div>`;
   const html = page({
     path, title: a.title, desc: a.desc, h1: a.h1, lede: `Resin drives, block paving, tarmac, patios and landscaping in ${a.name}, laid by our own family team.`, hero: a.hero, heroAlt: a.heroAlt,

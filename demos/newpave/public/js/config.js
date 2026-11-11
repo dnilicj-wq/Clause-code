@@ -89,9 +89,9 @@ export const AREA_PREFIXES = { TF: 'Telford', SY: 'Shropshire', WV: 'Wolverhampt
 
 // Testimonials from his current site. No source given, so hidden (showTestimonials:false).
 export const TESTIMONIALS = [
-  { name: 'Sarah Thompson', job: 'Driveway', text: '[CONFIRM: copy word for word from Charles before showing]' },
-  { name: 'James Carter', job: 'Patio', text: '[CONFIRM: copy word for word from Charles before showing]' },
-  { name: 'Rebecca Jones', job: 'Car park', text: '[CONFIRM: copy word for word from Charles before showing]' },
+  { name: 'Sarah Thompson', job: 'Driveway', text: '' },
+  { name: 'James Carter', job: 'Patio', text: '' },
+  { name: 'Rebecca Jones', job: 'Car park', text: '' },
 ];
 
 export const wa = (text) => `https://wa.me/${SITE.whatsapp}?text=${encodeURIComponent(text)}`;
