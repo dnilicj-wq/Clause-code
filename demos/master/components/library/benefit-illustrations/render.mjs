@@ -10,9 +10,12 @@
 //   epoxy: tyre, bead, slip
 //   porcelain: stain, slip, frost
 import { illo } from '../sig-runtime/illos.mjs';
+import { scene, hasScene } from '../sig-runtime/scenes.mjs';
+// Each card is a dark stage scene (scenes.mjs) when one exists for the key; flat illos.mjs drawing otherwise.
+// stage: shared scene props for every card (e.g. { night: true } or the client's resin colours).
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-export function render({ eyebrow, heading, lead, items = [] } = {}) {
+export function render({ eyebrow, heading, lead, items = [], stage = {} } = {}) {
   if (!items.length) return '';
   return `<div class="sig sig-ben">${heading ? `<div class="sig-ben__head">${eyebrow ? `<span class="sig-eye">${esc(eyebrow)}</span>` : ''}<h2 class="sig-h sig-ben__h">${esc(heading)}</h2>${lead ? `<p class="sig-p">${esc(lead)}</p>` : ''}</div>` : ''}`
-    + `<div class="sig-ben__grid" data-n="${items.length}">${items.map((it) => `<article class="sig-ben__card" data-sig-play><div class="sig-ben__art">${illo(it.illo, { label: it.title, ...(it.props || {}) })}</div><h3>${esc(it.title)}</h3><p>${esc(it.text)}</p></article>`).join('')}</div></div>`;
+    + `<div class="sig-ben__grid" data-n="${items.length}">${items.map((it) => `<article class="sig-ben__card" data-sig-play>${hasScene(it.illo) ? `<div class="sig-stage sig-stage--wide">${scene(it.illo, { label: it.title, ...stage, ...(it.props || {}) })}</div>` : `<div class="sig-ben__art">${illo(it.illo, { label: it.title, ...(it.props || {}) })}</div>`}<h3>${esc(it.title)}</h3><p>${esc(it.text)}</p></article>`).join('')}</div></div>`;
 }

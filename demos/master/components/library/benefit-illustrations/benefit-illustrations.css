@@ -10,3 +10,9 @@
 .sig-ben__art .sgi { max-height: 190px; margin: 0 auto; }
 .sig-ben__card h3 { margin: 0; font-family: var(--s-display); font-size: clamp(21px, 2.4vw, 25px); line-height: 1.2; color: var(--s-ink); }
 .sig-ben__card p { margin: 8px 0 0; color: var(--s-muted); line-height: 1.55; }
+/* stage cards: the scene IS the card; heading and text sit under it on the section */
+.sig-ben__card:has(> .sig-stage) { background: none; border: 0; padding: 0; }
+.sig-ben__card > .sig-stage { margin-bottom: 18px; }
+.sig-ben__card:has(> .sig-stage) h3 { font-size: clamp(23px, 2.7vw, 30px); letter-spacing: -.015em; }
+.sig-ben__card:has(> .sig-stage) p { max-width: 46ch; }
+.sig-ben__grid:has(.sig-stage) { gap: clamp(30px, 4vw, 44px) clamp(16px, 2.4vw, 28px); }

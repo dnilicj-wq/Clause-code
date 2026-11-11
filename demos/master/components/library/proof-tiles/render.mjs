@@ -6,9 +6,10 @@
 //
 // render({ eyebrow?, heading?, lead?, items: [{ illo, title, text?, props? }] })  (6 items)
 import { illo } from '../sig-runtime/illos.mjs';
+import { scene, hasScene } from '../sig-runtime/scenes.mjs';
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-export function render({ eyebrow, heading, lead, items = [] } = {}) {
+export function render({ eyebrow, heading, lead, items = [], stage = {} } = {}) {
   if (!items.length) return '';
   return `<div class="sig sig-pt">${heading ? `<div class="sig-pt__head">${eyebrow ? `<span class="sig-eye">${esc(eyebrow)}</span>` : ''}<h2 class="sig-h sig-pt__h">${esc(heading)}</h2>${lead ? `<p class="sig-p">${esc(lead)}</p>` : ''}</div>` : ''}`
-    + `<div class="sig-pt__grid">${items.map((it) => `<article class="sig-pt__tile" data-sig-play><div class="sig-pt__art">${illo(it.illo, { label: it.title, ...(it.props || {}) })}</div><h3 class="sig-h">${esc(it.title)}</h3>${it.text ? `<p>${esc(it.text)}</p>` : ''}</article>`).join('')}</div></div>`;
+    + `<div class="sig-pt__grid">${items.map((it) => `<article class="sig-pt__tile" data-sig-play>${hasScene(it.illo) ? `<div class="sig-stage sig-stage--tile">${scene(it.illo, { label: it.title, ...stage, ...(it.props || {}) })}</div>` : `<div class="sig-pt__art">${illo(it.illo, { label: it.title, ...(it.props || {}) })}</div>`}<h3 class="sig-h">${esc(it.title)}</h3>${it.text ? `<p>${esc(it.text)}</p>` : ''}</article>`).join('')}</div></div>`;
 }

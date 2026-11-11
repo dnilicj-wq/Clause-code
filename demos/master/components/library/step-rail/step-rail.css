@@ -1,15 +1,18 @@
-/* step-rail: vertical scroll-filled timeline. Needs sig-tokens.css + sig-runtime. */
-.sig-rail { display: grid; gap: 28px; }
-@media (min-width: 900px) { .sig-rail { grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 64px; align-items: start; } .sig-rail__intro { position: sticky; top: 110px; } }
+/* step-rail: vertical scroll-filled timeline (from Newpave "How it works"). Needs sig-tokens.css + sig-runtime.
+   Bold numbered circles fill with the accent as the line reaches them; unlit steps stay readable (AA). */
+.sig-rail { display: grid; gap: 30px; }
+@media (min-width: 900px) { .sig-rail { grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 72px; align-items: start; } .sig-rail__intro { position: sticky; top: 110px; } }
 .sig-rail__eye { display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--s-accent); margin-bottom: 10px; }
-.sig-rail__h { font-size: clamp(30px, 4.2vw, 46px); }
-.sig-rail__list { --dot: 46px; position: relative; list-style: none; margin: 0; padding: 0; display: grid; gap: clamp(28px, 6vw, 52px); }
-.sig-rail__track { position: absolute; left: calc(var(--dot) / 2 - 1px); top: calc(var(--dot) / 2); bottom: calc(var(--dot) / 2); width: 2px; background: var(--s-line); border-radius: 2px; overflow: hidden; }
-.sig-rail__track i { position: absolute; inset: 0; background: linear-gradient(var(--s-accent), var(--s-accent2)); transform-origin: top; transform: scaleY(var(--p, 0)); }
-.sig-rail__step { position: relative; display: grid; grid-template-columns: var(--dot) 1fr; gap: 18px; align-items: start; }
-.sig-rail__dot { position: relative; z-index: 1; width: var(--dot); height: var(--dot); border-radius: 50%; display: grid; place-items: center; background: var(--s-bg); border: 2px solid var(--s-line); color: var(--s-muted); font-weight: 700; font-size: 17px; transition: background .45s var(--s-ease), border-color .45s var(--s-ease), color .45s var(--s-ease), box-shadow .45s var(--s-ease); }
-.sig-rail__step.on .sig-rail__dot { background: var(--s-accent); border-color: var(--s-accent); color: var(--sig-accent-ink, #fff); box-shadow: 0 0 0 6px color-mix(in srgb, var(--s-accent) 16%, transparent); }
-.sig-rail__txt { padding-top: 8px; opacity: .25; transform: translateY(14px); transition: opacity .6s var(--s-ease), transform .6s var(--s-ease); }
-.sig-rail__step.on .sig-rail__txt { opacity: 1; transform: none; }
-.sig-rail__txt h3 { margin: 0; font-size: 20px; line-height: 1.25; color: var(--s-ink); font-family: var(--s-display); }
-.sig-rail__txt p { margin: 6px 0 0; color: var(--s-muted); line-height: 1.55; max-width: 52ch; }
+.sig-rail__h { font-size: clamp(32px, 4.4vw, 50px); }
+.sig-rail__list { --dot: 54px; position: relative; list-style: none; margin: 0; padding: 0; display: grid; gap: clamp(30px, 6vw, 56px); }
+.sig-rail__track { position: absolute; left: calc(var(--dot) / 2 - 2px); top: calc(var(--dot) / 2); bottom: calc(var(--dot) / 2); width: 4px; background: color-mix(in srgb, var(--s-ink) 16%, transparent); border-radius: 4px; overflow: hidden; }
+.sig-rail__track i { position: absolute; inset: 0; background: linear-gradient(var(--s-accent2), var(--s-accent)); transform-origin: top; transform: scaleY(var(--p, 0)); box-shadow: 0 0 14px var(--s-accent); }
+.sig-rail__step { position: relative; display: grid; grid-template-columns: var(--dot) 1fr; gap: 20px; align-items: start; }
+.sig-rail__dot { position: relative; z-index: 1; width: var(--dot); height: var(--dot); border-radius: 50%; display: grid; place-items: center; background: var(--s-bg); border: 2px solid color-mix(in srgb, var(--s-ink) 40%, transparent); color: color-mix(in srgb, var(--s-ink) 78%, var(--s-bg)); font: 700 20px/1 var(--s-display); transition: background .45s var(--s-ease), border-color .45s var(--s-ease), color .45s var(--s-ease), box-shadow .45s var(--s-ease), transform .45s var(--s-ease); }
+.sig-rail__step.on .sig-rail__dot { background: var(--s-accent); border-color: var(--s-accent); color: var(--sig-accent-ink, #fff); box-shadow: 0 0 0 7px color-mix(in srgb, var(--s-accent) 18%, transparent), 0 0 26px color-mix(in srgb, var(--s-accent) 55%, transparent); transform: scale(1.04); }
+.sig-rail__txt { padding-top: 9px; transform: translateY(10px); transition: transform .6s var(--s-ease); }
+.sig-rail__step.on .sig-rail__txt { transform: none; }
+.sig-rail__txt h3 { margin: 0; font-family: var(--s-display); font-weight: var(--sig-display-weight, 700); font-size: clamp(22px, 2.6vw, 28px); line-height: 1.18; letter-spacing: -.015em; color: color-mix(in srgb, var(--s-ink) 74%, var(--s-bg)); transition: color .6s var(--s-ease); }
+.sig-rail__txt p { margin: 8px 0 0; color: color-mix(in srgb, var(--s-muted) 86%, var(--s-bg)); line-height: 1.55; max-width: 52ch; transition: color .6s var(--s-ease); }
+.sig-rail__step.on .sig-rail__txt h3 { color: var(--s-ink); }
+.sig-rail__step.on .sig-rail__txt p { color: var(--s-muted); }
