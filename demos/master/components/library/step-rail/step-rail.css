@@ -1,0 +1,15 @@
+/* step-rail: vertical scroll-filled timeline. Needs sig-tokens.css + sig-runtime. */
+.sig-rail { display: grid; gap: 28px; }
+@media (min-width: 900px) { .sig-rail { grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 64px; align-items: start; } .sig-rail__intro { position: sticky; top: 110px; } }
+.sig-rail__eye { display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--s-accent); margin-bottom: 10px; }
+.sig-rail__h { font-size: clamp(30px, 4.2vw, 46px); }
+.sig-rail__list { --dot: 46px; position: relative; list-style: none; margin: 0; padding: 0; display: grid; gap: clamp(28px, 6vw, 52px); }
+.sig-rail__track { position: absolute; left: calc(var(--dot) / 2 - 1px); top: calc(var(--dot) / 2); bottom: calc(var(--dot) / 2); width: 2px; background: var(--s-line); border-radius: 2px; overflow: hidden; }
+.sig-rail__track i { position: absolute; inset: 0; background: linear-gradient(var(--s-accent), var(--s-accent2)); transform-origin: top; transform: scaleY(var(--p, 0)); }
+.sig-rail__step { position: relative; display: grid; grid-template-columns: var(--dot) 1fr; gap: 18px; align-items: start; }
+.sig-rail__dot { position: relative; z-index: 1; width: var(--dot); height: var(--dot); border-radius: 50%; display: grid; place-items: center; background: var(--s-bg); border: 2px solid var(--s-line); color: var(--s-muted); font-weight: 700; font-size: 17px; transition: background .45s var(--s-ease), border-color .45s var(--s-ease), color .45s var(--s-ease), box-shadow .45s var(--s-ease); }
+.sig-rail__step.on .sig-rail__dot { background: var(--s-accent); border-color: var(--s-accent); color: var(--sig-accent-ink, #fff); box-shadow: 0 0 0 6px color-mix(in srgb, var(--s-accent) 16%, transparent); }
+.sig-rail__txt { padding-top: 8px; opacity: .25; transform: translateY(14px); transition: opacity .6s var(--s-ease), transform .6s var(--s-ease); }
+.sig-rail__step.on .sig-rail__txt { opacity: 1; transform: none; }
+.sig-rail__txt h3 { margin: 0; font-size: 20px; line-height: 1.25; color: var(--s-ink); font-family: var(--s-display); }
+.sig-rail__txt p { margin: 6px 0 0; color: var(--s-muted); line-height: 1.55; max-width: 52ch; }

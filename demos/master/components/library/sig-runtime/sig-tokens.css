@@ -1,0 +1,30 @@
+/* Signature sections: shared tokens. Every component root carries .sig and reads ONLY these.
+   Each --s-* falls back to the master preset token (--bg, --accent, --serif …); a static site
+   (trade-demos generator) sets the --sig-* overrides on :root from the client's brand instead. */
+.sig {
+  --s-bg: var(--sig-bg, var(--bg));
+  --s-surface: var(--sig-surface, var(--surface));
+  --s-ink: var(--sig-ink, var(--ink));
+  --s-muted: var(--sig-muted, var(--muted));
+  --s-line: var(--sig-line, var(--line));
+  --s-accent: var(--sig-accent, var(--accent));
+  --s-accent2: var(--sig-accent2, var(--accent2));
+  --s-serif: var(--sig-serif, var(--serif));
+  --s-display: var(--sig-display, var(--display));
+  --s-radius: var(--sig-radius, var(--radius));
+  --s-dark: var(--sig-dark, var(--bg2));
+  --s-dark-ink: var(--sig-dark-ink, var(--ink));
+  --s-ease: cubic-bezier(.22, .61, .36, 1);
+}
+.sig *, .sig *::before, .sig *::after { box-sizing: border-box; }
+.sig svg { display: block; overflow: visible; }
+.sig-h { font-family: var(--s-serif); font-weight: var(--sig-serif-weight, 400); letter-spacing: -.01em; line-height: 1.12; color: var(--s-ink); margin: 0; }
+.sig-p { color: var(--s-muted); margin: .4em 0 0; line-height: 1.55; }
+/* scroll-linked element helper: --t start, --sp speed. --k (0..1) is how far this piece has arrived. */
+.sig [style*="--t"] {
+  --k: clamp(0, (var(--p, 0) - var(--t)) * var(--sp, 9), 1);
+  transform-box: fill-box; transform-origin: center;
+}
+@media (prefers-reduced-motion: reduce) {
+  .sig, .sig * { animation: none !important; transition: none !important; }
+}

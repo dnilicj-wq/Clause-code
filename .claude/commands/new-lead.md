@@ -22,6 +22,7 @@ Dan doesn't code. Report in plain English, briefly: what was built, the URL, and
 - **Prices** stay "Example range" unless the prospect publishes their own rates (then cite the URL).
 - **Never use** Fable, paid 21st.dev (API, MCP or registry), Higgsfield or any paid tool.
 - **Never flat, never plain** (step 4c). Every demo gets a palette with at least three accents and visible depth. Dan rejected Suparesin's first version (flat black + yellow) as "boring, plain, flat".
+- **No placeholder text ships.** The build fails if the built HTML/JS contains `[CONFIRM`, `TODO`, `TBC`, `lorem` or `{{` (`tools/placeholder-check.mjs`, run as `postbuild`; the trade-demos generator has the same gate). Remove the claim or use the client's real wording; never deploy around it. (Newpave went out with `[CONFIRM: aftercare offer]` visible to Charles.)
 - **Every site ends with the Lamp CTA** (step 3b), directly before the footer. No other finale or CTA section in that spot.
 - **Every lead gets its own premium loader** (step 4b). Never reuse a loader another client has: check `demos/master/loaders-used.md` first.
 - **Deploying:** deploy only to the new project `clientgateway-<slug>`. Never touch any other Vercel project. Never print, echo or commit tokens or keys.
@@ -106,6 +107,36 @@ Dan's favourite section from master V3: a thin light bar in the client's accent 
 6. **Colours** come only from the preset tokens (`--accent` bar/cone, `--accent2` glow, `--metal0/--metal2` button). Never hard-code. Light presets pass `tone="light"` (automatic from `preset.dark`); it is tuned on the Cloud Dancer preset.
 7. **Bright static demos** (`~/dev/trade-demos` generator): the generator adds the same section to every page automatically from `site.json` `lamp: { heading, sub, cta, waText, accent? }` and fails the build without it. Its CSS is a copy (`template/lamp.css`); after changing the component here, run `template/sync-lamp.sh`.
 
+### 3c. Signature sections (Dan's picks, every build)
+
+Six library components Dan picked from past builds. All are plain render() + CSS reading preset tokens only + `sig-runtime` (scroll/in-view driver), shared with the static generator (`~/dev/trade-demos/template/sync-sig.sh`). React: `components/library/<id>/<Name>.tsx`. Registry ids: `layer-build`, `step-rail`, `benefit-illustrations`, `proof-tiles`, `guarantee-stack`, `owner-signature`.
+
+1. **Default page order.** Reorder only when it clearly helps that business:
+   1. Hero with the inline quote form
+   2. Proof strip
+   3. Services, each card with its own `layer-build` strip
+   4. Configurator on the lamp stage
+   5. `benefit-illustrations`
+   6. Before/after
+   7. `proof-tiles`
+   8. Reviews
+   9. Work gallery
+   10. `step-rail`
+   11. About, ending with `owner-signature`
+   12. `guarantee-stack` (only with 2+ real promises)
+   13. Areas
+   14. `lamp-cta`
+   15. Footer
+2. **Variants by trade.**
+   - `layer-build` per service card: block (herringbone / basketweave / stretcher, matching their photos), resin, tarmac, sandstone (also porcelain, with its own stage labels), polished-concrete, microcement, epoxy. **Sample the material colours from the client's own photos** and pass them as `colours`. A service with no matching variant (fencing, lawns) keeps its plain card.
+   - `benefit-illustrations` (3–4 cards): only benefits true of the material or claimed on their site. Resin: drain, weeds, uv (only with `offersUvStable` + source). Block: interlock, lift, edge. Polished concrete / microcement: seamless, wipe, heat, floorwall. Epoxy: tyre, bead, slip. Porcelain: stain, slip, frost.
+   - `proof-tiles` (6): their real promises first (warranty length, deposit policy, install time, insurance, survey, accreditations, specific methods from their site). No claim for a tile → a material-benefit tile. Never a promise they haven't made.
+   - `step-rail`: their own process wording. If none, the neutral survey → written quote → install → handover. **No aftercare step unless they offer it.**
+   - `guarantee-stack`: only promises they really make; fewer than 2 → leave the section out (the component renders nothing).
+   - `owner-signature`: only when the first name is confirmed (their site, Companies House or their own messages). Font: `delafield` on luxury presets, `caveat` on trade ones. The line above it is in the owner's voice, built from facts on their site.
+3. **No repeats.** The proof strip, proof tiles, benefit cards and guarantee stack must not say the same thing twice: move a claim to the one place it fits best and drop it elsewhere (e.g. drop the about-section tick list when proof tiles carry it).
+4. **Sources.** Record where every claim in these sections came from in the hand-off note (`content-inventory.md`, or `site.json` `sig._sources` on trade-demos), including which sections were left out and why.
+
 ### 4. Honesty scan (must pass before deploy)
 
 1. Build and run locally (`npx vite --port 5210`).
@@ -170,6 +201,8 @@ Dan's rule: interesting colours, unique, stands out, with depth. A dark page wit
    - **Screens:** `node tools/walk.mjs <url> /tmp/<slug>-walk 390 844` must give 15 phone screens or fewer.
    - **Screenshots:** take them at 390x844 and 1440x900 with `tools/shot.mjs`, look at them, and fix anything broken or flat. Run the step 4c check on every screen: 3-accent palette visible, depth on every section, no flat single-colour blocks.
    - **Lamp CTA:** screenshot the finale at 390x844 and 1440x900 (`node demos/master/tools/lamp-check.mjs <url> /tmp/<slug>-lamp` does both and prints the checks). It fails unless: the bar and glow are visible and in the client's accent colour; the button glint moves (the `--gb-a` angle changes between two reads); the primary scrolls to the quote form's first question; the WhatsApp/Call link is right; on the phone nothing overlaps the sticky bar (button bottoms above the bar's top); with reduced motion the lit state shows and nothing moves.
+   - **Signature sections:** `node demos/master/tools/sig-check.mjs <url> /tmp/<slug>-sig` screenshots each new section at 390x844 and 1440x900 and prints whether each animation ran on scroll (`--p` moved, steps lit, `is-playing`/`is-in` set, no sideways scroll, no console errors). Look at every screenshot. Each must read at 390px, and the sticky bar must never cover content.
+   - **Placeholders:** `npm run build` runs `tools/placeholder-check.mjs`; the deploy fails if any placeholder string is in the built HTML.
    - **Idle:** with no input for 5 seconds, at least 2 things still move.
    - **Lighthouse mobile** (3 runs, `npx lighthouse@12`): performance 85+, LCP under 2.5s, CLS under 0.05. Report the real numbers either way.
 4. Commit `demos/<slug>` to the working branch and push.
@@ -183,3 +216,4 @@ Dan's rule: interesting colours, unique, stands out, with depth. A dark page wit
 - Lighthouse numbers and phone screen count, on one line.
 - **Which loader this lead got** (name + 21st.dev URL).
 - **Lamp CTA:** the heading and subline used, and a phone screenshot of the finale.
+- **Signature sections:** a phone screenshot of each, the variants used, and any section left out with the reason (e.g. "no warranty claim on their site, so no guarantee stack").

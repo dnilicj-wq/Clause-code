@@ -1,0 +1,12 @@
+/* benefit-illustrations: big diagram cards. Needs sig-tokens.css, illos.css, sig-runtime. */
+.sig-eye { display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--s-accent); margin-bottom: 10px; }
+.sig-ben__head { max-width: 640px; margin-bottom: clamp(22px, 4vw, 40px); }
+.sig-ben__h { font-size: clamp(30px, 4.2vw, 46px); }
+.sig-ben__grid { display: grid; gap: 14px; grid-template-columns: 1fr; }
+@media (min-width: 640px) { .sig-ben__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; } }
+@media (min-width: 1040px) { .sig-ben__grid[data-n="3"] { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.sig-ben__card { background: var(--s-surface); border: 1px solid var(--s-line); border-radius: var(--s-radius); padding: clamp(18px, 3vw, 28px); display: flex; flex-direction: column; }
+.sig-ben__art { border-radius: calc(var(--s-radius) * .6); background: color-mix(in srgb, var(--s-accent) 5%, var(--s-surface)); padding: 10px 14px; margin-bottom: 18px; }
+.sig-ben__art .sgi { max-height: 190px; margin: 0 auto; }
+.sig-ben__card h3 { margin: 0; font-family: var(--s-display); font-size: clamp(21px, 2.4vw, 25px); line-height: 1.2; color: var(--s-ink); }
+.sig-ben__card p { margin: 8px 0 0; color: var(--s-muted); line-height: 1.55; }

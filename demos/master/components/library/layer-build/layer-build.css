@@ -1,0 +1,24 @@
+/* layer-build: scroll-linked surface build for service cards. Needs sig-tokens.css + sig-runtime.
+   Material colours (bricks, resin, stone) come from the client's photos via props; UI colours from tokens. */
+.sig-lb { position: relative; background: var(--s-surface); border-top: 1px solid var(--s-line); }
+.sig-lb svg { width: 100%; height: auto; aspect-ratio: 320 / 140; }
+.sig-lb__stages { list-style: none; margin: 0; padding: 8px 12px 10px; display: flex; gap: 6px 14px; flex-wrap: wrap; font-size: 12px; line-height: 1.2; color: var(--s-muted); counter-reset: lb; }
+.sig-lb__stages li { display: inline-flex; align-items: center; gap: 6px; transition: color .35s var(--s-ease); }
+.sig-lb__stages li::before { content: ''; width: 7px; height: 7px; border-radius: 50%; border: 1.5px solid currentColor; transition: background .35s var(--s-ease), border-color .35s var(--s-ease); }
+.sig-lb__stages li.on { color: var(--s-ink); }
+.sig-lb__stages li.on::before { background: var(--s-accent); border-color: var(--s-accent); }
+
+/* pieces (each reads its own --k from sig-tokens.css) */
+.sig-lb .lb-brick { opacity: var(--k); transform: translateY(calc((1 - var(--k)) * -34px)) rotate(calc((1 - var(--k)) * var(--dr, 0deg))); }
+.sig-lb .lb-kerb { opacity: var(--k); transform: translateY(calc((1 - var(--k)) * -14px)); }
+.sig-lb .lb-sand { fill: #fff; opacity: calc(var(--k) * .1); }
+.sig-lb .lb-front { transform-box: view-box; transform: translateX(calc(var(--k) * 344px)); }
+.sig-lb .lb-sheen { transform-box: view-box; transform: translateX(calc(-120px + var(--k) * 460px)); opacity: calc(var(--k) * (1 - var(--k)) * 3.2); }
+.sig-lb .lb-slide { transform-box: view-box; transform: translateX(calc((1 - var(--k)) * -350px)); }
+.sig-lb .lb-slab { opacity: var(--k); transform: translateY(calc((1 - var(--k)) * -18px)) rotate(calc((1 - var(--k)) * var(--dr, 0deg))) scale(calc(1 + (1 - var(--k)) * .12)); }
+.sig-lb .lb-joints { opacity: var(--k); }
+.sig-lb .lb-ground { transform-origin: left center; transform: scaleX(var(--k)); }
+.sig-lb .lb-disc { transform-box: view-box; transform: translateX(calc(var(--k) * 350px - 4px)); opacity: calc(var(--k) * 40); }
+.sig-lb .lb-arc { stroke-dasharray: 1; stroke-dashoffset: calc(1 - var(--k)); }
+.sig-lb .lb-seal { opacity: calc(var(--k) * .6); }
+.sig-lb .lb-flake { opacity: var(--k); transform: translateY(calc((1 - var(--k)) * -48px)) rotate(calc((1 - var(--k)) * var(--dr, 0deg))); }
