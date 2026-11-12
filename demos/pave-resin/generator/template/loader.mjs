@@ -32,6 +32,6 @@ html.pl-on{overflow:hidden}
 .pl.out{clip-path:inset(0 0 100% 0)}
 .pl.out .pl-in{transform:translateY(-28px);opacity:0}
 @keyframes plfail{to{visibility:hidden;opacity:0}}
-@media(prefers-reduced-motion:reduce){.pl-t{animation:none}.pl{transition:opacity .3s ease}.pl.out{clip-path:none;opacity:0}}
-</style><script>document.documentElement.classList.add('pl-on')</script><div class="pl-in"><svg viewBox="${vb}" role="presentation"><ellipse class="pl-glow" cx="0" cy="${(N - 1) * H + T}" rx="${N * W * 0.9}" ry="${N * H * 0.55}"/>${tiles}</svg><div class="pl-m"><span class="pl-n">${name}</span><span class="pl-bar"><i></i></span><span class="pl-c">Laying your drive <b>00</b></span></div></div></div>`;
+@media(prefers-reduced-motion:reduce){.pl{display:none}}
+</style><script>if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('pl-on')</script><div class="pl-in"><svg viewBox="${vb}" role="presentation"><ellipse class="pl-glow" cx="0" cy="${(N - 1) * H + T}" rx="${N * W * 0.9}" ry="${N * H * 0.55}"/>${tiles}</svg><div class="pl-m"><span class="pl-n">${name}</span><span class="pl-bar"><i></i></span><span class="pl-c">Laying your drive <b>00</b></span></div></div></div>`;
 }

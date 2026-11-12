@@ -78,3 +78,12 @@ Picker swatches are the unchanged static `sw-*.webp` crops of the surface render
 - **Safety:** a CSS fail-safe hides it after 5s. With reduced motion, the blocks stay still and it fades instead of wiping.
 - **Speed:** Lighthouse mobile is unchanged (performance 94–98, LCP 2.0–2.2s, CLS 0).
 - **Test:** `tests/plshot.mjs`.
+
+## Round 8
+
+- **First load:** the scene holds on the cracked old drive behind the loader. The block lay starts when the exit wipe starts. With reduced motion there is no loader and the finished still shows at once.
+- **Tarmac:** lifted exposure (SK 0.62), a stronger cobalt lamp, deeper normals and a clearcoat sheen. The albedo is unchanged.
+  - A light-grey kerb runs in perspective across the lower third.
+  - A roller-pass band (mask B channel) marks the rolling front. The tarmac behind it is wet: darker and glossier.
+- **Booking pop-up:** `cgBook(prep)` resets the form on every open, then applies that button's prefill. "Design it & book" and the configurator open on step 2 with the surface; plain buttons open on step 1.
+- **Tests:** `tests/r8.mjs` and `tests/tar.mjs`.

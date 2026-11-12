@@ -41,7 +41,7 @@ export function initHero(host, cv, opts) {
   const env = pm.fromScene(new RoomEnvironment(), 0.04).texture;
   scene.environment = env; scene.environmentIntensity = 0.16;
   const LK = opts.light || 1;
-  const SK = { block: 0.7, resin: 0.69, tarmac: 0.23, porcelain: 0.86 }; // per-surface exposure, calibrated to the old hero's colours
+  const SK = { block: 0.7, resin: 0.69, tarmac: 0.62, porcelain: 0.86 }; // per-surface exposure, calibrated to the old hero's colours
   const hemi = new THREE.HemisphereLight('#ffffff', '#1a1c20', 0.95 * LK); scene.add(hemi);
   const sun = new THREE.DirectionalLight('#ffffff', 2.25 * LK);
   sun.castShadow = true;
@@ -296,15 +296,20 @@ export function initHero(host, cv, opts) {
     const mt = new THREE.CanvasTexture(mask); mt.minFilter = THREE.LinearFilter; mt.generateMipmaps = false;
     const uM = { value: mt }, uR = { value: new THREE.Vector4(v.x0, v.zFar, v.x1 - v.x0, v.zNear - v.zFar) };
     const resin = kind === 'resin';
-    let XL = v.x0;
-    if (!resin) XL = v.x0 - 1; // kerb off-screen: tarmac covers the whole hero
-    const mat = new THREE.MeshPhysicalMaterial({ color: '#ffffff', roughness: resin ? 0.5 : 0.72, metalness: 0, clearcoat: resin ? 0.3 : 0.05, clearcoatRoughness: resin ? 0.4 : 0.6, envMapIntensity: resin ? 0.9 : 0.6, normalScale: new THREE.Vector2(resin ? 1.1 : 0.45, resin ? 1.1 : 0.45) });
+    // tarmac: a kerb line crossing the lower third of the frame in perspective (screen points -> ground)
+    const KL = portrait ? [[-0.25, 0.5], [1.25, 0.31]] : [[-0.08, 0.95], [1.08, 0.72]];
+    let K0 = null, KD = null, KN = null;
+    if (!resin) {
+      const a = hitAt(...KL[0]), b = hitAt(...KL[1]);
+      if (a && b) { K0 = a; KD = b.clone().sub(a).normalize(); KN = new THREE.Vector3(-KD.z, 0, KD.x); if (KN.dot(cam.position.clone().sub(a)) < 0) KN.negate(); }
+    }
+    const mat = new THREE.MeshPhysicalMaterial({ color: '#ffffff', roughness: resin ? 0.5 : 0.5, metalness: 0, clearcoat: resin ? 0.3 : 0.4, clearcoatRoughness: resin ? 0.4 : 0.38, envMapIntensity: resin ? 0.9 : 0.9, normalScale: new THREE.Vector2(resin ? 1.1 : 1.15, resin ? 1.1 : 1.15) }); // tarmac: aggregate catches the lamp, soft fresh sheen
     mat.onBeforeCompile = (sh) => {
-      sh.uniforms.uM = uM; sh.uniforms.uR = uR; sh.uniforms.uXL = { value: resin ? -1e9 : XL + 0.125 };
+      sh.uniforms.uM = uM; sh.uniforms.uR = uR; sh.uniforms.uK = { value: K0 ? new THREE.Vector4(K0.x, K0.z, KN.x, KN.z) : new THREE.Vector4(0, 0, 0, 0) };
       sh.vertexShader = sh.vertexShader.replace('#include <common>', '#include <common>\n varying vec3 vW;')
         .replace('#include <worldpos_vertex>', '#include <worldpos_vertex>\n vW = (modelMatrix * vec4(transformed, 1.0)).xyz;');
       sh.fragmentShader = sh.fragmentShader.replace('#include <common>', `#include <common>
-        uniform sampler2D uM; uniform vec4 uR; uniform float uXL; varying vec3 vW;
+        uniform sampler2D uM; uniform vec4 uR; uniform vec4 uK; varying vec3 vW;
         float hh(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
         float nn(vec2 p) { vec2 i = floor(p), f = fract(p); f = f * f * (3.0 - 2.0 * f);
           return mix(mix(hh(i), hh(i + vec2(1, 0)), f.x), mix(hh(i + vec2(0, 1)), hh(i + vec2(1, 1)), f.x), f.y); }`)
@@ -312,13 +317,14 @@ export function initHero(host, cv, opts) {
           vec2 muv = vec2((vW.x - uR.x) / uR.z, (vW.z - uR.y) / uR.w);
           vec4 mk = texture2D(uM, vec2(muv.x, 1.0 - muv.y));
           float cov = mk.r + ${resin ? '(nn(vW.xz * 9.0) - 0.5) * 0.22 + (nn(vW.xz * 40.0) - 0.5) * 0.08' : '(nn(vW.xz * 30.0) - 0.5) * 0.05'};
-          if (cov < 0.45 || vW.x < uXL) discard;
+          if (cov < 0.45 || (uK.z != 0.0 || uK.w != 0.0) && dot(vW.xz - uK.xy, uK.zw) > -0.0625) discard;
+          float roll = mk.b * smoothstep(0.45, 0.75, cov);
           float wet = mk.g * smoothstep(0.45, 0.75, cov);
           float rim = 1.0 - smoothstep(0.45, ${resin ? '0.6' : '0.5'}, cov);`)
         .replace('#include <map_fragment>', `#include <map_fragment>
-          diffuseColor.rgb *= mix(1.0, ${resin ? '0.8' : '0.86'}, wet) * (1.0 - rim * 0.35);`)
+          diffuseColor.rgb *= mix(1.0, ${resin ? '0.8' : '0.62'}, wet) * (1.0 - rim * 0.35) * (1.0 + roll * 0.9);`)
         .replace('#include <roughnessmap_fragment>', `#include <roughnessmap_fragment>
-          roughnessFactor = mix(roughnessFactor, ${resin ? '0.07' : '0.2'}, wet);`);
+          roughnessFactor = mix(mix(roughnessFactor, ${resin ? '0.07' : '0.12'}, wet), 0.05, roll);`);
     };
     const PW = v.x1 - v.x0, PD = v.zNear - v.zFar;
     const m = new THREE.Mesh(new THREE.PlaneGeometry(PW, PD), mat);
@@ -337,9 +343,9 @@ export function initHero(host, cv, opts) {
     let kerb = null;
     if (!resin) {
       const out = [];
-      for (let z = v.zNear - 0.457; z > v.zFar - 0.5; z -= 0.914) if (seen(XL + 0.0625, z, 0.5)) { const t = (PAL.kerb.tone + (rnd() - 0.5) * 10) / 255; out.push({ x: XL + 0.0625, z, ry: Math.PI / 2, c: new THREE.Color().setRGB(t, t * PAL.kerb.tint[1], t * PAL.kerb.tint[2], THREE.SRGBColorSpace) }); }
+      if (K0) { const ry = Math.atan2(-KD.z, KD.x); for (let d = -20; d < 20; d += 0.914) { const x = K0.x + KD.x * d, z = K0.z + KD.z * d; if (seen(x, z, 0.5)) { const t = (PAL.kerb.tone + (rnd() - 0.5) * 10) / 255; out.push({ x, z, ry, c: new THREE.Color().setRGB(t, t * PAL.kerb.tint[1], t * PAL.kerb.tint[2], THREE.SRGBColorSpace) }); } } }
       const nt = noiseTex(256, 6, [0.14, 0.08, 0.12], 0.86); nt.repeat.set(1, 0.2);
-      const km = new THREE.MeshStandardMaterial({ map: nt, roughness: 0.9 }); km.onBeforeCompile = (sh) => { dropShader(0.35, 0.3, 0.004)(sh); uvShift(sh); };
+      const km = new THREE.MeshStandardMaterial({ map: nt, roughness: 0.9, emissive: '#34363a' }); // reads as a light-grey kerb in the dark scene km.onBeforeCompile = (sh) => { dropShader(0.35, 0.3, 0.004)(sh); uvShift(sh); };
       const kd = new THREE.MeshDepthMaterial({ depthPacking: THREE.RGBADepthPacking }); kd.onBeforeCompile = dropShader(0.35, 0.3, 0.004);
       kerb = pieceSet(g, out, { w: 0.914, d: 0.125, th: KH, joint: 0.006, r: 0.012, mat: km, depth: kd });
       kerb.mats = [km, kd];
@@ -370,13 +376,13 @@ export function initHero(host, cv, opts) {
     let lastCure = 0;
     function cure(t) { // the wet sheen dries to satin (resin) / matt (tarmac) over ~2 s
       if (t - lastCure < 0.05) return; lastCure = t;
-      mc.globalCompositeOperation = 'multiply'; mc.fillStyle = resin ? 'rgb(255,246,255)' : 'rgb(255,243,255)'; mc.fillRect(0, 0, MW, MH); mc.globalCompositeOperation = 'source-over'; dirty = true;
+      mc.globalCompositeOperation = 'multiply'; mc.fillStyle = resin ? 'rgb(255,246,255)' : 'rgb(255,252,255)'; mc.fillRect(0, 0, MW, MH); mc.globalCompositeOperation = 'source-over'; dirty = true;
     }
     let kerbDown = false;
     const L = {
       kind, group: g, pieces: false, start: 0,
       brush(x, z, r, t) {
-        if (kerb && !kerbDown) { kerbDown = true; for (let i = 0; i < kerb.n; i++) kerb.aT0[i] = t + (kerb.pz[i] - v.zFar) / (v.zNear - v.zFar) * 0.4; kerb.dirty = true; }
+        if (kerb && !kerbDown) { kerbDown = true; let x0 = 1e9, x1 = -1e9; for (let i = 0; i < kerb.n; i++) { x0 = Math.min(x0, kerb.px[i]); x1 = Math.max(x1, kerb.px[i]); } for (let i = 0; i < kerb.n; i++) kerb.aT0[i] = t + (kerb.px[i] - x0) / (x1 - x0 || 1) * 0.5; kerb.dirty = true; }
         if (resin) { if (last) { const d = Math.hypot(x - last[0], z - last[1]), st = Math.max(1, Math.ceil(d / (r * 0.3))); for (let i = 1; i <= st; i++) dab(last[0] + (x - last[0]) * i / st, last[1] + (z - last[1]) * i / st, r, 0.6); } else dab(x, z, r * 1.15, 0.92); }
         else { if (last) band(last[0], last[1], x, z, r * 1.5); else band(x - r * 0.4, z, x + r * 0.4, z, r * 1.5); }
         last = [x, z]; return 1;
@@ -393,6 +399,7 @@ export function initHero(host, cv, opts) {
           if (kerb && !kerbDown) L.brush(v.x0, v.zFar, 0.1, t), L.lift();
           mc.globalCompositeOperation = 'lighten'; mc.fillStyle = 'rgb(255,255,0)';
           const edge = resin ? 0.06 * MH : 0; mc.fillRect(0, 0, MW, Math.max(0, y - edge));
+          if (!resin) { const bw = 0.55 * ppm; mc.globalCompositeOperation = 'darken'; mc.fillStyle = 'rgb(255,255,0)'; mc.fillRect(0, 0, MW, Math.max(0, y - bw)); if (k < 1) { mc.globalCompositeOperation = 'lighten'; mc.fillStyle = 'rgb(255,255,255)'; mc.fillRect(0, Math.max(0, y - bw), MW, Math.min(bw, y)); } else { mc.fillRect(0, 0, MW, MH); } }
           if (resin) { for (let i = 0; i < rows * 3; i++) dab(v.x0 + (i / (rows * 3)) * (v.x1 - v.x0), v.zFar + Math.max(0, y - edge) / ppm, (v.x1 - v.x0) / rows * 0.7, 0.7); }
           mc.globalCompositeOperation = 'source-over'; dirty = true;
           if (k >= 1) { L.fillAt = 0; L.filled = true; }
@@ -419,7 +426,7 @@ export function initHero(host, cv, opts) {
     L.clear(); L.filled = false; active = L; cur = k;
     const sk = (globalThis.__hpSK && globalThis.__hpSK[k]) || SK[k] || 1;
     hemi.intensity = 0.95 * LK * sk; sun.intensity = 2.25 * LK * sk; scene.environmentIntensity = 0.16 * sk;
-    lamp.intensity = ((k === 'resin' || k === 'tarmac') ? 0.7 : 0.5) * sk;
+    lamp.intensity = (k === 'tarmac' ? 3.2 : k === 'resin' ? 0.7 : 0.5) * sk;
     if (mode === 'fill' || RM) { L.fill(); L.filled = true; }
     else if (mode === 'intro') L.laidAbove(OPEN[portrait ? 'portrait' : 'landscape'] - 0.09);
     if (was !== k && camT0 >= 0) { /* pose already applied: a new surface starts on a reset drive, so a cut reads cleanly */ }
@@ -489,7 +496,7 @@ export function initHero(host, cv, opts) {
     raf = requestAnimationFrame(loop);
   }
 
-  const SPAN = { block: 2.0, resin: 2.1, tarmac: 2.1, porcelain: 1.6 }; // sweep seconds; + drop/fill time stays under 3 s
+  const SPAN = { block: 2.0, resin: 2.1, tarmac: 2.4, porcelain: 1.6 }; // sweep seconds; + drop/fill time stays under 3 s
   const idle = (f) => (window.requestIdleCallback ? window.requestIdleCallback(f, { timeout: 1500 }) : setTimeout(f, 150));
   const api = {
     loaded: false, _dbg: { renderer, scene, cam, layers, tileTex },

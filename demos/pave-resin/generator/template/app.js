@@ -4,14 +4,15 @@
   const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
   // ---------- page loader: counter + progress, exits once the hero's 3D is ready (min/max time), then the hero lays ----------
   { const pl = $('.pl'); let open; window.__pl = new Promise((r) => { open = r; });
-    if (!pl) open();
+    if (pl && RM) { pl.remove(); document.documentElement.classList.remove('pl-on'); } // reduced motion: no loader, the finished still shows at once
+    if (!pl || RM) open();
     else {
       const MIN = RM ? 300 : 1500, MAX = 3200, bar = $('.pl-bar i', pl), num = $('.pl-c b', pl);
       let ready = !$('.hp-gl'), out = false, shown = 0;
       window.__plReady = () => { ready = true; };
       const exit = () => {
         out = true; bar.style.setProperty('--p', 1); num.textContent = '100';
-        setTimeout(() => { pl.classList.add('out'); document.documentElement.classList.remove('pl-on'); setTimeout(open, RM ? 0 : 120); setTimeout(() => pl.remove(), 1000); }, RM ? 0 : 160);
+        setTimeout(() => { pl.classList.add('out'); document.documentElement.classList.remove('pl-on'); open(); /* the lay starts with the exit wipe */ setTimeout(() => pl.remove(), 1000); }, RM ? 0 : 160);
       };
       const tick = () => {
         if (out) return;
@@ -168,27 +169,33 @@
     };
   });
   const main = ctl[0];
-  const goQuote = () => { if (window.cgBook) return window.cgBook(); const t = main && main.f.closest('.qcard'); if (t) t.scrollIntoView({ behavior: RM ? 'auto' : 'smooth', block: 'start' }); };
-  $$('[data-quote]').forEach((a) => a.addEventListener('click', (e) => { if (!main) return; e.preventDefault(); main.pick(a.dataset.quote); goQuote(); }));
-  window.cgQuote = (service, design) => { if (!main) return; main.preset(service, design); goQuote(); };
+  const goQuote = (prep) => { if (window.cgBook) return window.cgBook(prep); if (prep && main) prep(main); const t = main && main.f.closest('.qcard'); if (t) t.scrollIntoView({ behavior: RM ? 'auto' : 'smooth', block: 'start' }); };
+  $$('[data-quote]').forEach((a) => a.addEventListener('click', (e) => { if (!main) return; e.preventDefault(); const q = a.dataset.quote; goQuote(q ? (f) => f.pick(q) : null); }));
+  window.cgQuote = (service, design) => { if (!main) return; goQuote((f) => f.preset(service, design)); };
 
   // ---------- booking modal: every quote button opens the 5-step form in a <dialog> ----------
   const bkDlg = $('dialog.bk');
   if (bkDlg) {
     const bkForm = ctl.find((c) => bkDlg.contains(c.f));
-    const close = () => { bkDlg.classList.add('closing'); setTimeout(() => { bkDlg.classList.remove('closing'); bkDlg.close(); }, RM ? 0 : 200); };
-    bkDlg.addEventListener('close', () => { if (bkForm) bkForm.reset(); });
+    let closeT = 0;
+    const close = () => { bkDlg.classList.add('closing'); clearTimeout(closeT); closeT = setTimeout(() => { bkDlg.classList.remove('closing'); bkDlg.close(); }, RM ? 0 : 200); };
     $('.bkx', bkDlg).addEventListener('click', close);
     bkDlg.addEventListener('click', (e) => { if (e.target === bkDlg) close(); });
     bkDlg.addEventListener('cancel', (e) => { e.preventDefault(); close(); });
-    window.cgBook = () => { if (!bkDlg.open) { bkDlg.showModal(); const t = $('.qf fieldset.cur button, .qf fieldset.cur input', bkDlg); if (t && matchMedia('(hover:hover)').matches) t.focus({ preventScroll: true }); } };
+    // open fresh every time: reset the form, then apply this button's prefill (surface/design -> step 2); plain buttons -> step 1
+    window.cgBook = (prep) => {
+      const f = bkForm || main;
+      if (bkDlg.open && !bkDlg.classList.contains('closing')) { if (prep && f) { f.reset(); prep(f); } return; }
+      clearTimeout(closeT); bkDlg.classList.remove('closing'); if (bkDlg.open) bkDlg.close();
+      if (f) { f.reset(); if (prep) prep(f); }
+      bkDlg.showModal(); const t = $('.qf fieldset.cur button, .qf fieldset.cur input', bkDlg); if (t && matchMedia('(hover:hover)').matches) t.focus({ preventScroll: true });
+    };
     document.addEventListener('click', (e) => {
       const a = e.target.closest('a[href="#quote"], a[href="/#quote"], [data-book]');
       if (!a || a.classList.contains('hp-go')) return;
       e.preventDefault();
       if (dr && dr.classList.contains('open')) setMenu(false);
-      if (a.dataset.quote && main) main.pick(a.dataset.quote);
-      window.cgBook();
+      const q = a.dataset.quote; window.cgBook(q ? (f) => f.pick(q) : null);
     });
   }
 
@@ -212,7 +219,7 @@
     });
     tiles.forEach((t, i) => t.tabIndex = i ? -1 : 0);
     const cur = () => tiles.find((t) => t.dataset.s === sel);
-    $('.hp-go', hg).addEventListener('click', () => { const b = cur(); if (main) main.preset(b.dataset.tile, b.dataset.label); if (window.cgBook) window.cgBook(); });
+    $('.hp-go', hg).addEventListener('click', () => { const b = cur(); const pre = (f) => f.preset(b.dataset.tile, b.dataset.label); if (window.cgBook) window.cgBook(pre); else if (main) pre(main); });
     $('.hp-see', hg).addEventListener('click', () => { const c = cur().dataset.cfg; if (c) { window.__cfgPre = c; if (window.cgCfgSet) window.cgCfgSet(c); } });
     const start = async () => {
       const skip = () => { if (window.__plReady) window.__plReady(); };
@@ -224,7 +231,7 @@
           onLost: () => hg.classList.remove('gl') });
         if (!api) return skip();
         window.__hp = api;
-        const go = () => { if (!api.loaded) return setTimeout(go, 50); skip(); const hold = !!document.querySelector('.pl'); if (hold) { window.__hpHold = true; api.auto(sel, true); window.__hpHold = false; } window.__pl.then(() => { api.auto(sel, true); api.prebuild(sel); }); requestAnimationFrame(() => requestAnimationFrame(() => { hg.classList.add('gl'); window.__heroReady = true; })); };
+        const go = () => { if (!api.loaded) return setTimeout(go, 50); skip(); const hold = !!document.querySelector('.pl:not(.out)'); if (hold) { window.__hpHold = true; api.auto(sel); window.__hpHold = false; } /* cracked old drive behind the loader */ window.__pl.then(() => { api.auto(sel, !hold); /* from the cracked drive when the loader was up, else from the poster's state */ api.prebuild(sel); }); requestAnimationFrame(() => requestAnimationFrame(() => { hg.classList.add('gl'); window.__heroReady = true; })); };
         go();
       } catch (e) { skip(); /* the poster stays */ }
     };
@@ -264,7 +271,7 @@
     });
     tiles.forEach((t, i) => t.tabIndex = i ? -1 : 0);
     const cur = () => tiles.find((t) => t.dataset.s === sel);
-    $('.hp-go', hp).addEventListener('click', () => { const b = cur(); if (main) main.preset(b.dataset.tile, b.dataset.label); if (window.cgBook) window.cgBook(); });
+    $('.hp-go', hp).addEventListener('click', () => { const b = cur(); const pre = (f) => f.preset(b.dataset.tile, b.dataset.label); if (window.cgBook) window.cgBook(pre); else if (main) pre(main); });
     $('.hp-see', hp).addEventListener('click', () => { const c = cur().dataset.cfg; if (c) { window.__cfgPre = c; if (window.cgCfgSet) window.cgCfgSet(c); } });
     // start once the page has loaded so the renderer never competes with first paint
     const start = () => {
