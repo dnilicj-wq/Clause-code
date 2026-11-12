@@ -3,6 +3,7 @@
 // every claim, review, service and town comes from the lead's data files.
 import sharp from 'sharp';
 // Signature sections: GENERATED copies of the Clause-code library (./sync-sig.sh), never edit template/sig/ here.
+import { loader } from './loader.mjs';
 import { render as sigLayer } from './sig/layer-build/render.mjs';
 import { render as sigRail } from './sig/step-rail/render.mjs';
 import { render as sigBen } from './sig/benefit-illustrations/render.mjs';
@@ -221,7 +222,7 @@ async function page({ path, title, desc, body, cur, preload = '', quoteFor = '',
 <link rel="preload" href="/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin>${S.font?.file ? `<link rel="preload" href="/fonts/${basename(S.font.file)}" as="font" type="font/woff2" crossorigin>` : ''}${preload}
 <style>${vars()}${CSS}</style>
 <script type="application/ld+json">${JSON.stringify([BIZ(), ...ld])}</script>
-</head><body${TH?.name ? ` class="t-${TH.name}"` : ''}${S.motion ? ' data-motion="1"' : ''}>${header(cur)}<main id="main">${body}${lampCta()}</main>${footer()}${bbar(quoteFor)}${bookDialog()}<script src="/app.js?v=${BUILD}" defer></script></body></html>`;
+</head><body${TH?.name ? ` class="t-${TH.name}"` : ''}${S.motion ? ' data-motion="1"' : ''}>${path === '/' && S.loader ? loader(S.loader) : ''}${header(cur)}<main id="main">${body}${lampCta()}</main>${footer()}${bbar(quoteFor)}${bookDialog()}<script src="/app.js?v=${BUILD}" defer></script></body></html>`;
   const out = join(DIST, path, 'index.html');
   mkdirSync(dirname(out), { recursive: true });
   writeFileSync(out, html.replace(/\n/g, '').replace(S.bookModal ? /href="\/?#quote"/g : /$^/, `href="tel:${tel}" role="button" data-book`).replace(TH ? /<span class="eyebrow">[\s\S]*?<\/span>/g : /$^/, ''));

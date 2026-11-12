@@ -68,3 +68,13 @@ Picker swatches are the unchanged static `sw-*.webp` crops of the surface render
 - **Grep of the build:**
   - no `01452` phone number (the only match is a three.js shader constant);
   - no `paveresinltd.co.uk/wp-content`.
+
+## Loader (round 7)
+
+`generator/template/loader.mjs`, home page only, enabled by `"loader": {"name": "PAVE RESIN"}` in `site.json`.
+
+- **Look:** isometric paving blocks drop in a wave over a cobalt glow, with a wordmark, a progress line and a counter. The inspiration was the isometric-cube and square-wave loaders on 21st.dev.
+- **Timing:** it exits when the hero 3D is ready, after at least 1.5s and at most 3.2s, with a curtain wipe. The hero lay starts as the curtain lifts.
+- **Safety:** a CSS fail-safe hides it after 5s. With reduced motion, the blocks stay still and it fades instead of wiping.
+- **Speed:** Lighthouse mobile is unchanged (performance 94–98, LCP 2.0–2.2s, CLS 0).
+- **Test:** `tests/plshot.mjs`.

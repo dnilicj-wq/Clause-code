@@ -2,6 +2,28 @@
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
   const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // ---------- page loader: counter + progress, exits once the hero's 3D is ready (min/max time), then the hero lays ----------
+  { const pl = $('.pl'); let open; window.__pl = new Promise((r) => { open = r; });
+    if (!pl) open();
+    else {
+      const MIN = RM ? 300 : 1500, MAX = 3200, bar = $('.pl-bar i', pl), num = $('.pl-c b', pl);
+      let ready = !$('.hp-gl'), out = false, shown = 0;
+      window.__plReady = () => { ready = true; };
+      const exit = () => {
+        out = true; bar.style.setProperty('--p', 1); num.textContent = '100';
+        setTimeout(() => { pl.classList.add('out'); document.documentElement.classList.remove('pl-on'); setTimeout(open, RM ? 0 : 120); setTimeout(() => pl.remove(), 1000); }, RM ? 0 : 160);
+      };
+      const tick = () => {
+        if (out) return;
+        const t = performance.now(), goal = ready ? 1 : Math.min(0.9, t / MAX);
+        shown += (Math.min(goal, t / MIN) - shown) * 0.12;
+        bar.style.setProperty('--p', shown.toFixed(3)); num.textContent = String(Math.min(99, Math.round(shown * 100))).padStart(2, '0');
+        if ((ready && t >= MIN && shown > 0.97) || t >= MAX) return exit();
+        requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    }
+  }
   // below-the-fold SVG textures (resin card): fetch when near, so the hero poster gets the bandwidth first
   { const lz = $$('image[data-lzh]'); const go = (i) => i.setAttribute('href', i.dataset.lzh);
     if (lz.length && 'IntersectionObserver' in window) { const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { io.unobserve(e.target); $$('image[data-lzh]', e.target).forEach(go); } }), { rootMargin: '900px 0px' }); lz.forEach((i) => io.observe(i.closest('svg'))); } else lz.forEach(go); }
@@ -193,17 +215,18 @@
     $('.hp-go', hg).addEventListener('click', () => { const b = cur(); if (main) main.preset(b.dataset.tile, b.dataset.label); if (window.cgBook) window.cgBook(); });
     $('.hp-see', hg).addEventListener('click', () => { const c = cur().dataset.cfg; if (c) { window.__cfgPre = c; if (window.cgCfgSet) window.cgCfgSet(c); } });
     const start = async () => {
-      if (RM) return; // reduced motion: the poster is the finished still
-      try { const t = document.createElement('canvas'); if (!(t.getContext('webgl2') || t.getContext('webgl'))) return; } catch { return; }
+      const skip = () => { if (window.__plReady) window.__plReady(); };
+      if (RM) return skip(); // reduced motion: the poster is the finished still
+      try { const t = document.createElement('canvas'); if (!(t.getContext('webgl2') || t.getContext('webgl'))) return skip(); } catch { return skip(); }
       try {
         const m = await import('/hero3d.js?v=' + V);
         api = m.initHero(hg, cv, { bg: '#0B0C0F', tex: '/tex/', worker: '/hero3d-tex.js?v=' + V, light: window.__hpLight,
           onLost: () => hg.classList.remove('gl') });
-        if (!api) return;
+        if (!api) return skip();
         window.__hp = api;
-        const go = () => { if (!api.loaded) return setTimeout(go, 50); api.auto(sel, true); api.prebuild(sel); requestAnimationFrame(() => requestAnimationFrame(() => { hg.classList.add('gl'); window.__heroReady = true; })); };
+        const go = () => { if (!api.loaded) return setTimeout(go, 50); skip(); const hold = !!document.querySelector('.pl'); if (hold) { window.__hpHold = true; api.auto(sel, true); window.__hpHold = false; } window.__pl.then(() => { api.auto(sel, true); api.prebuild(sel); }); requestAnimationFrame(() => requestAnimationFrame(() => { hg.classList.add('gl'); window.__heroReady = true; })); };
         go();
-      } catch (e) { /* the poster stays */ }
+      } catch (e) { skip(); /* the poster stays */ }
     };
     const idle = () => (window.requestIdleCallback ? requestIdleCallback(start, { timeout: 600 }) : setTimeout(start, 120));
     if (document.readyState === 'complete') idle(); else addEventListener('load', idle, { once: true });

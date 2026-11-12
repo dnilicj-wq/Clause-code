@@ -941,5 +941,8 @@
     "noSub": true
   },
   "bookModal": true,
-  "telPill": true
+  "telPill": true,
+  "loader": {
+    "name": "PAVE RESIN"
+  }
 }
