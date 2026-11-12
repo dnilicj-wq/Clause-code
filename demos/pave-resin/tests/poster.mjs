@@ -7,7 +7,7 @@ const b = await chromium.launch({ executablePath: '/Applications/Google Chrome.a
 for (const [tag, vp, mob, dsf] of [['m', { width: 390, height: 844 }, true, 2], ['d', { width: 1440, height: 900 }, false, 1]]) {
   const ctx = await b.newContext({ viewport: vp, deviceScaleFactor: dsf, isMobile: mob, hasTouch: mob });
   const p = await ctx.newPage();
-  await p.addInitScript(() => { window.__hpWait = 1e9; });
+  await p.addInitScript(() => { window.__hpHold = true; });
   await p.goto(base + '/', { waitUntil: 'load' });
   await p.waitForFunction(() => window.__heroReady, null, { timeout: 30000 });
   await p.addStyleTag({ content: '.hp-poster{display:none!important}.hpk>*:not(.hp-stage),.hp-shade,.hp-lamp,header,.bbar,.hoffer{visibility:hidden!important}.hp-gl{transition:none!important}' });

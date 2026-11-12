@@ -70,7 +70,7 @@ export function initHero(host, cv, opts) {
     sun.position.set(-0.55 * p.D, 1.25 * p.D, -0.7 * p.D); sun.target.position.set(0, 0, -0.3 * p.D);
     const s = p.D * 1.3; Object.assign(sun.shadow.camera, { left: -s, right: s, top: s, bottom: -s, near: 0.1, far: p.D * 4 }); sun.shadow.camera.updateProjectionMatrix();
     lamp.position.set(0.15 * p.wm, 0.9 * p.wm, -1.35 * p.D); lamp.distance = p.D * 3;
-    scene.fog.near = p.D * 1.5; scene.fog.far = p.D * 3.6;
+    scene.fog.near = p.D * 1.5; scene.fog.far = p.D * 4.4;
   }
   const frame = () => {
     W = Math.max(1, host.clientWidth); H = Math.max(1, host.clientHeight);
@@ -185,8 +185,7 @@ export function initHero(host, cv, opts) {
     const clip = [];
     if (kind === 'block') {
       // left edge of the drive in view at about 13% across the middle of the screen; a charcoal soldier course runs along it
-      const mid = hitAt(0.13, OPEN[portrait ? 'portrait' : 'landscape']);
-      const XL = mid ? mid.x : v.x0, ZF = v.zNear;
+      const XL = v.x0 - 3 * U, ZF = v.zNear + 3 * U; // edges off-screen: the surface covers the whole hero
       clip.push(new THREE.Plane(new THREE.Vector3(1, 0, 0), -(XL + 2 * U)), new THREE.Plane(new THREE.Vector3(0, 0, -1), ZF - 2 * U));
       const c45 = Math.SQRT1_2, fld = [], sold = [];
       const col = () => { const r = rnd(); const a = r < PAL.block.silvShare ? PAL.block.silv : PAL.block.char; return new THREE.Color(a[Math.floor(rnd() * a.length)]).multiplyScalar(0.93 + rnd() * 0.14); };
@@ -298,7 +297,7 @@ export function initHero(host, cv, opts) {
     const uM = { value: mt }, uR = { value: new THREE.Vector4(v.x0, v.zFar, v.x1 - v.x0, v.zNear - v.zFar) };
     const resin = kind === 'resin';
     let XL = v.x0;
-    if (!resin) { const mid = hitAt(0.11, OPEN[portrait ? 'portrait' : 'landscape']); if (mid) XL = mid.x; }
+    if (!resin) XL = v.x0 - 1; // kerb off-screen: tarmac covers the whole hero
     const mat = new THREE.MeshPhysicalMaterial({ color: '#ffffff', roughness: resin ? 0.5 : 0.72, metalness: 0, clearcoat: resin ? 0.3 : 0.05, clearcoatRoughness: resin ? 0.4 : 0.6, envMapIntensity: resin ? 0.9 : 0.6, normalScale: new THREE.Vector2(resin ? 1.1 : 0.45, resin ? 1.1 : 0.45) });
     mat.onBeforeCompile = (sh) => {
       sh.uniforms.uM = uM; sh.uniforms.uR = uR; sh.uniforms.uXL = { value: resin ? -1e9 : XL + 0.125 };
@@ -451,11 +450,7 @@ export function initHero(host, cv, opts) {
   };
   const onDown = (e) => { if (RM || blocked(e)) return; lastPt = null; onMove(e); };
   const onLeave = () => { lastPt = null; active && active.lift && active.lift(); };
-  host.addEventListener('pointermove', onMove, { passive: true });
-  host.addEventListener('pointerdown', onDown, { passive: true });
-  host.addEventListener('pointerleave', onLeave);
-  host.addEventListener('pointercancel', onLeave);
-  host.addEventListener('pointerup', (e) => { if (e.pointerType !== 'mouse') onLeave(); });
+  // (no pointer input: the hero lays itself)
 
   // ---- path player (Proficient's ghost): auto-lays a strip along a gentle curve ----
   let ghost = null, idleSince = performance.now();
@@ -494,6 +489,7 @@ export function initHero(host, cv, opts) {
     raf = requestAnimationFrame(loop);
   }
 
+  const SPAN = { block: 2.0, resin: 2.1, tarmac: 2.1, porcelain: 1.6 }; // sweep seconds; + drop/fill time stays under 3 s
   const idle = (f) => (window.requestIdleCallback ? window.requestIdleCallback(f, { timeout: 1500 }) : setTimeout(f, 150));
   const api = {
     loaded: false, _dbg: { renderer, scene, cam, layers, tileTex },
@@ -515,6 +511,20 @@ export function initHero(host, cv, opts) {
       start(k, 'reset');
       if (RM) return;
       play(1200, onPlayed);
+    },
+    // automatic: reset to the old drive (optionally with the far part already down, matching the poster) and lay everything
+    auto(k, above = 0) {
+      finishedSent = false; userStroke = true; ghost = null;
+      const L = start(k, 'reset');
+      if (RM) { L.fill(); return; }
+      if (above) L.laidAbove(above === true ? OPEN[portrait ? 'portrait' : 'landscape'] - 0.09 : above);
+      if (!globalThis.__hpHold) L.sweep(now(), SPAN[k]); // __hpHold: poster capture only
+    },
+    // build every surface's textures and shaders straight away (idle time), so a tile tap lays at once
+    prebuild(k) {
+      const todo = ['block', 'resin', 'tarmac', 'porcelain'].filter((x) => x !== k);
+      const next = () => { if (dead) return; const n = todo.shift(); if (!n) return; if (n === 'resin' || n === 'tarmac') tileTex(n); idle(next); };
+      idle(next);
     },
     finish() { if (!active) return; active.sweep(now(), cur === 'porcelain' ? 2.2 : 1.8); userStroke = true; finishedSent = false; },
     fill(k) { start(k || cur || 'block', 'fill'); },

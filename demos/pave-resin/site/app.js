@@ -174,17 +174,14 @@
   // ---------- hero: lay the surface in 3D (three.js engine, lazy) over an instant poster ----------
   const hg = $('.hpk');
   if (hg && $('.hp-gl', hg)) {
-    const tiles = $$('.hp-tiles button', hg), val = $('.hp-v', hg), cv = $('.hp-gl', hg), act = $('.hp-act', hg), hint = $('.hp-hint', hg), rest = $('.hp-rest', hg);
+    const tiles = $$('.hp-tiles button', hg), val = $('.hp-v', hg), cv = $('.hp-gl', hg);
     const coarse = matchMedia('(pointer:coarse)').matches, V = (($('script[src^="/app.js"]') || {}).src || '').split('v=')[1] || '';
-    let sel = tiles[0].dataset.s, api = null, touched = false;
-    hint.textContent = coarse ? 'Swipe to lay ↔' : 'Move to lay ↔';
-    const setAct = (m) => { act.dataset.m = m; };
-    const played = () => { if (!touched) setAct('hint'); };
+    let sel = tiles[0].dataset.s, api = null;
     const choose = (b) => {
       tiles.forEach((t) => { t.setAttribute('aria-checked', t === b); t.tabIndex = t === b ? 0 : -1; });
       if (sel === b.dataset.s && api) return;
       sel = b.dataset.s; val.textContent = b.dataset.label; hg.dataset.s = sel;
-      if (api) { touched = false; setAct(''); api.surface(sel, played); }
+      if (api) api.auto(sel); // the new surface lays itself over the whole hero
     };
     tiles.forEach((b) => b.addEventListener('click', () => choose(b)));
     $('.hp-tiles', hg).addEventListener('keydown', (e) => {
@@ -195,17 +192,16 @@
     const cur = () => tiles.find((t) => t.dataset.s === sel);
     $('.hp-go', hg).addEventListener('click', () => { const b = cur(); if (main) main.preset(b.dataset.tile, b.dataset.label); if (window.cgBook) window.cgBook(); });
     $('.hp-see', hg).addEventListener('click', () => { const c = cur().dataset.cfg; if (c) { window.__cfgPre = c; if (window.cgCfgSet) window.cgCfgSet(c); } });
-    rest.addEventListener('click', () => { if (api) api.finish(); setAct(''); });
     const start = async () => {
       if (RM) return; // reduced motion: the poster is the finished still
       try { const t = document.createElement('canvas'); if (!(t.getContext('webgl2') || t.getContext('webgl'))) return; } catch { return; }
       try {
         const m = await import('/hero3d.js?v=' + V);
         api = m.initHero(hg, cv, { bg: '#0B0C0F', tex: '/tex/', worker: '/hero3d-tex.js?v=' + V, light: window.__hpLight,
-          onFirst: () => { touched = true; setAct('rest'); }, onFinished: () => setAct(''), onLost: () => hg.classList.remove('gl') });
+          onLost: () => hg.classList.remove('gl') });
         if (!api) return;
         window.__hp = api;
-        const go = () => { if (!api.loaded) return setTimeout(go, 50); api.intro(sel, window.__hpWait ?? 1500, played); requestAnimationFrame(() => requestAnimationFrame(() => { hg.classList.add('gl'); window.__heroReady = true; })); };
+        const go = () => { if (!api.loaded) return setTimeout(go, 50); api.auto(sel, true); api.prebuild(sel); requestAnimationFrame(() => requestAnimationFrame(() => { hg.classList.add('gl'); window.__heroReady = true; })); };
         go();
       } catch (e) { /* the poster stays */ }
     };

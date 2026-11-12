@@ -389,7 +389,6 @@ dialog.bk .qfree{min-width:0;text-align:right}
 
 /* ---- hero round 5: 3D laying engine over an instant poster ---- */
 .hpk{touch-action:pan-y}
-@media(pointer:fine){.hpk.gl{cursor:crosshair}.hpk.gl .hp-card,.hpk.gl a,.hpk.gl button{cursor:pointer}}
 .hp-poster,.hp-poster img,.hp-gl{position:absolute;inset:0;width:100%;height:100%;display:block}
 .hp-poster img{object-fit:cover;object-position:50% 50%}
 .hp-gl{opacity:0;transition:opacity .7s ease}

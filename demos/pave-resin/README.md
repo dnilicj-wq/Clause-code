@@ -16,7 +16,10 @@ node template/build.mjs leads/pave-resin
 
 The 3D tests need real GPU Chrome. Run them as `node h3surf.mjs <url> <out> 390 844`; they use `--use-angle=metal`.
 
-## Hero: 3D laying engine (round 5)
+## Hero: 3D laying engine (round 5, automatic since round 6)
+
+Round 6 (Dan's call): no interaction. On load the drive lays itself across the whole hero and finishes in about 2 s (under 3 s). A surface tap resets to the old drive and lays the new surface the same way. Block and tarmac edges (soldier course, kerb) sit off-screen so the surface covers the full background. API: `auto(k, intro)`, `prebuild(k)`; sweep times in `SPAN`. Check with `tests/auto.mjs`.
+
 
 **What runs.**
 - `generator/template/hero3d/engine.js` is a three.js r187 engine, ported from the Wolverhampton Driveways block engine. It is bundled to `site/hero3d.js` and lazy-imported after load and idle.
