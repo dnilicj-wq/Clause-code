@@ -22,6 +22,8 @@ export const DEFAULTS = {
   sandstone: { colours: ['#c9b38f', '#b89d77', '#d6c3a1', '#a88d69'], joint: '#7d7368' },
   'polished-concrete': { colours: ['#a9a6a1'], raw: '#8b8781', agg: ['#d8d4cd', '#6f6b66', '#bdb6aa'] },
   microcement: { colours: ['#cfc8bd'], board: '#e3ddd3', coat1: '#b9b1a5' },
+  gravel: { colours: ['#c7c3bd', '#a9a59f', '#8f8b86', '#dcd8d2'], grid: '#3b3d40', membrane: '#1f2123' },
+  turf: { colours: ['#5f8f3a', '#4f7d2f', '#6ea046'], soil: '#5a4433' },
   epoxy: { colours: ['#6f7378'], flakes: ['#e8e4dc', '#2f3236', '#9aa0a6'], substrate: '#8e8a84', primer: '#c9a86a' },
 };
 export const STAGES = {
@@ -31,6 +33,8 @@ export const STAGES = {
   sandstone: ['Mortar bed', 'Slabs laid', 'Joints pointed'],
   'polished-concrete': ['Raw slab', 'Ground in passes', 'Sealed to a sheen'],
   microcement: ['Primed board', 'First coat', 'Second coat, sealed'],
+  gravel: ['Membrane', 'Grid laid', 'Stones settled'],
+  turf: ['Soil levelled', 'Turf rolled out', 'Edges trimmed'],
   epoxy: ['Primer', 'Body coat', 'Flake', 'Topcoat'],
 };
 
@@ -73,13 +77,28 @@ function bricks(o, R) {
 }
 
 function resin(o, R) {
-  const [c0, c1, c2, c3] = [...o.colours, ...DEFAULTS.resin.colours].slice(0, 4);
-  let dots = '';
-  for (let i = 0; i < 70; i++) dots += `<circle cx="${r2(R() * 24)}" cy="${r2(R() * 24)}" r="${r2(.7 + R() * 1.3)}" fill="${[c0, c1, c2, c3][i % 4]}"/>`;
+  // procedural aggregate: ~1050 individual stones (2-6px), 4 tones, drop shadows + lit highlights, no repeating tile
+  const tones = [...o.colours, ...DEFAULTS.resin.colours].slice(0, 4);
+  const f = (n) => Math.round(n * 10) / 10;
+  const groups = tones.map(() => []), hi = [];
+  const ell = (x, y, rx, ry) => `M${f(x - rx)} ${f(y)}a${f(rx)} ${f(ry)} 0 1 0 ${f(2 * rx)} 0a${f(rx)} ${f(ry)} 0 1 0 ${f(-2 * rx)} 0`;
+  for (let i = 0; i < (o.aggImg ? 0 : 1050); i++) {
+    const x = R() * (W + 6) - 3, y = R() * (H - 8) - 2, r = 1 + R() * R() * 2.1, t = (R() * 4) | 0;
+    groups[t].push(ell(x, y, r, r * (0.62 + R() * 0.3)));
+    if (R() < 0.28) hi.push(ell(x - r * 0.3, y - r * 0.32, r * 0.36, r * 0.24));
+  }
   const edge = 'M0 0 C 9 18 -7 36 4 54 S -6 92 3 110 S -4 132 0 140 L 360 140 L 360 0 Z';
-  return `<defs><pattern id="AGG" width="24" height="24" patternUnits="userSpaceOnUse"><rect width="24" height="24" fill="${c1}"/>${dots}</pattern></defs>
-<rect width="${W}" height="${H}" fill="url(#AGG)"/>
-<g class="lb-front" ${piece(0.08, '--sp:1.45')}><path d="${edge}" fill="${o.base}"/><path d="${edge}" fill="none" stroke="${c2}" stroke-width="3" opacity=".55"/>
+  // opts.aggImg: a pre-rendered aggregate texture (same renderer as a site's hero) instead of the SVG stones
+  if (o.aggImg) return `<image href="${esc(o.aggImg)}" width="${W}" height="${H}" preserveAspectRatio="xMidYMid slice"/>
+<g class="lb-front" ${piece(0.08, '--sp:1.45')}><path d="${edge}" fill="${o.base}"/><path d="${edge}" fill="none" stroke="${tones[2]}" stroke-width="3" opacity=".55"/>
+<g transform="translate(-6 0)" class="lb-trowel"><rect x="-6" y="56" width="12" height="30" rx="2" fill="#e8e6e2" stroke="#2b2b2b" stroke-width=".8"/><rect x="-1.5" y="66" width="3" height="10" fill="#2b2b2b"/></g></g>
+<rect class="lb-sheen" width="90" height="${H}" fill="url(#SHEEN)" ${piece(0.82, '--sp:5')}/>`;
+  return `<defs>${groups.map((g, i) => `<path id="RSN${i}" d="${g.join('')}"/>`).join('')}</defs>
+<rect width="${W}" height="${H}" fill="${tones[1]}"/>
+<g opacity=".38" transform="translate(.45 .6)">${tones.map((_, i) => `<use href="#RSN${i}" fill="#000"/>`).join('')}</g>
+${tones.map((c, i) => `<use href="#RSN${i}" fill="${c}"/>`).join('')}
+<path d="${hi.join('')}" fill="#fff" opacity=".24"/>
+<g class="lb-front" ${piece(0.08, '--sp:1.45')}><path d="${edge}" fill="${o.base}"/><path d="${edge}" fill="none" stroke="${tones[2]}" stroke-width="3" opacity=".55"/>
 <g transform="translate(-6 0)" class="lb-trowel"><rect x="-6" y="56" width="12" height="30" rx="2" fill="#e8e6e2" stroke="#2b2b2b" stroke-width=".8"/><rect x="-1.5" y="66" width="3" height="10" fill="#2b2b2b"/></g></g>
 <rect class="lb-sheen" width="90" height="${H}" fill="url(#SHEEN)" ${piece(0.82, '--sp:5')}/>`;
 }
@@ -153,15 +172,34 @@ ${flakes}
 <g class="lb-slide" ${piece(0.76, '--sp:4.4')}><rect y="56" width="${W}" height="11" fill="#ffffff" opacity=".22"/><rect y="56" width="${W}" height="1.6" fill="#ffffff" opacity=".85"/></g>`;
 }
 
-const BUILD = { block: bricks, resin, tarmac, sandstone, 'polished-concrete': polished, microcement, epoxy };
+
+function gravel(o, R) {
+  const C = 20; let cells = '', stones = '';
+  for (let x = 0; x < W; x += C) for (let y = 0; y < H; y += C) cells += `<path d="M${x} ${y}h${C}v${C}h${-C}z" fill="none" stroke="${o.grid}" stroke-width="2"/>`;
+  for (let i = 0; i < 420; i++) { const x = R() * W, y = R() * H, t = 0.34 + 0.5 * ((x + y * .6) / (W + H * .6)) + R() * .04;
+    stones += `<ellipse class="lb-slab" cx="${r2(x)}" cy="${r2(y)}" rx="${r2(2.2 + R() * 2.4)}" ry="${r2(1.8 + R() * 1.8)}" fill="${o.colours[i % o.colours.length]}" ${piece(t, `--dr:${Math.round((R() - .5) * 40)}deg`)}/>`; }
+  return `<rect width="${W}" height="${H}" fill="${o.membrane}"/><g class="lb-slide" ${piece(0.08, '--sp:3.4')}>${cells}</g>${stones}`;
+}
+
+function turf(o, R) {
+  const rows = 4, h = H / rows; let out = '';
+  for (let r = 0; r < rows; r++) {
+    let blades = '';
+    for (let i = 0; i < 90; i++) { const x = R() * W, y = r * h + R() * h; blades += `<path d="M${r2(x)} ${r2(y)} l${r2((R() - .5) * 2)} -3" stroke="${o.colours[i % 3]}" stroke-width="1" opacity=".8"/>`; }
+    out += `<g class="lb-ground" ${piece(0.1 + r * 0.17, '--sp:3.6')}><rect y="${r2(r * h + .6)}" width="${W}" height="${r2(h - 1.2)}" fill="${o.colours[r % 2]}"/>${blades}</g>`;
+  }
+  return `<rect width="${W}" height="${H}" fill="${o.soil}"/>${out}`;
+}
+
+const BUILD = { block: bricks, gravel, turf, resin, tarmac, sandstone, 'polished-concrete': polished, microcement, epoxy };
 
 let uid = 0;
-export function render({ variant = 'block', colours, pattern, label, stages, seed, id } = {}) {
+export function render({ variant = "block", colours, pattern, label, stages, seed, id, aggImg } = {}) {
   if (!BUILD[variant]) throw new Error('layer-build: unknown variant ' + variant);
-  const o = { ...DEFAULTS[variant], ...(colours ? (Array.isArray(colours) ? { colours } : colours) : {}), ...(pattern ? { pattern } : {}) };
+  const o = { ...DEFAULTS[variant], ...(colours ? (Array.isArray(colours) ? { colours } : colours) : {}), ...(pattern ? { pattern } : {}), ...(aggImg ? { aggImg } : {}) };
   const R = rng(seed || 7 + variant.length * 131);
   const key = id || `lb${++uid}`;
-  const svg = BUILD[variant](o, R).replaceAll('url(#CLIP)', `url(#${key}c)`).replaceAll('#AGG', `#${key}a`).replaceAll('id="AGG"', `id="${key}a"`).replaceAll('#PAGG', `#${key}p`).replaceAll('id="PAGG"', `id="${key}p"`).replaceAll('url(#SHEEN)', `url(#${key}s)`);
+  const svg = BUILD[variant](o, R).replaceAll('url(#CLIP)', `url(#${key}c)`).replaceAll('#AGG', `#${key}a`).replaceAll('id="AGG"', `id="${key}a"`).replaceAll('#PAGG', `#${key}p`).replaceAll('id="PAGG"', `id="${key}p"`).replaceAll('url(#SHEEN)', `url(#${key}s)`).replaceAll('RSN', `${key}r`);
   const st = stages || STAGES[variant];
   const at = st.map((_, i) => (st.length === 1 ? .5 : 0.12 + i * (0.74 / (st.length - 1))));
   return `<div class="sig sig-lb sig-lb--${variant}" data-sig-scroll data-a="1" data-b=".28" role="img" aria-label="${esc(label || st.join(', '))}">`

@@ -22,6 +22,8 @@
 .scn [class*="scn-"] { transform-box: fill-box; transform-origin: center; }
 .scn [class*="scn-"] { animation-play-state: paused !important; animation-fill-mode: both !important; }
 .is-playing .scn [class*="scn-"] { animation-play-state: running !important; }
+/* until a card first comes into view, show the finished frame (no paused 0% keyframe) */
+[data-sig-play]:not(.is-in) .scn [class*="scn-"] { animation-name: none !important; }
 .scn-t, .scn-badge, .scn-acc { animation: none !important; }
 
 /* rain + water */
@@ -59,9 +61,14 @@
 
 /* weight + repair */
 .scn-car { animation: scn-car 5s cubic-bezier(.65, 0, .35, 1) infinite; }
-@keyframes scn-car { 0% { transform: translateX(-240px) } 30%, 70% { transform: translateX(0) } 100% { transform: translateX(260px) } }
+@keyframes scn-car { 0%, 35% { transform: translateX(0) } 65% { transform: translateX(260px) } 65.01% { transform: translateX(-240px) } 95%, 100% { transform: translateX(0) } }
 .scn-dip { animation: scn-dip 5s cubic-bezier(.65, 0, .35, 1) infinite; }
-@keyframes scn-dip { 0%, 26%, 74%, 100% { transform: translateY(0) } 34%, 66% { transform: translateY(var(--d, 1px)) } }
+@keyframes scn-dip { 0%, 31% { transform: translateY(var(--d, 1px)) } 39%, 91% { transform: translateY(0) } 99%, 100% { transform: translateY(var(--d, 1px)) } }
+.scn-press { stroke-dasharray: 3 5; animation: scn-press 5s cubic-bezier(.65, 0, .35, 1) infinite, scn-pflow 1.1s linear infinite; }
+@keyframes scn-press { 0%, 30% { opacity: .85 } 38%, 93% { opacity: 0 } 100% { opacity: .85 } }
+@keyframes scn-pflow { to { stroke-dashoffset: -16 } }
+.scn-csh { animation: scn-csh 5s cubic-bezier(.65, 0, .35, 1) infinite; }
+@keyframes scn-csh { 0%, 100% { opacity: .55 } }
 .scn-wave { opacity: 0; animation: scn-wave 5s ease-out infinite; }
 @keyframes scn-wave { 0%, 28% { transform: scale(.3); opacity: 0 } 36% { opacity: .9 } 62%, 100% { transform: scale(1.05); opacity: 0 } }
 .scn-lift__b { animation: scn-lift 4s cubic-bezier(.65, 0, .35, 1) infinite; }
@@ -140,3 +147,21 @@
   .scn [class*="scn-"] { animation: none !important; }
   .scn-sel, .scn-cyc, .scn-cyc2 { opacity: 0 !important; } .scn-first { opacity: 1 !important; }
 }
+
+/* business-claim tiles */
+.scn-num { font: 800 44px/1 var(--sig-display, var(--sig-body, inherit)); fill: var(--st-ink); letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+.scn-stamp-t { font: 800 15px/1 var(--sig-body, inherit); fill: var(--s-accent); letter-spacing: .14em; }
+.scn-stamp-t--s { font-size: 10.5px; letter-spacing: .2em; }
+.scn-pop { animation: scn-pop 4.2s cubic-bezier(.22, 1, .36, 1) infinite; }
+@keyframes scn-pop { 0%, 62% { transform: scale(1); opacity: 1 } 70% { transform: scale(.4); opacity: 0 } 74% { transform: scale(.4); opacity: 0 } 88%, 100% { transform: scale(1); opacity: 1 } }
+.scn-stampin { animation: scn-stampin 4.4s cubic-bezier(.3, 1.4, .5, 1) infinite; }
+@keyframes scn-stampin { 0%, 66% { transform: scale(1) rotate(-6deg); opacity: 1 } 72% { transform: scale(1.5) rotate(-14deg); opacity: 0 } 76% { transform: scale(1.5) rotate(-14deg); opacity: 0 } 88% { transform: scale(.95) rotate(-6deg); opacity: 1 } 93%, 100% { transform: scale(1) rotate(-6deg); opacity: 1 } }
+.scn-stampin { transform: rotate(-6deg); }
+.scn-reel { transform-box: view-box !important; animation: scn-reel 4.6s cubic-bezier(.45, 0, .2, 1) infinite; }
+@keyframes scn-reel { 0%, 60% { transform: translateY(-520px) } 60.1% { transform: translateY(0) } 66% { transform: translateY(0) } 90%, 100% { transform: translateY(-520px) } }
+.scn-fill { transform-origin: bottom !important; animation: scn-fill 5.2s ease-in-out infinite; }
+.scn-fill { transform: scaleY(.62); }
+@keyframes scn-fill { 0%, 15% { transform: scaleY(.62) } 60% { transform: scaleY(.12) } 100% { transform: scaleY(.62) } }
+.scn-flowout { animation: scn-flow 1.2s linear infinite; }
+.scn-tape { transform-box: view-box !important; animation: scn-tape 4.6s cubic-bezier(.22, 1, .36, 1) infinite; }
+@keyframes scn-tape { 0%, 58% { transform: scaleX(1) } 70%, 74% { transform: scaleX(0) } 96%, 100% { transform: scaleX(1) } }

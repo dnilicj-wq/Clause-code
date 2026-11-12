@@ -58,7 +58,7 @@ export const SCENES = {
     const surf = stoneBed(18, 104, 284, 16, 40, colours, 3, 3.6);
     const base = stoneBed(18, 128, 284, 22, 30, ['#5d5a55', '#77736c', '#4a4844', '#8a857c'], 9, 4.6);
     const seep = Array.from({ length: 8 }, (_, i) => `<circle class="scn-seep" ${del(i * 0.31)} cx="${36 + i * 35}" cy="112" r="2.1" fill="#9fd4ff"/>`).join('');
-    return frame('wide', id, `${night ? `<circle cx="262" cy="34" r="12" fill="var(--st-glow)" opacity=".18"/>` : ''}
+    return frame('wide', id, `${night ? `` : ''}
 ${rain(id, 22, 10, 310, 6, 96)}
 <rect x="0" y="152" width="320" height="48" fill="#1b1612" opacity=".75"/><rect x="0" y="122" width="320" height="32" fill="#2a2724"/>${base}
 <rect x="0" y="98" width="320" height="26" fill="${esc(shade(colours[1], -0.55))}"/>${surf}
@@ -69,25 +69,35 @@ ${label(14, 92, 'Resin bound surface')}${label(14, 186, 'Water drains to the gro
 
   weeds: ({ label: l = 'Weeds root in block joints but have nowhere to grow in resin', colours = ['#c9ab7f', '#b8955f', '#e0c9a0', '#8f7450'] }) => {
     const id = 'sc' + ++N;
-    const blocks = Array.from({ length: 6 }, (_, i) => `<rect x="${12 + i * 24}" y="106" width="22" height="30" rx="2" fill="${blockC[i % 4]}"/><rect x="${12 + i * 24}" y="106" width="22" height="3" fill="#fff" opacity=".16"/>`).join('');
-    return frame('wide', id, `<rect x="0" y="136" width="320" height="64" fill="#2a2420"/>
-${blocks}<rect x="0" y="134" width="156" height="4" fill="#1a1512"/>
-<g class="scn-sprout" style="transform-origin:58px 106px"><path d="M58 106 q-2 -16 3 -28" stroke="#7fae4a" stroke-width="2.4" fill="none" stroke-linecap="round"/><path d="M60 88 q-14 -4 -16 -15 q12 0 16 15z" fill="#8cbf55"/><path d="M61 82 q12 -7 17 -3 q-7 8 -17 3z" fill="#6f9e3f"/></g>
-<g class="scn-sprout" style="transform-origin:106px 106px;animation-delay:.6s"><path d="M106 106 q2 -10 -2 -18" stroke="#7fae4a" stroke-width="2" fill="none"/><path d="M104 92 q-10 -2 -12 -10 q9 0 12 10z" fill="#8cbf55"/></g>
-<rect x="164" y="104" width="146" height="32" rx="3" fill="${esc(shade(colours[1], -0.5))}"/>${stoneBed(168, 110, 138, 22, 22, colours, 5, 3.5)}
-<rect x="164" y="104" width="146" height="2" fill="#fff" opacity=".22"/>
-<clipPath id="${id}c"><rect x="164" y="104" width="146" height="32"/></clipPath>${sheen(id, id + 'c', 164, 104, 146, 32)}
-${tickBadge(237, 76)}
-${label(84, 160, 'Gaps between blocks', 'middle')}${label(237, 160, 'One surface, no gaps', 'middle')}`, l);
+    const blocks = Array.from({ length: 6 }, (_, i) => `<rect x="${12 + i * 24}" y="112" width="22" height="30" rx="2" fill="${blockC[i % 4]}"/><rect x="${12 + i * 24}" y="112" width="22" height="3" fill="#fff" opacity=".16"/>`).join('');
+    const weed = (x, h, d) => `<g class="scn-sprout" style="transform-origin:${x}px 112px;animation-delay:${d}s"><path d="M${x} 112 q-3 ${-h * .55} 4 ${-h}" stroke="#7fae4a" stroke-width="2.4" fill="none" stroke-linecap="round"/><path d="M${x + 2} ${112 - h * .62} q-16 -4 -18 -16 q14 0 18 16z" fill="#8cbf55"/><path d="M${x + 3} ${112 - h * .82} q14 -8 19 -3 q-8 9 -19 3z" fill="#6f9e3f"/><path d="M${x + 4} ${112 - h} q-6 -10 2 -16 q4 9 -2 16z" fill="#9ccd62"/></g>`;
+    return frame('wide', id, `<rect x="0" y="142" width="320" height="58" fill="#2a2420"/>
+<path d="M160 22 V176" stroke="var(--st-ink)" stroke-opacity=".12" stroke-dasharray="3 4"/>
+${label(84, 34, 'Block paving', 'middle')}${label(237, 34, 'Resin bound', 'middle')}
+${blocks}<rect x="0" y="140" width="156" height="4" fill="#1a1512"/>
+${weed(58, 46, 0)}${weed(106, 32, 0.6)}${weed(130, 22, 1.1)}
+<rect x="164" y="110" width="146" height="32" rx="3" fill="${esc(shade(colours[1], -0.5))}"/>${stoneBed(168, 116, 138, 22, 22, colours, 5, 3.5)}
+<rect x="164" y="110" width="146" height="2" fill="#fff" opacity=".22"/>
+<clipPath id="${id}c"><rect x="164" y="110" width="146" height="32"/></clipPath>${sheen(id, id + 'c', 164, 110, 146, 32)}
+<g transform="translate(237 72)"><rect x="-46" y="-14" width="92" height="28" rx="14" fill="var(--s-accent)" fill-opacity=".16" stroke="var(--s-accent)" stroke-opacity=".6"/><circle cx="-30" r="8" class="scn-acc"/><path d="M-33.4 .2 l2.3 2.3 l4.7 -4.9" fill="none" stroke="var(--sig-accent-ink,#fff)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><text class="scn-t" x="-17" y="4">No gaps</text></g>
+${label(84, 168, 'Weeds root in the joints', 'middle', ' scn-t--dim')}${label(237, 168, 'One surface, no joints', 'middle', ' scn-t--dim')}`, l);
   },
 
   interlock: ({ label: l = 'Interlocked blocks spread a car’s weight across the drive', colours = blockC }) => {
     const id = 'sc' + ++N;
     const row = Array.from({ length: 13 }, (_, i) => `<g class="scn-dip" style="animation-delay:${f1(Math.abs(i - 6) * 0.07)}s;--d:${f1(Math.max(0, 2.2 - Math.abs(i - 6) * 0.35))}px"><rect x="${4 + i * 24.4}" y="120" width="23" height="26" rx="2" fill="${colours[i % colours.length]}"/><rect x="${4 + i * 24.4}" y="120" width="23" height="3" fill="#fff" opacity=".18"/></g>`).join('');
-    const waves = [0, 1, 2].map((k) => `<ellipse class="scn-wave" ${del(1 + k * 0.28)} cx="160" cy="146" rx="${40 + k * 40}" ry="${9 + k * 4}" fill="none" stroke="var(--s-accent)" stroke-width="1.6"/>`).join('');
-    return frame('wide', id, `<rect x="0" y="146" width="320" height="18" fill="#57524b"/>${stoneBed(6, 151, 310, 10, 40, ['#6a655d', '#7b766d', '#5a564f'], 4, 2.6)}<rect x="0" y="164" width="320" height="36" fill="#231e1a"/>
-${waves}${row}
-<g class="scn-car"><path d="M104 104 V88 q0 -8 8 -9 l16 -2 q12 -16 30 -16 h20 q16 0 28 16 l14 3 q8 2 8 10 V104Z" fill="#2f3339"/><path d="M134 77 q10 -12 24 -12 h8 v12z M172 65 h4 q12 0 20 12 h-24z" fill="#9fb7c9" opacity=".55"/><rect x="104" y="96" width="124" height="3" fill="#fff" opacity=".08"/><circle cx="134" cy="106" r="13" fill="#121315"/><circle cx="134" cy="106" r="5.5" fill="#9a9ea4"/><circle cx="200" cy="106" r="13" fill="#121315"/><circle cx="200" cy="106" r="5.5" fill="#9a9ea4"/></g>
+    const fan = (x) => [-34, -17, 0, 17, 34].map((dx) => `<path class="scn-press" d="M${x} 122 L${x + dx} 160" stroke="var(--s-accent)" stroke-width="1.4" stroke-linecap="round" fill="none"/>`).join('');
+    const wheel = (x) => `<circle cx="${x}" cy="108" r="12" fill="#0d0e10"/><circle cx="${x}" cy="108" r="7.5" fill="#3a3e45"/><circle cx="${x}" cy="108" r="7.5" fill="none" stroke="#b9bec6" stroke-width="1.2" stroke-dasharray="2.2 2.5"/><circle cx="${x}" cy="108" r="2.2" fill="#c9ced6"/>`;
+    return frame('wide', id, `<defs><linearGradient id="${id}C" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a5260"/><stop offset=".55" stop-color="#2a2f37"/><stop offset="1" stop-color="#171a1f"/></linearGradient><linearGradient id="${id}G" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#9fb7c9" stop-opacity=".25"/><stop offset=".5" stop-color="#cfe0ee" stop-opacity=".7"/><stop offset="1" stop-color="#9fb7c9" stop-opacity=".25"/></linearGradient></defs>
+<rect x="0" y="146" width="320" height="18" fill="#57524b"/>${stoneBed(6, 151, 310, 10, 40, ['#6a655d', '#7b766d', '#5a564f'], 4, 2.6)}<rect x="0" y="164" width="320" height="36" fill="#231e1a"/>
+${row}
+<g class="scn-car">${fan(134)}${fan(204)}
+<ellipse cx="169" cy="121" rx="72" ry="3.2" fill="#000" opacity=".45" style="filter:blur(2px)"/><ellipse cx="134" cy="120.5" rx="13" ry="2" fill="#000" opacity=".75"/><ellipse cx="204" cy="120.5" rx="13" ry="2" fill="#000" opacity=".75"/>
+<path d="M100 110 L100 99 Q100 92 107 90 L128 86 Q142 72 160 70 L186 70 Q204 71 218 85 L232 89 Q240 91 240 99 L240 110 Z" fill="url(#${id}C)"/>
+<path d="M134 85 Q146 75 160 74 L170 74 L170 85 Z M175 74 L186 74 Q199 75 210 85 L175 85 Z" fill="url(#${id}G)"/>
+<path d="M104 96 L236 96" stroke="#fff" stroke-opacity=".14"/><path d="M128 86 Q150 82 216 85" stroke="#fff" stroke-opacity=".22" fill="none"/>
+<rect x="233" y="93" width="7" height="3" rx="1.5" fill="#ff5a4e" style="filter:drop-shadow(0 0 4px #ff5a4e)"/><rect x="100" y="93" width="7" height="2.6" rx="1.3" fill="#e9f1ff" style="filter:drop-shadow(0 0 4px #cfe0ff)"/>
+${wheel(134)}${wheel(204)}</g>
 ${label(14, 30, 'Load spreads through the blocks')}`, l);
   },
 
@@ -309,6 +319,52 @@ ${Array.from({ length: 6 }, (_, i) => `<ellipse class="scn-run" ${del(i * 0.4)} 
 <path d="M88 40 L60 230 M112 40 L140 230" stroke="#fff" stroke-opacity=".12" stroke-width="10"/>${steps}
 <clipPath id="${id}c"><path d="M70 40 H130 L200 230 H0Z"/></clipPath>${sheen(id, id + 'c', 0, 40, 200, 190)}`, l);
   },
+// ============ business-claim tiles (200×230) ============
+  rating: ({ label: l, value = '5.0', count = '' }) => {
+    const id = 'sc' + ++N;
+    const star = 'M0 -12 L3.5 -3.9 L12 -3.7 L5.2 1.7 L7.6 10 L0 5.2 L-7.6 10 L-5.2 1.7 L-12 -3.7 L-3.5 -3.9Z';
+    return frame('tile', id, `<ellipse cx="100" cy="96" rx="86" ry="26" fill="var(--st-glow)" opacity=".07"/>${Array.from({ length: 5 }, (_, i) => `<g transform="translate(${36 + i * 32} 88)"><path class="scn-pop" d="${star}" fill="#F5B731" style="filter:drop-shadow(0 0 6px rgba(245,183,49,.6));animation-delay:${f1(i * .16)}s"/></g>`).join('')}
+<text class="scn-num" x="100" y="146" text-anchor="middle">${esc(value)}</text>${count ? label(100, 172, count, 'middle', ' scn-t--dim') : ''}`, l || `${value} stars`);
+  },
+  years: ({ label: l, value = '20+', unit = 'years' }) => {
+    const id = 'sc' + ++N;
+    return frame('tile', id, `<circle cx="100" cy="114" r="56" fill="none" stroke="var(--st-ink)" stroke-opacity=".12" stroke-width="3"/>
+<circle class="scn-draw" pathLength="1" cx="100" cy="114" r="56" fill="none" stroke="var(--s-accent)" stroke-width="3.4" stroke-linecap="round" transform="rotate(-90 100 114)" style="filter:drop-shadow(0 0 5px var(--s-accent))"/>
+${Array.from({ length: 20 }, (_, i) => `<path d="M100 50 v6" stroke="var(--st-ink)" stroke-opacity=".3" transform="rotate(${i * 18} 100 114)"/>`).join('')}
+<text class="scn-num" x="100" y="124" text-anchor="middle">${esc(value)}</text>${label(100, 146, unit, 'middle', ' scn-t--dim')}`, l || `${value} ${unit}`);
+  },
+  stamp: ({ label: l, top = '10 YEAR', bottom = 'GUARANTEE' }) => {
+    const id = 'sc' + ++N;
+    return frame('tile', id, `<g class="scn-stampin"><circle cx="100" cy="114" r="58" fill="none" stroke="var(--s-accent)" stroke-width="3" style="filter:drop-shadow(0 0 6px var(--s-accent))"/><circle cx="100" cy="114" r="49" fill="none" stroke="var(--s-accent)" stroke-width="1.2" stroke-dasharray="2 3"/>
+<text class="scn-stamp-t" x="100" y="110" text-anchor="middle">${esc(top)}</text><text class="scn-stamp-t scn-stamp-t--s" x="100" y="130" text-anchor="middle">${esc(bottom)}</text></g>`, l || `${top} ${bottom}`);
+  },
+  zero: ({ label: l = 'No upfront payment', caption = 'Upfront' }) => {
+    const id = 'sc' + ++N;
+    const digits = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0].map((d, i) => `<text class="scn-num" x="0" y="${i * 52}" text-anchor="middle">${d}</text>`).join('');
+    return frame('tile', id, `<rect x="48" y="78" width="104" height="72" rx="10" fill="#000" opacity=".35" stroke="var(--st-ink)" stroke-opacity=".14"/>
+<clipPath id="${id}c"><rect x="56" y="84" width="88" height="60" rx="6"/></clipPath>
+<text class="scn-num" x="82" y="130" text-anchor="middle" style="font-size:30px;opacity:.8">£</text>
+<g clip-path="url(#${id}c)"><g transform="translate(116 130)"><g class="scn-reel">${digits}</g></g></g>
+<rect x="56" y="84" width="88" height="16" fill="url(#${id}B)" opacity=".7"/><rect x="56" y="128" width="88" height="16" fill="url(#${id}B)" opacity=".7"/>
+<path d="M54 114 h6 M140 114 h6" stroke="var(--s-accent)" stroke-width="2" style="filter:drop-shadow(0 0 4px var(--s-accent))"/>${label(100, 172, caption, 'middle', ' scn-t--dim')}`, l);
+  },
+  gauge: ({ label: l = 'SUDS-compliant: rain drains away' }) => {
+    const id = 'sc' + ++N;
+    return frame('tile', id, `${rain(id, 7, 64, 136, 40, 70, 4)}
+<path d="M70 74 h60 l-8 10 v84 a4 4 0 0 1 -4 4 h-36 a4 4 0 0 1 -4 -4 v-84z" fill="#fff" fill-opacity=".05" stroke="var(--st-ink)" stroke-opacity=".5" stroke-width="1.6"/>
+<clipPath id="${id}c"><path d="M79 86 h42 v82 h-42z"/></clipPath>
+<g clip-path="url(#${id}c)"><rect class="scn-fill" x="79" y="96" width="42" height="72" fill="#7fc4ff" opacity=".55"/></g>
+${[0, 1, 2, 3, 4].map((i) => `<path d="M114 ${100 + i * 16} h7" stroke="var(--st-ink)" stroke-opacity=".55"/>`).join('')}
+<path class="scn-flowout" d="M100 176 v14 q0 6 6 6 h40" fill="none" stroke="#7fc4ff" stroke-width="2.4" stroke-dasharray="6 8" opacity=".85"/>${label(156, 178, 'Drains', 'middle', ' scn-t--dim')}`, l);
+  },
+  tape: ({ label: l = 'Free measuring' }) => {
+    const id = 'sc' + ++N;
+    const ticks = Array.from({ length: 22 }, (_, i) => `<path d="M${48 + i * 6} 114 v${i % 5 ? 4 : 8}" stroke="#1d1d1f" stroke-width=".9"/>`).join('');
+    return frame('tile', id, `<path d="M20 150 H190" stroke="var(--st-ink)" stroke-opacity=".14"/>
+<g class="scn-tape" style="transform-origin:46px 120px"><rect x="46" y="112" width="132" height="16" rx="1.5" fill="var(--s-accent)"/>${ticks}<rect x="176" y="108" width="5" height="24" rx="1" fill="#d9d6d0"/></g>
+<rect x="12" y="98" width="44" height="44" rx="10" fill="#2b2e33" stroke="var(--st-ink)" stroke-opacity=".25"/><circle cx="34" cy="120" r="10" fill="none" stroke="var(--st-ink)" stroke-opacity=".35" stroke-width="2"/><circle cx="34" cy="120" r="3" fill="var(--s-accent)"/>
+${label(112, 168, 'Measured on site, free', 'middle', ' scn-t--dim')}`, l);
+  }
 };
 
 export function scene(key, props = {}) {
