@@ -1,0 +1,10 @@
+import { chromium } from 'playwright';
+const b = await chromium.launch({ executablePath: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', args: ['--headless=new'] });
+const ctx = await b.newContext({ viewport: { width: 412, height: 823 }, deviceScaleFactor: 1.75, isMobile: true, hasTouch: true });
+const p = await ctx.newPage(); const c = await ctx.newCDPSession(p);
+await c.send('Network.emulateNetworkConditions', { offline: false, latency: 150, downloadThroughput: 1.6e6 / 8, uploadThroughput: 750e3 / 8 });
+await c.send('Emulation.setCPUThrottlingRate', { rate: 4 });
+await p.addInitScript(() => { window.__l = []; new PerformanceObserver((l) => l.getEntries().forEach((e) => window.__l.push({ t: Math.round(e.startTime), el: e.element ? e.element.tagName + '.' + e.element.className + ' ' + (e.url || '').slice(-40) + ' ' + (e.element.textContent || '').slice(0, 30) : '?', size: e.size }))).observe({ type: 'largest-contentful-paint', buffered: true }); });
+await p.goto(process.argv[2], { waitUntil: 'load' }); await p.waitForTimeout(3000);
+console.log(await p.evaluate(() => window.__l));
+await b.close();

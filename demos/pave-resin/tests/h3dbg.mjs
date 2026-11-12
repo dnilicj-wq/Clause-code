@@ -1,0 +1,13 @@
+import { chromium } from 'playwright';
+const [base, out, k] = process.argv.slice(2);
+const b = await chromium.launch({ executablePath: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', args: ['--use-angle=metal', '--enable-gpu', '--ignore-gpu-blocklist'] });
+const ctx = await b.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, isMobile: true, hasTouch: true });
+const p = await ctx.newPage();
+await p.goto(base + '/', { waitUntil: 'load' });
+await p.waitForFunction(() => window.__heroReady, null, { timeout: 30000 });
+await p.addStyleTag({ content: '.hp-in,.hp-shade,.hp-lamp,.hoffer,header,.bbar{visibility:hidden!important}' });
+await p.evaluate((k) => { window.__hp.fill(k); }, k);
+await p.waitForTimeout(4000);
+console.log(await p.evaluate(() => { const d = window.__hp._dbg; const L = d.layers.get('resin') || d.layers.get('tarmac'); const m = L && L.group.children[0].material; return JSON.stringify({ aniso: d.renderer.capabilities.getMaxAnisotropy(), map: !!(m && m.map), rep: m && m.map && m.map.repeat, img: m && m.map && m.map.image && [m.map.image.width, m.map.image.height], mips: m && m.map && m.map.generateMipmaps }); }));
+await p.screenshot({ path: out });
+await b.close();

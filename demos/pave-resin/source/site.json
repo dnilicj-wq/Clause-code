@@ -1,0 +1,945 @@
+{
+  "url": "https://clientgateway-pave-resin.dnilicj.workers.dev",
+  "font": {
+    "family": "Archivo",
+    "file": "fonts/archivo.woff2",
+    "weight": 800,
+    "range": "700 900",
+    "transform": "none",
+    "spacing": "-.035em"
+  },
+  "brand": {
+    "primary": "#2F6BE0",
+    "primaryDark": "#1E4FB4",
+    "ink": "#121417",
+    "alt": "#ECE7DF",
+    "logo": "assets/05-19-11-53-23-e1779380683957.jpg",
+    "logoInline": "logo-inline.svg",
+    "headerBg": "#0E1013",
+    "headerInk": "#F4F1EC",
+    "footerBg": "#0A0B0D",
+    "logoBg": "transparent"
+  },
+  "faviconFile": "favicon.svg",
+  "favicon": "/favicon.svg",
+  "radius": 10,
+  "btnRadius": 10,
+  "motion": true,
+  "homeTitle": "Pave Resin Ltd | Resin driveways, block paving & patios, Manchester",
+  "homeDesc": "Resin driveways, block paving, tarmac, gravel, patios and landscaping across Manchester & Greater Manchester. 20+ years, 10yr guarantee, no upfront payment. 5.0 on Google.",
+  "heroHeadline": "Driveways Manchester talks about.",
+  "heroHeadlineHtml": "Driveways Manchester <em>talks about.</em>",
+  "heroSub": "Resin, block paving and patios across Manchester & Greater Manchester. 20+ years, 10-year guarantee, no upfront payment.",
+  "heroProof": "<span class=\"st\" aria-hidden=\"true\">★</span> 5.0 · 84 Google reviews · 20+ years · 10yr guarantee",
+  "offer": "<b>15% off</b> all driveways &amp; patios<span class=\"ow\"> · Autumn/Winter offer</span>, quote <b>PAVE15</b>",
+  "ctaLabel": "Book my free survey",
+  "ctaShort": "Free survey",
+  "submitLabel": "Book my free survey",
+  "qfree": "Free survey & measure",
+  "formLabel": "Book a free survey",
+  "formDirect": true,
+  "formWord": "free survey",
+  "formDone": "Charles's team will be in touch.",
+  "waText": "Hi Charles, I'd like to book a free survey please",
+  "reviewLabel": "Google review",
+  "hero": {
+    "img": "assets/01-21-16.40.48.jpg",
+    "pos": "center 62%",
+    "posM": "58% center",
+    "alt": "Silver resin driveway with red-brick pillars, laid by Pave Resin Ltd",
+    "mobileImg": "assets/01-21-16.40.48.jpg",
+    "mobileWidths": [
+      640,
+      828,
+      1080
+    ]
+  },
+  "statLine": "<b>20+</b> years <i>·</i> <b>10yr</b> guarantee <i>·</i> <b>£0</b> upfront <i>·</i> Free survey &amp; measure",
+  "servicesTitle": "Six surfaces, one Manchester team.",
+  "servicesLead": "Resin, block, tarmac, gravel, patios and garden makeovers, all fully guaranteed and insured.",
+  "services": [
+    {
+      "name": "Resin driveways",
+      "short": "Resin drive",
+      "title": "Resin Driveways, Manchester",
+      "cardLine": "SUDS-compliant resin drives in a wide choice of colours and finishes.",
+      "copy": "Resin driveways from a local Manchester team with over 20 years of experience. Our resin drives are SUDS-compliant, so rain drains away instead of running off.\n\nEvery job starts with a free survey and free measuring, there's no upfront payment necessary, and all work is fully guaranteed and insured with a 10yr guarantee.",
+      "points": [
+        "SUDS-compliant",
+        "10yr guarantee",
+        "No upfront payment necessary"
+      ],
+      "imgs": [
+        "assets/05-20-10.33.46-2.jpeg",
+        "assets/01-21-16.40.48.jpg",
+        "assets/05-20-10.33.46-1.jpeg",
+        "assets/05-20-10.33.46-3.jpeg",
+        "assets/05-20-10.33.48-2.jpeg",
+        "assets/05-20-10.33.46-5.jpeg",
+        "assets/05-20-10.33.46.jpeg"
+      ],
+      "match": [
+        "drive"
+      ],
+      "build": {
+        "variant": "resin",
+        "colours": {
+          "colours": [
+            "#c4c5c4",
+            "#a7a8a8",
+            "#dcdcda",
+            "#8b8c8d"
+          ],
+          "base": "#3a3b3e"
+        },
+        "label": "Silver resin aggregate being poured and trowelled level",
+        "aggImg": "/resin-agg.webp"
+      }
+    },
+    {
+      "name": "Block paving",
+      "short": "Block paving",
+      "title": "Block Paving, Manchester",
+      "cardLine": "Herringbone block drives with crisp borders, in a wide range of colours and patterns.",
+      "copy": "Block paving driveways laid by a local Manchester team with over 20 years of experience, in a wide range of colours and patterns.\n\nFree surveys and free measuring, no upfront payment necessary, and all work fully guaranteed and insured.",
+      "points": [
+        "Free survey and free measuring",
+        "Fully guaranteed and insured",
+        "Best Quotes Guaranteed"
+      ],
+      "imgs": [
+        "assets/05-19-13.55.48-4.jpeg",
+        "assets/05-19-13.55.47-2.jpeg",
+        "assets/05-19-13.55.48-2.jpeg",
+        "assets/05-19-13.55.47-4.jpeg",
+        "assets/05-19-13.55.48-1.jpeg",
+        "assets/05-20-10.33.47-4.jpeg"
+      ],
+      "match": [
+        "drive"
+      ],
+      "build": {
+        "variant": "block",
+        "pattern": "herringbone",
+        "colours": {
+          "colours": [
+            "#4a4b4e",
+            "#5d5f62",
+            "#8f9194",
+            "#3e3f42"
+          ],
+          "joint": "#b9b6b0",
+          "border": "#26272a"
+        },
+        "label": "Charcoal and silver herringbone block paving with a border being laid"
+      }
+    },
+    {
+      "name": "Tarmac driveways",
+      "short": "Tarmac",
+      "title": "Tarmac Driveways, Manchester",
+      "cardLine": "Built up properly: sub-base, binder course, surface course.",
+      "copy": "Tarmac driveways from a local Manchester team with over 20 years of experience.\n\nFree surveys and free measuring, no upfront payment necessary, and all work fully guaranteed and insured.",
+      "points": [
+        "Free survey and free measuring",
+        "No upfront payment necessary",
+        "Fully guaranteed and insured"
+      ],
+      "imgs": [
+        "assets/05-19-14.08.04.jpeg"
+      ],
+      "match": [
+        "drive"
+      ],
+      "build": {
+        "variant": "tarmac",
+        "colours": {
+          "colours": [
+            "#26272a"
+          ]
+        },
+        "label": "Tarmac drive built up from sub-base to surface course"
+      }
+    },
+    {
+      "name": "Gravel driveways",
+      "short": "Gravel",
+      "title": "Gravel Driveways, Manchester",
+      "cardLine": "A natural, free-draining finish that's quick to lay.",
+      "copy": "Gravel driveways from a local Manchester team with over 20 years of experience.\n\nFree surveys and free measuring, no upfront payment necessary, and all work fully guaranteed and insured.",
+      "points": [
+        "Free survey and free measuring",
+        "No upfront payment necessary",
+        "Fully guaranteed and insured"
+      ],
+      "imgs": [
+        "assets/05-19-13.55.47-2.jpeg"
+      ],
+      "noPhotoCard": true,
+      "match": [
+        "drive"
+      ],
+      "build": {
+        "variant": "gravel",
+        "label": "Grey gravel being laid for a natural, free-draining finish"
+      }
+    },
+    {
+      "name": "Patios",
+      "short": "Patio",
+      "title": "Patios: Porcelain, Sandstone & Natural Stone",
+      "cardLine": "Porcelain, sandstone and natural stone, laid with crisp joints.",
+      "copy": "Porcelain, sandstone and natural stone patios from a local Manchester team with over 20 years of experience.\n\nFree surveys and free measuring, no upfront payment necessary, and all work fully guaranteed and insured.",
+      "points": [
+        "Porcelain, sandstone and natural stone",
+        "Free survey and free measuring",
+        "Fully guaranteed and insured"
+      ],
+      "imgs": [
+        "assets/05-20-10.31.49-3.jpeg",
+        "assets/1000008698.webp",
+        "assets/05-20-10.31.49-5.jpeg",
+        "assets/05-20-10.31.48-3.jpeg",
+        "assets/05-19-13.55.48-6.jpeg",
+        "assets/05-20-10.31.49-1.jpeg"
+      ],
+      "match": [
+        "garden",
+        "patio"
+      ],
+      "build": {
+        "variant": "sandstone",
+        "colours": {
+          "colours": [
+            "#cfcfcc",
+            "#c4c4c1",
+            "#d8d8d5",
+            "#bdbdba"
+          ],
+          "joint": "#55575b"
+        },
+        "stages": [
+          "Mortar bed",
+          "Porcelain laid",
+          "Joints pointed"
+        ],
+        "label": "Light grey porcelain slabs dropping into place with crisp joints"
+      }
+    },
+    {
+      "name": "Landscaping",
+      "short": "Landscaping",
+      "title": "Landscaping & Garden Makeovers",
+      "cardLine": "Garden makeovers: new paving, fresh lawn, clean edges.",
+      "copy": "Garden makeovers from a local Manchester team with over 20 years of experience, from new patios to fresh lawns.\n\nFree surveys and free measuring, no upfront payment necessary, and all work fully guaranteed and insured.",
+      "points": [
+        "Garden makeovers",
+        "Free survey and free measuring",
+        "Fully guaranteed and insured"
+      ],
+      "imgs": [
+        "assets/05-20-10.31.49-2.jpeg",
+        "assets/05-19-14.08.06-1.jpeg",
+        "assets/05-20-10.31.49-4.jpeg",
+        "assets/05-20-10.31.49-1.jpeg"
+      ],
+      "match": [
+        "garden"
+      ],
+      "build": {
+        "variant": "turf",
+        "label": "Fresh turf rolling out over levelled soil"
+      }
+    }
+  ],
+  "quoteTiles": [
+    [
+      "Resin drive",
+      "resin"
+    ],
+    [
+      "Block paving",
+      "block"
+    ],
+    [
+      "Tarmac",
+      "tarmac"
+    ],
+    [
+      "Gravel",
+      "drive"
+    ],
+    [
+      "Patio",
+      "patio"
+    ],
+    [
+      "Landscaping",
+      "garden"
+    ]
+  ],
+  "quoteSizes": [
+    "Small (1 car / small patio)",
+    "Medium (2 cars)",
+    "Large (3+ cars)",
+    "Not sure yet"
+  ],
+  "q3Title": "When would you like it done?",
+  "q3Opts": [
+    "As soon as possible",
+    "In the next 1–3 months",
+    "3–6 months",
+    "Just planning"
+  ],
+  "postcodeEg": "M33 7XX",
+  "configurator": {
+    "type": "drive",
+    "title": "Design your drive.",
+    "lead": "Pick resin or herringbone block, a colour and a border, and see it on a real Manchester semi.",
+    "aspect": "4/3",
+    "scene": "photo",
+    "cta": "Get a free survey for this drive",
+    "borders": [
+      "None",
+      "Charcoal",
+      "Silver",
+      "Brindle"
+    ],
+    "alt": "Pave Resin photo of a red-brick semi with the driveway re-laid in your chosen surface",
+    "areas": [
+      {
+        "key": "drive",
+        "label": "Driveway",
+        "surfaces": [
+          "resin",
+          "block"
+        ],
+        "colours": {
+          "resin": [
+            "Silver",
+            "Grey",
+            "Buff",
+            "Bronze"
+          ],
+          "block": [
+            "Charcoal",
+            "Silver",
+            "Brindle"
+          ]
+        }
+      }
+    ],
+    "tileFor": {
+      "resin": "Resin drive",
+      "block": "Block paving",
+      "drive": "Resin drive"
+    },
+    "photo": {
+      "file": "assets/01-21-16.40.48.jpg",
+      "src": "/cfg-photo.webp",
+      "w": 1600,
+      "h": 1200,
+      "crop": [
+        300,
+        150,
+        1200,
+        900
+      ],
+      "poly": [
+        [
+          412,
+          616
+        ],
+        [
+          520,
+          592
+        ],
+        [
+          640,
+          567
+        ],
+        [
+          790,
+          567
+        ],
+        [
+          800,
+          575
+        ],
+        [
+          940,
+          580
+        ],
+        [
+          1100,
+          585
+        ],
+        [
+          1115,
+          584
+        ],
+        [
+          1277,
+          593
+        ],
+        [
+          1286,
+          600
+        ],
+        [
+          1268,
+          700
+        ],
+        [
+          1256,
+          812
+        ],
+        [
+          1252,
+          850
+        ],
+        [
+          1253,
+          884
+        ],
+        [
+          1100,
+          869
+        ],
+        [
+          820,
+          841
+        ],
+        [
+          600,
+          820
+        ],
+        [
+          370,
+          804
+        ],
+        [
+          428,
+          768
+        ],
+        [
+          424,
+          700
+        ],
+        [
+          418,
+          640
+        ]
+      ],
+      "plane": [
+        [
+          0,
+          0
+        ],
+        [
+          7,
+          0
+        ],
+        [
+          7,
+          6
+        ],
+        [
+          0,
+          6
+        ]
+      ],
+      "img": [
+        [
+          432,
+          772
+        ],
+        [
+          1243,
+          833
+        ],
+        [
+          975,
+          581
+        ],
+        [
+          690,
+          571
+        ]
+      ],
+      "extent": [
+        -4,
+        15,
+        -0.38,
+        10
+      ],
+      "shadeK": 0.85,
+      "frontFlat": 0.55
+    }
+  },
+  "pairs": [],
+  "galleryTitle": "Real drives. Real Manchester streets.",
+  "galleryFilters": true,
+  "gallery": [
+    {
+      "img": "assets/01-21-16.40.48.jpg",
+      "caption": "Silver resin drive",
+      "cat": "Resin",
+      "size": "big"
+    },
+    {
+      "img": "assets/05-19-13.55.48-4.jpeg",
+      "caption": "Charcoal herringbone with border",
+      "cat": "Block"
+    },
+    {
+      "img": "assets/05-20-10.33.46-2.jpeg",
+      "caption": "Resin drive",
+      "cat": "Resin",
+      "size": "tall"
+    },
+    {
+      "img": "assets/05-20-10.31.49-3.jpeg",
+      "caption": "Porcelain patio and lawn",
+      "cat": "Patios & gardens"
+    },
+    {
+      "img": "assets/05-19-13.55.47-4.jpeg",
+      "caption": "Brindle block paving",
+      "cat": "Block"
+    },
+    {
+      "img": "assets/05-20-10.33.46-6.jpeg",
+      "caption": "Resin drive",
+      "cat": "Resin"
+    },
+    {
+      "img": "assets/05-19-13.55.48-2.jpeg",
+      "caption": "Herringbone with double border",
+      "cat": "Block",
+      "size": "big"
+    },
+    {
+      "img": "assets/05-20-10.31.49-5.jpeg",
+      "caption": "Porcelain patio",
+      "cat": "Patios & gardens"
+    },
+    {
+      "img": "assets/05-20-10.33.46-3.jpeg",
+      "caption": "Resin drive with block edging",
+      "cat": "Resin",
+      "size": "tall"
+    },
+    {
+      "img": "assets/05-19-13.55.47-5.jpeg",
+      "caption": "Block paving",
+      "cat": "Block"
+    },
+    {
+      "img": "assets/05-19-14.08.06-1.jpeg",
+      "caption": "Garden makeover",
+      "cat": "Patios & gardens"
+    },
+    {
+      "img": "assets/05-20-10.33.48-2.jpeg",
+      "caption": "Silver resin drive",
+      "cat": "Resin"
+    },
+    {
+      "img": "assets/05-19-13.55.48-8.jpeg",
+      "caption": "Charcoal block with brindle border",
+      "cat": "Block"
+    },
+    {
+      "img": "assets/05-20-10.31.48-3.jpeg",
+      "caption": "Porcelain patio",
+      "cat": "Patios & gardens"
+    },
+    {
+      "img": "assets/05-19-13.55.47.jpeg",
+      "caption": "Golden resin drive",
+      "cat": "Resin"
+    },
+    {
+      "img": "assets/05-19-13.55.48-5.jpeg",
+      "caption": "Herringbone with border",
+      "cat": "Block",
+      "size": "big"
+    },
+    {
+      "img": "assets/05-20-10.31.49-4.jpeg",
+      "caption": "Porcelain steps and lawn",
+      "cat": "Patios & gardens"
+    },
+    {
+      "img": "assets/05-20-10.33.45-1.jpeg",
+      "caption": "Resin with sandstone and block border",
+      "cat": "Resin",
+      "size": "tall"
+    },
+    {
+      "img": "assets/05-19-13.55.47-3.jpeg",
+      "caption": "Resin path with block edging",
+      "cat": "Resin"
+    },
+    {
+      "img": "assets/05-19-13.55.48-6.jpeg",
+      "caption": "Sandstone patio",
+      "cat": "Patios & gardens"
+    },
+    {
+      "img": "assets/05-19-13.55.48-3.jpeg",
+      "caption": "Charcoal block paving",
+      "cat": "Block"
+    },
+    {
+      "img": "assets/05-20-10.33.46.jpeg",
+      "caption": "Resin drive",
+      "cat": "Resin"
+    },
+    {
+      "img": "assets/05-20-10.31.49-2.jpeg",
+      "caption": "Garden makeover",
+      "cat": "Patios & gardens"
+    },
+    {
+      "img": "assets/09-04-08-20-43-2.jpg",
+      "caption": "Red herringbone block paving",
+      "cat": "Block"
+    }
+  ],
+  "casesTitle": "Case studies.",
+  "casesLead": "Two recent jobs from around Manchester.",
+  "cases": [
+    {
+      "img": "assets/05-20-10.33.46-1.jpeg",
+      "where": "Altrincham WA14",
+      "title": "SUDS-compliant resin drive",
+      "facts": [
+        "Resin drive",
+        "SUDS-compliant",
+        "Space for 2 cars"
+      ],
+      "alt": "Resin driveway on a red-brick semi in Altrincham"
+    },
+    {
+      "img": "assets/05-20-10.33.47-4.jpeg",
+      "where": "Timperley",
+      "title": "Tegula block paving in herringbone",
+      "facts": [
+        "Tegula block paving",
+        "Herringbone pattern",
+        "Parking for up to 3 cars"
+      ],
+      "alt": "Tegula herringbone block paved drive in Timperley"
+    }
+  ],
+  "aboutImg": "assets/05-20-10.33.46-6.jpeg",
+  "aboutTitle": "A local Manchester team, 20+ years in.",
+  "intro": "We're a local Manchester team with over 20 years of experience laying resin driveways, block paving, tarmac and gravel drives, patios and garden makeovers.\n\nEvery job starts with a free survey and free measuring. There's no upfront payment necessary, our resin drives are SUDS-compliant, and all work is fully guaranteed and insured, with a 10yr guarantee.",
+  "areaChips": true,
+  "areas": [
+    {
+      "town": "Manchester"
+    },
+    {
+      "town": "Trafford"
+    },
+    {
+      "town": "Stockport"
+    },
+    {
+      "town": "Salford"
+    },
+    {
+      "town": "Tameside"
+    },
+    {
+      "town": "Bury"
+    },
+    {
+      "town": "Bolton"
+    },
+    {
+      "town": "Wigan"
+    },
+    {
+      "town": "Oldham"
+    },
+    {
+      "town": "Rochdale"
+    },
+    {
+      "town": "Altrincham",
+      "recent": "recent job"
+    },
+    {
+      "town": "Timperley",
+      "recent": "recent job"
+    }
+  ],
+  "areasTitle": "Where we work.",
+  "areasLead": "Covering Manchester & Greater Manchester.",
+  "footerLine": "Resin driveways, block paving, tarmac, gravel, patios and landscaping. Manchester & Greater Manchester.",
+  "contacts": [
+    {
+      "label": "Office",
+      "display": "0161 841 7083",
+      "href": "tel:+441618417083"
+    },
+    {
+      "label": "Freephone",
+      "display": "0800 046 3573",
+      "href": "tel:+448000463573"
+    },
+    {
+      "label": "Mobile / WhatsApp",
+      "display": "07367 399420",
+      "href": "https://wa.me/447367399420?text=Hi%20Charles%2C%20I%27d%20like%20to%20book%20a%20free%20survey%20please"
+    },
+    {
+      "label": "Email",
+      "display": "info@paveresinltd.co.uk",
+      "href": "mailto:info@paveresinltd.co.uk"
+    }
+  ],
+  "lamp": {
+    "heading": "Book your free survey.",
+    "sub": "Free surveys and free measuring. No upfront payment necessary.",
+    "cta": "Book my free survey",
+    "call": true,
+    "waText": "Hi Charles, I'd like to book a free survey please",
+    "_sources": "Free surveys and free measuring, no upfront payment necessary: paveresinltd.co.uk"
+  },
+  "sig": {
+    "dropWhy": true,
+    "accent": "#2F6BE0",
+    "benefits": {
+      "heading": "Built for Manchester weather.",
+      "lead": "What a properly laid drive does for you, every day.",
+      "stage": {
+        "night": true
+      },
+      "items": [
+        {
+          "illo": "drain",
+          "title": "Rain drains straight through.",
+          "text": "Our resin drives are SUDS-compliant: rainwater soaks away through the surface instead of pooling or running into the road.",
+          "props": {
+            "colours": [
+              "#c4c5c4",
+              "#a7a8a8",
+              "#dcdcda",
+              "#8b8c8d"
+            ]
+          }
+        },
+        {
+          "illo": "interlock",
+          "title": "Herringbone takes the weight.",
+          "text": "Blocks laid in herringbone lock together, so a car's weight spreads across the whole drive.",
+          "props": {
+            "colours": [
+              "#4a4b4e",
+              "#5d5f62",
+              "#8f9194",
+              "#3e3f42"
+            ]
+          }
+        },
+        {
+          "illo": "weeds",
+          "title": "No weeds in the joins.",
+          "text": "Resin is one seamless surface, with no joints for weeds to root in.",
+          "props": {
+            "colours": [
+              "#c4c5c4",
+              "#a7a8a8",
+              "#dcdcda",
+              "#8b8c8d"
+            ]
+          }
+        }
+      ]
+    },
+    "proof": {
+      "heading": "What you get, every job.",
+      "items": [
+        {
+          "illo": "rating",
+          "title": "5.0 · 84 Google reviews",
+          "props": {
+            "value": "5.0",
+            "count": "84 Google reviews"
+          }
+        },
+        {
+          "illo": "years",
+          "title": "20+ years",
+          "text": "Over 20 years of experience.",
+          "props": {
+            "value": "20+",
+            "unit": "years"
+          }
+        },
+        {
+          "illo": "stamp",
+          "title": "10yr guarantee",
+          "text": "10yr guarantee on our work.",
+          "props": {
+            "top": "10 YEAR",
+            "bottom": "GUARANTEE"
+          }
+        },
+        {
+          "illo": "zero",
+          "title": "£0 upfront",
+          "text": "No upfront payment necessary.",
+          "props": {
+            "caption": "Paid upfront"
+          }
+        },
+        {
+          "illo": "gauge",
+          "title": "SUDS-compliant",
+          "text": "Resin drives that drain."
+        },
+        {
+          "illo": "tape",
+          "title": "Free measuring",
+          "text": "Free surveys and free measuring."
+        }
+      ]
+    },
+    "rail": {
+      "eyebrow": "How it works",
+      "heading": "From free survey to spotless street.",
+      "steps": [
+        {
+          "title": "Free survey & measure",
+          "text": "Charles's team visits, measures up and looks at the ground. Free."
+        },
+        {
+          "title": "Clear, no-obligation quote",
+          "text": "A clear price with no obligation. Best Quotes Guaranteed."
+        },
+        {
+          "title": "Help choosing colour & design",
+          "text": "We help you pick the right surface colour and design for your home."
+        },
+        {
+          "title": "Installed by Charles's team",
+          "text": "Laid by the team, with progress photos and regular updates as it goes."
+        },
+        {
+          "title": "Site left spotless",
+          "text": "The drive is finished and the street is left spotless."
+        }
+      ]
+    },
+    "guarantee": {
+      "heading": "Four promises.",
+      "items": [
+        {
+          "title": "10-year guarantee",
+          "text": "10yr guarantee on our work."
+        },
+        {
+          "title": "No upfront payment",
+          "text": "No upfront payment necessary. Nothing to pay before the work starts."
+        },
+        {
+          "title": "Fully guaranteed & insured",
+          "text": "All work is fully guaranteed and insured."
+        },
+        {
+          "title": "Best Quotes Guaranteed",
+          "text": "Free surveys, free measuring and Best Quotes Guaranteed."
+        }
+      ]
+    },
+    "owner": {
+      "name": "Charles",
+      "font": "homemade",
+      "line": "Free survey, no upfront payment, and a 10-year guarantee on the finished job. That's how we work.",
+      "role": "Pave Resin Ltd"
+    },
+    "_sources": {
+      "all": "paveresinltd.co.uk, verified 12 Nov 2026: over 20 years of experience; 10yr guarantee; No upfront payment necessary; all work fully guaranteed and insured; SUDS-compliant driveways; free surveys and free measuring; Best Quotes Guaranteed; Local Manchester Team. Rail steps 3-5 from Google reviews (Rob Riley colour & design, Jim Hughes photos and updates, Rachel Hanson street left spotless).",
+      "louise": "'no deposit was requested until the work had started' is Louise Preston's review, matches his No upfront payment necessary claim."
+    }
+  },
+  "theme": {
+    "name": "night",
+    "display": {
+      "family": "Archivo",
+      "file": "fonts/archivo.woff2",
+      "range": "700 900",
+      "weight": 800,
+      "transform": "none",
+      "spacing": "-.035em"
+    },
+    "p": "#2F6BE0",
+    "pd": "#1E4FB4",
+    "on": "#ffffff",
+    "onpd": "#ffffff",
+    "ink": "#121417",
+    "card": "#FBF9F6",
+    "dark": "#0E1013",
+    "dark2": "#171A1F",
+    "accent": "#4C86F5",
+    "accent2": "#9DBBFF",
+    "accentInk": "#0E1013",
+    "glow": "#5B8CFF",
+    "stage": "#0B0C0F",
+    "stage2": "#1B1E24",
+    "stageGlow": "#5B8CFF",
+    "heroGrad": "linear-gradient(180deg,rgba(10,11,14,.55) 0%,rgba(10,11,14,.25) 30%,rgba(10,11,14,.55) 62%,rgba(10,11,14,.94) 100%)",
+    "vars": "--bg:#F4F1EC;--alt:#ECE7DF;--mut:#4F535A;--line:#DCD6CC;--tint:#E3EAF8;--hbg:#0E1013;--hink:#F4F1EC;--hline:rgba(255,255,255,.12);--fbg:#0A0B0D;--r:10px;--br:10px;--brick:#8E3B2E;--resin:#BFC3C7;--sig-surface:#FBF9F6;--sig-accent:#2F6BE0;--sig-accent2:#9DBBFF"
+  },
+  "menuFull": true,
+  "svcSwipe": true,
+  "heroPicker": {
+    "h1": [
+      "Tired old drive?",
+      "Lay it new."
+    ],
+    "sub": "Resin, block paving and patios across Manchester & Greater Manchester. 20+ years, 10yr guarantee, no upfront payment.",
+    "cta": "Design it & book",
+    "surfaces": [
+      {
+        "key": "block",
+        "label": "Block paving",
+        "short": "Block",
+        "tile": "Block paving",
+        "cfg": "block"
+      },
+      {
+        "key": "resin",
+        "label": "Resin bound",
+        "short": "Resin",
+        "tile": "Resin drive",
+        "cfg": "resin"
+      },
+      {
+        "key": "tarmac",
+        "label": "Tarmac",
+        "short": "Tarmac",
+        "tile": "Tarmac",
+        "cfg": ""
+      },
+      {
+        "key": "porcelain",
+        "label": "Porcelain patio",
+        "short": "Porcelain",
+        "tile": "Patio",
+        "cfg": ""
+      }
+    ],
+    "gl": true,
+    "swatch": true,
+    "noSub": true
+  },
+  "bookModal": true,
+  "telPill": true
+}
