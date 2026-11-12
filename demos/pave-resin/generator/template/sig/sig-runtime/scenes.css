@@ -1,0 +1,167 @@
+/* Stage scenes (scenes.mjs). The stage is a dark card in the site's own dark tone with a soft top light.
+   Base styles are each scene's FINISHED frame (what reduced-motion users see); keyframes loop only while the
+   card has .is-playing (set by sig-runtime when on screen). */
+.sig-stage { --st-bg: var(--sig-st-bg, #121417); --st-bg2: var(--sig-st-bg2, #22262c); --st-glow: var(--sig-st-glow, var(--s-accent)); --st-ink: var(--sig-st-ink, #f2efe9);
+  position: relative; overflow: hidden; isolation: isolate; border-radius: calc(var(--s-radius) * .8); background: var(--st-bg);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .09), inset 0 0 0 1px rgba(255, 255, 255, .06), inset 0 -40px 60px -30px rgba(0, 0, 0, .55); }
+.sig-stage::after { content: ''; position: absolute; inset: 0; pointer-events: none; border-radius: inherit;
+  background: radial-gradient(120% 70% at 50% 120%, rgba(0, 0, 0, .45), transparent 60%); }
+.scn { display: block; width: 100%; height: 100%; }
+.sig-stage--wide { aspect-ratio: 16 / 10; }
+.sig-stage--tile { aspect-ratio: 200 / 230; }
+@media (min-width: 900px) { .sig-stage--tile { aspect-ratio: 16 / 12; } }
+.scn-t { font: 600 10.5px/1 var(--sig-body, inherit); fill: var(--st-ink); opacity: .9; letter-spacing: .01em; paint-order: stroke; stroke: var(--st-bg); stroke-width: 3px; stroke-opacity: .55; }
+.scn--tile .scn-t { font-size: 12.5px; }
+@media (min-width: 900px) { .scn--tile .scn-t { font-size: 9.5px; } }
+.scn-t--dim { opacity: .66; }
+.scn-t--acc { fill: var(--s-accent); opacity: 1; }
+.scn-t--onlight { fill: #1d1d1f; stroke: #fff; stroke-opacity: .4; opacity: .82; }
+.scn-badge { font: 800 13px/1 var(--sig-body, inherit); fill: var(--sig-accent-ink, #fff); letter-spacing: .04em; }
+.scn-acc { fill: var(--s-accent); }
+
+.scn [class*="scn-"] { transform-box: fill-box; transform-origin: center; }
+.scn [class*="scn-"] { animation-play-state: paused !important; animation-fill-mode: both !important; }
+.is-playing .scn [class*="scn-"] { animation-play-state: running !important; }
+/* until a card first comes into view, show the finished frame (no paused 0% keyframe) */
+[data-sig-play]:not(.is-in) .scn [class*="scn-"] { animation-name: none !important; }
+.scn-t, .scn-badge, .scn-acc { animation: none !important; }
+
+/* rain + water */
+.scn-rain { opacity: .85; animation: scn-rain 1.05s linear infinite; }
+@keyframes scn-rain { 0% { transform: translateY(-20px); opacity: 0 } 15% { opacity: .9 } 85% { opacity: .9 } 100% { transform: translateY(var(--fall, 80px)); opacity: 0 } }
+.scn-seep { opacity: 0; animation: scn-seep 2.2s cubic-bezier(.5, 0, .7, 1) infinite; }
+@keyframes scn-seep { 0% { transform: translateY(-6px); opacity: 0 } 15% { opacity: 1 } 80% { opacity: .9 } 100% { transform: translateY(46px); opacity: 0 } }
+.scn-soak { animation: scn-soak 2.2s ease-in infinite; }
+@keyframes scn-soak { 0% { transform: translateY(-10px) scale(.6); opacity: 0 } 40% { opacity: .8 } 100% { transform: translateY(14px) scale(1); opacity: 0 } }
+.scn-splash { animation: scn-splash 1.4s ease-out infinite; opacity: .6; }
+@keyframes scn-splash { 0% { transform: scale(.2); opacity: 0 } 20% { opacity: .9 } 100% { transform: scale(1.6); opacity: 0 } }
+.scn-flow { stroke-dasharray: 6 8; animation: scn-flow 1.2s linear infinite; }
+@keyframes scn-flow { to { stroke-dashoffset: -28 } }
+.scn-run { animation: scn-run 2.4s cubic-bezier(.5, 0, .8, 1) infinite; opacity: 0; }
+@keyframes scn-run { 0% { transform: translateY(0); opacity: 0 } 10% { opacity: .9 } 90% { opacity: .9 } 100% { transform: translateY(96px); opacity: 0 } }
+
+/* light */
+.scn-sheen { opacity: 0; animation: scn-sheen 4.6s cubic-bezier(.6, 0, .3, 1) infinite; }
+.scn-sheen--late { animation-delay: 1.8s; }
+@keyframes scn-sheen { 0%, 40% { transform: translateX(0) skewX(-18deg); opacity: 0 } 50% { opacity: 1 } 85%, 100% { transform: translateX(420px) skewX(-18deg); opacity: 0 } }
+.scn-draw { stroke-dasharray: 1; stroke-dashoffset: 0; animation: scn-draw 4s cubic-bezier(.22, 1, .36, 1) infinite; }
+@keyframes scn-draw { 0%, 20% { stroke-dashoffset: 1 } 50%, 100% { stroke-dashoffset: 0 } }
+.scn-lamp { animation: scn-lamp 5s ease-out infinite; }
+@keyframes scn-lamp { 0%, 20% { opacity: 0 } 34%, 92% { opacity: 1 } 100% { opacity: 0 } }
+.scn-pend { animation: scn-glow 4s ease-in-out infinite; }
+@keyframes scn-glow { 0%, 100% { opacity: .75 } 50% { opacity: 1 } }
+.scn-sun { animation: scn-glow 3.6s ease-in-out infinite; }
+
+/* growth */
+.scn-sprout { transform-box: view-box; animation: scn-sprout 3.6s cubic-bezier(.22, 1, .36, 1) infinite; }
+@keyframes scn-sprout { 0%, 8% { transform: scale(.05) } 50%, 100% { transform: scale(1) } }
+.scn-weed { transform-box: view-box; transform: scale(0); animation: scn-weed 3.6s cubic-bezier(.22, 1, .36, 1) infinite; }
+@keyframes scn-weed { 0%, 10% { transform: scale(0) } 40% { transform: scale(.85) } 55% { transform: scale(.85) translateY(0) } 75%, 100% { transform: scale(0) } }
+.scn-mem { stroke-dasharray: 1; animation: scn-draw 3.6s cubic-bezier(.22, 1, .36, 1) infinite; }
+
+/* weight + repair */
+.scn-car { animation: scn-car 5s cubic-bezier(.65, 0, .35, 1) infinite; }
+@keyframes scn-car { 0%, 35% { transform: translateX(0) } 65% { transform: translateX(260px) } 65.01% { transform: translateX(-240px) } 95%, 100% { transform: translateX(0) } }
+.scn-dip { animation: scn-dip 5s cubic-bezier(.65, 0, .35, 1) infinite; }
+@keyframes scn-dip { 0%, 31% { transform: translateY(var(--d, 1px)) } 39%, 91% { transform: translateY(0) } 99%, 100% { transform: translateY(var(--d, 1px)) } }
+.scn-press { stroke-dasharray: 3 5; animation: scn-press 5s cubic-bezier(.65, 0, .35, 1) infinite, scn-pflow 1.1s linear infinite; }
+@keyframes scn-press { 0%, 30% { opacity: .85 } 38%, 93% { opacity: 0 } 100% { opacity: .85 } }
+@keyframes scn-pflow { to { stroke-dashoffset: -16 } }
+.scn-csh { animation: scn-csh 5s cubic-bezier(.65, 0, .35, 1) infinite; }
+@keyframes scn-csh { 0%, 100% { opacity: .55 } }
+.scn-wave { opacity: 0; animation: scn-wave 5s ease-out infinite; }
+@keyframes scn-wave { 0%, 28% { transform: scale(.3); opacity: 0 } 36% { opacity: .9 } 62%, 100% { transform: scale(1.05); opacity: 0 } }
+.scn-lift__b { animation: scn-lift 4s cubic-bezier(.65, 0, .35, 1) infinite; }
+.scn-lift__sh { animation: scn-liftsh 4s cubic-bezier(.65, 0, .35, 1) infinite; }
+@keyframes scn-lift { 0%, 14% { transform: translate(0, 0) } 40%, 62% { transform: translate(18px, -40px) rotate(-10deg) } 86%, 100% { transform: translate(0, 0) } }
+@keyframes scn-liftsh { 0%, 14% { transform: translate(0, 0); opacity: .35 } 40%, 62% { transform: translate(24px, 6px) scale(1.1); opacity: .2 } 86%, 100% { transform: translate(0, 0); opacity: .35 } }
+
+/* spills */
+.scn-glass { transform-origin: 50% 100%; animation: scn-glass 5s cubic-bezier(.65, 0, .35, 1) infinite; }
+@keyframes scn-glass { 0%, 6% { transform: rotate(0) } 18%, 26% { transform: rotate(24deg) } 38%, 100% { transform: rotate(0) } }
+.scn-cup { transform-origin: 50% 100%; animation: scn-glass 5s cubic-bezier(.65, 0, .35, 1) infinite; }
+.scn-drip { opacity: 0; animation: scn-drip 5s ease-in infinite; }
+@keyframes scn-drip { 0%, 16% { transform: translateY(0); opacity: 0 } 18% { opacity: 1 } 30% { transform: translateY(70px); opacity: 1 } 31%, 100% { transform: translateY(70px); opacity: 0 } }
+.scn-pool { opacity: 0; animation: scn-pool 5s cubic-bezier(.22, 1, .36, 1) infinite; }
+@keyframes scn-pool { 0%, 29% { transform: scale(.1); opacity: 0 } 36%, 58% { transform: scale(1); opacity: 1 } 72%, 100% { transform: scale(.4, .2) translateX(60px); opacity: 0 } }
+.scn-bead { opacity: 0; animation: scn-bead 5s cubic-bezier(.22, 1, .36, 1) infinite; }
+@keyframes scn-bead { 0%, 29% { transform: scale(.2); opacity: 0 } 36%, 58% { transform: scale(1); opacity: 1 } 72%, 100% { transform: scale(.3) translateX(80px); opacity: 0 } }
+.scn-cloth { animation: scn-cloth 5s cubic-bezier(.65, 0, .35, 1) infinite; }
+@keyframes scn-cloth { 0%, 52% { transform: translateX(0) } 70% { transform: translateX(-120px) } 86%, 100% { transform: translateX(0) } }
+.scn-cloth--wide { animation-name: scn-cloth2; }
+@keyframes scn-cloth2 { 0%, 52% { transform: translateX(0) } 70% { transform: translateX(-150px) } 86%, 100% { transform: translateX(0) } }
+.scn-step { animation: scn-step 2.8s cubic-bezier(.22, 1, .36, 1) infinite; }
+@keyframes scn-step { 0%, 100% { transform: translateY(-18px) } 30%, 70% { transform: translateY(0) } }
+
+/* surfaces */
+.scn-grout { animation: scn-grout 6s ease-in-out infinite; opacity: 0; }
+@keyframes scn-grout { 0%, 25% { opacity: 1 } 50%, 90% { opacity: 0 } 100% { opacity: 1 } }
+.scn-after { animation: scn-after 6s ease-in-out infinite; }
+@keyframes scn-after { 0%, 30% { opacity: 0 } 50%, 90% { opacity: 1 } 100% { opacity: 0 } }
+.scn-heat { animation: scn-heat 2.6s ease-out infinite; opacity: 0; }
+@keyframes scn-heat { 0% { transform: translateY(14px); opacity: 0 } 35% { opacity: .9 } 100% { transform: translateY(-26px); opacity: 0 } }
+.scn-warm { animation: scn-glow 2.6s ease-in-out infinite; }
+.scn-pipe { animation: scn-pipe 2.6s ease-in-out infinite; }
+@keyframes scn-pipe { 0%, 100% { stroke-opacity: .6 } 50% { stroke-opacity: 1 } }
+.scn-coat-f { transform-origin: 0 50%; animation: scn-coatx 5s cubic-bezier(.22, 1, .36, 1) infinite; }
+.scn-coat-w { transform-origin: 50% 100%; animation: scn-coaty 5s cubic-bezier(.22, 1, .36, 1) infinite; }
+@keyframes scn-coatx { 0%, 6% { transform: scaleX(0) } 34%, 100% { transform: scaleX(1) } }
+@keyframes scn-coaty { 0%, 30% { transform: scaleY(0) } 62%, 100% { transform: scaleY(1) } }
+.scn-overlay { transform-origin: 0 50%; animation: scn-coatx 4.4s cubic-bezier(.22, 1, .36, 1) infinite; }
+.scn-trowel { animation: scn-trowel 4.4s cubic-bezier(.22, 1, .36, 1) infinite; }
+@keyframes scn-trowel { 0%, 6% { transform: translateX(-140px) } 34% { transform: translateX(0) } 60%, 100% { transform: translateX(0) } }
+.scn-match { animation: scn-match 4.4s ease-in-out infinite; }
+@keyframes scn-match { 0%, 20% { opacity: 0 } 50%, 92% { opacity: 1 } 100% { opacity: 0 } }
+.scn-foot { opacity: 0; animation: scn-foot 3.4s ease-out infinite; }
+@keyframes scn-foot { 0% { opacity: 0 } 8% { opacity: .9 } 40%, 100% { opacity: 0 } }
+.scn-rime { animation: scn-rime 4.8s ease-in-out infinite; }
+@keyframes scn-rime { 0%, 10% { opacity: 0 } 40%, 60% { opacity: .75 } 90%, 100% { opacity: 0 } }
+.scn-flake { animation: scn-flake 2.4s linear infinite; opacity: 0; }
+@keyframes scn-flake { 0% { transform: translateY(0) rotate(0); opacity: 0 } 15%, 80% { opacity: 1 } 100% { transform: translateY(70px) rotate(120deg); opacity: 0 } }
+
+/* building */
+.scn-layer { animation: scn-layer 5s cubic-bezier(.22, 1, .36, 1) infinite; }
+@keyframes scn-layer { 0%, 4% { transform: translateY(-36px); opacity: 0 } 22%, 92% { transform: translateY(0); opacity: 1 } 100% { opacity: 0 } }
+.scn-plate { animation: scn-plate .32s ease-in-out infinite alternate; }
+@keyframes scn-plate { to { transform: translateY(2.5px) } }
+.scn-chip { animation: scn-chip 4.8s cubic-bezier(.22, 1, .36, 1) infinite; }
+@keyframes scn-chip { 0% { transform: translateY(14px); opacity: 0 } 16%, 100% { transform: none; opacity: 1 } }
+.scn-sel { opacity: 0; filter: drop-shadow(0 0 6px var(--s-accent)); animation: scn-sel calc(1.2s * var(--n, 3)) steps(1, end) infinite; }
+.scn-sel.scn-first, .scn-cyc.scn-first, .scn-cyc2.scn-first { opacity: 1; }
+@keyframes scn-sel { 0% { opacity: 1 } 33% { opacity: 0 } }
+.scn-cyc { opacity: 0; animation: scn-cyc 9s ease-in-out infinite; }
+.scn-cyc2 { opacity: 0; animation: scn-cyc2 8s ease-in-out infinite; }
+@keyframes scn-cyc2 { 0%, 44% { opacity: 1 } 50%, 94% { opacity: 0 } 100% { opacity: 1 } }
+@keyframes scn-cyc { 0%, 30% { opacity: 1 } 36%, 94% { opacity: 0 } 100% { opacity: 1 } }
+.scn-swirl { transform-box: view-box; animation: scn-swirl 3s ease-in-out infinite alternate; }
+@keyframes scn-swirl { from { transform: rotate(-14deg) } to { transform: rotate(14deg) } }
+.scn-paddle { transform-box: view-box; transform-origin: 100px 40px; animation: scn-swirl 3s ease-in-out infinite alternate; }
+.scn-plan { stroke-dasharray: 1; animation: scn-draw 5s cubic-bezier(.22, 1, .36, 1) infinite; }
+.scn-lawn, .scn-fill { animation: scn-match 5s ease-in-out infinite; }
+.scn-pen { animation: scn-pen 5s cubic-bezier(.65, 0, .35, 1) infinite; }
+@keyframes scn-pen { 0% { transform: translate(-100px, 52px) } 40% { transform: translate(0, 0) } 100% { transform: translate(0, 0) } }
+.scn-park { animation: scn-park 5s cubic-bezier(.65, 0, .35, 1) infinite; }
+@keyframes scn-park { 0% { transform: translateY(-110px) } 34%, 80% { transform: translateY(0) } 100% { transform: translateY(-110px) } }
+
+@media (prefers-reduced-motion: reduce) {
+  .scn [class*="scn-"] { animation: none !important; }
+  .scn-sel, .scn-cyc, .scn-cyc2 { opacity: 0 !important; } .scn-first { opacity: 1 !important; }
+}
+
+/* business-claim tiles */
+.scn-num { font: 800 44px/1 var(--sig-display, var(--sig-body, inherit)); fill: var(--st-ink); letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+.scn-stamp-t { font: 800 15px/1 var(--sig-body, inherit); fill: var(--s-accent); letter-spacing: .14em; }
+.scn-stamp-t--s { font-size: 10.5px; letter-spacing: .2em; }
+.scn-pop { animation: scn-pop 4.2s cubic-bezier(.22, 1, .36, 1) infinite; }
+@keyframes scn-pop { 0%, 62% { transform: scale(1); opacity: 1 } 70% { transform: scale(.4); opacity: 0 } 74% { transform: scale(.4); opacity: 0 } 88%, 100% { transform: scale(1); opacity: 1 } }
+.scn-stampin { animation: scn-stampin 4.4s cubic-bezier(.3, 1.4, .5, 1) infinite; }
+@keyframes scn-stampin { 0%, 66% { transform: scale(1) rotate(-6deg); opacity: 1 } 72% { transform: scale(1.5) rotate(-14deg); opacity: 0 } 76% { transform: scale(1.5) rotate(-14deg); opacity: 0 } 88% { transform: scale(.95) rotate(-6deg); opacity: 1 } 93%, 100% { transform: scale(1) rotate(-6deg); opacity: 1 } }
+.scn-stampin { transform: rotate(-6deg); }
+.scn-reel { transform-box: view-box !important; animation: scn-reel 4.6s cubic-bezier(.45, 0, .2, 1) infinite; }
+@keyframes scn-reel { 0%, 60% { transform: translateY(-520px) } 60.1% { transform: translateY(0) } 66% { transform: translateY(0) } 90%, 100% { transform: translateY(-520px) } }
+.scn-fill { transform-origin: bottom !important; animation: scn-fill 5.2s ease-in-out infinite; }
+.scn-fill { transform: scaleY(.62); }
+@keyframes scn-fill { 0%, 15% { transform: scaleY(.62) } 60% { transform: scaleY(.12) } 100% { transform: scaleY(.62) } }
+.scn-flowout { animation: scn-flow 1.2s linear infinite; }
+.scn-tape { transform-box: view-box !important; animation: scn-tape 4.6s cubic-bezier(.22, 1, .36, 1) infinite; }
+@keyframes scn-tape { 0%, 58% { transform: scaleX(1) } 70%, 74% { transform: scaleX(0) } 96%, 100% { transform: scaleX(1) } }
