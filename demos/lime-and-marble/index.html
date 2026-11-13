@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Lime &amp; Marble · Microcement &amp; Venetian plaster, Chichester</title>
+  <meta name="description" content="Seamless microcement and Venetian plaster, trowelled by hand by Craig and the team in Chichester, West Sussex. Showroom by appointment." />
+  <meta name="theme-color" content="#F2EEE6" />
+  <meta property="og:title" content="Lime & Marble · Polished by hand. Not by robots." />
+  <meta property="og:image" content="https://clientgateway-lime-marble.dnilicj.workers.dev/posters/og-v1.jpg" />
+  <link rel="icon" href="/client/logo-v1.png" />
+  <link rel="preload" href="/fonts/cormorant-500.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/geist-var.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/cormorant-500-italic.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/posters/wall-m-v1.webp" as="image" media="(max-width: 699px)" fetchpriority="high" />
+  <link rel="preload" href="/posters/wall-d-v1.webp" as="image" media="(min-width: 700px)" fetchpriority="high" />
+  <style>
+    html,body{margin:0;background:#F2EEE6;color:#1A1A18}
+    #boot{position:fixed;inset:0;z-index:300;display:grid;place-items:center;background:#CFCAC0;transition:opacity .45s ease,visibility .45s;overflow:hidden}
+    #boot.out{opacity:0;visibility:hidden}
+    #boot .st{position:absolute;inset:0;background:linear-gradient(100deg,#B9B4AA,#E9E5DD 30%,#C7C1B6 52%,#F4F1EB 70%,#CFC9BE);clip-path:inset(0 100% 0 0);animation:bs .8s cubic-bezier(.65,0,.35,1) .05s forwards}
+    #boot .tr{position:absolute;top:50%;left:0;width:120px;height:46px;margin-top:-23px;border-radius:6px 6px 4px 4px;background:linear-gradient(180deg,#F4F4F2,#9C9C98);box-shadow:0 10px 24px rgba(0,0,0,.25);transform:translateX(-140px) rotate(-8deg);animation:bt .8s cubic-bezier(.65,0,.35,1) .05s forwards}
+    #boot .tr:after{content:"";position:absolute;left:44px;top:-26px;width:32px;height:28px;border-radius:10px 10px 4px 4px;background:#2B2A27}
+    #boot img{position:relative;width:96px;height:96px;opacity:0;transform:scale(.92);animation:bl .45s ease .6s forwards}
+    @keyframes bs{to{clip-path:inset(0 0 0 0)}}
+    @keyframes bt{to{transform:translateX(calc(100vw + 20px)) rotate(-8deg)}}
+    @keyframes bl{to{opacity:1;transform:none}}
+    @media (prefers-reduced-motion: reduce){#boot{display:none}}
+  </style>
+</head>
+<body>
+  <div id="boot" aria-hidden="true"><div class="st"></div><div class="tr"></div><img src="/client/logo-v1.webp" alt="" width="96" height="96" /></div>
+  <div id="root"></div>
+  <script>setTimeout(function(){var b=document.getElementById('boot');b&&b.classList.add('out')},1100)</script>
+  <script type="module" src="/src/main.tsx"></script>
+</body>
+</html>

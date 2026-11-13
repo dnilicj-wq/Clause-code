@@ -1,0 +1,49 @@
+/* Glint Button — dark glass pill with a light glint running round its border.
+   Pure CSS (no WebGL) so it is cheap on phones and identical in the React template and the static
+   trade-demos generator (~/dev/trade-demos/template/lamp.css carries a copy of this file).
+   Colours come only from preset tokens: --accent, --accent2, --metal0, --metal2 (or the --gb-* overrides). */
+@property --gb-a { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
+
+.glint-btn {
+  --_fill: var(--gb-fill, var(--metal0, #1b1b1d));
+  --_glint: var(--gb-glint, var(--metal2, #ffffff));
+  --_tint: var(--gb-tint, var(--accent2, #ffffff));
+  --_glow: var(--gb-glow, var(--accent, transparent));
+  position: relative; isolation: isolate;
+  display: inline-flex; align-items: center; justify-content: center; gap: .45em;
+  height: var(--gb-h, 56px); min-width: var(--gb-w, 230px); padding: 0 28px;
+  border-radius: 999px; border: 1.5px solid transparent;
+  color: color-mix(in srgb, var(--_glint) 22%, #f4f4f5);
+  font-family: inherit; font-weight: 600; font-size: 15px; line-height: 1; letter-spacing: -.005em; white-space: nowrap;
+  text-decoration: none; text-shadow: 0 1px 2px rgba(0, 0, 0, .8); cursor: pointer;
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--_fill) 55%, #2a2a2e), color-mix(in srgb, var(--_fill) 25%, #070708)) padding-box,
+    conic-gradient(from var(--gb-a),
+      transparent 0 58%,
+      color-mix(in srgb, var(--_tint) 45%, transparent) 70%,
+      var(--_glint) 79%,
+      color-mix(in srgb, var(--_tint) 45%, transparent) 88%,
+      transparent 97%) border-box,
+    linear-gradient(180deg, rgba(255, 255, 255, .22), rgba(255, 255, 255, .06)) border-box;
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, .35),
+    inset 0 1px 0 rgba(255, 255, 255, .10),
+    0 12px 32px -12px color-mix(in srgb, var(--_glow) 55%, transparent),
+    0 4px 10px -4px rgba(0, 0, 0, .45);
+  animation: gb-spin 3.2s linear infinite;
+  transition: transform .2s cubic-bezier(.34, 1.56, .64, 1), box-shadow .3s ease;
+}
+.glint-btn::after { /* soft bloom that follows the glint */
+  content: ''; position: absolute; inset: -1px; border-radius: inherit; z-index: -1; pointer-events: none;
+  background: conic-gradient(from var(--gb-a), transparent 0 68%, color-mix(in srgb, var(--_tint) 55%, transparent) 79%, transparent 90%);
+  filter: blur(4px); opacity: .3; animation: gb-spin 3.2s linear infinite;
+}
+.glint-btn:hover { transform: translateY(-1px); animation-duration: 1.6s; }
+.glint-btn:hover::after { animation-duration: 1.6s; opacity: .8; }
+.glint-btn:active { transform: translateY(0) scale(.98); }
+.glint-btn:focus-visible { outline: 2px solid var(--_tint); outline-offset: 3px; }
+@keyframes gb-spin { to { --gb-a: 360deg; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .glint-btn, .glint-btn::after { animation: none; --gb-a: 300deg; transition: none; }
+}
