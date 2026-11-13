@@ -44,7 +44,7 @@ export default function Gallery() {
         {gallery.map((g, i) => (
           <button className="gal-card" key={g.src} onClick={() => setOpen(i)} aria-label={`Open photo: ${g.alt}`}>
             <img src={`/client/${g.src}-sm-v1.webp`} width={760} height={Math.round(760 * g.h / g.w)} alt={g.alt} loading="lazy" decoding="async" />
-            <span className="gal-tag"><b>{g.tag}</b><em>From their {g.page} page</em></span>
+            <span className="gal-tag"><b>{g.tag}</b></span>
           </button>
         ))}
       </div>
@@ -56,7 +56,7 @@ export default function Gallery() {
       {open !== null && (
         <div className="lb" role="dialog" aria-modal="true" aria-label={gallery[open].alt} onClick={() => setOpen(null)}>
           <img src={`/client/${gallery[open].src}-v1.webp`} alt={gallery[open].alt} />
-          <p>{gallery[open].tag} · from their {gallery[open].page} page</p>
+          <p>{gallery[open].tag}</p>
           <button className="round lb-x" aria-label="Close" onClick={() => setOpen(null)}>✕</button>
         </div>
       )}

@@ -52,7 +52,6 @@ export default function Home() {
   const [dock, setDock] = useState(false);
   const [robot, setRobot] = useState(false);
   const taps = useRef<number[]>([]);
-  const [flip, setFlip] = useState(false);
   const [rev, setRev] = useState(0);
   const [faq, setFaq] = useState<number | null>(0);
   const hero = useRef<HTMLElement>(null);
@@ -215,24 +214,8 @@ export default function Home() {
             <p className="sub">Founded by Craig, who’s still on the tools. Roots in traditional plastering.</p>
           </div>
           <div className="team">
-            {team.map((m) => m.key === 'craig' ? (
-              <div className={`member craig ${flip ? 'flip' : ''}`} key={m.key} data-r>
-                <div className="flipper">
-                  <div className="face front">
-                    <img src={`/client/${m.img}-v1.webp`} alt={`${m.name}, ${m.role}`} width={600} height={750} loading="lazy" />
-                    <div className="m-txt"><b>{m.name}</b><span>{m.role}</span></div>
-                    <button className="btn btn-lime sm note-btn" onClick={() => setFlip(true)} aria-expanded={flip}>Read Craig’s note</button>
-                  </div>
-                  <div className="face back" aria-hidden={!flip}>
-                    <p className="note">“I started Lime &amp; Marble in 2017 because I wanted to do a few jobs brilliantly rather than loads of them badly. Every wall we do, one of us has had our hands on it.”</p>
-                    <svg className="sig" viewBox="0 0 260 80" aria-label="Craig"><text x="6" y="58">Craig</text></svg>
-                    <span className="todo">TODO(Dan): confirm wording with Craig</span>
-                    <button className="btn btn-ghost sm" onClick={() => setFlip(false)}>Back</button>
-                  </div>
-                </div>
-              </div>
-            ) : (
-              <div className="member" key={m.key} data-r>
+            {team.map((m) => (
+              <div className={`member ${m.key === 'craig' ? 'craig' : ''}`} key={m.key} data-r>
                 <img src={`/client/${m.img}-v1.webp`} alt={`${m.name}, ${m.role}`} width={600} height={750} loading="lazy" />
                 <div className="m-txt"><b>{m.name}</b><span>{m.role}</span></div>
               </div>
@@ -259,9 +242,7 @@ export default function Home() {
           </div>
           <div className="r-ui">
             <button className="btn btn-ghost sm" onClick={() => setRev((rev + 1) % reviews.length)}>Next review ({rev + 1}/{reviews.length})</button>
-            {site.googleReviews
-              ? <a className="btn btn-ghost sm" href={site.googleReviews} target="_blank" rel="noopener">Google reviews ↗</a>
-              : <span className="todo">TODO(Dan): Craig’s Google reviews link</span>}
+            {site.googleReviews && <a className="btn btn-ghost sm" href={site.googleReviews} target="_blank" rel="noopener">Google reviews ↗</a>}
           </div>
         </section>
 
