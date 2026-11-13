@@ -1,0 +1,175 @@
+/* Elementor → demo adapter. Every selector is scoped under body.aas-landing.aas-landing by the build (one notch above
+   Elementor's own .elementor .e-con > .elementor-widget rules, below per-widget edits made in the editor).
+   Native widgets carry the demo's class names on their wrapper; these rules make Elementor's own
+   markup (heading-title, text-editor <p>, button <a>, icon-list, accordion, containers) behave like
+   the demo's plain HTML, without beating per-widget style edits made in Elementor. */
+
+/* --- spacing: containers and widgets add nothing of their own --- */
+body{--container-default-padding-top:0px;--container-default-padding-right:0px;--container-default-padding-bottom:0px;--container-default-padding-left:0px;
+  --widgets-spacing:0px;--widgets-spacing-row:0px;--widgets-spacing-column:0px;--kit-widget-spacing:0px;--container-widget-width:auto;--container-max-width:none;
+  background:var(--limestone);color:var(--ink);font-family:var(--sans);margin:0}
+.e-con{--gap:0px;--row-gap:0px;--column-gap:0px;--padding-top:0px;--padding-right:0px;--padding-bottom:0px;--padding-left:0px;--flex-wrap:nowrap;
+  --align-items:stretch;min-width:0}
+:where(.e-con>.elementor-widget,.e-con>.e-con){width:auto}
+
+/* --- headings: the wrapper carries the demo class; the title inherits it --- */
+:where(.elementor-widget-heading) .elementor-heading-title{font:inherit;color:inherit;letter-spacing:inherit;line-height:inherit;margin:0;padding:0;text-transform:inherit;font-variation-settings:inherit;text-wrap:inherit;text-align:inherit}
+.elementor-widget-heading .elementor-heading-title em{font-family:var(--ital);font-style:italic;font-weight:400;letter-spacing:-.01em}
+
+/* --- text editor: no extra margins; content keeps the demo's own <p class="…"> --- */
+:where(.elementor-widget-text-editor){font-family:inherit;font-weight:inherit;color:inherit;line-height:inherit;font-size:inherit}
+:where(.elementor-widget-text-editor) p:not([class]):last-child{margin-bottom:0}
+
+/* --- buttons: Elementor's <a class="elementor-button"> takes the demo's .btn look (built in), plus: --- */
+.elementor-widget-button .elementor-button{font-family:inherit;font-weight:500;line-height:inherit;letter-spacing:inherit;text-transform:none;border:0;border-radius:999px;fill:currentColor;text-decoration:none}
+.elementor-widget-button .elementor-button-content-wrapper{display:inline-flex;align-items:center;gap:10px;flex-direction:row}
+.elementor-widget-button .elementor-button-icon{display:inline-flex;margin:0;order:0}
+.elementor-widget-button .elementor-button-icon svg{width:18px;height:18px;fill:currentColor}
+.elementor-widget-button .elementor-button-text{flex:none}
+.btn-arrow .elementor-button-content-wrapper::after{content:"";width:18px;height:18px;flex:none;background:currentColor;transition:transform var(--d-3) var(--ease-out);
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M4 10h11m-4-4 4 4-4 4' fill='none' stroke='%23000' stroke-width='1.6'/%3E%3C/svg%3E") center/contain no-repeat;
+  mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M4 10h11m-4-4 4 4-4 4' fill='none' stroke='%23000' stroke-width='1.6'/%3E%3C/svg%3E") center/contain no-repeat}
+.btn-arrow .elementor-button:hover .elementor-button-content-wrapper::after{transform:translateX(3px)}
+.elementor-widget-button.btn--block,.elementor-widget-button.btn--block .elementor-button{width:100%}
+.elementor-widget-button.magnetic{transition:transform var(--d-2) var(--ease-out);will-change:transform}
+
+/* --- nav --- */
+.nav.e-con{position:fixed;flex-direction:row;flex-wrap:nowrap;align-items:center;justify-content:space-between;gap:16px;width:auto;max-width:none}
+.nav__links .elementor-icon-list-items{display:flex;gap:28px;font-size:.92rem;margin:0;padding:0;list-style:none}
+.nav__links .elementor-icon-list-item{margin:0!important;padding:0!important}
+.nav__links .elementor-icon-list-item::after{display:none!important}
+.nav__links .elementor-icon-list-item a{color:inherit;text-decoration:none;opacity:.86;position:relative;display:inline}
+.nav__links .elementor-icon-list-text{color:inherit!important;padding:0!important;font:inherit;transition:none}
+.nav__links .elementor-icon-list-item a::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:1px;background:currentColor;transform:scaleX(0);transform-origin:right;transition:transform var(--d-3) var(--ease-out)}
+.nav__links .elementor-icon-list-item a:hover::after{transform:scaleX(1);transform-origin:left}
+.nav__cta.e-con{flex-direction:row;align-items:center;gap:14px}
+.nav__phone .elementor-button{background:none;color:inherit;padding:0;min-height:0;font-size:.92rem;font-variant-numeric:tabular-nums;font-weight:400;display:flex;align-items:center;gap:8px}
+.nav__phone .elementor-button-content-wrapper::before{content:"";width:7px;height:7px;border-radius:50%;background:#5fbf6a;box-shadow:0 0 0 0 rgba(95,191,106,.6);animation:aas-pulse 2.4s infinite}
+.brand-w a{color:inherit}
+@media (max-width:960px){.nav__links{display:none}}
+@media (max-width:620px){.nav__phone{display:none}}
+
+/* --- hero --- */
+.hero.e-con{display:block;position:relative}
+.hero__stage.e-con{position:sticky;top:0;display:block}
+.hero__stage>.elementor-widget-html{position:static}
+.hero__copy.e-con{position:absolute;display:block}
+.chips .elementor-icon-list-items{list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin:0;padding:0}
+.chips .elementor-icon-list-item{font-size:.82rem;padding:7px 13px!important;margin:0!important;border-radius:999px;color:#fff;white-space:nowrap;
+  background:rgba(20,24,19,.24);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:inset 0 0 0 1px rgba(255,255,255,.28)}
+.chips .elementor-icon-list-item::after{display:none!important}
+.chips .elementor-icon-list-item a{color:inherit;text-decoration:none}
+.chips .elementor-icon-list-text{color:inherit!important;padding:0!important}
+.chips .elementor-icon-list-item:first-child .elementor-icon-list-text::before{content:"★ ";color:#F6C35B}
+.chips{margin:0 0 22px}
+.hero__ctas.e-con{display:flex;flex-direction:row;flex-wrap:wrap;gap:12px}
+@media (max-width:620px){.chips{margin-bottom:16px}.chips .elementor-icon-list-item{font-size:.76rem;padding:6px 10px!important}.hero__ctas>.elementor-widget-button{flex:1 1 auto}.hero__ctas>.elementor-widget-button .elementor-button{width:100%}}
+
+/* --- generic: section shells keep the demo's block / grid layout --- */
+.design.e-con,.services.e-con,.reviews.e-con,.process.e-con,.visit.e-con,.faq.e-con,.layers.e-con{display:block}
+.design__head.e-con,.services__head.e-con,.slope__copy.e-con,.process__head.e-con,.visit__side.e-con,.faq__intro.e-con,.final__copy.e-con{display:block}
+.process__head.e-con,.visit__side.e-con{display:grid}
+.wrap.e-con{width:100%;max-width:var(--maxw);margin-inline:auto;padding-inline:var(--gut)}
+.design>.elementor-widget-html,.layers>.elementor-widget-html{display:block}
+
+/* --- services cards --- */
+.stack.e-con{display:grid;flex-direction:initial}
+.card-svc.e-con{display:flex;flex-direction:column;gap:0}
+.card-svc__body.e-con{display:flex;flex-direction:column}
+.card-svc__img{position:relative;overflow:hidden;background:#d8d3c8}
+.card-svc__img img{display:block;max-width:none}
+.card-svc .elementor-heading-title{font-family:var(--serif)}
+@media (max-width:800px){.stack.e-con{display:flex;flex-direction:row}.card-svc.e-con{flex:0 0 82%}}
+
+/* --- slope / rootlok --- */
+.slope.e-con{display:grid}
+.rootlok.e-con{display:grid;margin:0}
+.rootlok__pic{border-radius:18px;overflow:hidden;aspect-ratio:3/4;background:#2b3628}
+.rootlok__pic img{width:100%;height:100%;object-fit:cover;display:block;max-width:none}
+.rootlok__cap{font-size:.95rem;color:rgba(251,250,247,.78);line-height:1.6;margin:0}
+.rootlok__cap b,.rootlok__cap strong{color:var(--paper);font-weight:500;display:block;font-family:var(--serif);font-size:1.4rem;line-height:1.15;margin-bottom:8px;letter-spacing:-.01em}
+@media (max-width:600px){.rootlok__pic{aspect-ratio:4/3}}
+@media (max-width:800px){.rootlok__pic{aspect-ratio:16/9}}
+
+/* --- reviews --- */
+.reviews__head.e-con{display:flex;flex-direction:row;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:20px}
+.reviews__head>.elementor-element{width:auto}
+.reviews__head>.kicker-w{width:100%}
+.reviews__head .h2{margin:0}
+.quotes.e-con{display:flex;flex-direction:row;flex-wrap:nowrap}
+.quote.elementor-widget{display:flex}
+.quote blockquote{margin:0;padding:0;border:0;font-style:normal;quotes:none}
+.quote blockquote::before,.quote blockquote::after{content:none}
+.quote__cap{font-size:.86rem;color:var(--stone);display:flex;align-items:center;gap:10px;margin:0}
+.quote__cap::before{content:"";width:28px;height:1px;background:var(--stone)}
+
+/* --- process --- */
+.process__grid.e-con{display:grid}
+.steps.e-con{display:grid;position:relative}
+.steps__item.e-con{position:relative;display:block}
+.steps__item::before{content:"";position:absolute;left:-38px;top:.45em;width:16px;height:16px;border-radius:50%;background:var(--moss);box-shadow:inset 0 0 0 2px rgba(251,250,247,.35);transition:box-shadow var(--d-3),background var(--d-3)}
+.steps__item.is-on::before{background:#E9E2C9;box-shadow:0 0 0 5px rgba(233,226,201,.15)}
+.process__head .elementor-widget-button{justify-self:start}
+
+/* --- visit --- */
+.visit__grid.e-con{display:grid}
+.trust{display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin:0}
+
+/* --- faq: Elementor accordion styled as the demo's details list --- */
+.faq__grid.e-con{display:grid}
+.faq__list .elementor-accordion .elementor-accordion-item{border:0;border-top:1px solid var(--line)}
+.faq__list .elementor-accordion .elementor-accordion-item:last-child{border-bottom:1px solid var(--line)}
+.faq__list .elementor-accordion .elementor-tab-title{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;padding:18px 0;border:0;margin:0;cursor:pointer;
+  font-family:var(--serif);font-weight:400;font-size:clamp(1.2rem,1rem + .7vw,1.6rem);letter-spacing:-.015em;line-height:1.2;color:var(--ink)}
+.faq__list .elementor-accordion .elementor-tab-title .elementor-accordion-title{color:inherit;font:inherit;text-decoration:none;order:0}
+.faq__list .elementor-accordion .elementor-accordion-icon{display:none}
+.faq__list .elementor-accordion .elementor-tab-title::after{content:"";order:1;flex:none;width:28px;height:28px;border-radius:50%;margin-top:2px;box-shadow:inset 0 0 0 1px var(--line);
+  background:linear-gradient(var(--moss),var(--moss)) center/11px 1.5px no-repeat,linear-gradient(var(--moss),var(--moss)) center/1.5px 11px no-repeat;transition:transform var(--d-3) var(--ease-out)}
+.faq__list .elementor-accordion .elementor-tab-title.elementor-active::after{transform:rotate(45deg)}
+.faq__list .elementor-accordion .elementor-tab-content{padding:0 0 24px;border:0;color:#4b4c45;font-size:1rem;line-height:1.55}
+.faq__list .elementor-accordion .elementor-tab-content p{margin:-6px 0 0;max-width:60ch}
+
+/* --- final CTA --- */
+.final.e-con{position:relative;display:flex;flex-direction:row;align-items:flex-end}
+.final::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(0deg,rgba(14,18,13,.82),rgba(14,18,13,.15) 55%,rgba(14,18,13,.3))}
+.final>.final__img{position:absolute;inset:0;width:100%;height:100%}
+.final__img img{width:100%;height:100%;object-fit:cover;max-width:none;display:block}
+.final__copy.e-con{position:relative;z-index:2}
+
+/* --- footer --- */
+.foot.e-con{display:block}
+.foot__grid.e-con{display:grid}
+.foot__legal.e-con{display:flex;flex-direction:row}
+.foot__legal p{margin:0}
+.foot__name-w{margin:clamp(40px,6vw,80px) 0 clamp(20px,3vw,40px)}
+.foot__name-w .foot__name{margin:0}
+@media (max-width:800px){.foot__name-w{margin:28px 0 18px}}
+
+/* --- mobile dock --- */
+.dock.e-con{position:fixed;width:auto;max-width:none;--width:auto}
+.dock>.elementor-widget-button{width:auto}
+.dock .elementor-button{width:100%;min-height:50px;display:flex;align-items:center;justify-content:center;border-radius:14px;background:none;color:inherit;padding:0 6px;font-size:.92rem;font-weight:500}
+.dock .elementor-button-content-wrapper{gap:7px}
+.dock__main .elementor-button{background:linear-gradient(180deg,#3b4a38,#2a3528);color:#fff}
+
+/* --- inside the Elementor editor: no loader, nothing hidden by scroll reveals --- */
+.elementor-editor-active #loader{display:none!important}
+.elementor-editor-active .rv{opacity:1!important;transform:none!important}
+
+/* --- loader widget: out of the flow (its empty wrapper would otherwise push the page down) --- */
+.aas-loader-w{position:absolute;inset:0 auto auto 0;width:0;height:0;margin:0}
+/* Elementor strips link underlines; the form "Rather talk?" link keeps the demo look */
+.wiz__or a{text-decoration:underline;text-underline-offset:2px}
+
+/* the dock and the hidden spec card: wrappers carry the demo class but must not draw or take space themselves */
+.dock__main.elementor-widget-button{background:none;color:inherit}
+.visit__side>.elementor-widget-html:has(#specMini[hidden]){display:none}
+/* Call: the demo's outline phone icon (Elementor's free icon set only has a solid one) */
+.dock .dock__call .elementor-button-content-wrapper::before{content:"";width:18px;height:18px;flex:none;background:currentColor;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2' fill='none' stroke='%23000' stroke-width='1.6'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2' fill='none' stroke='%23000' stroke-width='1.6'/%3E%3C/svg%3E") center/contain no-repeat}
+
+/* sites where Elementor's "Optimized Markup" is off wrap every widget in an extra .elementor-widget-container div:
+   let it stand aside so the page lays out the same either way */
+.elementor-widget-heading>.elementor-widget-container,.elementor-widget-text-editor>.elementor-widget-container,
+.elementor-widget-button>.elementor-widget-container,.elementor-widget-icon-list>.elementor-widget-container,
+.elementor-widget-html>.elementor-widget-container,.elementor-widget-image>.elementor-widget-container,
+.elementor-widget-accordion>.elementor-widget-container{display:contents}

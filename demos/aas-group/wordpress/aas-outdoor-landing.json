@@ -1,0 +1,2584 @@
+{
+ "title": "AAS Outdoor Landing",
+ "type": "page",
+ "version": "0.4",
+ "page_settings": {
+  "template": "elementor_canvas"
+ },
+ "content": [
+  {
+   "id": "5a35d00",
+   "elType": "widget",
+   "widgetType": "html",
+   "isInner": false,
+   "settings": {
+    "_title": "⚠ Loader – don’t edit",
+    "html": "<div id=\"loader\" aria-hidden=\"true\" data-aas-landing=\"1\">\n<div class=\"ld__band ld__band--p\"><i class=\"ld__joints\"></i><span class=\"ld__tag\"><b>Porcelain</b> +0.00</span></div>\n<div class=\"ld__band ld__band--s\"><span class=\"ld__tag\"><b>Mortar bed</b> −0.04</span></div>\n<div class=\"ld__band ld__band--t\"><i class=\"ld__grain\"></i><span class=\"ld__tag\"><b>Type 1 sub-base</b> −0.20</span></div>\n<div class=\"ld__band ld__band--g\"><span class=\"ld__tag\"><b>Formation</b> −1.05</span></div>\n<div class=\"ld__head\">\n<svg class=\"ld__mark\" viewBox=\"120 0 1100 910\" aria-hidden=\"true\"><defs><clipPath id=\"lc\"><path d=\"M120 880 Q660 676 1220 868 L1220 0 L120 0Z\"/></clipPath></defs><g fill=\"#F33333\"><g clip-path=\"url(#lc)\"><path d=\"M370 338 548 230V900H370Z\"/><path d=\"M569 230 748 123V900H569Z\"/><path d=\"M771 122 950 15V900H771Z\"/></g><path d=\"M130 905Q660 700 1210 893Q660 772 130 905Z\"/></g></svg>\n<span class=\"ld__word\">AAS Group<small>Construction</small></span>\n</div>\n<div class=\"ld__lvl\"><span class=\"ld__n\" id=\"ldN\">−1.05</span><span class=\"ld__cap\">level to finished surface</span></div>\n<i class=\"ld__dim\"></i>\n</div>\n<script>\n(function(){if(document.documentElement.classList.contains('seen'))return;var n=document.getElementById('ldN'),t0=performance.now()+100,D=820;\nfunction f(t){var k=Math.min(1,Math.max(0,(t-t0)/D)),v=1.05*Math.pow(1-k,3);var c=Math.round(v*100);n.textContent=(c>0?'\\u2212':'+')+(c/100).toFixed(2);if(k<1)requestAnimationFrame(f)}\nrequestAnimationFrame(f);setTimeout(function(){var l=document.getElementById('loader');l&&l.remove()},2000)})();\n</script>",
+    "_css_classes": "aas-loader-w"
+   },
+   "elements": []
+  },
+  {
+   "id": "5b4f113",
+   "elType": "container",
+   "isInner": false,
+   "settings": {
+    "_title": "Top bar",
+    "content_width": "full",
+    "css_classes": "nav",
+    "html_tag": "header",
+    "_element_id": "nav"
+   },
+   "elements": [
+    {
+     "id": "5a68f32",
+     "elType": "widget",
+     "widgetType": "html",
+     "isInner": false,
+     "settings": {
+      "_title": "Logo (HTML)",
+      "html": "<a class=\"brand\" href=\"#hero\" aria-label=\"AAS Group Construction, back to top\"><svg class=\"brand__img\" width=\"34\" height=\"28\" aria-hidden=\"true\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"120 0 1100 920\"><defs><clipPath id=\"c\"><path d=\"M120 880 Q660 676 1220 868 L1220 0 L120 0Z\"/></clipPath></defs><g fill=\"#F33333\"><g clip-path=\"url(#c)\"><path d=\"M370 338 548 230V900H370Z\"/><path d=\"M569 230 748 123V900H569Z\"/><path d=\"M771 122 950 15V900H771Z\"/></g><path d=\"M130 905Q660 700 1210 893Q660 772 130 905Z\"/></g></svg><span class=\"brand__word\">AAS Group<small>Construction</small></span></a>"
+     },
+     "elements": []
+    },
+    {
+     "id": "5ae8caf",
+     "elType": "widget",
+     "widgetType": "icon-list",
+     "isInner": false,
+     "settings": {
+      "_title": "Menu links",
+      "text_color": "inherit",
+      "icon_typography_typography": "custom",
+      "__globals__": {
+       "text_color": "",
+       "icon_typography_typography": ""
+      },
+      "view": "inline",
+      "_css_classes": "nav__links",
+      "icon_list": [
+       {
+        "_id": "5a8284b",
+        "text": "Design yours",
+        "selected_icon": {
+         "value": "",
+         "library": ""
+        },
+        "link": {
+         "url": "#design",
+         "is_external": "",
+         "nofollow": "",
+         "custom_attributes": ""
+        }
+       },
+       {
+        "_id": "5a9c164",
+        "text": "Our work",
+        "selected_icon": {
+         "value": "",
+         "library": ""
+        },
+        "link": {
+         "url": "#services",
+         "is_external": "",
+         "nofollow": "",
+         "custom_attributes": ""
+        }
+       },
+       {
+        "_id": "5ab5a7d",
+        "text": "How it works",
+        "selected_icon": {
+         "value": "",
+         "library": ""
+        },
+        "link": {
+         "url": "#process",
+         "is_external": "",
+         "nofollow": "",
+         "custom_attributes": ""
+        }
+       },
+       {
+        "_id": "5acf396",
+        "text": "Reviews",
+        "selected_icon": {
+         "value": "",
+         "library": ""
+        },
+        "link": {
+         "url": "#reviews",
+         "is_external": "",
+         "nofollow": "",
+         "custom_attributes": ""
+        }
+       }
+      ]
+     },
+     "elements": []
+    },
+    {
+     "id": "5b357fa",
+     "elType": "container",
+     "isInner": true,
+     "settings": {
+      "_title": "Top bar buttons",
+      "content_width": "full",
+      "css_classes": "nav__cta"
+     },
+     "elements": [
+      {
+       "id": "5b025c8",
+       "elType": "widget",
+       "widgetType": "button",
+       "isInner": false,
+       "settings": {
+        "_title": "Phone",
+        "typography_typography": "custom",
+        "__globals__": {
+         "typography_typography": ""
+        },
+        "text": "07777 792227",
+        "link": {
+         "url": "tel:+447777792227",
+         "is_external": "",
+         "nofollow": "",
+         "custom_attributes": ""
+        },
+        "_css_classes": "nav__phone",
+        "selected_icon": {
+         "value": "",
+         "library": ""
+        }
+       },
+       "elements": []
+      },
+      {
+       "id": "5b1bee1",
+       "elType": "widget",
+       "widgetType": "button",
+       "isInner": false,
+       "settings": {
+        "_title": "Button",
+        "typography_typography": "custom",
+        "__globals__": {
+         "typography_typography": ""
+        },
+        "text": "Free site visit",
+        "link": {
+         "url": "#visit",
+         "is_external": "",
+         "nofollow": "",
+         "custom_attributes": ""
+        },
+        "_css_classes": "b-btn b-btn--ink b-btn--sm",
+        "selected_icon": {
+         "value": "",
+         "library": ""
+        }
+       },
+       "elements": []
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "5c9b758",
+   "elType": "container",
+   "isInner": false,
+   "settings": {
+    "_title": "Hero",
+    "content_width": "full",
+    "css_classes": "hero",
+    "html_tag": "section",
+    "_element_id": "hero"
+   },
+   "elements": [
+    {
+     "id": "5c81e3f",
+     "elType": "container",
+     "isInner": true,
+     "settings": {
+      "_title": "Hero stage",
+      "content_width": "full",
+      "css_classes": "hero__stage"
+     },
+     "elements": [
+      {
+       "id": "5b68a2c",
+       "elType": "widget",
+       "widgetType": "html",
+       "isInner": false,
+       "settings": {
+        "_title": "⚠ Hero film – don’t edit",
+        "html": "<canvas data-aas-landing=\"1\" class=\"hero__canvas\" id=\"heroCanvas\" aria-hidden=\"true\"></canvas>\n<div class=\"hero__shade\" aria-hidden=\"true\"></div>\n<div class=\"hero__grid\" aria-hidden=\"true\"></div>\n<aside class=\"plan\" id=\"plan\" aria-label=\"Build stages\">\n<div class=\"plan__lvl\"><span class=\"plan__dot\" aria-hidden=\"true\"></span><span id=\"planLvl\">+0.00</span></div>\n<ol class=\"plan__steps\" id=\"planSteps\">\n<li data-at=\"0\">The finished garden</li>\n<li data-at=\"0.06\">Before: a sloped, boggy plot</li>\n<li data-at=\"0.18\">Dig out, levels, new fence</li>\n<li data-at=\"0.34\">Retaining wall and steps</li>\n<li data-at=\"0.44\">Sub-base, then porcelain</li>\n<li data-at=\"0.62\">Turf on the upper level</li>\n<li data-at=\"0.73\">Planting and living wall</li>\n<li data-at=\"0.84\">Step lights at golden hour</li>\n</ol>\n<div class=\"plan__bar\" aria-hidden=\"true\"><i id=\"planBar\"></i></div>\n</aside>\n<div class=\"hero__scroll\" aria-hidden=\"true\"><span>Scroll to watch it built</span><i></i></div>\n<span class=\"vis-chip\" title=\"An AI-generated illustration of a garden build, not a photo of a finished job\">Visualisation</span>"
+       },
+       "elements": []
+      },
+      {
+       "id": "5c68526",
+       "elType": "container",
+       "isInner": true,
+       "settings": {
+        "_title": "Hero text",
+        "content_width": "full",
+        "css_classes": "hero__copy",
+        "_element_id": "heroCopy"
+       },
+       "elements": [
+        {
+         "id": "5bcee90",
+         "elType": "widget",
+         "widgetType": "icon-list",
+         "isInner": false,
+         "settings": {
+          "_title": "Chips",
+          "text_color": "inherit",
+          "icon_typography_typography": "custom",
+          "__globals__": {
+           "text_color": "",
+           "icon_typography_typography": ""
+          },
+          "view": "inline",
+          "_css_classes": "chips",
+          "icon_list": [
+           {
+            "_id": "5b82345",
+            "text": "5.0 · 25 Google reviews",
+            "selected_icon": {
+             "value": "",
+             "library": ""
+            },
+            "link": {
+             "url": "https://www.google.com/maps/search/?api=1&query=AAS+Group+Construction+Ltd+Northampton",
+             "is_external": "on",
+             "nofollow": "",
+             "custom_attributes": ""
+            }
+           },
+           {
+            "_id": "5b9bc5e",
+            "text": "Groundworks-led",
+            "selected_icon": {
+             "value": "",
+             "library": ""
+            },
+            "link": {
+             "url": ""
+            }
+           },
+           {
+            "_id": "5bb5577",
+            "text": "Northants · MK · Leics",
+            "selected_icon": {
+             "value": "",
+             "library": ""
+            },
+            "link": {
+             "url": ""
+            }
+           }
+          ]
+         },
+         "elements": []
+        },
+        {
+         "id": "5be87a9",
+         "elType": "widget",
+         "widgetType": "heading",
+         "isInner": false,
+         "settings": {
+          "_title": "Headline",
+          "title_color": "inherit",
+          "typography_typography": "custom",
+          "__globals__": {
+           "title_color": "",
+           "typography_typography": ""
+          },
+          "title": "Gardens and driveways, built <em>from the ground&nbsp;up.</em>",
+          "header_size": "h1",
+          "_css_classes": "hero__title"
+         },
+         "elements": []
+        },
+        {
+         "id": "5c020c2",
+         "elType": "widget",
+         "widgetType": "text-editor",
+         "isInner": false,
+         "settings": {
+          "_title": "Intro",
+          "text_color": "inherit",
+          "typography_typography": "custom",
+          "__globals__": {
+           "text_color": "",
+           "typography_typography": ""
+          },
+          "editor": "<p class=\"hero__sub\">Patios, driveways and full garden transformations across Northamptonshire and Milton Keynes, by a groundworks team that gets the base, levels and drainage right first.</p>",
+          "_css_classes": ""
+         },
+         "elements": []
+        },
+        {
+         "id": "5c4ec0d",
+         "elType": "container",
+         "isInner": true,
+         "settings": {
+          "_title": "Hero buttons",
+          "content_width": "full",
+          "css_classes": "hero__ctas"
+         },
+         "elements": [
+          {
+           "id": "5c1b9db",
+           "elType": "widget",
+           "widgetType": "button",
+           "isInner": false,
+           "settings": {
+            "_title": "Button",
+            "typography_typography": "custom",
+            "__globals__": {
+             "typography_typography": ""
+            },
+            "text": "Book a free site visit",
+            "link": {
+             "url": "#visit",
+             "is_external": "",
+             "nofollow": "",
+             "custom_attributes": ""
+            },
+            "_css_classes": "b-btn b-btn--primary magnetic btn-arrow",
+            "selected_icon": {
+             "value": "",
+             "library": ""
+            }
+           },
+           "elements": []
+          },
+          {
+           "id": "5c352f4",
+           "elType": "widget",
+           "widgetType": "button",
+           "isInner": false,
+           "settings": {
+            "_title": "WhatsApp button",
+            "typography_typography": "custom",
+            "__globals__": {
+             "typography_typography": ""
+            },
+            "text": "WhatsApp 07777 792227",
+            "link": {
+             "url": "https://wa.me/447777792227?text=Hi%20Ardian%2C%20I%27d%20like%20a%20free%20site%20visit.",
+             "is_external": "on",
+             "nofollow": "",
+             "custom_attributes": ""
+            },
+            "_css_classes": "b-btn b-btn--glass",
+            "selected_icon": {
+             "value": "fab fa-whatsapp",
+             "library": "fa-brands"
+            }
+           },
+           "elements": []
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "5d34dee",
+   "elType": "container",
+   "isInner": false,
+   "settings": {
+    "_title": "Design your outdoor space",
+    "content_width": "full",
+    "css_classes": "design",
+    "html_tag": "section",
+    "_element_id": "design"
+   },
+   "elements": [
+    {
+     "id": "5d01bbc",
+     "elType": "container",
+     "isInner": true,
+     "settings": {
+      "_title": "Intro",
+      "content_width": "full",
+      "css_classes": "design__head wrap"
+     },
+     "elements": [
+      {
+       "id": "5cb5071",
+       "elType": "widget",
+       "widgetType": "text-editor",
+       "isInner": false,
+       "settings": {
+        "_title": "Kicker",
+        "text_color": "inherit",
+        "typography_typography": "custom",
+        "__globals__": {
+         "text_color": "",
+         "typography_typography": ""
+        },
+        "editor": "<p class=\"kicker\"><span class=\"lvl-tag\">+0.00</span> Design your outdoor space</p>",
+        "_css_classes": "kicker-w"
+       },
+       "elements": []
+      },
+      {
+       "id": "5cce98a",
+       "elType": "widget",
+       "widgetType": "heading",
+       "isInner": false,
+       "settings": {
+        "_title": "Heading",
+        "title_color": "inherit",
+        "typography_typography": "custom",
+        "__globals__": {
+         "title_color": "",
+         "typography_typography": ""
+        },
+        "title": "Plan the garden <em>before we dig.</em>",
+        "header_size": "h2",
+        "_css_classes": "h2",
+        "_element_id": "design-h"
+       },
+       "elements": []
+      },
+      {
+       "id": "5ce82a3",
+       "elType": "widget",
+       "widgetType": "text-editor",
+       "isInner": false,
+       "settings": {
+        "_title": "Intro",
+        "text_color": "inherit",
+        "typography_typography": "custom",
+        "__globals__": {
+         "text_color": "",
+         "typography_typography": ""
+        },
+        "editor": "<p class=\"lede\">Pick a surface, a lawn and a boundary. Your choices build a spec card you can send to Ardian with one tap, and he’ll bring it to your free site visit.</p>",
+        "_css_classes": ""
+       },
+       "elements": []
+      }
+     ]
+    },
+    {
+     "id": "5d1b4d5",
+     "elType": "widget",
+     "widgetType": "html",
+     "isInner": false,
+     "settings": {
+      "_title": "⚠ Configurator – don’t edit",
+      "html": "<div class=\"studio wrap\" data-aas-landing=\"1\">\n<div class=\"studio__stage\" id=\"studioStage\">\n<canvas id=\"studioCanvas\" aria-label=\"3D visualisation of a garden that changes as you choose materials\" role=\"img\"></canvas>\n<img class=\"studio__poster\" id=\"studioPoster\" data-aas-src=\"/poster/studio.webp\" src=\"data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==\" alt=\"\" width=\"1600\" height=\"1000\" loading=\"lazy\" decoding=\"async\">\n<span class=\"vis-chip vis-chip--dark\">Visualisation · drag to look around</span>\n<div class=\"studio__dims\" aria-hidden=\"true\">\n<span class=\"dim dim--w\"><i></i><b id=\"dimW\">9.0 m</b><i></i></span>\n<span class=\"dim dim--fall\">fall 1:60 →</span>\n</div>\n</div>\n<div class=\"studio__panel\">\n<div class=\"zones\" role=\"tablist\" aria-label=\"Garden zones\">\n<button role=\"tab\" aria-selected=\"true\" data-zone=\"patio\">Patio</button>\n<button role=\"tab\" aria-selected=\"false\" data-zone=\"lawn\">Lawn</button>\n<button role=\"tab\" aria-selected=\"false\" data-zone=\"boundary\">Boundary</button>\n<button role=\"tab\" aria-selected=\"false\" data-zone=\"extras\">Extras</button>\n</div>\n<div class=\"zone-panes\">\n<div class=\"pane\" data-pane=\"patio\" role=\"tabpanel\">\n<div class=\"opts\" data-group=\"patio\">\n<button class=\"opt is-on\" data-v=\"porcelain\"><span class=\"sw sw--porcelain\"></span>Porcelain</button>\n<button class=\"opt\" data-v=\"stone\"><span class=\"sw sw--stone\"></span>Natural stone</button>\n<button class=\"opt\" data-v=\"block\"><span class=\"sw sw--block\"></span>Block paving</button>\n<button class=\"opt\" data-v=\"resin\"><span class=\"sw sw--resin\"></span>Resin bound</button>\n</div>\n<div class=\"tones\" id=\"tones\" aria-label=\"Tone\"></div>\n</div>\n<div class=\"pane\" data-pane=\"lawn\" role=\"tabpanel\" hidden>\n<div class=\"opts\" data-group=\"lawn\">\n<button class=\"opt is-on\" data-v=\"turf\"><span class=\"sw sw--turf\"></span>Real turf</button>\n<button class=\"opt\" data-v=\"artificial\"><span class=\"sw sw--art\"></span>Artificial grass</button>\n</div>\n<p class=\"pane__note\">Real turf is mown in stripes; artificial stays green all year with no mowing.</p>\n</div>\n<div class=\"pane\" data-pane=\"boundary\" role=\"tabpanel\" hidden>\n<div class=\"opts\" data-group=\"boundary\">\n<button class=\"opt is-on\" data-v=\"featheredge\"><span class=\"sw sw--fe\"></span>Featheredge</button>\n<button class=\"opt\" data-v=\"composite\"><span class=\"sw sw--comp\"></span>Composite</button>\n<button class=\"opt\" data-v=\"living\"><span class=\"sw sw--living\"></span>Living wall</button>\n</div>\n<p class=\"pane__note\">Featheredge goes on concrete posts with gravel boards, so the timber stays off wet ground.</p>\n</div>\n<div class=\"pane\" data-pane=\"extras\" role=\"tabpanel\" hidden>\n<div class=\"opts opts--multi\" data-group=\"extras\">\n<button class=\"opt\" data-v=\"lighting\" aria-pressed=\"false\"><span class=\"sw sw--light\"></span>Lighting</button>\n<button class=\"opt is-on\" data-v=\"steps\" aria-pressed=\"true\"><span class=\"sw sw--steps\"></span>Steps</button>\n<button class=\"opt\" data-v=\"beds\" aria-pressed=\"false\"><span class=\"sw sw--beds\"></span>Raised beds</button>\n</div>\n</div>\n</div>\n<div class=\"size\">\n<p class=\"size__label\">Roughly how big is the space?</p>\n<div class=\"seg\" data-group=\"size\">\n<button class=\"is-on\" data-v=\"Small\">Small</button>\n<button data-v=\"Medium\">Medium</button>\n<button data-v=\"Large\">Large</button>\n</div>\n</div>\n<article class=\"spec\" id=\"spec\" aria-live=\"polite\">\n<header class=\"spec__head\"><span>Your garden spec</span><span class=\"spec__ref\">Sheet 01 · not to scale</span></header>\n<dl class=\"spec__list\" id=\"specList\"></dl>\n<div class=\"spec__rule\" aria-hidden=\"true\"><i></i><span>+0.00</span><i></i><span>+0.90</span></div>\n</article>\n<a class=\"btn btn--primary btn--block magnetic\" id=\"specGo\" href=\"#visit\"><span>Get this designed for my home</span><svg viewBox=\"0 0 20 20\" aria-hidden=\"true\"><path d=\"M4 10h11m-4-4 4 4-4 4\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\"/></svg></a>\n</div>\n</div>"
+     },
+     "elements": []
+    }
+   ]
+  },
+  {
+   "id": "614d2ef",
+   "elType": "container",
+   "isInner": false,
+   "settings": {
+    "_title": "Services",
+    "content_width": "full",
+    "css_classes": "services",
+    "html_tag": "section",
+    "_element_id": "services"
+   },
+   "elements": [
+    {
+     "id": "5d9b252",
+     "elType": "container",
+     "isInner": true,
+     "settings": {
+      "_title": "Intro",
+      "content_width": "full",
+      "css_classes": "wrap services__head"
+     },
+     "elements": [
+      {
+       "id": "5d4e707",
+       "elType": "widget",
+       "widgetType": "text-editor",
+       "isInner": false,
+       "settings": {
+        "_title": "Kicker",
+        "text_color": "inherit",
+        "typography_typography": "custom",
+        "__globals__": {
+         "text_color": "",
+         "typography_typography": ""
+        },
+        "editor": "<p class=\"kicker\"><span class=\"lvl-tag\">−0.15</span> What we build</p>",
+        "_css_classes": "kicker-w"
+       },
+       "elements": []
+      },
+      {
+       "id": "5d68020",
+       "elType": "widget",
+       "widgetType": "heading",
+       "isInner": false,
+       "settings": {
+        "_title": "Heading",
+        "title_color": "inherit",
+        "typography_typography": "custom",
+        "__globals__": {
+         "title_color": "",
+         "typography_typography": ""
+        },
+        "title": "Five things we build, <em>properly underneath.</em>",
+        "header_size": "h2",
+        "_css_classes": "h2",
+        "_element_id": "svc-h"
+       },
+       "elements": []
+      },
+      {
+       "id": "5d81939",
+       "elType": "widget",
+       "widgetType": "text-editor",
+       "isInner": false,
+       "settings": {
+        "_title": "Swipe hint (phones)",
+        "text_color": "inherit",
+        "typography_typography": "custom",
+        "__globals__": {
+         "text_color": "",
+         "typography_typography": ""
+        },
+        "editor": "<p class=\"services__hint\">Swipe for all five →</p>",
+        "_css_classes": ""
+       },
+       "elements": []
+      }
+     ]
+    },
+    {
+     "id": "61339d6",
+     "elType": "container",
+     "isInner": true,
+     "settings": {
+      "_title": "Service cards",
+      "content_width": "full",
+      "css_classes": "stack wrap"
+     },
+     "elements": [
+      {
+       "id": "5e4e201",
+       "elType": "container",
+       "isInner": true,
+       "settings": {
+        "_title": "Card: Patios & paving",
+        "content_width": "full",
+        "css_classes": "card-svc",
+        "html_tag": "article"
+       },
+       "elements": [
+        {
+         "id": "5db4b6b",
+         "elType": "widget",
+         "widgetType": "image",
+         "isInner": false,
+         "settings": {
+          "_title": "Photo",
+          "image": {
+           "url": "https://clientgateway-aas-group.dnilicj.workers.dev/work/southam-after-1600.webp",
+           "id": "",
+           "source": "library",
+           "alt": ""
+          },
+          "image_size": "large",
+          "_css_classes": "card-svc__img"
+         },
+         "elements": []
+        },
+        {
+         "id": "5e348e8",
+         "elType": "container",
+         "isInner": true,
+         "settings": {
+          "_title": "Card text",
+          "content_width": "full",
+          "css_classes": "card-svc__body"
+         },
+         "elements": [
+          {
+           "id": "5dce484",
+           "elType": "widget",
+           "widgetType": "heading",
+           "isInner": false,
+           "settings": {
+            "_title": "Title",
+            "title_color": "inherit",
+            "typography_typography": "custom",
+            "__globals__": {
+             "title_color": "",
+             "typography_typography": ""
+            },
+            "title": "Patios &amp; paving",
+            "header_size": "h3",
+            "_css_classes": ""
+           },
+           "elements": []
+          },
+          {
+           "id": "5de7d9d",
+           "elType": "widget",
+           "widgetType": "text-editor",
+           "isInner": false,
+           "settings": {
+            "_title": "Text",
+            "text_color": "inherit",
+            "typography_typography": "custom",
+            "__globals__": {
+             "text_color": "",
+             "typography_typography": ""
+            },
+            "editor": "<p>Porcelain, natural stone and block paving, laid on a proper sub-base with a fall that sends rain where it should go.</p>",
+            "_css_classes": ""
+           },
+           "elements": []
+          },
+          {
+           "id": "5e016b6",
+           "elType": "widget",
+           "widgetType": "text-editor",
+           "isInner": false,
+           "settings": {
+            "_title": "Materials",
+            "text_color": "inherit",
+            "typography_typography": "custom",
+            "__globals__": {
+             "text_color": "",
+             "typography_typography": ""
+            },
+            "editor": "<p class=\"card-svc__meta\">Porcelain · Natural stone · Block paving</p>",
+            "_css_classes": ""
+           },
+           "elements": []
+          },
+          {
+           "id": "5e1afcf",
+           "elType": "widget",
+           "widgetType": "text-editor",
+           "isInner": false,
+           "settings": {
+            "_title": "Real job caption",
+            "text_color": "inherit",
+            "typography_typography": "custom",
+            "__globals__": {
+             "text_color": "",
+             "typography_typography": ""
+            },
+            "editor": "<p class=\"card-svc__cap\">Real job: 35m² porcelain patio, Southam</p>",
+            "_css_classes": ""
+           },
+           "elements": []
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "5f011b0",
+       "elType": "container",
+       "isInner": true,
+       "settings": {
+        "_title": "Card: Driveways",
+        "content_width": "full",
+        "css_classes": "card-svc",
+        "html_tag": "article"
+       },
+       "elements": [
+        {
+         "id": "5e67b1a",
+         "elType": "widget",
+         "widgetType": "image",
+         "isInner": false,
+         "settings": {
+          "_title": "Photo",
+          "image": {
+           "url": "https://clientgateway-aas-group.dnilicj.workers.dev/work/windbrush-after-1600.webp",
+           "id": "",
+           "source": "library",
+           "alt": ""
+          },
+          "image_size": "large",
+          "_css_classes": "card-svc__img"
+         },
+         "elements": []
+        },
+        {
+         "id": "5ee7897",
+         "elType": "container",
+         "isInner": true,
+         "settings": {
+          "_title": "Card text",
+          "content_width": "full",
+          "css_classes": "card-svc__body"
+         },
+         "elements": [
+          {
+           "id": "5e81433",
+           "elType": "widget",
+           "widgetType": "heading",
+           "isInner": false,
+           "settings": {
+            "_title": "Title",
+            "title_color": "inherit",
+            "typography_typography": "custom",
+            "__globals__": {
+             "title_color": "",
+             "typography_typography": ""
+            },
+            "title": "Driveways",
+            "header_size": "h3",
+            "_css_classes": ""
+           },
+           "elements": []
+          },
+          {
+           "id": "5e9ad4c",
+           "elType": "widget",
+           "widgetType": "text-editor",
+           "isInner": false,
+           "settings": {
+            "_title": "Text",
+            "text_color": "inherit",
+            "typography_typography": "custom",
+            "__globals__": {
+             "text_color": "",
+             "typography_typography": ""
+            },
+            "editor": "<p>Block paving, resin bound and concrete, dug to the right depth and edged so nothing creeps or sinks.</p>",
+            "_css_classes": ""
+           },
+           "elements": []
+          },
+          {
+           "id": "5eb4665",
+           "elType": "widget",
+           "widgetType": "text-editor",
+           "isInner": false,
+           "settings": {
+            "_title": "Materials",
+            "text_color": "inherit",
+            "typography_typography": "custom",
+            "__globals__": {
+             "text_color": "",
+             "typography_typography": ""
+            },
+            "editor": "<p class=\"card-svc__meta\">Block paving · Resin bound · Concrete</p>",
+            "_css_classes": ""
+           },
+           "elements": []
+          },
+          {
+           "id": "5ecdf7e",
+           "elType": "widget",
+           "widgetType": "text-editor",
+           "isInner": false,
+           "settings": {
+            "_title": "Real job caption",
+            "text_color": "inherit",
+            "typography_typography": "custom",
+            "__globals__": {
+             "text_color": "",
+             "typography_typography": ""
+            },
+            "editor": "<p class=\"card-svc__cap\">Real job: 65m² charcoal block paving, Windbrush Way, Northampton</p>",
+            "_css_classes": ""
+           },
+           "elements": []
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "5fb415f",
+       "elType": "container",
+       "isInner": true,
+       "settings": {
+        "_title": "Card: Garden transformations",
+        "content_width": "full",
+        "css_classes": "card-svc",
+        "html_tag": "article"
+       },
+       "elements": [
+        {
+         "id": "5f1aac9",
+         "elType": "widget",
+         "widgetType": "image",
+         "isInner": false,
+         "settings": {
+          "_title": "Photo",
+          "image": {
+           "url": "https://clientgateway-aas-group.dnilicj.workers.dev/work/holm-after-1600.webp",
+           "id": "",
+           "source": "library",
+           "alt": ""
+          },
+          "image_size": "large",
+          "_css_classes": "card-svc__img"
+         },
+         "elements": []
+        },
+        {
+         "id": "5f9a846",
+         "elType": "container",
+         "isInner": true,
+         "settings": {
+          "_title": "Card text",
+          "content_width": "full",
+          "css_classes": "card-svc__body"
+         },
+         "elements": [
+          {
+           "id": "5f343e2",
+           "elType": "widget",
+           "widgetType": "heading",
+           "isInner": false,
+           "settings": {
+            "_title": "Title",
+            "title_color": "inherit",
+            "typography_typography": "custom",
+            "__globals__": {
+             "title_color": "",
+             "typography_typography": ""
+            },
+            "title": "Garden transformations",
+            "header_size": "h3",
+            "_css_classes": ""
+           },
+           "elements": []
+          },
+          {
+           "id": "5f4dcfb",
+           "elType": "widget",
+           "widgetType": "text-editor",
+           "isInner": false,
+           "settings": {
+            "_title": "Text",
+            "text_color": "inherit",
+            "typography_typography": "custom",
+            "__globals__": {
+             "text_color": "",
+             "typography_typography": ""
+            },
+            "editor": "<p>The whole garden as one job: patio, lawn, paths, planting and fencing, planned together so it all lines up.</p>",
+            "_css_classes": ""
+           },
+           "elements": []
+          },
+          {
+           "id": "5f67614",
+           "elType": "widget",
+           "widgetType": "text-editor",
+           "isInner": false,
+           "settings": {
+            "_title": "Materials",
+            "text_color": "inherit",
+            "typography_typography": "custom",
+            "__globals__": {
+             "text_color": "",
+             "typography_typography": ""
+            },
+            "editor": "<p class=\"card-svc__meta\">Turf &amp; artificial grass · Paths · Planting</p>",
+            "_css_classes": ""
+           },
+           "elements": []
+          },
+          {
+           "id": "5f80f2d",
+           "elType": "widget",
+           "widgetType": "text-editor",
+           "isInner": false,
+           "settings": {
+            "_title": "Real job caption",
+            "text_color": "inherit",
+            "typography_typography": "custom",
+            "__globals__": {
+             "text_color": "",
+             "typography_typography": ""
+            },
+            "editor": "<p class=\"card-svc__cap\">Real job: Great Holm, Milton Keynes</p>",
+            "_css_classes": ""
+           },
+           "elements": []
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "606710e",
+       "elType": "container",
+       "isInner": true,
+       "settings": {
+        "_title": "Card: Fencing & decking",
+        "content_width": "full",
+        "css_classes": "card-svc",
+        "html_tag": "article"
+       },
+       "elements": [
+        {
+         "id": "5fcda78",
+         "elType": "widget",
+         "widgetType": "image",
+         "isInner": false,
+         "settings": {
+          "_title": "Photo",
+          "image": {
+           "url": "https://clientgateway-aas-group.dnilicj.workers.dev/work/abington-after-1600.webp",
+           "id": "",
+           "source": "library",
+           "alt": ""
+          },
+          "image_size": "large",
+          "_css_classes": "card-svc__img"
+         },
+         "elements": []
+        },
+        {
+         "id": "604d7f5",
+         "elType": "container",
+         "isInner": true,
+         "settings": {
+          "_title": "Card text",
+          "content_width": "full",
+          "css_classes": "card-svc__body"
+         },
+         "elements": [
+          {
+           "id": "5fe7391",
+           "elType": "widget",
+           "widgetType": "heading",
+           "isInner": false,
+           "settings": {
+            "_title": "Title",
+            "title_color": "inherit",
+            "typography_typography": "custom",
+            "__globals__": {
+             "title_color": "",
+             "typography_typography": ""
+            },
+            "title": "Fencing &amp; decking",
+            "header_size": "h3",
+            "_css_classes": ""
+           },
+           "elements": []
+          },
+          {
+           "id": "6000caa",
+           "elType": "widget",
+           "widgetType": "text-editor",
+           "isInner": false,
+           "settings": {
+            "_title": "Text",
+            "text_color": "inherit",
+            "typography_typography": "custom",
+            "__globals__": {
+             "text_color": "",
+             "typography_typography": ""
+            },
+            "editor": "<p>Featheredge, composite and timber, set on concrete posts with gravel boards so the wood stays off wet ground.</p>",
+            "_css_classes": ""
+           },
+           "elements": []
+          },
+          {
+           "id": "601a5c3",
+           "elType": "widget",
+           "widgetType": "text-editor",
+           "isInner": false,
+           "settings": {
+            "_title": "Materials",
+            "text_color": "inherit",
+            "typography_typography": "custom",
+            "__globals__": {
+             "text_color": "",
+             "typography_typography": ""
+            },
+            "editor": "<p class=\"card-svc__meta\">Timber · Composite · Featheredge</p>",
+            "_css_classes": ""
+           },
+           "elements": []
+          },
+          {
+           "id": "6033edc",
+           "elType": "widget",
+           "widgetType": "text-editor",
+           "isInner": false,
+           "settings": {
+            "_title": "Real job caption",
+            "text_color": "inherit",
+            "typography_typography": "custom",
+            "__globals__": {
+             "text_color": "",
+             "typography_typography": ""
+            },
+            "editor": "<p class=\"card-svc__cap\">Real job: 18 featheredge panels, Abington Park, Northampton</p>",
+            "_css_classes": ""
+           },
+           "elements": []
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "id": "611a0bd",
+       "elType": "container",
+       "isInner": true,
+       "settings": {
+        "_title": "Card: Slopes & retaining walls",
+        "content_width": "full",
+        "css_classes": "card-svc",
+        "html_tag": "article"
+       },
+       "elements": [
+        {
+         "id": "6080a27",
+         "elType": "widget",
+         "widgetType": "image",
+         "isInner": false,
+         "settings": {
+          "_title": "Photo",
+          "image": {
+           "url": "https://clientgateway-aas-group.dnilicj.workers.dev/work/rootlok-done-1600.webp",
+           "id": "",
+           "source": "library",
+           "alt": ""
+          },
+          "image_size": "large",
+          "_css_classes": "card-svc__img"
+         },
+         "elements": []
+        },
+        {
+         "id": "61007a4",
+         "elType": "container",
+         "isInner": true,
+         "settings": {
+          "_title": "Card text",
+          "content_width": "full",
+          "css_classes": "card-svc__body"
+         },
+         "elements": [
+          {
+           "id": "609a340",
+           "elType": "widget",
+           "widgetType": "heading",
+           "isInner": false,
+           "settings": {
+            "_title": "Title",
+            "title_color": "inherit",
+            "typography_typography": "custom",
+            "__globals__": {
+             "title_color": "",
+             "typography_typography": ""
+            },
+            "title": "Slopes &amp; retaining walls",
+            "header_size": "h3",
+            "_css_classes": ""
+           },
+           "elements": []
+          },
+          {
+           "id": "60b3c59",
+           "elType": "widget",
+           "widgetType": "text-editor",
+           "isInner": false,
+           "settings": {
+            "_title": "Text",
+            "text_color": "inherit",
+            "typography_typography": "custom",
+            "__globals__": {
+             "text_color": "",
+             "typography_typography": ""
+            },
+            "editor": "<p>Terraces, steps and Rootlok living walls for ground that slips, slopes or holds water.</p>",
+            "_css_classes": ""
+           },
+           "elements": []
+          },
+          {
+           "id": "60cd572",
+           "elType": "widget",
+           "widgetType": "text-editor",
+           "isInner": false,
+           "settings": {
+            "_title": "Materials",
+            "text_color": "inherit",
+            "typography_typography": "custom",
+            "__globals__": {
+             "text_color": "",
+             "typography_typography": ""
+            },
+            "editor": "<p class=\"card-svc__meta\">Retaining walls · Rootlok · Groundworks &amp; drainage</p>",
+            "_css_classes": ""
+           },
+           "elements": []
+          },
+          {
+           "id": "60e6e8b",
+           "elType": "widget",
+           "widgetType": "text-editor",
+           "isInner": false,
+           "settings": {
+            "_title": "Real job caption",
+            "text_color": "inherit",
+            "typography_typography": "custom",
+            "__globals__": {
+             "text_color": "",
+             "typography_typography": ""
+            },
+            "editor": "<p class=\"card-svc__cap\">Real job: 50m Rootlok wall, Wellingborough</p>",
+            "_css_classes": ""
+           },
+           "elements": []
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "6266702",
+   "elType": "container",
+   "isInner": false,
+   "settings": {
+    "_title": "How a patio is built + Slopes",
+    "content_width": "full",
+    "css_classes": "layers",
+    "html_tag": "section",
+    "_element_id": "layers"
+   },
+   "elements": [
+    {
+     "id": "6166c08",
+     "elType": "widget",
+     "widgetType": "html",
+     "isInner": false,
+     "settings": {
+      "_title": "⚠ Patio layers animation – don’t edit",
+      "html": "<div class=\"layers__pin\" id=\"layersPin\">\n<canvas id=\"layersCanvas\" aria-hidden=\"true\"></canvas>\n<div class=\"layers__copy\">\n<p class=\"kicker kicker--light\"><span class=\"lvl-tag\">−0.30</span> How a patio is built</p>\n<h2 id=\"layers-h\" class=\"h2 h2--light\">The bit you'll never see <em>is the bit we're best at.</em></h2>\n</div>\n<ol class=\"layers__list\" id=\"layersList\">\n<li data-i=\"4\"><b>Porcelain slab</b><span>The part you see, set to a gentle fall so rain runs off, not in.</span></li>\n<li data-i=\"3\"><b>Mortar bed</b><span>Holds every slab level and solid, with no hollow corners to crack.</span></li>\n<li data-i=\"2\"><b>MOT Type 1 sub-base</b><span>Crushed stone, compacted. This is what carries the weight.</span></li>\n<li data-i=\"1\"><b>Geotextile membrane</b><span>Keeps the sub-base clean and stops weeds pushing up.</span></li>\n<li data-i=\"0\"><b>Compacted subsoil</b><span>Dug down to firm ground, so nothing sinks later.</span></li>\n</ol>\n<p class=\"layers__fall\" aria-hidden=\"true\">fall → drain</p>\n<span class=\"vis-chip vis-chip--dark\">Visualisation</span>\n</div>"
+     },
+     "elements": []
+    },
+    {
+     "id": "624cde9",
+     "elType": "container",
+     "isInner": true,
+     "settings": {
+      "_title": "Slopes",
+      "content_width": "full",
+      "css_classes": "slope wrap"
+     },
+     "elements": [
+      {
+       "id": "61cd06c",
+       "elType": "container",
+       "isInner": true,
+       "settings": {
+        "_title": "Slopes text",
+        "content_width": "full",
+        "css_classes": "slope__copy"
+       },
+       "elements": [
+        {
+         "id": "6180521",
+         "elType": "widget",
+         "widgetType": "text-editor",
+         "isInner": false,
+         "settings": {
+          "_title": "Kicker",
+          "text_color": "inherit",
+          "typography_typography": "custom",
+          "__globals__": {
+           "text_color": "",
+           "typography_typography": ""
+          },
+          "editor": "<p class=\"kicker kicker--light\"><span class=\"lvl-tag\">+0.90</span> Slopes</p>",
+          "_css_classes": "kicker-w"
+         },
+         "elements": []
+        },
+        {
+         "id": "6199e3a",
+         "elType": "widget",
+         "widgetType": "heading",
+         "isInner": false,
+         "settings": {
+          "_title": "Heading",
+          "title_color": "inherit",
+          "typography_typography": "custom",
+          "__globals__": {
+           "title_color": "",
+           "typography_typography": ""
+          },
+          "title": "Got a slope? <em>We build gardens on ground other landscapers walk away from.</em>",
+          "header_size": "h2",
+          "_css_classes": "h2 h2--light"
+         },
+         "elements": []
+        },
+        {
+         "id": "61b3753",
+         "elType": "widget",
+         "widgetType": "text-editor",
+         "isInner": false,
+         "settings": {
+          "_title": "Text",
+          "text_color": "inherit",
+          "typography_typography": "custom",
+          "__globals__": {
+           "text_color": "",
+           "typography_typography": ""
+          },
+          "editor": "<p class=\"lede lede--light\">On Talbot Road North in Wellingborough the garden fell away from the house. We built a 10-metre retaining wall, 900mm high, split the garden into two levels joined by central steps, and laid 40m² of natural turf.</p>",
+          "_css_classes": ""
+         },
+         "elements": []
+        }
+       ]
+      },
+      {
+       "id": "61e6985",
+       "elType": "widget",
+       "widgetType": "html",
+       "isInner": false,
+       "settings": {
+        "_title": "⚠ Before/after slider – don’t edit",
+        "html": "<div class=\"reveal-drag\" id=\"reveal\" style=\"--x:50%\">\n<picture class=\"reveal-drag__after\"><source type=\"image/avif\" data-aas-srcset=\"/work/talbot-after-800.avif 800w, /work/talbot-after-1600.avif 1600w\" sizes=\"(max-width: 800px) 82vw, 34vw\"><img data-aas-src=\"/work/talbot-after-800.webp\" data-aas-srcset=\"/work/talbot-after-800.webp 800w, /work/talbot-after-1600.webp 1600w\" sizes=\"(max-width: 800px) 82vw, 34vw\" width=\"1448\" height=\"1086\" alt=\"After: two-level garden with a block retaining wall, central steps and new turf\" style=\"background:#d8d3c8 url(data:image/webp;base64,UklGRnwAAABXRUJQVlA4IHAAAADQBACdASoYABIAPtVaokyoJSMiMAwBABqJZACxG3WBcGQ/3R1AAChV5YNa0A/nQAD97zUSigmhPqyBjHD1OS4/+ZnO0yadfrIwk+kAqdJor9YCrPZ95kMmbNwyAlLZY9P611lFf5WPq2MMl9ICpogA) center/cover no-repeat\" loading=\"lazy\" decoding=\"async\"></picture>\n<div class=\"reveal-drag__before\"><picture><source type=\"image/avif\" data-aas-srcset=\"/work/talbot-before-800.avif 800w, /work/talbot-before-1600.avif 1600w\" sizes=\"(max-width: 800px) 82vw, 34vw\"><img data-aas-src=\"/work/talbot-before-800.webp\" data-aas-srcset=\"/work/talbot-before-800.webp 800w, /work/talbot-before-1600.webp 1600w\" sizes=\"(max-width: 800px) 82vw, 34vw\" width=\"1600\" height=\"1200\" alt=\"Before: a sloped, patchy lawn with old fencing\" style=\"background:#d8d3c8 url(data:image/webp;base64,UklGRnIAAABXRUJQVlA4IGYAAACwBACdASoYABIAPs1SoUynpKMiN/qoAPAZiUAXZfHQNCzSsMc66SYuHclt8vOQAP6fulbjo1zvcbASMcIeRA96sKrFuq2u3kTK/RzXPBafHGqA9nVuutdNYcaFltjnVlxSODcAAAA=) center/cover no-repeat\" loading=\"lazy\" decoding=\"async\"></picture></div>\n<span class=\"reveal-drag__tag reveal-drag__tag--b\">Before</span><span class=\"reveal-drag__tag reveal-drag__tag--a\">After</span>\n<input class=\"reveal-drag__range\" type=\"range\" min=\"0\" max=\"100\" value=\"50\" aria-label=\"Drag to compare before and after\">\n<span class=\"reveal-drag__handle\" aria-hidden=\"true\"><svg viewBox=\"0 0 24 24\"><path d=\"M9 6 3 12l6 6M15 6l6 6-6 6\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\"/></svg></span>\n<p class=\"reveal-drag__cap\">Real job · Talbot Road North, Wellingborough</p>\n</div>"
+       },
+       "elements": []
+      },
+      {
+       "id": "62334d0",
+       "elType": "container",
+       "isInner": true,
+       "settings": {
+        "_title": "Rootlok",
+        "content_width": "full",
+        "css_classes": "rootlok"
+       },
+       "elements": [
+        {
+         "id": "620029e",
+         "elType": "widget",
+         "widgetType": "image",
+         "isInner": false,
+         "settings": {
+          "_title": "Photo",
+          "image": {
+           "url": "https://clientgateway-aas-group.dnilicj.workers.dev/work/rootlok-run-1600.webp",
+           "id": "",
+           "source": "library",
+           "alt": ""
+          },
+          "image_size": "large",
+          "_css_classes": "rootlok__pic"
+         },
+         "elements": []
+        },
+        {
+         "id": "6219bb7",
+         "elType": "widget",
+         "widgetType": "text-editor",
+         "isInner": false,
+         "settings": {
+          "_title": "Caption",
+          "text_color": "inherit",
+          "typography_typography": "custom",
+          "__globals__": {
+           "text_color": "",
+           "typography_typography": ""
+          },
+          "editor": "<p class=\"rootlok__cap\"><strong>50m Rootlok living wall, Wellingborough.</strong> Tough geotextile bags, filled on site and locked together with interlocking plates, then seeded so grass and wildflowers grow through. It holds the slope like a hard wall, and it looks green.</p>",
+          "_css_classes": ""
+         },
+         "elements": []
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "63cc660",
+   "elType": "container",
+   "isInner": false,
+   "settings": {
+    "_title": "Reviews",
+    "content_width": "full",
+    "css_classes": "reviews",
+    "html_tag": "section",
+    "_element_id": "reviews"
+   },
+   "elements": [
+    {
+     "id": "63b2d47",
+     "elType": "container",
+     "isInner": true,
+     "settings": {
+      "_title": "Reviews inner",
+      "content_width": "full",
+      "css_classes": "wrap"
+     },
+     "elements": [
+      {
+       "id": "62ccb66",
+       "elType": "container",
+       "isInner": true,
+       "settings": {
+        "_title": "Reviews heading",
+        "content_width": "full",
+        "css_classes": "reviews__head"
+       },
+       "elements": [
+        {
+         "id": "628001b",
+         "elType": "widget",
+         "widgetType": "text-editor",
+         "isInner": false,
+         "settings": {
+          "_title": "Kicker",
+          "text_color": "inherit",
+          "typography_typography": "custom",
+          "__globals__": {
+           "text_color": "",
+           "typography_typography": ""
+          },
+          "editor": "<p class=\"kicker\"><span class=\"lvl-tag\">+0.00</span> Reviews</p>",
+          "_css_classes": "kicker-w"
+         },
+         "elements": []
+        },
+        {
+         "id": "6299934",
+         "elType": "widget",
+         "widgetType": "heading",
+         "isInner": false,
+         "settings": {
+          "_title": "Heading",
+          "title_color": "inherit",
+          "typography_typography": "custom",
+          "__globals__": {
+           "title_color": "",
+           "typography_typography": ""
+          },
+          "title": "What the neighbours <em>say on Google.</em>",
+          "header_size": "h2",
+          "_css_classes": "h2",
+          "_element_id": "rev-h"
+         },
+         "elements": []
+        },
+        {
+         "id": "62b324d",
+         "elType": "widget",
+         "widgetType": "text-editor",
+         "isInner": false,
+         "settings": {
+          "_title": "Google badge",
+          "text_color": "inherit",
+          "typography_typography": "custom",
+          "__globals__": {
+           "text_color": "",
+           "typography_typography": ""
+          },
+          "editor": "<p><a class=\"gbadge gbadge--lg\" href=\"https://www.google.com/maps/search/?api=1&amp;query=AAS+Group+Construction+Ltd+Northampton\" target=\"_blank\" rel=\"noopener\"><span class=\"gbadge__g\" aria-hidden=\"true\">G</span><span class=\"gbadge__score\">5.0</span><span class=\"gbadge__stars\" aria-hidden=\"true\">★★★★★</span><span class=\"gbadge__n\">from 25 Google reviews</span></a></p>",
+          "_css_classes": ""
+         },
+         "elements": []
+        }
+       ]
+      },
+      {
+       "id": "637fb15",
+       "elType": "container",
+       "isInner": true,
+       "settings": {
+        "_title": "Review cards",
+        "content_width": "full",
+        "css_classes": "quotes",
+        "_element_id": "quotes"
+       },
+       "elements": [
+        {
+         "id": "62e647f",
+         "elType": "widget",
+         "widgetType": "text-editor",
+         "isInner": false,
+         "settings": {
+          "_title": "Review: Hugh F.",
+          "text_color": "inherit",
+          "typography_typography": "custom",
+          "__globals__": {
+           "text_color": "",
+           "typography_typography": ""
+          },
+          "editor": "<blockquote>“AAS have done an amazing job on my drive and front garden. Adrian has kept me informed of what was happening. I am extremely pleased with the finished results, and would highly recommend AAS.”</blockquote><p class=\"quote__cap\">Hugh F. · Google review</p>",
+          "_css_classes": "quote is-on"
+         },
+         "elements": []
+        },
+        {
+         "id": "62ffd98",
+         "elType": "widget",
+         "widgetType": "text-editor",
+         "isInner": false,
+         "settings": {
+          "_title": "Review: Jurgen M.",
+          "text_color": "inherit",
+          "typography_typography": "custom",
+          "__globals__": {
+           "text_color": "",
+           "typography_typography": ""
+          },
+          "editor": "<blockquote>“I've used AAS Group Construction for my front garage driveway in New Duston, Northamptonshire. I’m really happy with their professional service and will definitely choose them again next summer for my garage project.”</blockquote><p class=\"quote__cap\">Jurgen M. · Google review</p>",
+          "_css_classes": "quote"
+         },
+         "elements": []
+        },
+        {
+         "id": "63196b1",
+         "elType": "widget",
+         "widgetType": "text-editor",
+         "isInner": false,
+         "settings": {
+          "_title": "Review: Hannah W.",
+          "text_color": "inherit",
+          "typography_typography": "custom",
+          "__globals__": {
+           "text_color": "",
+           "typography_typography": ""
+          },
+          "editor": "<blockquote>“Very pleased with the landscaping work. They transformed the outdoor space beautifully and paid attention to every detail.”</blockquote><p class=\"quote__cap\">Hannah W. · Google review</p>",
+          "_css_classes": "quote"
+         },
+         "elements": []
+        },
+        {
+         "id": "6332fca",
+         "elType": "widget",
+         "widgetType": "text-editor",
+         "isInner": false,
+         "settings": {
+          "_title": "Review: Nathan H.",
+          "text_color": "inherit",
+          "typography_typography": "custom",
+          "__globals__": {
+           "text_color": "",
+           "typography_typography": ""
+          },
+          "editor": "<blockquote>“Great service and a high-quality finish. The team was punctual, professional, and easy to deal with.”</blockquote><p class=\"quote__cap\">Nathan H. · Google review</p>",
+          "_css_classes": "quote"
+         },
+         "elements": []
+        },
+        {
+         "id": "634c8e3",
+         "elType": "widget",
+         "widgetType": "text-editor",
+         "isInner": false,
+         "settings": {
+          "_title": "Review: Fabio P.",
+          "text_color": "inherit",
+          "typography_typography": "custom",
+          "__globals__": {
+           "text_color": "",
+           "typography_typography": ""
+          },
+          "editor": "<blockquote>“I have installed new driveway form Aas group in Kingsley road Northampton happy with the results I recommend them to all my friends and family”</blockquote><p class=\"quote__cap\">Fabio P. · Google review</p>",
+          "_css_classes": "quote"
+         },
+         "elements": []
+        },
+        {
+         "id": "63661fc",
+         "elType": "widget",
+         "widgetType": "text-editor",
+         "isInner": false,
+         "settings": {
+          "_title": "Review: Walter O.",
+          "text_color": "inherit",
+          "typography_typography": "custom",
+          "__globals__": {
+           "text_color": "",
+           "typography_typography": ""
+          },
+          "editor": "<blockquote>“Excellent workmanship and great communication. AAS Group Construction Ltd made the whole process straightforward. Highly recommended.”</blockquote><p class=\"quote__cap\">Walter O. · Google review</p>",
+          "_css_classes": "quote"
+         },
+         "elements": []
+        }
+       ]
+      },
+      {
+       "id": "639942e",
+       "elType": "widget",
+       "widgetType": "html",
+       "isInner": false,
+       "settings": {
+        "_title": "⚠ Review arrows – don’t edit",
+        "html": "<div class=\"quotes__nav\">\n<button class=\"qbtn\" id=\"qPrev\" aria-label=\"Previous review\"><svg viewBox=\"0 0 20 20\"><path d=\"M16 10H5m4-4-4 4 4 4\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\"/></svg></button>\n<span class=\"quotes__count\" id=\"qCount\">Swipe for more</span>\n<button class=\"qbtn\" id=\"qNext\" aria-label=\"Next review\"><svg viewBox=\"0 0 20 20\"><path d=\"M4 10h11m-4-4 4 4-4 4\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\"/></svg></button>\n</div>"
+       },
+       "elements": []
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "661879f",
+   "elType": "container",
+   "isInner": false,
+   "settings": {
+    "_title": "How it works",
+    "content_width": "full",
+    "css_classes": "process",
+    "html_tag": "section",
+    "_element_id": "process"
+   },
+   "elements": [
+    {
+     "id": "65fee86",
+     "elType": "container",
+     "isInner": true,
+     "settings": {
+      "_title": "How it works inner",
+      "content_width": "full",
+      "css_classes": "wrap process__grid"
+     },
+     "elements": [
+      {
+       "id": "644c3dd",
+       "elType": "container",
+       "isInner": true,
+       "settings": {
+        "_title": "Intro",
+        "content_width": "full",
+        "css_classes": "process__head"
+       },
+       "elements": [
+        {
+         "id": "63e5f79",
+         "elType": "widget",
+         "widgetType": "text-editor",
+         "isInner": false,
+         "settings": {
+          "_title": "Kicker",
+          "text_color": "inherit",
+          "typography_typography": "custom",
+          "__globals__": {
+           "text_color": "",
+           "typography_typography": ""
+          },
+          "editor": "<p class=\"kicker kicker--light\"><span class=\"lvl-tag\">+0.00</span> How it works</p>",
+          "_css_classes": "kicker-w"
+         },
+         "elements": []
+        },
+        {
+         "id": "63ff892",
+         "elType": "widget",
+         "widgetType": "heading",
+         "isInner": false,
+         "settings": {
+          "_title": "Heading",
+          "title_color": "inherit",
+          "typography_typography": "custom",
+          "__globals__": {
+           "title_color": "",
+           "typography_typography": ""
+          },
+          "title": "Five steps, <em>no surprises.</em>",
+          "header_size": "h2",
+          "_css_classes": "h2 h2--light",
+          "_element_id": "proc-h"
+         },
+         "elements": []
+        },
+        {
+         "id": "64191ab",
+         "elType": "widget",
+         "widgetType": "text-editor",
+         "isInner": false,
+         "settings": {
+          "_title": "Intro",
+          "text_color": "inherit",
+          "typography_typography": "custom",
+          "__globals__": {
+           "text_color": "",
+           "typography_typography": ""
+          },
+          "editor": "<p class=\"lede lede--light\">Every job starts with a site visit, not a one-size quote.</p>",
+          "_css_classes": ""
+         },
+         "elements": []
+        },
+        {
+         "id": "6432ac4",
+         "elType": "widget",
+         "widgetType": "button",
+         "isInner": false,
+         "settings": {
+          "_title": "Button",
+          "typography_typography": "custom",
+          "__globals__": {
+           "typography_typography": ""
+          },
+          "text": "Book the first step",
+          "link": {
+           "url": "#visit",
+           "is_external": "",
+           "nofollow": "",
+           "custom_attributes": ""
+          },
+          "_css_classes": "b-btn b-btn--light",
+          "selected_icon": {
+           "value": "",
+           "library": ""
+          }
+         },
+         "elements": []
+        }
+       ]
+      },
+      {
+       "id": "65e556d",
+       "elType": "container",
+       "isInner": true,
+       "settings": {
+        "_title": "Steps",
+        "content_width": "full",
+        "css_classes": "steps",
+        "_element_id": "steps"
+       },
+       "elements": [
+        {
+         "id": "6498f28",
+         "elType": "container",
+         "isInner": true,
+         "settings": {
+          "_title": "Step 1",
+          "content_width": "full",
+          "css_classes": "steps__item"
+         },
+         "elements": [
+          {
+           "id": "6465cf6",
+           "elType": "widget",
+           "widgetType": "heading",
+           "isInner": false,
+           "settings": {
+            "_title": "Step title",
+            "title_color": "inherit",
+            "typography_typography": "custom",
+            "__globals__": {
+             "title_color": "",
+             "typography_typography": ""
+            },
+            "title": "Free site visit",
+            "header_size": "h3",
+            "_css_classes": "steps__n"
+           },
+           "elements": []
+          },
+          {
+           "id": "647f60f",
+           "elType": "widget",
+           "widgetType": "text-editor",
+           "isInner": false,
+           "settings": {
+            "_title": "Step text",
+            "text_color": "inherit",
+            "typography_typography": "custom",
+            "__globals__": {
+             "text_color": "",
+             "typography_typography": ""
+            },
+            "editor": "<p>Ardian checks the levels, drainage and what's under the ground.</p>",
+            "_css_classes": ""
+           },
+           "elements": []
+          }
+         ]
+        },
+        {
+         "id": "64e5a73",
+         "elType": "container",
+         "isInner": true,
+         "settings": {
+          "_title": "Step 2",
+          "content_width": "full",
+          "css_classes": "steps__item"
+         },
+         "elements": [
+          {
+           "id": "64b2841",
+           "elType": "widget",
+           "widgetType": "heading",
+           "isInner": false,
+           "settings": {
+            "_title": "Step title",
+            "title_color": "inherit",
+            "typography_typography": "custom",
+            "__globals__": {
+             "title_color": "",
+             "typography_typography": ""
+            },
+            "title": "Design &amp; written quote",
+            "header_size": "h3",
+            "_css_classes": "steps__n"
+           },
+           "elements": []
+          },
+          {
+           "id": "64cc15a",
+           "elType": "widget",
+           "widgetType": "text-editor",
+           "isInner": false,
+           "settings": {
+            "_title": "Step text",
+            "text_color": "inherit",
+            "typography_typography": "custom",
+            "__globals__": {
+             "text_color": "",
+             "typography_typography": ""
+            },
+            "editor": "<p>A plan and a written quote, so you know what's included.</p>",
+            "_css_classes": ""
+           },
+           "elements": []
+          }
+         ]
+        },
+        {
+         "id": "65325be",
+         "elType": "container",
+         "isInner": true,
+         "settings": {
+          "_title": "Step 3",
+          "content_width": "full",
+          "css_classes": "steps__item"
+         },
+         "elements": [
+          {
+           "id": "64ff38c",
+           "elType": "widget",
+           "widgetType": "heading",
+           "isInner": false,
+           "settings": {
+            "_title": "Step title",
+            "title_color": "inherit",
+            "typography_typography": "custom",
+            "__globals__": {
+             "title_color": "",
+             "typography_typography": ""
+            },
+            "title": "Groundworks",
+            "header_size": "h3",
+            "_css_classes": "steps__n"
+           },
+           "elements": []
+          },
+          {
+           "id": "6518ca5",
+           "elType": "widget",
+           "widgetType": "text-editor",
+           "isInner": false,
+           "settings": {
+            "_title": "Step text",
+            "text_color": "inherit",
+            "typography_typography": "custom",
+            "__globals__": {
+             "text_color": "",
+             "typography_typography": ""
+            },
+            "editor": "<p>Dig-out, levels, drainage and a compacted sub-base.</p>",
+            "_css_classes": ""
+           },
+           "elements": []
+          }
+         ]
+        },
+        {
+         "id": "657f109",
+         "elType": "container",
+         "isInner": true,
+         "settings": {
+          "_title": "Step 4",
+          "content_width": "full",
+          "css_classes": "steps__item"
+         },
+         "elements": [
+          {
+           "id": "654bed7",
+           "elType": "widget",
+           "widgetType": "heading",
+           "isInner": false,
+           "settings": {
+            "_title": "Step title",
+            "title_color": "inherit",
+            "typography_typography": "custom",
+            "__globals__": {
+             "title_color": "",
+             "typography_typography": ""
+            },
+            "title": "Build",
+            "header_size": "h3",
+            "_css_classes": "steps__n"
+           },
+           "elements": []
+          },
+          {
+           "id": "65657f0",
+           "elType": "widget",
+           "widgetType": "text-editor",
+           "isInner": false,
+           "settings": {
+            "_title": "Step text",
+            "text_color": "inherit",
+            "typography_typography": "custom",
+            "__globals__": {
+             "text_color": "",
+             "typography_typography": ""
+            },
+            "editor": "<p>Walls, steps, paving, turf, fencing and planting.</p>",
+            "_css_classes": ""
+           },
+           "elements": []
+          }
+         ]
+        },
+        {
+         "id": "65cbc54",
+         "elType": "container",
+         "isInner": true,
+         "settings": {
+          "_title": "Step 5",
+          "content_width": "full",
+          "css_classes": "steps__item"
+         },
+         "elements": [
+          {
+           "id": "6598a22",
+           "elType": "widget",
+           "widgetType": "heading",
+           "isInner": false,
+           "settings": {
+            "_title": "Step title",
+            "title_color": "inherit",
+            "typography_typography": "custom",
+            "__globals__": {
+             "title_color": "",
+             "typography_typography": ""
+            },
+            "title": "Clean handover",
+            "header_size": "h3",
+            "_css_classes": "steps__n"
+           },
+           "elements": []
+          },
+          {
+           "id": "65b233b",
+           "elType": "widget",
+           "widgetType": "text-editor",
+           "isInner": false,
+           "settings": {
+            "_title": "Step text",
+            "text_color": "inherit",
+            "typography_typography": "custom",
+            "__globals__": {
+             "text_color": "",
+             "typography_typography": ""
+            },
+            "editor": "<p>Site cleared and checked with you before we leave.</p>",
+            "_css_classes": ""
+           },
+           "elements": []
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "66fe980",
+   "elType": "container",
+   "isInner": false,
+   "settings": {
+    "_title": "Free site visit",
+    "content_width": "full",
+    "css_classes": "visit",
+    "html_tag": "section",
+    "_element_id": "visit"
+   },
+   "elements": [
+    {
+     "id": "66e5067",
+     "elType": "container",
+     "isInner": true,
+     "settings": {
+      "_title": "Free site visit inner",
+      "content_width": "full",
+      "css_classes": "wrap visit__grid"
+     },
+     "elements": [
+      {
+       "id": "66b1e35",
+       "elType": "container",
+       "isInner": true,
+       "settings": {
+        "_title": "Intro",
+        "content_width": "full",
+        "css_classes": "visit__side"
+       },
+       "elements": [
+        {
+         "id": "66320b8",
+         "elType": "widget",
+         "widgetType": "text-editor",
+         "isInner": false,
+         "settings": {
+          "_title": "Kicker",
+          "text_color": "inherit",
+          "typography_typography": "custom",
+          "__globals__": {
+           "text_color": "",
+           "typography_typography": ""
+          },
+          "editor": "<p class=\"kicker\"><span class=\"lvl-tag\">+0.00</span> Free site visit</p>",
+          "_css_classes": "kicker-w"
+         },
+         "elements": []
+        },
+        {
+         "id": "664b9d1",
+         "elType": "widget",
+         "widgetType": "heading",
+         "isInner": false,
+         "settings": {
+          "_title": "Heading",
+          "title_color": "inherit",
+          "typography_typography": "custom",
+          "__globals__": {
+           "title_color": "",
+           "typography_typography": ""
+          },
+          "title": "Book your <em>free site visit.</em>",
+          "header_size": "h2",
+          "_css_classes": "h2",
+          "_element_id": "visit-h"
+         },
+         "elements": []
+        },
+        {
+         "id": "66652ea",
+         "elType": "widget",
+         "widgetType": "text-editor",
+         "isInner": false,
+         "settings": {
+          "_title": "Intro",
+          "text_color": "inherit",
+          "typography_typography": "custom",
+          "__globals__": {
+           "text_color": "",
+           "typography_typography": ""
+          },
+          "editor": "<p class=\"lede\">Six quick taps. Ardian gets your brief on WhatsApp and arranges a time to come and look.</p>",
+          "_css_classes": ""
+         },
+         "elements": []
+        },
+        {
+         "id": "667ec03",
+         "elType": "widget",
+         "widgetType": "html",
+         "isInner": false,
+         "settings": {
+          "_title": "⚠ Spec card (filled in by the configurator) – don’t edit",
+          "html": "<article class=\"spec spec--mini\" id=\"specMini\" hidden>\n<header class=\"spec__head\"><span>Your garden spec</span><a href=\"#design\" class=\"spec__edit\">Edit</a></header>\n<dl class=\"spec__list\" id=\"specMiniList\"></dl>\n</article>"
+         },
+         "elements": []
+        },
+        {
+         "id": "669851c",
+         "elType": "widget",
+         "widgetType": "text-editor",
+         "isInner": false,
+         "settings": {
+          "_title": "Trust line",
+          "text_color": "inherit",
+          "typography_typography": "custom",
+          "__globals__": {
+           "text_color": "",
+           "typography_typography": ""
+          },
+          "editor": "<p class=\"trust\"><a class=\"gbadge\" href=\"https://www.google.com/maps/search/?api=1&amp;query=AAS+Group+Construction+Ltd+Northampton\" target=\"_blank\" rel=\"noopener\"><span class=\"gbadge__g\" aria-hidden=\"true\">G</span><span class=\"gbadge__score\">5.0</span><span class=\"gbadge__stars\" aria-hidden=\"true\">★★★★★</span><span class=\"gbadge__n\">25 Google reviews</span></a><span class=\"trust__line\">No obligation · written quote</span></p>",
+          "_css_classes": ""
+         },
+         "elements": []
+        }
+       ]
+      },
+      {
+       "id": "66cb74e",
+       "elType": "widget",
+       "widgetType": "html",
+       "isInner": false,
+       "settings": {
+        "_title": "⚠ Booking form – don’t edit",
+        "html": "<form data-aas-landing=\"1\" class=\"wiz\" id=\"wiz\" novalidate aria-labelledby=\"visit-h\">\n<div class=\"wiz__top\">\n<div class=\"wiz__pill\" aria-hidden=\"true\"><i id=\"wizPill\"></i></div>\n<span class=\"wiz__count\" id=\"wizCount\">Step 1 of 6</span>\n</div>\n<fieldset class=\"wiz__step is-on\" data-step=\"1\">\n<legend>What's the project?</legend>\n<div class=\"choice\" data-name=\"project\">\n<button type=\"button\" data-v=\"Patio\">Patio</button>\n<button type=\"button\" data-v=\"Driveway\">Driveway</button>\n<button type=\"button\" data-v=\"Full garden\">Full garden</button>\n<button type=\"button\" data-v=\"Fencing / decking\">Fencing / decking</button>\n<button type=\"button\" data-v=\"Slope / retaining wall\">Slope / retaining wall</button>\n<button type=\"button\" data-v=\"Not sure yet\">Not sure yet</button>\n</div>\n</fieldset>\n<fieldset class=\"wiz__step\" data-step=\"2\" hidden>\n<legend>Roughly how big?</legend>\n<div class=\"choice choice--size\" data-name=\"size\">\n<button type=\"button\" data-v=\"Small\"><svg viewBox=\"0 0 48 32\" aria-hidden=\"true\"><rect x=\"16\" y=\"10\" width=\"16\" height=\"12\"/></svg>Small<small>a patio corner</small></button>\n<button type=\"button\" data-v=\"Medium\"><svg viewBox=\"0 0 48 32\" aria-hidden=\"true\"><rect x=\"10\" y=\"6\" width=\"28\" height=\"20\"/></svg>Medium<small>most back gardens</small></button>\n<button type=\"button\" data-v=\"Large\"><svg viewBox=\"0 0 48 32\" aria-hidden=\"true\"><rect x=\"3\" y=\"3\" width=\"42\" height=\"26\"/></svg>Large<small>front and back, or big plots</small></button>\n<button type=\"button\" data-v=\"Not sure\"><svg viewBox=\"0 0 48 32\" aria-hidden=\"true\"><rect x=\"10\" y=\"6\" width=\"28\" height=\"20\" stroke-dasharray=\"3 3\"/></svg>Not sure<small>we'll measure</small></button>\n</div>\n</fieldset>\n<fieldset class=\"wiz__step\" data-step=\"3\" hidden>\n<legend>When are you hoping to start?</legend>\n<div class=\"choice\" data-name=\"timing\">\n<button type=\"button\" data-v=\"As soon as possible\">As soon as possible</button>\n<button type=\"button\" data-v=\"In 1–3 months\">In 1–3 months</button>\n<button type=\"button\" data-v=\"In 3–6 months\">In 3–6 months</button>\n<button type=\"button\" data-v=\"Just planning\">Just planning</button>\n</div>\n</fieldset>\n<fieldset class=\"wiz__step\" data-step=\"4\" hidden>\n<legend><label for=\"pc\">What's your postcode?</label></legend>\n<input class=\"field\" id=\"pc\" name=\"postcode\" autocomplete=\"postal-code\" inputmode=\"text\" placeholder=\"e.g. NN8 4AB\" maxlength=\"9\" required aria-required=\"true\" pattern=\"[A-Za-z]{1,2}[0-9][A-Za-z0-9]? ?[0-9][A-Za-z]{2}\" aria-describedby=\"pcNote\">\n<p class=\"field__note\" id=\"pcNote\" aria-live=\"polite\"></p>\n<button type=\"button\" class=\"btn btn--ink wiz__next\" data-next>Continue</button>\n</fieldset>\n<fieldset class=\"wiz__step\" data-step=\"5\" hidden>\n<legend>Got photos of the space?</legend>\n<p class=\"wiz__help\">Optional, but it helps. You can send them straight into the WhatsApp chat after you press send.</p>\n<div class=\"choice\" data-name=\"photos\">\n<button type=\"button\" data-v=\"Yes, I'll send photos on WhatsApp\">Yes, I'll send them on WhatsApp</button>\n<button type=\"button\" data-v=\"No photos yet\">No photos yet</button>\n</div>\n</fieldset>\n<fieldset class=\"wiz__step\" data-step=\"6\" hidden>\n<legend>Where should Ardian call you?</legend>\n<label class=\"lbl\" for=\"nm\">Your name</label>\n<input class=\"field\" id=\"nm\" name=\"name\" autocomplete=\"name\" placeholder=\"First name is fine\">\n<label class=\"lbl\" for=\"mb\">Mobile number</label>\n<input class=\"field\" id=\"mb\" name=\"mobile\" autocomplete=\"tel\" inputmode=\"tel\" placeholder=\"07…\">\n<p class=\"field__note\" id=\"contactNote\" aria-live=\"polite\"></p>\n<div class=\"wiz__trust\">\n<span class=\"wiz__face\"><img data-aas-src=\"/brand/mark.svg\" src=\"data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==\" width=\"22\" height=\"19\" alt=\"\"></span>\n<span><b>★ 5.0 on Google</b> · No obligation · written quote</span>\n</div>\n<button type=\"submit\" class=\"btn btn--primary btn--block magnetic\" id=\"wizSend\"><span>Book my free site visit</span><svg viewBox=\"0 0 20 20\" aria-hidden=\"true\"><path d=\"M4 10h11m-4-4 4 4-4 4\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\"/></svg></button>\n</fieldset>\n<div class=\"wiz__done\" id=\"wizDone\" hidden tabindex=\"-1\">\n<svg class=\"wiz__tick\" viewBox=\"0 0 48 48\" aria-hidden=\"true\"><circle cx=\"24\" cy=\"24\" r=\"22\"/><path d=\"M14 25l7 7 13-15\"/></svg>\n<h3>Your brief is ready to send.</h3>\n<p>WhatsApp should have opened with everything filled in. Press send and we'll be in touch shortly to arrange your visit.</p>\n<div class=\"wiz__fallback\">\n<a class=\"btn btn--primary\" id=\"waAgain\" href=\"#\" target=\"_blank\" rel=\"noopener\">Open WhatsApp again</a>\n<a class=\"btn btn--ghost\" href=\"tel:+447777792227\">Call 07777 792227</a>\n</div>\n</div>\n<div class=\"wiz__foot\">\n<button type=\"button\" class=\"wiz__back\" id=\"wizBack\" hidden>← Back</button>\n<span class=\"wiz__or\">Rather talk? <a href=\"tel:+447777792227\">07777 792227</a></span>\n</div>\n</form>"
+       },
+       "elements": []
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "68316ac",
+   "elType": "container",
+   "isInner": false,
+   "settings": {
+    "_title": "FAQ",
+    "content_width": "full",
+    "css_classes": "faq",
+    "html_tag": "section",
+    "_element_id": "faq"
+   },
+   "elements": [
+    {
+     "id": "6817d93",
+     "elType": "container",
+     "isInner": true,
+     "settings": {
+      "_title": "FAQ inner",
+      "content_width": "full",
+      "css_classes": "wrap faq__grid"
+     },
+     "elements": [
+      {
+       "id": "674b4cb",
+       "elType": "container",
+       "isInner": true,
+       "settings": {
+        "_title": "Intro",
+        "content_width": "full",
+        "css_classes": "faq__intro"
+       },
+       "elements": [
+        {
+         "id": "6718299",
+         "elType": "widget",
+         "widgetType": "text-editor",
+         "isInner": false,
+         "settings": {
+          "_title": "Kicker",
+          "text_color": "inherit",
+          "typography_typography": "custom",
+          "__globals__": {
+           "text_color": "",
+           "typography_typography": ""
+          },
+          "editor": "<p class=\"kicker\"><span class=\"lvl-tag\">+0.00</span> Questions</p>",
+          "_css_classes": "kicker-w"
+         },
+         "elements": []
+        },
+        {
+         "id": "6731bb2",
+         "elType": "widget",
+         "widgetType": "heading",
+         "isInner": false,
+         "settings": {
+          "_title": "Heading",
+          "title_color": "inherit",
+          "typography_typography": "custom",
+          "__globals__": {
+           "title_color": "",
+           "typography_typography": ""
+          },
+          "title": "Good questions <em>to ask a landscaper.</em>",
+          "header_size": "h2",
+          "_css_classes": "h2",
+          "_element_id": "faq-h"
+         },
+         "elements": []
+        }
+       ]
+      },
+      {
+       "id": "67fe47a",
+       "elType": "widget",
+       "widgetType": "accordion",
+       "isInner": false,
+       "settings": {
+        "_title": "Questions",
+        "title_color": "inherit",
+        "tab_active_color": "inherit",
+        "content_color": "inherit",
+        "title_typography_typography": "custom",
+        "content_typography_typography": "custom",
+        "__globals__": {
+         "title_color": "",
+         "tab_active_color": "",
+         "content_color": "",
+         "title_typography_typography": "",
+         "content_typography_typography": ""
+        },
+        "_css_classes": "faq__list",
+        "tabs": [
+         {
+          "_id": "6764de4",
+          "tab_title": "Why do you start with a site visit?",
+          "tab_content": "<p>Because every garden is different underneath. Ardian looks at the levels, the drainage and the ground before pricing anything, so your written quote matches the real job rather than a one-size estimate.</p>"
+         },
+         {
+          "_id": "677e6fd",
+          "tab_title": "What do you do about drainage and levels?",
+          "tab_content": "<p>We plan each project around the site's drainage, ground conditions and daily use, not just the finish on top: the right excavation depth, a properly compacted sub-base, a fall that takes water away, and edge restraints that stop paving creeping or cracking.</p>"
+         },
+         {
+          "_id": "6798016",
+          "tab_title": "Which materials can I choose from?",
+          "tab_content": "<p>Porcelain, natural stone, block paving, resin bound and concrete for hard surfaces; real turf or artificial grass; timber, composite or featheredge fencing on concrete posts; plus steps, edging, planting and lighting.</p>"
+         },
+         {
+          "_id": "67b192f",
+          "tab_title": "Which areas do you cover?",
+          "tab_content": "<p>Northamptonshire (Northampton, Wellingborough, Kettering and Rothwell), Milton Keynes, Leicestershire (Market Harborough) and Southam and Coventry. Not sure if you're in? Put your postcode in the form and we'll confirm.</p>"
+         },
+         {
+          "_id": "67cb248",
+          "tab_title": "What is a Rootlok wall?",
+          "tab_content": "<p>A living retaining wall. Tough geotextile bags are filled on site and locked together with interlocking plates, then seeded with grass and wildflowers that grow through. It holds a slope like a hard wall, without the concrete look, and needs no heavy machinery to install.</p>"
+         },
+         {
+          "_id": "67e4b61",
+          "tab_title": "Is the work guaranteed?",
+          "tab_content": "<p>Ask Ardian at your free site visit. He'll talk you through what's covered for your job before any work starts.</p>"
+         }
+        ],
+        "selected_icon": {
+         "value": "fas fa-plus",
+         "library": "fa-solid"
+        },
+        "selected_active_icon": {
+         "value": "fas fa-minus",
+         "library": "fa-solid"
+        },
+        "title_html_tag": "div"
+       },
+       "elements": []
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "68fdf74",
+   "elType": "container",
+   "isInner": false,
+   "settings": {
+    "_title": "Final call to action",
+    "content_width": "full",
+    "css_classes": "final",
+    "html_tag": "section"
+   },
+   "elements": [
+    {
+     "id": "684afc5",
+     "elType": "widget",
+     "widgetType": "image",
+     "isInner": false,
+     "settings": {
+      "_title": "Background photo",
+      "image": {
+       "url": "https://clientgateway-aas-group.dnilicj.workers.dev/work/shelley-after-1600.webp",
+       "id": "",
+       "source": "library",
+       "alt": ""
+      },
+      "image_size": "full",
+      "_css_classes": "final__img"
+     },
+     "elements": []
+    },
+    {
+     "id": "68e465b",
+     "elType": "container",
+     "isInner": true,
+     "settings": {
+      "_title": "Final text",
+      "content_width": "full",
+      "css_classes": "wrap final__copy"
+     },
+     "elements": [
+      {
+       "id": "68648de",
+       "elType": "widget",
+       "widgetType": "heading",
+       "isInner": false,
+       "settings": {
+        "_title": "Headline",
+        "title_color": "inherit",
+        "typography_typography": "custom",
+        "__globals__": {
+         "title_color": "",
+         "typography_typography": ""
+        },
+        "title": "Start with the ground. <em>We’ll do the rest.</em>",
+        "header_size": "h2",
+        "_css_classes": "final__title",
+        "_element_id": "final-h"
+       },
+       "elements": []
+      },
+      {
+       "id": "68b1429",
+       "elType": "container",
+       "isInner": true,
+       "settings": {
+        "_title": "Buttons",
+        "content_width": "full",
+        "css_classes": "hero__ctas"
+       },
+       "elements": [
+        {
+         "id": "687e1f7",
+         "elType": "widget",
+         "widgetType": "button",
+         "isInner": false,
+         "settings": {
+          "_title": "Button",
+          "typography_typography": "custom",
+          "__globals__": {
+           "typography_typography": ""
+          },
+          "text": "Book a free site visit",
+          "link": {
+           "url": "#visit",
+           "is_external": "",
+           "nofollow": "",
+           "custom_attributes": ""
+          },
+          "_css_classes": "b-btn b-btn--primary magnetic btn-arrow",
+          "selected_icon": {
+           "value": "",
+           "library": ""
+          }
+         },
+         "elements": []
+        },
+        {
+         "id": "6897b10",
+         "elType": "widget",
+         "widgetType": "button",
+         "isInner": false,
+         "settings": {
+          "_title": "Call button",
+          "typography_typography": "custom",
+          "__globals__": {
+           "typography_typography": ""
+          },
+          "text": "Call 07777 792227",
+          "link": {
+           "url": "tel:+447777792227",
+           "is_external": "",
+           "nofollow": "",
+           "custom_attributes": ""
+          },
+          "_css_classes": "b-btn b-btn--glass",
+          "selected_icon": {
+           "value": "",
+           "library": ""
+          }
+         },
+         "elements": []
+        }
+       ]
+      },
+      {
+       "id": "68cad42",
+       "elType": "widget",
+       "widgetType": "text-editor",
+       "isInner": false,
+       "settings": {
+        "_title": "Caption",
+        "text_color": "inherit",
+        "typography_typography": "custom",
+        "__globals__": {
+         "text_color": "",
+         "typography_typography": ""
+        },
+        "editor": "<p class=\"final__cap\">Real job · Shelley Rd, Wellingborough</p>",
+        "_css_classes": ""
+       },
+       "elements": []
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "69e4155",
+   "elType": "container",
+   "isInner": false,
+   "settings": {
+    "_title": "Footer",
+    "content_width": "full",
+    "css_classes": "foot",
+    "html_tag": "footer"
+   },
+   "elements": [
+    {
+     "id": "697dcf1",
+     "elType": "container",
+     "isInner": true,
+     "settings": {
+      "_title": "Footer columns",
+      "content_width": "full",
+      "css_classes": "wrap foot__grid"
+     },
+     "elements": [
+      {
+       "id": "691788d",
+       "elType": "widget",
+       "widgetType": "text-editor",
+       "isInner": false,
+       "settings": {
+        "_title": "Column: Visit",
+        "text_color": "inherit",
+        "typography_typography": "custom",
+        "__globals__": {
+         "text_color": "",
+         "typography_typography": ""
+        },
+        "editor": "<p class=\"foot__h\">Visit</p><p>Abington St<br>Northampton NN1 2AJ</p>",
+        "_css_classes": ""
+       },
+       "elements": []
+      },
+      {
+       "id": "69311a6",
+       "elType": "widget",
+       "widgetType": "text-editor",
+       "isInner": false,
+       "settings": {
+        "_title": "Column: Talk",
+        "text_color": "inherit",
+        "typography_typography": "custom",
+        "__globals__": {
+         "text_color": "",
+         "typography_typography": ""
+        },
+        "editor": "<p class=\"foot__h\">Talk</p><p><a href=\"tel:+447777792227\">07777 792227</a> <small>mobile &amp; WhatsApp</small><br><a href=\"tel:+441604385166\">01604 385166</a> <small>office</small><br><a href=\"mailto:info@aasgroup.co.uk\">info@aasgroup.co.uk</a></p>",
+        "_css_classes": ""
+       },
+       "elements": []
+      },
+      {
+       "id": "694aabf",
+       "elType": "widget",
+       "widgetType": "text-editor",
+       "isInner": false,
+       "settings": {
+        "_title": "Column: Follow",
+        "text_color": "inherit",
+        "typography_typography": "custom",
+        "__globals__": {
+         "text_color": "",
+         "typography_typography": ""
+        },
+        "editor": "<p class=\"foot__h\">Follow</p><p><a href=\"https://www.facebook.com/Graundworker\" target=\"_blank\" rel=\"noopener\">Facebook</a><br><a href=\"https://www.instagram.com/_aas_group_construction\" target=\"_blank\" rel=\"noopener\">Instagram</a><br><a href=\"https://www.linkedin.com/company/aas-group-construction-ltd\" target=\"_blank\" rel=\"noopener\">LinkedIn</a><br><a href=\"https://www.youtube.com/@aasgroupconstruction\" target=\"_blank\" rel=\"noopener\">YouTube</a></p>",
+        "_css_classes": ""
+       },
+       "elements": []
+      },
+      {
+       "id": "69643d8",
+       "elType": "widget",
+       "widgetType": "text-editor",
+       "isInner": false,
+       "settings": {
+        "_title": "Column: Areas",
+        "text_color": "inherit",
+        "typography_typography": "custom",
+        "__globals__": {
+         "text_color": "",
+         "typography_typography": ""
+        },
+        "editor": "<p class=\"foot__h\">Areas</p><p>Northampton · Wellingborough · Kettering · Rothwell · Milton Keynes · Market Harborough · Southam · Coventry</p>",
+        "_css_classes": ""
+       },
+       "elements": []
+      }
+     ]
+    },
+    {
+     "id": "699760a",
+     "elType": "widget",
+     "widgetType": "text-editor",
+     "isInner": false,
+     "settings": {
+      "_title": "Big name",
+      "text_color": "inherit",
+      "typography_typography": "custom",
+      "__globals__": {
+       "text_color": "",
+       "typography_typography": ""
+      },
+      "editor": "<p class=\"foot__name\" aria-hidden=\"true\"><span>AAS</span> Group</p>",
+      "_css_classes": "foot__name-w"
+     },
+     "elements": []
+    },
+    {
+     "id": "69ca83c",
+     "elType": "container",
+     "isInner": true,
+     "settings": {
+      "_title": "Legal line",
+      "content_width": "full",
+      "css_classes": "wrap foot__legal"
+     },
+     "elements": [
+      {
+       "id": "69b0f23",
+       "elType": "widget",
+       "widgetType": "text-editor",
+       "isInner": false,
+       "settings": {
+        "_title": "Company details",
+        "text_color": "inherit",
+        "typography_typography": "custom",
+        "__globals__": {
+         "text_color": "",
+         "typography_typography": ""
+        },
+        "editor": "<p>AAS Group Construction Ltd · Company no. 16288736</p>",
+        "_css_classes": ""
+       },
+       "elements": []
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "6a4a5b9",
+   "elType": "container",
+   "isInner": false,
+   "settings": {
+    "_title": "Phone quick-contact bar",
+    "content_width": "full",
+    "css_classes": "dock",
+    "html_tag": "nav",
+    "_element_id": "dock"
+   },
+   "elements": [
+    {
+     "id": "69fda6e",
+     "elType": "widget",
+     "widgetType": "button",
+     "isInner": false,
+     "settings": {
+      "_title": "Call",
+      "typography_typography": "custom",
+      "__globals__": {
+       "typography_typography": ""
+      },
+      "text": "Call",
+      "link": {
+       "url": "tel:+447777792227",
+       "is_external": "",
+       "nofollow": "",
+       "custom_attributes": ""
+      },
+      "_css_classes": "dock__btn dock__call",
+      "selected_icon": {
+       "value": "",
+       "library": ""
+      }
+     },
+     "elements": []
+    },
+    {
+     "id": "6a17387",
+     "elType": "widget",
+     "widgetType": "button",
+     "isInner": false,
+     "settings": {
+      "_title": "WhatsApp",
+      "typography_typography": "custom",
+      "__globals__": {
+       "typography_typography": ""
+      },
+      "text": "WhatsApp",
+      "link": {
+       "url": "https://wa.me/447777792227?text=Hi%20Ardian%2C%20I%27d%20like%20a%20free%20site%20visit.",
+       "is_external": "on",
+       "nofollow": "",
+       "custom_attributes": ""
+      },
+      "_css_classes": "dock__btn",
+      "selected_icon": {
+       "value": "fab fa-whatsapp",
+       "library": "fa-brands"
+      }
+     },
+     "elements": []
+    },
+    {
+     "id": "6a30ca0",
+     "elType": "widget",
+     "widgetType": "button",
+     "isInner": false,
+     "settings": {
+      "_title": "Free visit",
+      "typography_typography": "custom",
+      "__globals__": {
+       "typography_typography": ""
+      },
+      "text": "Free visit",
+      "link": {
+       "url": "#visit",
+       "is_external": "",
+       "nofollow": "",
+       "custom_attributes": ""
+      },
+      "_css_classes": "dock__btn dock__main",
+      "selected_icon": {
+       "value": "",
+       "library": ""
+      }
+     },
+     "elements": []
+    }
+   ]
+  }
+ ]
+}

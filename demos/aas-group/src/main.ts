@@ -5,6 +5,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import type { GardenApi, Patio, Lawn, Boundary } from './garden';
 import { initForm, setSpecForForm } from './form';
 import type { Film } from './film';
+import { CFG, asset } from './base';
 
 gsap.registerPlugin(ScrollTrigger);
 const $ = <T extends Element = HTMLElement>(s: string, r: ParentNode = document) => r.querySelector(s) as T;
@@ -14,13 +15,25 @@ const coarse = matchMedia('(pointer:coarse)').matches || innerWidth < 760;
 const clamp = (v: number, a = 0, b = 1) => Math.min(b, Math.max(a, v));
 const eio = (t: number) => (t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2);
 const html = document.documentElement;
+// inside the Elementor editor: no smooth-scroll hijack, no reveal hiding
+const editor = !!CFG.editor || document.body.classList.contains('elementor-editor-active');
+
+// WordPress: numbers come from Settings → AAS Landing; locked images resolve to the plugin's asset folder
+if (CFG.wa) { const wa = CFG.wa.replace(/\D/g, ''); $$<HTMLAnchorElement>('a[href*="wa.me/"]').forEach((a) => (a.href = a.href.replace(/wa\.me\/\d+/, 'wa.me/' + wa))); }
+if (CFG.tel) { const t = 'tel:' + CFG.tel.replace(/[^\d+]/g, ''); $$<HTMLAnchorElement>('a[href="tel:+447777792227"],a[href="tel:07777792227"]').forEach((a) => (a.href = t)); }
+const fixSet = (v: string) => v.split(',').map((x) => asset(x.trim())).join(', ');
+$$<HTMLSourceElement>('source[data-aas-srcset]').forEach((so) => (so.srcset = fixSet(so.dataset.aasSrcset!)));
+$$<HTMLImageElement>('img[data-aas-src]').forEach((im) => {
+  if (im.dataset.aasSrcset) im.srcset = fixSet(im.dataset.aasSrcset);
+  im.src = asset(im.dataset.aasSrc!);
+});
 
 // ---------- loader (first visit only, ~1.8s, content is painted underneath)
 // (the loader is self-contained in index.html: CSS animation + inline counter, removes itself at 2s)
 
 // ---------- smooth scroll
 let lenis: Lenis | null = null;
-if (!reduced) {
+if (!reduced && !editor) {
   lenis = new Lenis({ duration: 1.1, easing: (t) => 1 - Math.pow(1 - t, 3), touchMultiplier: 1.2 });
   lenis.on('scroll', ScrollTrigger.update);
   gsap.ticker.add((t) => lenis!.raf(t * 1000));
@@ -36,17 +49,19 @@ $$<HTMLAnchorElement>('a[href^="#"]').forEach((a) => a.addEventListener('click',
 const nav = $('#nav'), dock = $('#dock'), heroEl = $('#hero');
 let lastY = 0;
 const onScroll = () => {
-  const y = scrollY, hh = heroEl.offsetHeight - innerHeight;
-  nav.classList.toggle('is-solid', y > hh - 40);
-  nav.classList.toggle('is-hidden', y > lastY + 4 && y > hh + 200);
-  if (y < lastY - 4) nav.classList.remove('is-hidden');
-  dock.classList.toggle('is-on', y > innerHeight * 0.9 && y < document.body.scrollHeight - innerHeight * 1.6);
+  const y = scrollY, hh = (heroEl ? heroEl.offsetHeight : innerHeight) - innerHeight;
+  nav?.classList.toggle('is-solid', y > hh - 40);
+  nav?.classList.toggle('is-hidden', y > lastY + 4 && y > hh + 200);
+  if (y < lastY - 4) nav?.classList.remove('is-hidden');
+  dock?.classList.toggle('is-on', y > innerHeight * 0.9 && y < document.body.scrollHeight - innerHeight * 1.6);
   lastY = y;
 };
 addEventListener('scroll', onScroll, { passive: true }); onScroll();
 
 // ---------- HERO: photoreal film (AI visualisation), scrubbed by scroll
-const heroCanvas = $<HTMLCanvasElement>('#heroCanvas'), heroStage = $('.hero__stage'), heroCopy = $('#heroCopy');
+const heroCanvas = $<HTMLCanvasElement>('#heroCanvas');
+if (heroCanvas && heroEl) {
+const heroStage = $('.hero__stage'), heroCopy = $('#heroCopy');
 const planSteps = $$('#planSteps li'), planBar = $('#planBar'), planLvl = $('#planLvl');
 let hero: Film | null = null;
 const FILM_COUNT = 72;
@@ -72,14 +87,16 @@ const startHero = async () => {
   if (hero || reduced) return;
   const { initFilm } = await import('./film');
   const portrait = heroStage.clientWidth / heroStage.clientHeight < 0.9;
-  hero = initFilm(heroCanvas, heroStage, { base: portrait ? '/film/m' : '/film/d', count: FILM_COUNT, onReady: () => heroCanvas.classList.add('is-live') });
+  hero = initFilm(heroCanvas, heroStage, { base: asset(portrait ? '/film/m' : '/film/d'), count: FILM_COUNT, onReady: () => heroCanvas.classList.add('is-live') });
   heroUpdate();
 };
 // desktop: as soon as the page has loaded; phones: on first touch or scroll (keeps first paint and Lighthouse lean)
 if (coarse) { const go = () => { startHero(); removeEventListener('touchstart', go); removeEventListener('scroll', go); }; addEventListener('touchstart', go, { passive: true, once: true }); addEventListener('scroll', go, { passive: true, once: true }); }
 else { const idle = () => ('requestIdleCallback' in window ? (window as any).requestIdleCallback(startHero, { timeout: 1200 }) : setTimeout(startHero, 300)); document.readyState === 'complete' ? idle() : addEventListener('load', idle); }
+}
 
 // ---------- CONFIGURATOR
+if ($('#studioStage')) {
 type State = { patio: Patio; tone: number; lawn: Lawn; boundary: Boundary; extras: Record<string, boolean>; size: string };
 const st: State = { patio: 'porcelain', tone: 0, lawn: 'turf', boundary: 'featheredge', extras: { lighting: false, steps: true, beds: false }, size: 'Small' };
 const NAMES: Record<string, string> = { porcelain: 'Porcelain', stone: 'Natural stone', block: 'Block paving', resin: 'Resin bound', turf: 'Real turf', artificial: 'Artificial grass', featheredge: 'Featheredge fence', composite: 'Composite fence', living: 'Living wall', lighting: 'Lighting', steps: 'Steps', beds: 'Raised beds' };
@@ -151,9 +168,10 @@ new IntersectionObserver((es, o) => { if (es[0].isIntersecting) { startStudio();
   studioCanvas.addEventListener('pointerdown', (e) => { down = true; x0 = e.clientX; });
   addEventListener('pointerup', () => (down = false));
   addEventListener('pointermove', (e) => { if (!down) return; studio?.orbit(e.clientX - x0); x0 = e.clientX; }); }
-
+}
 
 // ---------- layers: pinned explode
+if ($('#layersPin')) {
 const layersPin = $('#layersPin'), layersList = $$('#layersList li'), fallTag = $('.layers__fall');
 let layersApi: { setProgress: (p: number) => void } | null = null, layerAt: ((p: number) => number) | null = null;
 new IntersectionObserver(async (es, o) => {
@@ -170,28 +188,36 @@ ScrollTrigger.create({
     fallTag.classList.toggle('is-on', p > 0.66 && p < 0.84);
   },
 });
+}
 
 // ---------- before/after drag
+if ($('#reveal')) {
 const rev = $('#reveal'), range = $<HTMLInputElement>('.reveal-drag__range', rev);
 range.addEventListener('input', () => rev.style.setProperty('--x', range.value + '%'));
 if (!reduced) gsap.fromTo(range, { value: 78 }, { value: 50, duration: 1.6, ease: 'power3.out', onUpdate: () => rev.style.setProperty('--x', range.value + '%'), scrollTrigger: { trigger: rev, start: 'top 75%' } });
-
+}
 
 // ---------- reviews: a swipe row; arrows scroll it a card at a time
 const qRow = $('#quotes');
+if (qRow && $('#qPrev')) {
 const qStep = (d: number) => { const c = qRow.querySelector('.quote') as HTMLElement; qRow.scrollBy({ left: d * (c.offsetWidth + 16), behavior: reduced ? 'auto' : 'smooth' }); };
 $('#qPrev').addEventListener('click', () => qStep(-1)); $('#qNext').addEventListener('click', () => qStep(1));
+}
 
 // ---------- process line
-const stepsLis = $$('#steps li');
+const stepsEl = $('#steps');
+if (stepsEl) {
+if (!$('#stepsFill')) stepsEl.insertAdjacentHTML('afterbegin', '<i class="steps__line" aria-hidden="true"><b id="stepsFill"></b></i>');
+const stepsLis = $$('#steps > li, #steps > .steps__item');
 ScrollTrigger.create({ trigger: '#steps', start: 'top 70%', end: 'bottom 60%', onUpdate: (s) => {
   $('#stepsFill').style.transform = `scaleY(${s.progress})`;
   stepsLis.forEach((li, i) => li.classList.toggle('is-on', s.progress >= i / (stepsLis.length - 1) - 0.02));
 } });
+}
 
 // ---------- reveals
-if (!reduced) {
-  const els = $$('.design__head > *, .services__head > *, .slope__copy > *, .rootlok, .work__head > *, .reviews__head > *, .process__head > *, .visit__side > *, .faq__grid > div:first-child > *, .faq__list details, .final__copy > *');
+if (!reduced && !editor) {
+  const els = $$('.design__head > *, .services__head > *, .slope__copy > *, .rootlok, .work__head > *, .reviews__head > *, .process__head > *, .visit__side > *, .faq__grid > div:first-child > *, .faq__list details, .faq__list .elementor-accordion-item, .final__copy > *');
   els.forEach((el) => el.classList.add('rv'));
   const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { (e.target as HTMLElement).classList.add('in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -8% 0px' });
   els.forEach((el, i) => { (el as HTMLElement).style.transitionDelay = `${(i % 4) * 60}ms`; io.observe(el); });
@@ -203,5 +229,14 @@ if (!coarse && !reduced) $$('.magnetic').forEach((b) => {
   b.addEventListener('pointerleave', () => { b.style.transform = ''; });
 });
 
-initForm();
+if ($('#wiz')) initForm();
+
+// WordPress: Elementor opens the first FAQ answer by default; the demo starts with all closed
+if (!editor && $('.faq__list .elementor-accordion')) addEventListener('load', () => setTimeout(() => {
+  $$('.faq__list .elementor-tab-title.elementor-active').forEach((t) => {
+    t.classList.remove('elementor-active'); t.setAttribute('aria-expanded', 'false'); t.removeAttribute('aria-selected');
+    const c = t.nextElementSibling as HTMLElement | null;
+    if (c) { c.classList.remove('elementor-active'); c.style.display = 'none'; }
+  });
+}, 60));
 addEventListener('load', () => ScrollTrigger.refresh());

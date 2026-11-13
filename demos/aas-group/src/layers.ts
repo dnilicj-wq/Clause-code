@@ -1,6 +1,7 @@
 // "The bit you'll never see": a cut-away patio block that lifts into its real layers on scroll, shows the fall to the
 // drain, then snaps back together. Vanilla three.js; renders only while on screen and only when something moved.
 import * as THREE from 'three';
+import { asset } from './base';
 import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry.js';
 
 export type LayersApi = { setProgress: (p: number) => void; destroy: () => void };
@@ -23,7 +24,7 @@ export function initLayers(canvas: HTMLCanvasElement, host: HTMLElement): Layers
   const dis: { dispose: () => void }[] = [];
   const S = lite ? 512 : 1024, tl = new THREE.TextureLoader();
   let need = true;
-  const tex = (n: string, srgb: boolean, rep: [number, number]) => { const t = tl.load('/tex/' + n, () => (need = true)); t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(...rep); if (srgb) t.colorSpace = THREE.SRGBColorSpace; dis.push(t); return t; };
+  const tex = (n: string, srgb: boolean, rep: [number, number]) => { const t = tl.load(asset('/tex/' + n), () => (need = true)); t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(...rep); if (srgb) t.colorSpace = THREE.SRGBColorSpace; dis.push(t); return t; };
 
   scene.add(new THREE.HemisphereLight('#e8eef0', '#2b3326', 1.1));
   const sun = new THREE.DirectionalLight('#ffe2b8', 2.6); sun.position.set(-5, 9, 6); sun.castShadow = true;

@@ -1,8 +1,9 @@
 // Six-step free-site-visit form. Submits by opening WhatsApp with the whole brief pre-written.
 // To switch on a real endpoint later (e.g. a Cloudflare Worker that emails Ardian), set FORM_ENDPOINT:
 // the brief is POSTed as JSON first, then WhatsApp still opens as the instant hand-off.
-export const FORM_ENDPOINT = '';
-const WA = '447777792227';
+import { CFG } from './base';
+export const FORM_ENDPOINT = CFG.endpoint || '';
+const WA = (CFG.wa || '447777792227').replace(/\D/g, '');
 
 const $ = <T extends Element = HTMLElement>(s: string, r: ParentNode = document) => r.querySelector(s) as T;
 const $$ = <T extends Element = HTMLElement>(s: string, r: ParentNode = document) => Array.from(r.querySelectorAll(s)) as T[];
@@ -111,8 +112,10 @@ export function initForm() {
     lines.push('', `Name: ${data.name}`, `Mobile: ${data.mobile}`);
     const msg = lines.join('\n');
     const url = `https://wa.me/${WA}?text=${encodeURIComponent(msg)}`;
-    if (FORM_ENDPOINT) { try { await fetch(FORM_ENDPOINT, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ ...data, spec: fromDesign || designed ? spec : null, message: msg }) }); } catch { /* WhatsApp still opens */ } }
+    // WhatsApp opens first, straight from the tap (an await before window.open gets it popup-blocked);
+    // the optional email copy is sent alongside and never holds it up
     window.open(url, '_blank', 'noopener');
+    if (FORM_ENDPOINT) fetch(FORM_ENDPOINT, { method: 'POST', keepalive: true, headers: { 'content-type': 'application/json' }, body: JSON.stringify({ ...data, spec: fromDesign || designed ? spec : null, message: msg }) }).catch(() => { /* WhatsApp already open */ });
     $<HTMLAnchorElement>('#waAgain').href = url;
     steps.forEach((s) => (s.hidden = true)); $('.wiz__top', form).hidden = true; back.hidden = true;
     const done = $('#wizDone'); done.hidden = false; done.focus();

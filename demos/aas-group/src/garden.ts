@@ -5,6 +5,7 @@
 //   studio — the finished garden; set(zone, value) re-skins the patio / lawn / boundary / extras with a wipe.
 // Vanilla three.js, CC0 Poly Haven textures (see CREDITS.md). Renders only while on screen.
 import * as THREE from 'three';
+import { asset } from './base';
 import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry.js';
 import { mergeVertices } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
 
@@ -82,7 +83,7 @@ export function initGarden(canvas: HTMLCanvasElement, host: HTMLElement, opts: O
   const done = () => { if (--pending === 0 && !readyFired) { readyFired = true; need = true; opts.onReady?.(); } };
   const tex = (name: string, srgb = true, rep: [number, number] = [1, 1]) => {
     pending++;
-    const t = tl.load('/tex/' + name, () => { need = true; done(); }, undefined, done);
+    const t = tl.load(asset('/tex/' + name), () => { need = true; done(); }, undefined, done);
     t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(rep[0], rep[1]);
     t.anisotropy = Math.min(lite ? 4 : 8, renderer.capabilities.getMaxAnisotropy());
     if (srgb) t.colorSpace = THREE.SRGBColorSpace;
