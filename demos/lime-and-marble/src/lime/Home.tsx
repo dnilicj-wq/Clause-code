@@ -260,8 +260,8 @@ export default function Home() {
               <a className="map" href={site.maps} target="_blank" rel="noopener" aria-label="Open the showroom in Google Maps">
                 <img src="/client/map-v1.webp" alt="" width={768} height={768} loading="lazy" />
                 <i className="pin" style={{ left: '44.1%', top: '61.5%' }} />
-                <small>© OpenStreetMap contributors</small>
               </a>
+              <small className="osm"><a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">© OpenStreetMap contributors</a></small>
               <p className="fine">Shared with sister company <a href={site.qube} target="_blank" rel="noopener">Qube</a>, who make bespoke furniture, so there’s plenty to look at.</p>
             </div>
             <div className="show-r" data-r>
@@ -274,7 +274,7 @@ export default function Home() {
         <section id="plan" className="sec sec-paper2">
           <div className="sec-head" data-r>
             <p className="kicker">Got a project?</p>
-            <h2 className="h2">Tell Craig about it. <em>Five taps.</em></h2>
+            <h2 className="h2">Tell Craig about it. <em>Five quick questions.</em></h2>
           </div>
           <Lazy h={420}><Forms which="planner" /></Lazy>
         </section>

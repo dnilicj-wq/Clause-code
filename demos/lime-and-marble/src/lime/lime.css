@@ -356,3 +356,10 @@ address { font-style: normal; display: flex; flex-direction: column; margin: 22p
   .sec, .finale { padding-bottom: calc(clamp(64px, 11vw, 140px) + 24px); }
   .foot { padding-bottom: calc(120px + env(safe-area-inset-bottom)); }
 }
+
+.hero { -webkit-user-select: none; user-select: none; }
+.osm { display: block; text-align: right; font-size: 11px; color: var(--muted); margin-top: 6px; }
+.map small { display: none; }
+.finale .btn-glass { background: rgba(242,238,230,.12); color: var(--paper); border-color: rgba(242,238,230,.35); }
+.finale .btn-glass:hover { background: rgba(242,238,230,.22); }
+.rcard { align-self: start; }

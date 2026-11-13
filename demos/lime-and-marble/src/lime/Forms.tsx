@@ -131,8 +131,8 @@ export function Planner() {
       <div className="plan-act">
         {step > 0 && <button type="button" className="btn btn-ghost" onClick={() => setStep(step - 1)}>Back</button>}
         {step < 4
-          ? <button type="button" className="btn btn-ink" disabled={!ok[step]} onClick={() => setStep(step + 1)}>Next</button>
-          : <button type="submit" className="btn btn-lime" disabled={state === 'sending'}>{state === 'sending' ? 'Sending…' : 'Send to Craig'}</button>}
+          ? <button key="next" type="button" className="btn btn-ink" disabled={!ok[step]} onClick={(e) => { e.preventDefault(); setErr(''); setStep(step + 1); }}>Next</button>
+          : <button key="send" type="submit" className="btn btn-lime" disabled={state === 'sending'}>{state === 'sending' ? 'Sending…' : 'Send to Craig'}</button>}
       </div>
       <p className="fine">No prices here, on purpose. Every wall’s different, so Craig quotes properly.</p>
     </form>
