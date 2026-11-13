@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Sentinal Surfacing · Resin bound driveways, microcement and commercial floors</title>
+  <meta name="description" content="Resin-bound driveways, microcement and commercial flooring since 2006, from Consett across the North of England and Scotland. Demo site by Clientgateway." />
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <link rel="apple-touch-icon" href="/brand/icon-180-v1.png" />
+  <meta name="theme-color" content="#090D18" />
+  <link rel="preload" href="/fonts/clash-display-600.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/general-sans-400.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/instrument-serif-400-italic.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/inter-tight-digits-var-v1.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/posters/hero-m-ss1.webp" as="image" media="(max-width: 699px)" fetchpriority="high" />
+  <link rel="preload" href="/posters/hero-d-ss1.webp" as="image" media="(min-width: 700px)" fetchpriority="high" />
+  <style>
+    html,body{margin:0;background:#090D18;color:#F5F2EC}
+    /* Loader: Weight Sweep Preloader by kedhareswer (21st.dev, MIT), ported inline and re-skinned for Sentinal Surfacing:
+       their logo in the HUD, amber -> copper counter that thickens hairline to black, tick rail, then an amber panel
+       rises with one italic line and the whole gate lifts. Compressed to about 1 s; skipped on repeat visits. */
+    @font-face{font-family:"WSP Digits";src:url(/fonts/inter-tight-digits-var-v1.woff2) format("woff2");font-weight:100 900;font-display:block;unicode-range:U+30-39}
+    #boot{--wsp-paper:#090D18;--wsp-ink:#F5F2EC;position:fixed;inset:0;z-index:100;overflow:hidden;container-type:size;background:var(--wsp-paper);color:var(--wsp-ink);
+      transition:opacity 280ms cubic-bezier(.65,0,.35,1),visibility 0s linear 280ms;-webkit-font-smoothing:antialiased}
+    #boot::before{content:"";position:absolute;inset:0;background:radial-gradient(60% 50% at 12% 100%,rgba(252,184,97,.16),transparent 70%),radial-gradient(50% 40% at 100% 0%,rgba(111,140,255,.14),transparent 70%)}
+    #boot[data-phase="lift"]{opacity:0;visibility:hidden;pointer-events:none}
+    #boot.gone{display:none}
+    #boot .hud{position:absolute;left:0;right:0;top:0;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:clamp(18px,3.2cqw,34px) clamp(18px,3.2cqw,40px) 0;
+      font:500 10px/1 "General Sans",ui-monospace,Menlo,monospace;letter-spacing:.2em;text-transform:uppercase}
+    #boot .hud img{height:16px;width:auto;display:block}
+    #boot .hud span{opacity:.6;font-variant-numeric:tabular-nums;text-align:right}
+    #boot .rule{position:absolute;left:clamp(18px,3.2cqw,40px);right:clamp(18px,3.2cqw,40px);top:calc(clamp(18px,3.2cqw,34px) + 26px);border-top:.5px solid currentColor;opacity:.18}
+    #boot .foot{position:absolute;left:clamp(18px,3.2cqw,40px);right:clamp(18px,3.2cqw,40px);top:calc(clamp(18px,3.2cqw,34px) + 42px);display:flex;align-items:flex-end;justify-content:space-between;gap:20px;
+      font:500 10px/1 "General Sans",ui-monospace,Menlo,monospace;letter-spacing:.2em;text-transform:uppercase}
+    #boot .foot>span{opacity:.55;white-space:nowrap}
+    #boot .rail{display:flex;align-items:flex-end;justify-content:space-between;flex:0 1 min(46cqw,520px);height:11px}
+    #boot .rail i{width:1px;height:5px;background:currentColor;opacity:.2;transition:opacity 120ms linear}
+    #boot .rail i.M{height:11px}#boot .rail i.on{opacity:1;background:#FCB861}
+    #boot .count{position:absolute;left:clamp(6px,1.4cqw,22px);bottom:0;margin:0;font-family:"WSP Digits","Clash Display",system-ui,sans-serif;line-height:.74;white-space:nowrap;
+      font-size:min(70cqh,43cqw);font-variant-numeric:tabular-nums;transform:translateY(6%);will-change:font-weight;font-weight:100;
+      background:linear-gradient(135deg,#FFE0A8 0%,#FCB861 40%,#F07A3E 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+    #boot .panel{position:absolute;inset:0;display:grid;place-content:center;justify-items:center;gap:14px;
+      background:linear-gradient(135deg,#FFD79B 0%,#FCB861 45%,#F07A3E 100%);color:#1B1206;transform:translateY(101%);transition:transform 360ms cubic-bezier(.76,0,.24,1)}
+    #boot[data-phase="panel"] .panel,#boot[data-phase="lift"] .panel{transform:none}
+    #boot .line{margin:0;font:italic 400 clamp(34px,7cqw,84px)/1 "Instrument Serif",Georgia,serif;letter-spacing:-.01em;opacity:0;transform:translateY(14px);
+      transition:opacity 260ms ease 120ms,transform 340ms cubic-bezier(.2,.7,.1,1) 120ms}
+    #boot .sub{font:500 10px/1 "General Sans",system-ui,sans-serif;letter-spacing:.24em;text-transform:uppercase;opacity:0;transition:opacity 260ms ease 200ms}
+    #boot[data-phase="panel"] .line,#boot[data-phase="lift"] .line{opacity:1;transform:none}
+    #boot[data-phase="panel"] .sub,#boot[data-phase="lift"] .sub{opacity:.7}
+    @media (prefers-reduced-motion:reduce){#boot .panel,#boot .line,#boot .sub,#boot .rail i{transition:none}#boot .line{transform:none}}
+    html.ld-on .pe-cut{animation-play-state:paused}
+  </style>
+</head>
+<body class="grain">
+  <div id="boot" aria-hidden="true" data-phase="count">
+    <div class="hud"><img src="/brand/logo-96-v1.webp" width="91" height="16" alt=""><span>WGHT <b class="w">100</b></span></div>
+    <div class="rule"></div>
+    <div class="foot"><span>Pouring</span><div class="rail"></div><span>Resin · Microcement · Floors</span></div>
+    <p class="count">000</p>
+    <div class="panel"><p class="line">Laid seamless.</p><span class="sub">Sentinal Surfacing · since 2006</span></div>
+  </div>
+  <div id="root"></div>
+  <div id="below"></div>
+  <script>
+  (function(){
+    var b=document.getElementById('boot'),h=document.documentElement;
+    if(/^\/capture/.test(location.pathname)){b.remove();return}
+    var seen=false;try{seen=sessionStorage.getItem('ss-ld')==='1';sessionStorage.setItem('ss-ld','1')}catch(e){}
+    if(seen){b.remove();window.__ld=true;return}            // repeat visit: no loader at all
+    h.classList.add('ld-on');window.__ld=false;
+    var rm=matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var cnt=b.querySelector('.count'),wr=b.querySelector('.w'),rail=b.querySelector('.rail'),N=40,ticks=[];
+    for(var i=0;i<N;i++){var t=document.createElement('i');if(i%5===0)t.className='M';rail.appendChild(t);ticks.push(t)}
+    // the published easing: in-out cubic with a small wobble so the count breathes
+    function sim(x){x=x<0?0:x>1?1:x;var z=x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2,y=.035*Math.sin(x*Math.PI*3)*Math.sin(x*Math.PI);return Math.max(0,Math.min(100,(z-y)*100))}
+    function pad(v){v=Math.max(0,Math.min(100,Math.floor(v)));return(v<10?'00':v<100?'0':'')+v}
+    var MIN=rm?0:430,CAP=1400,t0=performance.now(),fin=false;
+    function poster(){var i=document.querySelector('#top picture img');return !!(i&&i.complete&&i.naturalWidth)}
+    function draw(p){var w=Math.round(100+800*p/100);cnt.textContent=pad(p);cnt.style.fontWeight=w;cnt.style.letterSpacing=(-.02-.06*Math.min(1,Math.max(0,(w-100)/800)))+'em';
+      wr.textContent=w;var on=Math.round(p/100*N);for(var k=0;k<N;k++)ticks[k].className=(k%5===0?'M':'')+(k<on?' on':'')}
+    function tick(){
+      if(fin)return;
+      var el=performance.now()-t0,k=MIN?el/MIN:1;
+      // hold at 92 until the hero poster is in, so the page underneath is ready when the gate lifts
+      var p=sim(Math.min(1,k));if(!poster()&&el<CAP)p=Math.min(p,92);
+      draw(p);
+      if((k>=1&&poster())||el>CAP){draw(100);finish();return}
+      requestAnimationFrame(tick);
+    }
+    function finish(){
+      fin=true;
+      b.setAttribute('data-phase','panel');
+      setTimeout(function(){
+        b.setAttribute('data-phase','lift');h.classList.remove('ld-on');window.__ld=true;dispatchEvent(new Event('wd:loaded'));
+        setTimeout(function(){b.classList.add('gone')},320);
+      },rm?60:470);
+    }
+    requestAnimationFrame(tick);
+    setTimeout(function(){if(!fin){draw(100);finish()}},CAP+300);
+  })();
+  </script>
+  <script type="module" src="/src/main.tsx"></script>
+</body>
+</html>
