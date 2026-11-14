@@ -6,7 +6,7 @@ export function Head({ eyebrow, title, accent, lede, center = false, id }: { eye
   return (
     <div className={center ? 'mx-auto max-w-[760px] text-center' : 'max-w-[760px]'}>
       <Rise><p className="eyebrow">{eyebrow}</p></Rise>
-      <Rise d={0.06}><h2 id={id} className="h2 mt-4">{title}{accent && <> <span className="serif" style={{ color: 'var(--accent2)' }}>{accent}</span></>}</h2></Rise>
+      <Rise d={0.06}><h2 id={id} className="h2 mt-4">{title}{accent && <> <span style={{ color: 'var(--muted)' }}>{accent}</span></>}</h2></Rise>
       {lede && <Rise d={0.12}><p className={`lede mt-5 ${center ? 'mx-auto' : ''}`}>{lede}</p></Rise>}
     </div>
   );

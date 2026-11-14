@@ -74,8 +74,8 @@ export function Corridor() {
           {/* caption + progress */}
           <div className="absolute inset-x-0 bottom-0 z-10 flex items-end justify-between gap-4 px-5 pb-8 md:px-16 md:pb-12">
             <div className="glass rounded-2xl px-4 py-3">
-              <div className="text-[11px] uppercase tracking-[.14em]" style={{ color: 'var(--accent2)' }}>{site.company} job · {photos[active].year}</div>
-              <div className="font-display text-[18px] font-semibold md:text-[22px]">{photos[active].title}</div>
+              <div className="text-[12px]" style={{ color: 'var(--muted)' }}>{site.company} job · {photos[active].year}</div>
+              <div className="font-display text-[18px] font-medium md:text-[22px]">{photos[active].title}</div>
             </div>
             <div className="flex items-center gap-1.5 pb-2" aria-hidden>
               {photos.map((_, i) => <span key={i} className="h-1 rounded-full transition-all duration-300" style={{ width: i === active ? 18 : 6, background: i === active ? 'var(--accent)' : 'rgba(255,255,255,.2)' }} />)}
@@ -92,7 +92,7 @@ function Title({ company }: { company: string }) {
   return (
     <div className="max-w-[640px]">
       <p className="eyebrow">Their work</p>
-      <h2 id="workH" className="h2 mt-3 !text-[clamp(34px,5.4vw,72px)]">Walk through <span className="serif" style={{ color: 'var(--accent2)' }}>{company}'s jobs.</span></h2>
+      <h2 id="workH" className="h2 mt-3 !text-[clamp(34px,5.4vw,72px)]">Walk through <span style={{ color: 'var(--muted)' }}>{`${company}'s jobs`}</span></h2>
     </div>
   );
 }

@@ -26,7 +26,7 @@ export function Design() {
   return (
     <section id="design" aria-labelledby="designH" className="section" style={{ background: 'var(--bg)' }}>
       <div className="wrap">
-        <Head id="designH" eyebrow="Design yours" title="Pick it, price it," accent="send it to Matt."
+        <Head id="designH" eyebrow="Design yours" title="Pick it, price it," accent="send it to Matt"
           lede="Choose a size, what's there now and the new surface. The price updates as you go. When it looks right, it goes to Matt on WhatsApp with everything filled in." />
 
         <div className="mt-10 grid gap-5 md:mt-14 md:grid-cols-[1.15fr_1fr] md:gap-8">
@@ -44,7 +44,7 @@ export function Design() {
             ))}
             <div className="absolute inset-x-3 bottom-3 flex items-end justify-between gap-2">
               <div className="glass rounded-2xl px-3.5 py-2.5">
-                <div className="font-display text-[17px] font-semibold leading-tight">{q.type.key === 'resin' ? q.blend.name : q.type.label}</div>
+                <div className="font-display text-[17px] font-medium leading-tight">{q.type.key === 'resin' ? q.blend.name : q.type.label}</div>
                 <div className="text-[12.5px]" style={{ color: 'var(--muted)' }}>{q.type.key === 'resin' ? q.blend.note : typeNote[q.type.key]}</div>
               </div>
             </div>
@@ -92,7 +92,7 @@ export function Design() {
             </Step>}
 
             <div className="mt-5 rounded-2xl p-4 [container-type:inline-size]" style={{ background: 'rgba(201,169,97,.07)', border: '1px solid rgba(201,169,97,.22)' }}>
-              <div data-price className="whitespace-nowrap font-display text-[min(48px,11.5cqi)] font-semibold leading-none tracking-tight">
+              <div data-price className="whitespace-nowrap font-display text-[min(48px,11.5cqi)] font-medium leading-none tracking-tight tabular-nums" style={{ color: 'var(--accent2)' }}>
                 £<Ticker value={q.low} />
                 <span style={{ color: 'var(--muted)' }}> – </span>
                 £<Ticker value={q.high} />
@@ -110,14 +110,14 @@ export function Design() {
                       <input className="pe-in" placeholder="Phone" type="tel" inputMode="tel" autoComplete="tel" value={who.phone} onChange={(e) => setWho({ ...who, phone: e.target.value })} aria-label="Phone" />
                       <input className="pe-in" placeholder="Postcode" autoComplete="postal-code" value={who.postcode} onChange={(e) => setWho({ ...who, postcode: e.target.value })} aria-label="Postcode" />
                     </div>
-                    <button disabled={!ok} className="mt-1 flex h-[52px] items-center justify-center gap-2 rounded-full text-[16px] font-semibold transition-opacity disabled:opacity-50" style={{ background: '#25D366', color: '#062b14' }}>
+                    <button disabled={!ok} className="mt-1 flex h-[52px] items-center justify-center gap-2 rounded-full text-[16px] font-medium transition-opacity disabled:opacity-50" style={{ background: '#25D366', color: '#062b14' }}>
                       <WaIcon /> Send to {site.owner.first} on WhatsApp
                     </button>
                     <p className="text-[12px]" style={{ color: 'var(--muted)' }}>Opens WhatsApp with your design typed out. Nothing is stored on this website.</p>
                   </motion.form>
                 ) : (
                   <motion.div key="d" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}>
-                    <p className="font-display text-[22px] font-semibold">Sent to WhatsApp.</p>
+                    <p className="font-display text-[22px] font-medium">Sent to WhatsApp.</p>
                     <p className="mt-1 text-[14px]" style={{ color: 'var(--muted)' }}>Press send in WhatsApp and Matt has your design. Rather talk? Call <a className="underline" href={`tel:${site.phone.replace(/\s/g, '')}`}>{site.phone}</a>, {site.hours}.</p>
                     <button className="mt-3 text-[13px] underline" style={{ color: 'var(--muted)' }} onClick={() => setSent(false)}>Edit details</button>
                   </motion.div>
@@ -135,7 +135,7 @@ export function Design() {
             className="fixed inset-x-3 bottom-[max(10px,env(safe-area-inset-bottom))] z-40 flex items-center justify-between rounded-full py-2 pl-5 pr-2 md:hidden"
             style={{ background: 'rgba(20,20,20,.92)', border: '1px solid var(--line)', backdropFilter: 'blur(14px)', WebkitBackdropFilter: 'blur(14px)' }}>
             <span className="text-[13px]" style={{ color: 'var(--muted)' }}>Example <b className="font-display text-[16px]" style={{ color: 'var(--ink)' }}>{gbp(q.low)}–{gbp(q.high)}</b></span>
-            <a href={waLink(q)} target="_blank" rel="noreferrer" className="flex h-10 items-center gap-1.5 rounded-full px-4 text-[14px] font-semibold" style={{ background: '#25D366', color: '#062b14' }}><WaIcon size={16} /> Send</a>
+            <a href={waLink(q)} target="_blank" rel="noreferrer" className="flex h-10 items-center gap-1.5 rounded-full px-4 text-[14px] font-medium" style={{ background: '#25D366', color: '#062b14' }}><WaIcon size={16} /> Send</a>
           </motion.div>
         )}
       </AnimatePresence>
@@ -153,8 +153,8 @@ const typeNote: Record<string, string> = {
 function Step({ n, label, children }: { n: number; label: string; children: React.ReactNode }) {
   return (
     <fieldset className="mt-5 first:mt-0">
-      <legend className="mb-2.5 flex items-center gap-2.5 text-[12px] font-medium uppercase tracking-[.12em]" style={{ color: 'var(--muted)' }}>
-        <i className="grid h-6 w-6 place-items-center rounded-full font-display text-[12px] not-italic" style={{ background: 'var(--accent)', color: 'var(--accent-ink)' }}>{n}</i>{label}
+      <legend className="mb-2.5 flex items-center gap-2.5 text-[14px] font-medium" style={{ color: 'var(--muted)' }}>
+        <i className="grid h-6 w-6 place-items-center rounded-full font-display text-[12px] not-italic tabular-nums" style={{ border: '1px solid var(--line)', color: 'var(--ink)' }}>{n}</i>{label}
       </legend>
       {children}
     </fieldset>

@@ -88,14 +88,13 @@ export function Hero() {
       <div className="pointer-events-none relative mx-auto flex h-full max-w-[1280px] flex-col justify-end px-5 pb-[max(20px,env(safe-area-inset-bottom))] pt-24 md:flex-row md:items-end md:justify-between md:gap-10 md:px-12 md:pb-14">
         <div className="md:max-w-[640px]">
           <a href={site.socials.google} target="_blank" rel="noreferrer" data-nopour
-            className="pointer-events-auto mb-4 inline-flex items-center gap-2 rounded-full py-1.5 pl-2.5 pr-3.5 text-[13px] font-medium"
-            style={{ background: 'rgba(14,14,14,.62)', border: '1px solid rgba(255,255,255,.1)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }}>
+            className="pointer-events-auto mb-4 inline-flex items-center gap-2 text-[14px] font-medium">
             <Stars size={13} /> <span>{site.proof.rating.toFixed(1)}</span>
-            <span style={{ color: 'var(--muted)' }}>{`· ${site.proof.reviewCount} Google reviews`}</span>
+            <span style={{ color: 'var(--muted)' }}>{`from ${site.proof.reviewCount} Google reviews`}</span>
           </a>
-          <h1 className="font-display text-[clamp(44px,8vw,112px)] font-semibold leading-[.9] tracking-[-.035em]">
-            {(slabs ? ['Cracked patio?', 'Lay it new.'] : ['Cracked drive?', 'Pour it new.']).map((l, i) => (
-              <span key={i} className="block"><CutReveal text={l} delay={0.12 + i * 0.16} className={i === 1 ? 'serif font-normal' : ''} /></span>
+          <h1 className="font-display text-[clamp(44px,8vw,112px)] font-medium leading-[.92] tracking-[-.035em]">
+            {(slabs ? ['Cracked patio?', 'Lay it new'] : ['Cracked drive?', 'Pour it new']).map((l, i) => (
+              <span key={i} className="block"><CutReveal text={l} delay={0.12 + i * 0.16} className={i === 1 ? 'text-[var(--accent2)]' : ''} /></span>
             ))}
           </h1>
           <p className="mt-4 max-w-[44ch] [@media(max-height:600px)]:hidden text-[15px] leading-relaxed md:mt-5 md:text-[18px]" style={{ color: 'color-mix(in srgb, var(--ink) 84%, transparent)' }}>
@@ -121,7 +120,7 @@ export function Hero() {
       {live && lay && !touched && !done && (
           <div
             className="pe-hint glass pointer-events-none absolute left-1/2 top-[19%] -translate-x-1/2 whitespace-nowrap rounded-full px-4 py-2 text-[13px] md:left-[38%] md:top-[30%]">
-            {slabs ? (coarse ? 'Swipe to lay the slabs' : 'Drag across to lay the slabs') : (coarse ? 'Swipe the drive to pour' : 'Drag across the drive to pour')} ↔
+            {slabs ? (coarse ? 'Swipe to lay the slabs' : 'Drag across to lay the slabs') : (coarse ? 'Swipe the drive to pour' : 'Drag across the drive to pour')}
           </div>
         )}
       <span className="ex-tag right-4 top-[76px] md:right-6">Live illustration</span>
@@ -135,7 +134,7 @@ function TypePick() {
   return (
     <div>
       <div className="mb-2.5 flex items-baseline justify-between gap-2">
-        <p className="text-[11px] font-medium uppercase tracking-[.14em]" style={{ color: 'var(--accent2)' }}>Choose your surface</p>
+        <p className="text-[13px] font-medium" style={{ color: 'var(--muted)' }}>Choose your surface</p>
         <p className="text-[12px] font-medium">{q.type.label}</p>
       </div>
       <div className="grid grid-cols-4 gap-1.5" role="radiogroup" aria-label="New surface">
@@ -168,13 +167,13 @@ function HeroQuote() {
       <TypePick />
 
       {/* phones: go on to the full designer */}
-      <a href="#design" className="mt-3.5 flex h-12 items-center justify-center rounded-full text-[15px] font-semibold md:hidden" style={{ background: 'var(--accent)', color: 'var(--accent-ink)' }}>
+      <a href="#design" className="mt-3.5 flex h-12 items-center justify-center rounded-full text-[15px] font-medium md:hidden" style={{ background: 'var(--accent)', color: 'var(--accent-ink)' }}>
         Design it &amp; book →
       </a>
       {/* desktop: finish the quote right here */}
       <div className="hidden md:block">
         {step === 'price' ? (
-          <button onClick={() => setStep('details')} className="mt-4 h-12 w-full rounded-full text-[15px] font-semibold" style={{ background: 'var(--accent)', color: 'var(--accent-ink)' }}>
+          <button onClick={() => setStep('details')} className="mt-4 h-12 w-full rounded-full text-[15px] font-medium" style={{ background: 'var(--accent)', color: 'var(--accent-ink)' }}>
             Book a free survey →
           </button>
         ) : (
@@ -184,7 +183,7 @@ function HeroQuote() {
               <input className="pe-in" placeholder="Phone" type="tel" autoComplete="tel" value={who.phone} onChange={(e) => setWho({ ...who, phone: e.target.value })} aria-label="Phone" />
               <input className="pe-in" placeholder="Postcode" autoComplete="postal-code" value={who.postcode} onChange={(e) => setWho({ ...who, postcode: e.target.value })} aria-label="Postcode" />
             </div>
-            <button disabled={!ok} className="mt-1 flex h-12 items-center justify-center gap-2 rounded-full text-[15px] font-semibold transition-opacity disabled:opacity-50" style={{ background: '#25D366', color: '#062b14' }}>
+            <button disabled={!ok} className="mt-1 flex h-12 items-center justify-center gap-2 rounded-full text-[15px] font-medium transition-opacity disabled:opacity-50" style={{ background: '#25D366', color: '#062b14' }}>
               <WaIcon /> {`Send to ${site.owner.first} on WhatsApp`}
             </button>
           </form>

@@ -17,12 +17,12 @@ export function Proof() {
       <div className="wrap px-5 md:px-16">
         <a href={site.socials.google} target="_blank" rel="noreferrer" className="group flex flex-col items-start gap-4 md:flex-row md:items-center md:justify-between">
           <div className="flex items-center gap-4 md:gap-6">
-            <span className="font-display text-[84px] font-semibold leading-none tracking-[-.04em] md:text-[132px]" style={{ background: 'linear-gradient(180deg, #FFF1C8, #C9A961 60%, #8E6D35)', WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent' }}>
+            <span className="font-display text-[84px] font-medium leading-none tracking-[-.04em] tabular-nums md:text-[132px]">
               {site.proof.rating.toFixed(1)}
             </span>
             <div>
               <Stars size={22} />
-              <p className="mt-2 font-display text-[22px] font-semibold leading-tight md:text-[30px]">from {site.proof.reviewCount} Google reviews</p>
+              <p className="mt-2 font-display text-[22px] font-medium leading-tight md:text-[30px]">from {site.proof.reviewCount} Google reviews</p>
             </div>
           </div>
           <span className="inline-flex items-center gap-2 rounded-full border px-4 py-2.5 text-[14px] font-medium transition-colors group-hover:bg-white/5" style={{ borderColor: 'var(--line)' }}>
@@ -53,13 +53,13 @@ export function WhyResin() {
   return (
     <section id="why" aria-labelledby="whyH" className="section">
       <div className="wrap">
-        <Head id="whyH" eyebrow="Why resin" title="Smooth, porous," accent="and no weeds." lede="General facts about resin-bound driveways, so you know what you are choosing." />
+        <Head id="whyH" eyebrow="Why resin" title="Smooth, porous," accent="and no weeds" lede="General facts about resin-bound driveways, so you know what you are choosing." />
         <div className="mt-10 grid gap-3 md:mt-14 md:grid-cols-3 md:gap-5">
           {whyResin.map((w, i) => (
             <Rise key={w.key} d={i * 0.08}>
               <div className="h-full rounded-[var(--radius)] border p-5 md:p-6" style={{ borderColor: 'var(--line)', background: 'var(--surface)' }}>
                 <div className="h-[120px] overflow-hidden rounded-2xl md:h-[150px]" style={{ background: '#0f0f0f' }}><Diagram k={w.key} /></div>
-                <h3 className="mt-4 font-display text-[22px] font-semibold">{w.title}</h3>
+                <h3 className="mt-4 font-display text-[22px] font-medium">{w.title}</h3>
                 <p className="mt-1.5 text-[15px] leading-relaxed" style={{ color: 'var(--muted)' }}>{w.text}</p>
               </div>
             </Rise>
@@ -117,16 +117,16 @@ export function Services() {
   return (
     <section id="services" aria-labelledby="svcH" className="section !pt-6 md:!pt-10">
       <div className="wrap">
-        <Head id="svcH" eyebrow="What they do" title="Three things," accent="done properly." />
+        <Head id="svcH" eyebrow="What they do" title="Three things," accent="done properly" />
         <div className="mt-10 grid gap-3 md:mt-12 md:grid-cols-3 md:gap-5">
           {items.map((s, i) => (
             <Rise key={s.t} d={i * 0.08}>
               <a href="#design" className="group relative block overflow-hidden rounded-[var(--radius)] border" style={{ borderColor: 'var(--line)' }}>
-                <img src={s.img} alt="" loading="lazy" className="aspect-[16/10] w-full object-cover transition-transform duration-700 group-hover:scale-[1.04] md:aspect-[4/5]" />
+                <img src={s.img} alt="" loading="lazy" className="aspect-[16/10] w-full object-cover md:aspect-[4/5]" />
                 <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(0,0,0,0) 35%, rgba(0,0,0,.85))' }} />
                 <span className="ex-tag left-3 top-3">{s.tag}</span>
                 <div className="absolute inset-x-0 bottom-0 p-5">
-                  <h3 className="font-display text-[26px] font-semibold">{s.t}</h3>
+                  <h3 className="font-display text-[26px] font-medium">{s.t}</h3>
                   <p className="mt-1 text-[14px] leading-snug" style={{ color: 'color-mix(in srgb, var(--ink) 80%, transparent)' }}>{s.d}</p>
                 </div>
               </a>
@@ -143,15 +143,15 @@ export function Process() {
     <section id="how" aria-labelledby="howH" className="section" style={{ background: 'var(--bg2)' }}>
       <div className="wrap grid gap-10 md:grid-cols-[.9fr_1.1fr] md:gap-16">
         <div className="md:sticky md:top-28 md:self-start">
-          <Head id="howH" eyebrow="How a resin drive goes in" title="Five steps," accent="no shortcuts." lede="The process from Proficient Essex's own resin driveway page." />
+          <Head id="howH" eyebrow="How a resin drive goes in" title="Five steps," accent="no shortcuts" lede="The process from Proficient Essex's own resin driveway page." />
         </div>
         <ol className="relative m-0 list-none p-0">
-          <span className="absolute bottom-4 left-[19px] top-4 w-px" style={{ background: 'linear-gradient(180deg, var(--accent), transparent)' }} aria-hidden />
+          <span className="absolute bottom-4 left-[19px] top-4 w-px" style={{ background: 'var(--line)' }} aria-hidden />
           {process.map((s, i) => (
             <li key={s.title} className="relative pb-7 last:pb-0"><Rise d={i * 0.05} className="flex gap-5">
-                <span className="relative z-[1] grid h-10 w-10 shrink-0 place-items-center rounded-full font-display text-[15px] font-semibold" style={{ background: 'var(--surface)', border: '1px solid var(--accent)', color: 'var(--accent2)' }}>{i + 1}</span>
+                <span className="relative z-[1] grid h-10 w-10 shrink-0 place-items-center rounded-full font-display text-[15px] font-medium" style={{ background: 'var(--surface)', border: '1px solid var(--line)', color: 'var(--ink)' }}>{i + 1}</span>
                 <div className="pt-1.5">
-                  <h3 className="font-display text-[20px] font-semibold">{s.title}</h3>
+                  <h3 className="font-display text-[20px] font-medium">{s.title}</h3>
                   <p className="mt-1 text-[15px] leading-relaxed" style={{ color: 'var(--muted)' }}>{s.text}</p>
                 </div>
               </Rise></li>
@@ -171,22 +171,21 @@ export function Reviews() {
     <section id="reviews" aria-labelledby="revH" className="section">
       <div className="wrap">
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-          <Head id="revH" eyebrow="What customers say" title="Reliable, polite," accent="superb work." />
+          <Head id="revH" eyebrow="What customers say" title="Reliable, polite," accent="superb work" />
           <a href={site.socials.google} target="_blank" rel="noreferrer" className="inline-flex w-fit items-center gap-2 rounded-full border px-4 py-2.5 text-[14px]" style={{ borderColor: 'var(--line)' }}>
             <Stars size={13} /> {site.proof.rating.toFixed(1)} · {site.proof.reviewCount} reviews on Google ↗
           </a>
         </div>
         <div className="relative mt-10 min-h-[260px] rounded-[var(--radius)] border p-6 md:mt-14 md:min-h-[300px] md:p-12" style={{ borderColor: 'var(--line)', background: 'var(--surface)' }}>
-          <span className="pointer-events-none absolute right-6 top-2 font-serif text-[140px] leading-none md:right-12 md:text-[220px]" style={{ color: 'rgba(201,169,97,.14)', fontFamily: 'var(--font-serif)' }} aria-hidden>”</span>
           <AnimatePresence mode="wait">
             <motion.figure key={i} className="relative m-0" initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: .45 }}>
-              <div className="flex items-center gap-3"><Stars size={15} /><span className="text-[13px] font-medium" style={{ color: 'var(--accent2)' }}>{r.title}</span></div>
+              <div className="flex items-center gap-3"><Stars size={15} /><span className="text-[13px] font-medium" style={{ color: 'var(--muted)' }}>{r.title}</span></div>
               <blockquote className="mt-4 max-w-[34ch] font-display text-[clamp(22px,3.2vw,38px)] font-medium leading-[1.2] tracking-[-.01em]">“{r.text}”</blockquote>
               <figcaption className="mt-5 text-[13px]" style={{ color: 'var(--muted)' }}>Google review{r.job ? ` · ${r.job}` : ''} · {r.date}</figcaption>
             </motion.figure>
           </AnimatePresence>
           <div className="mt-6 flex gap-2">
-            {site.reviews.map((_, k) => <button key={k} onClick={() => setI(k)} aria-label={`Review ${k + 1}`} className="grid h-8 min-w-8 place-items-center"><span className="block h-1.5 rounded-full transition-all" style={{ width: k === i ? 26 : 10, background: k === i ? 'var(--accent)' : 'rgba(255,255,255,.18)' }} /></button>)}
+            {site.reviews.map((_, k) => <button key={k} onClick={() => setI(k)} aria-label={`Review ${k + 1}`} className="grid h-8 min-w-8 place-items-center"><span className="block h-1.5 rounded-full transition-[width,background-color]" style={{ width: k === i ? 26 : 10, background: k === i ? 'var(--accent)' : 'rgba(255,255,255,.18)' }} /></button>)}
           </div>
         </div>
       </div>
@@ -200,11 +199,11 @@ export function GuaranteeAreas() {
     <section id="areas" aria-labelledby="areaH" className="section !pt-4 md:!pt-6">
       <div className="wrap grid gap-3 md:grid-cols-[1fr_1.2fr] md:gap-5">
         <Rise>
-          <div className="relative flex h-full flex-col justify-between overflow-hidden rounded-[var(--radius)] border p-6 md:p-9" style={{ borderColor: 'rgba(201,169,97,.35)', background: 'radial-gradient(120% 90% at 0% 0%, rgba(201,169,97,.16), transparent 60%), var(--surface)' }}>
+          <div className="relative flex h-full flex-col justify-between overflow-hidden rounded-[var(--radius)] border p-6 md:p-9" style={{ borderColor: 'var(--line)', background: 'var(--surface)' }}>
             <div className="pointer-events-none absolute -right-10 -top-8 opacity-[.13] md:-right-6"><Mark size={220} id="mk-g" /></div>
             <p className="eyebrow">Guarantee</p>
             <div className="relative mt-16 md:mt-24">
-              <h2 className="font-display text-[clamp(40px,6vw,72px)] font-semibold leading-[.95] tracking-[-.03em]">All work is <span className="serif" style={{ color: 'var(--accent2)' }}>guaranteed.</span></h2>
+              <h2 className="font-display text-[clamp(40px,6vw,72px)] font-medium leading-[.95] tracking-[-.03em]">All work is <span style={{ color: 'var(--muted)' }}>guaranteed</span></h2>
               <p className="mt-4 text-[15px]" style={{ color: 'var(--muted)' }}>In their words. Ask {site.owner.first} for the details on your survey.</p>
             </div>
           </div>
@@ -212,18 +211,16 @@ export function GuaranteeAreas() {
         <Rise d={0.08}>
           <div className="relative h-full overflow-hidden rounded-[var(--radius)] border p-6 md:p-9" style={{ borderColor: 'var(--line)', background: 'var(--surface)' }}>
             <p className="eyebrow">Where they work</p>
-            <h2 id="areaH" className="mt-3 font-display text-[clamp(30px,4vw,48px)] font-semibold leading-[1] tracking-[-.02em]">Based in {site.town}. <span className="serif" style={{ color: 'var(--accent2)' }}>Working across Essex</span> and the surrounding areas.</h2>
-            <div className="relative mt-4 grid h-[220px] place-items-center overflow-hidden rounded-2xl md:h-[260px]" style={{ background: 'radial-gradient(circle at 50% 50%, rgba(201,169,97,.10), transparent 65%), #151515' }} aria-hidden>
+            <h2 id="areaH" className="mt-3 font-display text-[clamp(30px,4vw,48px)] font-medium leading-[1] tracking-[-.02em]">Based in {site.town}, <span style={{ color: 'var(--muted)' }}>working across Essex and the surrounding areas</span></h2>
+            <div className="relative mt-4 grid h-[220px] place-items-center overflow-hidden rounded-2xl md:h-[260px]" style={{ background: '#151515' }} aria-hidden>
               <svg viewBox="0 0 400 260" className="absolute inset-0 h-full w-full" preserveAspectRatio="xMidYMid slice">
                 <defs><pattern id="dots" width="10" height="10" patternUnits="userSpaceOnUse"><circle cx="5" cy="5" r="1.1" fill="rgba(240,225,190,.16)" /></pattern></defs>
                 <rect width="400" height="260" fill="url(#dots)" />
                 {[40, 80, 120, 160].map((r) => <circle key={r} cx="200" cy="130" r={r} fill="none" stroke="rgba(201,169,97,.22)" strokeDasharray="2 5" />)}
-                <circle cx="200" cy="130" r="40" fill="none" stroke={preset.accent} strokeWidth="1.5" className="pe-ping" />
-                <circle cx="200" cy="130" r="40" fill="none" stroke={preset.accent} strokeWidth="1.5" className="pe-ping" style={{ animationDelay: '1.3s' }} />
                 <circle cx="200" cy="130" r="6" fill={preset.accent} />
               </svg>
               <span className="absolute left-1/2 top-1/2 mt-4 -translate-x-1/2 whitespace-nowrap rounded-full px-2.5 py-1 text-[12px] font-medium" style={{ background: 'rgba(0,0,0,.6)', color: 'var(--accent2)' }}>{site.town}</span>
-              <span className="absolute bottom-3 left-1/2 -translate-x-1/2 whitespace-nowrap text-[11px] uppercase tracking-[.14em]" style={{ color: 'var(--muted)' }}>Essex and the surrounding areas</span>
+              <span className="absolute bottom-3 left-1/2 -translate-x-1/2 whitespace-nowrap text-[12px]" style={{ color: 'var(--muted)' }}>Essex and the surrounding areas</span>
             </div>
             <p className="mt-2 text-[13px]" style={{ color: 'var(--muted)' }}>Not sure if you're covered? Ask {site.owner.first}: {site.phone}.</p>
           </div>
@@ -238,11 +235,11 @@ export function Faq() {
   return (
     <section id="faq" aria-labelledby="faqH" className="section !pt-6" >
       <div className="wrap grid gap-8 md:grid-cols-[.8fr_1.2fr] md:gap-16">
-        <Head id="faqH" eyebrow="Questions" title="Good to" accent="know." />
+        <Head id="faqH" eyebrow="Questions" title="Good to" accent="know" />
         <div className="divide-y border-y" style={{ borderColor: 'var(--line)' }}>
           {faq.map((f, i) => (
             <div key={i} style={{ borderColor: 'var(--line)' }}>
-              <button className="flex w-full items-center justify-between gap-4 py-5 text-left font-display text-[18px] font-semibold md:text-[20px]" aria-expanded={open === i} onClick={() => setOpen(open === i ? null : i)}>
+              <button className="flex w-full items-center justify-between gap-4 py-5 text-left font-display text-[18px] font-medium md:text-[20px]" aria-expanded={open === i} onClick={() => setOpen(open === i ? null : i)}>
                 {f.q}<span className="text-[22px] transition-transform" style={{ color: 'var(--accent)', transform: open === i ? 'rotate(45deg)' : 'none' }}>+</span>
               </button>
               <AnimatePresence initial={false}>
@@ -269,11 +266,11 @@ export function Footer() {
         <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
           <div>
             <p className="eyebrow">Free survey</p>
-            <h2 className="h2 mt-4 max-w-[13ch]">Ready for a drive <span className="serif" style={{ color: 'var(--accent2)' }}>you're proud of?</span></h2>
+            <h2 className="h2 mt-4 max-w-[14ch]">Book a free survey <span style={{ color: 'var(--muted)' }}>{`with ${site.owner.first}`}</span></h2>
           </div>
           <div className="flex flex-wrap gap-2.5">
-            <a href={tel(site.phone)} className="flex h-[52px] items-center rounded-full px-6 text-[16px] font-semibold" style={{ background: 'var(--accent)', color: 'var(--accent-ink)' }}>Call {site.phone}</a>
-            <a href={waLink(q)} target="_blank" rel="noreferrer" className="flex h-[52px] items-center gap-2 rounded-full px-6 text-[16px] font-semibold" style={{ background: '#25D366', color: '#062b14' }}><WaIcon /> WhatsApp</a>
+            <a href={tel(site.phone)} className="flex h-[52px] items-center rounded-full px-6 text-[16px] font-medium" style={{ background: 'var(--accent)', color: 'var(--accent-ink)' }}>Call {site.phone}</a>
+            <a href={waLink(q)} target="_blank" rel="noreferrer" className="flex h-[52px] items-center gap-2 rounded-full px-6 text-[16px] font-medium" style={{ background: '#25D366', color: '#062b14' }}><WaIcon /> WhatsApp</a>
           </div>
         </div>
         <Wordmark />
@@ -315,9 +312,9 @@ export function StickyBar() {
         <motion.nav aria-label="Quick contact" initial={{ y: 90 }} animate={{ y: 0 }} exit={{ y: 90 }} transition={{ type: 'spring', stiffness: 300, damping: 30 }}
           className="fixed inset-x-3 bottom-[max(10px,env(safe-area-inset-bottom))] z-40 grid grid-cols-3 gap-1.5 rounded-full p-1.5 md:hidden"
           style={{ background: 'rgba(20,20,20,.92)', border: '1px solid var(--line)', backdropFilter: 'blur(14px)', WebkitBackdropFilter: 'blur(14px)', boxShadow: '0 12px 30px rgba(0,0,0,.4)' }}>
-          <a href={tel(site.phone)} className="flex h-11 items-center justify-center gap-1.5 rounded-full text-[14px] font-semibold" style={{ background: 'rgba(255,255,255,.07)' }}>📞 Call</a>
-          <a href={waLink(q)} target="_blank" rel="noreferrer" className="flex h-11 items-center justify-center gap-1.5 rounded-full text-[14px] font-semibold" style={{ background: '#25D366', color: '#062b14' }}><WaIcon size={16} /> WhatsApp</a>
-          <a href="#design" className="flex h-11 items-center justify-center rounded-full text-[14px] font-semibold" style={{ background: 'var(--accent)', color: 'var(--accent-ink)' }}>£ Quote</a>
+          <a href={tel(site.phone)} className="flex h-11 items-center justify-center gap-1.5 rounded-full text-[14px] font-medium" style={{ background: 'rgba(255,255,255,.07)' }}><PhoneIcon /> Call</a>
+          <a href={waLink(q)} target="_blank" rel="noreferrer" className="flex h-11 items-center justify-center gap-1.5 rounded-full text-[14px] font-medium" style={{ background: '#25D366', color: '#062b14' }}><WaIcon size={16} /> WhatsApp</a>
+          <a href="#design" className="flex h-11 items-center justify-center rounded-full text-[14px] font-medium" style={{ background: 'var(--accent)', color: 'var(--accent-ink)' }}>£ Quote</a>
         </motion.nav>
       )}
     </AnimatePresence>
@@ -336,9 +333,13 @@ function Wordmark() {
         </svg>
       </div>
       <div className="min-w-0" aria-hidden>
-        <div className="font-display font-semibold uppercase leading-[.9]" style={{ fontSize: 'clamp(30px, 8.6vw, 124px)', letterSpacing: '.06em', background: 'linear-gradient(180deg, #FFF1C8 0%, #C9A961 48%, #8E6D35 78%, #E6D3A2 100%)', WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent' }}>Proficient</div>
+        <div className="font-display font-medium uppercase leading-[.9]" style={{ fontSize: 'clamp(30px, 8.6vw, 124px)', letterSpacing: '.06em', color: 'var(--accent2)' }}>Proficient</div>
         <div className="mt-[.5em] font-display font-medium uppercase" style={{ fontSize: 'clamp(12px, 2.4vw, 34px)', letterSpacing: '.62em', color: 'var(--muted)' }}>Essex</div>
       </div>
     </div>
   );
+}
+
+function PhoneIcon() {
+  return <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z" /></svg>;
 }

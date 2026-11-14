@@ -17,11 +17,11 @@
     html,body{margin:0;background:#121212;color:#F4F0E7}
     #boot{position:fixed;inset:0;z-index:100;display:grid;place-items:center;background:#121212;
       transition:transform 1s cubic-bezier(.76,0,.24,1);will-change:transform}
-    #boot .gl{position:absolute;inset:0;background:radial-gradient(42% 36% at 50% 46%,rgba(201,169,97,.13),transparent 70%)}
+    #boot .gl{position:absolute;inset:0;background:none}
     #boot .in{position:relative;display:flex;flex-direction:column;align-items:center;transition:opacity .45s ease,transform 1s cubic-bezier(.76,0,.24,1)}
     #boot svg.mk{width:clamp(96px,24vw,136px);height:auto;overflow:visible}
     #boot .b path{stroke:rgba(201,169,97,.13)}
-    #boot .c{stroke-dasharray:16 84;animation:ld-c 1.5s linear infinite;filter:drop-shadow(0 0 6px rgba(255,225,150,.55))}
+    #boot .c{stroke-dasharray:16 84;animation:ld-c 1.5s linear infinite}
     #boot .d{stroke-dasharray:100 100;stroke-dashoffset:100}
     #boot .f{opacity:0;transition:opacity .5s ease}
     #boot .sh{transform:translateX(-160%);opacity:0}
