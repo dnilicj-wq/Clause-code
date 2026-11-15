@@ -2,25 +2,25 @@ import { useState } from 'react';
 import { useSite } from '@/src/lib/ctx';
 import { blends, sizes, surfaces } from '@/config/driveway';
 import { photoSrc } from '@/config/content';
-import { Ticker } from '../lite';
-import { useQuote, waLink, smsLink, EXAMPLE_LABEL, sizeLabel } from '../quote';
+import { useQuote, waLink, smsLink, sizeLabel } from '../quote';
 import { WaIcon } from '../Hero';
 
 const tel = (p: string) => `tel:${p.replace(/\s/g, '')}`;
+const NOW = ['Grass', 'Old drive', 'Gravel', 'Not sure'];
 
-// Act four: the one colour-block on the page. Size, surface, price, then straight to Gerald on WhatsApp.
+// Act four: the one colour-block on the page. Size, surface, what's there now, then a free survey request to Gerald on WhatsApp.
 export function Price() {
   const { site } = useSite();
   const q = useQuote();
-  const [who, setWho] = useState({ name: '', postcode: '' });
+  const [who, setWho] = useState({ name: '', postcode: '', now: '' });
   const resin = q.surface.key === 'resin';
 
   return (
-    <section id="price" aria-labelledby="priceH" className="theme-yellow relative py-20 md:py-28" style={{ background: 'var(--bg)', color: 'var(--ink)' }}>
+    <section id="plan" aria-labelledby="planH" className="theme-yellow relative py-20 md:py-28" style={{ background: 'var(--bg)', color: 'var(--ink)' }}>
       <div className="mx-auto grid max-w-[1320px] gap-10 px-5 md:grid-cols-[1.05fr_1fr] md:gap-14 md:px-12">
         <div>
-          <h2 id="priceH" className="d-l">Price your drive.</h2>
-          <p className="mt-4 max-w-[46ch] text-[17px] leading-relaxed" style={{ color: 'var(--muted)' }}>Pick a size and a surface. When it looks right, it goes to {site.owner.first} on WhatsApp with everything filled in.</p>
+          <h2 id="planH" className="d-l">Plan your drive.</h2>
+          <p className="mt-4 max-w-[46ch] text-[17px] leading-relaxed" style={{ color: 'var(--muted)' }}>Pick a size, a surface and what’s there now. Then ask {site.owner.first} for a free survey on WhatsApp, with everything filled in.</p>
 
           <div className="mt-9 grid gap-7">
             <fieldset>
@@ -49,14 +49,12 @@ export function Price() {
                 </div>
               )}
             </fieldset>
-          </div>
-
-          <div className="mt-10 border-t pt-7" style={{ borderColor: 'var(--line)' }}>
-            <p className="text-[13px] font-semibold">Example range</p>
-            <p className="mt-1 whitespace-nowrap font-display text-[clamp(40px,7vw,80px)] font-semibold leading-none tracking-[-.035em]">
-              £<Ticker value={q.low} /> <span className="text-[.5em] font-medium" style={{ color: 'var(--muted)' }}>to</span> £<Ticker value={q.high} />
-            </p>
-            <p className="mt-3 text-[14px]" style={{ color: 'var(--muted)' }}>{EXAMPLE_LABEL}</p>
+            <fieldset>
+              <legend className="mb-3 text-[13px] font-semibold">What’s there now</legend>
+              <div className="seg">
+                {NOW.map((n) => <button type="button" key={n} aria-pressed={who.now === n} onClick={() => setWho({ ...who, now: n })}>{n}</button>)}
+              </div>
+            </fieldset>
           </div>
         </div>
 
@@ -84,13 +82,13 @@ export function Price() {
               <label className="field"><span>Postcode <i className="font-normal not-italic" style={{ color: 'var(--muted)' }}>(optional)</i></span>
                 <input className="inp" autoComplete="postal-code" value={who.postcode} onChange={(e) => setWho({ ...who, postcode: e.target.value })} /></label>
             </div>
-            <button className="btn btn-ink w-full"><WaIcon /> WhatsApp {site.owner.first} your design</button>
+            <button className="btn btn-ink w-full"><WaIcon /> Book a free survey</button>
             <div className="grid grid-cols-2 gap-2">
               <a href={smsLink(q, who)} className="btn !h-12 !text-[15px]" style={{ boxShadow: 'inset 0 0 0 1.5px rgba(18,19,21,.25)' }}>Text it instead</a>
               <a href={tel(site.phone)} className="btn !h-12 !text-[15px]" style={{ boxShadow: 'inset 0 0 0 1.5px rgba(18,19,21,.25)' }}>{`Call ${site.phone}`}</a>
             </div>
             <p className="text-[13px] leading-snug" style={{ color: 'var(--muted)' }}>
-              {`Sends “${sizeLabel(q)}, ${q.surface.long.toLowerCase()}${resin ? `, ${q.blend.name}` : ''}” to ${site.mobile}. Nothing is stored on this website.`}
+              {`Free survey and quote, no obligation. Sends “${sizeLabel(q)}, ${q.surface.long.toLowerCase()}${resin ? `, ${q.blend.name}` : ''}${who.now ? `, ${who.now.toLowerCase()} now` : ''}” to ${site.owner.first} on WhatsApp (${site.mobile}). Nothing is stored on this website.`}
             </p>
           </form>
         </div>

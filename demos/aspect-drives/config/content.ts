@@ -21,7 +21,7 @@ export const photoSrc = (p: Photo | string, size: 640 | 1280 = 1280) => {
 // How it works: from his Checkatrade profile ("Free Estimates", design) and what reviewers describe (a visit to talk through ideas, kept informed on site).
 export const process = [
   { title: 'Get in touch', text: 'Call, WhatsApp or send your design from this page.' },
-  { title: 'A visit and a free estimate', text: 'Gerald comes out, talks through ideas, colours and what suits your home, and prices it. Free estimates.' },
+  { title: 'A visit and a free estimate', text: 'Gerald comes out, talks through ideas, colours and what suits your home, then gives you a free quote. Free estimates.' },
   { title: 'Kept in the loop', text: 'Reviewers say they were told who would be on site, how long each stage would take and what came next.' },
   { title: 'Laid and finished', text: 'In his own words: “All our work is guaranteed for many years.”' },
 ];
@@ -33,10 +33,9 @@ export const whyResin = [
   { key: 'sweep', title: 'Easy to look after', text: 'The stones are locked in place, so there is no loose gravel. An occasional sweep and wash keeps it looking good.' },
 ];
 
-// From his own Checkatrade profile (description, skills, company info), plus one about this page's prices.
+// From his own Checkatrade profile (description, skills, company info).
 export const faq = [
   { q: 'Is there a guarantee?', a: 'Yes. In his own words: “All our work is guaranteed for many years.” Ask Gerald for the terms for your job.' },
   { q: 'Is the estimate free?', a: 'Yes. Free estimates, for domestic and commercial work.' },
   { q: 'What do you lay?', a: 'Block paving, resin bound and bonded driveways, patios and paving, concrete and polished concrete, gravel and shingle drives and permeable paving. Driveway repairs, cleaning and sealing, and design too.' },
-  { q: 'Is the price on this page my quote?', a: 'No. It is an example range to help you plan. Gerald gives you the real price in a free estimate.' },
 ];

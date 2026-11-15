@@ -7,7 +7,7 @@ export function Nav() {
   const { site } = useSite();
   const [scrolled, setScrolled] = useState(false);
   useEffect(() => { const f = () => setScrolled(scrollY > 40); f(); addEventListener('scroll', f, { passive: true }); return () => removeEventListener('scroll', f); }, []);
-  const links: [string, string][] = [['How it’s built', '#layers'], ['Work', '#work'], ['Reviews', '#reviews'], ['Price', '#price']];
+  const links: [string, string][] = [['How it’s built', '#layers'], ['Work', '#work'], ['Reviews', '#reviews'], ['Free survey', '#plan']];
   return (
     <header className="fixed inset-x-0 top-0 z-50 flex justify-center px-3 pt-3" data-nopour>
       <nav className="flex w-full max-w-[1280px] items-center justify-between rounded-full border py-1.5 pl-3 pr-1.5 transition-[background-color,border-color,box-shadow] duration-500"

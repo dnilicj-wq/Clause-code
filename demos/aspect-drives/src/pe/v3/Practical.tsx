@@ -31,7 +31,7 @@ export function Practical() {
 
           {/* no deposit */}
           <div className="tile flex flex-col justify-between p-6 md:p-7" style={{ background: 'var(--y)', color: '#121315' }}>
-            <p className="font-display text-[64px] font-semibold leading-none tracking-[-.04em]">£0</p>
+            <p className="font-display text-[44px] font-semibold leading-none tracking-[-.03em]">No deposit</p>
             <div>
               <p className="font-display text-[22px] font-semibold leading-tight">up front</p>
               <p className="mt-1.5 text-[14px] leading-snug" style={{ color: 'rgba(18,19,21,.75)' }}>From his website: no deposit is required until the work is finished to your satisfaction.</p>
@@ -41,7 +41,7 @@ export function Practical() {
           {/* free estimates */}
           <div className="tile flex flex-col justify-between p-6 md:p-7">
             <p className="font-display text-[22px] font-semibold leading-tight">Free estimates</p>
-            <p className="mt-6 text-[14px] leading-snug" style={{ color: 'var(--muted)' }}>{site.owner.first} visits, talks through ideas and colours, then prices it. Domestic and commercial.</p>
+            <p className="mt-6 text-[14px] leading-snug" style={{ color: 'var(--muted)' }}>{site.owner.first} visits, talks through ideas and colours, then gives you a free quote. Domestic and commercial.</p>
           </div>
 
           {/* areas map */}

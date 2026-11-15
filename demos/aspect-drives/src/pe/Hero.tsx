@@ -86,7 +86,7 @@ export function Hero() {
             {`Block paving, resin and patios across ${site.region}.`}
           </p>
           <div className="pointer-events-auto mt-5 flex gap-2.5 md:mt-8 [&>a]:max-md:flex-1 [&>a]:max-md:px-4" data-nopour>
-            <a href="#price" className="btn btn-y">Price my drive</a>
+            <a href="#plan" className="btn btn-y">Book a free survey</a>
             <a href={`https://wa.me/${site.whatsapp}`} target="_blank" rel="noreferrer" className="btn btn-ghost" style={{ background: 'rgba(16,18,21,.5)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)' }}><WaIcon /><span className="md:hidden">WhatsApp</span><span className="hidden md:inline">{`WhatsApp ${site.owner.first}`}</span></a>
           </div>
           {!coarse && live && lay && (

@@ -41,22 +41,22 @@ export function useQuote() { const c = useContext(C); if (!c) throw new Error('Q
 
 export function sizeLabel(q: Q) { const s = sizes.find((x) => x.key === q.sizeKey); return s ? `${s.label} drive (about ${q.m2} m²)` : `${q.m2} m² drive`; }
 
-export function quoteText(q: Q, who: { name?: string; postcode?: string; phone?: string } = {}) {
+export function quoteText(q: Q, who: { name?: string; postcode?: string; phone?: string; now?: string } = {}) {
   const lines = [
-    `Hi ${site.owner.first}, I priced a driveway on your website:`,
+    `Hi ${site.owner.first}, I planned a driveway on your website:`,
     `• ${sizeLabel(q)}`,
     `• ${q.surface.long}${q.surface.key === 'resin' ? ` (${q.blend.name})` : ''}`,
-    `• Example range: ${gbp(q.low)} to ${gbp(q.high)}`,
   ];
+  if (who.now) lines.push(`• There now: ${who.now}`);
   if (who.name) lines.push(`Name: ${who.name}`);
   if (who.postcode) lines.push(`Postcode: ${who.postcode.toUpperCase()}`);
   if (who.phone) lines.push(`Phone: ${who.phone}`);
-  lines.push('Could I get a free quote, please?');
+  lines.push('Could I book a free survey and quote, please?');
   return lines.join('\n');
 }
-export const waLink = (q: Q, who: { name?: string; postcode?: string; phone?: string } = {}) => `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(quoteText(q, who))}`;
+export const waLink = (q: Q, who: { name?: string; postcode?: string; phone?: string; now?: string } = {}) => `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(quoteText(q, who))}`;
 // for people not on WhatsApp: the same message as a text to his mobile
-export const smsLink = (q: Q, who: { name?: string; postcode?: string; phone?: string } = {}) => `sms:${site.mobile.replace(/\s/g, '')}?&body=${encodeURIComponent(quoteText(q, who))}`;
+export const smsLink = (q: Q, who: { name?: string; postcode?: string; phone?: string; now?: string } = {}) => `sms:${site.mobile.replace(/\s/g, '')}?&body=${encodeURIComponent(quoteText(q, who))}`;
 
 export const EXAMPLE_LABEL = `Example range. ${site.owner.first} confirms it with a free, no-obligation quote.`;
 export { gbp };

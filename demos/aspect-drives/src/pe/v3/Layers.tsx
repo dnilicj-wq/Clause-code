@@ -66,8 +66,8 @@ export function Layers() {
               ))}
             </ol>
             <p key={step} className="v3-fade mt-5 min-h-[3em] text-[16px] leading-snug" style={{ color: 'color-mix(in srgb, var(--ink) 78%, transparent)' }}>{STEPS[step].d}</p>
-            <a href="#price" className="btn btn-y pointer-events-auto mt-4 transition-[opacity,transform] duration-500" tabIndex={done ? 0 : -1} aria-hidden={!done}
-              style={{ opacity: done ? 1 : 0, transform: done ? 'none' : 'translateY(10px)', pointerEvents: done ? 'auto' : 'none' }}>Price a drive like this</a>
+            <a href="#plan" className="btn btn-y pointer-events-auto mt-4 transition-[opacity,transform] duration-500" tabIndex={done ? 0 : -1} aria-hidden={!done}
+              style={{ opacity: done ? 1 : 0, transform: done ? 'none' : 'translateY(10px)', pointerEvents: done ? 'auto' : 'none' }}>Book a free survey</a>
           </div>
 
           {/* phones: one step card at the bottom */}
@@ -78,7 +78,7 @@ export function Layers() {
                 <span className="flex gap-1">{STEPS.map((_, i) => <i key={i} className="block h-1 w-4 rounded-full" style={{ background: i <= step ? 'var(--y)' : 'rgba(236,236,232,.16)' }} />)}</span>
               </div>
               <p className="mt-1.5 text-[14.5px] leading-snug" style={{ color: 'var(--muted)' }}>{STEPS[step].d}</p>
-              {done && <a href="#price" className="btn btn-y pointer-events-auto v3-fade mt-3 !h-11 w-full !text-[15px]">Price a drive like this</a>}
+              {done && <a href="#plan" className="btn btn-y pointer-events-auto v3-fade mt-3 !h-11 w-full !text-[15px]">Book a free survey</a>}
             </div>
           </div>
         </div>

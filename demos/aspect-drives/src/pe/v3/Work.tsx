@@ -79,8 +79,8 @@ function End() {
   return (
     <div className="flex w-[min(80vw,360px)] shrink-0 flex-col justify-end self-stretch rounded-[14px] p-6 md:p-8" style={{ background: 'var(--y)', color: '#121315' }}>
       <p className="font-display text-[30px] font-semibold leading-[1.02] tracking-[-.02em] md:text-[38px]">Yours could be next.</p>
-      <p className="mt-3 text-[15px]" style={{ color: 'rgba(18,19,21,.75)' }}>Price it in under a minute.</p>
-      <a href="#price" className="btn btn-ink mt-6 self-start">Price my drive</a>
+      <p className="mt-3 text-[15px]" style={{ color: 'rgba(18,19,21,.75)' }}>Plan it in under a minute.</p>
+      <a href="#plan" className="btn btn-ink mt-6 self-start">Book a free survey</a>
     </div>
   );
 }
