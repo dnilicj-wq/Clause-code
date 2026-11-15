@@ -1,0 +1,104 @@
+/* Lamp CTA — the finale above the footer: a thin accent light bar switches on and spreads,
+   a cone of light falls onto the heading, then a Glint Button + a quiet secondary pill.
+   Geometry and timings are the Aceternity Lamp (components/library/lamp) as used on master V3
+   (cones 15rem→30rem, opacity .5→1, bar 15→30rem, glow 8→16rem; delay .3s, .8s ease-in-out; heading .15s/.7s),
+   re-laid out in normal flow so the heading never slides under the nav on phones.
+   Plain CSS + a class toggle so the static trade-demos generator can use the same file.
+   Tokens: --lamp-bg/--lamp-accent/--lamp-accent2/--lamp-ink/--lamp-muted, falling back to the preset's
+   --bg/--accent/--accent2/--ink/--muted. --lamp-power (0..1.6) scales the glow; light presets set it higher. */
+.lamp-cta {
+  --_bg: var(--lamp-bg, var(--bg));
+  --_a: var(--lamp-accent, var(--accent));
+  --_a2: var(--lamp-accent2, var(--accent2));
+  --_ink: var(--lamp-ink, var(--ink));
+  --_mut: var(--lamp-muted, var(--muted));
+  --_pw: var(--lamp-power, 1);
+  --_ease: cubic-bezier(.42, 0, .58, 1);
+  position: relative; isolation: isolate; overflow: hidden;
+  background: var(--_bg); color: var(--_ink);
+}
+.lamp-cta__stage {
+  position: absolute; left: 0; right: 0; top: 0; height: 32rem; z-index: 0; pointer-events: none;
+  display: flex; align-items: center; justify-content: center; transform: scaleY(1.25);
+}
+.lamp-cta__stage > * { position: absolute; }
+.lamp-cta__cone {
+  height: 14rem; width: 15rem; opacity: .5; overflow: visible;
+  transition: width .8s var(--_ease) .3s, opacity .8s var(--_ease) .3s;
+}
+.lamp-cta__cone--l { right: 50%; background-image: conic-gradient(from 70deg at center top, var(--_a), transparent, transparent); }
+.lamp-cta__cone--r { left: 50%; background-image: conic-gradient(from 290deg at center top, transparent, transparent, var(--_a)); }
+.lamp-cta__cone > i { position: absolute; bottom: 0; z-index: 20; background: var(--_bg); }
+.lamp-cta__cone > i.b { left: 0; width: 100%; height: 10rem; -webkit-mask-image: linear-gradient(to top, #fff, transparent); mask-image: linear-gradient(to top, #fff, transparent); }
+.lamp-cta__cone--l > i.s { left: 0; width: 10rem; height: 100%; -webkit-mask-image: linear-gradient(to right, #fff, transparent); mask-image: linear-gradient(to right, #fff, transparent); }
+.lamp-cta__cone--r > i.s { right: 0; width: 10rem; height: 100%; -webkit-mask-image: linear-gradient(to left, #fff, transparent); mask-image: linear-gradient(to left, #fff, transparent); }
+.lamp-cta__fade { top: 50%; height: 12rem; width: 100%; transform: translateY(3rem) scaleX(1.5); background: var(--_bg); filter: blur(40px); }
+.lamp-cta__frost { top: 50%; z-index: 50; height: 12rem; width: 100%; opacity: .1; -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); }
+.lamp-cta__glow { z-index: 50; height: 9rem; width: 28rem; transform: translateY(-50%); border-radius: 999px; background: var(--_a); opacity: calc(.5 * var(--_pw)); filter: blur(64px); }
+.lamp-cta__glow2 { z-index: 30; height: 9rem; width: 8rem; transform: translateY(-6rem); border-radius: 999px; background: var(--_a2); opacity: min(1, var(--_pw)); filter: blur(40px); transition: width .8s var(--_ease) .3s; }
+.lamp-cta__bar { z-index: 50; height: 2px; width: 15rem; transform: translateY(-7rem); background: var(--_a2); transition: width .8s var(--_ease) .3s; }
+.lamp-cta__cap { z-index: 40; height: 11rem; width: 100%; transform: translateY(-12.5rem); background: var(--_bg); }
+
+.lamp-cta.is-on .lamp-cta__cone { width: 30rem; opacity: 1; }
+.lamp-cta.is-on .lamp-cta__glow2 { width: 16rem; }
+.lamp-cta.is-on .lamp-cta__bar { width: 30rem; }
+
+.lamp-cta__body {
+  position: relative; z-index: 60; display: flex; flex-direction: column; align-items: center; text-align: center;
+  padding: 15rem 20px clamp(104px, 12vw, 168px);
+}
+@media (min-width: 768px) { .lamp-cta__body { padding-top: 16.25rem; } }
+.lamp-cta__h {
+  margin: 0; max-width: 16ch; color: var(--_ink);
+  font-family: var(--lamp-display, var(--font-display, inherit)); font-weight: var(--lamp-hw, 600);
+  font-size: clamp(38px, 6vw, 76px); line-height: 1; letter-spacing: -.025em; text-wrap: balance;
+  opacity: 0; transform: translateY(24px); transition: opacity .7s var(--_ease) .15s, transform .7s var(--_ease) .15s;
+}
+.lamp-cta.is-on .lamp-cta__h { opacity: 1; transform: none; }
+.lamp-cta__sub { margin: 20px 0 0; max-width: 42ch; font-size: 16px; line-height: 1.5; color: var(--_mut); text-wrap: pretty; }
+.lamp-cta__ctas { margin-top: 32px; display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+.lamp-cta__alt {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 56px; padding: 0 24px; border-radius: 999px;
+  font-weight: 500; font-size: 16px; color: var(--_ink); text-decoration: none;
+  background: color-mix(in oklab, var(--_ink) 6%, transparent); border: 1px solid color-mix(in oklab, var(--_ink) 16%, transparent);
+  -webkit-backdrop-filter: blur(14px) saturate(140%); backdrop-filter: blur(14px) saturate(140%);
+  transition: background .2s ease, border-color .2s ease;
+}
+.lamp-cta__alt:hover { background: color-mix(in oklab, var(--_ink) 11%, transparent); border-color: color-mix(in oklab, var(--_a2) 55%, transparent); }
+.lamp-cta__alt svg { width: 18px; height: 18px; flex: none; }
+
+/* Light presets: light on a pale stage reads as a soft warm wash, not a dark blob. Thinner cone, gentler glow,
+   and the bar takes the stronger accent so it still reads as a lit tube. Tested on Cloud Dancer. */
+.lamp-cta--light { --lamp-power: .62; }
+.lamp-cta--light .lamp-cta__bar { background: var(--_a); box-shadow: 0 0 14px 1px color-mix(in srgb, var(--_a2) 70%, transparent); }
+.lamp-cta--light .lamp-cta__glow2 { opacity: .5; }
+.lamp-cta--light .lamp-cta__cone--l { background-image: conic-gradient(from 70deg at center top, var(--_a2), transparent, transparent); }
+.lamp-cta--light .lamp-cta__cone--r { background-image: conic-gradient(from 290deg at center top, transparent, transparent, var(--_a2)); }
+.lamp-cta--light.is-on .lamp-cta__cone { opacity: .5; }
+
+/* Phones: same switch-on, scaled to the screen so the cone keeps its tapered edges. */
+@media (max-width: 639px) {
+  .lamp-cta__cone { width: 7.5rem; }
+  .lamp-cta.is-on .lamp-cta__cone { width: 11.5rem; }
+  .lamp-cta__cone > i.s { width: 5rem; }
+  .lamp-cta__bar { width: 11rem; }
+  .lamp-cta.is-on .lamp-cta__bar { width: 21rem; }
+  .lamp-cta__glow { width: 18rem; }
+  .lamp-cta.is-on .lamp-cta__glow2 { width: 11rem; }
+  .lamp-cta__stage { height: 30rem; }
+  .lamp-cta__body { padding-top: 13.5rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lamp-cta__cone, .lamp-cta__glow2, .lamp-cta__bar, .lamp-cta__h { transition: none; }
+  .lamp-cta .lamp-cta__cone { width: 30rem; opacity: 1; }
+  .lamp-cta--light .lamp-cta__cone { opacity: .5; }
+  .lamp-cta .lamp-cta__glow2 { width: 16rem; }
+  .lamp-cta .lamp-cta__bar { width: 30rem; }
+  .lamp-cta .lamp-cta__h { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) and (max-width: 639px) {
+  .lamp-cta .lamp-cta__cone { width: 11.5rem; }
+  .lamp-cta .lamp-cta__glow2 { width: 11rem; }
+  .lamp-cta .lamp-cta__bar { width: 21rem; }
+}
