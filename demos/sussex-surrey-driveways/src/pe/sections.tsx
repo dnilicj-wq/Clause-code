@@ -130,10 +130,10 @@ export function Promises() {
   return (
     <section aria-label="What you get" className="section glow-sec !pt-6">
       <div className="wrap">
-        <ProofTiles eyebrow="What you get" heading="Free to ask, start to finish"
+        <ProofTiles eyebrow="What you get" heading="Looked after, start to finish"
           items={[
             { illo: 'visit', title: 'Free site visit', text: 'They come to you and talk through what you want.' },
-            { illo: 'plans', title: 'Free design and planning', text: 'A design and planning service to suit you.' },
+            { illo: 'plans', title: 'Design and planning', text: 'Design and planning, chosen with you: the layout, the materials and the look.' },
             { illo: 'prep', title: 'Groundworks and drainage', text: 'Ground prepared and drainage in before the surface.' },
             { illo: 'swatches', title: 'Your choice of material', text: 'Block, resin, tarmac or gravel, with advice on each.' },
             { illo: 'range', title: 'Small jobs to large', text: 'Hand and machine-lay tarmac, from private drives to large projects.' },

@@ -26,7 +26,7 @@ Base URL: https://sussexandsurreydrivewaysltd.co.uk/ (abbreviated as `site`).
 | Fact | Where used | Source |
 |---|---|---|
 | Block paving, resin, tarmac and gravel driveways | Hero, Services, configurator | site /driveways |
-| Free site survey, free design and planning service, free no-obligation estimate | Process, Promises, FAQ, CTAs | site home + /driveways |
+| Free site visit, free no-obligation estimate (design and planning is NOT described as free: "we can design and install a driveway tailored specifically to your requirements") | Process, Promises, FAQ, CTAs | site home + /driveways |
 | Project managed; groundworks, drainage, kerbs and sealant | Process, Promises | site /driveways |
 | Driveway repairs: repairing, patching or cleaning | Promises, FAQ | site /driveways |
 | Tarmac: hand and machine-lay, small private works to large projects, black or red | Services, Promises, FAQ | site /driveways |

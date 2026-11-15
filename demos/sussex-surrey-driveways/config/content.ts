@@ -22,7 +22,7 @@ export const photoSrc = (p: Photo | string, size: 640 | 1280 = 1280) => {
 // management and installation ... ground works and drainage ... kerbs and sealant"). Shortened, same steps.
 export const process = [
   { title: 'Free site visit', text: 'They come to you, talk through what you need and give a free, no obligation estimate.' },
-  { title: 'Design and planning', text: 'A free design and planning service: the layout, the materials and the look, chosen with you.' },
+  { title: 'Design and planning', text: 'Design and planning, chosen with you: the layout, the materials and the look.' },
   { title: 'Groundworks and drainage', text: 'The ground is prepared and any drainage the surface needs goes in first.' },
   { title: 'Installation', text: 'Your new surface is laid, with any extra features such as kerbs and sealant. Project managed start to finish.' },
 ];
@@ -32,5 +32,5 @@ export const faq = [
   { q: 'Does a resin driveway need drainage?', a: 'The resin bonded surface they describe is non-permeable, so water cannot drain through it. Talk to them about drainage to clear run-off rainwater.' },
   { q: 'What size gravel do they recommend?', a: 'A minimum of 6-10 mm gravel for pathways and 10-20 mm for driveways. They can also advise on driveway grids to stop gravel moving around.' },
   { q: 'Can they repair my existing drive instead?', a: 'Yes. They carry out driveway repairs: repairing, patching or cleaning your existing driveway.' },
-  { q: 'What does the visit cost?', a: 'Nothing. They offer a free site survey, a free design and planning service and a free, no obligation estimate.' },
+  { q: 'What does the visit cost?', a: 'Nothing. The site visit is free and so is the estimate, with no obligation.' },
 ];
