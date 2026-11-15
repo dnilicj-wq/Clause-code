@@ -14,9 +14,9 @@ export function Proof() {
     <section aria-label="Google reviews" className="ss-seam relative overflow-hidden py-12 md:py-16" style={{ background: 'var(--bg2)' }}>
       <div className="wrap px-5 md:px-16">
         <a href={site.socials.google} target="_blank" rel="noreferrer" className="group flex flex-col items-start gap-4 md:flex-row md:items-center md:justify-between">
-          <div className="flex items-center gap-4 md:gap-6">
-            <span className="ss-grad-text font-display text-[72px] font-semibold leading-none tracking-[-.04em] md:text-[120px]">{site.proof.ratingWord}</span>
-            <p className="font-display text-[20px] font-semibold leading-tight md:text-[28px]">{site.proof.reviewCount} reviews<br /><span style={{ color: 'var(--muted)' }}>on Google</span></p>
+          <div className="flex flex-col items-start gap-2 md:flex-row md:items-center md:gap-6">
+            <span className="ss-grad-text font-display text-[64px] font-semibold leading-none tracking-[-.04em] md:text-[120px]">{site.proof.ratingWord}</span>
+            <p className="font-display text-[20px] font-semibold leading-tight md:text-[28px]">{site.proof.reviewCount} reviews<br className="hidden md:block" /> <span style={{ color: 'var(--muted)' }}>on Google</span></p>
           </div>
           <span className="inline-flex items-center gap-2 rounded-full border px-4 py-2.5 text-[14px] font-medium transition-colors group-hover:bg-white/5" style={{ borderColor: 'var(--line)' }}>
             <GoogleG size={16} /> See them on Google ↗
