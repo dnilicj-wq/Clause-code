@@ -119,6 +119,7 @@ button{font:inherit;color:inherit}
   .card-walls{grid-column:1/5}
   .card-bathrooms{grid-column:5/9;margin-top:12%}
   .card-driveways{grid-column:9/13}
+  .card-venetian{grid-column:1/13}.card-venetian .card-img{aspect-ratio:21/9}
   .card-commercial{grid-column:3/11}.card-commercial .card-img{aspect-ratio:21/9}
   .swipe-note{display:none}
 }
@@ -286,3 +287,6 @@ body:has(.plan input:focus) .dock{transform:translateY(160%);transition:transfor
 
 /* phones: keep section endings clear of the bottom dock */
 @media (max-width:899px){.marble-copy{padding-bottom:112px}.swipe-note{margin-bottom:84px}}
+
+/* phones: the Venetian card is the wide one */
+@media (max-width:899px){.card-venetian .card-img{aspect-ratio:4/5}}

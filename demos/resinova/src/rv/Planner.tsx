@@ -3,8 +3,8 @@ import { site, wa, type Spec } from './data';
 
 // Quote form: Space → Finish → rough size + postcode → name + mobile. Opens WhatsApp with everything
 // written out, and emails it too once site.formKey (Web3Forms) is set. No prices anywhere.
-const SPACE = ['Kitchen worktop', 'Living floor', 'Garage', 'Bathroom', 'Feature wall', 'Driveway', 'Commercial space', 'Something else'];
-const FIN = ['Metallic marble', 'Solid gloss', 'Flake', 'Microcement', 'Venetian plaster', 'Resin bound', 'Not sure yet'];
+const SPACE = ['Kitchen worktop', 'Living floor', 'Garage', 'Bathroom', 'Feature wall', 'Ceiling', 'Driveway', 'Commercial space', 'Something else'];
+const FIN = ['Metallic marble', 'Solid gloss', 'Flake', 'Microcement', 'Venetian marble + gold leaf', 'Resin bound', 'Not sure yet'];
 const SIZE = ['Small (bathroom, worktop)', 'Medium (kitchen, garage)', 'Large (open-plan, driveway)', 'Not sure'];
 const PC = /^[A-Za-z]{1,2}\d[A-Za-z\d]?\s*(\d[A-Za-z]{2})?$/;
 

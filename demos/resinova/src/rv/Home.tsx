@@ -41,8 +41,9 @@ export function Wordmark({ w = 150 }: { w?: number }) {
 
 const SERVICES = [
   { id: 'floors', t: 'Floors', d: 'Metallic, flake and solid colour epoxy, polished concrete and microcement.', img: 'space-living', alt: 'a living room with a pearl and grey metallic resin floor' },
-  { id: 'worktops', t: 'Worktops & tables', d: 'Resin countertops and epoxy table coatings, poured as one surface.', img: 'space-kitchen', alt: 'a dark kitchen with a white marble-effect resin worktop' },
-  { id: 'walls', t: 'Walls', d: 'Resin wall finishes and Venetian plaster.', img: 'space-wall', alt: 'a charcoal Venetian plaster feature wall' },
+  { id: 'worktops', t: 'Worktops & tables', d: 'Resin countertops and epoxy table coatings, poured as one surface.', img: 'space-svc-worktop', alt: 'a kitchen island with a pearl, charcoal and gold metallic marble epoxy worktop' },
+  { id: 'venetian', t: 'Venetian plaster', d: 'Marble-effect walls and ceilings, polished by hand, with gold leaf.', img: 'space-svc-venetian', alt: 'a lounge with polished Venetian marble walls and ceiling veined with gold leaf' },
+  { id: 'walls', t: 'Walls', d: 'Resin and microcement wall finishes.', img: 'space-wall', alt: 'a charcoal Venetian plaster feature wall' },
   { id: 'bathrooms', t: 'Bathrooms', d: 'Microcement bathrooms, walls and floors.', img: 'space-bathroom', alt: 'a bathroom finished in stone-grey microcement' },
   { id: 'driveways', t: 'Driveways', d: 'Resin bound and resin bonded driveways.', img: 'space-driveway', alt: 'a house with a golden resin bound driveway' },
   { id: 'commercial', t: 'Commercial', d: 'Polyurethane commercial floors.', img: 'space-commercial', alt: 'a commercial space with a seamless grey resin floor' },
@@ -105,7 +106,7 @@ export default function Home() {
           <div className="hero-copy">
             <p className="kicker">Premium resin surfaces · UK</p>
             <h1 className="h1">Floors, walls and worktops, <em>poured to be one of a kind.</em></h1>
-            <p className="lede">Premium resin, microcement and Venetian plaster for homes, garages, kitchens and commercial spaces across the UK. Every design bespoke.</p>
+            <p className="lede">Premium resin, microcement and Venetian plaster for homes, garages, kitchens and commercial spaces. UK-based, every design bespoke.</p>
             <div className="cta-row">
               <a className="btn btn-gold" href="#design">Design your surface</a>
               <a className="btn btn-glass" href={wa(WA_HI)} target="_blank" rel="noopener">WhatsApp us</a>
@@ -130,7 +131,7 @@ export default function Home() {
               </article>
             ))}
           </div>
-          <p className="swipe-note" aria-hidden="true">Swipe for all six →</p>
+          <p className="swipe-note" aria-hidden="true">Swipe for all seven →</p>
         </section>
 
         {/* DESIGN YOUR SURFACE */}
@@ -177,13 +178,13 @@ export default function Home() {
             </figure>
             <div data-r style={{ ['--i' as string]: 1 }}>
               <p className="kicker">Meet RESINOVA</p>
-              <h2 className="h2">A new name. <em>Real pours.</em></h2>
+              <h2 className="h2">Real pours, <em>filmed on the job.</em></h2>
               <p className="sub">RESINOVA is a new UK company doing one thing: premium resin surfaces, designed for each space. This is a live job, filmed mid-pour: marble-effect walls and floor in white, grey and gold. Finished projects go up here as they’re handed over.</p>
               <ul className="facts">
-                <li><b>Based</b>In the UK, covering the whole UK</li>
+                <li><b>Based</b>UK-based</li>
                 <li><b>For</b>Homes and commercial spaces</li>
                 <li><b>Designs</b>Bespoke, every time</li>
-                <li><b>Quotes</b>Free, from a photo on WhatsApp</li>
+                <li><b>Quotes</b>From a photo on WhatsApp</li>
               </ul>
               <a className="link" href={site.instagram} target="_blank" rel="noopener">Follow the work on Instagram →</a>
             </div>
@@ -220,7 +221,7 @@ export default function Home() {
               <ul className="contact">
                 <li><a href={wa(WA_HI)} target="_blank" rel="noopener">Message us on WhatsApp</a></li>
                 <li><a href={site.instagram} target="_blank" rel="noopener">Instagram {site.handle}</a></li>
-                <li>Covering the whole UK</li>
+                <li>UK-based</li>
               </ul>
             </div>
             <Lazy h={460}><Planner spec={spec} /></Lazy>

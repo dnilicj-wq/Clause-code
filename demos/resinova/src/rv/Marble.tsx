@@ -37,6 +37,10 @@ void main(){
   col=mix(col,vec3(.09,.25,.44)+vec3(.05,.15,.22)*r.x,blue*.9);
   col=mix(col,vec3(.93,.91,.87)*(.82+.18*f),pearl*.85);
   col=mix(col,vec3(.95,.76,.42)*(.95+.4*q.x),max(vein,edge*.9));
+  // gold leaf: sparse torn flecks, denser along the veins, that glint as the light moves
+  vec2 lp=p*vec2(34.,30.)+r*3.;
+  float leaf=smoothstep(.78,.86,n(lp))*smoothstep(.55,.9,n(lp*.31+7.))*(.35+.65*max(vein,smoothstep(.25,.7,f)));
+  col=mix(col,vec3(1.,.83,.47)*(1.05+.35*sin(T*.9+lp.x*.3)),clamp(leaf*1.4,0.,1.));
   // glossy top coat: a soft moving highlight and a little depth at the edges
   float g=pow(max(0.,1.-length((vec2(v.x,1.-v.y)-vec2(.68,.28))*vec2(1.2,2.1))),3.);
   col+=g*.16*(.8+.2*sin(T*.4));

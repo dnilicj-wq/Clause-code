@@ -14,7 +14,8 @@ export default function Design({ onQuote }: { onQuote: (s: Spec) => void }) {
   const t = TONES.find((x) => x.id === tone)!;
   // resin bound is stone, so only the stone tones make sense
   if (fin === 'bound' && !['carrara', 'smoke', 'champagne'].includes(tone)) queueMicrotask(() => setTone('champagne'));
-  const src = `/viz/${fin}-${tone}-v1.webp`;
+  // Venetian uses the gold-leaf set
+  const src = `/viz/${fin === 'venetian' ? 'venetian-gold' : fin}-${tone}-v1.webp`;
 
   const pickSpace = (id: SpaceId) => {
     setSpace(id);

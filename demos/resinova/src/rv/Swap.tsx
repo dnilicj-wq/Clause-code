@@ -48,7 +48,7 @@ export default function Swap({ src, className, label }: Props) {
     const tex = () => { const t = gl.createTexture()!; gl.bindTexture(gl.TEXTURE_2D, t);
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE); return t; };
-    let tA = tex(), tB = tex();
+    const tA = tex(), tB = tex();
     gl.uniform1i(U('A'), 0); gl.uniform1i(U('B'), 1);
     const load = (s: string) => new Promise<HTMLImageElement>((res, rej) => { const i = new Image(); i.decoding = 'async'; i.onload = () => res(i); i.onerror = rej; i.src = s; });
     const put = (t: WebGLTexture, i: HTMLImageElement) => { gl.bindTexture(gl.TEXTURE_2D, t); gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, i); };
@@ -73,7 +73,8 @@ export default function Swap({ src, className, label }: Props) {
           const step = (now: number) => {
             const k = Math.min(1, (now - t0) / D); const e = 1 - Math.pow(1 - k, 3);
             draw(e, now / 1000);
-            if (k < 1) raf = requestAnimationFrame(step); else { [tA, tB] = [tB, tA]; draw(1, 0); done(); }
+            // once the wipe lands, the new image becomes the base too, so every later redraw shows it
+            if (k < 1) raf = requestAnimationFrame(step); else { put(tA, i); draw(1, 0); done(); }
           };
           raf = requestAnimationFrame(step);
         })).catch(() => {});

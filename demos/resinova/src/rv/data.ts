@@ -17,17 +17,18 @@ export const WA_HI = 'Hi RESINOVA, I’ve just been looking at your website.';
 // Hidden until real Google reviews exist. Paste them word for word: { who, text, source: 'Google' }.
 export const reviews: { who: string; text: string; source: string }[] = [];
 
-export type SpaceId = 'kitchen' | 'living' | 'garage' | 'bathroom' | 'wall' | 'driveway';
+export type SpaceId = 'kitchen' | 'living' | 'garage' | 'bathroom' | 'wall' | 'ceiling' | 'driveway';
 export type FinishId = 'metallic' | 'solid' | 'flake' | 'micro' | 'venetian' | 'bound';
 export type ToneId = 'carrara' | 'onyx' | 'ocean' | 'smoke' | 'champagne';
 
 // Finish names come from his services flyer (Instagram, May 2026).
 export const SPACES: { id: SpaceId; label: string; img: string; fins: FinishId[] }[] = [
-  { id: 'kitchen', label: 'Kitchen worktop', img: 'space-kitchen', fins: ['metallic', 'solid', 'micro'] },
-  { id: 'living', label: 'Living floor', img: 'space-living', fins: ['metallic', 'solid', 'micro'] },
+  { id: 'kitchen', label: 'Kitchen worktop', img: 'space-svc-worktop', fins: ['metallic', 'solid', 'micro'] },
+  { id: 'living', label: 'Living floor', img: 'space-living', fins: ['metallic', 'solid', 'flake', 'micro'] },
   { id: 'garage', label: 'Garage', img: 'space-garage', fins: ['flake', 'solid', 'metallic'] },
-  { id: 'bathroom', label: 'Bathroom', img: 'space-bathroom', fins: ['micro', 'metallic', 'venetian'] },
+  { id: 'bathroom', label: 'Bathroom', img: 'space-bathroom', fins: ['micro', 'venetian', 'metallic'] },
   { id: 'wall', label: 'Feature wall', img: 'space-wall', fins: ['venetian', 'micro', 'metallic'] },
+  { id: 'ceiling', label: 'Ceiling', img: 'space-svc-venetian', fins: ['venetian', 'micro'] },
   { id: 'driveway', label: 'Driveway', img: 'space-driveway', fins: ['bound'] },
 ];
 export const FINISHES: { id: FinishId; label: string; note: string }[] = [
@@ -35,7 +36,7 @@ export const FINISHES: { id: FinishId; label: string; note: string }[] = [
   { id: 'solid', label: 'Solid gloss', note: 'One colour, poured flat to a deep gloss.' },
   { id: 'flake', label: 'Flake', note: 'Colour flakes sealed under a clear coat.' },
   { id: 'micro', label: 'Microcement', note: 'Hand-trowelled, seamless and soft to the eye.' },
-  { id: 'venetian', label: 'Venetian plaster', note: 'Layered and burnished by hand.' },
+  { id: 'venetian', label: 'Venetian marble + gold leaf', note: 'Polished marble-effect plaster, burnished by hand with gold leaf laid into it.' },
   { id: 'bound', label: 'Resin bound', note: 'Natural stone, bound in clear resin.' },
 ];
 export const TONES: { id: ToneId; label: string; sw: string }[] = [

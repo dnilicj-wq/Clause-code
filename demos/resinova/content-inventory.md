@@ -9,7 +9,7 @@ Every claim on the page, with its source. Sources: IG = instagram.com/resinovauk
 - Bespoke designs: IG bio + intro post
 - Residential and commercial: IG intro post
 - Free quote / free quotation: IG intro post
-- "Covering the whole UK": IG post ("a dedicated team covering the whole UK"); Dan to confirm
+- "UK-based" only. IG says "covering the whole UK" but that is not verified, so the page does not say it
 - Service list (metallic, flake, solid colour epoxy; polyurethane commercial; resin walls; Venetian plaster; resin bound + bonded driveways; resin countertops; epoxy table coating; concrete polishing; microcement floors + bathrooms): Flyer
 - Benefits (durable & long lasting, stunning finishes, waterproof & seamless, increases property value): Flyer
 - Ideal for homes, garages, kitchens, bathrooms, driveways, commercial: Flyer
