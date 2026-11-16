@@ -3,7 +3,7 @@ import Swap from './Swap';
 import { FINISHES, SPACES, TONES, type FinishId, type SpaceId, type Spec, type ToneId } from './data';
 
 // "Design your surface": Space → Finish → Tone. The big stage re-pours with the chosen finish and tone,
-// the inset shows the kind of space, and the gold "Your design" card carries the spec into the quote form.
+// the gold "Your design" card carries the spec into the quote form.
 export default function Design({ onQuote }: { onQuote: (s: Spec) => void }) {
   const [space, setSpace] = useState<SpaceId>('living');
   const [fin, setFin] = useState<FinishId>('metallic');
@@ -25,10 +25,6 @@ export default function Design({ onQuote }: { onQuote: (s: Spec) => void }) {
       <div className="dz-stage">
         <Swap src={src} className="dz-swap" label={`Visualisation of a ${f.label.toLowerCase()} finish in ${t.label.toLowerCase()}`} />
         <span className="chip-viz">Visualisation</span>
-        <figure className="dz-space" key={space}>
-          <img src={`/viz/${sp.img}-sm-v1.webp`} alt={`Example image: a ${sp.label.toLowerCase()}`} width={400} height={500} loading="lazy" decoding="async" />
-          <figcaption>{sp.label}<small>Example image</small></figcaption>
-        </figure>
       </div>
 
       <div className="dz-panel">

@@ -71,7 +71,7 @@ export default function Planner({ spec }: { spec: Spec | null }) {
   return (
     <form className="plan" onSubmit={submit} noValidate>
       <div className="plan-top">
-        <span className="plan-n">{step + 1}<small>/4</small></span>
+        <span className="plan-n">{step + 1}<small>of 4</small></span>
         <div className="plan-bar" aria-hidden="true"><i style={{ transform: `scaleX(${(step + 1) / 4})` }} /></div>
       </div>
       {step >= 2 && space && fin && <p className="plan-spec">Your design: <b>{design}</b></p>}

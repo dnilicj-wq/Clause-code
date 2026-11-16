@@ -173,11 +173,18 @@ export default function Home() {
           <div className="wip-grid">
             <figure className="wip-vid" data-r>
               <video src="/client/reel-mid-pour-v1.mp4" poster="/client/reel-mid-pour-v1.webp" muted loop playsInline autoPlay preload="none" aria-label="RESINOVA’s latest project mid-pour: marble-effect walls and floor in white, grey and gold" />
-              <figcaption>Latest project, mid-pour<small>Work in progress · from {site.handle}</small></figcaption>
+              <figcaption>Latest project, mid-pour<small>Filmed on the job · from {site.handle}</small></figcaption>
             </figure>
             <div data-r style={{ ['--i' as string]: 1 }}>
-              <h2 className="h2">Fresh from <em>the floor.</em></h2>
-              <p className="sub">A marble-effect finish in white, grey and gold, filmed while the job was still going on. Finished projects will live here.</p>
+              <p className="kicker">Meet RESINOVA</p>
+              <h2 className="h2">A new name. <em>Real pours.</em></h2>
+              <p className="sub">RESINOVA is a new UK company doing one thing: premium resin surfaces, designed for each space. This is a live job, filmed mid-pour: marble-effect walls and floor in white, grey and gold. Finished projects go up here as they’re handed over.</p>
+              <ul className="facts">
+                <li><b>Based</b>In the UK, covering the whole UK</li>
+                <li><b>For</b>Homes and commercial spaces</li>
+                <li><b>Designs</b>Bespoke, every time</li>
+                <li><b>Quotes</b>Free, from a photo on WhatsApp</li>
+              </ul>
               <a className="link" href={site.instagram} target="_blank" rel="noopener">Follow the work on Instagram →</a>
             </div>
           </div>
