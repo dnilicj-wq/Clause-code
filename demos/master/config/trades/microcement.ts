@@ -89,3 +89,18 @@ export const microcement: TradePack = {
   },
   offersUvStable: false,
 };
+
+// Wet-rooms service block (added for the Microcement & Venetian Surfaces build). Generic stages, no timescales or prices;
+// pair each stage with the prospect's own photos. Demo: demos/microcement-venetian/src/mv/WetRoom.tsx.
+export const wetRoomBlock = {
+  title: 'From ordinary bathroom to one seamless room',
+  stages: [
+    { t: 'Prepped', d: 'The old surface is checked, cleaned and prepared. Sound tiles can often stay where they are.' },
+    { t: 'Coated straight over', d: 'Thin coats of microcement go on by hand, walls and floor, over what’s already there.' },
+    { t: 'Seamless walls and floor', d: 'No grout lines, no joins, no edges for water or dirt to find. Just one surface.' },
+    { t: 'Water runs off', d: 'Made for wet areas. The shower water goes where it should, and nowhere else.' },
+  ],
+  faq: [
+    { q: 'Can it go over my tiles?', a: 'Often, yes, if they are sound and well bonded. Check against the business’s own claims before using.' },
+  ],
+};

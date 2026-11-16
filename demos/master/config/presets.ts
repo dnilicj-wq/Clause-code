@@ -82,8 +82,18 @@ export const presets: Record<string, Preset> = {
     display: '"Clash Display", system-ui, sans-serif', body: '"General Sans", system-ui, sans-serif', serif: '"Instrument Serif", Georgia, serif',
     radius: '16px',
   },
+  'wet-stone': {
+    key: 'wet-stone', name: 'Wet Stone', vibe: 'clean', dark: false,
+    bg: '#EEEDEA', bg2: '#E2E0DB', surface: '#FFFFFF', line: 'rgba(27,29,31,.12)',
+    ink: '#1B1D1F', muted: '#4A4F53',
+    accent: '#4C6B77', accentInk: '#FFFFFF', accent2: '#CDBFA8',
+    metal: ['#25282A', '#A8C2CB', '#F4F3F0'],
+    resin: { base: '#CBC8C1', metal: '#A8C2CB' },
+    concrete: '#CBC8C1',
+    display: '"Satoshi", system-ui, sans-serif', body: '"Inter Tight", system-ui, sans-serif', serif: '"Satoshi", system-ui, sans-serif',
+    radius: '18px',
+  },
 };
-
 export const presetKeys = Object.keys(presets);
 
 export function presetVars(p: Preset): Record<string, string> {
