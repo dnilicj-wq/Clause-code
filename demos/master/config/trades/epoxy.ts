@@ -136,3 +136,32 @@ export function estimate(P: TradePack['pricing'], o: { space: string; m2?: numbe
 }
 
 export const gbp = (n: number) => '£' + Math.round(n).toLocaleString('en-GB');
+
+// Optional blocks for resin/epoxy leads that also do worktops/tables or driveways (first used on RESINOVA).
+// Generic process copy only. Check every line against the business's own claims before using.
+export const countertopBlock = {
+  title: 'Worktops and tables, poured as one surface',
+  stages: [
+    { t: 'Templated', d: 'The worktop or table is measured, and any joins, edges and sink cut-outs are planned first.' },
+    { t: 'Prepared', d: 'The base is sanded, cleaned and sealed so the resin bonds properly.' },
+    { t: 'Poured', d: 'Pigment and metallics are worked in while it flows, so the pattern is unique to that piece.' },
+    { t: 'Top coat', d: 'A clear top coat gives the depth and the gloss, and protects the finish.' },
+  ],
+  faq: [
+    { q: 'Is it heat and scratch resistant?', a: 'Depends on the system used. Check against the business’s own claims before using.' },
+    { q: 'Can you coat my existing worktop?', a: 'Often, yes, if the base is sound. Check against the business’s own claims before using.' },
+  ],
+};
+
+export const drivewayBlock = {
+  title: 'Resin driveways, bound or bonded',
+  stages: [
+    { t: 'Base checked', d: 'The existing surface is checked. Sound concrete or tarmac can often be overlaid.' },
+    { t: 'Edges set', d: 'Edging and drainage are planned so water has somewhere to go.' },
+    { t: 'Laid', d: 'Resin bound is mixed and trowelled smooth. Resin bonded is scattered for a gravel-like grip.' },
+    { t: 'Cured', d: 'It’s left to cure, then it’s ready to walk on and drive on.' },
+  ],
+  faq: [
+    { q: 'What’s the difference between bound and bonded?', a: 'Bound: stone mixed into resin and trowelled smooth, usually permeable. Bonded: stone scattered onto a resin layer, more textured. Check against the business’s own offer.' },
+  ],
+};

@@ -1,0 +1,8 @@
+node_modules
+dist
+.vercel
+.env*.local
+.env*
+research/gen/
+research/ig/*.mp4
+research/fonts-full/

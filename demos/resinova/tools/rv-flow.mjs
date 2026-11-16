@@ -1,0 +1,41 @@
+import { chromium } from 'playwright';
+const out = process.argv[2];
+const b = await chromium.launch();
+const ctx = await b.newContext({ viewport: { width: 390, height: 844 }, hasTouch: true, isMobile: true, deviceScaleFactor: 2 });
+const p = await ctx.newPage();
+let opened = null; await p.exposeFunction('__wa', (u) => { opened = u; });
+await p.addInitScript(() => { window.open = (u) => { window.__wa(String(u)); return null; }; });
+await p.goto('http://localhost:4321/', { waitUntil: 'networkidle' });
+await p.waitForTimeout(2600);
+await p.screenshot({ path: `${out}/phone-pour.png` });
+// idle test: compare two hero frames 5s apart is meaningless after set; check sheen + marble move
+await p.locator('#design').scrollIntoViewIfNeeded(); await p.waitForTimeout(1500);
+await p.getByRole('radio', { name: 'Kitchen worktop' }).first().tap();
+await p.getByRole('radio', { name: 'Microcement' }).first().tap();
+await p.getByRole('radio', { name: 'Champagne' }).first().tap();
+await p.waitForTimeout(1100);
+const card = await p.locator('.yours').innerText();
+await p.locator('#design .dz-stage, #design .swap, #design figure').first().screenshot({ path: `${out}/x.png` }).catch(()=>{});
+await p.evaluate(() => scrollTo(0, document.querySelector('#design').offsetTop + 60)); await p.waitForTimeout(500);
+await p.screenshot({ path: `${out}/phone-configurator.png` });
+await p.getByRole('button', { name: 'Get a quote for this design' }).tap();
+await p.waitForTimeout(1200);
+const step = await p.locator('#quote').innerText();
+// fill size + postcode
+await p.getByRole('radio', { name: 'Medium' }).tap();
+await p.fill('input[autocomplete="postal-code"]', 'RM11 1AA');
+await p.getByRole('button', { name: 'Next' }).tap();
+await p.fill('input[autocomplete="given-name"]', 'Test');
+await p.fill('input[autocomplete="tel"]', '07700900123');
+await p.getByRole('button', { name: 'Send on WhatsApp' }).tap();
+await p.waitForTimeout(800);
+const done = await p.locator('#quote').innerText();
+// marbling + idle
+await p.locator('#every-pour').scrollIntoViewIfNeeded(); await p.waitForTimeout(2500);
+await p.screenshot({ path: `${out}/phone-marbling.png` });
+const a = await p.screenshot(); await p.waitForTimeout(5000); const c = await p.screenshot();
+console.log(JSON.stringify({ card, stepHas: step.slice(0, 300), opened: opened && decodeURIComponent(opened), done: done.slice(0, 200), idleMarbleMoves: !a.equals(c) }, null, 1));
+await p.locator('#top').scrollIntoViewIfNeeded(); await p.evaluate(() => scrollTo(0, 0)); await p.waitForTimeout(300);
+const h1 = await p.screenshot(); await p.waitForTimeout(5000); const h2 = await p.screenshot();
+console.log('idleHeroMoves', !h1.equals(h2));
+await b.close();
