@@ -8,7 +8,7 @@ Fetched 2026-11-16 from https://www.microcement-venetian.com (one-page Wix site)
 - category | Plasterer | Google profile
 - address | 6 Jonathan Hill, Newbury RG20 9BJ. NOT shown on the site (looks like a home address); site shows "Newbury, West Berkshire". TODO(Dan): ask James if he's happy showing it. | Google profile
 - area | "Based in West Berkshire UK" | Instagram bio @microcement_venetian
-- hours | Mon–Fri 8:30am–5pm, Sat 9am–4pm, Sun closed | Google profile
+- hours | Mon–Fri 8:30am–5pm, Sat 9am–4pm, Sun closed | Google profile (re-checked on Google Maps 2026-11-16, matches)
 - phone / WhatsApp | 07752 287314 | Google profile, Dan's lead list
 - email | j@microcement-venetian.com | Dan's brief (not visible on the Wix page itself; TODO(Dan): confirm)
 - instagram | @microcement_venetian (47 posts, 442 followers when checked) | instagram.com/microcement_venetian

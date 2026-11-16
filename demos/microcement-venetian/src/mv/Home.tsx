@@ -223,8 +223,6 @@ export default function Home() {
               <p className="kicker">Who’ll be in your house</p>
               <h2 className="h2">James. <em>Jimmy, to some.</em></h2>
               <p className="sub">His customers keep using the same words. Punctual. Tidy. Respectful and kind. Good value. A man who “works extremely hard, taking great care to create a great finish”, and who “went above and beyond to make sure everything was perfect”.</p>
-              {/* TODO(Dan): confirm this note with James, or delete it. */}
-              <blockquote className="note">“I’d rather spend an extra hour on the edges than have you notice them later.”<cite>Draft note, for James to approve</cite></blockquote>
             </div>
           </div>
         </section>
