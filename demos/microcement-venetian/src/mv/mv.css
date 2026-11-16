@@ -215,7 +215,7 @@ button{font:inherit;color:inherit}
 .story:nth-child(3) .story-img img{object-position:50% 75%}
 .story-txt p{color:var(--ink-2);margin:12px 0 0;max-width:46ch}
 .story-txt .kicker{margin:0 0 10px}
-.snum{display:block;font:600 13px/1 var(--body);color:var(--oat-d);margin-bottom:14px}
+.snum{display:block;font:600 13px/1 var(--body);color:#6B5D45;margin-bottom:14px}
 @media (min-width:900px){.story{grid-template-columns:1.35fr 1fr;align-items:center;gap:64px}.story.flip{grid-template-columns:1fr 1.35fr}.story.flip .story-img{order:2}.story-img img{aspect-ratio:5/4}}
 .gal-f{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin-bottom:18px}.gal-f .chip{flex:none}
 .gal-grid{columns:2 160px;column-gap:12px}
