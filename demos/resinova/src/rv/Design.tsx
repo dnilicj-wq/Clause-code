@@ -12,6 +12,8 @@ export default function Design({ onQuote }: { onQuote: (s: Spec) => void }) {
   const fins = FINISHES.filter((f) => sp.fins.includes(f.id));
   const f = FINISHES.find((x) => x.id === fin)!;
   const t = TONES.find((x) => x.id === tone)!;
+  // resin bound is stone, so only the stone tones make sense
+  if (fin === 'bound' && !['carrara', 'smoke', 'champagne'].includes(tone)) queueMicrotask(() => setTone('champagne'));
   const src = `/viz/${fin}-${tone}-v1.webp`;
 
   const pickSpace = (id: SpaceId) => {
@@ -48,7 +50,7 @@ export default function Design({ onQuote }: { onQuote: (s: Spec) => void }) {
         <fieldset className="dz-row">
           <legend><span className="dz-n">3</span>Tone</legend>
           <div className="tones" role="radiogroup" aria-label="Tone">
-            {TONES.map((x) => (
+            {TONES.filter((x) => fin !== 'bound' || ['carrara', 'smoke', 'champagne'].includes(x.id)).map((x) => (
               <button type="button" key={x.id} role="radio" aria-checked={tone === x.id} aria-label={x.label} className={`tone ${tone === x.id ? 'on' : ''}`} onClick={() => setTone(x.id)}>
                 <i style={{ background: x.sw }} /><span>{x.label}</span>
               </button>

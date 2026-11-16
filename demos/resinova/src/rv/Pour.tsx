@@ -19,7 +19,7 @@ export default function Pour() {
     const go = () => {
       if (cancelled) return;
       v.src = mob ? '/posters/pour-m-v1.mp4' : '/posters/pour-d-v1.mp4';
-      v.playbackRate = RATE;
+      v.defaultPlaybackRate = RATE; v.playbackRate = RATE;
       const start = () => { v.playbackRate = RATE; v.play().then(() => v.classList.add('on')).catch(() => setSet(true)); };
       v.addEventListener('canplaythrough', start, { once: true });
       v.load();

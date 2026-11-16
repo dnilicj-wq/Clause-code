@@ -283,3 +283,6 @@ button{font:inherit;color:inherit}
 /* keep the dock off the form while someone is typing */
 html{scroll-padding-bottom:110px}
 body:has(.plan input:focus) .dock{transform:translateY(160%);transition:transform .2s var(--ease)}
+
+/* phones: keep section endings clear of the bottom dock */
+@media (max-width:899px){.marble-copy{padding-bottom:112px}.swipe-note{margin-bottom:84px}}
