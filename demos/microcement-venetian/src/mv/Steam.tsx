@@ -34,7 +34,7 @@ void main(){
   vec3 soft=texture2D(B,iu).rgb;
   // steam: blurred photo, lifted towards a cool mist, with soft drifting density
   float den=.75+.25*n(uv*3.+vec2(T*.03,-T*.02));
-  vec3 mist=mix(soft,vec3(.86,.88,.89),.62*den);
+  vec3 mist=mix(soft*1.06,vec3(.76,.78,.79),.55*den);
   mist+=bead*.06*(1.-clear);
   vec3 col3=mix(mist,sharp,smoothstep(.05,.95,clearAll));
   // a wet sheen on the freshly wiped glass + a dark rim where water gathered
@@ -156,12 +156,12 @@ export default function Steam({ src, mode = 'hero', start = true, onCover, class
         if (lastAuto) line(lastAuto, p, 0.13, 0.85);
         lastAuto = p;
         if (k > 0.55 && reported < 0.5) { reported = 0.5; cv.dispatchEvent(new CustomEvent('wiped', { bubbles: true, detail: 0.5 })); }
-        if (k >= 1) { autoDone = true; floorT = 0.62; }
+        if (k >= 1) { autoDone = true; floorT = 0.42; }
       }
       // the photo stays readable: after the first arc the whole glass clears to half, wipes go fully clear
       floor += (floorT - floor) * 0.03;
       // fog creeps back into the wipes, slowly
-      if (mode === 'hero' && autoDone && still === undefined) { mx.fillStyle = 'rgba(0,0,0,.006)'; mx.fillRect(0, 0, MW, MW); dirty = true; }
+      if (mode === 'hero' && autoDone && still === undefined) { mx.fillStyle = 'rgba(0,0,0,.009)'; mx.fillRect(0, 0, MW, MW); dirty = true; }
       if (dirty) { up(2, tM, mc); dirty = false; }
       gl!.uniform1f(uT, t); gl!.uniform1f(uF, floor);
       gl!.drawArrays(gl!.TRIANGLES, 0, 3);

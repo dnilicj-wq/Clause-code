@@ -5,7 +5,7 @@ type Item = { k: string; label: string; base: string | null; pattern?: 'tiles' |
 const ITEMS: Item[] = [
   { k: 'tiles', label: 'Tiles', base: null, pattern: 'tiles', after: 'wetroom-long', ratio: 0.75, title: 'Straight over the old tiles', say: 'No ripping out. Sound tiles can be coated over and turned into one seamless, grout-free surface.', quote: 'We had micro cement over existing tiles in a wet room. The workmanship was very professional and the floor looks amazing.', who: 'Susan Butcher, Google review' },
   { k: 'wood', label: 'Wooden worktop', base: 'worktop-before', after: 'worktop-after', ratio: 0.75, title: 'Microcement overlay', say: 'Applied over the existing wooden worktops and tiles, plus custom-fitted 30mm MDF worktops with drainer grooves for the utility area.', extra: 'drainer' },
-  { k: 'steel', label: 'Steel column', base: 'column-apply', after: 'column-office', ratio: 0.8, title: 'Venetian plaster on steel', say: 'Florenzia Venetian plaster applied to steel columns, polished to a deep green, marbled finish.' },
+  { k: 'steel', label: 'Steel column', base: 'column-apply', after: 'column-office', ratio: 0.8, title: 'Venetian plaster on steel', say: 'Florenzia Venetian plaster applied to steel columns, in an open-plan office.' },
   { k: 'out', label: 'Outdoor terrace', base: null, pattern: 'slabs', after: 'goring-canopy', ratio: 0.75, title: '150 m², outside', say: '150 m² of Luna microcement applied externally in Goring, near Reading.' },
 ];
 
@@ -59,7 +59,7 @@ export default function OverAnything() {
           {it.base
             ? <img key={it.base} className="o-base" src={`/client/${it.base}-sm-v1.webp`} alt={`${it.label} before: one of James’s jobs`} width={760} height={1013} />
             : <div key={it.pattern} className={`o-base o-pat ${it.pattern}`} role="img" aria-label={`Illustration of ${it.label.toLowerCase()}`} />}
-          {p < 1 && <span className="tag tl">{it.base ? 'Before · his photo' : 'Illustration'}</span>}
+          {p < 1 && <span className="tag tl">{it.base ? (it.k === 'steel' ? 'Mid-job · his photo' : 'Before · his photo') : 'Illustration'}</span>}
           <div ref={coat} className="o-coat" style={{ clipPath: 'polygon(0 0,100% 0,100% 0,0 0)' }} aria-hidden="true" />
           <img key={it.after} className={`o-after ${p >= 1 ? 'in' : ''}`} src={`/client/${it.after}-sm-v1.webp`} alt={`${it.title}: James’s finished job`} width={760} height={1013} loading="lazy" />
           {p >= 1 && <span className="tag tr">His job · finished</span>}

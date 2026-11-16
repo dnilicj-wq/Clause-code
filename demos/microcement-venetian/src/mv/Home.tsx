@@ -52,7 +52,7 @@ export default function Home() {
   const [wiped, setWiped] = useState(false);
   const [touched, setTouched] = useState(false);
   const [dock, setDock] = useState(false);
-  const [faq, setFaq] = useState<number | null>(0);
+  const [faq, setFaq] = useState<number | null>(null);
   const [heroStart, setHeroStart] = useState(false);
   const hero = useRef<HTMLElement>(null);
   const marquee = useRef<HTMLDivElement>(null);
@@ -134,6 +134,12 @@ export default function Home() {
           <p className="revs-foot"><b>5.0 on Google · 8 reviews</b> <a className="link" href={site.google} target="_blank" rel="noopener">See them on Google →</a></p>
         </section>
 
+        {/* FINISHED WET ROOM, full width */}
+        <figure className="band">
+          <img src="/client/wetroom-long-v1.webp" alt="A finished walk-in wet room by James: pale seamless walls and floor, skylight, glass screen" width={1600} height={2133} loading="lazy" decoding="async" />
+          <figcaption><b>One of James’s finished wet rooms.</b> Walls, floor and shower in one seamless surface. His photo.</figcaption>
+        </figure>
+
         {/* WET ROOMS */}
         <section id="wet-rooms" className="sec sec-dark">
           <div className="sec-head" data-r>
@@ -166,7 +172,7 @@ export default function Home() {
                 <h3 className="h3">Microcement</h3>
                 <p>“Sleek, modern seamless microcement floors and walls.” <small>James, on Google</small></p>
                 <ul className="ticks"><li>Waterproof, suited to wet areas</li><li>Seamless, no grout lines</li><li>Easy to look after</li><li>Custom colours and textures</li></ul>
-                <p className="prod">On his jobs: <b>Luna</b> (outside, Goring) · <b>Rock Plaster</b> (Emma’s bathrooms)</p>
+                <p className="prod">On his jobs: <b>Luna</b> (outside, Goring). Emma’s bathrooms were finished in <b>Rock Plaster</b>.</p>
               </div>
             </article>
             <article className="fin" data-r style={{ ['--i' as string]: 1 }}>
@@ -197,11 +203,11 @@ export default function Home() {
               { img: 'goring-house', w: 1600, h: 1164, k: 'Outdoor · Goring, near Reading', t: '150 m², outside', d: '150 m² of Luna microcement applied externally in Goring, near Reading.' },
               { img: 'worktop-after', w: 1440, h: 1920, k: 'Microcement overlay', t: 'Old wood and tiles, coated over', d: 'Microcement applied over the existing wooden worktops and tiles, plus custom-fitted 30mm MDF worktops with drainer grooves for the utility area.' },
               { img: 'bath-finished', w: 1440, h: 1920, k: 'Microcement walls & floor', t: 'Tinted to Hammock No. 38', d: 'Microcement tinted to Farrow & Ball Hammock No. 38, with a refined, subtly smooth texture on the walls and the floor.' },
-              { img: 'columns-floor', w: 1440, h: 1800, k: 'Venetian plaster', t: 'Steel columns, polished green', d: 'Florenzia Venetian plaster applied to steel columns.' },
+              { img: 'columns-floor', w: 1440, h: 1800, k: 'Venetian plaster', t: 'Steel columns, in Venetian plaster', d: 'Florenzia Venetian plaster applied to steel columns.' },
             ].map((s, i) => (
               <article className={`story ${i % 2 ? 'flip' : ''}`} key={s.img} data-r>
                 <div className="story-img"><img src={`/client/${s.img}-v1.webp`} alt={`${s.t}: one of James’s jobs`} width={s.w} height={s.h} loading="lazy" decoding="async" /></div>
-                <div className="story-txt"><span className="snum">0{i + 1}</span><p className="kicker">{s.k}</p><h3 className="h3">{s.t}</h3><p>{s.d}</p></div>
+                <div className="story-txt"><span className="snum">No. {i + 1}</span><p className="kicker">{s.k}</p><h3 className="h3">{s.t}</h3><p>{s.d}</p></div>
               </article>
             ))}
           </div>
@@ -212,7 +218,7 @@ export default function Home() {
         {/* ABOUT */}
         <section id="james" className="sec sec-dark about">
           <div className="about-grid">
-            <div className="mono" data-r aria-hidden="true"><i className="ring" /><span>J</span></div>
+            <figure className="about-img" data-r><img src="/client/utility-sm-v1.webp" alt="Utility room with a grey microcement worktop and sink" width={760} height={1013} loading="lazy" /><figcaption>His custom-fitted utility worktop · his photo</figcaption></figure>
             <div data-r>
               <p className="kicker">Who’ll be in your house</p>
               <h2 className="h2">James. <em>Jimmy, to some.</em></h2>
@@ -228,7 +234,7 @@ export default function Home() {
           <div className="quote-grid">
             <div data-r>
               <p className="kicker">Free quote · no prices online</p>
-              <h2 className="h2">Tell James about the room. <em>Five quick taps.</em></h2>
+              <h2 className="h2">Tell James about the room. <em>Five quick steps.</em></h2>
               <p className="sub">It lands on his WhatsApp with everything filled in. He’ll get back to you himself.</p>
               <ul className="contact">
                 <li><a href={`tel:+${site.phoneIntl}`}>{site.phone}</a></li>
@@ -269,7 +275,7 @@ export default function Home() {
 
       <footer className="foot">
         <div className="foot-grid">
-          <div className="foot-brand"><Mark size={48} /><p><b>Microcement &amp; Venetian Surfaces</b><br />Newbury, West Berkshire</p></div>
+          <div className="foot-brand"><Mark size={48} /><p><b>Microcement &amp; Venetian Surfaces</b><br />Newbury, Berkshire</p></div>
           <div><b>Talk to James</b><p><a href={`tel:+${site.phoneIntl}`}>{site.phone}</a><br /><a href={`mailto:${site.email}`}>{site.email}</a><br />{site.hours}</p></div>
           <div><b>See more</b><p><a href={site.instagram} target="_blank" rel="noopener">Instagram @microcement_venetian</a><br /><a href={site.google} target="_blank" rel="noopener">Google reviews (5.0 · 8)</a></p></div>
         </div>
