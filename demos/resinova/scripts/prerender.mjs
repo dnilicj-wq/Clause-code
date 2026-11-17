@@ -22,7 +22,9 @@ let html = readFileSync(file, 'utf8');
 html = html.replace('<div id="root"></div>', `<div id="root"><div id="shell">${shell}</div></div>`);
 // Load the app after the prerendered hero has painted (the loader covers the hand-over), so LCP never waits on JS.
 const m = html.match(/<script type="module" crossorigin src="([^"]+)"><\/script>/);
-if (m) {
+// The app mounts over the prerendered hero and its headline counts as a fresh paint, so mount as early as
+// possible: keep the normal module script (deferred by default) instead of waiting for window load.
+if (m && process.env.LATE_JS) {
   html = html.replace(m[0], '').replace(/<link rel="modulepreload"[^>]*>/g, '');
   html = html.replace('</body>', `<script>addEventListener('load',function(){setTimeout(function(){var s=document.createElement('script');s.type='module';s.crossOrigin='';s.src='${m[1]}';document.body.appendChild(s)},30)})</script></body>`);
 }

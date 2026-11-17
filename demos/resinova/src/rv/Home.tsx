@@ -32,7 +32,7 @@ export function Wordmark({ w = 150 }: { w?: number }) {
       <defs>
         <linearGradient id="wmg" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stopColor="#F3E3B6" /><stop offset=".45" stopColor="#C9A86A" /><stop offset="1" stopColor="#8E713F" /></linearGradient>
       </defs>
-      <text x="150" y="44" textAnchor="middle" fill="currentColor" style={{ font: '600 46px var(--disp)', letterSpacing: '6px' }}>RESINOVA</text>
+      <text x="150" y="44" textAnchor="middle" fill="currentColor" style={{ font: '600 44px var(--disp)', letterSpacing: '7px' }}>RESINOVA</text>
       <path d="M8 62h66M226 62h66" stroke="url(#wmg)" strokeWidth="1.4" />
       <text x="150" y="66.5" textAnchor="middle" fill="url(#wmg)" style={{ font: '500 11.5px var(--body)', letterSpacing: '5.2px' }}>PREMIUM SURFACES</text>
     </svg>
