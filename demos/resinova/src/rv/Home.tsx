@@ -25,16 +25,20 @@ function Lazy({ children, h, id }: { children: React.ReactNode; h: number; id?: 
   return <div ref={ref} id={id} style={on ? undefined : { minHeight: h }}>{on && <Suspense fallback={<div style={{ minHeight: h }} />}>{children}</Suspense>}</div>;
 }
 
-// His wordmark from the Instagram flyer, redrawn flat: wide-set RESINOVA over gold hairlines and PREMIUM SURFACES.
+// His wordmark from the Instagram flyer, redrawn as vectors: wide geometric caps (Montserrat 520 outlines,
+// no font download), RES in brushed silver and INOVA in gold, PREMIUM SURFACES between gold hairlines.
+const WM_RES = 'M6.5 44V0H23.8Q32.4 0 37.3 4.1Q42.3 8.2 42.3 15.4Q42.3 20.2 40 23.6Q37.8 27.1 33.7 28.9Q29.6 30.7 23.8 30.7H10.1L13.1 27.7V44ZM35.8 44 24.6 28H31.7L43 44ZM13.1 28.3 10.1 25.1H23.6Q29.5 25.1 32.5 22.5Q35.6 20 35.6 15.4Q35.6 10.8 32.5 8.3Q29.5 5.8 23.6 5.8H10.1L13.1 2.5ZM57.9 44V0H89.2V5.8H64.5V38.2H90V44ZM64 24.5V18.8H86.4V24.5ZM118.6 44.5Q113.6 44.5 109 43Q104.3 41.5 101.7 39.1L104.1 33.8Q106.6 36 110.5 37.4Q114.4 38.9 118.6 38.9Q122.4 38.9 124.7 38Q127.1 37.2 128.2 35.7Q129.3 34.2 129.3 32.3Q129.3 30.1 127.8 28.8Q126.4 27.4 124 26.6Q121.7 25.8 118.8 25.1Q116 24.5 113.2 23.7Q110.3 22.8 108 21.5Q105.6 20.1 104.2 17.9Q102.7 15.7 102.7 12.2Q102.7 8.7 104.5 5.8Q106.4 3 110.2 1.2Q113.9 -0.5 119.8 -0.5Q123.6 -0.5 127.4 0.5Q131.2 1.5 134 3.4L131.8 8.7Q129 6.8 125.8 6Q122.7 5.1 119.7 5.1Q116.1 5.1 113.8 6Q111.4 7 110.4 8.5Q109.3 10 109.3 11.9Q109.3 14.1 110.7 15.5Q112.2 16.8 114.5 17.6Q116.9 18.4 119.7 19.1Q122.6 19.7 125.4 20.6Q128.2 21.4 130.6 22.7Q132.9 24 134.4 26.2Q135.8 28.4 135.8 31.9Q135.8 35.3 134 38.2Q132.1 41.1 128.3 42.8Q124.5 44.5 118.6 44.5Z';
+const WM_INOVA = 'M150.5 44V0H157.1V44ZM175.7 44V0H181.2L209.9 35.6H207.1V0H213.7V44H208.3L179.5 8.4H182.3V44ZM252.3 44.5Q247.2 44.5 242.9 42.8Q238.6 41.1 235.5 38.1Q232.3 35.1 230.6 31Q228.8 26.9 228.8 22Q228.8 17.1 230.6 13Q232.3 8.9 235.5 5.9Q238.7 2.8 242.9 1.2Q247.2 -0.5 252.3 -0.5Q257.4 -0.5 261.6 1.1Q265.9 2.8 269 5.9Q272.2 8.9 274 13Q275.7 17.1 275.7 22Q275.7 26.9 274 31Q272.2 35.1 269 38.1Q265.9 41.2 261.6 42.9Q257.4 44.5 252.3 44.5ZM252.3 38.6Q255.9 38.6 258.9 37.4Q262 36.1 264.3 33.9Q266.5 31.6 267.8 28.6Q269 25.6 269 22Q269 18.4 267.8 15.4Q266.5 12.4 264.3 10.1Q262 7.9 259 6.6Q255.9 5.4 252.3 5.4Q248.7 5.4 245.6 6.6Q242.6 7.9 240.3 10.1Q238 12.4 236.8 15.4Q235.5 18.4 235.5 22Q235.5 25.6 236.8 28.6Q238 31.6 240.3 33.9Q242.5 36.1 245.6 37.4Q248.7 38.6 252.3 38.6ZM303.6 44 284.3 0H291.5L309.1 40.4H305L322.8 0H329.5L310.2 44ZM334.8 44 354.8 0H361.3L381.3 44H374.3L356.7 3.7H359.4L341.7 44ZM343.5 33.2 345.3 27.8H369.8L371.7 33.2Z';
 export function Wordmark({ w = 150 }: { w?: number }) {
   return (
-    <svg className="wm" width={w} height={w * 0.26} viewBox="0 0 300 78" role="img" aria-label="RESINOVA, Premium Surfaces">
+    <svg className="wm" width={w} height={w * 0.2} viewBox="0 0 370 74" role="img" aria-label="RESINOVA, Premium Surfaces">
       <defs>
-        <linearGradient id="wmg" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stopColor="#F3E3B6" /><stop offset=".45" stopColor="#C9A86A" /><stop offset="1" stopColor="#8E713F" /></linearGradient>
+        <linearGradient id="wms" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stopColor="#FFFFFF" /><stop offset=".55" stopColor="#D9DDE3" /><stop offset="1" stopColor="#A9B0B9" /></linearGradient>
+        <linearGradient id="wmg" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stopColor="#F6E3AE" /><stop offset=".5" stopColor="#D6B472" /><stop offset="1" stopColor="#B08A4A" /></linearGradient>
       </defs>
-      <text x="150" y="44" textAnchor="middle" fill="currentColor" style={{ font: '600 44px var(--disp)', letterSpacing: '7px' }}>RESINOVA</text>
-      <path d="M8 62h66M226 62h66" stroke="url(#wmg)" strokeWidth="1.4" />
-      <text x="150" y="66.5" textAnchor="middle" fill="url(#wmg)" style={{ font: '500 11.5px var(--body)', letterSpacing: '5.2px' }}>PREMIUM SURFACES</text>
+      <g transform="translate(-6.5 0)"><path d={WM_RES} fill="url(#wms)" /><path d={WM_INOVA} fill="url(#wmg)" /></g>
+      <path d="M14 66.5h60M296 66.5h60" stroke="#C9A86A" strokeWidth="1.6" />
+      <text x="187.8" y="71" textAnchor="middle" fill="#D6B472" style={{ font: '600 13px var(--body)', letterSpacing: '5.6px' }}>PREMIUM SURFACES</text>
     </svg>
   );
 }
@@ -90,7 +94,7 @@ export default function Home() {
       <a className="skip" href="#main">Skip to content</a>
       <header className="nav">
         <div className="nav-bar">
-          <a className="logo" href="#top" aria-label="RESINOVA Premium Surfaces, back to top"><Wordmark w={132} /></a>
+          <a className="logo" href="#top" aria-label="RESINOVA Premium Surfaces, back to top"><Wordmark w={150} /></a>
           <nav aria-label="Main">
             <a href="#services">Surfaces</a><a href="#design">Design yours</a><a href="#how">How it works</a><a href="#faq">FAQ</a>
           </nav>
