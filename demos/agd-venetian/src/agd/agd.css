@@ -51,10 +51,10 @@ a{color:inherit}
 @media (min-width:700px){.nl{display:inline-block} .nav .btn-sm span{display:inline} .nav{padding:18px 28px} .logo img{height:40px}}
 
 /* HERO: "Polish the wall". The CSS marble below is the first paint and the no-WebGL fallback. */
-.hero{--mA:#F4F5F4;--mB:#CDD1D5;--mV:#8B9096;position:relative;min-height:100svh;color:var(--ink);display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;isolation:isolate;touch-action:pan-y;
+.hero{--mA:#F5EFE3;--mB:#CFBEA6;--mV:#721036;position:relative;min-height:100svh;color:var(--ink);display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;isolation:isolate;touch-action:pan-y;
   background:
-    linear-gradient(126deg,transparent 18%,color-mix(in srgb,var(--mB) 75%,var(--mV) 25%) 30%,transparent 44%),
-    linear-gradient(130deg,transparent 52%,color-mix(in srgb,var(--mB) 80%,transparent) 63%,transparent 76%),
+    linear-gradient(128deg,transparent 18%,color-mix(in srgb,var(--mB) 85%,var(--mV) 15%) 30%,transparent 44%),
+    linear-gradient(132deg,transparent 50%,color-mix(in srgb,var(--mB) 85%,#000 6%) 62%,transparent 76%),
     radial-gradient(60% 45% at 25% 22%,var(--mA),transparent 70%),
     radial-gradient(55% 50% at 80% 68%,var(--mB),transparent 72%),
     linear-gradient(160deg,var(--mA),var(--mB))}

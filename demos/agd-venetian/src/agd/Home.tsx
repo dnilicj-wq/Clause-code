@@ -22,9 +22,9 @@ const Phone = () => <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden=
 
 // Signature 1: "Polish the wall". A procedural plaster wall (no photo) starts matte; dragging trowels it to gloss.
 const TONES = [
-  { n: 'Marble white', a: '#F5F6F6', b: '#CDD1D5', v: '#8B9096' },   // cool white, soft grey veins
+  { n: 'Marble white', a: '#F5F6F6', b: '#C5CBD1', v: '#8B9096' },   // cool white, soft grey veins
   { n: 'Warm greige', a: '#E3D6C4', b: '#C2AE96', v: '#7E6652' },    // sand/greige, taupe veins
-  { n: 'Burgundy vein', a: '#F5EFE3', b: '#E3D8C7', v: '#721036' },  // ivory, AGD berry veins
+  { n: 'Burgundy vein', a: '#F5EFE3', b: '#CFBEA6', v: '#721036' },  // ivory, AGD berry veins
 ];
 type Api = { clean: () => void; setTone: (t: { a: string; b: string; v: string }) => void; destroy: () => void };
 function Hero() {
@@ -32,7 +32,7 @@ function Hero() {
   const cv = useRef<HTMLCanvasElement>(null);
   const card = useRef<HTMLDivElement>(null);
   const api = useRef<Api | null>(null);
-  const [tone, setTone] = useState(0);
+  const [tone, setTone] = useState(2);   // open on Burgundy vein: AGD's brand colour, the most colour on load
   const [gl, setGl] = useState(false);
   const [hint, setHint] = useState<'off' | 'on' | 'gone'>('off');
   const [done, setDone] = useState(false);
@@ -49,7 +49,7 @@ function Hero() {
           ? new DOMRect(hr.left, hr.top + 70, hr.width, Math.max(0, cr.top - hr.top - 80)) // phone: wall above the card, below the nav
           : new DOMRect(cr.right, hr.top + 80, Math.max(0, hr.right - cr.right), hr.height - 100);
       };
-      api.current = initPolish({ canvas: c, host: h, wallRect, tone: TONES[0], reduced: rm, coarse,
+      api.current = initPolish({ canvas: c, host: h, wallRect, tone: TONES[2], reduced: rm, coarse,
         onDone: () => { setDone(true); setHint('gone'); }, onFirstTouch: () => setHint('gone') });
       if (api.current) setGl(true);
       // no loader: the hazy wall shows for a moment, then the layered clean starts

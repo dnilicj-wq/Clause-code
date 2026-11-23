@@ -76,7 +76,8 @@ void main(){
  float cl=b.g, lo=texture2D(uBase,uv*.45+.2).g;
  vec3 col=mix(cA,cB,smoothstep(.32,.68,cl));
  col*=1.+(cl-.5)*.8+(lo-.5)*.35;
- col=mix(col,cV,b.r*.5);                                  // veins in the tone's own vein colour, soft and tapered
+ col=mix(col,mix(cB,cV,.3),smoothstep(.6,.9,cl)*.4);   // deep clouds carry the vein colour: smoke under glass
+ col=mix(col,cV,b.r*.6);                                  // veins in the tone's own vein colour, soft and tapered
  vec2 o=vec2(uPx/uRes.x,uPx/uRes.y);
  float hx=texture2D(uBase,uv+vec2(o.x,0.)).b-texture2D(uBase,uv-vec2(o.x,0.)).b;
  float hy=texture2D(uBase,uv+vec2(0.,o.y)).b-texture2D(uBase,uv-vec2(0.,o.y)).b;
@@ -85,7 +86,7 @@ void main(){
  float bump=mix(mix(.85,.45,mH),.1,mG), gb=.3*(1.-mH);
  vec3 n=normalize(vec3(-hx*bump-gx*gb,-hy*bump-gy*gb,1.));
  float lum=dot(col,vec3(.299,.587,.114));
- vec3 matte=mix(col,vec3(lum),.4)*.78+.2;           // unpolished: hazy chalk film, veins washed out
+ vec3 matte=mix(col,vec3(lum),.15)*.93+.07;   // unpolished: a light haze, colour still there           // unpolished: hazy chalk film, veins washed out
  matte+=(texture2D(uBase,uv*.5+.25).g-.5)*.06;        // uneven dusty haze
  vec3 gloss=pow(col,vec3(1.3));                    // deeper, richer colour
  vec3 satin=mix(col,vec3(lum),.25)*.91+.075;          // between haze and gloss: no bright rim at stroke edges            // clean but not yet burnished
