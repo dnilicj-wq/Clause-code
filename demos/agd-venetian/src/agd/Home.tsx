@@ -27,7 +27,6 @@ const TONES = [
   { n: 'Burgundy vein', a: '#EEE9E7', b: '#DDD3D3', v: '#721036' },
 ];
 type Api = { clean: () => void; setTone: (t: { a: string; b: string; v: string }) => void; destroy: () => void };
-declare global { interface Window { __ldReady?: () => void; __ldOut?: number } }
 function Hero() {
   const host = useRef<HTMLElement>(null);
   const cv = useRef<HTMLCanvasElement>(null);
@@ -39,7 +38,7 @@ function Hero() {
   const [done, setDone] = useState(false);
   useEffect(() => {
     const h = host.current, c = cv.current; if (!h || !c) return;
-    let cancelled = false;
+    let cancelled = false, cleanT = 0;
     const go = () => import('./polish').then(({ initPolish }) => {
       if (cancelled) return;
       const coarse = matchMedia('(pointer: coarse)').matches, rm = reduce();
@@ -53,14 +52,12 @@ function Hero() {
       api.current = initPolish({ canvas: c, host: h, wallRect, tone: TONES[0], reduced: rm, coarse,
         onDone: () => { setDone(true); setHint('gone'); }, onFirstTouch: () => setHint('gone') });
       if (api.current) setGl(true);
-      window.__ldReady?.();
-      // the hazy wall shows for a moment after the loader lifts, then the layered clean starts
-      const go2 = () => setTimeout(() => api.current?.clean(), 900);
-      if (window.__ldOut) go2(); else addEventListener('ld:out', go2, { once: true });
-    }).catch(() => window.__ldReady?.());
+      // no loader: the hazy wall shows for a moment, then the layered clean starts
+      cleanT = window.setTimeout(() => api.current?.clean(), 1200);
+    });
     // after first paint, so the static wall and headline paint first
     const id = requestAnimationFrame(() => setTimeout(go, 60));
-    return () => { cancelled = true; cancelAnimationFrame(id); api.current?.destroy(); api.current = null; };
+    return () => { cancelled = true; clearTimeout(cleanT); cancelAnimationFrame(id); api.current?.destroy(); api.current = null; };
   }, []);
   const pick = (i: number) => {
     const t = TONES[i], h = host.current; setTone(i); api.current?.setTone(t);

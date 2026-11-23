@@ -30,12 +30,16 @@ void main(){
  vec2 q=vec2(fbm(p),fbm(p+vec2(5.2,1.3)));
  vec2 r=vec2(fbm(p+3.*q+vec2(1.7,9.2)),fbm(p+3.*q+vec2(8.3,2.8)));
  float f=fbm(p+2.6*r);
- // flowing marble veins: sin(direction + turbulence), faded in and out along their length
- float w1=sin((uv.x*.7+uv.y*1.5)*4.2+5.5*fbm3(p*.5+1.2*r));
- float k1=.012+.06*fbm3(p*1.1+5.);
- float w2=sin((uv.x*1.9-uv.y*.6)*6.+6.*fbm3(p*.8+4.+q));
- float a1=smoothstep(.3,.6,fbm(p*.6+9.)), a2=smoothstep(.4,.65,fbm(p*.9+2.));
- float vein=(1.-smoothstep(.0,k1,abs(w1)))*a1*.7+(1.-smoothstep(.0,.45,abs(w1)))*a1*.28+(1.-smoothstep(.0,.01,abs(w2)))*a2*.32+(1.-smoothstep(.0,.2,abs(w2)))*a2*.1;
+ // Soft diagonal veils, like his own walls (IG CTZJWBGoo8v, CR0jeE7BBb1, CYBuGVcIGd7): smoky, brushed,
+ // tone on tone, fading in and out. No outlines. Only a few faint fine threads.
+ vec2 d=mat2(.82,-.57,.57,.82)*uv;
+ vec2 wq=vec2(fbm3(d*vec2(.6,1.8)+r),fbm3(d*vec2(.6,1.8)+vec2(3.,7.)));
+ float wisp=fbm(d*vec2(.8,4.8)+1.7*wq);                      // stretched along the diagonal: brushed streaks
+ float fade=smoothstep(.28,.62,fbm3(d*vec2(.45,1.1)+5.));     // veils come and go along their length
+ float veil=smoothstep(.5,.76,wisp)*fade;
+ float thread=(1.-smoothstep(0.,.014,abs(wisp-.62)))*smoothstep(.5,.75,fbm3(d*vec2(.7,1.6)+9.));
+ float vein=veil*.75+thread*.25;
+ f=mix(f,1.-wisp,.35);                                        // the same brushing in the light/dark clouding
  // trowel marks: soft overlapping patches + fine chalky grain
  vec2 t=mat2(.86,.5,-.5,.86)*uv;
  float h=fbm3(t*vec2(4.,10.));
@@ -47,7 +51,7 @@ uniform sampler2D uBase,uMask;uniform vec2 uRes;uniform vec3 uLight,cA,cB,cV;uni
 void main(){
  vec2 uv=gl_FragCoord.xy/uRes;
  vec4 b=texture2D(uBase,uv);
- vec2 mu=vec2(uv.x,1.-uv.y), md=vec2(3.*uPx)/uRes;     // 4-tap blur: soft trowel edges
+ vec2 mu=vec2(uv.x,1.-uv.y), md=vec2(12.*uPx)/uRes;     // 4-tap blur: soft trowel edges
  float m=(texture2D(uMask,mu+vec2(md.x,md.y)).r+texture2D(uMask,mu+vec2(-md.x,md.y)).r+texture2D(uMask,mu+vec2(md.x,-md.y)).r+texture2D(uMask,mu-md).r)*.25;
  float s=uv.x*.62+(1.-uv.y)*.38;
  float fr=uDone*1.5-.25;
@@ -55,20 +59,20 @@ void main(){
  m=smoothstep(.02,.92,m);
  float mH=smoothstep(0.,.42,m), mG=smoothstep(.38,1.,m);   // layer 1: haze lifts. layer 2+: shine builds
  vec3 col=mix(cA,cB,smoothstep(.22,.82,b.g));
- col=mix(col,mix(cB,cV,.3),smoothstep(.58,.9,b.g)*.4);   // cloudy stone mottling
- col=mix(col,cV,b.r*.82);
+ col=mix(col,mix(cB,cV,.18),smoothstep(.6,.92,b.g)*.25);  // depth: deeper clouds
+ col=mix(col,mix(cB*.84,cV,.22),b.r*.55);                  // veils: a shade deeper than the stone, a hint of brand colour
  vec2 o=vec2(uPx/uRes.x,uPx/uRes.y);
  float hx=texture2D(uBase,uv+vec2(o.x,0.)).b-texture2D(uBase,uv-vec2(o.x,0.)).b;
  float hy=texture2D(uBase,uv+vec2(0.,o.y)).b-texture2D(uBase,uv-vec2(0.,o.y)).b;
  float gx=texture2D(uBase,uv+vec2(o.x,0.)).a-texture2D(uBase,uv-vec2(o.x,0.)).a;
  float gy=texture2D(uBase,uv+vec2(0.,o.y)).a-texture2D(uBase,uv-vec2(0.,o.y)).a;
- float bump=mix(mix(1.8,.7,mH),.1,mG), gb=.55*(1.-mH);
+ float bump=mix(mix(.85,.45,mH),.1,mG), gb=.3*(1.-mH);
  vec3 n=normalize(vec3(-hx*bump-gx*gb,-hy*bump-gy*gb,1.));
  float lum=dot(col,vec3(.299,.587,.114));
  vec3 matte=mix(col,vec3(lum),.65)*.62+.33;           // unpolished: hazy chalk film, veins washed out
  matte+=(texture2D(uBase,uv*.5+.25).g-.5)*.06;        // uneven dusty haze
- vec3 gloss=pow(col,vec3(2.1))*.97;                    // deeper, richer colour
- vec3 satin=mix(col,vec3(lum),.25)*.9+.11;            // clean but not yet burnished
+ vec3 gloss=pow(col,vec3(1.22));                    // deeper, richer colour
+ vec3 satin=mix(col,vec3(lum),.25)*.91+.075;          // between haze and gloss: no bright rim at stroke edges            // clean but not yet burnished
  vec3 base=mix(mix(matte,satin,mH),gloss,mG);
  vec2 asp=vec2(uRes.x/uRes.y,1.);
  vec3 P=vec3(uv*asp,0.);
@@ -76,12 +80,17 @@ void main(){
  vec3 H=normalize(L+vec3(0.,0.,1.));
  float nh=max(dot(n,H),0.);
  float diff=.8+.2*dot(n,L);
- float spec=pow(nh,mix(6.,2400.,mG))*mix(.03,1.,mG*mG*mG)+pow(nh,300.)*.14*mG+pow(nh,40.)*(.02+.04*mH);
+ vec2 lp=uLight.xy*asp, dl=uv*asp-lp, sd=vec2(.94,-.34);
+ float along=dot(dl,sd), perp=dot(dl,vec2(-sd.y,sd.x))+(n.x*.5+n.y*.5)*.08;  // relief bends the streak
+ float streak=exp(-perp*perp/.0026)*exp(-along*along/.2);
+ float glow=exp(-perp*perp/.02)*exp(-along*along/.3);
+ float spec=(streak*.4+glow*.09)*mG+glow*.03*mH;
  // soft reflected "window" bands that slide with the light: the mirror sheen
  float band=sin((uv.x*asp.x*1.1-uv.y*.75-uLight.x*.6)*5.2+n.x*5.+n.y*3.)*.5+.5;
- float env=smoothstep(.72,.98,band)*.09*mG;
- base*=mix(1.,mix(.86,1.04,band),mG*mG);              // mirror: the room reflected as soft light and dark bands
- vec3 c=base*diff+vec3(1.,.985,.96)*(spec+env);
+ float env=smoothstep(.72,.98,band)*.05*mG;
+ base*=mix(1.,mix(.93,1.03,band),mG*mG);              // mirror: the room reflected as soft light and dark bands
+ vec3 c=base*diff;
+ c=1.-(1.-c)*(1.-vec3(1.,.985,.96)*(spec+env));       // screen blend: sheen, never blown out
  c*=1.-.1*length((uv-.5)*vec2(1.,.8));
  gl_FragColor=vec4(c,1.);
 }`;
@@ -124,7 +133,7 @@ export function initPolish(o: Opts) {
   let W = 0, H = 0, cw = 0, ch = 0, dpr = 1;
   let dirty = true, need = true, done = o.reduced ? 1 : 0, doneT = -1, finished = o.reduced;
   const light = { x: .3, y: .7, tx: .3, ty: .7 };
-  let tilt = false, pointerLight = false;
+  let tilt = false, lightT = -1e9;  // lightT: last time a pointer steered the light
   const tone = { cur: [rgb(o.tone.a), rgb(o.tone.b), rgb(o.tone.v)], from: [] as number[][], to: [] as number[][], t: 1 };
 
   const resize = () => {
@@ -171,14 +180,14 @@ export function initPolish(o: Opts) {
     mx.quadraticCurveTo(x + dx * bulge, y + dy * bulge, x + nx * L, y + ny * L);
     mx.stroke();
   };
-  const stroke = (x: number, y: number, p: Pen = pen, a = .14) => {  // x,y in mask px
+  const stroke = (x: number, y: number, p: Pen = pen, a = .2, blur = 11) => {  // x,y in mask px
     const last = p.last;
     if (!last) { p.last = { x, y }; return; }
     const ddx = x - last.x, ddy = y - last.y, d = Math.hypot(ddx, ddy);
     if (d < 1) return;
     const dx = ddx / d, dy = ddy / d;
-    mx.save(); mx.strokeStyle = '#fff'; mx.lineCap = 'round'; mx.lineWidth = 6; mx.globalAlpha = a; mx.shadowColor = '#fff'; mx.shadowBlur = 7;
-    for (let s = 0; s <= d; s += 2.5) blade(last.x + dx * s, last.y + dy * s, dx, dy);
+    mx.save(); mx.strokeStyle = '#fff'; mx.lineCap = 'round'; mx.lineWidth = 6; mx.globalAlpha = a; mx.shadowColor = '#fff'; mx.shadowBlur = blur;
+    for (let s = 0; s <= d; s += 1) blade(last.x + dx * s, last.y + dy * s, dx, dy);
     mx.restore();
     p.last = { x, y }; dirty = need = true;
   };
@@ -196,7 +205,7 @@ export function initPolish(o: Opts) {
     return n / t;
   };
   const check = (now: number) => {
-    if (finished || cleanStarted || now - lastCov < 220) return;   // the auto clean runs its own layers
+    if (finished || (cleanStarted && !userLed) || now - lastCov < 220) return;   // the auto clean runs its own layers
     lastCov = now;
     if (coverage() >= .45) { finished = true; doneT = now; }
   };
@@ -207,12 +216,13 @@ export function initPolish(o: Opts) {
   const onDown = (e: PointerEvent) => {
     if ((e.target as Element).closest('a,button,.hero-card,.nav')) return;
     down = true; pen.last = null;
+    if (!cleanStarted) cleanStarted = userLed = true;
     if (!touched) { touched = true; o.onFirstTouch(); }
     const p = toMask(e); stroke(p.x, p.y);
   };
   const onMove = (e: PointerEvent) => {
     const p = toMask(e);
-    if (e.pointerType === 'mouse') { pointerLight = true; light.tx = p.u; light.ty = p.v; need = true; }
+    if (e.pointerType === 'mouse' || down) { lightT = performance.now(); light.tx = p.u; light.ty = p.v - .04; need = true; }
     if (down && !o.reduced) stroke(p.x, p.y);
   };
   const onUp = () => { down = false; pen.last = null; };
@@ -229,13 +239,13 @@ export function initPolish(o: Opts) {
   // Auto clean, slowly and in layers: three trowel passes across the wall (lift the haze, smooth, burnish),
   // alternating direction, then a last soft sweep so every corner (incl. under the card) ends glossy.
   type Row = { x0: number; x1: number; y: number; t0: number; dur: number; a: number; bend: number; pen: Pen };
-  let rows: Row[] = [], cleanStarted = false;
+  let rows: Row[] = [], cleanStarted = false, userLed = false;
   const clean = () => {
     if (cleanStarted || finished || o.reduced) return;
     cleanStarted = true;
     const hr = host.getBoundingClientRect(), wr = o.wallRect() || hr;
     const top = (wr.top - hr.top) / 2, h = Math.max(40, wr.height / 2), L = Math.min(cw, ch) * .1 + 12;
-    const n = Math.max(3, Math.ceil(h / (L * 1.5))), passes = [{ a: .1, dur: 380 }, { a: .12, dur: 440 }, { a: .17, dur: 520 }];
+    const n = Math.max(4, Math.ceil(h / (L * 1.05))), passes = [{ a: .1, dur: 380 }, { a: .12, dur: 440 }, { a: .17, dur: 520 }];
     let t = performance.now();
     passes.forEach((ps, pi) => {
       for (let i = 0; i < n; i++) {
@@ -253,7 +263,7 @@ export function initPolish(o: Opts) {
       if (now < r.t0) return true;
       const k = Math.min(1, (now - r.t0) / r.dur), e = ease(k);
       const x = r.x0 + (r.x1 - r.x0) * e, y = r.y + Math.sin(e * Math.PI) * r.bend;
-      stroke(x, y, r.pen, r.a);
+      stroke(x, y, r.pen, r.a * .45, 16);
       return k < 1;
     });
     if (!rows.length && !finished) { finished = true; doneT = now; }
@@ -263,11 +273,11 @@ export function initPolish(o: Opts) {
   const frame = (now: number) => {
     raf = 0; if (!alive || !vis) return;
     runRows(now);
-    if (!o.reduced && !tilt && !pointerLight) {  // slow automatic light sweep
-      const t = now / 1000; light.tx = .5 + .42 * Math.sin(t * .55); light.ty = .32 + .16 * Math.sin(t * .37 + 1); need = true;
+    if (!o.reduced && !tilt && now - lightT > (o.coarse ? 2500 : 6000)) {  // slow automatic glide
+      const t = now / 1000; light.tx = .5 + .45 * Math.sin(t * .42); light.ty = .3 + .14 * Math.sin(t * .29 + 1); need = true;
     }
     const lx = light.x, ly = light.y;
-    light.x += (light.tx - light.x) * .12; light.y += (light.ty - light.y) * .12;
+    light.x += (light.tx - light.x) * .1; light.y += (light.ty - light.y) * .1;
     if (Math.abs(lx - light.x) + Math.abs(ly - light.y) > .0005) need = true;
     if (tone.t < 1) { tone.t = Math.min(1, tone.t + .06); tone.cur = tone.to.map((c, i) => c.map((v, j) => tone.from[i][j] + (v - tone.from[i][j]) * ease(tone.t))); need = true; }
     if (doneT >= 0 && done < 1) { done = Math.min(1, (now - doneT) / 1800); need = true; if (done >= 1) o.onDone(); }

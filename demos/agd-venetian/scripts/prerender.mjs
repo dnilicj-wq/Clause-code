@@ -10,6 +10,8 @@ await p.goto('http://localhost:5199/', { waitUntil: 'networkidle' });
 await p.waitForTimeout(800);
 const shell = await p.evaluate(() => {
   const top = document.getElementById('top').cloneNode(true);
+  top.className = 'hero';  // runtime state (gl, done) must not be baked into the static first frame
+  top.querySelector('.hint')?.setAttribute('class', 'hint off');
   
   
   return document.querySelector('.skip').outerHTML + document.querySelector('header.nav').outerHTML + '<main id="main">' + top.outerHTML + '</main>';

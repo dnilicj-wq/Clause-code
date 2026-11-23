@@ -53,7 +53,8 @@ a{color:inherit}
 /* HERO: "Polish the wall". The CSS marble below is the first paint and the no-WebGL fallback. */
 .hero{--mA:#F2EFEA;--mB:#E0DAD3;--mV:#7A5A66;position:relative;min-height:100svh;color:var(--ink);display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;isolation:isolate;touch-action:pan-y;
   background:
-    linear-gradient(112deg,transparent 0 33%,color-mix(in srgb,var(--mV) 16%,transparent) 36%,color-mix(in srgb,var(--mV) 34%,transparent) 37%,color-mix(in srgb,var(--mV) 14%,transparent) 38%,transparent 42% 100%),
+    linear-gradient(126deg,transparent 18%,color-mix(in srgb,var(--mB) 70%,var(--mV) 6%) 30%,transparent 44%),
+    linear-gradient(130deg,transparent 52%,color-mix(in srgb,var(--mB) 80%,transparent) 63%,transparent 76%),
     radial-gradient(60% 45% at 25% 22%,var(--mA),transparent 70%),
     radial-gradient(55% 50% at 80% 68%,var(--mB),transparent 72%),
     linear-gradient(160deg,var(--mA),var(--mB))}
@@ -219,18 +220,3 @@ details p{margin:0 0 16px;color:var(--muted)}
 
 /* 404 */
 .nf{min-height:100svh;display:grid;place-items:center;background:var(--night);color:#fff;text-align:center;padding:24px}
-
-/* loader: plaster panel, segmented burgundy bar + counter; exits upward with a curved trowel edge */
-#ld{position:fixed;inset:0;z-index:100;display:grid;place-items:center;background:radial-gradient(70% 50% at 28% 22%,#F6F3EF,transparent 70%),radial-gradient(60% 50% at 80% 75%,#E2DBD4,transparent 72%),linear-gradient(160deg,#EFEBE6,#DED7D0);transition:transform 1s cubic-bezier(.77,0,.175,1),border-radius 1s cubic-bezier(.77,0,.175,1);will-change:transform}
-#ld.out{transform:translateY(-104%);border-radius:0 0 50% 50%/0 0 120px 120px}
-.ld-in{width:min(300px,74vw);transition:opacity .35s ease,transform .6s cubic-bezier(.23,1,.32,1)}
-#ld.out .ld-in{opacity:0;transform:translateY(-18px)}
-.ld-logo{position:relative;width:156px;margin:0 auto 34px;overflow:hidden}
-.ld-logo img{display:block;width:100%;height:auto}
-.ld-logo::after{content:"";position:absolute;inset:-20% 0;background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.75) 50%,transparent 65%);transform:translateX(-120%);animation:ldglint 1.8s cubic-bezier(.77,0,.175,1) .2s infinite;mix-blend-mode:soft-light}
-@keyframes ldglint{to{transform:translateX(120%)}}
-.ld-bar{display:grid;grid-template-columns:repeat(24,1fr);gap:3px;height:12px}
-.ld-bar i{border-radius:2px;background:rgba(114,16,54,.1);transition:background-color .3s ease,transform .3s cubic-bezier(.23,1,.32,1)}
-.ld-bar i.on{background:#721036;transform:scaleY(1.18)}
-.ld-row{display:flex;justify-content:space-between;align-items:baseline;margin-top:14px;color:#5B5660;font:500 13px/1 'General',sans-serif}
-.ld-row b{font:600 28px/1 'Clash',sans-serif;letter-spacing:-.02em;color:#19161A;font-variant-numeric:tabular-nums}

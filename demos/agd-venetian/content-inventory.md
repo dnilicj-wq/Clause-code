@@ -10,7 +10,7 @@ Sources:
 - name | AGD Venetian Plastering | G, IG
 - phone | 07546 402673 (WhatsApp 447546402673) | G; Dan's WhatsApp thread
 - rating | 5.0 | G
-- review count | 6 | G ("5.0 (6)"; Google adds "Reviews aren't verified")
+- review count | 6 | G ("AGD Venetian Plastering 5.0(6) Interior designer · 07546 402673", https://maps.google.com/?cid=8061078434396207726, checked 2026-11-23). A second listing "Agd Venetian plastering" (same number) has no reviews.
 - category | Interior designer | G (not shown on site)
 - what he does | "Venetian plaster specialist." | IG bio
 - who for | "restaurants, hotels and homes" | IG bio (full bio: "Venetian plaster specialist. ♦️bespoke surface design ♦️custom art pieces ♦️restaurants, hotels and homes Contact us for your next project."). No single post shows a restaurant or hotel job, so the site only says it in the "Commercial spaces" tile, from the bio.
@@ -19,7 +19,7 @@ Sources:
 - commercial example | "a photography and event studios … this job we did last year" | https://www.instagram.com/p/C40Ke-JoQct/ (22 Mar 2024)
 - torch wall | "Clients wanted an aged look and something rustic for this extension feature wall. We used a variety of materials and colour washes" | https://www.instagram.com/p/CTMsFWPI3XD/
 - areas | Essex and London (no towns) | the lead, WhatsApp reply to Dan, 2026-11-23
-- hero photo | white marble-effect shower, "We used a blended grassello to achieve this look" | https://www.instagram.com/p/CTZJWBGoo8v/ (brightness lifted slightly, nothing added)
+- hero | no photo: procedural WebGL "polish the wall" (veins matched by eye to his close-ups CTZJWBGoo8v, CR0jeE7BBb1, CYBuGVcIGd7) | code
 - logo + brand colour | AGD wordmark, berry #721036 on grey | IG profile picture
 - website | none live (IG bio links www.agdvenetianplastering.uk, which has no DNS on 2026-11-23) | checked with dig
 
