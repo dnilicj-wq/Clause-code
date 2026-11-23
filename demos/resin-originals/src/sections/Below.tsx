@@ -166,6 +166,7 @@ export function Planner() {
           <span className="plan__pv">{a.finish && a.finish !== 'Not sure yet' ? `${a.finish}, one of our floors` : 'One of our floors'}</span>
         </div>
         <div className="plan__card">
+          <span className="plan__tag"><IconBrandWhatsapp size={16} stroke={1.8} aria-hidden /> Get a quote</span>
           <h2 className="h2 plan__h">Plan your floor.</h2>
           <p className="lede mt-3">Five quick questions. It goes to Dean on WhatsApp, no prices guessed here.</p>
           <ol className="steps" aria-label="Progress">

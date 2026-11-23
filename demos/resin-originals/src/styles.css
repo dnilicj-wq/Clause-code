@@ -214,7 +214,12 @@ html.lenis, html.lenis body{ height:auto; }
 .plan__preview{ position:relative; overflow:hidden; border-radius:var(--radius); aspect-ratio:16/9; background:var(--surface); }
 .plan__preview img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
 .plan__pv{ position:absolute; left:12px; bottom:12px; font-size:12px; padding:6px 10px; border-radius:999px; background:rgba(9,9,10,.72); color:var(--accent2); }
-.plan__card{ position:relative; }
+.plan__card{ position:relative; padding:26px 20px 24px; border-radius:calc(var(--radius) + 6px);
+  border:1px solid transparent;
+  background:linear-gradient(160deg, #1d1a14, #141312 60%) padding-box, linear-gradient(140deg, #F6E7BE, #C9A65A 35%, rgba(201,166,90,.25) 65%, #C9A65A) border-box;
+  box-shadow:0 0 0 1px rgba(201,166,90,.08), 0 30px 80px -30px rgba(201,166,90,.45), 0 0 120px -40px rgba(233,214,164,.35); }
+.plan__tag{ display:inline-flex; align-items:center; gap:7px; padding:7px 13px; border-radius:999px; background:var(--gold-foil); color:var(--accent-ink); font:600 13px/1 var(--font-body); margin-bottom:16px; }
+@media (min-width:900px){ .plan__card{ padding:40px 40px 34px; } }
 .steps{ display:flex; gap:6px; margin-top:22px; }
 .steps li{ flex:1; font-size:11.5px; color:var(--muted); padding-top:9px; border-top:2px solid var(--line); transition:border-color 300ms ease, color 300ms ease; }
 .steps li.done{ border-color:color-mix(in srgb, var(--accent) 55%, transparent); }
@@ -222,7 +227,7 @@ html.lenis, html.lenis body{ height:auto; }
 .plan__body{ margin-top:24px; min-height:260px; }
 .q{ display:block; font:500 28px/1.1 var(--font-display); margin-bottom:14px; }
 .opts{ display:grid; gap:8px; }
-.opt{ min-height:54px; padding:0 18px; text-align:left; border-radius:12px; border:1px solid var(--line); background:var(--surface); font-size:16px;
+.opt{ min-height:54px; padding:0 18px; text-align:left; border-radius:12px; border:1px solid rgba(232,213,163,.22); background:#221f19; font-size:16px;
   transition:border-color 160ms ease, background-color 160ms ease, transform 160ms var(--ease-out); }
 .opt:active{ transform:scale(.98); }
 .opt.is-on{ border-color:var(--accent); background:color-mix(in srgb, var(--accent) 14%, var(--surface)); }
