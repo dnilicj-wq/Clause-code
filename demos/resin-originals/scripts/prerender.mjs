@@ -13,7 +13,7 @@ await p.waitForTimeout(2500);
 const shell = await p.evaluate(() => {
   const top = document.getElementById('top').cloneNode(true);
   top.querySelectorAll('canvas').forEach((c) => c.remove());
-  top.querySelectorAll('[data-sweep]').forEach((e) => e.style.removeProperty('--t0'));
+  top.querySelectorAll('.hero__layer:not(.is-on) img').forEach((e) => e.remove()); // other posters load after the page's load event
   top.querySelectorAll('video').forEach((v) => { v.removeAttribute('src'); v.classList.remove('is-on'); });
   const nav = document.querySelector('#root > header, #root > nav')?.outerHTML || '';
   return nav + '<main class="grain relative">' + top.outerHTML + '</main>';

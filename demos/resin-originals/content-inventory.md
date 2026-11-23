@@ -55,7 +55,10 @@ Page: https://www.facebook.com/profile.php?id=100089718113028 (P below)
 
 ## Site lines and where they come from
 - Hero sub "Metallic, flake and quartz epoxy floors for homes, garages and commercial spaces." = his 4 bio services + job types in his reels.
-- Hero caption "Filmed on our jobs: a home, a garage and a reception." = hero film cut from reels 1657863749299936, 1746294663336612, 2652333431876197.
+- Hero pills: "Metallic epoxy in a UK home" = reel 1657863749299936 ("...showroom-grade finish straight into your UK home"); "Flake garage floor with a logo set in" = reel 1776764213473424 ("...company branding or just a logo of one of your passions? We can do that to!"); "Blue quartz for an eye clinic theatre room" = reel 1097325556221087 ("...stunning blue quartz epoxy flooring for a brand-new eye clinic theatre room").
+- Luxury job: title "Luxury property, custom metallic" + note "No two floors are ever identical." = reel 995389396926285. ("bronze" removed: not in his caption.)
+- Kitchen card note "High-gloss finish." = what the cover photo shows (no caption used).
+- Reviews re-checked 23 Nov 15:xx: page tabs are All / About / Photos / Followers / Mentions; &sk=reviews = "This Page Isn't Available". None on site.
 - "No two floors are ever identical." / quote "All floors are bespoke and created together with the client..." / gloss, scratch-resistant, seamless points = his own reel captions (see caption quotes above).
 - "Colours taken from the client's McLaren 720S." = caption of reel 1746294663336612.
 - "Seamless quartz, laid for an eye clinic theatre room." / "with coving and upstands" = caption of reel 1097325556221087.
@@ -65,8 +68,9 @@ Page: https://www.facebook.com/profile.php?id=100089718113028 (P below)
 ## Asset files (public/client)
 | file | source | cut |
 |---|---|---|
-| hero/hero-720-v1.mp4, hero-540-v1.mp4 | reels 1657863749299936 @39s, 1746294663336612 @6.3s, 2652333431876197 @20.5s | 7.8s montage, plate frames avoided |
-| hero/poster-*-v1.webp | reel 1657863749299936 @39s | |
+| hero/metallic-{540,720}-v1.mp4 + poster | reel 1657863749299936 | 36s to 42s; poster = first frame |
+| hero/flake-{540,720}-v1.mp4 + poster | reel 1776764213473424 | 1.5s to 7.5s |
+| hero/quartz-{540,720}-v1.mp4 + poster | reel 1097325556221087 | 13s to 19s, square video cropped to portrait, colour lifted slightly |
 | jobs/garage-red-v1 | reel 1746294663336612 | still 8s, clip 6s |
 | jobs/reception-v1 | reel 2652333431876197 | still 21s, clip 18s |
 | jobs/garage-flake-v1 | reel 1776764213473424 | still 4.6s, clip 1s |

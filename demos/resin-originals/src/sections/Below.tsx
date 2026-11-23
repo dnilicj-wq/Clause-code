@@ -68,7 +68,7 @@ export function Work() {
 /* ---------- The four finishes from his page bio ---------- */
 const FIN = [
   { k: 'Metallic', img: '/client/jobs/kitchen-silver-v1.webp', alt: 'Silver metallic epoxy floor in a kitchen', line: 'No two floors are ever identical.', big: true },
-  { k: 'Flake', img: '/client/jobs/garage-flake-v1.webp', alt: 'Grey flake epoxy garage floor with a red track logo', line: 'Hard-wearing flake for garages, with your logo in the floor if you want one.' },
+  { k: 'Flake', img: '/client/jobs/garage-flake-v1.webp', alt: 'Grey flake epoxy garage floor with a red track logo', line: 'Flake for garages, with your logo set into the floor if you want one.' },
   { k: 'Quartz', img: '/client/jobs/clinic-quartz-v1.webp', alt: 'Blue quartz epoxy floor with coving in a clinic theatre room', line: 'Seamless quartz, laid for an eye clinic theatre room.' },
   { k: 'Commercial', img: '/client/jobs/reception-v1.webp', alt: 'White and grey marble effect epoxy floor in a reception', line: 'Receptions, clinics and workshops.' },
 ];

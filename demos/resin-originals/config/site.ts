@@ -21,7 +21,7 @@ export const site = {
   contact: 'Dean', // from his Meta ad form, not the page
   trade: 'epoxy' as string,
   preset: 'originals' as const,
-  town: '',   // not on his page
+  town: '',   // TODO(Dan): Dean's town / areas covered. Not on his Facebook page; don't guess.
   region: '', // not on his page
   phone: '07707 848717',
   whatsapp: '447707848717',
@@ -35,7 +35,7 @@ export const site = {
   proof: { rating: 0, reviewCount: 0, yearsTrading: 0, floorsDone: 0 },
   guarantee: { title: '', text: '' },
   reviews: [] as Review[],
-  posters: { d: '/client/hero/poster-720-v1.webp', m: '/client/hero/poster-540-v1.webp' },
+  posters: { d: '/client/hero/metallic-poster-720-v1.webp', m: '/client/hero/metallic-poster-540-v1.webp' },
   formEndpoint: '',
 };
 
