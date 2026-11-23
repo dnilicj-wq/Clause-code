@@ -20,41 +20,65 @@ const Stars = () => <span className="stars" aria-hidden="true">{'★★★★★
 const Wa = () => <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.3-.4.8-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2s.2-1.1.1-1.2l-.5-.3Z" /></svg>;
 const Phone = () => <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2Z" /></svg>;
 
-// Signature 1: lights on. The bulbs warm up, a raking light crosses his real wall, the headline lifts out of the dark.
+// Signature 1: "Polish the wall". A procedural plaster wall (no photo) starts matte; dragging trowels it to gloss.
+const TONES = [
+  { n: 'Marble white', a: '#F2EFEA', b: '#E0DAD3', v: '#7A5A66' },
+  { n: 'Warm greige', a: '#DED5CA', b: '#C7BBAE', v: '#6A4E4E' },
+  { n: 'Burgundy vein', a: '#EEE9E7', b: '#DDD3D3', v: '#721036' },
+];
+type Api = { setTone: (t: { a: string; b: string; v: string }) => void; destroy: () => void };
 function Hero() {
-  const stage = useRef<HTMLDivElement>(null);
-  const spot = useRef<HTMLDivElement>(null);
+  const host = useRef<HTMLElement>(null);
+  const cv = useRef<HTMLCanvasElement>(null);
+  const card = useRef<HTMLDivElement>(null);
+  const api = useRef<Api | null>(null);
+  const [tone, setTone] = useState(0);
+  const [gl, setGl] = useState(false);
+  const [hint, setHint] = useState<'off' | 'on' | 'gone'>('off');
+  const [done, setDone] = useState(false);
   useEffect(() => {
-    const el = stage.current, s = spot.current;
-    if (!el || !s || reduce() || !matchMedia('(hover: hover) and (pointer: fine)').matches) return;
-    let raf = 0, tx = 0.5, ty = 0.4, x = tx, y = ty;
-    const move = (e: PointerEvent) => { const r = el.getBoundingClientRect(); tx = (e.clientX - r.left) / r.width; ty = (e.clientY - r.top) / r.height; if (!raf) raf = requestAnimationFrame(tick); };
-    const tick = () => {
-      x += (tx - x) * 0.12; y += (ty - y) * 0.12;
-      s.style.transform = `translate3d(${x * el.clientWidth}px, ${y * el.clientHeight}px, 0)`;
-      raf = Math.abs(tx - x) + Math.abs(ty - y) > 0.001 ? requestAnimationFrame(tick) : 0;
-    };
-    el.addEventListener('pointermove', move);
-    return () => { el.removeEventListener('pointermove', move); cancelAnimationFrame(raf); };
+    const h = host.current, c = cv.current; if (!h || !c) return;
+    let cancelled = false;
+    const go = () => import('./polish').then(({ initPolish }) => {
+      if (cancelled) return;
+      const coarse = matchMedia('(pointer: coarse)').matches, rm = reduce();
+      const wallRect = () => {
+        const hr = h.getBoundingClientRect(), cr = card.current?.getBoundingClientRect();
+        if (!cr) return hr;
+        return cr.width > hr.width * .7
+          ? new DOMRect(hr.left, hr.top + 70, hr.width, Math.max(0, cr.top - hr.top - 80)) // phone: wall above the card, below the nav
+          : new DOMRect(cr.right, hr.top + 80, Math.max(0, hr.right - cr.right), hr.height - 100);
+      };
+      api.current = initPolish({ canvas: c, host: h, wallRect, tone: TONES[0], reduced: rm, coarse,
+        onDone: () => { setDone(true); setHint('gone'); }, onFirstTouch: () => setHint('gone') });
+      if (api.current) { setGl(true); if (!rm) setHint('on'); }
+    });
+    // after first paint, so the static wall and headline paint first
+    const id = requestAnimationFrame(() => setTimeout(go, 60));
+    return () => { cancelled = true; cancelAnimationFrame(id); api.current?.destroy(); api.current = null; };
   }, []);
+  const pick = (i: number) => {
+    const t = TONES[i], h = host.current; setTone(i); api.current?.setTone(t);
+    if (h) { h.style.setProperty('--mA', t.a); h.style.setProperty('--mB', t.b); h.style.setProperty('--mV', t.v); } // CSS fallback wall
+  };
   return (
-    <section id="top" className="hero" aria-labelledby="h1">
-      <div className="stage" ref={stage}>
-        <div className="sq">
-          <picture>
-            <source media="(min-width: 700px)" srcSet="/posters/hero-d-v2.webp" />
-            <img src="/posters/hero-m-v3.webp" width="640" height="640" alt="White marble-effect Venetian plaster shower walls by AGD Venetian Plastering" fetchPriority="high" />
-          </picture>
-        </div>
-        <div className="rake" aria-hidden="true" />
-        <div className="spot" ref={spot} aria-hidden="true" />
-      </div>
-      <div className="hero-copy">
+    <section id="top" ref={host} className={`hero${gl ? ' gl' : ''}${done ? ' done' : ''}`} aria-labelledby="h1">
+      <canvas ref={cv} className="wall" aria-hidden="true" />
+      <p className={`hint ${hint}`} aria-hidden="true">Drag to polish <span>↔</span></p>
+      <div className="hero-card" ref={card}>
         <h1 id="h1" className="h1">Walls that hold the light.</h1>
         <p className="lede">Venetian polished plaster across Essex and London.</p>
         <div className="cta">
           <a className="btn btn-berry" href="#quote">Get a quote</a>
-          <a className="btn btn-glass" href={wa(hello)} target="_blank" rel="noopener"><Wa />WhatsApp</a>
+          <a className="btn btn-ghost" href={wa(hello)} target="_blank" rel="noopener"><Wa />WhatsApp</a>
+        </div>
+        <div className="tones" role="group" aria-label="Example tones">
+          <span className="tones-l">Example tones</span>
+          {TONES.map((t, i) => (
+            <button key={t.n} type="button" className="tone" aria-pressed={tone === i} aria-label={t.n} title={t.n} onClick={() => pick(i)}
+              style={{ background: `linear-gradient(135deg, ${t.a} 0 42%, ${t.v} 50%, ${t.b} 58%)` }} />
+          ))}
+          <span className="tone-n">{TONES[tone].n}</span>
         </div>
       </div>
     </section>
@@ -154,7 +178,7 @@ function Work() {
         <div className="masonry">
           {shown.map((s) => (
             <button key={s.id} className="tile" onClick={() => setOpen(s)} aria-label={`Open photo: ${s.alt}`}>
-              <img src={img(s, true)} width={s.w} height={s.h} alt={s.alt} loading="lazy" decoding="async" />
+              <img src={img(s, true)} srcSet={`${img(s, true)} 480w, ${img(s)} 900w`} sizes="(min-width:1100px) 25vw, (min-width:700px) 33vw, 50vw" width={s.w} height={s.h} alt={s.alt} loading="lazy" decoding="async" />
             </button>
           ))}
         </div>
@@ -186,7 +210,7 @@ function What() {
         <div className="bento">
           {tiles.map((x, i) => (
             <article key={x.t} className={`b b${i} rv`}>
-              <img src={`/client/ig-${x.s}-s-v1.webp`} alt="" loading="lazy" decoding="async" />
+              <img src={`/client/ig-${x.s}-s-v1.webp`} srcSet={`/client/ig-${x.s}-s-v1.webp 480w, /client/ig-${x.s}-v1.webp 900w`} sizes="(min-width:900px) 40vw, 100vw" alt="" loading="lazy" decoding="async" />
               <div><h3>{x.t}</h3><p>{x.d}</p></div>
             </article>
           ))}
