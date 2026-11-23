@@ -42,18 +42,16 @@ function Hero() {
       <div className="stage" ref={stage}>
         <div className="sq">
           <picture>
-            <source media="(min-width: 700px)" srcSet="/posters/hero-d-v1.webp" />
-            <img src="/posters/hero-m-v2.webp" width="600" height="600" alt="Dark polished plaster wall by AGD Venetian Plastering, lit by two filament pendant bulbs" fetchPriority="high" />
+            <source media="(min-width: 700px)" srcSet="/posters/hero-d-v2.webp" />
+            <img src="/posters/hero-m-v3.webp" width="640" height="640" alt="White marble-effect Venetian plaster shower walls by AGD Venetian Plastering" fetchPriority="high" />
           </picture>
-          <i className="bulb bl1" /><i className="bulb bl2" />
         </div>
-        <div className="dark" aria-hidden="true" />
         <div className="rake" aria-hidden="true" />
         <div className="spot" ref={spot} aria-hidden="true" />
       </div>
       <div className="hero-copy">
-        <h1 id="h1" className="h1"><span className="lit">Walls that</span> <span className="lit d2">hold the light.</span></h1>
-        <p className="lede">Venetian polished plaster for homes, restaurants and hotels.</p>
+        <h1 id="h1" className="h1">Walls that hold the light.</h1>
+        <p className="lede">Venetian polished plaster across Essex and London.</p>
         <div className="cta">
           <a className="btn btn-berry" href="#quote">Get a quote</a>
           <a className="btn btn-glass" href={wa(hello)} target="_blank" rel="noopener"><Wa />WhatsApp</a>
@@ -124,10 +122,10 @@ function Torch() {
       <div className="wrap torch-grid">
         <div className="rv">
           <h2 id="t-h" className="h2">Shine a torch on it.</h2>
-          <p className="lede">Plasterers check a wall with a light held flat against it. Every ridge and ripple shows. Move the light across this wall to see the pattern.</p>
-          <p className="muted small">A raised pattern finish by AGD Venetian Plastering, from their Instagram.</p>
+          <p className="lede">Plasterers check a wall with a light held flat against it. Every ridge and ripple shows. Move the light across this wall to see the texture.</p>
+          <p className="muted small">An aged, rustic feature wall by AGD Venetian Plastering, built up with layers of material and colour washes. From their Instagram.</p>
         </div>
-        <div className="torch rv" ref={box} role="img" aria-label="Close-up of a raised lace-pattern plaster finish, lit by a moving torch">
+        <div className="torch rv" ref={box} role="img" aria-label="Close-up of an aged, rustic plaster feature wall, lit by a moving torch">
           <img src="/client/ig-CTMsFWPI3XD-v1.webp" width="900" height="900" alt="" loading="lazy" decoding="async" />
           <div className="torch-dark" /><div className="torch-glow" />
         </div>
@@ -177,8 +175,8 @@ function Work() {
 function What() {
   const tiles = [
     { t: 'Homes', d: 'Feature walls, media walls, bathrooms, kitchens and stairs.', s: 'CI1NiYOn3JA' },
-    { t: 'Restaurants and hotels', d: 'Polished plaster for hospitality spaces, as well as homes.', s: 'C40Ke-JoQct' },
-    { t: 'Custom art pieces', d: 'Logos, patterns and one-off pieces worked into the plaster.', s: 'C35yuC1oQz5' },
+    { t: 'Commercial spaces', d: 'Restaurants, hotels and other businesses, as well as homes. This one is a photography and event studio.', s: 'C40Ke-JoQct' },
+    { t: 'Custom art pieces', d: 'One-off pieces worked into the plaster, like this bronze logo for a dentist.', s: 'C35yuC1oQz5' },
   ];
   return (
     <section className="sec what" aria-labelledby="wh-h">
@@ -193,6 +191,18 @@ function What() {
             </article>
           ))}
         </div>
+      </div>
+    </section>
+  );
+}
+
+function Areas() {
+  return (
+    <section className="sec areas" aria-labelledby="ar-h">
+      <div className="wrap rv">
+        <p className="kick">Where AGD works</p>
+        <h2 id="ar-h" className="h2">Essex and London.</h2>
+        <p className="lede">Not sure if you're covered? Put your postcode in the planner below and AGD will tell you.</p>
       </div>
     </section>
   );
@@ -248,7 +258,8 @@ export default function Home() {
   useReveal();
   const [dock, setDock] = useState(false);
   useEffect(() => {
-    const top = document.getElementById('top'); if (!top) return;
+    // Not getElementById: the prerendered shell (removed after mount) also has a #top.
+    const top = document.querySelector('#root > div:not(#shell) #top'); if (!top) return;
     const io = new IntersectionObserver(([e]) => setDock(!e.isIntersecting), { threshold: 0.1 });
     io.observe(top); return () => io.disconnect();
   }, []);
@@ -269,6 +280,7 @@ export default function Home() {
         <Work />
         <Torch />
         <What />
+        <Areas />
         <Quote />
         <Faq />
         <Finale />

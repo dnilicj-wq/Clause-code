@@ -13,8 +13,13 @@ Sources:
 - review count | 6 | G ("5.0 (6)"; Google adds "Reviews aren't verified")
 - category | Interior designer | G (not shown on site)
 - what he does | "Venetian plaster specialist." | IG bio
-- who for | "restaurants, hotels and homes" | IG bio
+- who for | "restaurants, hotels and homes" | IG bio (full bio: "Venetian plaster specialist. ♦️bespoke surface design ♦️custom art pieces ♦️restaurants, hotels and homes Contact us for your next project."). No single post shows a restaurant or hotel job, so the site only says it in the "Commercial spaces" tile, from the bio.
 - custom work | "custom art pieces" | IG bio
+- logo example | "Black textured Venetian plaster with a bronze Liquid Metal logo", "in a dentists" | https://www.instagram.com/p/C35yuC1oQz5/ (28 Feb 2024)
+- commercial example | "a photography and event studios … this job we did last year" | https://www.instagram.com/p/C40Ke-JoQct/ (22 Mar 2024)
+- torch wall | "Clients wanted an aged look and something rustic for this extension feature wall. We used a variety of materials and colour washes" | https://www.instagram.com/p/CTMsFWPI3XD/
+- areas | Essex and London (no towns) | the lead, WhatsApp reply to Dan, 2026-11-23
+- hero photo | white marble-effect shower, "We used a blended grassello to achieve this look" | https://www.instagram.com/p/CTZJWBGoo8v/ (brightness lifted slightly, nothing added)
 - logo + brand colour | AGD wordmark, berry #721036 on grey | IG profile picture
 - website | none live (IG bio links www.agdvenetianplastering.uk, which has no DNS on 2026-11-23) | checked with dig
 
@@ -41,7 +46,7 @@ Sources:
 
 ## Not on the site (deliberately)
 - Owner name. Reviews say "Ant" and "Antony"; LinkedIn shows Antony Degutis, Director, AGD Venetian plastering. Not confirmed. TODO(Dan): owner name.
-- Location. Google places the listing oddly; a second listing "Agd Venetian plastering" (same number) and Yell/MyBuilder/Companies House point to Colchester, Essex. Not confirmed. TODO(Dan): areas covered.
+- Towns. Yell/MyBuilder/Companies House point to Colchester; not shown. Areas shown are only what the lead confirmed: Essex and London.
 - Hours. Google showed "Closes 7 pm" today only. TODO(Dan): hours.
 - Google search panel says "5+ years in business"; MyBuilder says "Over the last 8 years" and shows 5.0 from 14 reviews; Yell shows 5.0 (4). Third-party pages, not used.
 - Prices, guarantees, insurance, years trading, project counts: none published, none shown.

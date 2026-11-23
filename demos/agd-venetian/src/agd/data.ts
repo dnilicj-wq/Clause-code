@@ -1,6 +1,6 @@
 // AGD Venetian Plastering. Every fact here has a source line in content-inventory.md. Nothing invented.
 // TODO(Dan): owner name (reviews say "Ant" / "Antony"; not confirmed). Until then, the site only says "AGD Venetian Plastering".
-// TODO(Dan): areas covered. No town or area is named anywhere on purpose.
+// Areas: Essex and London, confirmed by the lead on WhatsApp 2026-11-23. No towns named on purpose.
 export const site = {
   company: 'AGD Venetian Plastering',
   short: 'AGD',
@@ -44,12 +44,12 @@ export const shots: Shot[] = [
   ig('C3v3ucIIWMS', 900, 1125, 'Stairs & halls', 'Staircase wall in a warm metallic plaster'),
   ig('CNcxIhVHKqV', 900, 900, 'Feature walls', 'Close-up of a grey polished plaster wall with cloudy movement'),
   ig('C315n0IoGDp', 900, 1125, 'Bathrooms', 'Soft grey bathroom walls with a lit niche'),
-  ig('C40Ke-JoQct', 900, 1125, 'Feature walls', 'Long rust-toned feature wall in a commercial space'),
+  ig('C40Ke-JoQct', 900, 1125, 'Feature walls', 'Long rust-toned feature wall at a photography and event studio'),
   ig('CNcznh-HP50', 790, 610, 'Feature walls', 'Gold metallic feature wall behind a TV unit'),
   ig('C37lOlvogx1', 900, 1125, 'Bathrooms', 'Shower enclosure with seamless grey walls'),
   ig('C32-kmiomVD', 900, 1125, 'Feature walls', 'Bronze media wall with built-in shelving'),
   ig('Cc57XqkoXAB', 900, 900, 'Kitchens', 'Kitchen with a grey polished island'),
-  ig('CTMsFWPI3XD', 900, 900, 'Feature walls', 'Close-up of a raised lace-pattern plaster finish'),
+  ig('CTMsFWPI3XD', 900, 900, 'Feature walls', 'Close-up of an aged, rustic plaster feature wall'),
   ig('C7Z7coGIOdV', 900, 1125, 'Bathrooms', 'Bathroom with pale plaster walls and a roll-top bath'),
   ig('CYBuGVcIGd7', 900, 669, 'Feature walls', 'Marble-effect feature wall behind a TV'),
   ig('CNGKgHpnQJq', 900, 900, 'Bathrooms', 'Walk-in shower with pale seamless walls and niches'),
@@ -69,13 +69,13 @@ export const shots: Shot[] = [
   ig('Ccn4usZojgb', 900, 1125, 'Bathrooms', 'Cloakroom with soft green-grey walls'),
   ig('CcJKeOnIJpC', 900, 599, 'Bathrooms', 'Bright bathroom with pale plaster walls'),
   ig('C7Z7GJWoHkq', 900, 1125, 'Bathrooms', 'Cloakroom with grey walls and a small basin'),
-  ig('C35yuC1oQz5', 900, 1125, 'Feature walls', 'Dark plaster wall with a gold logo worked into it'),
+  ig('C35yuC1oQz5', 900, 1125, 'Feature walls', 'Black textured plaster wall with a bronze logo, at a dentist'),
   { id: 'google-1', w: 900, h: 1200, cat: 'Stairs & halls', alt: 'Hallway wall in a white and silver polished plaster', src: 'Google' },
 ];
 
 export const img = (s: Shot, small = false) => `/client/${s.src === 'Google' ? s.id : `ig-${s.id}`}${small ? '-s' : ''}-v1.webp`;
 
 // Quote planner options. No prices anywhere.
-export const ROOMS = ['Living room', 'Bathroom or shower', 'Kitchen', 'Hallway or stairs', 'Bedroom', 'Restaurant, bar or hotel', 'Something else'];
+export const ROOMS = ['Living room', 'Bathroom or shower', 'Kitchen', 'Hallway or stairs', 'Bedroom', 'Restaurant, hotel or business', 'Something else'];
 export const FINISHES = ['Soft polished', 'High polish', 'Stone or textured look', 'Metallic', 'Not sure yet'];
 export const SIZES = ['One feature wall', 'A whole room', 'A few rooms', 'Commercial space'];
