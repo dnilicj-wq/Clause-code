@@ -24,7 +24,7 @@ export const presets: Record<string, Preset> = {
     metal: ['#2B2312', '#B8964F', '#F6E7BE'],
     resin: { base: '#0E0D0B', metal: '#C9A65A' },
     concrete: '#8E8A84',
-    display: '"Cormorant Garamond", Georgia, serif', body: '"Satoshi", system-ui, sans-serif', serif: '"Cormorant Garamond", Georgia, serif',
+    display: '"Cabinet Grotesk", "Satoshi", system-ui, sans-serif', body: '"Satoshi", system-ui, sans-serif', serif: '"Cabinet Grotesk", "Satoshi", system-ui, sans-serif',
     radius: '14px',
   },
   'obsidian-copper': {

@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --port 5190",
-    "build": "vite build && node scripts/prerender.mjs",
+    "build": "vite build && node tools/pour-poster.mjs && node scripts/prerender.mjs",
     "postbuild": "node tools/placeholder-check.mjs dist",
     "typecheck": "tsc -p .",
     "preview": "vite preview --port 5191"

@@ -8,10 +8,10 @@ const j = (slug: string, reel: string, title: string, note: string, tags: Tag[])
   ({ slug, title, note, tags, src: FB + reel + '/', still: `/client/jobs/${slug}-v1.webp`, clip: `/client/jobs/${slug}-v1.mp4` });
 
 export const JOBS: Job[] = [
+  j('home-cream', '1657863749299936', 'Home, cream metallic', 'Laid in a UK home.', ['Metallic', 'Home']),
   j('garage-red', '1746294663336612', 'Garage, black and red metallic', "Colours taken from the client's McLaren 720S.", ['Metallic', 'Garage']),
   j('reception', '2652333431876197', 'Reception, white and grey marble effect', "For an automotive technology manufacturer's UK site.", ['Commercial', 'Metallic']),
   j('garage-flake', '1776764213473424', 'Garage, flake with a track logo', "A logo of one of the owner's passions, set into the floor.", ['Flake', 'Garage']),
-  j('home-cream', '1657863749299936', 'Home, cream metallic', 'Laid in a UK home.', ['Metallic', 'Home']),
   j('clinic-quartz', '1097325556221087', 'Eye clinic theatre, blue quartz', 'Seamless, with coving and upstands.', ['Quartz', 'Commercial']),
   j('luxury-bronze', '995389396926285', 'Luxury property, custom metallic', 'No two floors are ever identical.', ['Metallic', 'Home']),
   { slug: 'kitchen-silver', title: 'Kitchen, silver metallic', note: 'High-gloss finish.', tags: ['Metallic', 'Home'],
