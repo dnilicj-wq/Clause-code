@@ -22,9 +22,9 @@ const Phone = () => <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden=
 
 // Signature 1: "Polish the wall". A procedural plaster wall (no photo) starts matte; dragging trowels it to gloss.
 const TONES = [
-  { n: 'Marble white', a: '#F2EFEA', b: '#E0DAD3', v: '#7A5A66' },
-  { n: 'Warm greige', a: '#DED5CA', b: '#C7BBAE', v: '#6A4E4E' },
-  { n: 'Burgundy vein', a: '#EEE9E7', b: '#DDD3D3', v: '#721036' },
+  { n: 'Marble white', a: '#F5F6F6', b: '#CDD1D5', v: '#8B9096' },   // cool white, soft grey veins
+  { n: 'Warm greige', a: '#E3D6C4', b: '#C2AE96', v: '#7E6652' },    // sand/greige, taupe veins
+  { n: 'Burgundy vein', a: '#F5EFE3', b: '#E3D8C7', v: '#721036' },  // ivory, AGD berry veins
 ];
 type Api = { clean: () => void; setTone: (t: { a: string; b: string; v: string }) => void; destroy: () => void };
 function Hero() {

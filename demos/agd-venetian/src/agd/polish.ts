@@ -36,10 +36,24 @@ void main(){
  vec2 wq=vec2(fbm3(d*vec2(.6,1.8)+r),fbm3(d*vec2(.6,1.8)+vec2(3.,7.)));
  float wisp=fbm(d*vec2(.8,4.8)+1.7*wq);                      // stretched along the diagonal: brushed streaks
  float fade=smoothstep(.28,.62,fbm3(d*vec2(.45,1.1)+5.));     // veils come and go along their length
- float veil=smoothstep(.5,.76,wisp)*fade;
- float thread=(1.-smoothstep(0.,.014,abs(wisp-.62)))*smoothstep(.5,.75,fbm3(d*vec2(.7,1.6)+9.));
- float vein=veil*.75+thread*.25;
- f=mix(f,1.-wisp,.35);                                        // the same brushing in the light/dark clouding
+ float veil=smoothstep(.46,.78,wisp)*fade;
+ float tp=fbm3(d*vec2(.7,1.6)+9.), tp2=fbm3(d*vec2(.5,1.3)+21.);
+ // thin threads on a SMOOTH field (3 octaves) so they meander instead of zigzagging like cracks;
+ // gaussian profile, and width + strength both taper along their length
+ // level lines of two smooth fields; distance = field gap / gradient, so a vein is the same
+ // thin width everywhere (no fat blobs where the field flattens). Width and strength taper.
+ vec2 e=mat2(.82,-.57,.57,.82)*vec2(.002,0.), e2=mat2(.82,-.57,.57,.82)*vec2(0.,.002);
+ vec2 s1=vec2(.55,2.2), s2=vec2(.4,1.7), o1=1.3*wq, o2=1.1*wq+4.;
+ float tw=fbm3(d*s1+o1), tw2=fbm3(d*s2+o2);
+ float g1=length(vec2(fbm3((d+e)*s1+o1)-tw,fbm3((d+e2)*s1+o1)-tw))/.002+.05;
+ float g2=length(vec2(fbm3((d+e)*s2+o2)-tw2,fbm3((d+e2)*s2+o2)-tw2))/.002+.05;
+ float k1=abs(fract(tw*3.2+.2)-.5)/3.2/g1, k2=abs(fract(tw2*2.6+.6)-.5)/2.6/g2;  // in uv units
+ float w1=.0018+.0045*tp, w2=.0012+.003*tp2;      // ~1-3 css px, tapering
+ // low gradient = a small closed loop round a peak (reads as a puddle outline): drop those
+ float thread=exp(-pow(k1/w1,2.))*smoothstep(.34,.62,tp)*smoothstep(.75,1.7,g1);
+ float thread2=exp(-pow(k2/w2,2.))*smoothstep(.4,.68,tp2)*smoothstep(.75,1.7,g2)*.6;
+ float vein=max(thread,thread2);
+ f=mix(f,1.-wisp,.45)+veil*.45;                                        // the same brushing in the light/dark clouding
  // trowel marks: soft overlapping patches + fine chalky grain
  vec2 t=mat2(.86,.5,-.5,.86)*uv;
  float h=fbm3(t*vec2(4.,10.));
@@ -47,7 +61,7 @@ void main(){
  gl_FragColor=vec4(clamp(vein,0.,1.),f,h,g);
 }`;
 const SHADE = HEAD + `
-uniform sampler2D uBase,uMask;uniform vec2 uRes;uniform vec3 uLight,cA,cB,cV;uniform float uDone,uPx;
+uniform sampler2D uBase,uMask,uTrail;uniform vec2 uRes;uniform vec3 uLight,cA,cB,cV;uniform float uDone,uPx;
 void main(){
  vec2 uv=gl_FragCoord.xy/uRes;
  vec4 b=texture2D(uBase,uv);
@@ -58,9 +72,11 @@ void main(){
  m=max(m,1.-smoothstep(fr-.22,fr,s));
  m=smoothstep(.02,.92,m);
  float mH=smoothstep(0.,.42,m), mG=smoothstep(.38,1.,m);   // layer 1: haze lifts. layer 2+: shine builds
- vec3 col=mix(cA,cB,smoothstep(.22,.82,b.g));
- col=mix(col,mix(cB,cV,.18),smoothstep(.6,.92,b.g)*.25);  // depth: deeper clouds
- col=mix(col,mix(cB*.84,cV,.22),b.r*.55);                  // veils: a shade deeper than the stone, a hint of brand colour
+ // depth: stone under glass. Broad cloud between the two base tones, plus lighter and darker patches.
+ float cl=b.g, lo=texture2D(uBase,uv*.45+.2).g;
+ vec3 col=mix(cA,cB,smoothstep(.32,.68,cl));
+ col*=1.+(cl-.5)*.8+(lo-.5)*.35;
+ col=mix(col,cV,b.r*.5);                                  // veins in the tone's own vein colour, soft and tapered
  vec2 o=vec2(uPx/uRes.x,uPx/uRes.y);
  float hx=texture2D(uBase,uv+vec2(o.x,0.)).b-texture2D(uBase,uv-vec2(o.x,0.)).b;
  float hy=texture2D(uBase,uv+vec2(0.,o.y)).b-texture2D(uBase,uv-vec2(0.,o.y)).b;
@@ -69,9 +85,9 @@ void main(){
  float bump=mix(mix(.85,.45,mH),.1,mG), gb=.3*(1.-mH);
  vec3 n=normalize(vec3(-hx*bump-gx*gb,-hy*bump-gy*gb,1.));
  float lum=dot(col,vec3(.299,.587,.114));
- vec3 matte=mix(col,vec3(lum),.65)*.62+.33;           // unpolished: hazy chalk film, veins washed out
+ vec3 matte=mix(col,vec3(lum),.4)*.78+.2;           // unpolished: hazy chalk film, veins washed out
  matte+=(texture2D(uBase,uv*.5+.25).g-.5)*.06;        // uneven dusty haze
- vec3 gloss=pow(col,vec3(1.22));                    // deeper, richer colour
+ vec3 gloss=pow(col,vec3(1.3));                    // deeper, richer colour
  vec3 satin=mix(col,vec3(lum),.25)*.91+.075;          // between haze and gloss: no bright rim at stroke edges            // clean but not yet burnished
  vec3 base=mix(mix(matte,satin,mH),gloss,mG);
  vec2 asp=vec2(uRes.x/uRes.y,1.);
@@ -84,11 +100,13 @@ void main(){
  float along=dot(dl,sd), perp=dot(dl,vec2(-sd.y,sd.x))+(n.x*.5+n.y*.5)*.08;  // relief bends the streak
  float streak=exp(-perp*perp/.0026)*exp(-along*along/.2);
  float glow=exp(-perp*perp/.02)*exp(-along*along/.3);
- float spec=(streak*.4+glow*.09)*mG+glow*.03*mH;
+ float tr=smoothstep(.14,.85,(texture2D(uTrail,mu+md*1.5).r+texture2D(uTrail,mu-md*1.5).r+texture2D(uTrail,mu+vec2(md.x,-md.y)*1.5).r+texture2D(uTrail,mu-vec2(md.x,-md.y)*1.5).r)*.25);     // fresh burnish: just trowelled, relaxes over a few seconds
+ float spec=(streak*.5+glow*.1)*mG+(streak*.12+glow*.08)*(1.-mG)+(streak*.35+glow*.07)*tr;  // matte still catches a broad soft sheen, so the edge never cuts hard
  // soft reflected "window" bands that slide with the light: the mirror sheen
  float band=sin((uv.x*asp.x*1.1-uv.y*.75-uLight.x*.6)*5.2+n.x*5.+n.y*3.)*.5+.5;
  float env=smoothstep(.72,.98,band)*.05*mG;
  base*=mix(1.,mix(.93,1.03,band),mG*mG);              // mirror: the room reflected as soft light and dark bands
+ base=mix(base,gloss,tr*.5);
  vec3 c=base*diff;
  c=1.-(1.-c)*(1.-vec3(1.,.985,.96)*(spec+env));       // screen blend: sheen, never blown out
  c*=1.-.1*length((uv-.5)*vec2(1.,.8));
@@ -123,12 +141,14 @@ export function initPolish(o: Opts) {
   const tex = () => { const t = gl.createTexture()!; gl.bindTexture(gl.TEXTURE_2D, t);
     for (const [k, v] of [[gl.TEXTURE_MIN_FILTER, gl.LINEAR], [gl.TEXTURE_MAG_FILTER, gl.LINEAR], [gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE], [gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE]]) gl.texParameteri(gl.TEXTURE_2D, k, v);
     return t; };
-  const baseTex = tex(), maskTex = tex();
+  const baseTex = tex(), maskTex = tex(), trailTex = tex();
   const fbo = gl.createFramebuffer();
 
   // polish mask: half CSS resolution is plenty (edges are soft anyway)
   const mask = document.createElement('canvas');
   const mx = mask.getContext('2d', { willReadFrequently: true })!;
+  const trail = document.createElement('canvas'), tx = trail.getContext('2d')!;
+  let trailT = -1e9, trailDirty = false;
 
   let W = 0, H = 0, cw = 0, ch = 0, dpr = 1;
   let dirty = true, need = true, done = o.reduced ? 1 : 0, doneT = -1, finished = o.reduced;
@@ -147,6 +167,7 @@ export function initPolish(o: Opts) {
     cw = Math.max(2, Math.round(r.width / 2)); ch = Math.max(2, Math.round(r.height / 2));
     mask.width = cw; mask.height = ch; mx.fillStyle = '#000'; mx.fillRect(0, 0, cw, ch);
     if (old) mx.drawImage(old, 0, 0, cw, ch);
+    trail.width = cw; trail.height = ch; tx.fillStyle = '#000'; tx.fillRect(0, 0, cw, ch); trailDirty = true;
     gl.bindTexture(gl.TEXTURE_2D, baseTex);
     gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, W, H, 0, gl.RGBA, gl.UNSIGNED_BYTE, null);
     gl.bindFramebuffer(gl.FRAMEBUFFER, fbo);
@@ -162,6 +183,8 @@ export function initPolish(o: Opts) {
     gl.viewport(0, 0, W, H); gl.useProgram(shade);
     gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, baseTex); gl.uniform1i(U(shade, 'uBase'), 0);
     gl.activeTexture(gl.TEXTURE1); gl.bindTexture(gl.TEXTURE_2D, maskTex); gl.uniform1i(U(shade, 'uMask'), 1);
+    if (trailDirty) { gl.activeTexture(gl.TEXTURE2); gl.bindTexture(gl.TEXTURE_2D, trailTex); gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, trail); trailDirty = false; }
+    gl.activeTexture(gl.TEXTURE2); gl.bindTexture(gl.TEXTURE_2D, trailTex); gl.uniform1i(U(shade, 'uTrail'), 2);
     gl.uniform2f(U(shade, 'uRes'), W, H); gl.uniform1f(U(shade, 'uPx'), 1.5 * dpr);
     gl.uniform3f(U(shade, 'uLight'), light.x, 1 - light.y, .75);
     gl.uniform3fv(U(shade, 'cA'), tone.cur[0]); gl.uniform3fv(U(shade, 'cB'), tone.cur[1]); gl.uniform3fv(U(shade, 'cV'), tone.cur[2]);
@@ -173,12 +196,12 @@ export function initPolish(o: Opts) {
   // A steel trowel: a slightly curved blade, wider than a finger, swept sideways to the stroke.
   type Pen = { last: { x: number; y: number } | null };
   const pen: Pen = { last: null };
-  const blade = (x: number, y: number, dx: number, dy: number) => {
+  const blade = (c: CanvasRenderingContext2D, x: number, y: number, dx: number, dy: number) => {
     const L = Math.min(cw, ch) * .1 + 12, nx = -dy, ny = dx, bulge = L * .32;
-    mx.beginPath();
-    mx.moveTo(x - nx * L, y - ny * L);
-    mx.quadraticCurveTo(x + dx * bulge, y + dy * bulge, x + nx * L, y + ny * L);
-    mx.stroke();
+    c.beginPath();
+    c.moveTo(x - nx * L, y - ny * L);
+    c.quadraticCurveTo(x + dx * bulge, y + dy * bulge, x + nx * L, y + ny * L);
+    c.stroke();
   };
   const stroke = (x: number, y: number, p: Pen = pen, a = .2, blur = 11) => {  // x,y in mask px
     const last = p.last;
@@ -187,8 +210,11 @@ export function initPolish(o: Opts) {
     if (d < 1) return;
     const dx = ddx / d, dy = ddy / d;
     mx.save(); mx.strokeStyle = '#fff'; mx.lineCap = 'round'; mx.lineWidth = 6; mx.globalAlpha = a; mx.shadowColor = '#fff'; mx.shadowBlur = blur;
-    for (let s = 0; s <= d; s += 1) blade(last.x + dx * s, last.y + dy * s, dx, dy);
+    for (let s = 0; s <= d; s += 1) blade(mx, last.x + dx * s, last.y + dy * s, dx, dy);
     mx.restore();
+    tx.save(); tx.strokeStyle = '#fff'; tx.lineWidth = 6; tx.globalAlpha = .35; tx.shadowColor = '#fff'; tx.shadowBlur = blur;
+    for (let s = 0; s <= d; s += 2) blade(tx, last.x + dx * s, last.y + dy * s, dx, dy);
+    tx.restore(); trailT = performance.now(); trailDirty = true;
     p.last = { x, y }; dirty = need = true;
   };
 
@@ -279,8 +305,11 @@ export function initPolish(o: Opts) {
     const lx = light.x, ly = light.y;
     light.x += (light.tx - light.x) * .1; light.y += (light.ty - light.y) * .1;
     if (Math.abs(lx - light.x) + Math.abs(ly - light.y) > .0005) need = true;
-    if (tone.t < 1) { tone.t = Math.min(1, tone.t + .06); tone.cur = tone.to.map((c, i) => c.map((v, j) => tone.from[i][j] + (v - tone.from[i][j]) * ease(tone.t))); need = true; }
+    if (tone.t < 1) { tone.t = Math.min(1, tone.t + .035); tone.cur = tone.to.map((c, i) => c.map((v, j) => tone.from[i][j] + (v - tone.from[i][j]) * ease(tone.t))); need = true; }
     if (doneT >= 0 && done < 1) { done = Math.min(1, (now - doneT) / 1800); need = true; if (done >= 1) o.onDone(); }
+    if (now - trailT < 4500) {  // burnished trail relaxes: ~2.5s to fade, then cleared
+      tx.fillStyle = 'rgba(0,0,0,.016)'; tx.fillRect(0, 0, cw, ch); trailDirty = need = true;
+    } else if (trailT > 0) { tx.fillStyle = '#000'; tx.fillRect(0, 0, cw, ch); trailT = -1e9; trailDirty = need = true; }
     check(now);
     if (need) { draw(); need = false; }
     raf = requestAnimationFrame(frame);
