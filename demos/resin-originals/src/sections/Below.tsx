@@ -37,8 +37,9 @@ function Tile({ job, active, onPlay }: { job: Job; active: boolean; onPlay: () =
 }
 
 export function Work() {
-  const [f, setF] = useState<'All' | Tag>('All');
+  const [f, setF] = useState<'All' | Tag>(() => (window as unknown as { __roFilter?: Tag }).__roFilter || 'All');
   const [active, setActive] = useState<string | null>(null);
+  useEffect(() => { const on = (e: Event) => { setF((e as CustomEvent<Tag>).detail); setActive(null); }; addEventListener('ro:filter', on); return () => removeEventListener('ro:filter', on); }, []);
   const list = useMemo(() => JOBS.filter((j) => f === 'All' || j.tags.includes(f)), [f]);
   const rise = useRise();
   return (

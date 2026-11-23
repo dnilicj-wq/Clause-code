@@ -2,20 +2,28 @@ import { useEffect, useRef, useState } from 'react';
 import { IconBrandWhatsapp, IconArrowDown } from '@tabler/icons-react';
 import { useSite } from '@/src/lib/ctx';
 import { waLink } from './wa';
-import { PALETTES, createPour, type Mode, type Pour } from './pour';
+import { PALETTES, createPour, type Pour } from './pour';
+import type { Tag } from './jobs';
 
 // Signature: "Pour your floor". A coded resin surface (not a photo of a job, and it says so).
 // First paint = a pre-rendered still of frame 0 (pour-*.webp), so there is never a black screen.
 // The shader starts after the page's load event, renders frame 0 again and fades in over the still.
 // Reduced motion: the still, plus one re-rendered frame per tap. No loop, no drag.
-const MODES = [{ k: 'Metallic', pal: 0 }, { k: 'Flake', pal: 2 }, { k: 'Quartz', pal: 4 }] as const;
+const SEE: Tag[] = ['Metallic', 'Flake', 'Quartz'];
+// Work (lazy chunk) reads window.__roFilter on mount and listens for 'ro:filter', so the link works before or after it loads.
+const seeFloors = (e: React.MouseEvent, tag: Tag) => {
+  e.preventDefault();
+  (window as unknown as { __roFilter?: Tag }).__roFilter = tag;
+  dispatchEvent(new CustomEvent('ro:filter', { detail: tag }));
+  const go = (n = 0) => { const w = document.getElementById('work'); if (w) w.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' }); else if (n < 40) setTimeout(() => go(n + 1), 100); };
+  go();
+};
 
 export function Hero() {
   const { site } = useSite();
   const sec = useRef<HTMLElement>(null);
   const cv = useRef<HTMLCanvasElement>(null);
   const pour = useRef<Pour | null>(null);
-  const [mode, setMode] = useState<Mode>(0);
   const [pal, setPal] = useState(0);
   const [live, setLive] = useState(false);
   const still = typeof location !== 'undefined' && location.search.includes('pourstill');
@@ -42,12 +50,6 @@ export function Hero() {
   }, [still]);
 
   const reduceNow = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const pickMode = (m: Mode) => {
-    setMode(m); setPal(MODES[m].pal);
-    const p = pour.current; if (!p) return;
-    p.setPalette(MODES[m].pal); p.setMode(m);
-    if (reduceNow()) { p.frame(); setLive(true); }
-  };
   const pickPal = (i: number) => {
     setPal(i); const p = pour.current; if (!p) return;
     p.setPalette(i); if (reduceNow()) { p.frame(); setLive(true); }
@@ -74,18 +76,18 @@ export function Hero() {
         <div className="hero__copy">
           <p className="eyebrow hero__rise" style={{ color: 'var(--accent2)' }}>Epoxy resin floors</p>
           <h1 className="hero__h1 hero__rise">Every floor, an <span className="gold">original.</span></h1>
-          <div className="hero__pills hero__rise" role="group" aria-label="Finish">
-            {MODES.map((m, n) => (
-              <button key={m.k} type="button" className={`pill ${n === mode ? 'is-on' : ''}`} aria-pressed={n === mode} onClick={() => pickMode(n as Mode)}>{m.k}</button>
-            ))}
-          </div>
           <div className="hero__chips hero__rise" role="group" aria-label="Colour, taken from our floors">
             {PALETTES.map((p, i) => (
               <button key={p.key} type="button" className={`swatch ${i === pal ? 'is-on' : ''}`} aria-pressed={i === pal} aria-label={p.name} title={p.name}
                 style={{ background: `linear-gradient(135deg, ${p.pal[0]} 0%, ${p.pal[1]} 45%, ${p.pal[2]} 75%, ${p.pal[3]} 100%)` }} onClick={() => pickPal(i)} />
             ))}
           </div>
-          <a href="#work" className="hero__note hero__rise">Interactive preview. Real floors below <IconArrowDown size={14} stroke={2} aria-hidden /></a>
+          <p className="hero__note hero__rise">Interactive preview. Drag to swirl. Real floors below.</p>
+          <nav className="hero__see hero__rise" aria-label="See real floors">
+            {SEE.map((t) => (
+              <a key={t} href="#work" onClick={(e) => seeFloors(e, t)}>See {t.toLowerCase()} floors <IconArrowDown size={14} stroke={2} aria-hidden /></a>
+            ))}
+          </nav>
           <p className="hero__sub hero__rise">Metallic, flake and quartz epoxy floors for homes, garages and commercial spaces.</p>
           <div className="hero__ctas hero__rise">
             <a href="#plan" className="btn btn--gold">Plan my floor</a>

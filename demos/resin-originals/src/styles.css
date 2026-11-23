@@ -129,17 +129,14 @@ html.lenis, html.lenis body{ height:auto; }
 .hero__h1{ font:800 clamp(50px,14.4vw,132px)/.9 var(--font-display); letter-spacing:-.045em; margin-top:12px; text-wrap:balance; }
 .gold{ background:var(--gold-foil); background-size:220% 100%; -webkit-background-clip:text; background-clip:text; color:transparent; animation:foil 2.4s var(--ease-io) .9s both; }
 @keyframes foil{ from{ background-position:100% 0 } to{ background-position:0% 0 } }
-.hero__pills{ display:flex; gap:8px; margin-top:20px; }
-.pill{ min-height:42px; padding:0 18px; border-radius:999px; border:1px solid rgba(242,238,230,.28); background:rgba(10,9,8,.5); color:var(--ink);
-  font:500 15px/1 var(--font-body); transition:background-color 200ms ease, color 200ms ease, border-color 200ms ease, transform 160ms var(--ease-out); }
-.pill:active{ transform:scale(.97); }
-.pill.is-on{ background:var(--ink); color:#0a0908; border-color:var(--ink); }
-@media (hover:hover) and (pointer:fine){ .pill:not(.is-on):hover{ border-color:var(--ink); } }
 .hero__chips{ display:flex; gap:10px; margin-top:14px; }
 .swatch{ width:34px; height:34px; border-radius:999px; border:2px solid rgba(242,238,230,.22); box-shadow:inset 0 1px 0 rgba(255,255,255,.35);
   transition:transform 160ms var(--ease-out), border-color 200ms ease; }
 .swatch:active{ transform:scale(.92); }
 .swatch.is-on{ border-color:var(--ink); transform:scale(1.08); }
+.hero__see{ display:flex; flex-wrap:wrap; gap:6px 18px; margin-top:10px; }
+.hero__see a{ display:inline-flex; align-items:center; gap:4px; min-height:32px; font-size:14px; font-weight:500; color:var(--ink); text-decoration:underline; text-decoration-color:rgba(242,238,230,.35); text-underline-offset:4px; }
+@media (hover:hover) and (pointer:fine){ .hero__see a:hover{ color:var(--accent2); text-decoration-color:currentColor; } }
 .hero__note{ display:inline-flex; align-items:center; gap:5px; margin-top:14px; font-size:12.5px; color:var(--muted); }
 .hero__sub{ margin-top:12px; max-width:36ch; font-size:16px; line-height:1.5; color:color-mix(in srgb, var(--ink) 82%, transparent); }
 .hero__ctas{ display:flex; flex-wrap:wrap; gap:10px; margin-top:20px; }
@@ -268,3 +265,4 @@ html.lenis, html.lenis body{ height:auto; }
 @media (prefers-reduced-motion:reduce){ .dock{ transition:opacity 200ms ease; transform:none; } }
 
 :root{ --lamp-hw:800; }
+html{ scroll-padding-top:56px; }
