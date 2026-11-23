@@ -51,7 +51,7 @@ function Hero() {
       };
       api.current = initPolish({ canvas: c, host: h, wallRect, tone: TONES[0], reduced: rm, coarse,
         onDone: () => { setDone(true); setHint('gone'); }, onFirstTouch: () => setHint('gone') });
-      if (api.current) { setGl(true); if (!rm) setHint('on'); }
+      if (api.current) setGl(true);
     });
     // after first paint, so the static wall and headline paint first
     const id = requestAnimationFrame(() => setTimeout(go, 60));

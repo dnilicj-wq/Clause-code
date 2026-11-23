@@ -60,10 +60,11 @@ void main(){
  float hy=texture2D(uBase,uv+vec2(0.,o.y)).b-texture2D(uBase,uv-vec2(0.,o.y)).b;
  float gx=texture2D(uBase,uv+vec2(o.x,0.)).a-texture2D(uBase,uv-vec2(o.x,0.)).a;
  float gy=texture2D(uBase,uv+vec2(0.,o.y)).a-texture2D(uBase,uv-vec2(0.,o.y)).a;
- float bump=mix(1.6,.1,m), gb=.3*(1.-smoothstep(0.,.35,m));
+ float bump=mix(1.8,.1,m), gb=.55*(1.-smoothstep(0.,.35,m));
  vec3 n=normalize(vec3(-hx*bump-gx*gb,-hy*bump-gy*gb,1.));
  float lum=dot(col,vec3(.299,.587,.114));
- vec3 matte=mix(col,vec3(lum),.35)*.9+.08;            // chalky, pale, flat
+ vec3 matte=mix(col,vec3(lum),.65)*.62+.33;           // unpolished: hazy chalk film, veins washed out
+ matte+=(texture2D(uBase,uv*.5+.25).g-.5)*.06;        // uneven dusty haze
  vec3 gloss=pow(col,vec3(2.1))*.97;                    // deeper, richer colour
  vec3 base=mix(matte,gloss,m);
  vec2 asp=vec2(uRes.x/uRes.y,1.);
@@ -222,7 +223,8 @@ export function initPolish(o: Opts) {
 
   // phones: one slow demo stroke after ~1s, unless they've already touched it
   let demo: { t0: number } | null = null;
-  const demoTimer = o.coarse && !o.reduced ? window.setTimeout(() => { if (!touched) { demo = { t0: performance.now() }; last = null; } }, 1000) : 0;
+  // after 2s the wall cleans itself with one smooth sweep (any drag before that still polishes)
+  const demoTimer = o.reduced ? 0 : window.setTimeout(() => { if (!finished) { finished = true; doneT = performance.now(); start(); } }, Math.max(600, 2000 - performance.now()));  // 2s after page load
   const runDemo = (now: number) => {
     if (!demo) return;
     const wr = o.wallRect(), hr = host.getBoundingClientRect(); if (!wr) { demo = null; return; }
