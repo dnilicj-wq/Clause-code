@@ -12,6 +12,37 @@
   <style>html,body{margin:0;background:#ECEBED;color:#19161A}</style>
 </head>
 <body>
+  <div id="ld" aria-hidden="true">
+    <div class="ld-in">
+      <div class="ld-logo"><img src="/client/logo-v1.webp" width="481" height="235" alt="" /></div>
+      <div class="ld-bar"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      <div class="ld-row"><span>Preparing the wall</span><b><span id="ldn">0</span>%</b></div>
+    </div>
+  </div>
+  <script>
+  // Loader: counts while the plaster wall is generated, then lifts away like a trowel pass. Never holds the page past ~3.5s.
+  (function () {
+    var el = document.getElementById('ld');
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) { el.remove(); window.__ldOut = 1; return; }
+    var n = document.getElementById('ldn'), segs = el.querySelectorAll('.ld-bar i'), p = 0, t0 = performance.now(), ready = false, done = false;
+    window.__ldReady = function () { ready = true; };
+    setTimeout(function () { ready = true; }, 3500);
+    function tick(now) {
+      var target = ready && now - t0 > 1200 ? 100 : 86;
+      p += (target - p) * (target === 100 ? .14 : .03);
+      var v = p > 99.4 ? 100 : Math.floor(p), k = Math.round(v / 100 * segs.length);
+      n.textContent = v;
+      for (var i = 0; i < segs.length; i++) segs[i].className = i < k ? 'on' : '';
+      if (v < 100) return requestAnimationFrame(tick);
+      if (done) return; done = true;
+      setTimeout(function () {
+        el.classList.add('out'); window.__ldOut = 1; dispatchEvent(new Event('ld:out'));
+        setTimeout(function () { el.remove(); }, 1000);
+      }, 220);
+    }
+    requestAnimationFrame(tick);
+  })();
+  </script>
   <div id="root"></div>
   <script type="module" src="/src/main.tsx"></script>
 </body>

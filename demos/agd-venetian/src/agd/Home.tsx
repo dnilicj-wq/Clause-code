@@ -26,7 +26,8 @@ const TONES = [
   { n: 'Warm greige', a: '#DED5CA', b: '#C7BBAE', v: '#6A4E4E' },
   { n: 'Burgundy vein', a: '#EEE9E7', b: '#DDD3D3', v: '#721036' },
 ];
-type Api = { setTone: (t: { a: string; b: string; v: string }) => void; destroy: () => void };
+type Api = { clean: () => void; setTone: (t: { a: string; b: string; v: string }) => void; destroy: () => void };
+declare global { interface Window { __ldReady?: () => void; __ldOut?: number } }
 function Hero() {
   const host = useRef<HTMLElement>(null);
   const cv = useRef<HTMLCanvasElement>(null);
@@ -52,7 +53,11 @@ function Hero() {
       api.current = initPolish({ canvas: c, host: h, wallRect, tone: TONES[0], reduced: rm, coarse,
         onDone: () => { setDone(true); setHint('gone'); }, onFirstTouch: () => setHint('gone') });
       if (api.current) setGl(true);
-    });
+      window.__ldReady?.();
+      // the hazy wall shows for a moment after the loader lifts, then the layered clean starts
+      const go2 = () => setTimeout(() => api.current?.clean(), 900);
+      if (window.__ldOut) go2(); else addEventListener('ld:out', go2, { once: true });
+    }).catch(() => window.__ldReady?.());
     // after first paint, so the static wall and headline paint first
     const id = requestAnimationFrame(() => setTimeout(go, 60));
     return () => { cancelled = true; cancelAnimationFrame(id); api.current?.destroy(); api.current = null; };

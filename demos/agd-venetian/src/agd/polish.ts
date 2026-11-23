@@ -6,7 +6,7 @@ export type Tone = { a: string; b: string; v: string };
 type Opts = {
   canvas: HTMLCanvasElement;
   host: HTMLElement;              // the hero, for pointer + size
-  wallRect: () => DOMRect | null; // area not covered by the copy card (coverage + demo)
+  wallRect: () => DOMRect | null; // area not covered by the copy card (coverage + auto clean)
   tone: Tone;
   reduced: boolean;
   coarse: boolean;
@@ -24,7 +24,8 @@ float noise(vec2 p){vec2 i=floor(p),f=fract(p);vec2 u=f*f*(3.-2.*f);
 float fbm(vec2 p){float v=0.,a=.5;mat2 m=mat2(1.6,1.2,-1.2,1.6);for(int i=0;i<6;i++){v+=a*noise(p);p=m*p;a*=.5;}return v;}
 float fbm3(vec2 p){float v=0.,a=.5;mat2 m=mat2(1.6,1.2,-1.2,1.6);for(int i=0;i<3;i++){v+=a*noise(p);p=m*p;a*=.5;}return v/.875;}
 void main(){
- vec2 uv=gl_FragCoord.xy/uRes.y;               // height-normalised: same pattern scale at any DPR
+ vec2 uv0=gl_FragCoord.xy/uRes.y;              // height-normalised: same pattern scale at any DPR
+ vec2 uv=uv0*1.7;                               // zoomed out: more marble per screen
  vec2 p=uv*vec2(1.6,2.3)+vec2(3.1,7.4);
  vec2 q=vec2(fbm(p),fbm(p+vec2(5.2,1.3)));
  vec2 r=vec2(fbm(p+3.*q+vec2(1.7,9.2)),fbm(p+3.*q+vec2(8.3,2.8)));
@@ -38,7 +39,7 @@ void main(){
  // trowel marks: soft overlapping patches + fine chalky grain
  vec2 t=mat2(.86,.5,-.5,.86)*uv;
  float h=fbm3(t*vec2(4.,10.));
- float g=noise(uv*300.)*.6+noise(uv*170.)*.4;            // chalky grain: burnishing removes it
+ float g=noise(uv0*300.)*.6+noise(uv0*170.)*.4;            // chalky grain: burnishing removes it
  gl_FragColor=vec4(clamp(vein,0.,1.),f,h,g);
 }`;
 const SHADE = HEAD + `
@@ -51,7 +52,8 @@ void main(){
  float s=uv.x*.62+(1.-uv.y)*.38;
  float fr=uDone*1.5-.25;
  m=max(m,1.-smoothstep(fr-.22,fr,s));
- m=smoothstep(.04,.5,m);                           // one firm pass gives full gloss
+ m=smoothstep(.02,.92,m);
+ float mH=smoothstep(0.,.42,m), mG=smoothstep(.38,1.,m);   // layer 1: haze lifts. layer 2+: shine builds
  vec3 col=mix(cA,cB,smoothstep(.22,.82,b.g));
  col=mix(col,mix(cB,cV,.3),smoothstep(.58,.9,b.g)*.4);   // cloudy stone mottling
  col=mix(col,cV,b.r*.82);
@@ -60,24 +62,25 @@ void main(){
  float hy=texture2D(uBase,uv+vec2(0.,o.y)).b-texture2D(uBase,uv-vec2(0.,o.y)).b;
  float gx=texture2D(uBase,uv+vec2(o.x,0.)).a-texture2D(uBase,uv-vec2(o.x,0.)).a;
  float gy=texture2D(uBase,uv+vec2(0.,o.y)).a-texture2D(uBase,uv-vec2(0.,o.y)).a;
- float bump=mix(1.8,.1,m), gb=.55*(1.-smoothstep(0.,.35,m));
+ float bump=mix(mix(1.8,.7,mH),.1,mG), gb=.55*(1.-mH);
  vec3 n=normalize(vec3(-hx*bump-gx*gb,-hy*bump-gy*gb,1.));
  float lum=dot(col,vec3(.299,.587,.114));
  vec3 matte=mix(col,vec3(lum),.65)*.62+.33;           // unpolished: hazy chalk film, veins washed out
  matte+=(texture2D(uBase,uv*.5+.25).g-.5)*.06;        // uneven dusty haze
  vec3 gloss=pow(col,vec3(2.1))*.97;                    // deeper, richer colour
- vec3 base=mix(matte,gloss,m);
+ vec3 satin=mix(col,vec3(lum),.25)*.9+.11;            // clean but not yet burnished
+ vec3 base=mix(mix(matte,satin,mH),gloss,mG);
  vec2 asp=vec2(uRes.x/uRes.y,1.);
  vec3 P=vec3(uv*asp,0.);
  vec3 L=normalize(vec3(uLight.xy*asp,uLight.z)-P);
  vec3 H=normalize(L+vec3(0.,0.,1.));
  float nh=max(dot(n,H),0.);
  float diff=.8+.2*dot(n,L);
- float spec=pow(nh,mix(6.,2400.,m))*mix(.03,1.,m*m*m)+pow(nh,300.)*.14*m+pow(nh,40.)*.05*m;
+ float spec=pow(nh,mix(6.,2400.,mG))*mix(.03,1.,mG*mG*mG)+pow(nh,300.)*.14*mG+pow(nh,40.)*(.02+.04*mH);
  // soft reflected "window" bands that slide with the light: the mirror sheen
  float band=sin((uv.x*asp.x*1.1-uv.y*.75-uLight.x*.6)*5.2+n.x*5.+n.y*3.)*.5+.5;
- float env=smoothstep(.72,.98,band)*.09*m;
- base*=mix(1.,mix(.86,1.04,band),m);              // mirror: the room reflected as soft light and dark bands
+ float env=smoothstep(.72,.98,band)*.09*mG;
+ base*=mix(1.,mix(.86,1.04,band),mG*mG);              // mirror: the room reflected as soft light and dark bands
  vec3 c=base*diff+vec3(1.,.985,.96)*(spec+env);
  c*=1.-.1*length((uv-.5)*vec2(1.,.8));
  gl_FragColor=vec4(c,1.);
@@ -159,7 +162,8 @@ export function initPolish(o: Opts) {
   };
 
   // A steel trowel: a slightly curved blade, wider than a finger, swept sideways to the stroke.
-  let last: { x: number; y: number } | null = null;
+  type Pen = { last: { x: number; y: number } | null };
+  const pen: Pen = { last: null };
   const blade = (x: number, y: number, dx: number, dy: number) => {
     const L = Math.min(cw, ch) * .1 + 12, nx = -dy, ny = dx, bulge = L * .32;
     mx.beginPath();
@@ -167,15 +171,16 @@ export function initPolish(o: Opts) {
     mx.quadraticCurveTo(x + dx * bulge, y + dy * bulge, x + nx * L, y + ny * L);
     mx.stroke();
   };
-  const stroke = (x: number, y: number) => {  // x,y in mask px
-    if (!last) { last = { x, y }; return; }
+  const stroke = (x: number, y: number, p: Pen = pen, a = .14) => {  // x,y in mask px
+    const last = p.last;
+    if (!last) { p.last = { x, y }; return; }
     const ddx = x - last.x, ddy = y - last.y, d = Math.hypot(ddx, ddy);
     if (d < 1) return;
     const dx = ddx / d, dy = ddy / d;
-    mx.save(); mx.strokeStyle = '#fff'; mx.lineCap = 'round'; mx.lineWidth = 6; mx.globalAlpha = .14; mx.shadowColor = '#fff'; mx.shadowBlur = 7;
+    mx.save(); mx.strokeStyle = '#fff'; mx.lineCap = 'round'; mx.lineWidth = 6; mx.globalAlpha = a; mx.shadowColor = '#fff'; mx.shadowBlur = 7;
     for (let s = 0; s <= d; s += 2.5) blade(last.x + dx * s, last.y + dy * s, dx, dy);
     mx.restore();
-    last = { x, y }; dirty = need = true;
+    p.last = { x, y }; dirty = need = true;
   };
 
   // coverage over the visible wall only (the copy card hides part of it)
@@ -191,7 +196,7 @@ export function initPolish(o: Opts) {
     return n / t;
   };
   const check = (now: number) => {
-    if (finished || now - lastCov < 220) return;
+    if (finished || cleanStarted || now - lastCov < 220) return;   // the auto clean runs its own layers
     lastCov = now;
     if (coverage() >= .45) { finished = true; doneT = now; }
   };
@@ -201,7 +206,7 @@ export function initPolish(o: Opts) {
   const toMask = (e: PointerEvent) => { const r = host.getBoundingClientRect(); return { x: (e.clientX - r.left) / 2, y: (e.clientY - r.top) / 2, u: (e.clientX - r.left) / r.width, v: (e.clientY - r.top) / r.height }; };
   const onDown = (e: PointerEvent) => {
     if ((e.target as Element).closest('a,button,.hero-card,.nav')) return;
-    down = true; last = null; demo = null;
+    down = true; pen.last = null;
     if (!touched) { touched = true; o.onFirstTouch(); }
     const p = toMask(e); stroke(p.x, p.y);
   };
@@ -210,7 +215,7 @@ export function initPolish(o: Opts) {
     if (e.pointerType === 'mouse') { pointerLight = true; light.tx = p.u; light.ty = p.v; need = true; }
     if (down && !o.reduced) stroke(p.x, p.y);
   };
-  const onUp = () => { down = false; last = null; };
+  const onUp = () => { down = false; pen.last = null; };
   host.addEventListener('pointerdown', onDown);
   host.addEventListener('pointermove', onMove);
   window.addEventListener('pointerup', onUp);
@@ -221,23 +226,43 @@ export function initPolish(o: Opts) {
   };
   if (o.coarse) window.addEventListener('deviceorientation', onTilt);  // no permission prompt; used only if the browser already sends it
 
-  // phones: one slow demo stroke after ~1s, unless they've already touched it
-  let demo: { t0: number } | null = null;
-  // after 2s the wall cleans itself with one smooth sweep (any drag before that still polishes)
-  const demoTimer = o.reduced ? 0 : window.setTimeout(() => { if (!finished) { finished = true; doneT = performance.now(); start(); } }, Math.max(600, 2000 - performance.now()));  // 2s after page load
-  const runDemo = (now: number) => {
-    if (!demo) return;
-    const wr = o.wallRect(), hr = host.getBoundingClientRect(); if (!wr) { demo = null; return; }
-    const k = Math.min(1, (now - demo.t0) / 1900), e = ease(k);
-    const x = (wr.left - hr.left) + wr.width * (.12 + .76 * e), y = (wr.top - hr.top) + wr.height * (.46 + .1 * Math.sin(e * Math.PI));
-    stroke(x / 2, y / 2);
-    if (k >= 1) { demo = null; last = null; }
+  // Auto clean, slowly and in layers: three trowel passes across the wall (lift the haze, smooth, burnish),
+  // alternating direction, then a last soft sweep so every corner (incl. under the card) ends glossy.
+  type Row = { x0: number; x1: number; y: number; t0: number; dur: number; a: number; bend: number; pen: Pen };
+  let rows: Row[] = [], cleanStarted = false;
+  const clean = () => {
+    if (cleanStarted || finished || o.reduced) return;
+    cleanStarted = true;
+    const hr = host.getBoundingClientRect(), wr = o.wallRect() || hr;
+    const top = (wr.top - hr.top) / 2, h = Math.max(40, wr.height / 2), L = Math.min(cw, ch) * .1 + 12;
+    const n = Math.max(3, Math.ceil(h / (L * 1.5))), passes = [{ a: .1, dur: 380 }, { a: .12, dur: 440 }, { a: .17, dur: 520 }];
+    let t = performance.now();
+    passes.forEach((ps, pi) => {
+      for (let i = 0; i < n; i++) {
+        const y = top + h * (i + (pi === 1 ? .9 : .5)) / n, ltr = (i + pi) % 2 === 0;
+        rows.push({ x0: ltr ? -L : cw + L, x1: ltr ? cw + L : -L, y, t0: t, dur: ps.dur, a: ps.a, bend: (pi - 1) * L * .6, pen: { last: null } });
+        t += ps.dur * .82;   // rows overlap slightly, like a plasterer working back across the wall
+      }
+      t += 260;              // short pause between layers
+    });
+    start();
+  };
+  const runRows = (now: number) => {
+    if (!rows.length) return;
+    rows = rows.filter((r) => {
+      if (now < r.t0) return true;
+      const k = Math.min(1, (now - r.t0) / r.dur), e = ease(k);
+      const x = r.x0 + (r.x1 - r.x0) * e, y = r.y + Math.sin(e * Math.PI) * r.bend;
+      stroke(x, y, r.pen, r.a);
+      return k < 1;
+    });
+    if (!rows.length && !finished) { finished = true; doneT = now; }
   };
 
   let raf = 0, vis = true, alive = true;
   const frame = (now: number) => {
     raf = 0; if (!alive || !vis) return;
-    runDemo(now);
+    runRows(now);
     if (!o.reduced && !tilt && !pointerLight) {  // slow automatic light sweep
       const t = now / 1000; light.tx = .5 + .42 * Math.sin(t * .55); light.ty = .32 + .16 * Math.sin(t * .37 + 1); need = true;
     }
@@ -245,7 +270,7 @@ export function initPolish(o: Opts) {
     light.x += (light.tx - light.x) * .12; light.y += (light.ty - light.y) * .12;
     if (Math.abs(lx - light.x) + Math.abs(ly - light.y) > .0005) need = true;
     if (tone.t < 1) { tone.t = Math.min(1, tone.t + .06); tone.cur = tone.to.map((c, i) => c.map((v, j) => tone.from[i][j] + (v - tone.from[i][j]) * ease(tone.t))); need = true; }
-    if (doneT >= 0 && done < 1) { done = Math.min(1, (now - doneT) / 1500); need = true; if (done >= 1) o.onDone(); }
+    if (doneT >= 0 && done < 1) { done = Math.min(1, (now - doneT) / 1800); need = true; if (done >= 1) o.onDone(); }
     check(now);
     if (need) { draw(); need = false; }
     raf = requestAnimationFrame(frame);
@@ -265,13 +290,14 @@ export function initPolish(o: Opts) {
   else { draw(); start(); }
 
   return {
+    clean,
     setTone(t: Tone) {
       const to = [rgb(t.a), rgb(t.b), rgb(t.v)];
       if (o.reduced) { tone.cur = to; draw(); return; }
       tone.from = tone.cur.map((c) => c.slice()); tone.to = to; tone.t = 0; start();
     },
     destroy() {
-      alive = false; cancelAnimationFrame(raf); clearTimeout(demoTimer); clearTimeout(rt); io.disconnect(); ro.disconnect();
+      alive = false; cancelAnimationFrame(raf); clearTimeout(rt); io.disconnect(); ro.disconnect();
       host.removeEventListener('pointerdown', onDown); host.removeEventListener('pointermove', onMove);
       window.removeEventListener('pointerup', onUp); host.removeEventListener('pointercancel', onUp);
       window.removeEventListener('deviceorientation', onTilt); canvas.removeEventListener('webglcontextlost', lost);
