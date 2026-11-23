@@ -216,7 +216,7 @@ export function Finale() {
   return (
     <LampCta
       heading="Want it down before spring?"
-      subline="Floors wanted for spring get booked in early, so it's worth starting the conversation now."
+      subline="Planning a floor for spring? Get in touch now and we'll get it booked in."
       primaryLabel="Plan my floor"
       primaryHref="#plan"
       whatsappHref={waLink(site.whatsapp, "Hi Dean, I'd like a floor done before spring.")}

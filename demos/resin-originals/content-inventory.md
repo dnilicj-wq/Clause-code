@@ -62,7 +62,7 @@ Page: https://www.facebook.com/profile.php?id=100089718113028 (P below)
 - "No two floors are ever identical." / quote "All floors are bespoke and created together with the client..." / gloss, scratch-resistant, seamless points = his own reel captions (see caption quotes above).
 - "Colours taken from the client's McLaren 720S." = caption of reel 1746294663336612.
 - "Seamless quartz, laid for an eye clinic theatre room." / "with coving and upstands" = caption of reel 1097325556221087.
-- Spring line "Floors wanted for spring get booked in early..." = general statement, no numbers (brief asked for it; lead form said "Before spring").
+- Spring line "Planning a floor for spring? Get in touch now and we'll get it booked in." = Dan's wording (23 Nov), no numbers.
 - No reviews, ratings, prices, years, guarantees or towns appear on the site.
 
 ## Asset files (public/client)
