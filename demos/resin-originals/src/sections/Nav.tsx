@@ -16,12 +16,14 @@ export function Nav() {
     <header className={`nav ${solid ? 'is-solid' : ''}`}>
       <nav className="nav__in" aria-label="Main">
         <a href="#top" className="nav__brand">
-          <img src="/client/logo-96-v1.webp" alt="" width={36} height={36} />
+          <img src="/client/logo-mark-v2.webp" alt="" width={68} height={44} />
           <span>The Resin Originals</span>
         </a>
         <div className="nav__links">
           <a href="#work">Floors</a>
           <a href="#finishes">Finishes</a>
+          <a href="#design">Design</a>
+          <a href="#commercial">Commercial</a>
           <a href="#plan">Plan your floor</a>
         </div>
         <a href={`tel:${site.phone.replace(/\s/g, '')}`} className="nav__call">

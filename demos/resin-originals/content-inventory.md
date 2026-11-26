@@ -79,3 +79,17 @@ Page: https://www.facebook.com/profile.php?id=100089718113028 (P below)
 | jobs/kitchen-silver-v1 | cover photo, https://www.facebook.com/photo/?fbid=113706091629994 | |
 | logo-v1, logo-96-v1 | page profile picture | |
 Reel URLs: https://www.facebook.com/reel/<id>/
+
+## Round 3 (26 Nov 2026): Dean's own media + his change list
+Source: Dean's WhatsApp to Dan, 23-24 Nov 2026 (99 files, originals in ~/Desktop/Dean, untouched; working copies + contact sheets in ~/dev/dean-media; ids in ids.tsv). Processing: tools/dean-media.py -> public/client/dean.
+- Photos used (Floors grid): blue-games P04, pearl-kitchen P01, vein-dining P10, dark-bronze P02, marble-kitchen P33, silver-room P17, red-close P24. Clips: blue-led V58 (0-14s), flake-garage V46 (0-12s), white-metallic V01 (0-10s).
+- Gallery: blue-cinema P06, blue-bar P08, blue-bathroom P09, pearl-kitchen-2 P03, vein-hall P11, silver-hall P19, silver-room-2 P20, silver-toilet P18, grey-large P22, grey-large-2 P23, marble-kitchen-2 P34, speckled-room P25.
+- Dropped: near-duplicates P05 P07 (of P04), P12 (of P17), P14 P15 P16 P26 P27 (speckled room), P21 (of P20), P13 (of P25); P28 unclear close-up; P29 not a floor; P30 screenshot (his Google Shopping reference); P31 training event, not his job. Clips not used: in-progress pours/spreading (V13 V31 V56 V57 V61 V64), mopping V59, other firms' end cards / watermarks (V05 TikTok, V14 Opulence/Resi-Fusion, V25), dark V36.
+- Titles say only what the photo shows. No locations or job details (he gave none). Note line = "From Dean's own photos/videos."
+- Swatch fans (Finishes, Flake + Quartz) = his photos P32/P35 of supplier sample fans, background removed (Higgsfield remove_background) at his request. The "COLOR TRENDS" card on the fan is the supplier's.
+- Change list (his screenshots): bigger logo (transparent gold mark in nav, lockup in hero/footer, from logo-v1); planner Space = Home / Business / Garage or unit / Warehouse; new Sub base step = Concrete / Timber floorboards or tongue and groove / A mix of both in joining rooms; Finish adds Standard grey epoxy; sizes Under 20 / 20-40 / 40-80 / 80-100+ m² (he wrote "89-100+", read as 80); prep/screeding section; warehouse/factory imagery; flake + quartz swatches without background.
+- Commercial coverage line "Mainly across the Midlands and the North, and UK-wide for bigger jobs." = Dean via Dan (26 Nov brief).
+- Prep steps = Dan's brief (grinding, repairs, priming, screeding/levelling) + Dean's sub base options. No machines, brands, depths or guarantees.
+- Generated images (Higgsfield gpt_image_2_6), always tagged "Example finish" and alt "generated image, not one of our jobs": ex-warehouse, ex-factory, ex-workshop, ex-unit (also the Standard grey card and planner tile until Dean sends his own).
+- Floor designer rooms (public/client/rooms) = the Sentech generated example rooms + maps; tagged "Visualisation", footnote "Example rooms, not our jobs." Metallic colours = hero palettes; flake/quartz/grey colours are illustrative.
+- TODO(Dan): speckled room P25 flake or quartz? / size "89-100+" / OK to show jobs he did as lead designer for other firms as his? / standard grey photo / OK to show the COLOR TRENDS card / which job is the one he's proud of (likely V54).
