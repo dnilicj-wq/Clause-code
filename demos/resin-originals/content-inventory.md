@@ -103,3 +103,6 @@ Source: Dean's WhatsApp to Dan, 23-24 Nov 2026 (99 files, originals in ~/Desktop
 - "Standard grey" renamed "High build industrial resin" everywhere (finish card, designer, planner, commercial caption, alt, WhatsApp text). Line from Dean's brief: "Hard-wearing, high build resin for factories, warehouses and workshops."
 - Prep video slot: placeholder still = frame at 19s of V61 (VIDEO-2026-11-24-19-33-10.mp4, Dean's own clip), tagged "Video coming soon". README has drop-in steps.
 - TODO(Dan): ask Dean for his logo as SVG/AI/PDF if he has it; current trace is from a 600px image.
+
+## Round 5 (26 Nov 2026): type matched to the logo
+- Headings Cormorant Garamond 600 (closer to the TRO letterforms than Bodoni Moda: angled stress, wedge serifs), accents in its 600 italic with logo gold. Labels and buttons Cinzel 500 caps. Body Jost 400/500. All OFL via @fontsource. Removed Cabinet Grotesk, Clash Display, General Sans, Satoshi, Instrument Serif, Caveat, Fraunces, Geist.

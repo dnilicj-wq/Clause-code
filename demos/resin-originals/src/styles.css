@@ -4,18 +4,12 @@
 @source "../config/site.ts";
 @source "../index.html";
 
-@font-face{font-family:"Clash Display";src:url(/fonts/clash-display-500.woff2) format("woff2");font-weight:500;font-display:swap}
-@font-face{font-family:"Clash Display";src:url(/fonts/clash-display-600.woff2) format("woff2");font-weight:600;font-display:swap}
-@font-face{font-family:"General Sans";src:url(/fonts/general-sans-400.woff2) format("woff2");font-weight:400;font-display:swap}
-@font-face{font-family:"General Sans";src:url(/fonts/general-sans-500.woff2) format("woff2");font-weight:500;font-display:swap}
-@font-face{font-family:"General Sans";src:url(/fonts/general-sans-600.woff2) format("woff2");font-weight:600;font-display:swap}
-@font-face{font-family:"Cabinet Grotesk";src:url(/fonts/cabinet-grotesk-800-v1.woff2) format("woff2");font-weight:800;font-display:swap}
+/* Type matched to Dean's logo: Cormorant Garamond (headings, italic accents), Cinzel (caps labels and buttons), Jost (body) */
+@font-face{font-family:"Cormorant Garamond";src:url(/fonts/cormorant-garamond-600.woff2) format("woff2");font-weight:600;font-display:swap}
+@font-face{font-family:"Cormorant Garamond";src:url(/fonts/cormorant-garamond-600-italic.woff2) format("woff2");font-weight:600;font-style:italic;font-display:swap}
 @font-face{font-family:"Cinzel";src:url(/fonts/cinzel-500.woff2) format("woff2");font-weight:500;font-display:swap}
-@font-face{font-family:"Satoshi";src:url(/fonts/satoshi-400.woff2) format("woff2");font-weight:400;font-display:swap}
-@font-face{font-family:"Satoshi";src:url(/fonts/satoshi-500.woff2) format("woff2");font-weight:500;font-display:swap}
-@font-face{font-family:"Satoshi";src:url(/fonts/satoshi-700.woff2) format("woff2");font-weight:700;font-display:swap}
-@font-face{font-family:"Instrument Serif";src:url(/fonts/instrument-serif-400-italic.woff2) format("woff2");font-style:italic;font-weight:400;font-display:swap}
-@font-face{font-family:"Caveat";src:url(/fonts/caveat-500.woff2) format("woff2");font-weight:500;font-display:swap}
+@font-face{font-family:"Jost";src:url(/fonts/jost-400.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Jost";src:url(/fonts/jost-500.woff2) format("woff2");font-weight:500;font-display:swap}
 
 @theme inline {
   --color-bg: var(--bg);
@@ -359,3 +353,59 @@ html{ scroll-padding-top:56px; }
 .lb::backdrop{ background:transparent; }
 .lb img{ max-width:94vw; max-height:88dvh; object-fit:contain; border-radius:8px; }
 .lb__x{ position:absolute; top:calc(12px + env(safe-area-inset-top)); right:12px; display:grid; place-items:center; width:48px; height:48px; border-radius:50%; background:rgba(255,255,255,.1); }
+
+
+/* ================= Type system: matched to Dean's TRO logo (26 Nov) =================
+   Headings: Cormorant Garamond 600. Accent words: same, italic, logo gold. Labels/buttons: Cinzel caps.
+   Body: Jost 400/500. Nothing heavier than 500 outside the headings. */
+:root{ --font-caps:"Cinzel", "Cormorant Garamond", Georgia, serif;
+  --logo-gold: linear-gradient(100deg,#b88a4c 0%,#d2ac6c 24%,#f3d699 48%,#e0bf82 66%,#b88f55 100%); }
+body{ font-weight:400; }
+h1,h2,h3,h4{ font-family:var(--font-display); font-weight:600; }
+b,strong{ font-weight:500; }
+/* headings: the serif needs more size and less negative tracking than the old grotesk */
+.h2{ font-weight:600; letter-spacing:-.012em; line-height:1; font-size:clamp(44px,9.2vw,96px); }
+.hero__h1{ font:600 clamp(58px,16.4vw,144px)/.94 var(--font-display); letter-spacing:-.018em; }
+@media (min-width:768px){ .hero__h1{ font-size:clamp(80px,8.8vw,144px); } }
+.gold{ font-style:italic; padding-right:.06em; background:var(--logo-gold); background-size:220% 100%; -webkit-background-clip:text; background-clip:text; color:transparent; }
+.serif{ font-weight:600; }
+.tile__t{ font:600 21px/1.12 var(--font-display); letter-spacing:-.005em; }
+.fin h3{ font:600 32px/1 var(--font-display); letter-spacing:-.01em; }
+@media (min-width:900px){ .fin h3{ font-size:40px; } }
+.quote p{ font:600 clamp(32px,5.2vw,60px)/1.06 var(--font-display); letter-spacing:-.012em; }
+.q{ font:600 28px/1.1 var(--font-display); letter-spacing:-.01em; }
+.foot__name{ font:600 30px/1 var(--font-display); letter-spacing:-.005em; }
+.prep__t{ font:600 25px/1.08 var(--font-display); letter-spacing:-.008em; }
+@media (min-width:900px){ .prep__t{ font-size:29px; } }
+.nav__brand{ font:600 21px/1 var(--font-display); letter-spacing:0; }
+.lamp-cta__h{ font-weight:600; letter-spacing:-.012em; line-height:1.02; }
+/* caps: eyebrows, labels, tags, buttons */
+.eyebrow,.label-chip,.ex-tag,.plan__tag,.stack__l,.foot__tag,.prep__n,.des__lbl,.steps li,.plan__pv,.opt--img span,.dock a,.chip,.nav__links a,.hero__see a,.back{
+  font-family:var(--font-caps); font-weight:500; text-transform:uppercase; }
+.eyebrow{ font-size:12px; letter-spacing:.24em; }
+.ex-tag{ letter-spacing:.16em; }
+.prep__n{ font-size:13px; letter-spacing:.2em; }
+.des__lbl{ font-size:12px; letter-spacing:.2em; } .des__lbl span{ font-family:var(--font-body); font-weight:400; text-transform:none; }
+.steps li{ font-size:9.5px; letter-spacing:.12em; }
+.plan__pv{ font-size:10.5px; letter-spacing:.14em; }
+.opt--img span{ font-size:11.5px; letter-spacing:.16em; line-height:1.35; }
+.dock a{ font-size:10px; letter-spacing:.16em; }
+.chip{ font-size:11.5px; letter-spacing:.18em; }
+.nav__links a{ font-size:11.5px; letter-spacing:.2em; }
+.hero__see a{ font-size:11.5px; letter-spacing:.18em; text-decoration:none; border-bottom:1px solid rgba(242,238,230,.3); min-height:30px; }
+.back{ font-size:11.5px; letter-spacing:.18em; }
+.btn,.lamp-cta__alt,.nav__call{ font-family:var(--font-caps); font-weight:500; text-transform:uppercase; letter-spacing:.18em; }
+.btn{ font-size:13px; padding:0 24px; }
+.lamp-cta__alt{ font-size:13px; }
+.nav__call{ font-size:12.5px; letter-spacing:.16em; }
+.opt{ font-weight:400; }
+/* hero logo: full-strength gold, darker halo, larger readable wordmark */
+.hero__mark{ filter:drop-shadow(0 0 1px rgba(0,0,0,.6)) drop-shadow(0 8px 28px rgba(0,0,0,.65)); }
+.hero__brand:before{ background:radial-gradient(closest-side, rgba(8,7,6,.82), rgba(8,7,6,.55) 55%, rgba(8,7,6,0)); }
+.hero__name{ font-size:clamp(16px,4.5vw,28px); letter-spacing:.2em; margin-right:-.2em;
+  background:linear-gradient(100deg,#e9c98c 0%,#f6dfa8 35%,#d9b677 65%,#f3d699 100%); -webkit-background-clip:text; background-clip:text;
+  filter:drop-shadow(0 1px 0 rgba(0,0,0,.95)) drop-shadow(0 2px 14px rgba(0,0,0,.85)); }
+@media (min-width:1200px){ .hero__name{ font-size:clamp(20px,1.8vw,28px); } }
+.glint-btn{ font-family:var(--font-caps) !important; font-weight:500 !important; text-transform:uppercase; letter-spacing:.18em; font-size:13px; }
+.nav__brand span{ white-space:nowrap; }
+@media (max-width:420px){ .nav__brand{ font-size:19px; gap:8px; } .nav__brand img{ height:36px; } .nav__call{ padding-right:14px; gap:8px; letter-spacing:.14em; } }
