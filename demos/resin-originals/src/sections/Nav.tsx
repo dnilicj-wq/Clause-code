@@ -10,7 +10,7 @@ export function Nav() {
     const hero = document.getElementById('top');
     const mark = document.querySelector('.hero__mark');
     if (!hero) return;
-    const io = new IntersectionObserver(([e]) => setSolid(e.intersectionRatio < 0.92), { threshold: [0.92] });
+    const io = new IntersectionObserver(([e]) => setSolid(!e.isIntersecting), { rootMargin: '-64px 0px 0px 0px' }) // glass only once the hero has gone under the header;
     io.observe(hero);
     const io2 = mark ? new IntersectionObserver(([e]) => setBrand(!e.isIntersecting), { rootMargin: '-64px 0px 0px 0px' }) : null;
     if (mark) io2!.observe(mark); else setBrand(true);
