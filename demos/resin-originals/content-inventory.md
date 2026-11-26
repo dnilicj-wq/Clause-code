@@ -93,3 +93,7 @@ Source: Dean's WhatsApp to Dan, 23-24 Nov 2026 (99 files, originals in ~/Desktop
 - Generated images (Higgsfield gpt_image_2_6), always tagged "Example finish" and alt "generated image, not one of our jobs": ex-warehouse, ex-factory, ex-workshop, ex-unit (also the Standard grey card and planner tile until Dean sends his own).
 - Floor designer rooms (public/client/rooms) = the Sentech generated example rooms + maps; tagged "Visualisation", footnote "Example rooms, not our jobs." Metallic colours = hero palettes; flake/quartz/grey colours are illustrative.
 - TODO(Dan): speckled room P25 flake or quartz? / size "89-100+" / OK to show jobs he did as lead designer for other firms as his? / standard grey photo / OK to show the COLOR TRENDS card / which job is the one he's proud of (likely V54).
+
+## Round 3b (26 Nov 2026)
+- Hero lockup logo removed (header logo stays).
+- Gallery: finished floors only. Dropped P06 blue-cinema (headphone cable, toys), P03 pearl-kitchen-2 (kitchen under plastic sheeting), P11 vein-hall (tape on stairs), P18 silver-toilet (mop, tape round toilet), P22/P23 grey-large (masking at skirting, hanging cables). Added P05, P07, P12, P21, P13, P15.

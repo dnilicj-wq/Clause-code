@@ -39,16 +39,16 @@ export const FILTERS: ('All' | Tag)[] = ['All', 'Metallic', 'Flake', 'Quartz', '
 
 // Gallery: the rest of Dean's keepers (WhatsApp photos), not repeated in the Floors grid.
 export const GALLERY: { slug: string; alt: string }[] = [
-  { slug: 'blue-cinema', alt: 'Blue metallic epoxy floor in a cinema room' },
+  { slug: 'blue-games-2', alt: 'Blue metallic epoxy floor in a games room with a table tennis table' },
+  { slug: 'blue-games-3', alt: 'Blue metallic epoxy floor in a games room, other angle' },
   { slug: 'blue-bar', alt: 'Blue metallic epoxy floor in a room with a bar' },
   { slug: 'blue-bathroom', alt: 'Blue metallic epoxy floor in a bathroom' },
-  { slug: 'pearl-kitchen-2', alt: 'Pearl metallic epoxy floor in an open-plan kitchen' },
-  { slug: 'vein-hall', alt: 'White epoxy floor with a black vein in a hallway by a staircase' },
   { slug: 'silver-hall', alt: 'Silver metallic epoxy floor in a hallway' },
   { slug: 'silver-room-2', alt: 'Silver metallic epoxy floor in a room' },
-  { slug: 'silver-toilet', alt: 'Silver metallic epoxy floor in a toilet' },
-  { slug: 'grey-large', alt: 'Grey metallic epoxy floor in a large room' },
-  { slug: 'grey-large-2', alt: 'Grey metallic epoxy floor in a large room, other end' },
+  { slug: 'silver-close', alt: 'Silver metallic epoxy floor, close view' },
+  { slug: 'silver-room-3', alt: 'Silver metallic epoxy floor in a room, other angle' },
   { slug: 'marble-kitchen-2', alt: 'Grey and white marble effect epoxy floor in a kitchen' },
   { slug: 'speckled-room', alt: 'Grey speckled epoxy floor in an empty room' }, // TODO(Dan): flake or quartz? Dean to confirm
+  { slug: 'speckled-room-2', alt: 'Grey speckled epoxy floor in an empty room, other angle' },
+  { slug: 'speckled-room-3', alt: 'Grey speckled epoxy floor in an empty room, wide view' },
 ];

@@ -10,24 +10,23 @@ OUT = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 
 # slug: source photo (contact-sheet id in the comment)
 PHOTOS = {
     'blue-games': 'PHOTO-2026-11-23-23-13-56.jpg',     # P04
-    'blue-cinema': 'PHOTO-2026-11-23-23-13-57 3.jpg',  # P06
     'blue-bar': 'PHOTO-2026-11-23-23-13-58.jpg',       # P08
     'blue-bathroom': 'PHOTO-2026-11-23-23-13-59.jpg',  # P09
     'pearl-kitchen': 'PHOTO-2026-11-23-23-13-49.jpg',  # P01
-    'pearl-kitchen-2': 'PHOTO-2026-11-23-23-13-50.jpg',  # P03
     'dark-bronze': 'PHOTO-2026-11-23-23-13-50 2.jpg',  # P02
     'vein-dining': 'PHOTO-2026-11-23-23-14-00 2.jpg',  # P10
-    'vein-hall': 'PHOTO-2026-11-23-23-14-00.jpg',      # P11
     'silver-room': 'PHOTO-2026-11-23-23-16-15.jpg',    # P17
-    'silver-toilet': 'PHOTO-2026-11-23-23-16-16 2.jpg',  # P18
     'silver-hall': 'PHOTO-2026-11-23-23-16-16.jpg',    # P19
     'silver-room-2': 'PHOTO-2026-11-23-23-16-17 2.jpg',  # P20
-    'grey-large': 'PHOTO-2026-11-23-23-16-18 2.jpg',   # P22
-    'grey-large-2': 'PHOTO-2026-11-23-23-16-18.jpg',   # P23
     'red-close': 'PHOTO-2026-11-23-23-16-26.jpg',      # P24
     'speckled-room': 'PHOTO-2026-11-23-23-17-52.jpg',  # P25
     'speckled-room-2': 'PHOTO-2026-11-23-23-14-47 2.jpg',  # P13
     'marble-kitchen': 'PHOTO-2026-11-24-19-32-40 2.jpg',  # P33
+    'blue-games-2': 'PHOTO-2026-11-23-23-13-57 2.jpg',  # P05
+    'blue-games-3': 'PHOTO-2026-11-23-23-13-57.jpg',  # P07
+    'silver-close': 'PHOTO-2026-11-23-23-14-12.jpg',  # P12
+    'silver-room-3': 'PHOTO-2026-11-23-23-16-17.jpg',  # P21
+    'speckled-room-3': 'PHOTO-2026-11-23-23-14-53.jpg',  # P15
     'marble-kitchen-2': 'PHOTO-2026-11-24-19-32-40 3.jpg',  # P34
 }
 # slug: (source clip, start s, length s). Finished floors only; cut before any end card.

@@ -74,7 +74,6 @@ export function Hero() {
       </div>
       <div className="hero__grid wrap">
         <div className="hero__copy">
-          <img src="/client/logo-lockup-v2.webp" alt="The Resin Originals" width={490} height={376} className="hero__logo hero__rise" decoding="async" />
           <p className="eyebrow hero__rise" style={{ color: 'var(--accent2)' }}>Epoxy resin floors</p>
           <h1 className="hero__h1 hero__rise">Every floor, an <span className="gold">original.</span></h1>
           <div className="hero__chips hero__rise" role="group" aria-label="Colour, taken from our floors">
