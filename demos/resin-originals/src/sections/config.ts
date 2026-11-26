@@ -1,7 +1,7 @@
 // "Design your floor": a photoreal example room with only the floor re-surfaced live in one WebGL2 shader.
 // Ported from the Sentech configurator (same room scenes + maps, see sentech-site/tools/rooms.py):
 // map PNG per room: R floor, G wall, B lighting, A distance up to the nearest object on the floor (reflections).
-// Finishes: metallic (Dean's 5 hero palettes, laid in floor perspective), flake, quartz, solid (standard grey).
+// Finishes: metallic (Dean's 5 hero palettes, laid in floor perspective), flake, quartz, solid (high build industrial resin).
 const VS = `#version 300 es
 in vec2 a; out vec2 vUv; uniform vec4 C;
 void main(){ vUv = (a * vec2(.5, -.5) + .5) * C.xy + C.zw; gl_Position = vec4(a, 0., 1.); }`;

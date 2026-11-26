@@ -10,6 +10,7 @@
 @font-face{font-family:"General Sans";src:url(/fonts/general-sans-500.woff2) format("woff2");font-weight:500;font-display:swap}
 @font-face{font-family:"General Sans";src:url(/fonts/general-sans-600.woff2) format("woff2");font-weight:600;font-display:swap}
 @font-face{font-family:"Cabinet Grotesk";src:url(/fonts/cabinet-grotesk-800-v1.woff2) format("woff2");font-weight:800;font-display:swap}
+@font-face{font-family:"Cinzel";src:url(/fonts/cinzel-500.woff2) format("woff2");font-weight:500;font-display:swap}
 @font-face{font-family:"Satoshi";src:url(/fonts/satoshi-400.woff2) format("woff2");font-weight:400;font-display:swap}
 @font-face{font-family:"Satoshi";src:url(/fonts/satoshi-500.woff2) format("woff2");font-weight:500;font-display:swap}
 @font-face{font-family:"Satoshi";src:url(/fonts/satoshi-700.woff2) format("woff2");font-weight:700;font-display:swap}
@@ -117,13 +118,29 @@ html.lenis, html.lenis body{ height:auto; }
 @media (max-width:380px){ .nav__brand span{ font-size:17px; } }
 
 /* hero: coded "pour your floor" surface, full-bleed */
-.hero{ position:relative; min-height:100svh; display:flex; align-items:flex-end; background:#0a0908; touch-action:pan-y; }
+.hero{ position:relative; min-height:100svh; display:flex; flex-direction:column; justify-content:flex-end; background:#0a0908; touch-action:pan-y; }
 .pour{ position:absolute; inset:0; z-index:0; }
 .pour__still,.pour__cv{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; }
 .pour__cv{ opacity:0; transition:opacity 500ms ease; }
 .pour__cv.is-on{ opacity:1; }
 .hero:after{ content:""; position:absolute; inset:0; z-index:1; pointer-events:none;
   background:linear-gradient(180deg, rgba(10,9,8,.55) 0%, rgba(10,9,8,0) 18%, rgba(10,9,8,0) 36%, rgba(10,9,8,.72) 58%, rgba(10,9,8,.94) 78%, #0a0908 100%); }
+/* Dean's logo, big and centred in the swirl (stacked above the copy; beside it on wide screens) */
+.hero__brand{ position:relative; z-index:2; flex:1 0 auto; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:84px 20px 8px; pointer-events:none; animation:brandIn .4s var(--ease-out) both; }
+.hero__brand:before{ content:""; position:absolute; left:50%; top:50%; width:min(118vw,640px); aspect-ratio:1.35; transform:translate(-50%,-46%); z-index:-1; pointer-events:none;
+  background:radial-gradient(closest-side, rgba(10,9,8,.72), rgba(10,9,8,.45) 55%, rgba(10,9,8,0)); }
+.hero__mark{ display:block; width:min(60vw, 300px); height:auto; aspect-ratio:2736/1768; filter:drop-shadow(0 6px 24px rgba(0,0,0,.55)); }
+.hero__name{ margin-top:clamp(10px,2.6vw,18px); font:500 clamp(13px,3.9vw,24px)/1 "Cinzel", "Cormorant Garamond", serif; letter-spacing:.24em; margin-right:-.24em; text-transform:uppercase; white-space:nowrap;
+  background:linear-gradient(135deg,#f3d699 0%,#d2ac6c 32%,#a97f45 58%,#e0bf82 80%,#b88f55 100%); -webkit-background-clip:text; background-clip:text; color:transparent; filter:drop-shadow(0 1px 1px rgba(0,0,0,.9)) drop-shadow(0 2px 12px rgba(0,0,0,.7)); }
+@keyframes brandIn{ from{ opacity:0 } to{ opacity:1 } }
+@media (min-width:768px) and (max-width:1199px){ .hero__brand{ padding-top:104px; } .hero__mark{ width:min(44vw, 380px); } .hero__grid{ padding-top:24px !important; } }
+@media (min-width:1200px){
+  .hero{ flex-direction:row; align-items:center; }
+  .hero__brand{ position:absolute; top:0; bottom:0; right:0; width:50%; padding:96px 4vw 40px; }
+  .hero__mark{ width:min(30vw, 460px); }
+  .hero__brand:before{ width:min(46vw,760px); }
+  .hero__name{ font-size:clamp(18px,1.6vw,26px); }
+}
 .hero__grid{ position:relative; z-index:2; width:100%; pointer-events:none; }
 .hero__copy{ padding:0 20px calc(24px + env(safe-area-inset-bottom)); }
 .hero__copy a,.hero__copy button{ pointer-events:auto; }
@@ -158,7 +175,7 @@ html.lenis, html.lenis body{ height:auto; }
   .hero__ctas .btn{ flex:0 0 auto; }
 }
 @media (prefers-reduced-motion:reduce){
-  .hero__rise{ animation:none; } .gold{ animation:none; background-position:30% 0; } .pour__cv{ transition:none; }
+  .hero__rise,.hero__brand{ animation:none; } .gold{ animation:none; background-position:30% 0; } .pour__cv{ transition:none; }
 }
 
 /* work */
@@ -287,6 +304,11 @@ html{ scroll-padding-top:56px; }
 @media (min-width:900px){ .des{ grid-template-columns:1.6fr 1fr; gap:40px; align-items:center; } .des__stage{ aspect-ratio:16/11; } }
 
 /* prep & screeding */
+.pvid{ position:relative; margin-top:28px; aspect-ratio:16/9; border-radius:18px; overflow:hidden; background:#151310; border:1px solid var(--line); }
+.pvid__v{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; }
+.pvid__play{ position:absolute; left:50%; top:50%; width:72px; height:72px; margin:-36px 0 0 -36px; display:grid; place-items:center; border-radius:999px; background:var(--gold-foil); color:var(--accent-ink); box-shadow:0 10px 30px rgba(0,0,0,.45); transition:transform 160ms var(--ease-out); }
+.pvid__play:active{ transform:scale(.95); }
+@media (min-width:900px){ .pvid{ max-width:960px; margin-top:40px; } .pvid--still{ max-width:640px; } }
 .prep{ display:grid; grid-template-columns:1fr 1fr; gap:24px 14px; margin-top:32px; counter-reset:p; }
 .prep__step{ border-top:1px solid var(--line); padding-top:16px; }
 .stack{ display:grid; gap:3px; width:100%; max-width:180px; }

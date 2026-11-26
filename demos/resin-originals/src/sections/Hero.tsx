@@ -72,6 +72,10 @@ export function Hero() {
         </picture>
         <canvas ref={cv} className={`pour__cv ${live ? 'is-on' : ''}`} />
       </div>
+      <div className="hero__brand">
+        <svg className="hero__mark" viewBox="0 0 2736 1768" role="img" aria-label="The Resin Originals logo"><use href="#tro-mark" /></svg>
+        <p className="hero__name">The Resin Originals</p>
+      </div>
       <div className="hero__grid wrap">
         <div className="hero__copy">
           <p className="eyebrow hero__rise" style={{ color: 'var(--accent2)' }}>Epoxy resin floors</p>

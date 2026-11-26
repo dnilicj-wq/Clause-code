@@ -71,13 +71,13 @@ export function Work() {
 }
 
 /* ---------- The four finishes from his page bio ---------- */
-// Metallic + Commercial = his jobs; Flake + Quartz = his sample fans (background removed, as he asked); Standard grey = generated example, tagged.
+// Metallic + Commercial = his jobs; Flake + Quartz = his sample fans (background removed, as he asked); High build industrial resin = generated example, tagged.
 const FIN: { k: string; img: string; alt: string; line: string; big?: boolean; swatch?: boolean; ex?: boolean }[] = [
   { k: 'Metallic', img: '/client/dean/blue-games-1280.webp', alt: 'Blue metallic epoxy floor in a games room', line: 'No two floors are ever identical.', big: true },
   { k: 'Flake', img: '/client/dean/swatch-flake.webp', alt: 'Fan of flake epoxy colour samples', line: 'Flake for garages, with your logo set into the floor if you want one.', swatch: true },
   { k: 'Quartz', img: '/client/dean/swatch-quartz.webp', alt: 'Fan of quartz epoxy colour samples', line: 'Seamless quartz, laid for an eye clinic theatre room.', swatch: true },
-  { k: 'Standard grey', img: '/client/dean/ex-unit-1280.webp', alt: 'Example of a standard grey epoxy floor in an industrial unit (generated image)', line: 'The plain grey option, if you would rather not have a pattern.', ex: true },
-  // TODO(Dan): swap the Standard grey example for Dean's own photo when he sends it.
+  { k: 'High build industrial resin', img: '/client/dean/ex-unit-1280.webp', alt: 'Example of a high build industrial resin floor in an industrial unit (generated image)', line: 'Hard-wearing, high build resin for factories, warehouses and workshops.', ex: true },
+  // TODO(Dan): swap the high build industrial resin example for Dean's own photo when he sends it.
   { k: 'Commercial', img: '/client/jobs/reception-v1.webp', alt: 'White and grey marble effect epoxy floor in a reception', line: 'Receptions, clinics, factories and warehouses.' },
 ];
 export function Finishes() {
@@ -92,7 +92,7 @@ export function Finishes() {
               <img src={x.img} alt={x.alt} loading="lazy" decoding="async" />
               {x.ex && <span className="ex-tag" style={{ right: 10, top: 10 }}>Example finish</span>}
               <div className="fin__txt">
-                <h3>{x.k === 'Standard grey' ? 'Standard grey epoxy' : `${x.k} epoxy`}</h3>
+                <h3>{x.ex ? x.k : `${x.k} epoxy`}</h3>
                 <p>{x.line}</p>
               </div>
             </motion.a>
@@ -136,7 +136,7 @@ const FINISHES = [
   { k: 'Metallic', img: '/client/jobs/home-cream-v1.webp' },
   { k: 'Flake', img: '/client/jobs/garage-flake-v1.webp' },
   { k: 'Quartz', img: '/client/jobs/clinic-quartz-v1.webp' },
-  { k: 'Standard grey', img: '/client/dean/ex-unit-640.webp' },
+  { k: 'High build industrial resin', img: '/client/dean/ex-unit-640.webp' },
   { k: 'Not sure yet', img: '/client/jobs/garage-red-v1.webp' },
 ];
 const SIZES = ['Under 20m²', '20 to 40m²', '40 to 80m²', '80 to 100m² or more']; // TODO(Dan): Dean wrote "89-100+", read as 80-100+
@@ -175,7 +175,7 @@ export function Planner() {
           <AnimatePresence mode="wait">
             <motion.img key={preview} src={preview} alt="" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.35 }} />
           </AnimatePresence>
-          <span className="plan__pv">{a.finish === 'Standard grey' ? 'Standard grey, example finish' : a.finish && a.finish !== 'Not sure yet' ? `${a.finish}, one of our floors` : 'One of our floors'}</span>
+          <span className="plan__pv">{a.finish === 'High build industrial resin' ? 'High build industrial resin, example finish' : a.finish && a.finish !== 'Not sure yet' ? `${a.finish}, one of our floors` : 'One of our floors'}</span>
         </div>
         <div className="plan__card">
           <span className="plan__tag"><IconBrandWhatsapp size={16} stroke={1.8} aria-hidden /> Get a quote</span>

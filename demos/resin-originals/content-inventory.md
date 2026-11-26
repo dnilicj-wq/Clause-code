@@ -97,3 +97,9 @@ Source: Dean's WhatsApp to Dan, 23-24 Nov 2026 (99 files, originals in ~/Desktop
 ## Round 3b (26 Nov 2026)
 - Hero lockup logo removed (header logo stays).
 - Gallery: finished floors only. Dropped P06 blue-cinema (headphone cable, toys), P03 pearl-kitchen-2 (kitchen under plastic sheeting), P11 vein-hall (tape on stairs), P18 silver-toilet (mop, tape round toilet), P22/P23 grey-large (masking at skirting, hanging cables). Added P05, P07, P12, P21, P13, P15.
+
+## Round 4 (26 Nov 2026, Dean's feedback)
+- Hero logo back, large and centred in the swirl. TRO mark traced to SVG from logo-v1 (his page profile picture, 600px, the highest-res we have; public/client/logo-tro-mark.svg + inline sprite in index.html). Gold gradient sampled from that logo (#f3d699 / #d2ac6c / #a97f45 / #e0bf82 / #b88f55). Wordmark in Cinzel 500 (OFL, @fontsource/cinzel), closest match to his logo lettering.
+- "Standard grey" renamed "High build industrial resin" everywhere (finish card, designer, planner, commercial caption, alt, WhatsApp text). Line from Dean's brief: "Hard-wearing, high build resin for factories, warehouses and workshops."
+- Prep video slot: placeholder still = frame at 19s of V61 (VIDEO-2026-11-24-19-33-10.mp4, Dean's own clip), tagged "Video coming soon". README has drop-in steps.
+- TODO(Dan): ask Dean for his logo as SVG/AI/PDF if he has it; current trace is from a 600px image.

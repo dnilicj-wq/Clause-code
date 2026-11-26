@@ -54,3 +54,23 @@ node tools/walk.mjs <url> <outDir> 390 844               # phone contact sheet +
 `components/library/registry.ts` lists every component with `{ id, name, category, slot, source, author, tradeFit, vibe, perfCost, mobileSafe, needs, status, notes, score }`. `/new-lead` picks from it; `needs` stops a component being used without real content (e.g. `realReviews`). Raw sources sit in `library-inbox/` (not deployed). Signature interactions are in `components/signature/` (pour hero, layer explode, visualiser, flake broadcast, metallic swirl, hot-tyre test, spill test, UV slider). Max 3 per page including the hero.
 
 To add a component to `/lab`: put it in `components/library/<id>/`, add a registry entry, and add `src/pages/lab/demos/<id>.tsx` (default export). The lab picks the demo file up automatically.
+
+## Prep video (Dean, due Friday)
+
+The Prep and screeding section has a 16:9 video slot (`PrepVideo` in `src/sections/More.tsx`). Until the video arrives it shows a still from Dean's V61 clip with a "Video coming soon" tag.
+
+To drop the video in:
+
+1. Put Dean's original somewhere outside the repo (never edit the original), e.g. `~/dev/dean-media/src/prep.mp4`.
+2. Encode into `public/client/dean/prep/` (H.264, no audio unless Dean wants sound; drop `-an` to keep it):
+
+```bash
+IN=~/dev/dean-media/src/prep.mp4; OUT=public/client/dean/prep
+ffmpeg -i "$IN" -vf "scale=-2:1080" -c:v libx264 -preset veryfast -crf 23 -pix_fmt yuv420p -movflags +faststart -c:a aac -b:a 128k "$OUT/prep-1080.mp4"
+ffmpeg -i "$IN" -vf "scale=-2:720"  -c:v libx264 -preset veryfast -crf 25 -pix_fmt yuv420p -movflags +faststart -c:a aac -b:a 96k  "$OUT/prep-720.mp4"
+ffmpeg -i "$IN" -frames:v 1 -vf "scale=-2:1080" "$OUT/prep-poster.png" && python3 -c "from PIL import Image; Image.open('$OUT/prep-poster.png').convert('RGB').save('$OUT/prep-poster.webp', quality=82)" && rm "$OUT/prep-poster.png"
+```
+
+   If his video is portrait, crop to 16:9 first (add `crop=iw:iw*9/16` before `scale`) or ask Dan how to frame it.
+3. In `src/sections/More.tsx` set `const PREP_VID: string = 'prep';`. Phones (under 768px) get the 720p file, everything else gets 1080p. It's tap to play, no autoplay, starts unmuted with controls.
+4. `npm run build`, check it, then deploy to the demo URL only.

@@ -1,7 +1,7 @@
 // New sections from Dean's 24 Nov change list: floor designer, prep & screeding, commercial, gallery.
 import { useEffect, useRef, useState } from 'react';
 import { motion, useReducedMotion } from 'motion/react';
-import { IconBrandWhatsapp, IconX } from '@tabler/icons-react';
+import { IconBrandWhatsapp, IconPlayerPlayFilled, IconX } from '@tabler/icons-react';
 import { useSite } from '@/src/lib/ctx';
 import { waLink } from './wa';
 import { PALETTES } from './pour';
@@ -27,7 +27,7 @@ const KINDS: { k: Kind; l: string; cols: Col[] }[] = [
     { n: 'Grey', p: ['#3a3b3d', '#8d8f92', '#c9cacc', '#f0f0ef'] },
     { n: 'Blue', p: ['#2a3f5e', '#5f7fa8', '#a9bdd6', '#e8eef7'] },
     { n: 'Sand', p: ['#6b5a43', '#b39f80', '#dccdb3', '#f4ede0'] }] },
-  { k: 3, l: 'Standard grey', cols: [
+  { k: 3, l: 'High build industrial resin', cols: [
     { n: 'Mid grey', p: ['#8b8e90', '#8b8e90', '#8b8e90', '#8b8e90'] },
     { n: 'Dark grey', p: ['#55585b', '#55585b', '#55585b', '#55585b'] },
     { n: 'Light grey', p: ['#b9bbbc', '#b9bbbc', '#b9bbbc', '#b9bbbc'] }] },
@@ -109,6 +109,28 @@ const STEPS = [
   { t: 'Screed and level', d: 'Where the floor is uneven, it is screeded and levelled.', on: 1 },
   { t: 'Then the resin', d: 'Your finish goes down on a sound, level base.', on: 0 },
 ];
+/* Prep video slot. Dean sends his prep video by Friday: drop the files in public/client/dean/prep/ (see README), then set PREP_VID = 'prep'. */
+const PREP_VID: string = '';
+function PrepVideo() {
+  const v = useRef<HTMLVideoElement>(null);
+  const [on, setOn] = useState(false);
+  const base = '/client/dean/prep/';
+  return (
+    <figure className={`pvid ${PREP_VID ? '' : 'pvid--still'}`}>
+      {PREP_VID ? (<>
+        <video ref={v} className="pvid__v" poster={`${base}${PREP_VID}-poster.webp`} preload="none" playsInline controls={on} onEnded={() => setOn(false)}>
+          <source src={`${base}${PREP_VID}-720.mp4`} type="video/mp4" media="(max-width: 767px)" />
+          <source src={`${base}${PREP_VID}-1080.mp4`} type="video/mp4" />
+        </video>
+        {!on && <button type="button" className="pvid__play" onClick={() => { setOn(true); v.current?.play(); }} aria-label="Play the prep video"><IconPlayerPlayFilled size={28} /></button>}
+      </>) : (<>
+        <img className="pvid__v" src={`${base}prep-still.webp`} alt="Floor grinder preparing a bare concrete slab, a still from one of Dean's videos" width={960} height={540} loading="lazy" decoding="async" />
+        <span className="ex-tag" style={{ left: 12, top: 12 }}>Video coming soon</span>
+      </>)}
+    </figure>
+  );
+}
+
 export function Prep() {
   const { site } = useSite();
   const rise = useRise();
@@ -118,6 +140,7 @@ export function Prep() {
         <motion.p {...rise()} className="eyebrow" style={{ color: 'var(--accent2)' }}>Before the resin</motion.p>
         <motion.h2 {...rise(0.03)} className="h2 mt-3">Prep and screeding.</motion.h2>
         <motion.p {...rise(0.06)} className="lede mt-4">The part you never see once the floor is down. Surface prep, repairs, priming, and screeding or levelling where it's needed.</motion.p>
+        <motion.div {...rise(0.08)}><PrepVideo /></motion.div>
         <ol className="prep">
           {STEPS.map((s, i) => (
             <motion.li {...rise(0.04 * i)} key={s.t} className="prep__step">
@@ -144,7 +167,7 @@ const EX = [
   { k: 'warehouse', c: 'Warehouse aisle, gloss grey with safety lines' },
   { k: 'factory', c: 'Factory floor' },
   { k: 'workshop', c: 'Workshop' },
-  { k: 'unit', c: 'Industrial unit, standard grey' },
+  { k: 'unit', c: 'Industrial unit, high build industrial resin' },
 ];
 export function Commercial() {
   const { site } = useSite();
