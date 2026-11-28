@@ -418,3 +418,6 @@ b,strong{ font-weight:500; }
 .nav__brand span{ font:500 15px/1 var(--font-caps); text-transform:uppercase; letter-spacing:.2em; white-space:nowrap;
   background:var(--logo-gold); -webkit-background-clip:text; background-clip:text; color:transparent; }
 @media (max-width:420px){ .nav__brand span{ font-size:11.5px; letter-spacing:.16em; } }
+/* planner: the Cinzel caps send button was wider than the phone card and pushed the page 5px wide */
+.plan{ grid-template-columns:minmax(0,1fr); }
+@media (max-width:420px){ #plan-send{ white-space:normal; letter-spacing:.12em; text-align:center; line-height:1.3; } }
