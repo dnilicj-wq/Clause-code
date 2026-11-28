@@ -1,5 +1,7 @@
 /* RESINOVA. Near-black, one gold used sparingly, off-white type; water-blue only lives inside the images.
    Satoshi Bold for display, Inter Tight for text. Images sharp-cornered, interactive things pill-shaped. */
+/* the giant word only needs eight letters: a 2KB subset, preloaded */
+@font-face{font-family:"Satoshi Mega";src:url(/fonts/satoshi-700-mega.woff2) format("woff2");font-weight:700;font-display:swap}
 @font-face{font-family:"Satoshi";src:url(/fonts/satoshi-700.woff2) format("woff2");font-weight:700;font-display:swap}
 @font-face{font-family:"Satoshi";src:url(/fonts/satoshi-500.woff2) format("woff2");font-weight:500;font-display:swap}
 /* Arial stretched to Satoshi's width, so the giant word doesn't jump when the web font lands */
@@ -54,7 +56,8 @@ button{font:inherit;color:inherit}
 @media (min-width:900px){.nav nav{display:flex}}
 
 /* hero: the word, the object, four facts, one dock */
-.hero{position:relative;min-height:100svh;overflow:hidden;background:var(--ink);isolation:isolate;container-type:inline-size;--mega:calc((100cqw - 2 * var(--g)) / 4.6)}
+.hero{position:relative;min-height:100svh;overflow:hidden;background:var(--ink)}
+:root{--mega:calc((100vw - 2 * var(--g)) / 4.6)}
 .pour{position:absolute;inset:0;z-index:0}
 .pour img,.pour-vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .pour-vid{opacity:0;transition:opacity .25s ease}
@@ -62,7 +65,7 @@ button{font:inherit;color:inherit}
 .pour-end{opacity:0;transition:opacity .6s ease}
 .pour.set .pour-end{opacity:1}
 .hero-scrim{position:absolute;inset:0;z-index:0;background:linear-gradient(180deg,rgba(11,11,12,.8),rgba(11,11,12,.42) 26%,rgba(11,11,12,.42) 70%,rgba(11,11,12,.86))}
-.mega{position:absolute;left:var(--g);right:var(--g);top:50%;transform:translateY(-50%);z-index:1;font-size:var(--mega);line-height:.85;letter-spacing:-.04em;white-space:nowrap;color:var(--text);text-align:center}
+.mega{font-family:"Satoshi Mega",var(--disp);position:absolute;left:var(--g);right:var(--g);top:50svh;transform:translateY(-50%);z-index:1;font-size:var(--mega);line-height:.85;letter-spacing:-.04em;white-space:nowrap;color:var(--text);text-align:center}
 .orb{position:absolute;left:50%;top:50%;z-index:2;width:max(calc(var(--mega) * 1.12),30vw);aspect-ratio:1;transform:translate(-50%,-52%)}
 @media (min-width:900px){.orb{width:calc(var(--mega) * 1.12)}}
 .orb-poster,.orb-gl{position:absolute;inset:0;width:100%;height:100%}

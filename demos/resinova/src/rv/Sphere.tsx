@@ -62,14 +62,22 @@ export default function Sphere() {
   const ref = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
+    // start after the page has loaded so the shader compile never delays the first paint
+    let stop = () => {};
+    const start = () => { stop = init(); };
+    const t = document.readyState === 'complete' ? setTimeout(start, 200) : (addEventListener('load', () => setTimeout(start, 200), { once: true }), 0);
+    return () => { clearTimeout(t); stop(); };
+  }, []);
+
+  const init = (): (() => void) => {
     const cv = ref.current!;
     const gl = cv.getContext('webgl', { antialias: false, alpha: true, premultipliedAlpha: true, preserveDrawingBuffer: true, powerPreference: 'low-power' });
-    if (!gl) return;
+    if (!gl) return () => {};
     const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
     const mk = (t: number, s: string) => { const sh = gl.createShader(t)!; gl.shaderSource(sh, s); gl.compileShader(sh); return sh; };
     const pr = gl.createProgram()!;
     gl.attachShader(pr, mk(gl.VERTEX_SHADER, VERT)); gl.attachShader(pr, mk(gl.FRAGMENT_SHADER, FRAG)); gl.linkProgram(pr);
-    if (!gl.getProgramParameter(pr, gl.LINK_STATUS)) return;
+    if (!gl.getProgramParameter(pr, gl.LINK_STATUS)) return () => {};
     gl.useProgram(pr);
     gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
@@ -98,12 +106,12 @@ export default function Sphere() {
     });
     io.observe(cv);
     return () => { cancelAnimationFrame(raf); io.disconnect(); ro.disconnect(); };
-  }, []);
+  };
 
   return (
     <div className="orb" aria-hidden="true">
       <i className="orb-shadow" />
-      <img className="orb-poster" src="/posters/sphere-v1.webp" alt="" width={720} height={720} decoding="async" />
+      <img className="orb-poster" src="/posters/sphere-v1.webp" alt="" width={720} height={720} decoding="async" fetchPriority="low" />
       <canvas ref={ref} className="orb-gl" />
     </div>
   );

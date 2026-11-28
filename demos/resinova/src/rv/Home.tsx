@@ -86,10 +86,10 @@ export default function Home() {
       </header>
 
       <main id="main">
-        <section id="top" ref={hero} className="hero" aria-labelledby="hero-h">
+        <section id="top" ref={hero} className="hero" aria-label="RESINOVA">
           <Pour />
           <i className="hero-scrim" aria-hidden="true" />
-          <h1 id="hero-h" className="mega"><span aria-hidden="true">RESINOVA</span><span className="sr-only">RESINOVA: premium resin floors, walls and worktops, microcement and Venetian plaster, across the UK.</span></h1>
+          {/* the giant RESINOVA h1 lives in index.html, outside React, so it paints once and stays the LCP */}
           <Sphere />
           <ul className="corners" aria-hidden="true">
             <li className="c-tl">Resin floors</li>

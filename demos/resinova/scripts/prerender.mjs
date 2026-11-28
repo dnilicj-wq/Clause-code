@@ -1,4 +1,4 @@
-// Post-build: snapshot nav + hero as static HTML into dist/index.html so the headline paints before JS (LCP).
+// Post-build: snapshot nav + hero + dock as static HTML into dist/index.html so the headline paints before JS (LCP).
 import { preview } from 'vite';
 import { chromium } from 'playwright';
 import { readFileSync, writeFileSync } from 'node:fs';
@@ -14,7 +14,7 @@ const shell = await p.evaluate(() => {
   top.querySelectorAll('canvas').forEach((c) => c.remove());
   top.querySelectorAll('video').forEach((v) => { v.removeAttribute('src'); v.className = 'pour-vid'; });
   top.querySelectorAll('.pour').forEach((e) => e.classList.remove('set'));
-  return document.querySelector('.skip').outerHTML + document.querySelector('header.nav').outerHTML + '<main id="main">' + top.outerHTML + '</main>';
+  return document.querySelector('.skip').outerHTML + document.querySelector('header.nav').outerHTML + '<main id="main">' + top.outerHTML + '</main>' + document.querySelector('nav.dock').outerHTML;
 });
 await b.close(); await server.close();
 const file = new URL('../dist/index.html', import.meta.url);
