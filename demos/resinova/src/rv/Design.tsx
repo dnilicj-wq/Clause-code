@@ -3,7 +3,7 @@ import Swap from './Swap';
 import { FINISHES, SPACES, TONES, type FinishId, type SpaceId, type Spec, type ToneId } from './data';
 
 // "Design your surface": Space → Finish → Tone. The big stage re-pours with the chosen finish and tone,
-// the gold "Your design" card carries the spec into the quote form.
+// the "Your design" line carries the spec into the quote form.
 export default function Design({ onQuote }: { onQuote: (s: Spec) => void }) {
   const [space, setSpace] = useState<SpaceId>('living');
   const [fin, setFin] = useState<FinishId>('metallic');
@@ -27,12 +27,12 @@ export default function Design({ onQuote }: { onQuote: (s: Spec) => void }) {
     <div className="dz">
       <div className="dz-stage">
         <Swap src={src} className="dz-swap" label={`Visualisation of a ${f.label.toLowerCase()} finish in ${t.label.toLowerCase()}`} />
-        <span className="chip-viz">Visualisation</span>
+        <p className="viz-note">Visualisation</p>
       </div>
 
       <div className="dz-panel">
         <fieldset className="dz-row">
-          <legend><span className="dz-n">1</span>Space</legend>
+          <legend>Space</legend>
           <div className="pills" role="radiogroup" aria-label="Space">
             {SPACES.map((s) => (
               <button type="button" key={s.id} role="radio" aria-checked={space === s.id} className={`pill ${space === s.id ? 'on' : ''}`} onClick={() => pickSpace(s.id)}>{s.label}</button>
@@ -40,7 +40,7 @@ export default function Design({ onQuote }: { onQuote: (s: Spec) => void }) {
           </div>
         </fieldset>
         <fieldset className="dz-row">
-          <legend><span className="dz-n">2</span>Finish</legend>
+          <legend>Finish</legend>
           <div className="pills" role="radiogroup" aria-label="Finish">
             {fins.map((x) => (
               <button type="button" key={x.id} role="radio" aria-checked={fin === x.id} className={`pill ${fin === x.id ? 'on' : ''}`} onClick={() => setFin(x.id)}>{x.label}</button>
@@ -49,7 +49,7 @@ export default function Design({ onQuote }: { onQuote: (s: Spec) => void }) {
           <p className="dz-note">{f.note}</p>
         </fieldset>
         <fieldset className="dz-row">
-          <legend><span className="dz-n">3</span>Tone</legend>
+          <legend>Tone</legend>
           <div className="tones" role="radiogroup" aria-label="Tone">
             {TONES.filter((x) => fin !== 'bound' || ['carrara', 'smoke', 'champagne'].includes(x.id)).map((x) => (
               <button type="button" key={x.id} role="radio" aria-checked={tone === x.id} aria-label={x.label} className={`tone ${tone === x.id ? 'on' : ''}`} onClick={() => setTone(x.id)}>
@@ -60,8 +60,7 @@ export default function Design({ onQuote }: { onQuote: (s: Spec) => void }) {
         </fieldset>
 
         <div className="yours" aria-live="polite">
-          <p className="yours-k">Your design</p>
-          <p className="yours-v"><span>{sp.label}</span><span>{f.label}</span><span>{t.label}</span></p>
+          <p className="yours-v">Your design: {sp.label}, {f.label.toLowerCase()}, {t.label.toLowerCase()}.</p>
           <button type="button" className="btn btn-gold" onClick={() => onQuote({ space: sp.label, finish: f.label, tone: t.label })}>Get a quote for this design</button>
         </div>
       </div>

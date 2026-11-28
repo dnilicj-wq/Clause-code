@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 
 // Hero "The pour": a photoreal AI film (Higgsfield, labelled Visualisation) of marbled resin pouring
 // across a black floor and setting to polished marble and gold. Auto-plays once, sped up to finish in
-// under 3s, then holds on the set floor while a slow caustic sheen keeps it alive. The poster is the
+// under 3s, then holds on the set floor. The poster is the
 // prerendered LCP image; the film only loads after the page has painted. Reduced motion: final frame.
 const RATE = 2.2;
 
@@ -41,7 +41,6 @@ export default function Pour() {
         <img className="pour-end" src="/posters/hero-end-m-v1.webp" alt="" width={752} height={1344} loading="lazy" decoding="async" />
       </picture>
       <video ref={vid} className="pour-vid" muted playsInline preload="none" aria-hidden="true" />
-      <i className="sheen" aria-hidden="true" />
       <span className="sr-only">Visualisation: marbled white, grey and gold resin pours across a black floor and sets into polished marble.</span>
     </div>
   );

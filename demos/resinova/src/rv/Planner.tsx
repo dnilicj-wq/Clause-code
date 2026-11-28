@@ -71,8 +71,7 @@ export default function Planner({ spec }: { spec: Spec | null }) {
   return (
     <form className="plan" onSubmit={submit} noValidate>
       <div className="plan-top">
-        <span className="plan-n">{step + 1}<small>of 4</small></span>
-        <div className="plan-bar" aria-hidden="true"><i style={{ transform: `scaleX(${(step + 1) / 4})` }} /></div>
+        <span className="plan-n">Question {step + 1} of 4</span>
       </div>
       {step >= 2 && space && fin && <p className="plan-spec">Your design: <b>{design}</b></p>}
       <h3 className="plan-q" aria-live="polite">{Q[step]}</h3>
